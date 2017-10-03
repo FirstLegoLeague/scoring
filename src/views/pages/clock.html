@@ -1,12 +1,4 @@
 <div ng-controller="clockCtrl">
-    <div class="appbar">
-        <button ng-click="toggleDrawer()">
-            <i class="material-icons">menu</i>
-        </button>
-        <h1>
-            {{currentPage.title}}
-        </h1>
-    </div>
     <div class="card">
         <h1 class="card-header countdown" ng-class="getStateClass()">{{time | time:2}}</h1>
         <div class="coundownControls card-actions">

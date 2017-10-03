@@ -1,13 +1,4 @@
 <div ng-controller="rankingCtrl">
-    <div class="appbar">
-        <button ng-click="toggleDrawer()">
-            <i class="material-icons">menu</i>
-        </button>
-        <h1>
-            {{currentPage.title}}
-        </h1>
-    </div>
-
     <div ng-repeat="stage in stages">
         <p class="pull-right" style="margin-top: 1em;">
             <a href="{{exportFiles[stage.id]}}" download="{{'ranking_'+stage.id+'.csv'}}">

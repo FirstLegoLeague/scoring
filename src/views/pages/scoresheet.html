@@ -1,15 +1,4 @@
 <div ng-controller="scoresheetCtrl" id="scoresheet">
-    <div class="appbar">
-        <button ng-click="toggleDrawer()">
-            <i class="material-icons">menu</i>
-        </button>
-        <h1>
-            {{currentPage.title}}
-        </h1>
-        <h1 class="score">
-            Current Score: <b>{{score()}}</b>
-        </h1>
-    </div>
     <div>
         <div ng-show="errorMessage">
             <p class="error">
