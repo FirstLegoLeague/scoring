@@ -16,7 +16,7 @@
 }
 
 .drawer a {
-	color: black;
+	color: inherit;
 }
 
 .drawer a span {

@@ -1,0 +1,23 @@
+/*
+* Colors used in this theme from light to dark:
+* - #EDFAFD (Glass)
+* - #AED9DA (Chill)
+* - #3DDAD7 (Californian Coral)
+* - #2A93D5 (Bondi Blue)
+* - #135589 (Marina)
+*
+*/
+
+body {
+	background: #AED9DA; /* Chill */
+}
+
+.appbar, .drawer {
+	color: #EDFAFD; /* Glass */
+	background: #135589; /* Marina */
+}
+
+.card {
+	background: #EDFAFD; /* Glass */
+	color: #135589; /* Marina */
+}
