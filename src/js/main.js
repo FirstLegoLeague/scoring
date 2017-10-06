@@ -16,6 +16,7 @@ define([
     'tests/indexedDBTest',
     'angular-bootstrap',
     'angular-touch',
+    'angular-animate',
     'angular-sanitize',
     'angular-storage',
     'angular'
@@ -28,7 +29,7 @@ define([
 
     //initialize main controller and load main view
     //load other main views to create dynamic views for different device layouts
-    angular.module('main',[]).controller('mainCtrl',[
+    angular.module('main',['ngAnimate']).controller('mainCtrl',[
         '$scope', '$session',
         function($scope, $session) {
             log('init main ctrl');

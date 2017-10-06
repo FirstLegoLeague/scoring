@@ -16,6 +16,7 @@ src/components/*/*
 
 !src/components/angular/angular*.js
 !src/components/angular/angular*.map
+!src/components/angular-animate/angular-animate*.js
 !src/components/angular-sanitize/angular-sanitize*.js
 !src/components/angular-mocks/angular*.js
 !src/components/angular-touch/angular*.js

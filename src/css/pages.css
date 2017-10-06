@@ -1,0 +1,40 @@
+
+/* pages */
+
+.page {
+	overflow-y: auto;
+    height: calc(100vh - 3em);
+}
+
+.viewMain.teams .page:not(.view-teams),
+.viewMain.scoresheet .page:not(.view-scoresheet),
+.viewMain.scores .page:not(.view-scores),
+.viewMain.ranking .page:not(.view-ranking),
+.viewMain.settings .page:not(.view-settings),
+.viewMain.clock .page:not(.view-clock) {
+    display: none;
+}
+
+/* appbar */
+
+.appbar {
+	height: 3em;
+    background: grey;
+    color: white;
+}
+
+.appbar h3 {
+	background: ;
+	display: inline;
+	vertical-align: bottom;
+}
+
+@media screen and (min-width: 1000px) {
+	#menu-icon {
+		display: none;
+	}
+
+	.page {
+		margin-left: 10em;
+	}
+}

@@ -8,6 +8,7 @@ var require = {
         'jquery': '../components/jquery/jquery.min',
         'angular': '../components/angular/angular.min',
         'angular-sanitize': '../components/angular-sanitize/angular-sanitize.min',
+        'angular-animate': '../components/angular-animate/angular-animate',
         'angular-touch': '../components/angular-touch/angular-touch.min',
         'angular-bootstrap': '../components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-storage': '../components/angular-storage/angular-storage',
@@ -20,6 +21,9 @@ var require = {
         },
         'angular': {
             deps: ['jquery']
+        },
+        'angular-animate': {
+            deps: ['angular']
         },
         'angular-bootstrap': {
             deps: ['angular']
