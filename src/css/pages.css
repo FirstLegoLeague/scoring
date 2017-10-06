@@ -34,7 +34,7 @@
 		display: none;
 	}
 
-	.page {
+	.page:not(.only-page) {
 		margin-left: 10em;
 	}
 }

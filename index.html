@@ -21,13 +21,12 @@
         <script src="components/requirejs/require.js" data-main="main"></script>
         <div ng-controller="mainCtrl" ng-init="setPlatform('nodejs')">
             <div fll-size ng-class="containerClass($width,$height)">
-                <div class="drawerShim" ng-click="toggleDrawer(false)"></div>
-                <div ng-include="drawer"></div>
+                <div ng-show="pages.length > 1" ng-include="drawer"></div>
                 <div class="viewMain" ng-class="currentPage.name" ng-cloak>
-                    <div ng-include="'views/appbar.html'"></div>
+                    <div ng-show="pages.length > 1" ng-include="'views/appbar.html'"></div>
                     <div ng-repeat="page in pages"
                         ng-include="'views/pages/' + page.name + '.html'"
-                        ng-class="'page view-' + page.name"
+                        ng-class="'page view-' + page.name + (pages.length === 1 ? ' only-page')"
                     ></div>
                 </div>
                 <div ng-include="'views/dialogs.html'"></div>
