@@ -26,7 +26,7 @@
                     <div ng-show="pages.length > 1" ng-include="'views/appbar.html'"></div>
                     <div ng-repeat="page in pages"
                         ng-include="'views/pages/' + page.name + '.html'"
-                        ng-class="'page view-' + page.name + (pages.length === 1 ? ' only-page')"
+                        ng-class="'page view-' + page.name + (pages.length === 1 ? ' only-page' : '')"
                     ></div>
                 </div>
                 <div ng-include="'views/dialogs.html'"></div>
