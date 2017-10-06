@@ -6,3 +6,26 @@ i.material-icons[ng-click] {
 i.material-icons.big {
     font-size: 2em;
 }
+
+
+/*
+* "fluid" class: the first child of an element with this class will take the whole width of the parent element.
+*/
+
+.fluid {
+	display: flex;
+}
+
+.fluid :first-child {
+	flex: 1;
+}
+
+/*
+* "center" class: the children of an element with this class will be centered
+*/
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
