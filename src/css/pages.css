@@ -3,7 +3,7 @@
 
 .page {
 	overflow-y: auto;
-    height: calc(100vh - 3em);
+	height: 100vh;
 }
 
 .viewMain.teams .page:not(.view-teams),
@@ -36,5 +36,6 @@
 
 	.page:not(.only-page) {
 		margin-left: 10em;
+		height: calc(100vh - 3em);
 	}
 }

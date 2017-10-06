@@ -1,0 +1,16 @@
+<div class="intro-card">
+
+    <label>Table:</label>
+    <div class="fluid">
+    	<select ng-model="scoreEntry.table" ng-options="item.name as item.name for item in settings.tables"></select>
+    </div>
+
+    <label>Referee:</label>
+    <div class="fluid">
+    	<select ng-model="referee" ng-options="item.name as item.name for item in settings.referees"></select>
+    </div>
+
+	<div class="center">
+		<div class="btn">Start</div>
+	</div>
+</div>
