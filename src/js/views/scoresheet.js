@@ -23,20 +23,21 @@ define('views/scoresheet',[
     ]);
 
     return module.controller(moduleName + 'Ctrl', [
-        '$scope','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams','$handshake',
-        function($scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$handshake) {
+        '$document','$scope','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams','$handshake',
+        function($document, $scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$handshake) {
             log('init scoresheet ctrl');
 
             // Set up defaults
             $scope.settings = {};
             $scope.missions = [];
             $scope.strings = [];
-            $scope.referee = null;
 
             // add teams and stages to scope for selection
             $scope.teams = $teams.teams;
             $scope.stages = $stages.stages;
             $scope.scores = $scores.scores;
+
+            $scope.step = 'intro';
 
             $scope.load = function() {
                 return $settings.init()
@@ -61,6 +62,27 @@ define('views/scoresheet',[
 
             $scope.getString = function(key) {
                 return $scope.strings[key]||key;
+            };
+
+            $scope.moveOn = function(step) {
+                $scope.step = step;
+            };
+
+            $scope.rounds = function(stage) {
+                let rounds = [];
+                for(var i = 0; i < stage.rounds; i++) {
+                    rounds.push(i+1);
+                }
+                return rounds;
+            };
+
+            $scope.selectStageAndRound = function(stage, round) {
+                $scope.scoreEntry.stage = stage;
+                $scope.scoreEntry.round = round;
+            };
+
+            $scope.isStageAndRoundSelected = function(stage, round) {
+                return $scope.scoreEntry.stage === stage && $scope.scoreEntry.round === round;
             };
 
             function getObjectives(names) {
@@ -105,9 +127,20 @@ define('views/scoresheet',[
                     },0);
                     mission.completed = mission.completedObjectives.every(function(objectCompleted) {
                         return objectCompleted;
-                    });
+                    }) && mission.errors.length === 0;
+                    if(mission.completed && !mission.previouslyCompleted) {
+                        scrollToNextMission(mission);
+                    }
+                    mission.previouslyCompleted = mission.completed;
                 });
 
+            }
+
+            function scrollToNextMission(mission) {
+                let className = mission.title.substr(0, mission.title.indexOf(' '));
+                let nextMissionClassName = className.replace(/\d+/, (n) => ++n);
+                let missionElement = $document.context.getElementsByClassName(className)[0];
+                missionElement.scrollIntoView();
             }
 
             $scope.score = function() {
@@ -145,48 +178,24 @@ define('views/scoresheet',[
 
             //lists reasons why the scoresheet cannot be saved
             $scope.preventSaveErrors = function() {
-                var list = $scope.teamRoundErrors();
                 if (!$scope.missions) {return [];}
+                let list = [];
 
-                function errors() {
-                    return $scope.missions.some(function(mission) {
-                        return !!mission.errors.length;
-                    });
-                }
-                function inComplete() {
-                    return $scope.missions.some(function(mission) {
-                        return mission.objectives.some(function(objective) {
-                            return empty(objective.value);
-                        });
-                    });
-                }
+                let errors =  $scope.missions.some(function(mission) {
+                    return !!mission.errors.length;
+                });
 
-                if (errors()) {
+                let incomplete = $scope.missions.some(function(mission) {
+                    return mission.objectives.some(function(objective) {
+                        return empty(objective.value);
+                    });
+                });
+
+                if (errors) {
                     list.push('Some missions have errors');
                 }
-                if (inComplete()) {
+                if (incomplete) {
                     list.push('Some missions are incomplete');
-                }
-
-                return list;
-            };
-
-            $scope.teamRoundErrors = function() {
-                var list = [];
-                if (empty($scope.scoreEntry.stage)) {
-                    list.push('No stage selected');
-                }
-                if (empty($scope.scoreEntry.round)) {
-                    list.push('No round selected');
-                }
-                if (empty($scope.scoreEntry.team)) {
-                    list.push('No team selected');
-                }
-                if ($scope.settings.askTable && !$scope.scoreEntry.table) {
-                    list.push('No table number entered');
-                }
-                if ($scope.settings.askReferee && !$scope.referee) {
-                    list.push('No referee entered');
                 }
 
                 return list;
@@ -237,7 +246,7 @@ define('views/scoresheet',[
                     result.stage.id !== $scope.scoreEntry.stage.id ? log("changed stage to " + $scope.scoreEntry.stage.name) : void(0);
                     result.round !== $scope.scoreEntry.round ? log("changed round to " + $scope.scoreEntry.round) : void(0);
                     result.table !== $scope.scoreEntry.table ? log("changed table to " + $scope.scoreEntry.table) : void(0);
-                    result.referee !== $scope.referee ? log("changed referee to " + $scope.referee) : void(0);
+                    result.referee !== $scope.scoreEntry.referee ? log("changed referee to " + $scope.scoreEntry.referee) : void(0);
                     $scope.scoreEntry.id = $score.generateUniqueId();//This is a different score after being edited, so it has a different id
                     $scope.save()
                 });
@@ -256,7 +265,7 @@ define('views/scoresheet',[
                 scoresheet.stage = $scope.scoreEntry.stage;
                 scoresheet.round = $scope.scoreEntry.round;
                 scoresheet.table = $scope.scoreEntry.table;
-                scoresheet.referee = $scope.referee;
+                scoresheet.referee = $scope.scoreEntry.referee;
                 scoresheet.signature = $scope.signature;
                 scoreEntry.score = $scope.score();
                 scoreEntry.published = $settings.settings.autoPublish || false;
@@ -286,14 +295,6 @@ Notice: the score could not be sent to the server. ` +
                 $handshake.$emit('showDescription',mission);
             };
 
-            $scope.openTeamModal = function (teams) {
-                $handshake.$emit('chooseTeam',teams).then(function(result) {
-                    if (result) {
-                        $scope.scoreEntry.team = result.team;
-                    }
-                });
-            };
-
             $scope.openRoundModal = function (stages) {
                 $handshake.$emit('chooseRound',stages).then(function(result) {
                     if (result) {
@@ -309,7 +310,7 @@ Notice: the score could not be sent to the server. ` +
                 $scope.scoreEntry = score;
                 $scores.loadScoresheet(score).then(function (result) {
                     $scope.signature = result.signature;
-                    $scope.referee = result.referee;
+                    $scope.data.referee = result.referee;
                     $scope.missions.forEach(function (mission) {
                         var filledMission = result.missions.find(function (e) {return e.title === mission.title});
                         mission.objectives.forEach(function (objective, index) {

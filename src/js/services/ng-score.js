@@ -29,6 +29,7 @@ define('services/ng-score',[
                     this.stageId,
                     'round' + this.round,
                     'table' + this.table,
+                    'ref' + this.referee,
                     'team' + this.teamNumber,
                     this.id
                 ].join('_')+'.json';
@@ -78,6 +79,7 @@ define('services/ng-score',[
                     originalScore: Number(entry.originalScore || entry.score),
                     edited: Boolean(entry.edited) ? String(entry.edited) : undefined, // timestamp, e.g. "Wed Nov 26 2014 21:11:43 GMT+0100 (CET)"
                     table: entry.table,
+                    referee: entry.referee,
                     published: Boolean(entry.published),
                 };
             };
