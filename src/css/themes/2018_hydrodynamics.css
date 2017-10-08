@@ -16,3 +16,79 @@ body {
 	color: #EDFAFD; /* Glass */
 	background: #135589; /* Marina */
 }
+
+#intro-toolbar {
+	color: #EDFAFD; /* Glass */
+	background: #2A93D5; /* Bondi Blue */
+}
+
+#scoresheet-teams .teams-list {
+	border-radius: 1em;
+	border-color: #2A93D5; /* Bondi Blue */
+    overflow-x: hidden;
+}
+
+#scoresheet-teams .teams-list table {
+	width: calc(100% + 1px);
+	max-width: unset;
+}
+
+#scoresheet-teams .teams-list table th {
+    background: #2A93D5; /* Bondi Blue */
+}
+
+#scoresheet-teams .teams-list table tr:nth-child(2n) {
+    background: #AED9DA; /* Chill */
+}
+
+#scoresheet-teams .teams-list table tr:nth-child(2n+1) {
+    background: white;
+}
+
+#scoresheet-teams .teams-list table tr.selected {
+    background: #3DDAD7 !important; /* Californian Coral */
+}
+
+#scoresheet-teams .stage-select .round {
+    background: white;
+    border: #3DDAD7 1px solid; /* Californian Coral */
+}
+
+#scoresheet-teams .stage-select .round.selected {
+    background: #3DDAD7 !important; /* Californian Coral */
+}
+
+#team-toolbar {
+	background: #EDFAFD; /* Glass */
+	color: #135589; /* Marina */
+}
+
+#team-toolbar .team-title {
+	line-height: 1.6em;
+    font-size: 2em;
+    margin: 0 1em;
+}
+
+#team-toolbar .score {
+	line-height: 1.6em;
+    font-size: 2em;
+    margin: 0 1em;
+}
+
+#missions .mission.ok {
+	background: #3DDAD7; /* Californian Coral */
+}
+
+#missions .mission.error {
+	background: #FFB1B1;
+}
+
+#missions .mission .btn-enum {
+    background: #EDFAFD; /* Glass */
+    border: 1px #AED9DA solid; /* Glass */
+}
+
+#missions .mission .btn-enum.active {
+    background: #135589 !important; /* Marina */
+    color: #EDFAFD; /* Glass */
+}

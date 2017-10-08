@@ -1,10 +1,19 @@
 #scoresheet {
     height: inherit;
+    display: flex;
+    flex-direction: column;
 }
+
+/* Intro */
 
 #intro {
     height: inherit;
     background: url('http://www.firstlegoleague.org/sites/default/files/home_hero2.jpg');
+    transition: all linear 0.2s;
+}
+
+#intro h3 {
+    font-family: latolight;
 }
 
 #intro .intro-card {
@@ -12,4 +21,155 @@
     background: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
     padding: 1em;
+}
+
+#intro.ng-animate .intro-card {
+    display: none;
+}
+
+#intro.ng-hide {
+    opacity: 0;
+    transition: none;
+}
+
+#intro-toolbar {
+    background: lightgrey;
+    color: black;
+    min-height: 3em;
+    justify-content: space-between;
+    transition: all linear 0.2s;
+}
+
+#intro-toolbar.ng-hide {
+    margin-top: -3em;
+    transition: none;
+}
+
+#intro-toolbar select {
+    margin: 0.5em;
+    width: fit-content;
+    background: inherit;
+    border: white 2px solid;
+    color: white;
+}
+
+#intro-toolbar select {
+    background: inherit;
+    border: white 2px solid;
+    margin: 0.5em;
+    color: white;
+}
+
+/* Teams */
+
+#scoresheet-teams {
+    flex: 1;
+    margin: 1em;
+    display: grid;
+    padding: 1em;
+    grid-gap: 1em;
+    grid-template: 2fr 1fr / 1fr 1fr;
+    transition: all linear 0.2s;
+}
+
+#scoresheet-teams .teams-list {
+    grid-row-end: span 2;
+    overflow-y: auto;
+    border: 1px solid gray;
+}
+
+#scoresheet-teams .teams-list table {
+    width: 100%;
+}
+
+#scoresheet-teams .teams-list table th {
+    background: grey;
+}
+
+#scoresheet-teams .teams-list table tr:nth-child(2n) {
+    background: lightgrey;
+}
+
+#scoresheet-teams .teams-list table tr:nth-child(2n+1) {
+    background: white;
+}
+
+#scoresheet-teams .stage-select .stage {
+    display: inline-block;
+    text-align: center;
+    border: lightgray 1px solid;
+    margin: 0.5em;
+}
+
+#scoresheet-teams .stage-select .round {
+    display: inline-block;
+    margin: 0.5em;
+    background: lightgray;
+    line-height: 2em;
+    width: 2em;
+    text-align: center;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+#scoresheet-teams .stage-select .round.selected {
+    background: lightgreen;
+}
+
+#scoresheet-teams .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#scoresheet-teams .actions .move-on {
+    margin: 0 auto;
+    width: 6em;
+}
+
+@media screen and (max-width: 100vh) {
+
+    #scoresheet-teams {
+        grid-template: 3fr 2fr 1fr / 1fr;
+    }
+
+    #scoresheet-teams .teams-list {
+        grid-row-end: span 1;
+    }
+
+}
+
+#scoresheet-teams.ng-hide {
+    opacity: 0;
+    transition: none;
+}
+
+#team-toolbar {
+    background: lightgrey;
+    color: black;
+    min-height: 3em;
+    justify-content: space-between;
+    transition: all linear 0.2s;
+}
+
+#team-toolbar.ng-hide {
+    margin-top: -3em;
+    transition: none;
+}
+
+/* Missions */
+
+#missions {
+    overflow-y: auto;
+}
+
+#missions .mission {
+    margin: 1em;
+}
+
+#missions .mission .objective {
+    height: 3em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
