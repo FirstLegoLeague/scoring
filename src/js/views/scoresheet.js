@@ -201,10 +201,6 @@ define('views/scoresheet',[
                 return list;
             };
 
-            $scope.teamRoundOk = function() {
-                return !$scope.teamRoundErrors().length;
-            }
-
             $scope.isSaveable = function() {
                 if (!$scope.missions) {return false;}
 
@@ -254,11 +250,6 @@ define('views/scoresheet',[
 
             //saves mission scoresheet
             $scope.save = function() {
-                if (!$scope.scoreEntry.team || !$scope.scoreEntry.stage || !$scope.scoreEntry.round) {
-                    $window.alert('no team selected, do so first');
-                    return $q.reject(new Error('no team selected, do so first'));
-                }
-
                 var scoresheet = angular.copy($scope.field);
                 var scoreEntry = new $score($scope.scoreEntry);
                 scoresheet.team = $scope.scoreEntry.team;
@@ -310,7 +301,6 @@ Notice: the score could not be sent to the server. ` +
                 $scope.scoreEntry = score;
                 $scores.loadScoresheet(score).then(function (result) {
                     $scope.signature = result.signature;
-                    $scope.data.referee = result.referee;
                     $scope.missions.forEach(function (mission) {
                         var filledMission = result.missions.find(function (e) {return e.title === mission.title});
                         mission.objectives.forEach(function (objective, index) {
