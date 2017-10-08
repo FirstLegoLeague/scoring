@@ -140,7 +140,9 @@ define('views/scoresheet',[
                 let className = mission.title.substr(0, mission.title.indexOf(' '));
                 let nextMissionClassName = className.replace(/\d+/, (n) => ++n);
                 let missionElement = $document.context.getElementsByClassName(className)[0];
-                missionElement.scrollIntoView();
+                if(missionElement) {
+                    missionElement.scrollIntoView();
+                }
             }
 
             $scope.score = function() {
