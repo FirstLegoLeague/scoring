@@ -1,0 +1,37 @@
+<div class="teams-list">
+	<table>
+		<thead>
+			<tr>
+				<th>Number</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="team in teams" ng-click="scoreEntry.team = team" ng-class="{ selected: scoreEntry.team === team }">
+				<td class="number">{{team.number}}</td>
+				<td class="name">{{team.name}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="stage-select">
+	<h3 class="title" ng-show="scoreEntry.team">{{scoreEntry.team.name}} - {{scoreEntry.team.number}}</h3>
+	<div ng-show="scoreEntry.team" ng-repeat="stage in stages" class="stage">
+		<div class="stage-title" ng-show="scoreEntry.team">
+			{{stage.id}}
+		</div>
+		<div class="rounds">
+			<div class="round" ng-class="{ selected: isStageAndRoundSelected(stage, round) }" ng-repeat="round in rounds(stage)" ng-click="selectStageAndRound(stage, round)">
+				{{round}}
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="actions">
+	<div class="move-on btn btn-primary" ng-class="{ disabled: !scoreEntry.team || !scoreEntry.stage || !scoreEntry.round }" ng-click="moveOn('missions')">
+		3 2 1 LEGO!
+	</div>
+</div>

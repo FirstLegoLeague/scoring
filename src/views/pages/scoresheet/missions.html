@@ -1,0 +1,27 @@
+<div class="mission card {{mission.title.substr(0, mission.title.indexOf(' '))}}" ng-repeat="mission in missions" ng-repeat="mission in missions" ng-class="{error:mission.errors.length, ok:mission.completed}">
+
+	<h2 class="card-header">
+        {{mission.title}}
+    </h2>
+
+    <div class="card-body">
+	    <div class="objective" ng-repeat="objective in mission.objectives" ng-switch="objective.type">
+            <span class="objective-title">{{objective.title}}</span>
+            <span class="field" ng-switch-when="yesno">
+                <div class="btn-group">
+                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'yes'">{{getString('yes')}}</label>
+                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'no'">{{getString('no')}}</label>
+                </div>
+            </span>
+            <span class="field" ng-switch-when="number">
+                <span fll-spinner ng-model="objective.value" min="objective.min || 0" max="objective.max"></span>
+            </span>
+            <div class="field" ng-switch-when="enum">
+                <div class="btn-group">
+                    <label ng-repeat="line in objective.options" class="btn btn-enum" ng-model="objective.value" btn-radio="line.value">{{line.title}}</label>
+                </div>
+            </div>
+	    </div>
+    </div>
+
+</div>
