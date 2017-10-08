@@ -29,3 +29,11 @@ i.material-icons.big {
     align-items: center;
     justify-content: center;
 }
+
+/*
+* "toolbar" class: describes a toolbar. Any element in it will baecome an element in the toolbar
+*/
+.toolbar {
+	display: flex;
+	width: 100%;
+}
