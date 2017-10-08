@@ -23,7 +23,7 @@
 	vertical-align: super;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 100vh) {
 	.drawer.ng-hide {
 		left: 0;
 		display: block !important;
