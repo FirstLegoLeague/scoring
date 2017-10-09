@@ -204,7 +204,7 @@ define('views/scoresheet',[
 
             //lists reasons why the scoresheet cannot be saved
             $scope.preventSaveErrors = function() {
-                let list = missionsErrors();
+                let list = $scope.missionsErrors();
 
                 if(!$scope.signature) {
                     list.push('No signature');
