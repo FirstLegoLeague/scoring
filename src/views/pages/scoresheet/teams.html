@@ -31,7 +31,7 @@
 </div>
 
 <div class="actions">
-	<div class="move-on btn btn-primary" ng-class="{ disabled: !scoreEntry.team || !scoreEntry.stage || !scoreEntry.round }" ng-click="moveOn('missions')">
+	<div class="move-on btn btn-primary" ng-disabled="!scoreEntry.team || !scoreEntry.stage || !scoreEntry.round" ng-click="moveOn('missions')">
 		3 2 1 LEGO!
 	</div>
 </div>

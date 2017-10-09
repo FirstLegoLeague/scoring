@@ -31,12 +31,12 @@
 
 </div>
 
-<div class="errors card" ng-hide="isSavable()">
-    <div class="error" ng-repeat="error in preventSaveErrors()">
+<div class="errors card" ng-hide="!missionsErrors().length">
+    <div class="error" ng-repeat="error in missionsErrors()">
         <i class="material-icons">warning</i>{{error}}
     </div>
 </div>
 
-<div class="move-on btn btn-primary" ng-class="{ disabled: !isSavable() }" ng-click="moveOn('signoff')">
+<div class="move-on btn btn-primary" ng-disabled="missionsErrors().length" ng-click="moveOn('signoff')">
     All done!
 </div>

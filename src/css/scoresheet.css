@@ -192,3 +192,48 @@
     margin: 1em auto;
     width: 5em;
 }
+
+/* Signoff */
+
+#signoff {
+    flex: 1;
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+#signoff .missions {
+    overflow-y: auto;
+    max-height: 50vh;
+    flex: 1;
+}
+
+#signoff .missions .objective {
+    margin: 0.5em;
+}
+
+#signoff .missions .objective .title {
+    display: inline-block;
+    font-weight: bold;
+}
+
+#signoff .missions .objective .value {
+    display: inline-block;
+}
+
+#signoff .actions {
+    flex: 0;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+    margin: 1em;
+    grid-gap: 1em;
+}
+
+#signoff .actions canvas {
+    border: lightgray 1px solid;
+}
+
+#signoff .actions .gotos {
+    display: flex;
+    align-items: flex-end;
+}

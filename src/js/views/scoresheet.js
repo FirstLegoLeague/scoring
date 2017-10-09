@@ -178,8 +178,7 @@ define('views/scoresheet',[
                 return val === undefined || val === null;
             }
 
-            //lists reasons why the scoresheet cannot be saved
-            $scope.preventSaveErrors = function() {
+            $scope.missionsErrors = function() {
                 if (!$scope.missions) {return [];}
                 let list = [];
 
@@ -198,6 +197,17 @@ define('views/scoresheet',[
                 }
                 if (incomplete) {
                     list.push('Some missions are incomplete');
+                }
+
+                return list;
+            };
+
+            //lists reasons why the scoresheet cannot be saved
+            $scope.preventSaveErrors = function() {
+                let list = missionsErrors();
+
+                if(!$scope.signature) {
+                    list.push('No signature');
                 }
 
                 return list;
@@ -280,6 +290,7 @@ Notice: the score could not be sent to the server. ` +
                             `The score is thereafore save on your device, and will be sent when it's possible.` +
                             `Current number of scores actions waiting to be sent: ${$scores.pendingActions()}`
                     $scope.clear();
+                    $scope.moveOn('teams');
                     $window.alert(message);
                     throw err;
                 });

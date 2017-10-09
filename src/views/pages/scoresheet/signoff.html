@@ -1,0 +1,19 @@
+<h2 class="team-title">
+	Team #{{scoreEntry.team.number}} - {{scoreEntry.team.name}}
+</h2>
+
+<div class="missions">
+	<div class="mission" ng-repeat="mission in missions">
+		<div class="objective" ng-repeat="objective in mission.objectives">
+			<div class="title">{{objective.title}}</div> - <div class="value">{{objective.value}}</div>
+		</div>
+	</div>
+</div>
+
+<div class="actions">
+	<div fll-sigpad ng-model="signature"></div>
+	<div class="btn-group gotos">
+		<div class="btn back" ng-click="moveOn('missions')">Back to missions</div>
+		<div class="btn btn-primary done" ng-click="save()" ng-disabled="!isSavable()" >Submit score</div>
+	</div>
+</div>
