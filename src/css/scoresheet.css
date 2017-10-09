@@ -163,7 +163,7 @@
     overflow-y: auto;
 }
 
-#missions .mission {
+#missions .mission, #missions .errors.card {
     margin: 1em;
 }
 
@@ -172,4 +172,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#missions .errors.card {
+    padding: 0.5em;
+}
+
+#missions .errors.card .error {
+    display: flex;
+    align-items: center;
+}
+
+#missions .move-on.btn {
+    display: block;
+    margin: 1em auto;
+    width: 5em;
 }

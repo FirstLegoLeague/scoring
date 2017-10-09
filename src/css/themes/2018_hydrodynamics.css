@@ -79,7 +79,7 @@ body {
 	background: #3DDAD7; /* Californian Coral */
 }
 
-#missions .mission.error {
+#missions .mission.error, #missions .errors.card {
 	background: #FFB1B1;
 }
 

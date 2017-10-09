@@ -26,8 +26,12 @@
 
 </div>
 
-<div class="summary card">
-    <div class="move-on btn btn-primary" ng-class="{ disabled: !isSavable() }" ng-click="moveOn('missions')">
-        All done!
+<div class="errors card" ng-hide="isSavable()">
+    <div class="error" ng-repeat="error in preventSaveErrors()">
+        <i class="material-icons">warning</i>{{error}}
     </div>
+</div>
+
+<div class="move-on btn btn-primary" ng-class="{ disabled: !isSavable() }" ng-click="moveOn('signoff')">
+    All done!
 </div>

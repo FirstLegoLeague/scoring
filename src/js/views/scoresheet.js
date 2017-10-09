@@ -203,7 +203,7 @@ define('views/scoresheet',[
                 return list;
             };
 
-            $scope.isSaveable = function() {
+            $scope.isSavable = function() {
                 if (!$scope.missions) {return false;}
 
                 return !$scope.preventSaveErrors().length;
@@ -212,7 +212,8 @@ define('views/scoresheet',[
             $scope.clear = function() {
                 $scope.editingScore = false;
                 var table = $scope.scoreEntry ? $scope.scoreEntry.table : undefined;
-                $scope.scoreEntry = new $score({ table: table });
+                var referee = $scope.scoreEntry ? $scope.scoreEntry.referee : undefined;
+                $scope.scoreEntry = new $score({ table: table, referee: referee });
                 $scope.signature = null;
                 $scope.missions.forEach(function(mission) {
                     mission.objectives.forEach(function(objective) {
