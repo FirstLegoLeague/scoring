@@ -5,7 +5,12 @@
     </h2>
 
     <div class="card-body">
-	    <div class="objective" ng-repeat="objective in mission.objectives" ng-switch="objective.type">
+	    <div class="errors">
+            <div class="error" ng-repeat="error in mission.errors">
+                <i class="material-icons">warning</i>{{error.message}}
+            </div>
+        </div>
+        <div class="objective" ng-repeat="objective in mission.objectives" ng-switch="objective.type">
             <span class="objective-title">{{objective.title}}</span>
             <span class="field" ng-switch-when="yesno">
                 <div class="btn-group">

@@ -83,6 +83,11 @@ body {
 	background: #FFB1B1;
 }
 
+#missions .mission.error .errors {
+    border: #8c3030 1px solid;
+    padding: 0.2em;
+}
+
 #missions .mission .btn-enum {
     background: #EDFAFD; /* Glass */
     border: 1px #AED9DA solid; /* Glass */

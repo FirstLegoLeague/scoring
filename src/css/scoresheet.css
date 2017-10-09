@@ -178,9 +178,13 @@
     padding: 0.5em;
 }
 
-#missions .errors.card .error {
+#missions .card .error {
     display: flex;
     align-items: center;
+}
+
+#missions .mission:not(.error) .errors {
+    display: none;
 }
 
 #missions .move-on.btn {
