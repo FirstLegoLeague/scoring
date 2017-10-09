@@ -27,6 +27,7 @@
                     <div ng-repeat="page in pages"
                         ng-include="'views/pages/' + page.name + '.html'"
                         ng-class="'page view-' + page.name + (pages.length === 1 ? ' only-page')"
+                        ng-show="currentPage === page"
                     ></div>
                 </div>
                 <div ng-include="'views/dialogs.html'"></div>
