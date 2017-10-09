@@ -6,15 +6,6 @@
 	height: 100vh;
 }
 
-.viewMain.teams .page:not(.view-teams),
-.viewMain.scoresheet .page:not(.view-scoresheet),
-.viewMain.scores .page:not(.view-scores),
-.viewMain.ranking .page:not(.view-ranking),
-.viewMain.settings .page:not(.view-settings),
-.viewMain.clock .page:not(.view-clock) {
-    display: none;
-}
-
 /* appbar */
 
 .appbar {
