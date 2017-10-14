@@ -206,7 +206,7 @@ define('views/scoresheet',[
             $scope.preventSaveErrors = function() {
                 let list = $scope.missionsErrors();
 
-                if(!$scope.signature) {
+                if(!$scope.scoreEntry.signature) {
                     list.push('No signature');
                 }
 
@@ -224,7 +224,7 @@ define('views/scoresheet',[
                 var table = $scope.scoreEntry ? $scope.scoreEntry.table : undefined;
                 var referee = $scope.scoreEntry ? $scope.scoreEntry.referee : undefined;
                 $scope.scoreEntry = new $score({ table: table, referee: referee });
-                $scope.signature = null;
+                $scope.scoreEntry.signature = null;
                 $scope.missions.forEach(function(mission) {
                     mission.objectives.forEach(function(objective) {
                         delete objective["value"];
@@ -263,6 +263,10 @@ define('views/scoresheet',[
 
             //saves mission scoresheet
             $scope.save = function() {
+                if(!$scope.isSavable()) {
+                    return;
+                }
+
                 var scoresheet = angular.copy($scope.field);
                 var scoreEntry = new $score($scope.scoreEntry);
                 scoresheet.team = $scope.scoreEntry.team;
@@ -270,7 +274,7 @@ define('views/scoresheet',[
                 scoresheet.round = $scope.scoreEntry.round;
                 scoresheet.table = $scope.scoreEntry.table;
                 scoresheet.referee = $scope.scoreEntry.referee;
-                scoresheet.signature = $scope.signature;
+                scoresheet.signature = $scope.scoreEntry.signature;
                 scoreEntry.score = $scope.score();
                 scoreEntry.published = $settings.settings.autoPublish || false;
                 scoreEntry.calcFilename();
@@ -314,7 +318,7 @@ Notice: the score could not be sent to the server. ` +
                 $scope.editingScore = true;
                 $scope.scoreEntry = score;
                 $scores.loadScoresheet(score).then(function (result) {
-                    $scope.signature = result.signature;
+                    $scope.scoreEntry.signature = result.signature;
                     $scope.missions.forEach(function (mission) {
                         var filledMission = result.missions.find(function (e) {return e.title === mission.title});
                         mission.objectives.forEach(function (objective, index) {
