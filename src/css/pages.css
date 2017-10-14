@@ -6,6 +6,11 @@
 	height: 100vh;
 }
 
+.page:not(.only-page) {
+	height: calc(100vh - 3em);
+}
+
+
 /* appbar */
 
 .appbar {
@@ -27,6 +32,5 @@
 
 	.page:not(.only-page) {
 		margin-left: 10em;
-		height: calc(100vh - 3em);
 	}
 }
