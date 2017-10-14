@@ -138,11 +138,9 @@ define('views/scoresheet',[
 
             function scrollToNextMission(mission) {
                 let className = mission.title.substr(0, mission.title.indexOf(' '));
-                let nextMissionClassName = className.replace(/\d+/, (n) => ++n);
-                let missionElement = $document.context.getElementsByClassName(className)[0];
-                if(missionElement) {
-                    missionElement.scrollIntoView();
-                }
+                let missionsElement = $document.context.getElementById('missions');
+                let missionElement = missions.getElementsByClassName(className)[0];
+                missionsElement.scrollTop = missionElement.offsetTop + missionElement.clientHeight - 150;
             }
 
             $scope.score = function() {
