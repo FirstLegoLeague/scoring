@@ -196,6 +196,9 @@ define('views/scoresheet',[
                 if (incomplete) {
                     list.push('Some missions are incomplete');
                 }
+                if(!$scope.signature){
+                    list.push('Scoresheet not signed');
+                }
 
                 return list;
             };
@@ -218,7 +221,7 @@ define('views/scoresheet',[
             };
 
             $scope.clear = function() {
-                $scope.editingScore = false;
+
                 var table = $scope.scoreEntry ? $scope.scoreEntry.table : undefined;
                 var referee = $scope.scoreEntry ? $scope.scoreEntry.referee : undefined;
                 $scope.scoreEntry = new $score({ table: table, referee: referee });
@@ -228,6 +231,11 @@ define('views/scoresheet',[
                         delete objective["value"];
                     });
                 });
+
+                if($scope.editingScore){
+                    $scope.setPage($scope.pages.find(function (p) {return p.name === "scores"}));
+                    $scope.editingScore = false;
+                }
                 log('scoresheet cleared');
             };
 
