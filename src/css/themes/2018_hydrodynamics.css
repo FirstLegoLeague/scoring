@@ -17,6 +17,10 @@ body {
 	background: #135589; /* Marina */
 }
 
+.drawer a:hover {
+    background: #2A93D5 !important; /* Bondi Blue */
+}
+
 #intro-toolbar {
 	color: #EDFAFD; /* Glass */
 	background: #2A93D5; /* Bondi Blue */

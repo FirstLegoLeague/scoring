@@ -16,7 +16,12 @@
 }
 
 .drawer a {
+  cursor: pointer;
 	color: inherit;
+}
+
+.drawer a:hover {
+    background-color: black !important;
 }
 
 .drawer a span {
