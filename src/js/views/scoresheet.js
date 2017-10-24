@@ -76,6 +76,11 @@ define('views/scoresheet',[
                 return rounds;
             };
 
+            $scope.selectTeam = function(team) {
+                $scope.scoreEntry.team = team
+                $scope.fillStageRound(team);
+            };
+
             $scope.selectStageAndRound = function(stage, round) {
                 $scope.scoreEntry.stage = stage;
                 $scope.scoreEntry.round = round;
@@ -285,23 +290,18 @@ define('views/scoresheet',[
                 scoreEntry.published = $settings.settings.autoPublish || false;
                 scoreEntry.calcFilename();
 
+                let message = `Thank you for the score!\n`
+                 + `team: #${scoresheet.team.number}, ${scoresheet.stage.name} round ${scoresheet.round}`
+
                 return $scores.create(scoresheet, scoreEntry).then(function() {
                     log('result saved: ');
-                    message = `Thanks for submitting a score of ${scoreEntry.score} points for team (${scoresheet.team.number})` +
-                        ` ${scoresheet.team.name} in ${scoresheet.stage.name} ${scoresheet.round}.`;
                     $scope.clear();
                     setTimeout(() => $window.alert(message), 0);
                 }).catch(function(err) {
                     log(`Error: ${err}`);
-                    message = `Thanks for submitting a score of ${scoreEntry.score} points for team` +
-                        ` ${scoresheet.team.name} (${scoresheet.team.number}) in ${scoresheet.stage.name} ${scoresheet.round}.` + `
-Notice: the score could not be sent to the server. ` +
-                            `This might be caused by poor network conditions. ` +
-                            `The score is thereafore save on your device, and will be sent when it's possible.` +
-                            `Current number of scores actions waiting to be sent: ${$scores.pendingActions()}`
                     $scope.clear();
                     $scope.moveOn('teams');
-                    $window.alert(message);
+                    setTimeout(() => $window.alert(message), 0);
                     throw err;
                 });
             };
@@ -310,14 +310,20 @@ Notice: the score could not be sent to the server. ` +
                 $handshake.$emit('showDescription',mission);
             };
 
-            $scope.openRoundModal = function (stages) {
-                $handshake.$emit('chooseRound',stages).then(function(result) {
-                    if (result) {
-                        $scope.scoreEntry.stage = result.stage;
-                        $scope.scoreEntry.round = result.round;
-                    }
+            $scope.fillStageRound = function(team){
+                if(!$settings.settings.currentStage){
+                    return;
+                }
+                var currentStageObject = $stages.get($settings.settings.currentStage);
+                var completedRoundsInCurrentStage = $scores.scores.filter((score)=>{
+                    return score.teamNumber === team.number && score.stageId === currentStageObject.id;
+                }).map((score)=>score.round);
+                var firstNotCompleted = currentStageObjectcurrentStageObject.$rounds.find((round)=>{
+                    return completedRoundsInCurrentStage.indexOf(round) === -1;
                 });
-            };
+                $scope.scoreEntry.stageId = $settings.currentStage;
+                $scope.scoreEntry.round = firstNotCompleted;
+            }
 
             $scope.loadScoresheet = function (score) {
                 log(`Editing scoresheet: stage ${score.stageId}, round ${score.round}, team ${score.teamNumber}, score ${score.score}`);

@@ -7,7 +7,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="team in teams" ng-click="scoreEntry.team = team" ng-class="{ selected: scoreEntry.team === team }">
+			<tr ng-repeat="team in teams" ng-click="selectTeam(team)" ng-class="{ selected: scoreEntry.team === team }">
 				<td class="number">{{team.number}}</td>
 				<td class="name">{{team.name}}</td>
 			</tr>
