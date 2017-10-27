@@ -23,6 +23,22 @@ body {
     background: #2A93D5 !important; /* Bondi Blue */
 }
 
+/* buttons */
+
+.btn {
+    background: #EDFAFD; /* Glass */
+    border: 1px #AED9DA solid; /* Glass */
+}
+
+.btn.btn-danger {
+    background: #DC4545;
+}
+
+.btn.active {
+    background: #135589 !important; /* Marina */
+    color: #EDFAFD; /* Glass */
+}
+
 /* scoresheet */
 
 #intro-toolbar {
@@ -94,16 +110,6 @@ body {
 #missions .mission.error .errors {
     border: #8c3030 1px solid;
     padding: 0.2em;
-}
-
-#missions .mission .btn-enum {
-    background: #EDFAFD; /* Glass */
-    border: 1px #AED9DA solid; /* Glass */
-}
-
-#missions .mission .btn-enum.active {
-    background: #135589 !important; /* Marina */
-    color: #EDFAFD; /* Glass */
 }
 
 /* scores */

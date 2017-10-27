@@ -72,7 +72,7 @@
 }
 
 #scores .scores-table tbody {
-    height: calc(100% - 2em);
+    height: calc(100% - 3em);
     overflow-y: auto;
 }
 
@@ -90,6 +90,10 @@
     margin: 0;
     vertical-align: middle;
     padding: 0.15em 0 0 0;
+}
+
+#scores .scores-table .editing-form input, #scores .scores-table  .editing-form select {
+    width: calc(100% - 2em);
 }
 
 #scores .scores-table .editing-form i {
@@ -128,8 +132,9 @@
     flex: 2;
 }
 
-#scores .scores-table .editing-form input,#scores .scores-table  .editing-form select {
-    width: calc(100% - 2em);
+#scores .scores-table .actions .btn {
+    margin-top: 0.2em;
+    padding: 0.3em 0.5em 0 0.5em;
 }
 
 @media screen and (max-width: 1050px) {
@@ -138,14 +143,20 @@
 	    display: none;
 	}
 
+}
 
+@media screen and (max-width: 880px) {
+
+    #scores .scores-table .referee {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 850px) {
 
-	#scores .scores-table .referee {
-	    display: none;
-	}
+    #scores .scores-table .actions {
+        display: none;
+    }
 
 }
 
@@ -156,14 +167,6 @@
 	}
 
 	#scores .scores-table .match {
-	    display: none;
-	}
-
-}
-
-@media screen and (max-width: 100vh) {
-
-	#scores .scores-table .actions {
 	    display: none;
 	}
 
