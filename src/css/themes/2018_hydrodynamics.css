@@ -15,11 +15,15 @@ body {
 .appbar, .drawer {
 	color: #EDFAFD; /* Glass */
 	background: #135589; /* Marina */
+    font-weight: bold;
+    text-indent: 0.5em;
 }
 
 .drawer a:hover {
     background: #2A93D5 !important; /* Bondi Blue */
 }
+
+/* scoresheet */
 
 #intro-toolbar {
 	color: #EDFAFD; /* Glass */
@@ -100,4 +104,30 @@ body {
 #missions .mission .btn-enum.active {
     background: #135589 !important; /* Marina */
     color: #EDFAFD; /* Glass */
+}
+
+/* scores */
+
+.scores .nav-tabs {
+    background: #2A93D5; /* Bondi Blue */
+    color: #EDFAFD; /* Glass */
+    border-bottom: 1px solid #135589; /* Marina */
+}
+
+.scores .nav-tabs li a {
+    border: 1px solid #135589; /* Marina */
+    color: #EDFAFD; /* Glass */
+    border-bottom: none;
+    margin-left: 0.5em;
+    font-weight: bold;
+}
+
+.scores .nav-tabs li.active a {
+    background: #AED9DA; /* Chill */
+    color: #135589; /* Marina */
+}
+
+.scores .nav-tabs li a:hover {
+    background: #EDFAFD; /* Glass */
+    color: #2A93D5; /* Bondi Blue */
 }

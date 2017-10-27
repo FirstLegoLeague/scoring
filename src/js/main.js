@@ -36,9 +36,8 @@ define([
 
             const PAGES = [
                 { name: 'scoresheet', title: 'Scoresheet', icon: 'check' },
+                { name: 'scores', title: 'Scores', icon: 'list' },
                 { name: 'teams', title: 'Teams', icon: 'people' },
-                { name: 'scores', title: 'Scorekeeping', icon: 'list' },
-                { name: 'ranking', title: 'Ranking', icon: 'format_list_numbered' },
                 { name: 'settings', title: 'Settings', icon: 'settings' }
             ];
 

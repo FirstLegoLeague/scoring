@@ -1,0 +1,28 @@
+#scores {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+#scores > *:first-child {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+#scores .tab-content {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#scores .tab-content .tab-pane.active {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.scores .nav-tabs {
+    padding: 0.25em 0 0 0;
+    margin-bottom: 0;
+}

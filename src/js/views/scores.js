@@ -5,7 +5,7 @@ define('views/scores', [
     'angular'
 ], function (log) {
     var moduleName = 'scores';
-    return angular.module(moduleName, ['filters']).controller(moduleName + 'Ctrl', [
+    return angular.module(moduleName, ['filters', 'ui.bootstrap']).controller(moduleName + 'Ctrl', [
         '$scope', '$scores', '$teams', '$stages', '$window', '$rootScope',
         function ($scope, $scores, $teams, $stages, $window, $rootScope) {
             log('init scores ctrl');
@@ -28,7 +28,7 @@ define('views/scores', [
             }, function () {
                 $scope.scores = enrich($scores.scores);
             }, true);
-            
+
             $scope.$watch(function () {
                 return $teams._teamsMap;
             }, function (newValue, oldValue) {

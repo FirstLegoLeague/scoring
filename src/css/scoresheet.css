@@ -163,19 +163,11 @@
     overflow-y: auto;
 }
 
-#missions .mission, #missions .errors.card {
-    margin: 1em;
-}
-
 #missions .mission .objective {
     height: 3em;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-#missions .errors.card {
-    padding: 0.5em;
 }
 
 #missions .card .error {
