@@ -10,15 +10,47 @@ define('views/scores', [
         function ($scope, $scores, $teams, $stages, $window, $rootScope) {
             log('init scores ctrl');
 
-            $scope.sort = 'index';
+            $scope.scoresTableKeys = [
+            {   key: 'index', header: '#'   },
+            {   key: 'teamString', header: 'team'   },
+            {   key: 'match', header: 'match'   },
+            {   key: 'refAndTable', header: 'Referee and Table'   },
+            {   key: 'score', header: 'score'   },
+            ];
+            $scope.sort = $scope.scoresTableKeys[0];
             $scope.rev = true;
+            $scope.search = '';
+
+            $scope.setSort = function(key) {
+                if($scope.sort === key)
+                    $scope.rev = !$scope.rev;
+                else
+                    $scope.sort = key;
+            };
+
+            $scope.sortIcon = function (key) {
+                if($scope.sort !== key) {
+                    return '';
+                }
+
+                if ($scope.rev) {
+                    return 'arrow_drop_down';
+                } else {
+                    return 'arrow_drop_up';
+                }
+            };
 
             function enrich(scores) {
-                return scores.map(score => {
+                return scores.map((score, index) => {
                     var enrichedScore = {};
                     for(var key in score) enrichedScore[key] = score[key];
+                    enrichedScore.index = index + 1;
                     enrichedScore.team = $teams.get(score.teamNumber);
                     enrichedScore.stage = $stages.get(score.stageId);
+
+                    enrichedScore.teamString = `#${enrichedScore.team.number} ${enrichedScore.team.name}`;
+                    enrichedScore.match = `#${enrichedScore.round} ${enrichedScore.stage.id}`;
+                    enrichedScore.refAndTable = `${enrichedScore.referee} - ${enrichedScore.table}`;
                     return enrichedScore;
                 });
             }
@@ -49,22 +81,6 @@ define('views/scores', [
             $scores.init().then(function() {
                 $scope.stages = $stages.stages;
             });
-
-            $scope.doSort = function(col, defaultSort) {
-                $scope.rev = (String($scope.sort) === String(col)) ? !$scope.rev : !!defaultSort;
-                $scope.sort = col;
-            };
-
-            $scope.sortIcon = function (col) {
-                if (!angular.equals($scope.sort, col)) {
-                    return '';
-                }
-                if ($scope.rev) {
-                    return 'arrow_drop_down';
-                } else {
-                    return 'arrow_drop_up';
-                }
-            };
 
             $scope.deleteScore = function (score) {
                 $scores.delete(score);

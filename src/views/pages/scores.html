@@ -2,8 +2,43 @@
     <tabset>
         <tab heading="Score entries">
             <div class="main card">
-                <div class="card-header">Score entries</div>
+                <div class="card-top">
+                    <div class="card-header">Score entries</div>
+                    <form class="card-menu">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                <input type="text" class="form-control" placeholder="Search in scores" ng-model="search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <table class="table scores-table">
 
+                    <thead>
+                        <tr>
+                            <td ng-repeat="key in scoresTableKeys" ng-class="key.key">
+                                <a href="#" ng-click="setSort(key)">
+                                    {{key.header}}
+                                </a>
+                                <i class="material-icons sort-icon" ng-click="setSort(key)">{{sortIcon(key)}}</i>
+                            </td>
+                            <td class="actions">
+                                actions
+                            </td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="score in scores | orderBy:sort.key:rev | filter:search">
+                            <td ng-repeat="key in scoresTableKeys" ng-class="key.key">{{ score[key.key] }}</td>
+                            <td class="actions">
+
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
             </div>
         </tab>
         <tab heading="Ranks">

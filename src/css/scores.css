@@ -22,7 +22,84 @@
     flex-direction: column;
 }
 
-.scores .nav-tabs {
+#scores .nav-tabs {
     padding: 0.25em 0 0 0;
     margin-bottom: 0;
+}
+
+#scores .card.main {
+    display: grid;
+    grid-template-rows: 3.5em 1fr;
+    height: calc(100% - 2em);
+}
+
+#scores .scores-table {
+    margin: 1em 1.5em;
+    width: calc(100% - 3em);
+    height: calc(100% - 3em);
+}
+
+#scores .scores-table .sort-icon {
+    display: inline;
+    margin: 0;
+    font-size: 1em;
+}
+
+#scores .scores-table thead, tbody {
+	display: block;
+}
+
+#scores .scores-table tr {
+	display: flex;
+	justify-content: space-between;
+}
+
+#scores .scores-table tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+#scores .scores-table td:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+}
+
+#scores .scores-table thead td {
+    height: 2em;
+}
+
+#scores .scores-table tbody {
+    height: calc(100% - 2em);
+    overflow-y: auto;
+}
+
+#scores .scores-table td {
+    min-width: 3em;
+    overflow-x: auto;
+}
+
+#scores .scores-table .index {
+    flex: 0;
+}
+
+#scores .scores-table .teamString {
+    flex: 6;
+}
+
+#scores .scores-table .match {
+    flex: 2;
+}
+
+#scores .scores-table .refAndTable {
+    flex: 2;
+}
+
+#scores .scores-table .score {
+    flex: 0;
+}
+#scores .scores-table .actions {
+    flex: 0;
 }
