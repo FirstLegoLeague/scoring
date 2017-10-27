@@ -6,18 +6,22 @@ define('views/scores', [
 ], function (log) {
     var moduleName = 'scores';
     return angular.module(moduleName, ['filters', 'ui.bootstrap']).controller(moduleName + 'Ctrl', [
-        '$scope', '$scores', '$teams', '$stages', '$window', '$rootScope',
-        function ($scope, $scores, $teams, $stages, $window, $rootScope) {
+        '$scope', '$scores', '$teams', '$stages', '$settings', '$window', '$rootScope',
+        function ($scope, $scores, $teams, $stages, $settings, $window, $rootScope) {
             log('init scores ctrl');
 
             $scope.scoresTableKeys = [
-            {   key: 'index', header: '#'   },
-            {   key: 'teamNumber', header: 'team' },
-            {   key: 'teamString', header: 'team' },
-            {   key: 'match', header: 'match'   },
-            {   key: 'refAndTable', header: 'Referee and Table'   },
-            {   key: 'referee', header: 'Referee'   },
-            {   key: 'score', header: 'score'   },
+            { key: 'index', header: '#', editable: false },
+            { key: 'teamNumber', header: 'team', editable: 'options', savableValueKey: 'teamNumber' },
+            { key: 'teamFullName', header: 'team', editable: 'options', savableValueKey: 'teamNumber' },
+            { key: 'match', header: 'match', editable: 'complex-options', onChange: score => {
+                let split = score.match.split(' #');
+                score.stageId = split[0];
+                score.round = parseInt(split[1]);
+            } },
+            { key: 'referee', header: 'Referee', editable: 'options', savableValueKey: 'referee' },
+            { key: 'table', header: 'Table', editable: 'options', savableValueKey: 'table' },
+            { key: 'score', header: 'score', editable: 'text', savableValueKey: 'score' }
             ];
             $scope.sort = $scope.scoresTableKeys[0];
             $scope.rev = true;
@@ -50,9 +54,8 @@ define('views/scores', [
                     enrichedScore.team = $teams.get(score.teamNumber);
                     enrichedScore.stage = $stages.get(score.stageId);
 
-                    enrichedScore.teamString = `#${enrichedScore.team.number} ${enrichedScore.team.name}`;
-                    enrichedScore.match = `#${enrichedScore.round} ${enrichedScore.stage.id}`;
-                    enrichedScore.refAndTable = `${enrichedScore.referee} - ${enrichedScore.table}`;
+                    enrichedScore.teamFullName = `#${enrichedScore.team.number} ${enrichedScore.team.name}`;
+                    enrichedScore.match = `${enrichedScore.stage.id} #${enrichedScore.round}`;
                     return enrichedScore;
                 });
             }
@@ -64,7 +67,7 @@ define('views/scores', [
             }, true);
 
             $scope.$watch(function () {
-                return $teams._teamsMap;
+                return $teams.teams;
             }, function (newValue, oldValue) {
                 if (newValue !== oldValue && indexIsTeamNum(newValue)) {
                     $scope.scores.forEach(function (score) {
@@ -72,6 +75,9 @@ define('views/scores', [
                     });
                     $scores._update();
                 }
+
+                $scope.scoresTableKeys[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
+                $scope.scoresTableKeys[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
             }, true);
 
             function indexIsTeamNum(teamMap) {
@@ -82,34 +88,49 @@ define('views/scores', [
 
             $scores.init().then(function() {
                 $scope.stages = $stages.stages;
+
+                $scope.scoresTableKeys[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
+                $scope.scoresTableKeys[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
+                $scope.scoresTableKeys[3].options = [];
+                $scope.stages.forEach(stage => {
+                    for(var round = 1; round <= stage.rounds; round++) {
+                        let match = `${stage.id} #${round}`;
+                        $scope.scoresTableKeys[3].options.push({ value: match, text: match });
+                    }
+                });
+                $scope.scoresTableKeys[4].options = $settings.settings.referees.map(ref => { return { value: ref.name, text: ref.name }; });
+                $scope.scoresTableKeys[5].options = $settings.settings.referees.map(table => { return { value: table.name, text: table.name }; });
             });
 
-            $scope.deleteScore = function (score) {
+            $scope.togglePublished = function(score) {
+                score.published = !score.published;
+                saveScore(score);
+            };
+
+            $scope.deleteScore = function(score) {
                 $scores.delete(score);
             };
 
-            $scope.editScore = function (score) {
-                score.$editing = true;
+            $scope.isEditing = function(score, key) {
+                if(key.editable) {
+                    return $scope.editing && $scope.editing.score === score && $scope.editing.key === key;
+                }
             };
 
-            $scope.publishScore = function (score) {
-                score.published = true;
-                saveScore(score);
+            $scope.startEditing = function(score, key) {
+                $scope.editing = { score: score, key: key };
+                $scope.originalValue = score[key];
             };
 
-            $scope.unpublishScore = function(score) {
-                var wasPublished = score.published;
-                score.published = false;
-                saveScore(score, wasPublished);
+            $scope.cancelEditing = function() {
+                $scope.editing.score[$scope.editing.key] = $scope.originalValue;
+                $scope.editing = undefined;
+                delete $scope.originalValue;
             };
 
-            $scope.finishEditScore = function (score) {
-                // The score entry is edited 'inline', then used to
-                // replace the entry in the scores list and its storage.
-                // Because scores are always 'sanitized' before storing,
-                // the $editing flag is automatically discarded.
-                score.$editing = false;
-                saveScore(score);
+            $scope.saveEditing = function() {
+                delete $scope.originalValue;
+                saveScore($scope.editing.score);
             };
 
             function saveScore(score, forceAutoBroadcast) {

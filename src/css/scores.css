@@ -45,7 +45,7 @@
     font-size: 1em;
 }
 
-#scores .scores-table thead, tbody {
+#scores .scores-table thead, #scores .scores-table tbody {
 	display: block;
 }
 
@@ -81,6 +81,21 @@
     overflow-x: auto;
 }
 
+#scores .scores-table .editing-form {
+	display: flex;
+}
+
+#scores .scores-table .editing-form i {
+    font-size: 1.5em;
+    margin: 0;
+    vertical-align: middle;
+    padding: 0.15em 0 0 0;
+}
+
+#scores .scores-table .editing-form i {
+	display: flex;
+}
+
 #scores .scores-table .index {
     flex: 0;
 }
@@ -89,7 +104,7 @@
     display: none;
 }
 
-#scores .scores-table .teamString {
+#scores .scores-table .teamFullName {
     flex: 4;
 }
 
@@ -97,12 +112,12 @@
     flex: 2;
 }
 
-#scores .scores-table .refAndTable {
-    flex: 2;
+#scores .scores-table .referee {
+    flex: 1;
 }
 
-#scores .scores-table .referee {
-    display: none;
+#scores .scores-table .table {
+    flex: 1;
 }
 
 #scores .scores-table .score {
@@ -113,16 +128,16 @@
     flex: 2;
 }
 
+#scores .scores-table .editing-form input,#scores .scores-table  .editing-form select {
+    width: calc(100% - 2em);
+}
+
 @media screen and (max-width: 1050px) {
 
-	#scores .scores-table .refAndTable {
+	#scores .scores-table .table {
 	    display: none;
 	}
 
-	#scores .scores-table .referee {
-	    display: block;
-	    flex: 1;
-	}
 
 }
 
@@ -168,7 +183,7 @@
 
 @media screen and (max-width: 400px) {
 
-	#scores .scores-table .teamString {
+	#scores .scores-table .teamFullName {
 	    display: none;
 	}
 

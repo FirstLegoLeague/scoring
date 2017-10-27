@@ -131,3 +131,7 @@ body {
     background: #EDFAFD; /* Glass */
     color: #2A93D5; /* Bondi Blue */
 }
+
+#scores .scores-table .editing-form i {
+    color: #135589; /* Marina */
+}

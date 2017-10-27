@@ -23,17 +23,40 @@
                                 </a>
                                 <i class="material-icons sort-icon" ng-click="setSort(key)">{{sortIcon(key)}}</i>
                             </td>
-                            <td class="actions">
-                                actions
-                            </td>
+                            <td class="actions"></td>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr ng-repeat="score in scores | orderBy:sort.key:rev | filter:search">
-                            <td ng-repeat="key in scoresTableKeys" ng-class="key.key">{{ score[key.key] }}</td>
+                            <td ng-repeat="key in scoresTableKeys" ng-class="key.key">
+                                <span ng-show="!isEditing(score, key)" ng-click="startEditing(score, key)">{{ score[key.key] }}</span>
+                                <div ng-show="isEditing(score, key)" class="editing-form">
+                                    <select ng-show="key.editable === 'options'" ng-model="score[key.savableValueKey]">
+                                        <option ng-repeat="option in key.options" ng-value="option.value">{{option.text}}</option>
+                                    </select>
+                                    <select ng-show="key.editable === 'complex-options'" ng-model="score[key.key]" ng-change="key.onChange(score)">
+                                        <option ng-repeat="option in key.options" ng-value="option.value">{{option.text}}</option>
+                                    </select>
+                                    <input ng-show="key.editable === 'text'" ng-model="score[key.savableValueKey]">
+                                    <i class="material-icons" ng-click="saveEditing()">done</i>
+                                    <i class="material-icons" ng-click="cancelEditing()">clear</i>
+                                </div>
+                            </td>
                             <td class="actions">
+                                <div class="btn-group">
+                                    <div class="btn btn-mini" ng-click="togglePublished(score)">
+                                        <i class="material-icons">{{ score.published ? 'remove_circle_outline' : 'add_circle_outline' }}</i>
+                                    </div>
+                                    <div class="btn btn-mini" ng-click="editScoresheet(score)">
+                                        <i class="material-icons">edit</i>
+                                    </div>
 
+                                    <div class="btn btn-mini btn-danger" ng-click="deleteScore(score)">
+                                        <i class="material-icons">delete</i>
+                                    </div>
+
+                                </div>
                             </td>
                         </tr>
                     </tbody>
