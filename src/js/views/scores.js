@@ -12,9 +12,11 @@ define('views/scores', [
 
             $scope.scoresTableKeys = [
             {   key: 'index', header: '#'   },
-            {   key: 'teamString', header: 'team'   },
+            {   key: 'teamNumber', header: 'team' },
+            {   key: 'teamString', header: 'team' },
             {   key: 'match', header: 'match'   },
             {   key: 'refAndTable', header: 'Referee and Table'   },
+            {   key: 'referee', header: 'Referee'   },
             {   key: 'score', header: 'score'   },
             ];
             $scope.sort = $scope.scoresTableKeys[0];
