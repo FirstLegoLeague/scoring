@@ -1,7 +1,7 @@
 <div ng-controller="settingsCtrl" id="settings">
     <tabset>
         <tab heading="Advanced settings">
-        	<div class="card main">
+        	<div class="card advanced main">
         		<div class="card-body">
                     <p>
                         <label for="autoBroadcast">
@@ -28,7 +28,14 @@
         	</div>
         </tab>
         <tab heading="Developer view">
-        	<div class="card main"></div>
+        	<div class="card developer main">
+
+		        <div class="card-header">Log</div>
+
+		        <pre class="log">
+		            <code ng-repeat="line in log track by $index">{{line}}<br></code>
+		        </pre>
+        	</div>
         </tab>
     </tabset>
 </div>

@@ -27,14 +27,18 @@
     margin-bottom: 0;
 }
 
-#settings .card.main {
+#settings .card.advanced {
     height: calc(100% - 2em);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-#settings .card-actions {
+#settings .card.advanced .card-actions {
     padding: 1em;
     align-self: center;
+}
+
+#settings .card.developer .log {
+    margin: 0 1em;
 }
