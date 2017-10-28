@@ -38,7 +38,8 @@ define([
                 { name: 'teams', title: 'Teams', icon: 'people' },
                 { name: 'scores', title: 'Scorekeeping', icon: 'list' },
                 { name: 'ranking', title: 'Ranking', icon: 'format_list_numbered' },
-                { name: 'settings', title: 'Settings', icon: 'settings' }
+                { name: 'settings', title: 'Settings', icon: 'settings' },
+                { name: 'clock', title: 'Clock', icon: 'alarm'}
             ];
 
             $scope.drawer = 'views/drawer.html';
