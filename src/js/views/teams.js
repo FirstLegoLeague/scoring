@@ -73,21 +73,6 @@ define('views/teams',[
                 });
             };
 
-            $scope.import = function() {
-                $handshake.$emit('importTeams').then(function(result) {
-                    if (result) {
-                        $teams.clear();
-                        result.teams.forEach(function(team) {
-                            $teams.add({
-                                number: team.number,
-                                name: team.name
-                            });
-                        });
-                        $scope.status = '';
-                    }
-                });
-            };
-
             $scope.selectTeam = function(team) {
                 $scope.setPage('scoresheet');
                 $scope.$root.$emit('selectTeam',team);

@@ -41,8 +41,6 @@ define('services/ng-settings',[
                 var defaults = {
                     tables: [{name: 'Table 1'}],
                     referees: [{name: 'Head referee'}],
-                    askTable: true,
-                    askReferee: true,
                     mhub: `ws://${window.location.hostname}:13900`,
                     node: 'default',
                     challenge: '2017_en_US-official',
@@ -68,7 +66,7 @@ define('services/ng-settings',[
             });
         };
 
-        
+
 
         Settings.prototype.save = function() {
             return $http.post('/settings/save',{settings: this.settings});

@@ -178,11 +178,11 @@ define('views/scores', [
 
             $scope.startEditing = function(score, key) {
                 $scope.editing = { score: score, key: key };
-                $scope.originalValue = score[key];
+                $scope.originalValue = score[key.key];
             };
 
             $scope.cancelEditing = function() {
-                $scope.editing.score[$scope.editing.key] = $scope.originalValue;
+                $scope.editing.score[$scope.editing.key.key] = $scope.originalValue;
                 $scope.editing = undefined;
                 delete $scope.originalValue;
             };
@@ -190,6 +190,7 @@ define('views/scores', [
             $scope.saveEditing = function() {
                 delete $scope.originalValue;
                 saveScore($scope.editing.score);
+                $scope.editing = undefined;
             };
 
             $scope.editScoresheet = function (score) {

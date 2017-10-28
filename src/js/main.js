@@ -2,10 +2,9 @@ define([
     'services/log',
     'services/ng-session',
     'views/settings',
-    'views/teams',
+    'views/tournament',
     'views/scoresheet',
     'views/scores',
-    'views/ranking',
     'views/clock',
     'services/ng-services',
     'directives/ng-directives',
@@ -20,7 +19,7 @@ define([
     'angular-sanitize',
     'angular-storage',
     'angular'
-],function(log,session,settings,teams,scoresheet,scores,ranking,clock,services,directives,size,filters,indexFilter,fsTest,dbTest) {
+],function(log,session,settings,tournament,scoresheet,scores,clock,services,directives,size,filters,indexFilter,fsTest,dbTest) {
 
     log('device ready');
 
@@ -37,7 +36,7 @@ define([
             const PAGES = [
                 { name: 'scoresheet', title: 'Scoresheet', icon: 'check' },
                 { name: 'scores', title: 'Scores', icon: 'list' },
-                { name: 'teams', title: 'Teams', icon: 'people' },
+                { name: 'tournament', title: 'Tournament', icon: 'people' },
                 { name: 'settings', title: 'Settings', icon: 'settings' }
             ];
 
@@ -102,10 +101,9 @@ define([
         'ngSanitize',
         'ngTouch',
         settings.name,
-        teams.name,
+        tournament.name,
         scoresheet.name,
         scores.name,
-        ranking.name,
         clock.name,
         filters.name,
         services.name,

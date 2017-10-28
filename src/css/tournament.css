@@ -1,0 +1,53 @@
+#tournament .card.card-header {
+    cursor: pointer;
+}
+
+#tournament .card.teams {
+    display: grid;
+    grid-template-rows: 3.5em 1fr;
+    min-height: 6em;
+}
+
+#tournament .card.teams table {
+	height: 30vh;
+    margin: 2em 1em;
+    width: calc(100% - 2em);
+}
+
+#tournament table td .placeholder {
+	font-style: italic;
+	color: grey;
+}
+
+#tournament .card.teams table .actions .btn-group {
+	float: right;
+}
+
+#tournament .card.teams table .actions .btn {
+    margin-top: 0.2em;
+    padding: 0.3em 0.5em 0 0.5em;
+}
+
+#tournament .card.teams .editing-form {
+	display: flex;
+}
+
+#tournament .card.teams .editing-form i {
+    font-size: 1.5em;
+    margin: 0;
+    vertical-align: middle;
+    padding: 0.15em 0 0 0;
+}
+
+#tournament .card.structure .card-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+#tournament .card.structure .currentStage {
+    background: lightgrey;
+}
+
+#tournament .card.challenge select {
+    margin: 0 1em 1em 1em;
+}
