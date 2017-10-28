@@ -11,42 +11,69 @@ define('views/scores', [
             log('init scores ctrl');
 
             $scope.scoresTableKeys = [
-            { key: 'index', header: '#', editable: false },
-            { key: 'teamNumber', header: 'team', editable: 'options', savableValueKey: 'teamNumber' },
-            { key: 'teamFullName', header: 'team', editable: 'options', savableValueKey: 'teamNumber' },
-            { key: 'match', header: 'match', editable: 'complex-options', onChange: score => {
-                let split = score.match.split(' #');
-                score.stageId = split[0];
-                score.round = parseInt(split[1]);
-            } },
-            { key: 'referee', header: 'Referee', editable: 'options', savableValueKey: 'referee' },
-            { key: 'table', header: 'Table', editable: 'options', savableValueKey: 'table' },
-            { key: 'score', header: 'score', editable: 'text', savableValueKey: 'score' }
+                { key: 'index', header: '#', editable: false },
+                { key: 'teamNumber', header: 'team', editable: 'options', savableValueKey: 'teamNumber' },
+                { key: 'teamFullName', header: 'team', editable: 'options', savableValueKey: 'teamNumber' },
+                { key: 'match', header: 'match', editable: 'complex-options', onChange: score => {
+                    let split = score.match.split(' #');
+                    score.stageId = split[0];
+                    score.round = parseInt(split[1]);
+                } },
+                { key: 'referee', header: 'Referee', editable: 'options', savableValueKey: 'referee' },
+                { key: 'table', header: 'Table', editable: 'options', savableValueKey: 'table' },
+                { key: 'score', header: 'score', editable: 'text', savableValueKey: 'score' }
             ];
-            $scope.sort = $scope.scoresTableKeys[0];
-            $scope.rev = true;
+            $scope.scoresTablesort = $scope.scoresTableKeys[0];
+            $scope.scoresReverse = true;
             $scope.search = '';
 
-            $scope.setSort = function(key) {
-                if($scope.sort === key)
-                    $scope.rev = !$scope.rev;
+            $scope.ranksTableKeys = [
+                { key: 'rank', header: '#' },
+            ];
+            $scope.ranksTableSort = $scope.ranksTableKeys[0];
+            $scope.ranksReverse = true;
+
+            $scope.exportFiles = {};
+
+            $scope.setScoresTableSort = function(key) {
+                if($scope.scoresTablesort === key)
+                    $scope.scoresReverse = !$scope.scoresReverse;
                 else
-                    $scope.sort = key;
+                    $scope.scoresTablesort = key;
             };
 
-            $scope.sortIcon = function (key) {
+            $scope.setRanksTableSort = function(key) {
+                if($scope.ranksTableSort === key)
+                    $scope.ranksReverse = !$scope.ranksReverse;
+                else
+                    $scope.ranksTableSort = ranksReverse;
+            };
+
+            $scope.scoresSortIcon = function (key) {
                 if($scope.sort !== key) {
                     return '';
                 }
 
-                if ($scope.rev) {
+                if ($scope.scoresReverse) {
                     return 'arrow_drop_down';
                 } else {
                     return 'arrow_drop_up';
                 }
             };
 
-            function enrich(scores) {
+            $scope.scoresSortIcon = function (key) {
+                if($scope.sort !== key) {
+                    return '';
+                }
+
+                if ($scope.ranksReverse) {
+                    return 'arrow_drop_down';
+                } else {
+                    return 'arrow_drop_up';
+                }
+            };
+
+            function enrichScores(scores) {
                 return scores.map((score, index) => {
                     var enrichedScore = {};
                     for(var key in score) enrichedScore[key] = score[key];
@@ -60,10 +87,29 @@ define('views/scores', [
                 });
             }
 
+            function formatRanks(scoreboard) {
+                let result = {};
+                for(let stageId in scoreboard) {
+                    let stage = scoreboard[stageId];
+                    result[stageId] = stage.filter(rank => {
+                        rank.teamNumber = rank.team.number;
+                        rank.teamFullName = `#${rank.team.number} ${rank.team.name}`;
+                        rank.highScore = rank.highest ? rank.highest.score : undefined;
+                        rank.scores.forEach((score, index) => {
+                            if(score) {
+                                rank[`round_${index+1}`] = score.score
+                            }
+                        });
+                        return rank.scores.filter(score => score !== undefined).length;
+                    });
+                }
+                return result;
+            }
+
             $scope.$watch(function () {
                 return $scores.scores;
             }, function () {
-                $scope.scores = enrich($scores.scores);
+                $scope.scores = enrichScores($scores.scores);
             }, true);
 
             $scope.$watch(function () {
@@ -79,6 +125,15 @@ define('views/scores', [
                 $scope.scoresTableKeys[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
                 $scope.scoresTableKeys[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
             }, true);
+
+            $scope.$watch(() => $scores.scoreboard, function () {
+                $scope.scoreboard = formatRanks($scores.scoreboard);
+                buildExportFiles();
+            }, true);
+
+            $scope.$watch(() => $settings.settings.lineStartString, buildExportFiles);
+            $scope.$watch(() => $settings.settings.separatorString, buildExportFiles);
+            $scope.$watch(() => $settings.settings.lineEndString, buildExportFiles);
 
             function indexIsTeamNum(teamMap) {
                 return !Object.keys(teamMap).some((key)=>{
@@ -99,7 +154,11 @@ define('views/scores', [
                     }
                 });
                 $scope.scoresTableKeys[4].options = $settings.settings.referees.map(ref => { return { value: ref.name, text: ref.name }; });
-                $scope.scoresTableKeys[5].options = $settings.settings.referees.map(table => { return { value: table.name, text: table.name }; });
+                $scope.scoresTableKeys[5].options = $settings.settings.tables.map(table => { return { value: table.name, text: table.name }; });
+
+                $scope.viewedStage = ($settings.settings.currentStage || $scope.stages[0]).id;
+                $scope.recalcRanksKeys();
+                $scores.getRankings();
             });
 
             $scope.togglePublished = function(score) {
@@ -133,6 +192,29 @@ define('views/scores', [
                 saveScore($scope.editing.score);
             };
 
+            $scope.editScoresheet = function (score) {
+                $scope.setPage($scope.pages.find(function (p) {return p.name === "scoresheet"}));
+                $rootScope.$broadcast("editScoresheet", score)
+            };
+
+            $scope.broadcast = function() {
+                $scores.broadcastRanking($stages.get($scope.viewedStage));
+            };
+
+            $scope.recalcRanksKeys = function() {
+                $scope.ranksTableKeys = [
+                    { key: 'rank', header: '#' },
+                    { key: 'teamNumber', header: 'team' },
+                    { key: 'teamFullName', header: 'team' },
+                    { key: 'highScore', header: 'high' },
+                ];
+                for(var i = 1; i <= $stages.get($scope.viewedStage).rounds; i++) {
+                    $scope.ranksTableKeys.push({ key: `round_${i}`, header: `round ${i}` })
+                }
+                $scope.ranksTableSort = $scope.ranksTableKeys[0];
+                $scope.ranksReverse = true;
+            };
+
             function saveScore(score, forceAutoBroadcast) {
                 try {
                     $scores.update(score, forceAutoBroadcast);
@@ -141,20 +223,28 @@ define('views/scores', [
                 }
             }
 
-            $scope.cancelEditScore = function (score) {
-                score.$editing = false;
+            function buildExportFiles() {
+                Object.keys($scope.scoreboard).forEach(function (stageID) {
+                    var teams = $scope.scoreboard[stageID];
+                    teams = teams.map(function (teamEntry) {
+                        return [teamEntry.rank, teamEntry.team.number,
+                            teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores);
+                    });
+                    $scope.exportFiles[stageID] = "data:text/csv;charset=utf-8,"+encodeURIComponent(encodeArray(teams));
+                });
             };
 
-            $scope.refresh = function () {
-
-            }
-            $scope.editScoresheet = function (score) {
-                $scope.setPage($scope.pages.find(function (p) {return p.name === "scoresheet"}));
-                $rootScope.$broadcast("editScoresheet", score)
+            function encodeArray(array) {
+                var string = "";
+                var settings = $settings.settings;
+                array.forEach(function (row) {
+                    row = row.map((elem) => elem || elem === 0 ? String(elem) : "");
+                    string = string.concat(settings.lineStartString ? String(settings.lineStartString) : "");
+                    string = string.concat(row.join(settings.separatorString ? String(settings.separatorString) : ""));
+                    string = string.concat((settings.lineEndString ? String(settings.lineEndString) : "") + "\r\n");
+                });
+                return string;
             };
 
-            $scope.refresh = function() {
-                $scores.load();
-            };
         }]);
 });

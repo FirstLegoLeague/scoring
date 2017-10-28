@@ -1,39 +1,36 @@
 <div ng-controller="scoresCtrl" id="scores">
     <tabset>
         <tab heading="Score entries">
-            <div class="main card">
+            <div class="scores main card">
                 <div class="card-top">
                     <div class="card-header">Score entries</div>
                     <form class="card-menu">
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                <input type="text" class="form-control" placeholder="Search in scores" ng-model="search">
+                                <input type="text" class="form-control" placeholder="Filter scores" ng-model="search">
                             </div>
                         </div>
                     </form>
                 </div>
                 <table class="table scores-table">
-
                     <thead>
                         <tr>
                             <td ng-repeat="key in scoresTableKeys" ng-class="key.key">
-                                <a href="#" ng-click="setSort(key)">
+                                <a href="#" ng-click="setScoresTableSort(key)">
                                     {{key.header}}
                                 </a>
-                                <i class="material-icons sort-icon" ng-click="setSort(key)">{{sortIcon(key)}}</i>
+                                <i class="material-icons sort-icon" ng-click="setScoresTableSort(key)">{{sortIcon(key)}}</i>
                             </td>
                             <td class="actions"></td>
                         </tr>
                     </thead>
-
                     <tbody>
-                        <tr ng-repeat="score in scores | orderBy:sort.key:rev | filter:search">
-                            <td ng-repeat="key in scoresTableKeys" ng-class="key.key">
-                                <span ng-show="!isEditing(score, key)" ng-click="startEditing(score, key)">{{ score[key.key] }}</span>
+                        <tr ng-repeat="score in scores | orderBy:scoresTableSort.key:scoresReverse | filter:search" ng-class="{error: score.error}">
+                            <td ng-repeat="key in scoresTableKeys" ng-class="key.key" ng-show="!score.showError">
+                                <span ng-show="!isEditing(score, key)" ng-click="startEditing(score, key)">{{score[key.key]}}</span>
                                 <div ng-show="isEditing(score, key)" class="editing-form">
                                     <select ng-show="key.editable === 'options'" ng-model="score[key.savableValueKey]">
-                                        <option ng-repeat="option in key.options" ng-value="option.value">{{option.text}}</option>
+                                        <option ng-repeat="option in key.options" ng-selected="option.value === score[key.savableValueKey]" ng-value="option.value">{{option.text}}</option>
                                     </select>
                                     <select ng-show="key.editable === 'complex-options'" ng-model="score[key.key]" ng-change="key.onChange(score)">
                                         <option ng-repeat="option in key.options" ng-value="option.value">{{option.text}}</option>
@@ -43,8 +40,15 @@
                                     <i class="material-icons" ng-click="cancelEditing()">clear</i>
                                 </div>
                             </td>
+                            <td ng-show="score.error && score.showError" class="error-description">
+                                {{score.error.message}}
+                            </td>
                             <td class="actions">
                                 <div class="btn-group">
+                                    <div class="btn btn-danger" ng-show="score.error" ng-click="score.showError = !score.showError">
+                                        <i class="material-icons">error</i>
+                                    </div>
+
                                     <div class="btn" ng-click="togglePublished(score)">
                                         <i class="material-icons">{{ score.published ? 'remove_circle_outline' : 'add_circle_outline' }}</i>
                                     </div>
@@ -55,156 +59,57 @@
                                     <div class="btn btn-danger" ng-click="deleteScore(score)">
                                         <i class="material-icons">delete</i>
                                     </div>
-
                                 </div>
                             </td>
                         </tr>
                     </tbody>
-
                 </table>
             </div>
         </tab>
-        <tab heading="Ranks">
-            <div class="main card">
-                <div class="card-header">Ranks</div>
+        <tab heading="Rankings">
+            <div class="ranks main card">
+                <div class="card-top">
+                    <div class="card-header">Rankings</div>
+                    <div class="card-menu">
+                        <a class="btn" href="{{exportFiles[viewedStage]}}" download="{{'ranking_' + viewedStage + '.csv'}}">
+                            <i class="material-icons">file_download</i>Download
+                        </a>
+                        <div class="btn" ng-click="broadcastRanking()">
+                            <i class="material-icons">publish</i>
+                            Broadcast
+                        </div>
+                        <select ng-model="viewedStage" ng-change="recalcRanksKeys()">
+                            <option ng-repeat="option in stages" ng-selected="option.id === viewedStage" ng-value="option.id">{{option.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                 <table class="table scores-table">
+
+                    <thead>
+                        <tr>
+                            <td ng-repeat="key in ranksTableKeys" ng-class="key.key">
+                                <a href="#" ng-click="setRanksTableKeys(key)">
+                                    {{key.header}}
+                                </a>
+                                <i class="material-icons sort-icon" ng-click="setRanksTableKeys(key)">{{sortIcon(key)}}</i>
+                            </td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="rank in scoreboard[viewedStage] | orderBy:ranksTablesort.key:ranksReverse">
+                            <td ng-repeat="key in ranksTableKeys" ng-class="key.key">
+                                {{rank[key.key]}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </tab>
     </tabset>
 </div>
 
-<!-- <div ng-controller="scoresCtrl">
-    <p>Showing {{scores.length}} scores.</p>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr class="clickable sortable">
-                <th class="span1" ng-click="doSort('index',true)">
-                    <span ># </span>
-                    <i  class="material-icons">{{sortIcon('index')}}</i>
-                </th>
-                <th class="span3" ng-click="doSort(['stage.index','-index'],false)">
-                    <span >Stage </span>
-                    <i class="material-icons">{{sortIcon(['stage.index','-index'])}}</i>
-                </th>
-                <th class="span2" ng-click="doSort(['round.index','round','-index'],false)">
-                    <span >Round </span>
-                    <i class="material-icons">{{sortIcon(['round.index','round','-index'])}}</i>
-                </th>
-                <th class="span2" ng-click="doSort('table',false)">
-                    <span >Table </span>
-                    <i class="material-icons">{{sortIcon('table')}}</i>
-                </th>
-                <th class="span2" ng-click="doSort('team.number',false)">
-                    <span >Team </span>
-                    <i class="material-icons">{{sortIcon('team.number')}}</i>
-                </th>
-                <th class="span2" ng-click="doSort('team.name',false)">
-                    <span >Name </span>
-                    <i class="material-icons">{{sortIcon('team.name')}}</i>
-                </th>
-                <th class="span2" ng-click="doSort('score',true)">
-                    <span >Score </span>
-                    <i class="material-icons">{{sortIcon('score')}}</i>
-                </th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tr ng-repeat="score in scores | index | orderBy:sort:rev track by score.index" ng-class="{error: score.error, warning: score.modified && !score.error}">
-            <td>{{score.index + 1}}</td>
-            <td>
-                <i class="material-icons" ng-show="score.error.name == 'UnknownStageError'" title="{{score.error.message}}">error</i>
-                <span ng-if="!score.$editing">
-                    {{score.stage.name}}
-                </span>
-                <span ng-if="score.$editing">
-                    <select ng-model="score.stageId" ng-options="stage.id as stage.name for stage in stages" style="width: 130px"></select>
-                </span>
-            </td>
-            <td>
-                <i class="material-icons" ng-show="score.error.name == 'UnknownRoundError'" title="{{score.error.message}}">error</i>
-                <span ng-if="!score.$editing">
-                    {{score.round}}
-                </span>
-                <span ng-if="score.$editing">
-                    <input style="width:50px" type="text" ng-model="score.round">
-                </span>
-            </td>
-            <td>
-                <span ng-if="!score.$editing">
-                    {{score.table}}
-                </span>
-                <span ng-if="score.$editing">
-                    <input style="width:50px" type="text" ng-model="score.table">
-                </span>
-            </td>
-            <td>
-                <i class="material-icons" ng-show="score.error.name == 'UnknownTeamError'" title="{{score.error.message}}">error</i>
-                <span ng-if="!score.$editing">
-                    {{score.team.number}}
-                </span>
-                <span ng-if="score.$editing">
-                    <input style="width:50px" type="text" ng-model="score.teamNumber">
-                </span>
-            </td>
-            <td>{{score.team.name}}</td>
-            <td>
-                <i class="material-icons" ng-show="score.error.name == 'InvalidScoreError'" title="{{score.error.message}}">error</i>
-                <span ng-if="!score.$editing">
-                    {{score.score}}
-                </span>
-                <span ng-if="score.$editing">
-                    <input style="width:50px" type="text" ng-model="score.score">
-                </span>
-                <i class="material-icons" ng-show="score.error.name == 'DuplicateScoreError'" title="{{score.error.message}}">error</i>
-            </td>
-            <td>
-                <button class="btn"
-                    ng-if="!score.published"
-                    ng-click="publishScore(score)"
-                >
-                    Publish
-                </button>
-                <button class="btn"
-                    ng-if="score.published"
-                    ng-click="unpublishScore(score)"
-                >
-                    Unpublish
-                </button>
-                <button class="btn btn-default"
-                    ng-if="!score.$editing"
-                    ng-click="editScore(score)"
-                >
-                    <i class="material-icons">mode_edit</i>
-                    Edit
-                </button>
-                <button class="btn btn-default"
-                    ng-if="score.$editing"
-                    ng-click="finishEditScore(score)"
-                >
-                    <i class="material-icons">mode_edit</i>
-                    Save
-                </button>
-                <button class="btn btn-danger"
-                    ng-if="!score.$editing"
-                    fll-really-message="Are you sure you want to completely remove score {{score.score}} for round {{score.match.round}} of team {{score.team.name}}?" fll-really-click="deleteScore(score)">
-                    <i class="material-icons">delete</i>
-                    Delete
-                </button>
-                <button class="btn btn-default"
-                    ng-if="score.$editing"
-                    ng-click="cancelEditScore(score)"
-                >
-                    Cancel
-                </button>
-                <button class="btn btn-default" ng-click="editScoresheet(score)">
-                    <i class="material-icons">format_align_justify</i>
-                    Edit Scoresheet
-                </button>
-
-            </td>
-        </tr>
-    </table>
-    <p>Showing {{scores.length}} scores.</p>
-</div>
+<!--
 <div ng-controller="rankingCtrl">
     <div ng-repeat="stage in stages">
         <p class="pull-right" style="margin-top: 1em;">

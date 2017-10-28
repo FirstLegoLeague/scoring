@@ -51,9 +51,7 @@ define('views/ranking',[
                     stages: $scope.stages
                 });
             };
-            //TODO: this is a very specific message tailored to display system.
-            //we want less contract here
-            $scope.broadcastRanking = (stage) =>  $scores.broadcastRanking(stage);
+
 
             $scope.doSort = function(stage, col, defaultSort) {
                 if (stage.sort === undefined) {
@@ -90,66 +88,6 @@ define('views/ranking',[
             $scope.emptyCols = function(stage) {
                 return new Array($scope.maxRounds() - stage.$rounds.length);
             };
-
-            /**
-             * encodes a two dimensional array as a string according to the settings
-             * specified by the user as reported by the ng-settings.$settings service
-             *
-             * @param array the array to be encoded
-             * @returns {string} the encoded string form of the array
-             */
-            $scope.encodeArray = function (array) {
-                var string = "";
-                var settings = $settings.settings;
-                array.forEach(function (row) {
-                    row = row.map((elem) => elem || elem === 0 ? String(elem) : "");
-                    string = string.concat(settings.lineStartString ? String(settings.lineStartString) : "");
-                    string = string.concat(row.join(settings.separatorString ? String(settings.separatorString) : ""));
-                    string = string.concat((settings.lineEndString ? String(settings.lineEndString) : "") + "\r\n");
-                });
-                return string;
-            };
-
-            $scope.exportFiles = {};
-
-            /**
-             * Builds the .csv file for exporting score for each stage and assigns it
-             * to exportFiles in the field corresponding to that stage's id
-             */
-            $scope.buildExportFiles= function () {
-                Object.keys($scope.scoreboard).forEach(function (stageID) {
-                    var teams = $scope.scoreboard[stageID];
-                    teams = teams.map(function (teamEntry) {
-                        return [teamEntry.rank, teamEntry.team.number,
-                            teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores);
-                    });
-                    $scope.exportFiles[stageID] = "data:text/csv;charset=utf-8,"+encodeURIComponent($scope.encodeArray(teams));
-                });
-            };
-
-            $scope.$watch("scoreboard", function () {
-               $scope.buildExportFiles();
-            }, true);
-
-            $scope.$watch(() => $scores.scoreboard, function () {
-                $scope.scoreboard = removeEmptyRanks($scores.scoreboard)
-            }, true);
-
-            $scope.$watch(() => $settings.settings.lineStartString, () => $scope.buildExportFiles());
-            $scope.$watch(() => $settings.settings.separatorString, () => $scope.buildExportFiles());
-            $scope.$watch(() => $settings.settings.lineEndString, () => $scope.buildExportFiles());
-
-            $settings.init().then(function () {//we have to wait for settings to initialize otherwise $scope.settings gets set to undefined
-               $scope.settings = $settings.settings;
-            });
-            $scope.stages = $stages.stages;
-            $scope.scoreboard = $scores.scoreboard;
-
-            $scope.getRoundLabel = function(round){
-                return "Round " + round;
-            };
-
-
         }
     ]);
 });

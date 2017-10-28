@@ -51,7 +51,6 @@
 
 #scores .scores-table tr {
 	display: flex;
-	justify-content: space-between;
 }
 
 #scores .scores-table tr:after {
@@ -132,9 +131,42 @@
     flex: 2;
 }
 
+#scores .scores-table .error-description {
+    flex: 6;
+}
+
+#scores .scores-table .error-description {
+    flex: 6;
+}
+
+#scores .scores-table .actions .btn-group {
+    float: right;
+}
+
 #scores .scores-table .actions .btn {
     margin-top: 0.2em;
     padding: 0.3em 0.5em 0 0.5em;
+}
+
+#scores .ranks .card-menu {
+    display: flex;
+    flex: 1;
+}
+
+#scores .ranks .card-menu .btn {
+    display: inline-block;
+    height: 1.5em;
+    margin: 0 0.5em;
+    flex: 1;
+    line-height: 1.5em;
+}
+
+#scores .ranks .card-menu .btn i {
+    vertical-align: middle;
+}
+
+#scores .ranks .card-menu select {
+    flex: 0;
 }
 
 @media screen and (max-width: 1050px) {
@@ -162,7 +194,7 @@
 
 @media screen and (max-width: 710px) and (min-width: 100vh) {
 
-	#scores .card-menu {
+	#scores .scores .card-menu {
 		display: none;
 	}
 
@@ -174,7 +206,7 @@
 
 @media screen and (max-width: 520px) {
 
-	#scores .card-menu {
+	#scores .scores.card-menu {
 		display: none;
 	}
 

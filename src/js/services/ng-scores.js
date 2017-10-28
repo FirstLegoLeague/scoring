@@ -270,6 +270,7 @@ define('services/ng-scores',[
                     return scoreboard;
                 });
             } else {
+                console.log(this.validationErrors);
                 return new Promise(function(resolve) {
                     resolve(self.scoreboard);
                 });
