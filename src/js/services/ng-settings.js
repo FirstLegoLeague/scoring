@@ -54,21 +54,22 @@ define('services/ng-settings',[
                 };
                 //create settings file if not there
                 log('settings read error, trying to create file', err);
+                self.settings = defaults;
                 var data = { settings: defaults };
                 return $http.post("/settings/save", data).then(function (data, status) {
                     log(`Settings saved to settings.json: ${JSON.stringify(data)}`);
+                    return self.settings;
                 },function (err) {
                     log('Failed writing settings', err);
                 });
             }).catch(function(err) {
                 //return ephemeral settings
                 log('unable to create settings file, giving up', err);
-                self.settings = {};
                 return self.settings;
             });
         };
 
-        
+
 
         Settings.prototype.save = function() {
             return $http.post('/settings/save',{settings: this.settings});
