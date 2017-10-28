@@ -1,0 +1,40 @@
+#settings {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+#settings > *:first-child {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+#settings .tab-content {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#settings .tab-content .tab-pane.active {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#settings .nav-tabs {
+    padding: 0.25em 0 0 0;
+    margin-bottom: 0;
+}
+
+#settings .card.main {
+    height: calc(100% - 2em);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#settings .card-actions {
+    padding: 1em;
+    align-self: center;
+}

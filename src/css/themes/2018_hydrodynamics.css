@@ -116,13 +116,13 @@ body {
 
 /* scores */
 
-#scores .nav-tabs {
+.nav-tabs {
     background: #2A93D5; /* Bondi Blue */
     color: #EDFAFD; /* Glass */
     border-bottom: 1px solid #135589; /* Marina */
 }
 
-#scores .nav-tabs li a {
+.nav-tabs li a {
     border: 1px solid #135589; /* Marina */
     color: #EDFAFD; /* Glass */
     border-bottom: none;
@@ -130,12 +130,12 @@ body {
     font-weight: bold;
 }
 
-#scores .nav-tabs li.active a {
+.nav-tabs li.active a {
     background: #AED9DA; /* Chill */
     color: #135589; /* Marina */
 }
 
-#scores .nav-tabs li a:hover {
+.nav-tabs li a:hover {
     background: #EDFAFD; /* Glass */
     color: #2A93D5; /* Bondi Blue */
 }

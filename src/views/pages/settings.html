@@ -1,10 +1,34 @@
 <div ng-controller="settingsCtrl" id="settings">
-        <tabset>
+    <tabset>
         <tab heading="Advanced settings">
-
+        	<div class="card main">
+        		<div class="card-body">
+                    <p>
+                        <label for="autoBroadcast">
+                            <input id="autoBroadcast" type="checkbox" ng-model="settings.autoBroadcast">
+                            Auto Broadcast:
+                        </label>
+                    </p>
+                    <p>
+                        <label for="autoPublish">
+                            <input id="autoPublish" type="checkbox" ng-model="settings.autoPublish">
+                            Auto Publish
+                        </label>
+                    </p>
+                    <p>
+                        <label for="ignoreNegativeScores">
+                            <input id="ignoreNegativeScores" type="checkbox" ng-model="settings.ignoreNegativeScores">
+                            Broadcast 0 for negative scores
+                        </label>
+                    </p>
+                </div>
+				<div class="card-actions">
+					<div class="btn" ng-click="saveSettings()">Save settings</div>
+				</div>
+        	</div>
         </tab>
         <tab heading="Developer view">
-
+        	<div class="card main"></div>
         </tab>
     </tabset>
 </div>
