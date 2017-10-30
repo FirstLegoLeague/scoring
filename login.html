@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FLL scoring - Login</title>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="components/bootstrap-css/css/bootstrap.min.css">
+    <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="components/bootstrap-css/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="components/bootstrap-show-password/bootstrap-show-password.min.js"></script>
 </head>
-
-<body>
 <style>
-body {
-    min-height: 100vh;
-    background-color: dodgerblue;
-}
-form {
-    margin: 1em auto;
-    width: 30%;
-}
-.field {
-    font-family: sans-serif;
-    padding: 0.2em 0;
-}
-.field label {
-    color: white;
-    font-weight: bold;
-}
-.field input {
-    border: none;
-    border-radius: 1em;
-    text-indent: 1em;
-    font-size: 14px;
-}
-.field button {
-     color: dodgerblue;
-    font-weight: bold;
-    border: none;
-    border-radius: 1em;
-    font-size: 14px;
-    width: 40%;
-    margin: 0.2em 0;
-}
+    html, body {
+        margin: 0;
+        height: 100%;
+    }
+
+    label {
+        padding-right: 1em;
+        font-weight: bold;
+    }
+
+    body {
+        background-size: contain;
+        background: grey url("img/FIRSTLego_IconVert_RGB.png") no-repeat center;
+    }
+
+    form {
+        margin: 2em auto;
+    }
+
 </style>
-    <form action="/login" method="post">
-        <div class="field">
-            <label>Username:</label>
-            <input type="text" name="username" />
+<body>
+
+<div class="container">
+    <form class="form-horizontal" action="/login" method="post">
+        <div class="control-group input-append">
+            <label class="control-label" for="user">Username: </label>
+            <div class="controls">
+                <input type="text" name="username" id="user" class="form-control" value="ref">
+            </div>
         </div>
-        <div class="field">
-            <label>Password:</label>
-            <input type="password" name="password" />
+        <div class="control-group">
+            <label class="control-label" for="password">Password: </label>
+            <div class="controls">
+                <input type="password" id="password" name="password" class="form-control" data-toggle="password">
+            </div>
         </div>
-        <div class="field">
-            <button>Submit</button>
+        <div class="controls">
+            <button class="btn btn-success">Submit</button>
         </div>
     </form>
+</div>
 </body>
 </html>
