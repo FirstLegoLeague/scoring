@@ -33,6 +33,6 @@ exports.beforeLayer = function(req, res, next) {
 };
 
 exports.afterLayer = function(req, res, next) {
-    req.log.debug(`Completed ${res.statusCode}`);
+    exports.log(`Completed status ${res.statusCode}`);
     next();
 };

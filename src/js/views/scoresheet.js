@@ -319,10 +319,10 @@ define('views/scoresheet',[
                 var completedRoundsInCurrentStage = $scores.scores.filter((score)=>{
                     return score.teamNumber === team.number && score.stageId === currentStageObject.id;
                 }).map((score)=>score.round);
-                var firstNotCompleted = currentStageObjectcurrentStageObject.$rounds.find((round)=>{
+                var firstNotCompleted = currentStageObject.$rounds.find((round)=>{
                     return completedRoundsInCurrentStage.indexOf(round) === -1;
                 });
-                $scope.scoreEntry.stageId = $settings.currentStage;
+                $scope.scoreEntry.stage = currentStageObject;
                 $scope.scoreEntry.round = firstNotCompleted;
             }
 

@@ -62,7 +62,7 @@ describe('ng-settings',function() {
                 expect($settings.settings).toEqual(defaults);
                 done();
             });
-            
+
         });
         it('should write a default settings file if the file is not there',function(done) {
             var defaults = {
@@ -87,19 +87,32 @@ describe('ng-settings',function() {
                 done();
             });
             $rootScope.$digest();
-            
-            
+
+
         });
-        it('should just create local settings if no file could be created',function(done) {
-            defaults = {};
+        it('should just use the default settings if no settings file could be created',function(done) {
+            var defaults = {
+                tables: [{name:'Table 1'}],
+                referees: [{name:'Head referee'}],
+                askTable: true,
+                askReferee: true,
+                mhub: `ws://${window.location.hostname}:13900`, //notice that window.location in necessary because you can't know where the karma server will run
+                node: 'default',
+                challenge: '2017_en_US-official',
+                host: window.location.origin + '/',
+                autoPublish: true,
+                autoBroadcast: true,
+                currentStage: 'practice',
+                ignoreNegativeScores: true
+            }
             $settings.settings = {}; //this is how settings starts out
             $settings.load().then(function(){
-                expect($settings.settings).toEqual({});
+                expect($settings.settings).toEqual(defaults);
                 $rootScope.$digest();
                 done();
             });
-            
-            
+
+
         });
     });
 
@@ -110,7 +123,7 @@ describe('ng-settings',function() {
                 expect(httpMock.post).toHaveBeenCalledWith('/settings/save',{settings: 'foo'});
                 done();
             });
-            
+
         });
     });
 });

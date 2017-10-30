@@ -70,7 +70,7 @@ define('services/ng-scores',[
 
             // Watching for changes in currentStage
             $rootScope.$watch(() => $settings.settings.currentStage, function (newValue, oldValue, scope){
-                if($settings.settings.currentStage) {
+                if(oldValue && $settings.settings.currentStage) {
                     self.broadcastRanking($stages.get($settings.settings.currentStage));
                 }
             },true);
