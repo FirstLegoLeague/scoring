@@ -24,6 +24,7 @@ npm-shrinkwrap.json
 !src/components/angular-touch/angular*.js
 !src/components/angular-touch/angular*.map
 !src/components/angular-bootstrap/*.js
+!src/components/bootstrap-show-password/*.js
 !src/components/angular-storage/*.js
 
 !src/components/bootstrap-css/css
