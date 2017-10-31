@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <link rel="icon" href="img/first-favicon.ico" />
+    <title>FLL scoring - Login</title>
     <link rel="stylesheet" type="text/css" href="components/bootstrap-css/css/bootstrap.min.css">
     <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="components/bootstrap-css/js/bootstrap.min.js"></script>
@@ -10,7 +11,20 @@
 <style>
     html, body {
         margin: 0;
-        height: 100%;
+    }
+
+    .container {
+        margin-top: calc(50vh - 15em);
+        background: rgba(255, 255, 255, 0.75);
+        width: 40vw;
+        border: 2px solid white;
+        border-radius: 5px
+    }
+
+    img.logo {
+        height: 6em;
+        margin: 1em auto;
+        display: block;
     }
 
     label {
@@ -19,35 +33,74 @@
     }
 
     body {
-        background-size: contain;
-        background: grey url("img/FIRSTLego_IconVert_RGB.png") no-repeat center;
+        background: url("img/login_background.jpg") no-repeat center;
+        background-size: cover;
     }
 
     form {
-        margin: 2em auto;
+        margin: 1em auto;
+    }
+
+    .input-container {
+        margin: 1em auto;
+        width: 50%;
+    }
+
+    .input-container *:not(button) {
+        width: 100%;
+    }
+
+    .input-container button {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .password input {
+        border-radius: 4px !important;
+    }
+
+    span.add-on.input-group-addon {
+        outline: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+    pre {
+        background: none;
+        border: none;
+        font: 1rem sans-serif;
+        line-height: 1.5em;
+        font-weight: bold;
+        word-break: break-word;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    pre.description {
+        padding-bottom: 1em;
     }
 
 </style>
 <body>
 
 <div class="container">
+    <img src="/img/FIRSTLego_IconVert_RGB.png" class="logo"/>
+<pre>Welcome to the FLL scoring system!</pre>
     <form class="form-horizontal" action="/login" method="post">
-        <div class="control-group input-append">
-            <label class="control-label" for="user">Username: </label>
-            <div class="controls">
-                <input type="text" name="username" id="user" class="form-control" value="ref">
-            </div>
+        <div class="input-container">
+            <input type="text" placeholder="username" name="username" id="user" class="form-control" autofocus>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="password">Password: </label>
-            <div class="controls">
-                <input type="password" id="password" name="password" class="form-control" data-toggle="password">
-            </div>
-        </div>
-        <div class="controls">
+        <div class="input-container password">
+            <input type="password" placeholder="password" id="password" name="password" class="form-control" data-toggle="password">
+        </div class="input-container">
+        <div class="input-container">
             <button class="btn btn-success">Submit</button>
         </div>
     </form>
+<pre class="description">In order to log in, please insert a username and a password.
+If you don't know the passwords, you Tournemeant official can see them in the Server software, under a link named "passwords".</pre>
 </div>
 </body>
 </html>
