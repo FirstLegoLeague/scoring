@@ -26,6 +26,7 @@
     "jquery": "~2.0.3",
     "q": "~1.4.1",
     "requirejs": "~2.1.8",
-    "signature-pad": "https://github.com/thomasjbradley/signature-pad/archive/master.zip"
+    "signature-pad": "https://github.com/thomasjbradley/signature-pad/archive/gh-pages.zip",
+    "bootstrap-show-password": "~1.0.3"
   }
 }
