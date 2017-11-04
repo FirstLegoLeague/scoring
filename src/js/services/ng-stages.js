@@ -82,7 +82,7 @@ define('services/ng-stages',[
             if (!stage) {
                 return;
             }
-            this._rawStages.splice(stage.index, 1);
+            this._rawStages.splice(this._rawStages.indexOf(stage), 1);
             this._update();
         };
 
@@ -123,27 +123,10 @@ define('services/ng-stages',[
          * clipping to top or bottom of the list
          */
         Stages.prototype.moveStage = function(stage,steps) {
-            var oldIndex = stage.index;
-            var rawStage = this._rawStages[oldIndex];
-            // changes made in the stages (name or round number) were only changing
-            // $scope.stages and so when moveStage is called, those changes are lost.
-            // to fix this, we iterate over the properties of the stage we are about to move
-            // and for each one, we set it to equal the matching value from the stage passed
-            // as a parameter.
-            //
-            // the `stage` parameter contains any changes made to the stage (in the browser) before
-            // being saved to a file.
-
-            // this essentially updates the rawStage object.
-
-            Object.keys(rawStage).forEach((key)=>{
-                rawStage[key] = stage[key];
-            });
-            //remove from the list
-            this._rawStages.splice(oldIndex,1);
-            //calculate insert position
-            var newIndex = Math.max(0,Math.min(this._rawStages.length,oldIndex + steps));
-            this._rawStages.splice(newIndex,0,rawStage);
+            var oldIndex = this._rawStages.indexOf(stage);
+            var newIndex = oldIndex + steps;
+            this._rawStages.splice(oldIndex, 1);
+            this._rawStages.splice(newIndex, 0, stage);
             this._update();
         };
 

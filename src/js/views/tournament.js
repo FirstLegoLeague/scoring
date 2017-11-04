@@ -10,8 +10,8 @@ define('views/tournament', [
 ], function (log) {
     var moduleName = 'tournament';
     return angular.module(moduleName, ['TeamImportDialog']).controller(moduleName + 'Ctrl', [
-        '$scope', '$stages', '$teams', '$settings','$challenge','$handshake',
-        function ($scope, $stages, $teams, $settings,$challenge, $handshake) {
+        '$scope', '$stages', '$teams', '$settings','$challenge','$handshake', '$message',
+        function ($scope, $stages, $teams, $settings, $challenge, $handshake, $message) {
             log('init tournament ctrl');
 
             $scope.show = {};
@@ -110,6 +110,20 @@ define('views/tournament', [
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete'
+                    }, {
+                        onClick: (stage) => {
+                            $stages.moveStage(stage, -1);
+                            $stages.save();
+                        },
+                        show: (stage) => $scope.stages.indexOf(stage) !== 0,
+                        icon: 'arrow_upward'
+                    }, {
+                        onClick: (stage) => {
+                            $stages.moveStage(stage, 1);
+                            $stages.save();
+                        },
+                        show: (stage) => $scope.stages.indexOf(stage) !== $scope.stages.length - 1,
+                        icon: 'arrow_downward'
                     }
                 ],
                 edit: {
@@ -129,8 +143,19 @@ define('views/tournament', [
                 row: {
                     classes: (stage) => `stage_${stage.id}`
                 },
-                disableSort: true
+                sort: (stage1, stage2) => $scope.stages.indexOf(stage1) - $scope.stages.indexOf(stage2)
             };
+
+            $scope.$watch(function () {
+                return $settings.settings.currentStage;
+            }, function () {
+                $settings.currentStageObject = $stages.get($settings.settings.currentStage);
+                $message.send("settings:currentStage",$settings.settings.currentStage);
+            }, true);
+
+            $message.on('settings:currentStage',function(data){
+                $settings.currentStageObject = $stages.get(data);
+            },true);
 
             $settings.init().then(function() {
                 $scope.settings = $settings.settings;

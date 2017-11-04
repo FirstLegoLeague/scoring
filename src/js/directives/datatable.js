@@ -51,6 +51,7 @@ define('directives/datatable',[
                         classes: attrConfig.row ? (attrConfig.row.classes || returnEmptyString) : returnEmptyString,
                         show: attrConfig.row ? (attrConfig.row.show || returnTrue) : returnTrue
                     },
+                    sort: attrConfig.sort,
                     search: attrConfig.search || returnEmptyString
                 };
 
@@ -61,7 +62,7 @@ define('directives/datatable',[
                     reverse: attrConfig.reverse || false,
                     get: () => scope.sort.sort,
                     set: (column) => {
-                        if(attrConfig.disableSort) {
+                        if(cope.sort.disabled) {
                             return;
                         }
                         if(scope.sort.sort === column) {
@@ -71,7 +72,7 @@ define('directives/datatable',[
                         }
                     },
                     icon: (column) => {
-                        if(attrConfig.disableSort || scope.sort.sort !== column) {
+                        if(scope.sort.disabled || scope.sort.sort !== column) {
                             return '';
                         }
                         if (scope.sort.reverse) {
@@ -80,7 +81,7 @@ define('directives/datatable',[
                             return 'arrow_drop_up';
                         }
                     },
-                    disabled: attrConfig.disableSort
+                    disabled: attrConfig.sort || attrConfig.disableSort,
                 };
 
                 if(attrConfig.edit) {
