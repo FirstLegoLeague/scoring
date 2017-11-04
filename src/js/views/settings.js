@@ -12,90 +12,38 @@ define('views/settings',[
     return angular.module(moduleName,[
         'NewStageDialog'
     ]).controller(moduleName+'Ctrl',[
-        '$scope', '$stages','$settings','$q','$handshake','$challenge','$message',
-        function($scope, $stages, $settings, $q, $handshake,$challenge,$message) {
+        '$scope', '$settings',
+        function($scope, $settings) {
             log('init settings ctrl');
             $scope.log = log.get();
-            // initialize first tab
-            $scope.tab = 1;
 
-            $q.all([$settings.init(),$challenge.getChallenges()]).then(function(res) {
-                $scope.settings = res[0];
-                $scope.settings.tables = res[0].tables||[];
-                $scope.settings.referees = res[0].referees||[];
-                $scope.challenges = res[1];
+            $settings.init().then(function(res) {
+                $scope.settings = res;
+
+                $scope.advancedSettings = [
+                    {
+                        type: 'checkbox',
+                        model: $scope.settings.autoBroadcast,
+                        title: 'Automatic publishing',
+                        description: 'When enabled, upon every change in the score, the display system will be updated.'
+                    }, {
+                        type: 'checkbox',
+                        model: $scope.settings.autoPublish,
+                        title: 'Automatic approval',
+                        description: 'When enabled, scores submitted will be automatically approved.'
+                    }, {
+                        type: 'checkbox',
+                        model: $scope.settings.ignoreNegativeScores,
+                        title: 'Ignore negative scores',
+                        description: 'When enabled, all negative scores will be displayed as 0 in the display system.'
+                    }
+                ];
             });
 
-            $scope.addItem = function(collection) {
-                collection.push({});
-            };
-
-            $scope.$watch(function () {
-                return $settings.settings.currentStage;
-            }, function () {
-                $settings.currentStageObject = $stages.get($settings.settings.currentStage);
-                $message.send("settings:currentStage",$settings.settings.currentStage);
-            }, true);
-
-            //specialized adding for tables, finds a number in the name and adds 1 to it
-            $scope.addTable = function() {
-                var collection = $scope.settings.tables;
-                var last = collection[collection.length-1];
-                var number = last && last.name && last.name.match(/\d+/);
-                if (number) {
-                    collection.push({
-                        name: last.name.replace(number,parseInt(number,10)+1)
-                    });
-                } else {
-                    collection.push({});
-                }
-            }
-            $scope.removeItem = function(collection,index) {
-                collection.splice(index,1);
-            };
-
             $scope.save = function() {
-                return $q.all($settings.save(), saveStages());
+                $settings.save();
             };
 
-            function saveStages() {
-                //update all stages
-                var stages = angular.copy($scope.allStages);
-                $stages.clear();
-                stages.forEach(function(stage) {
-                    return $stages.add(stage);
-                });
-                
-                return $stages.save();
-            };
-
-            $scope.removeStage = function(stage) {
-                return $stages.remove(stage.id);
-            };
-
-            $scope.moveDown = function(stage) {
-                return $stages.moveStage(stage,1);
-            };
-
-            $scope.moveUp = function(stage) {
-                return $stages.moveStage(stage,-1);
-            };
-
-            //new stage
-            $scope.createStage = function() {
-                return $handshake.$emit('newStage').then(function(result) {
-                    if (result) {
-                        return $stages.add(result.stage);
-                    }
-                });
-            };
-
-            $scope.allStages = $stages.allStages;
-
-            $message.on('settings:currentStage',function(data){
-                $settings.currentStageObject = $stages.get(data);
-            },true);
-            
         }
     ]);
 });

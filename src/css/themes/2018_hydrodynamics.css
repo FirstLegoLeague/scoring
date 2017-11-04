@@ -176,8 +176,20 @@ ng-datatable thead {
     padding: 1rem;
 }
 
-/* Tournament */
+/* tournament */
 
 #tournament .card.structure .currentStage {
     background: #AED9DA; /* Chill */
+}
+
+/* settings */
+
+.setting {
+    border: 1px lightblue solid;
+    margin: 0.5em;
+    padding: 0.5em;
+}
+
+.setting .setting-title {
+    color: #135589; /* Marina */
 }

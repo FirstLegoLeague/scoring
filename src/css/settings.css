@@ -41,4 +41,19 @@
 
 #settings .card.developer .log {
     margin: 0 1em;
+    max-height: 65vh;
+    overflow-y: auto;
+}
+
+#settings .setting input {
+    vertical-align: top;
+}
+
+#settings .setting .setting-title {
+    display: inline;
+    font-weight: bold;
+}
+
+#settings .setting .setting-description {
+    text-indent: 1.2em;
 }
