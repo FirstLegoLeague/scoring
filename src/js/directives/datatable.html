@@ -4,14 +4,15 @@
             <td ng-repeat="column in config.columns" ng-if="column.header" ng-class="column.field">
                 <div>
                     <i class="material-icons sort-icon" ng-click="sort.set(column)">{{sort.icon(column)}}</i>
-                    <a href="#" ng-click="sort.set(column)">{{column.header}}</a>
+                    <a ng-show="!sort.disabled" href="#" ng-click="sort.set(column)">{{column.header}}</a>
+                    <span ng-show="sort.disabled">{{column.header}}</span>
                 </div>
             </td>
             <td ng-if="config.actions.length" class="actions"></td>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in collection | orderBy:sort.sort.field:sort.reverse | filter:search" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
+        <tr ng-repeat="item in collection | orderBy:sort.sort.field:sort.reverse | filter:config.search()" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
             <td ng-repeat="column in config.columns" ng-class="column.field" ng-show="column.show(item)" ng-click="onCellClick(item, column)">
 
                 <span ng-show="!edit || !edit.is(item, column)" ng-click="onCellClick(item, column)">{{item[column.field]}}</span>
@@ -64,11 +65,7 @@
                 </div>
             </td>
 
-            <td class="create-message" ng-show="create.showMessage" ng-click="create.disableMessage()">
-                <span ng-click="create.disableMessage()">{{create.message}}</span>
-            </td>
-
-            <td class="actions">
+            <td class="actions" ng-show="!create.showMessage">
                 <div class="btn-group">
                     <div class="btn" class="save" ng-click="create.reset()">
                         <i class="material-icons">undo</i>
@@ -78,6 +75,11 @@
                     </div>
                 </div>
             </td>
+
+            <td class="create-message" ng-show="create.showMessage" ng-click="create.disableMessage()">
+                <span ng-click="create.disableMessage()">{{create.message}}</span>
+            </td>
+
         </tr>
     </tbody>
 </table>

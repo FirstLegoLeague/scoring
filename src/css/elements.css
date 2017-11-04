@@ -69,9 +69,21 @@ i.material-icons.big {
     flex: 1;
 }
 
+.card .card-header i {
+    vertical-align: bottom;
+}
+
+
 .card .card-top .card-menu {
-    flex: 0;
     padding: 1.5rem;
+    margin: 0;
+}
+
+.card .card-top .card-menu > * {
+    display: inline-block;
+}
+
+.card .card-top .card-menu input {
     margin: 0;
 }
 

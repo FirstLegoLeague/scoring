@@ -4,14 +4,14 @@ define('directives/datatable',[
     return module.directive('ngDatatable',['$timeout', function($timeout) {
         return {
             restrict: 'E',
+            scope: {},
             link: function(scope, element, attrs) {
                 var doNothing = () => {};
                 var returnTrue = () => true;
                 var returnEmptyString = () => '';
 
-                var attrConfig = scope.$eval(attrs.config);
-                var attrCollection = scope.$eval(attrs.collection);
-                var attrSearch = scope.$eval(attrs.search);
+                var attrConfig = scope.$parent.$eval(attrs.config);
+                var attrCollection = scope.$parent.$eval(attrs.collection);
 
                 scope.config = {
                     columns: attrConfig.columns.map(column => {
@@ -50,17 +50,20 @@ define('directives/datatable',[
                     row: {
                         classes: attrConfig.row ? (attrConfig.row.classes || returnEmptyString) : returnEmptyString,
                         show: attrConfig.row ? (attrConfig.row.show || returnTrue) : returnTrue
-                    }
+                    },
+                    search: attrConfig.search || returnEmptyString
                 };
 
                 scope.collection = attrCollection || [];
-                scope.search = attrSearch || '';
 
                 scope.sort = {
                     sort: scope.config.columns[attrs.config.sort || 0],
                     reverse: attrConfig.reverse || false,
                     get: () => scope.sort.sort,
                     set: (column) => {
+                        if(attrConfig.disableSort) {
+                            return;
+                        }
                         if(scope.sort.sort === column) {
                             scope.sort.reverse = !scope.sort.reverse;
                         } else {
@@ -68,7 +71,7 @@ define('directives/datatable',[
                         }
                     },
                     icon: (column) => {
-                        if(scope.sort.sort !== column) {
+                        if(attrConfig.disableSort || scope.sort.sort !== column) {
                             return '';
                         }
                         if (scope.sort.reverse) {
@@ -76,7 +79,8 @@ define('directives/datatable',[
                         } else {
                             return 'arrow_drop_up';
                         }
-                    }
+                    },
+                    disabled: attrConfig.disableSort
                 };
 
                 if(attrConfig.edit) {
@@ -86,7 +90,7 @@ define('directives/datatable',[
                             if(column.edit) {
                                 scope.edit.editing = { item: item, column: column, originalValue: angular.copy(item[column.field]) }
                                 $timeout(() => {
-                                    angular.element(`ng-datatable tbody tr.${scope.config.row.classes(item)} td.${column.field} .${column.edit}`).focus();
+                                    angular.element(`ng-datatable#${attrConfig.id} tbody tr.${scope.config.row.classes(item)} td.${column.field} .${column.edit}`).focus();
                                 });
                             }
                         },
@@ -118,7 +122,7 @@ define('directives/datatable',[
                         disableMessage: () => {
                             scope.create.showMessage = false;
                             $timeout(() => {
-                                angular.element('ng-datatable tbody tr:last-child td:first-child').triggerHandler('click');
+                                angular.element(`ng-datatable#${attrConfig.id} tbody tr:last-child td:first-child`).triggerHandler('click');
                             });
                         },
                         reset: () => {

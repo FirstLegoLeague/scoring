@@ -2,184 +2,40 @@
 
     <div class="teams card">
         <div class="card-top">
-            <div class="card-header" ng-click="teams.show = !teams.show">
+            <div class="card-header" ng-click="show.teams = !show.teams">
                 <i class="material-icons">{{showIcon(teams.show)}}</i>
                 Teams
             </div>
             <div class="card-menu">
+                <div class="input-container">
+                    <input type="text" placeholder="search teams" class="form-control" ng-model="teamsSearch">
+                </div>
                 <div class="btn" ng-click="importTeams()">Import</div>
             </div>
         </div>
-        <ng-datatable collection="teams" config="teamsTableConfig" ng-show="teams.show" class="scrollable-body"></ng-datatable>
+        <ng-datatable id="teams-table" collection="teams" config="teamsTableConfig" ng-show="show.teams" class="scrollable-body"></ng-datatable>
     </div>
 
     <div class="structure card">
-        <div class="card-header" ng-click="structure.show = !structure.show">
+        <div class="card-header" ng-click="show.structure = !show.structure">
             <i class="material-icons">{{showIcon(structure.show)}}</i>
-            Tournameant structure
+            Tournament structure
         </div>
 
-        <div class="card-body" ng-show="structure.show">
-            <table class="table stages-table">
-                <thead>
-                    <tr>
-                        <td ng-class="name">Name</td>
-                        <td ng-class="rounds">Rounds</td>
-                        <td class="actions"></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="stage in stages" ng-class="{ currentStage: settings.currentStage === stage.id }">
-                        <td ng-class="name">
-                            <div ng-show="!isEditing(stage, {key: 'name'})" ng-click="startEditing(stage, {key: 'name'})" ng-class="{placeholder: !stage.name}">{{ valueOrPlaceholder(stage, {key: 'name'}) }}</div>
-                            <div ng-show="isEditing(stage, {key: 'name'})" class="editing-form">
-                                <input ng-model="stage.name">
-                                <i class="material-icons" ng-click="saveEditing()">done</i>
-                                <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                            </div>
-                        </td>
-                        <td ng-class="rounds">
-                            <div ng-show="!isEditing(stage, {key: 'rounds'})" ng-click="startEditing(stage, {key: 'rounds'})">{{ stage.rounds || 0 }}</div>
-                            <div ng-show="isEditing(stage, {key: 'rounds'})" class="editing-form">
-                                <input type="number" ng-model="stage.rounds">
-                                <i class="material-icons" ng-click="saveEditing()">done</i>
-                                <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                            </div>
-                        </td>
-                        <td class="actions">
-                            <div class="btn-group">
-                                <div class="btn" ng-click="setCurrentStage(stage)">
-                                    <i class="material-icons">label_outline</i>
-                                </div>
-                                <div class="btn btn-danger" ng-click="deleteStage(stage)">
-                                    <i class="material-icons">delete</i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td ng-class="name">
-                            <div ng-show="!isEditing(newStage, {key: 'name'})" ng-click="startEditing(newStage, {key: 'name'})" ng-class="{placeholder: newStage.name === undefined}">{{ valueOrPlaceholder(newStage, {key: 'name'}) }}</div>
-                            <div ng-show="isEditing(newStage, {key: 'name'})" class="editing-form">
-                                <input ng-model="newStage.name">
-                                <i class="material-icons" ng-click="saveEditing()">done</i>
-                                <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                            </div>
-                        </td>
-                        <td ng-class="rounds">
-                            <div ng-show="!isEditing(newStage, {key: 'rounds'})" ng-click="startEditing(newStage, {key: 'rounds'})" ng-class="{placeholder: newStage.rounds === undefined}">{{ valueOrPlaceholder(newStage, {key: 'rounds'}) }}</div>
-                            <div ng-show="isEditing(newStage, {key: 'rounds'})" class="editing-form">
-                                <input ng-model="newStage.rounds">
-                                <i class="material-icons" ng-click="saveEditing()">done</i>
-                                <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                            </div>
-                        </td>
-                        <td class="actions">
-                            <div class="btn-group">
-                                <div class="btn" ng-click="saveNewStage()" ng-class="{ disabled: !(newStage.name && newStage.rounds) }">
-                                    <i class="material-icons">save</i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table referees-table">
-                <thead>
-                    <tr>
-                        <td ng-class="name">Referees</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="ref in settings.referees">
-                        <td ng-class="name">
-                            <div ng-show="!isEditing(ref, {key: 'name'})" ng-click="startEditing(ref, {key: 'name'})" ng-class="{placeholder: !ref.name}">{{ valueOrPlaceholder(ref, {key: 'name'}) }}</div>
-                            <div ng-show="isEditing(ref, {key: 'name'})" class="editing-form">
-                                <input ng-model="ref.name">
-                                <i class="material-icons" ng-click="saveEditing()">done</i>
-                                <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                            </div>
-                        </td>
-                        <td class="actions">
-                            <div class="btn-group">
-                                <div class="btn btn-danger" ng-click="deleteRef(ref)">
-                                    <i class="material-icons">delete</i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td ng-class="name">
-                            <div ng-show="!isEditing(newRef, {key: 'name'})" ng-click="startEditing(newRef, {key: 'name'})" ng-class="{placeholder: !newRef.name}">{{ valueOrPlaceholder(newRef, {key: 'name'}) }}</div>
-                            <div ng-show="isEditing(newRef, {key: 'name'})" class="editing-form">
-                                <input ng-model="newRef.name">
-                                <i class="material-icons" ng-click="saveEditing()">done</i>
-                                <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                            </div>
-                        </td>
-                        <td class="actions">
-                            <div class="btn-group">
-                                <div class="btn" ng-click="saveNewRef()">
-                                    <i class="material-icons">save</i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table tables-table">
-                <thead>
-                    <tr>
-                        <td ng-class="name">Tables</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="table in settings.tables">
-                        <td ng-class="name">
-                            <div ng-show="!isEditing(table, {key: 'name'})" ng-click="startEditing(table, {key: 'name'})" ng-class="{placeholder: !table.name}">{{ valueOrPlaceholder(table, {key: 'name'}) }}</div>
-                            <div ng-show="isEditing(table, {key: 'name'})" class="editing-form">
-                                <input ng-model="table.name">
-                                <i class="material-icons" ng-click="saveEditing()">done</i>
-                                <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                            </div>
-                        </td>
-                        <td class="actions">
-                            <div class="btn-group">
-                                <div class="btn btn-danger" ng-click="deleteTable(table)">
-                                    <i class="material-icons">delete</i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td ng-class="name">
-                            <div ng-show="!isEditing(newTable, {key: 'name'})" ng-click="startEditing(newTable, {key: 'name'})" ng-class="{placeholder: !newTable.name}">{{ valueOrPlaceholder(newTable, {key: 'name'}) }}</div>
-                            <div ng-show="isEditing(newTable, {key: 'name'})" class="editing-form">
-                                <input ng-model="newTable.name">
-                                <i class="material-icons" ng-click="saveEditing()">done</i>
-                                <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                            </div>
-                        </td>
-                        <td class="actions">
-                            <div class="btn-group">
-                                <div class="btn" ng-click="saveNewTable()">
-                                    <i class="material-icons">save</i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="card-body" ng-show="show.structure">
+            <ng-datatable id="stages-table" collection="stages" config="stagesTableConfig" class="scrollable-body"></ng-datatable>
+            <ng-datatable id="referees-table" collection="settings.referees" config="refereesTableConfig" class="scrollable-body"></ng-datatable>
+            <ng-datatable id="tables-table" collection="settings.tables" config="tablesTableConfig" class="scrollable-body"></ng-datatable>
         </div>
     </div>
 
     <div class="challenge card">
-        <div class="card-header" ng-click="challenge.show = !challenge.show">
+        <div class="card-header" ng-click="show.challenge = !show.challenge">
             <i class="material-icons">{{showIcon(challenge.show)}}</i>
             Challenge
         </div>
 
-        <div ng-show="challenge.show">
+        <div ng-show="show.challenge">
             <select ng-model="settings.challenge" ng-options="challenge for challenge in challenges" ng-change="saveSettings()" />
         </div>
 

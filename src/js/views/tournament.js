@@ -14,50 +14,14 @@ define('views/tournament', [
         function ($scope, $stages, $teams, $settings,$challenge, $handshake) {
             log('init tournament ctrl');
 
-            $scope.sortIcon = function (key) {
-                if($scope.sort !== key) {
-                    return '';
-                }
-
-                if ($scope.teamsReverse) {
-                    return 'arrow_drop_down';
-                } else {
-                    return 'arrow_drop_up';
-                }
-            };
+            $scope.show = {};
 
             $scope.showIcon = function(show) {
                 return show ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
             };
 
-            $scope.valueOrPlaceholder = function(object, key) {
-                return object[key.key] || 'Add value';
-            };
-
-            $scope.isEditing = function(object, key) {
-                return $scope.editing && $scope.editing.object === object && $scope.editing.key.key === key.key;
-            };
-
-            $scope.startEditing = function(object, key) {
-                $scope.editing = { object: object, key: key };
-                $scope.originalValue = object[key.key];
-            };
-
-            $scope.cancelEditing = function() {
-                $scope.editing.object[$scope.editing.key.key] = $scope.originalValue;
-                $scope.editing = false;
-                delete $scope.originalValue;
-            };
-
-            $scope.saveEditing = function(sendToServer) {
-                delete $scope.originalValue;
-                $scope.editing = false;
-                if(sendToServer || sendToServer === undefined) {
-                    $teams.save();
-                }
-            };
-
             $scope.teamsTableConfig = {
+                id: 'teams-table',
                 columns: [
                     { field: 'number', header: '#', edit: 'text' },
                     { field: 'name', header: 'Name', edit: 'text' },
@@ -76,7 +40,6 @@ define('views/tournament', [
                             $teams.remove(team.number);
                             $teams.save();
                         },
-                        show: (team) => team !== $scope.newTeam,
                         classes: () => 'btn-danger',
                         icon: 'delete'
                     }
@@ -95,12 +58,15 @@ define('views/tournament', [
                 },
                 row: {
                     classes: (team) => `team_${team.number}`
-                }
+                },
+                search : () => $scope.teamsSearch
             };
 
             $teams.init().then(function() {
                 $scope.teams = $teams._rawTeams;
             });
+
+            $scope.teamsSearch = '';
 
             $scope.importTeams = function() {
                 $handshake.$emit('importTeams').then(function(result) {
@@ -117,69 +83,119 @@ define('views/tournament', [
                 });
             }
 
-            $scope.structure = {
-                show: false
-            };
-
-            $scope.newStage = {};
-            $scope.newRef = {};
-            $scope.newTable = {};
-
             $stages.init().then(function() {
                 $scope.stages = $stages._rawStages;
             });
 
-            $scope.deleteStage = function(stage) {
-                $stages.remove(stage.id);
-                $stages.save();
+            $scope.stagesTableConfig = {
+                id: 'stages-table',
+                columns: [
+                    { field: 'name', header: 'Name', edit: 'text' },
+                    { field: 'rounds', header: '# of rounds', edit: 'text' }
+                ],
+                actions: [
+                    {
+                        onClick: (stage) => {
+                            if($scope.settings.currentStage === stage.id) {
+                                return;
+                            }
+                            $scope.settings.currentStage = stage.id;
+                            $settings.save();
+                        },
+                        icon: 'input'
+                    }, {
+                        onClick: (stage) => {
+                            $stages.remove(stage.id);
+                            $stages.save();
+                        },
+                        classes: () => 'btn-danger',
+                        icon: 'delete'
+                    }
+                ],
+                edit: {
+                    onSave: () => {
+                        $settings.save()
+                    }
+                },
+                create: {
+                    message: 'New stage',
+                    save: (newStage) => {
+                        newStage.id = newStage.name.replace(' ', '_');
+                        newStage.rounds = newStage.rounds || 0;
+                        $scope.stages.push(newStage);
+                        $stages.save();
+                    }
+                },
+                row: {
+                    classes: (stage) => `stage_${stage.id}`
+                },
+                disableSort: true
             };
-
-            $scope.saveNewStage = function() {
-                $scope.newStage.id = newStage.name;
-                $scope.newStage.rounds = $scope.newStage.rounds || 0;
-                $scope.stages.push($scope.newStages);
-                $stages.save();
-                $scope.newStage = {};
-            };
-
-            $scope.setCurrentStage = function(stage) {
-                if($scope.settings.currentStage === stage.id) {
-                    return;
-                }
-                $scope.settings.currentStage = stage.id;
-                $settings.save();
-            }
 
             $settings.init().then(function() {
                 $scope.settings = $settings.settings;
             });
 
-            $scope.deleteRef = function(ref) {
-                let index = $scope.settings.referees.indexOf(ref);
-                $scope.settings.referees.splice(index, 1);
-                $settings.save();
+            $scope.refereesTableConfig = {
+                id: 'referees-table',
+                columns: [
+                    { field: 'name', header: 'Name', edit: 'text' }
+                ],
+                actions: [
+                    {
+                        onClick: (ref) => {
+                            let index = $scope.settings.referees.indexOf(ref);
+                            $scope.settings.referees.splice(index, 1);
+                            $settings.save();
+                        },
+                        classes: () => 'btn-danger',
+                        icon: 'delete'
+                    }
+                ],
+                edit: {
+                    onSave: () => $settings.save()
+                },
+                create: {
+                    message: 'New referee',
+                    save: (newRef) => {
+                        $scope.settings.referees.push(newRef);
+                        $settings.save();
+                    }
+                },
+                row: {
+                    classes: (ref) => `ref_${ref.name.replace(' ', '_')}`
+                }
             };
 
-            $scope.saveNewRef = function() {
-                $scope.settings.tables.push($scope.newRef);
-                $settings.save();
-                $scope.newRef = {};
-            };
-
-            $scope.deleteTable = function(table) {
-                let index = $scope.settings.tables.indexOf(table);
-                $scope.settings.tables.splice(index, 1);
-                $settings.save();
-            };
-
-            $scope.saveNewTable = function() {
-                $scope.settings.tables.push($scope.newTable);
-                $settings.save();
-                $scope.newTable = {};
-            };
-
-            $scope.challenge = {
-                show: false
+            $scope.tablesTableConfig = {
+                id: 'tables-table',
+                columns: [
+                    { field: 'name', header: 'Name', edit: 'text' }
+                ],
+                actions: [
+                    {
+                        onClick: (table) => {
+                            let index = $scope.settings.tables.indexOf(table);
+                            $scope.settings.tables.splice(index, 1);
+                            $settings.save();
+                        },
+                        classes: () => 'btn-danger',
+                        icon: 'delete'
+                    }
+                ],
+                edit: {
+                    onSave: () => $settings.save()
+                },
+                create: {
+                    message: 'New referee',
+                    save: (newTable) => {
+                        $scope.settings.tables.push(newTable);
+                        $settings.save();
+                    }
+                },
+                row: {
+                    classes: (table) => `table_${table.name.replace(' ', '_')}`
+                }
             };
 
             $challenge.getChallenges().then(challenges => {
@@ -187,7 +203,7 @@ define('views/tournament', [
             });
 
             $scope.saveSettings = function() {
-                saveSettings();
+                $settings.save();
             };
         }
     ]);

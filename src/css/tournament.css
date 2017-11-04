@@ -8,38 +8,52 @@
     min-height: 5.5em;
 }
 
-#tournament .card.teams ng-datatable tbody {
+#tounament ng-datatable td.create-message {
+    font-size: 1.5rem !important;
+    text-align: center;
+    cursor: pointer;
+}
+
+#teams-table tbody {
     height: 30vh;
 }
 
-#tournament .card.teams td.number { flex: 1.5; }
-#tournament .card.teams td.name { flex: 4; }
-#tournament .card.teams td.cityState { flex: 2; }
-#tournament .card.teams td.country { flex: 2; }
-#tournament .card.teams td.affiliation { flex: 2; }
-#tournament .card.teams td.coach1 { flex: 2; }
-#tournament .card.teams td.coach2 { flex: 2; }
-#tournament .card.teams td.judgingGroup { flex: 3; }
-#tournament .card.teams td.pitLocation { flex: 2; }
-#tournament .card.teams td.translationNeeded { flex: 2; }
-#tournament .card.teams td.actions { flex: 1; }
+#teams-table td.number { flex: 1.5; }
+#teams-table td.name { flex: 4; }
+#teams-table td.cityState { flex: 2; }
+#teams-table td.country { flex: 2; }
+#teams-table td.affiliation { flex: 2; }
+#teams-table td.coach1 { flex: 2; }
+#teams-table td.coach2 { flex: 2; }
+#teams-table td.judgingGroup { flex: 3; }
+#teams-table td.pitLocation { flex: 2; }
+#teams-table td.translationNeeded { flex: 2; }
+#teams-table td.actions { flex: 1; }
 
-#tournament .card.teams td.create-message {
-	flex: 22.5;
-    font-size: 2rem;
-    text-align: center;
-    cursor: pointer;
+.card.structure tbody {
+    max-height: 30vh;
+}
+
+#stages-table td.name { flex: 1; }
+#stages-table td.rounds { flex:1; }
+#stages-table td.actions { flex: 1; }
+
+#referees-table td.name { flex: 3; }
+#referees-table td.actions { flex: 1; }
+
+#tables-table td.name { flex: 3; }
+#tables-table td.actions { flex: 1; }
+
+#stages-table .currentStage {
+    background: lightgrey;
 }
 
 #tournament .card.structure .card-body {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-}
-
-#tournament .card.structure .currentStage {
-    background: lightgrey;
+    grid-gap: 1.5em;
 }
 
 #tournament .card.challenge select {
-    margin: 0 1em 1em 1em;
+    margin: 1em;
 }
