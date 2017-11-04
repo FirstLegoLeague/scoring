@@ -10,57 +10,7 @@
                 <div class="btn" ng-click="importTeams()">Import</div>
             </div>
         </div>
-        <table class="table teams-table" ng-show="teams.show">
-            <thead>
-                <tr>
-                    <td ng-repeat="key in teamsTableKeys" ng-class="key.key">
-                        <a href="#" ng-click="setTeamsTableSort(key)">
-                            {{key.header}}
-                        </a>
-                        <i class="material-icons sort-icon" ng-click="setTeamsTableSort(key)">{{sortIcon(key)}}</i>
-                    </td>
-                    <td class="actions">
-
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="team in teams | orderBy:teamsTableSort.key:teamsReverse | filter:search">
-                    <td ng-repeat="key in teamsTableKeys" ng-class="key.key">
-                        <div ng-show="!isEditing(team, key)" ng-click="startEditing(team, key)" ng-class="{placeholder: !team[key.key]}">{{ valueOrPlaceholder(team, key) }}</div>
-                        <div ng-show="isEditing(team, key)" class="editing-form">
-                            <input ng-model="team[key.key]" placeholder="Add value">
-                            <i class="material-icons" ng-click="saveEditing()">done</i>
-                            <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                        </div>
-                    </td>
-                    <td class="actions">
-                        <div class="btn-group">
-                            <div class="btn btn-danger" ng-click="deleteTeam(team)">
-                                <i class="material-icons">delete</i>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td ng-repeat="key in teamsTableKeys" ng-class="key.key">
-                        <div ng-show="!isEditing(newTeam, key)" ng-click="startEditing(newTeam, key)" ng-class="{placeholder: !newTeam[key.key]}">{{ valueOrPlaceholder(newTeam, key) }}</div>
-                        <div ng-show="isEditing(newTeam, key)" class="editing-form">
-                            <input ng-model="newTeam[key.key]" placeholder="Add value">
-                            <i class="material-icons" ng-click="saveEditing(false)">done</i>
-                            <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                        </div>
-                    </td>
-                    <td class="actions">
-                        <div class="btn-group">
-                            <div class="btn" ng-click="saveNewTeam()" ng-class="{ disabled: !(newTeam.number && newTeam.name) }">
-                                <i class="material-icons">save</i>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <ng-datatable collection="teams" config="teamsTableConfig" ng-show="teams.show" class="scrollable-body"></ng-datatable>
     </div>
 
     <div class="structure card">

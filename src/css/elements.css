@@ -79,6 +79,69 @@ i.material-icons.big {
     padding: 1em;
 }
 
-.card .card-actions {
+/* ng-datatble directive global styles */
 
+ng-datatable thead td i {
+    margin: 0 !important;
+    vertical-align: middle;
+}
+
+ng-datatable tr {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 4em;
+}
+
+ng-datatable td {
+    min-width: 3em;
+}
+
+ng-datatable td > * {
+    margin-top: 0.5em;
+    display: block;
+}
+
+ng-datatable .actions .btn-group {
+    float: right;
+}
+
+ng-datatable .actions .btn {
+    margin-top: 0.2em;
+    padding: 0.3em 0.5em 0 0.5em;
+}
+
+ng-datatable .editing-form {
+    display: flex;
+}
+
+ng-datatable .editing-form input, ng-datatable .editing-form select {
+    width: 0;
+    flex: 1;
+}
+
+ng-datatable .editing-form i {
+    font-size: 1.5em;
+    margin: 0 !important;
+    vertical-align: middle;
+    padding: 0.15em 0 0 0;
+    flex: 0;
+}
+
+ng-datatable td.create-message {
+    flex: 22.5;
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+ng-datatable.scrollable-body thead {
+    display: block;
+    width: 100%;
+}
+
+ng-datatable.scrollable-body tbody {
+    overflow-y: auto;
+    display: block;
+    width: 100%;
 }

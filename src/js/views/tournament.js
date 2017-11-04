@@ -57,40 +57,50 @@ define('views/tournament', [
                 }
             };
 
-            $scope.teams = {
-                show: true
+            $scope.teamsTableConfig = {
+                columns: [
+                    { field: 'number', header: '#', edit: 'text' },
+                    { field: 'name', header: 'Name', edit: 'text' },
+                    { field: 'cityState',header: 'City & State', edit: 'text' },
+                    { field: 'country', header: 'Country',      edit: 'text' },
+                    { field: 'affiliation', header: 'Affiliation',  edit: 'text' },
+                    { field: 'coach1', header: 'Coach 1',      edit: 'text' },
+                    { field: 'coach2', header: 'Coach 1',      edit: 'text' },
+                    { field: 'judgingGroup', header: 'Judging Group',edit: 'text' },
+                    { field: 'pitLocation', header: 'Pit location', edit: 'text' },
+                    { field: 'translationNeeded', header: 'Translation?', edit: 'text' },
+                ],
+                actions: [
+                    {
+                        onClick: (team) => {
+                            $teams.remove(team.number);
+                            $teams.save();
+                        },
+                        show: (team) => team !== $scope.newTeam,
+                        classes: () => 'btn-danger',
+                        icon: 'delete'
+                    }
+                ],
+                edit: {
+                    onSave: () => {
+                        $teams.save();
+                    }
+                },
+                create: {
+                    message: 'Add new team',
+                    save: (newTeam) => {
+                        $teams.add(newTeam);
+                        $teams.save();
+                    }
+                },
+                row: {
+                    classes: (team) => `team_${team.number}`
+                }
             };
-
-            $scope.teamsTableKeys = [
-                { key: 'number', header: 'Number' },
-                { key: 'name', header: 'Name' },
-                { key: 'cityState', header: 'City & State' },
-                { key: 'country', header: 'Country' },
-                { key: 'affiliation', header: 'Affiliation' },
-                { key: 'coach1', header: 'Coach 1' },
-                { key: 'coach2', header: 'Coach 1' },
-                { key: 'judgingGroup', header: 'Judging Group' },
-                { key: 'pitLocation', header: 'Pit location' },
-                { key: 'translationNeeded', header: 'Need translation?' },
-            ];
-            $scope.teamsTableSort = $scope.teamsTableKeys[0];
-            $scope.teamsReverse = false;
-            $scope.newTeam = {};
 
             $teams.init().then(function() {
                 $scope.teams = $teams._rawTeams;
             });
-
-            $scope.saveNewTeam = function() {
-                $teams.add($scope.newTeam);
-                $teams.save();
-                $scope.newTeam = {};
-            };
-
-            $scope.deleteTeam = function(team) {
-                $teams.remove(team.number);
-                $teams.save();
-            };
 
             $scope.importTeams = function() {
                 $handshake.$emit('importTeams').then(function(result) {
@@ -111,9 +121,6 @@ define('views/tournament', [
                 show: false
             };
 
-            $scope.teamsTableSort = $scope.teamsTableKeys[0];
-            $scope.teamsReverse = false;
-            $scope.newTeam = {};
             $scope.newStage = {};
             $scope.newRef = {};
             $scope.newTable = {};

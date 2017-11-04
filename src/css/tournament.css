@@ -2,41 +2,33 @@
     cursor: pointer;
 }
 
-#tournament .card.teams {
+#tournament .card {
     display: grid;
     grid-template-rows: 3.5em 1fr;
-    min-height: 6em;
+    min-height: 5.5em;
 }
 
-#tournament .card.teams table {
-	height: 30vh;
-    margin: 2em 1em;
-    width: calc(100% - 2em);
+#tournament .card.teams ng-datatable tbody {
+    height: 30vh;
 }
 
-#tournament table td .placeholder {
-	font-style: italic;
-	color: grey;
-}
+#tournament .card.teams td.number { flex: 1.5; }
+#tournament .card.teams td.name { flex: 4; }
+#tournament .card.teams td.cityState { flex: 2; }
+#tournament .card.teams td.country { flex: 2; }
+#tournament .card.teams td.affiliation { flex: 2; }
+#tournament .card.teams td.coach1 { flex: 2; }
+#tournament .card.teams td.coach2 { flex: 2; }
+#tournament .card.teams td.judgingGroup { flex: 3; }
+#tournament .card.teams td.pitLocation { flex: 2; }
+#tournament .card.teams td.translationNeeded { flex: 2; }
+#tournament .card.teams td.actions { flex: 1; }
 
-#tournament .card.teams table .actions .btn-group {
-	float: right;
-}
-
-#tournament .card.teams table .actions .btn {
-    margin-top: 0.2em;
-    padding: 0.3em 0.5em 0 0.5em;
-}
-
-#tournament .card.teams .editing-form {
-	display: flex;
-}
-
-#tournament .card.teams .editing-form i {
-    font-size: 1.5em;
-    margin: 0;
-    vertical-align: middle;
-    padding: 0.15em 0 0 0;
+#tournament .card.teams td.create-message {
+	flex: 22.5;
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
 }
 
 #tournament .card.structure .card-body {

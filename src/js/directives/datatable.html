@@ -1,0 +1,83 @@
+<table class="table" ng-class="config.tableClasses">
+    <thead>
+        <tr>
+            <td ng-repeat="column in config.columns" ng-if="column.header" ng-class="column.field">
+                <div>
+                    <i class="material-icons sort-icon" ng-click="sort.set(column)">{{sort.icon(column)}}</i>
+                    <a href="#" ng-click="sort.set(column)">{{column.header}}</a>
+                </div>
+            </td>
+            <td ng-if="config.actions.length" class="actions"></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in collection | orderBy:sort.sort.field:sort.reverse | filter:search" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
+            <td ng-repeat="column in config.columns" ng-class="column.field" ng-show="column.show(item)" ng-click="onCellClick(item, column)">
+
+                <span ng-show="!edit || !edit.is(item, column)" ng-click="onCellClick(item, column)">{{item[column.field]}}</span>
+
+                <div ng-if="edit" ng-show="edit.is(item, column)" class="editing-form">
+
+                    <select class="options" ng-show="column.field === 'options'" ng-model="item[column.writeField]">
+                        <option ng-repeat="option in column.options" ng-selected="option.value === item[column.writeField]" ng-value="option.value">{{option.text}}</option>
+                    </select>
+
+                    <select class="complex_options" ng-show="column.edit === 'complex_options'" ng-model="item[column.field]" ng-change="column.onChange(item)">
+                        <option ng-repeat="option in column.options" ng-value="option.value">{{option.text}}</option>
+                    </select>
+
+                    <input class="text" ng-show="column.edit === 'text'" ng-model="item[column.writeField]">
+
+                    <i class="material-icons" ng-click="edit.save(); $event.stopPropagation()">done</i>
+                    <i class="material-icons" ng-click="edit.cancel(); $event.stopPropagation()">clear</i>
+                </div>
+            </td>
+
+            <td ng-if="config.actions.length" class="actions">
+                <div class="btn-group">
+                    <div class="btn" ng-repeat="action in config.actions" ng-class="action.classes(item)" ng-show="action.show(item)" ng-click="action.onClick(item)">
+                        <i class="material-icons">{{action.icon}}</i>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr ng-if="edit && create" ng-class="create.classes()" ng-show="create.show()">
+            <td ng-repeat="column in config.columns" ng-class="column.field" ng-show="!create.showMessage && column.show(create.newItem)" ng-click="onCellClick(create.newItem, column)">
+
+                <span ng-show="!edit || !edit.is(create.newItem, column)" ng-click="onCellClick(create.newItem, column)">{{create.newItem[column.field]}}</span>
+
+                <div ng-if="edit" ng-show="edit.is(create.newItem, column)" class="editing-form">
+
+                    <select class="options" ng-show="column.field === 'options'" ng-model="create.newItem[column.writeField]">
+                        <option ng-repeat="option in column.options" ng-selected="option.value === create.newItem[column.writeField]" ng-value="option.value">{{option.text}}</option>
+                    </select>
+
+                    <select class="complex_options" ng-show="column.edit === 'complex_options'" ng-model="create.newItem[column.field]" ng-change="column.onChange(create.newItem)">
+                        <option ng-repeat="option in column.options" ng-value="option.value">{{option.text}}</option>
+                    </select>
+
+                    <input class="text" ng-show="column.edit === 'text'" ng-model="create.newItem[column.writeField]">
+
+                    <i class="material-icons" ng-click="edit.save(); $event.stopPropagation()">done</i>
+                    <i class="material-icons" ng-click="edit.cancel(); $event.stopPropagation()">clear</i>
+                </div>
+            </td>
+
+            <td class="create-message" ng-show="create.showMessage" ng-click="create.disableMessage()">
+                <span ng-click="create.disableMessage()">{{create.message}}</span>
+            </td>
+
+            <td class="actions">
+                <div class="btn-group">
+                    <div class="btn" class="save" ng-click="create.reset()">
+                        <i class="material-icons">undo</i>
+                    </div>
+                    <div class="btn" class="save" ng-click="create.save()">
+                        <i class="material-icons">save</i>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

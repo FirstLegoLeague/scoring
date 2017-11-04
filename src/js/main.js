@@ -9,6 +9,7 @@ define([
     'services/ng-services',
     'directives/ng-directives',
     'directives/size',
+    'directives/datatable',
     'filters/ng-filters',
     'filters/index',
     'tests/fsTest',

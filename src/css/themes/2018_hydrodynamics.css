@@ -12,6 +12,24 @@ body {
 	background: #AED9DA; /* Chill */
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #AED9DA; /* Chill */
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #135589; /* Marina */
+    border-radius: 2px;
+}
+
+ng-datatable thead {
+    width: calc(100% - 10px) !important;
+}
+
 .appbar, .drawer {
 	color: #EDFAFD; /* Glass */
 	background: #135589; /* Marina */
