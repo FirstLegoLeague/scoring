@@ -121,7 +121,7 @@ define('views/ranking',[
                     var teams = $scope.scoreboard[stageID];
                     teams = teams.map(function (teamEntry) {
                         return [teamEntry.rank, teamEntry.team.number,
-                            teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores);
+                            teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores.map(scoreObject => scoreObject ? scoreObject.score : "no score"));//if a team hasn't played in a round, it will show the score in that round as "no score"
                     });
                     $scope.exportFiles[stageID] = "data:text/csv;charset=utf-8,"+encodeURIComponent($scope.encodeArray(teams));
                 });
