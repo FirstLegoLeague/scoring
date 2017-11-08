@@ -146,8 +146,8 @@ describe('ranking', function() {
 
             $scope.scoreboard = {
                 'qualifying': [
-                    { rank: 1, team: { name: "foo", number: 123 }, highest: { score: 10 }, scores: [0, 10, 5] },
-                    { rank: 1, team: { name: "\"bar\"", number: 456 }, highest: { score: 10 }, scores: [10, 0, 5] }
+                    {rank: 1, team: {name: "foo", number: 123}, highest: {score: 10}, scores: [{score: 0}, {score: 10}, {score: 5}]},
+                    {rank: 1, team: {name: "\"bar\"", number: 456}, highest: {score: 10}, scores: [{score: 10}, {score: 0}, {score: 5}]}
                 ]
             };
             $scope.buildExportFiles();
@@ -159,8 +159,8 @@ describe('ranking', function() {
         it('should not skip empty values, but include as empty string',function() {
             $scope.scoreboard = {
                 'qualifying': [
-                    { team: { name: "foo", number: 123 }, highest: { score: 10 }, scores: [0, 10, 5] },
-                    { team: { name: "\"bar\"", number: 456 }, highest: { score: 10 }, scores: [10, 0, 5] }
+                    {team: {name: "foo", number: 123}, highest: {score: 10}, scores: [{score: 0}, {score: 10}, {score: 5}]},
+                    {team: {name: "\"bar\"", number: 456}, highest: {score: 10}, scores: [{score: 10}, {score: 0}, {score: 5}]}
                 ]
             };
             $scope.$digest();
