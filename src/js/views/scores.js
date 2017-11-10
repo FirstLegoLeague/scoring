@@ -10,21 +10,67 @@ define('views/scores', [
         function ($scope, $scores, $teams, $stages, $settings, $window, $rootScope) {
             log('init scores ctrl');
 
-            $scope.scoresTableKeys = [
-                { key: 'index', header: '#', editable: false },
-                { key: 'teamNumber', header: 'team', editable: 'options', savableValueKey: 'teamNumber' },
-                { key: 'teamFullName', header: 'team', editable: 'options', savableValueKey: 'teamNumber' },
-                { key: 'match', header: 'match', editable: 'complex-options', onChange: score => {
-                    let split = score.match.split(' #');
-                    score.stageId = split[0];
-                    score.round = parseInt(split[1]);
-                } },
-                { key: 'referee', header: 'Referee', editable: 'options', savableValueKey: 'referee' },
-                { key: 'table', header: 'Table', editable: 'options', savableValueKey: 'table' },
-                { key: 'score', header: 'score', editable: 'text', savableValueKey: 'score' }
-            ];
-            $scope.scoresTablesort = $scope.scoresTableKeys[0];
-            $scope.scoresReverse = true;
+            $scope.scoresTableConfig = {
+                columns: [
+                    { field: 'index', header: '#', edit: false },
+                    { field: 'teamNumber', header: 'team', edit: 'options', options: [], writeKey: 'teamNumber', show: (score) => !score.showError },
+                    { field: 'teamFullName', header: 'team', edit: 'options', options: [], writeKey: 'teamNumber', show: (score) => !score.showError },
+                    { field: 'match', header: 'match', edit: 'complex-options', options: [], onChange: (score) => {
+                            let split = score.match.split(' #');
+                            score.stageId = split[0];
+                            score.round = parseInt(split[1]);
+                        }
+                        , show: (score) => !score.showError
+                    },
+                    { field: 'referee', header: 'Referee', edit: 'options', options: [], writeKey: 'referee', show: (score) => !score.showError },
+                    { field: 'table', header: 'Table', edit: 'options', options: [], writeKey: 'table', show: (score) => !score.showError },
+                    { field: 'score', header: 'score', edit: 'text', writeKey: 'score', show: (score) => !score.showError },
+                    { field: 'error', show: (score) => score.showError, value: (score) => score.error ? score.error.message : '' }
+                ],
+                actions: [
+                    {
+                        onClick: (score) => {
+                            score.showError = !score.showError
+                        },
+                        classes: () => 'btn-danger',
+                        show: (score) => score.error,
+                        icon: 'error'
+                    }, {
+                        onClick: (score) => {
+                            togglePublished(score);
+                        },
+                        show: (score) => score.published,
+                        icon: 'remove_circle_outline'
+                    }, {
+                        onClick: (score) => {
+                            togglePublished(score);
+                        },
+                        show: (score) => !score.published,
+                        icon: 'add_circle_outline'
+                    }, {
+                        onClick: (score) => {
+                            $scope.setPage($scope.pages.find(function (p) {return p.name === "scoresheet"}));
+                            $rootScope.$broadcast("editScoresheet", score);
+                        },
+                        icon: 'edit'
+                    }, {
+                        onClick: (score) => {
+                            saveScore(score);
+                        },
+                        classes: () => 'btn-danger',
+                        icon: 'delete'
+                    }
+                ],
+                edit: {
+                    onSave: (score) => {
+                        $scores.update(score);
+                    }
+                },
+                row: {
+                    classes: (score) => `score_${score.index}`
+                },
+                search : () => $scope.search
+            };
             $scope.search = '';
 
             $scope.ranksTableKeys = [
@@ -49,41 +95,21 @@ define('views/scores', [
                     $scope.ranksTableSort = ranksReverse;
             };
 
-            $scope.scoresSortIcon = function (key) {
-                if($scope.sort !== key) {
-                    return '';
-                }
-
-                if ($scope.scoresReverse) {
-                    return 'arrow_drop_down';
-                } else {
-                    return 'arrow_drop_up';
-                }
-            };
-
-            $scope.scoresSortIcon = function (key) {
-                if($scope.sort !== key) {
-                    return '';
-                }
-
-                if ($scope.ranksReverse) {
-                    return 'arrow_drop_down';
-                } else {
-                    return 'arrow_drop_up';
-                }
-            };
-
-            function enrichScores(scores) {
+            function formatScores(scores) {
                 return scores.map((score, index) => {
-                    var enrichedScore = {};
-                    for(var key in score) enrichedScore[key] = score[key];
-                    enrichedScore.index = index + 1;
-                    enrichedScore.team = $teams.get(score.teamNumber);
-                    enrichedScore.stage = $stages.get(score.stageId);
+                    var formattedScore = {};
+                    for(var key in score) formattedScore[key] = score[key];
+                    formattedScore.index = index + 1;
+                    formattedScore.team = $teams.get(score.teamNumber);
+                    formattedScore.stage = $stages.get(score.stageId);
 
-                    enrichedScore.teamFullName = `#${enrichedScore.team.number} ${enrichedScore.team.name}`;
-                    enrichedScore.match = `${enrichedScore.stage.id} #${enrichedScore.round}`;
-                    return enrichedScore;
+                    if(formattedScore.team) {
+                        formattedScore.teamFullName = `#${formattedScore.team.number} ${formattedScore.team.name}`;
+                    }
+                    if(formattedScore.stage) {
+                        formattedScore.match = `${formattedScore.stage.id} #${formattedScore.round}`;
+                    }
+                    return formattedScore;
                 });
             }
 
@@ -106,10 +132,8 @@ define('views/scores', [
                 return result;
             }
 
-            $scope.$watch(function () {
-                return $scores.scores;
-            }, function () {
-                $scope.scores = enrichScores($scores.scores);
+            $scope.$watch($scores.scores, function () {
+                $scope.scores = formatScores($scores.scores);
             }, true);
 
             $scope.$watch(function () {
@@ -122,8 +146,8 @@ define('views/scores', [
                     $scores._update();
                 }
 
-                $scope.scoresTableKeys[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
-                $scope.scoresTableKeys[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
+                $scope.scoresTableConfig.columns[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
+                $scope.scoresTableConfig.columns[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
             }, true);
 
             $scope.$watch(() => $scores.scoreboard, function () {
@@ -143,31 +167,28 @@ define('views/scores', [
 
             $scores.init().then(function() {
                 $scope.stages = $stages.stages;
+                $scope.scores = formatScores($scores.scores);
 
-                $scope.scoresTableKeys[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
-                $scope.scoresTableKeys[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
-                $scope.scoresTableKeys[3].options = [];
+                $scope.scoresTableConfig.columns[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
+                $scope.scoresTableConfig.columns[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
+                $scope.scoresTableConfig.columns[3].options = [];
                 $scope.stages.forEach(stage => {
                     for(var round = 1; round <= stage.rounds; round++) {
                         let match = `${stage.id} #${round}`;
-                        $scope.scoresTableKeys[3].options.push({ value: match, text: match });
+                        $scope.scoresTableConfig.columns[3].options.push({ value: match, text: match });
                     }
                 });
-                $scope.scoresTableKeys[4].options = $settings.settings.referees.map(ref => { return { value: ref.name, text: ref.name }; });
-                $scope.scoresTableKeys[5].options = $settings.settings.tables.map(table => { return { value: table.name, text: table.name }; });
+                $scope.scoresTableConfig.columns[4].options = $settings.settings.referees.map(ref => { return { value: ref.name, text: ref.name }; });
+                $scope.scoresTableConfig.columns[5].options = $settings.settings.tables.map(table => { return { value: table.name, text: table.name }; });
 
                 $scope.viewedStage = ($settings.settings.currentStage || $scope.stages[0]).id;
                 $scope.recalcRanksKeys();
                 $scores.getRankings();
             });
 
-            $scope.togglePublished = function(score) {
+            function togglePublished(score) {
                 score.published = !score.published;
-                saveScore(score);
-            };
-
-            $scope.deleteScore = function(score) {
-                $scores.delete(score);
+                saveScore(score, true);
             };
 
             $scope.isEditing = function(score, key) {
@@ -191,11 +212,6 @@ define('views/scores', [
                 delete $scope.originalValue;
                 saveScore($scope.editing.score);
                 $scope.editing = undefined;
-            };
-
-            $scope.editScoresheet = function (score) {
-                $scope.setPage($scope.pages.find(function (p) {return p.name === "scoresheet"}));
-                $rootScope.$broadcast("editScoresheet", score)
             };
 
             $scope.broadcast = function() {

@@ -29,7 +29,7 @@ define('views/tournament', [
                     { field: 'country', header: 'Country',      edit: 'text' },
                     { field: 'affiliation', header: 'Affiliation',  edit: 'text' },
                     { field: 'coach1', header: 'Coach 1',      edit: 'text' },
-                    { field: 'coach2', header: 'Coach 1',      edit: 'text' },
+                    { field: 'coach2', header: 'Coach 2',      edit: 'text' },
                     { field: 'judgingGroup', header: 'Judging Group',edit: 'text' },
                     { field: 'pitLocation', header: 'Pit location', edit: 'text' },
                     { field: 'translationNeeded', header: 'Translation?', edit: 'text' },
@@ -90,7 +90,7 @@ define('views/tournament', [
             $scope.stagesTableConfig = {
                 id: 'stages-table',
                 columns: [
-                    { field: 'name', header: 'Name', edit: 'text' },
+                    { field: 'name', header: 'Stage', edit: 'text' },
                     { field: 'rounds', header: '# of rounds', edit: 'text' }
                 ],
                 actions: [
@@ -164,7 +164,7 @@ define('views/tournament', [
             $scope.refereesTableConfig = {
                 id: 'referees-table',
                 columns: [
-                    { field: 'name', header: 'Name', edit: 'text' }
+                    { field: 'name', header: 'Referees', edit: 'text' }
                 ],
                 actions: [
                     {
@@ -195,7 +195,7 @@ define('views/tournament', [
             $scope.tablesTableConfig = {
                 id: 'tables-table',
                 columns: [
-                    { field: 'name', header: 'Name', edit: 'text' }
+                    { field: 'name', header: 'Tables', edit: 'text' }
                 ],
                 actions: [
                     {
@@ -212,7 +212,7 @@ define('views/tournament', [
                     onSave: () => $settings.save()
                 },
                 create: {
-                    message: 'New referee',
+                    message: 'New table',
                     save: (newTable) => {
                         $scope.settings.tables.push(newTable);
                         $settings.save();

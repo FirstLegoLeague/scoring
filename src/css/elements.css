@@ -63,10 +63,7 @@ i.material-icons.big {
 .card .card-top {
     display: flex;
     flex-direction: row;
-}
-
-.card .card-top .card-header {
-    flex: 1;
+    justify-content: space-between;
 }
 
 .card .card-header i {
@@ -92,6 +89,10 @@ i.material-icons.big {
 }
 
 /* ng-datatble directive global styles */
+
+ng-datatable table {
+    height: 100%;
+}
 
 ng-datatable thead td i {
     margin: 0 !important;

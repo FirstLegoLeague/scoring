@@ -12,14 +12,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in collection | orderBy:config.sort || sort.sort.field:sort.reverse | filter:config.search()" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
+        <tr ng-repeat="item in collection() | orderBy:config.sort || sort.sort.field:sort.reverse | filter:config.search()" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
             <td ng-repeat="column in config.columns" ng-class="column.field" ng-show="column.show(item)" ng-click="onCellClick(item, column)">
 
-                <span ng-show="!edit || !edit.is(item, column)" ng-click="onCellClick(item, column)">{{item[column.field]}}</span>
+                <span ng-show="!edit || !edit.is(item, column)" ng-click="onCellClick(item, column)">{{column.value(item)}}</span>
 
                 <div ng-if="edit" ng-show="edit.is(item, column)" class="editing-form">
 
-                    <select class="options" ng-show="column.field === 'options'" ng-model="item[column.writeField]">
+                    <select class="options" ng-show="column.edit === 'options'" ng-model="item[column.writeField]">
                         <option ng-repeat="option in column.options" ng-selected="option.value === item[column.writeField]" ng-value="option.value">{{option.text}}</option>
                     </select>
 
@@ -50,12 +50,12 @@
 
                 <div ng-if="edit" ng-show="edit.is(create.newItem, column)" class="editing-form">
 
-                    <select class="options" ng-show="column.field === 'options'" ng-model="create.newItem[column.writeField]">
+                    <select class="options" ng-show="column.edit === 'options'" ng-model="create.newItem[column.writeField]">
                         <option ng-repeat="option in column.options" ng-selected="option.value === create.newItem[column.writeField]" ng-value="option.value">{{option.text}}</option>
                     </select>
 
-                    <select class="complex_options" ng-show="column.edit === 'complex_options'" ng-model="create.newItem[column.field]" ng-change="column.onChange(create.newItem)">
-                        <option ng-repeat="option in column.options" ng-value="option.value">{{option.text}}</option>
+                    <select class="complex_options" ng-show="column.edit === 'complex_options'" ng-model="create.newItem[column.writeField]" ng-change="column.onChange(create.newItem)">
+                        <option ng-repeat="option in column.options" ng-selected="option.value === create.newItem[column.writeField]" ng-value="option.value">{{option.text}}</option>
                     </select>
 
                     <input class="text" ng-show="column.edit === 'text'" ng-model="create.newItem[column.writeField]">
@@ -79,7 +79,6 @@
             <td class="create-message" ng-show="create.showMessage" ng-click="create.disableMessage()">
                 <span ng-click="create.disableMessage()">{{create.message}}</span>
             </td>
-
         </tr>
     </tbody>
 </table>

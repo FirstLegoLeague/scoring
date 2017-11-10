@@ -7,63 +7,12 @@
                     <form class="card-menu">
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Filter scores" ng-model="search">
+                                <input type="text" class="form-control" placeholder="Search scores" ng-model="search">
                             </div>
                         </div>
                     </form>
                 </div>
-                <table class="table scores-table">
-                    <thead>
-                        <tr>
-                            <td ng-repeat="key in scoresTableKeys" ng-class="key.key">
-                                <a href="#" ng-click="setScoresTableSort(key)">
-                                    {{key.header}}
-                                </a>
-                                <i class="material-icons sort-icon" ng-click="setScoresTableSort(key)">{{sortIcon(key)}}</i>
-                            </td>
-                            <td class="actions"></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="score in scores | orderBy:scoresTableSort.key:scoresReverse | filter:search" ng-class="{error: score.error}">
-                            <td ng-repeat="key in scoresTableKeys" ng-class="key.key" ng-show="!score.showError">
-                                <span ng-show="!isEditing(score, key)" ng-click="startEditing(score, key)">{{score[key.key]}}</span>
-                                <div ng-show="isEditing(score, key)" class="editing-form">
-                                    <select ng-show="key.editable === 'options'" ng-model="score[key.savableValueKey]">
-                                        <option ng-repeat="option in key.options" ng-selected="option.value === score[key.savableValueKey]" ng-value="option.value">{{option.text}}</option>
-                                    </select>
-                                    <select ng-show="key.editable === 'complex-options'" ng-model="score[key.key]" ng-change="key.onChange(score)">
-                                        <option ng-repeat="option in key.options" ng-value="option.value">{{option.text}}</option>
-                                    </select>
-                                    <input ng-show="key.editable === 'text'" ng-model="score[key.savableValueKey]">
-                                    <i class="material-icons" ng-click="saveEditing()">done</i>
-                                    <i class="material-icons" ng-click="cancelEditing()">clear</i>
-                                </div>
-                            </td>
-                            <td ng-show="score.error && score.showError" class="error-description">
-                                {{score.error.message}}
-                            </td>
-                            <td class="actions">
-                                <div class="btn-group">
-                                    <div class="btn btn-danger" ng-show="score.error" ng-click="score.showError = !score.showError">
-                                        <i class="material-icons">error</i>
-                                    </div>
-
-                                    <div class="btn" ng-click="togglePublished(score)">
-                                        <i class="material-icons">{{ score.published ? 'remove_circle_outline' : 'add_circle_outline' }}</i>
-                                    </div>
-                                    <div class="btn" ng-click="editScoresheet(score)">
-                                        <i class="material-icons">edit</i>
-                                    </div>
-
-                                    <div class="btn btn-danger" ng-click="deleteScore(score)">
-                                        <i class="material-icons">delete</i>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <ng-datatable id="scores-table" collection="scores" config="scoresTableConfig" class="scrollable-body"></ng-datatable>
             </div>
         </tab>
         <tab heading="Rankings">

@@ -11,7 +11,6 @@ define('directives/datatable',[
                 var returnEmptyString = () => '';
 
                 var attrConfig = scope.$parent.$eval(attrs.config);
-                var attrCollection = scope.$parent.$eval(attrs.collection);
 
                 scope.config = {
                     columns: attrConfig.columns.map(column => {
@@ -20,8 +19,12 @@ define('directives/datatable',[
                             header: column.header,
                             edit: column.edit || false,
                             show: column.show || returnTrue,
-                            onCellClick: column.onCellClick
+                            onCellClick: column.onCellClick,
+                            value: column.value
                         };
+                        if(!newColumn.value) {
+                            newColumn.value = item => item[column.field]
+                        }
                         if(newColumn.edit) {
                             newColumn.writeField = column.writeField || column.field;
                             if(newColumn.edit === 'options' || newColumn.edit === 'complex_options') {
@@ -52,17 +55,17 @@ define('directives/datatable',[
                         show: attrConfig.row ? (attrConfig.row.show || returnTrue) : returnTrue
                     },
                     sort: attrConfig.sort,
-                    search: attrConfig.search || returnEmptyString
+                    search: attrConfig.search || returnEmptyString,
                 };
 
-                scope.collection = attrCollection || [];
+                scope.collection = () => scope.$parent.$eval(attrs.collection) || [];
 
                 scope.sort = {
                     sort: scope.config.columns[attrs.config.sort || 0],
                     reverse: attrConfig.reverse || false,
                     get: () => scope.sort.sort,
                     set: (column) => {
-                        if(cope.sort.disabled) {
+                        if(scope.sort.disabled) {
                             return;
                         }
                         if(scope.sort.sort === column) {

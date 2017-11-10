@@ -158,6 +158,11 @@ ng-datatable thead {
     color: #2A93D5; /* Bondi Blue */
 }
 
+#scores-table td.error {
+    background: #DC5f5f;
+    color: white;
+}
+
 #scores .scores-table .editing-form i {
     color: #135589; /* Marina */
 }

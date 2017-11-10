@@ -1,4 +1,4 @@
-#tournament .card.card-header {
+#tournament .card .card-header {
     cursor: pointer;
 }
 
@@ -57,3 +57,26 @@
 #tournament .card.challenge select {
     margin: 1em;
 }
+
+@media screen and (max-width: 1300px) { #teams-table td.translationNeeded { display: none; } }
+@media screen and (max-width: 1180px) { #teams-table td.cityState, #teams-table td.country { display: none; } }
+@media screen and (max-width: 1040px) { #teams-table td.pitLocation { display: none; } }
+@media screen and (max-width: 800px) {
+    #teams-table td.judgingGroup { display: none; }
+    #tournament .card.structure .card-body { grid-template-columns: 2fr 1fr; }
+    #tables-table { display: none; }
+}
+@media screen and (max-width: 660px) {
+    #teams-table td.affiliation { display: none; }
+    #tournament .card .card-header i { display: none; }
+    #tournament .card .card-menu .btn { display: none; }
+    #tournament .card.structure .card-body { grid-template-columns: 1fr; }
+    #referees-table { display: none; }
+}
+@media screen and (max-width: 540px) { #teams-table td.coach2 { display: none; } }
+@media screen and (max-width: 470px) and (min-width: 100vh) { #teams-table td.coach1 { display: none; } }
+@media screen and (max-width: 420px) { #tournament .card .card-menu .input-container { display: none; } }
+@media screen and (max-width: 350px) { #stages-table td.actions { display: none; } }
+@media screen and (max-width: 320px) { #teams-table td.coach1 { display: none; } }
+
+
