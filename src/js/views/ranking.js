@@ -104,7 +104,7 @@ define('views/ranking',[
                 array.forEach(function (row) {
                     row = row.map((elem) => elem || elem === 0 ? String(elem) : "");
                     string = string.concat(settings.lineStartString ? String(settings.lineStartString) : "");
-                    string = string.concat(row.join(settings.separatorString ? String(settings.separatorString) : ""));
+                    string = string.concat(row.join(settings.separatorString ? String(settings.separatorString) : ","));
                     string = string.concat((settings.lineEndString ? String(settings.lineEndString) : "") + "\r\n");
                 });
                 return string;
@@ -121,7 +121,7 @@ define('views/ranking',[
                     var teams = $scope.scoreboard[stageID];
                     teams = teams.map(function (teamEntry) {
                         return [teamEntry.rank, teamEntry.team.number,
-                            teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores);
+                            teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores.map(scoreObject => scoreObject ? scoreObject.score : 0));//if a team hasn't played in a round, it will export the score in that round as 0
                     });
                     $scope.exportFiles[stageID] = "data:text/csv;charset=utf-8,"+encodeURIComponent($scope.encodeArray(teams));
                 });
