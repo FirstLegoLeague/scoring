@@ -89,7 +89,7 @@ define('directives/datatable',[
                             return 'arrow_drop_up';
                         }
                     },
-                    disabled: attrConfig.sort || attrConfig.disableSort,
+                    disabled: attrConfig.sort === false,
                 };
 
                 if(attrConfig.edit) {

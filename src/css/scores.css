@@ -33,7 +33,7 @@
     height: calc(100% - 2em);
 }
 
-#scores-table {
+#scores ng-datatable {
     margin: 1em 1.5em;
     width: calc(100% - 3em);
     height: calc(100% - 3em);
@@ -45,7 +45,7 @@
     font-size: 1em;
 }
 
-#scores-table thead, #scores .scores-table tbody {
+#scores thead, #scores tbody {
 	display: block;
 }
 
@@ -66,11 +66,11 @@
     visibility: hidden;
 }
 
-#scores-table thead td {
+#scores thead td {
     height: 2em;
 }
 
-#scores-table tbody {
+#scores tbody {
     height: calc(100% - 3em);
     overflow-y: auto;
 }
@@ -192,5 +192,50 @@
 	    display: block;
 	    flex: 2;
 	}
+
+}
+
+#ranks-table td.rank { flex: 0; }
+#ranks-table td.teamNumber { display: none; }
+#ranks-table td.teamFullName { flex: 4; }
+#ranks-table td.highScore { flex: 2; font-weight: bold }
+#ranks-table td:not(.rank, .teamNumber, .teamFullName, .highScore) { flex: 1; }
+
+@media screen and (max-width: 850px) {
+
+    #download-ranks {
+        display: none !important;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    #ranks-table td.teamNumber { display: block; flex: 1; }
+    #ranks-table td.teamFullName { display: none; }
+
+}
+
+@media screen and (max-width: 725px) {
+
+    #broadcast-ranks {
+        display: none !important;
+    }
+
+}
+
+@media screen and (max-width: 675px) {
+
+    #ranks-table td[class*="round_"] {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 585px) {
+
+    #viewed-rank {
+        display: none !important;
+    }
 
 }

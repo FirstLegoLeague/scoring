@@ -20,39 +20,19 @@
                 <div class="card-top">
                     <div class="card-header">Rankings</div>
                     <div class="card-menu">
-                        <a class="btn" href="{{exportFiles[viewedStage]}}" download="{{'ranking_' + viewedStage + '.csv'}}">
+                        <a class="btn" href="{{exportFiles[viewedStage]}}" download="{{'ranking_' + viewedStage + '.csv'}}" id="download-ranks">
                             <i class="material-icons">file_download</i>Download
                         </a>
-                        <div class="btn" ng-click="broadcastRanking()">
+                        <div class="btn" ng-click="broadcastRanking()" id="broadcast-ranks">
                             <i class="material-icons">publish</i>
                             Broadcast
                         </div>
-                        <select ng-model="viewedStage" ng-change="recalcRanksKeys()">
+                        <select ng-model="ranksTableConfig.view" ng-change="calcRanksColumns()" id="viewed-rank">
                             <option ng-repeat="option in stages" ng-selected="option.id === viewedStage" ng-value="option.id">{{option.name}}</option>
                         </select>
                     </div>
                 </div>
-                 <table class="table scores-table">
-
-                    <thead>
-                        <tr>
-                            <td ng-repeat="key in ranksTableKeys" ng-class="key.key">
-                                <a href="#" ng-click="setRanksTableKeys(key)">
-                                    {{key.header}}
-                                </a>
-                                <i class="material-icons sort-icon" ng-click="setRanksTableKeys(key)">{{sortIcon(key)}}</i>
-                            </td>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr ng-repeat="rank in scoreboard[viewedStage] | orderBy:ranksTablesort.key:ranksReverse">
-                            <td ng-repeat="key in ranksTableKeys" ng-class="key.key">
-                                {{rank[key.key]}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <ng-datatable id="ranks-table" collection="scoreboard[ranksTableConfig.view]" config="ranksTableConfig" class="scrollable-body"></ng-datatable>
             </div>
         </tab>
     </tabset>

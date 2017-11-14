@@ -72,21 +72,7 @@ define('views/scores', [
                 search : () => $scope.scoresTableConfig.searchValue,
                 searchValue: ''
             };
-
-            $scope.ranksTableKeys = [
-                { key: 'rank', header: '#' },
-            ];
-            $scope.ranksTableSort = $scope.ranksTableKeys[0];
-            $scope.ranksReverse = true;
-
             $scope.exportFiles = {};
-
-            $scope.setRanksTableSort = function(key) {
-                if($scope.ranksTableSort === key)
-                    $scope.ranksReverse = !$scope.ranksReverse;
-                else
-                    $scope.ranksTableSort = ranksReverse;
-            };
 
             function formatScores(scores) {
                 return scores.map((score, index) => {
@@ -106,22 +92,41 @@ define('views/scores', [
                 });
             }
 
+            $scope.ranksTableConfig = {
+                columns: [
+                    { field: 'rank', header: '#' },
+                    { field: 'teamNumber', header: 'team' },
+                    { field: 'teamFullName', header: 'team' },
+                    { field: 'highScore', header: 'high' }
+                ],
+                actions: [],
+                row: {
+                    classes: (rank) => `rank_${rank.index}`
+                },
+                sort: false,
+                view: undefined,
+            };
+
             function formatRanks(scoreboard) {
                 let result = {};
                 for(let stageId in scoreboard) {
                     let stage = scoreboard[stageId];
-                    result[stageId] = stage.filter(rank => {
+                    result[stageId] = stage.filter((rank, index) => {
+                        rank.index = index;
                         rank.teamNumber = rank.team.number;
                         rank.teamFullName = `#${rank.team.number} ${rank.team.name}`;
                         rank.highScore = rank.highest ? rank.highest.score : undefined;
-                        rank.scores.forEach((score, index) => {
+                        return rank.scores.filter((score, index) => {
                             if(score) {
-                                rank[`round_${index+1}`] = score.score
+                                rank[`round_${index+1}`] = score.score;
+                                return true;
+                            } else {
+                                return false;
                             }
-                        });
-                        return rank.scores.filter(score => score !== undefined).length;
+                        }).length !== 0;
                     });
                 }
+
                 return result;
             }
 
@@ -129,9 +134,7 @@ define('views/scores', [
                 $scope.scores = formatScores($scores.scores);
             }, true);
 
-            $scope.$watch(function () {
-                return $teams.teams;
-            }, function (newValue, oldValue) {
+            $scope.$watch(() => $teams.teams, function (newValue, oldValue) {
                 if (newValue !== oldValue && indexIsTeamNum(newValue)) {
                     $scope.scores.forEach(function (score) {
                         score.team = $teams.get(score.teamNumber);
@@ -151,6 +154,14 @@ define('views/scores', [
             $scope.$watch(() => $settings.settings.lineStartString, buildExportFiles);
             $scope.$watch(() => $settings.settings.separatorString, buildExportFiles);
             $scope.$watch(() => $settings.settings.lineEndString, buildExportFiles);
+
+            $scope.calcRanksColumns = function() {
+                let stage = $stages.get($scope.ranksTableConfig.view);
+                $scope.ranksTableConfig.columns = $scope.ranksTableConfig.columns.filter(column => !column.field.startsWith('round'));
+                for(var i = 1; i <= stage.rounds; i++) {
+                    $scope.ranksTableConfig.columns.push({ field: `round_` + i, header: i });
+                }
+            };
 
             function indexIsTeamNum(teamMap) {
                 return !Object.keys(teamMap).some((key)=>{
@@ -173,8 +184,8 @@ define('views/scores', [
                 $scope.scoresTableConfig.columns[4].options = $settings.settings.referees.map(ref => { return { value: ref.name, text: ref.name }; });
                 $scope.scoresTableConfig.columns[5].options = $settings.settings.tables.map(table => { return { value: table.name, text: table.name }; });
 
-                $scope.viewedStage = ($settings.settings.currentStage || $scope.stages[0]).id;
-                $scope.recalcRanksKeys();
+                $scope.ranksTableConfig.view = $settings.settings.currentStage || $scope.stages[0].id;
+                calcRanksColumns();
                 $scores.getRankings();
             });
 
@@ -183,45 +194,8 @@ define('views/scores', [
                 saveScore(score, true);
             };
 
-            $scope.isEditing = function(score, key) {
-                if(key.editable) {
-                    return $scope.editing && $scope.editing.score === score && $scope.editing.key === key;
-                }
-            };
-
-            $scope.startEditing = function(score, key) {
-                $scope.editing = { score: score, key: key };
-                $scope.originalValue = score[key.key];
-            };
-
-            $scope.cancelEditing = function() {
-                $scope.editing.score[$scope.editing.key.key] = $scope.originalValue;
-                $scope.editing = undefined;
-                delete $scope.originalValue;
-            };
-
-            $scope.saveEditing = function() {
-                delete $scope.originalValue;
-                saveScore($scope.editing.score);
-                $scope.editing = undefined;
-            };
-
             $scope.broadcast = function() {
                 $scores.broadcastRanking($stages.get($scope.viewedStage));
-            };
-
-            $scope.recalcRanksKeys = function() {
-                $scope.ranksTableKeys = [
-                    { key: 'rank', header: '#' },
-                    { key: 'teamNumber', header: 'team' },
-                    { key: 'teamFullName', header: 'team' },
-                    { key: 'highScore', header: 'high' },
-                ];
-                for(var i = 1; i <= $stages.get($scope.viewedStage).rounds; i++) {
-                    $scope.ranksTableKeys.push({ key: `round_${i}`, header: `round ${i}` })
-                }
-                $scope.ranksTableSort = $scope.ranksTableKeys[0];
-                $scope.ranksReverse = true;
             };
 
             function saveScore(score, forceAutoBroadcast) {
