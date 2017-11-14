@@ -112,6 +112,7 @@ ng-datatable tr {
 
 ng-datatable td {
     min-width: 3em;
+    overflow-y: hidden;
 }
 
 ng-datatable td > * {

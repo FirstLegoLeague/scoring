@@ -13,18 +13,18 @@ define('views/scores', [
             $scope.scoresTableConfig = {
                 columns: [
                     { field: 'index', header: '#', edit: false },
-                    { field: 'teamNumber', header: 'team', edit: 'options', options: [], writeKey: 'teamNumber', show: (score) => !score.showError },
-                    { field: 'teamFullName', header: 'team', edit: 'options', options: [], writeKey: 'teamNumber', show: (score) => !score.showError },
-                    { field: 'match', header: 'match', edit: 'complex-options', options: [], onChange: (score) => {
+                    { field: 'teamNumber', header: 'team', edit: 'options', options: [], writeField: 'teamNumber', show: (score) => !score.showError },
+                    { field: 'teamFullName', header: 'team', edit: 'options', options: [], writeField: 'teamNumber', show: (score) => !score.showError },
+                    { field: 'match', header: 'match', edit: 'complex_options', options: [], onChange: (score) => {
                             let split = score.match.split(' #');
                             score.stageId = split[0];
                             score.round = parseInt(split[1]);
                         }
                         , show: (score) => !score.showError
                     },
-                    { field: 'referee', header: 'Referee', edit: 'options', options: [], writeKey: 'referee', show: (score) => !score.showError },
-                    { field: 'table', header: 'Table', edit: 'options', options: [], writeKey: 'table', show: (score) => !score.showError },
-                    { field: 'score', header: 'score', edit: 'text', writeKey: 'score', show: (score) => !score.showError },
+                    { field: 'referee', header: 'Referee', edit: 'options', options: [], writeField: 'referee', show: (score) => !score.showError },
+                    { field: 'table', header: 'Table', edit: 'options', options: [], writeField: 'table', show: (score) => !score.showError },
+                    { field: 'score', header: 'score', edit: 'text', writeField: 'score', show: (score) => !score.showError },
                     { field: 'error', show: (score) => score.showError, value: (score) => score.error ? score.error.message : '' }
                 ],
                 actions: [
@@ -69,9 +69,9 @@ define('views/scores', [
                 row: {
                     classes: (score) => `score_${score.index}`
                 },
-                search : () => $scope.search
+                search : () => $scope.scoresTableConfig.searchValue,
+                searchValue: ''
             };
-            $scope.search = '';
 
             $scope.ranksTableKeys = [
                 { key: 'rank', header: '#' },
@@ -80,13 +80,6 @@ define('views/scores', [
             $scope.ranksReverse = true;
 
             $scope.exportFiles = {};
-
-            $scope.setScoresTableSort = function(key) {
-                if($scope.scoresTablesort === key)
-                    $scope.scoresReverse = !$scope.scoresReverse;
-                else
-                    $scope.scoresTablesort = key;
-            };
 
             $scope.setRanksTableSort = function(key) {
                 if($scope.ranksTableSort === key)
@@ -132,7 +125,7 @@ define('views/scores', [
                 return result;
             }
 
-            $scope.$watch($scores.scores, function () {
+            $scope.$watch(() => $scores.scores, function () {
                 $scope.scores = formatScores($scores.scores);
             }, true);
 
@@ -171,7 +164,6 @@ define('views/scores', [
 
                 $scope.scoresTableConfig.columns[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
                 $scope.scoresTableConfig.columns[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
-                $scope.scoresTableConfig.columns[3].options = [];
                 $scope.stages.forEach(stage => {
                     for(var round = 1; round <= stage.rounds; round++) {
                         let match = `${stage.id} #${round}`;

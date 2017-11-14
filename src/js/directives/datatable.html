@@ -23,7 +23,7 @@
                         <option ng-repeat="option in column.options" ng-selected="option.value === item[column.writeField]" ng-value="option.value">{{option.text}}</option>
                     </select>
 
-                    <select class="complex_options" ng-show="column.edit === 'complex_options'" ng-model="item[column.field]" ng-change="column.onChange(item)">
+                    <select class="complex_options" ng-show="column.edit === 'complex_options'" ng-model="item[column.writeField]" ng-change="column.onChange(item)">
                         <option ng-repeat="option in column.options" ng-value="option.value">{{option.text}}</option>
                     </select>
 

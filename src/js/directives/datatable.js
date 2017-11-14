@@ -12,51 +12,56 @@ define('directives/datatable',[
 
                 var attrConfig = scope.$parent.$eval(attrs.config);
 
-                scope.config = {
-                    columns: attrConfig.columns.map(column => {
-                        var newColumn = {
-                            field: column.field,
-                            header: column.header,
-                            edit: column.edit || false,
-                            show: column.show || returnTrue,
-                            onCellClick: column.onCellClick,
-                            value: column.value
-                        };
-                        if(!newColumn.value) {
-                            newColumn.value = item => item[column.field]
-                        }
-                        if(newColumn.edit) {
-                            newColumn.writeField = column.writeField || column.field;
-                            if(newColumn.edit === 'options' || newColumn.edit === 'complex_options') {
-                                newColumn.options = column.options.map(option => {
-                                    if(typeof option === String) {
-                                        return { value: option, text: option };
-                                    } else {
-                                        return { value: option.value, text: option.text };
+                function calcConfig(conf) {
+                    if(!conf)   return;
+
+                    scope.config = {
+                        columns: conf.columns.map(column => {
+                            var newColumn = {
+                                field: column.field,
+                                header: column.header,
+                                edit: column.edit || false,
+                                show: column.show || returnTrue,
+                                onCellClick: column.onCellClick,
+                                value: column.value
+                            };
+                            if(!newColumn.value) {
+                                newColumn.value = item => item[column.field]
+                            }
+                            if(newColumn.edit) {
+                                newColumn.writeField = column.writeField || column.field;
+                                if(newColumn.edit === 'options' || newColumn.edit === 'complex_options') {
+                                    newColumn.options = column.options.map(option => {
+                                        if(typeof option === String) {
+                                            return { value: option, text: option };
+                                        } else {
+                                            return { value: option.value, text: option.text };
+                                        }
+                                    });
+                                    if(newColumn.edit === 'complex_options') {
+                                        newColumn.onChange = column.onChange || doNothing;
                                     }
-                                });
-                                if(newColumn.edit === 'complex_options') {
-                                    newColumn.onChange = column.onChange || doNothing;
                                 }
                             }
-                        }
-                        return newColumn;
-                    }),
-                    actions: attrConfig.actions.map(action => {
-                        return {
-                            onClick: action.onClick || doNothing,
-                            show: action.show || returnTrue,
-                            classes: action.classes || returnEmptyString,
-                            icon: action.icon || ''
-                        };
-                    }),
-                    row: {
-                        classes: attrConfig.row ? (attrConfig.row.classes || returnEmptyString) : returnEmptyString,
-                        show: attrConfig.row ? (attrConfig.row.show || returnTrue) : returnTrue
-                    },
-                    sort: attrConfig.sort,
-                    search: attrConfig.search || returnEmptyString,
-                };
+                            return newColumn;
+                        }),
+                        actions: conf.actions.map(action => {
+                            return {
+                                onClick: action.onClick || doNothing,
+                                show: action.show || returnTrue,
+                                classes: action.classes || returnEmptyString,
+                                icon: action.icon || ''
+                            };
+                        }),
+                        row: {
+                            classes: conf.row ? (conf.row.classes || returnEmptyString) : returnEmptyString,
+                            show: conf.row ? (conf.row.show || returnTrue) : returnTrue
+                        },
+                        sort: conf.sort,
+                        search: conf.search || returnEmptyString,
+                    };
+                }
+                calcConfig(attrConfig);
 
                 scope.collection = () => scope.$parent.$eval(attrs.collection) || [];
 
@@ -153,6 +158,8 @@ define('directives/datatable',[
                         scope.edit.start(item, column);
                     }
                 };
+
+                scope.$watch(() => scope.$parent.$eval(attrs.config), (newConfig) => calcConfig(newConfig), true);
             },
             templateUrl: 'js/directives/datatable.html'
         };
