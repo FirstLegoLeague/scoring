@@ -7,6 +7,10 @@ i.material-icons.big {
     font-size: 2em;
 }
 
+/* tabs */
+.nav-tabs > li {
+    cursor: pointer;
+}
 
 /*
 * "fluid" class: the first child of an element with this class will take the whole width of the parent element.
