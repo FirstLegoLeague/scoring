@@ -35,7 +35,6 @@ define('controllers/TeamImportDialogController', [
                     $scope.importNumberExample = '';
                     $scope.importNameExample = '';
                 }
-                console.log(lines);
 
                 $scope.importLines = lines;
             }
