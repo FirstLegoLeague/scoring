@@ -1,161 +1,199 @@
-    <div class="fll-dialog-shim" ng-controller="TeamImportDialogController" ng-show="dialogVisible">
-        <div class="fll-dialog" id="teamImportDialog">
-            <h1>
-                <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
-                <span class="header-text">Import teams</span>
-                <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()"><div class="material-icons">close</div></button>
-            </h1>
-                <div class="modal-body">
-                    <p>
-                        Paste a team list below
-                    </p>
-                    <p>
-                        <textarea name="" ng-model="importRaw"></textarea>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" ng-model="importHeader">
-                            Data contains header
-                        </label>
-                    </p>
-                    <p>
-                        Number column
-                        <input type="text" ng-model="importNumberColumn" size="3">
-                        ({{importNumberExample}})
-                    </p>
-                    <p>
-                        Name column
-                        <input type="text" ng-model="importNameColumn" size="3">
-                        ({{importNameExample}})
-                    </p>
-                    <p>
-                        Use custom delimiter? (Default is tab, the delimiter used when pasting from excel) <br/>
+<div class="fll-dialog-shim" ng-controller="TeamImportDialogController" ng-show="dialogVisible"
+     xmlns="http://www.w3.org/1999/html">
+    <div class="fll-dialog" id="teamImportDialog">
+        <h1>
+            <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
+            <span class="header-text">Import teams</span>
+            <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()">
+                <div class="material-icons">close</div>
+            </button>
+        </h1>
+        <div class="modal-body" style="max-height: 320px;">
+            <div>
+                <label>Paste a team list below</label>
+                <textarea style="width: 70%;" ng-model="importRaw"></textarea>
+            </div>
+
+            <hr style="margin-top: 7px; margin-bottom: 0;">
+
+            <h4>Data format</h4>
+            <div>
+                <input type="checkbox" ng-model="importHeader"> Data contains header </input>
+            </div>
+            <table>
+                <tr>
+                    <td>Number column ({{importNumberExample}})</td>
+                    <td>
+                        <input type="text" ng-model="importNumberColumn" size="2">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Name column ({{importNameExample}})</td>
+                    <td>
+                        <input type="text" ng-model="importNameColumn" size="2">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
                         <input type="checkbox" ng-model="useCustomDelimiter">
+                        Custom delimiter <br>
+                        <span style="font-size: 0.7em">(Default is tab, the delimiter used when pasting from excel)</span>
+                        <br/>
+                    </td>
+
+                    <td>
                         <input type="text" ng-model="delimiter">
-                    </p>
+                    </td>
+                </tr>
+            </table>
 
-                    <table>
-                        <tr ng-repeat="line in importLines">
-                            <td ng-repeat="field in line">
-                                {{field}}
-                            </td>
-                        </tr>
-                    </table>
-                    <button class="btn" ng-click="ok()">Ok</button>
-                    <button class="btn" ng-click="cancel()">Cancel</button>
-                </div>
+            <hr style="margin-top: 7px; margin-bottom: 0;">
+
+            <h4>Data to be loaded:</h4>
+            <table>
+                <span ng-hide="importLines">
+                    No data available.
+                </span>
+                <tr ng-repeat="line in importLines">
+                    <td ng-repeat="field in line">
+                        {{field}}
+                    </td>
+                </tr>
+            </table>
+
+
+            <div>
+                <button class="btn" ng-click="ok()">Ok</button>
+                <button class="btn" ng-click="cancel()">Cancel</button>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="fll-dialog-shim" ng-controller="TeamDialogController" ng-show="dialogVisible">
-        <div class="fll-dialog" id="teamDialog">
-            <h1>
-                <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
-                <span class="header-text">Select a team</span>
-                <p>
-                    <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()"><div class="material-icons">close</div></button>
-                    <button class="btn btn-default btn-dialog" ng-click="settings.teamSort='name';settings.save()" ng-hide="settings.teamSort=='name'">Sort by name</button>
-                    <button class="btn btn-default btn-dialog" ng-click="settings.teamSort='number';settings.save()" ng-hide="settings.teamSort=='number'">Sort by number</button>
+<div class="fll-dialog-shim" ng-controller="TeamDialogController" ng-show="dialogVisible">
+    <div class="fll-dialog" id="teamDialog">
+        <h1>
+            <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
+            <span class="header-text">Select a team</span>
+            <p>
+                <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()">
+                    <div class="material-icons">close</div>
+                </button>
+                <button class="btn btn-default btn-dialog" ng-click="settings.teamSort='name';settings.save()"
+                        ng-hide="settings.teamSort=='name'">Sort by name
+                </button>
+                <button class="btn btn-default btn-dialog" ng-click="settings.teamSort='number';settings.save()"
+                        ng-hide="settings.teamSort=='number'">Sort by number
+                </button>
+            </p>
+        </h1>
+        <section>
+            <table class="table table-hover table-striped table-teams">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="team in teams | orderBy:settings.teamSort" ng-click="selectTeamPop(team)">
+                    <td><h3>{{team.number}}</h3></td>
+                    <td>{{team.name}}
+                        <br/>
+                        <small>{{team.affiliation}}, {{team.cityState}}</small>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
+<div class="fll-dialog-shim" ng-controller="RoundDialogController" ng-show="dialogVisible">
+    <div class="fll-dialog" id="roundDialog">
+        <h1>
+            <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
+            <span class="header-text">Select a round</span>
+            <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()">
+                <div class="material-icons">close</div>
+            </button>
+        </h1>
+        <section>
+            <table class="table table-striped">
+                <tbody>
+                <tr ng-repeat="stage in stages">
+                    <td>
+                        <h3>{{stage.name}}</h3>
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <button
+                                        type="button"
+                                        class="btn btn-round"
+                                        ng-repeat="dummy in getNumber(stage.rounds) track by $index"
+                                        ng-click="selectRoundPop(stage, $index+1)"
+                                >
+                                    <div class="round-label">{{$index+1}}</div>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr ng-repeat-end>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
+<div class="fll-dialog-shim" ng-controller="DescriptionDialogController" ng-show="dialogVisible">
+    <div class="fll-dialog" id="descriptionDialog">
+        <h1>
+            <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
+            <span class="header-text">{{mission.title}}</span>
+            <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()">
+                <div class="material-icons">close</div>
+            </button>
+        </h1>
+        <section>
+            <div class="modal-body" ng-bind-html="mission.description">
+                {{mission.description}}
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="fll-dialog-shim" ng-controller="NewStageDialogController" ng-show="dialogVisible">
+    <div class="fll-dialog" id="newStageDialog">
+        <h1>
+            <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
+            <span class="header-text">Create new Stage</span>
+            <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()">
+                <div class="material-icons">close</div>
+            </button>
+        </h1>
+        <section>
+            <div class="modal-body">
+                <p class="textfield">
+                    <input type="text" ng-model="stage.name" ng-change="nameChanged()">
+                    <label for="">Name</label>
                 </p>
-            </h1>
-            <section>
-                <table class="table table-hover table-striped table-teams">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="team in teams | orderBy:settings.teamSort" ng-click="selectTeamPop(team)">
-                            <td><h3>{{team.number}}</h3></td>
-                            <td>{{team.name}}
-                            <br />
-                            <small>{{team.affiliation}}, {{team.cityState}}</small>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
+                <p class="textfield">
+                    <input type="text" ng-model="stage.id" ng-change="idChanged()">
+                    <label for="">Id (unique)</label>
+                </p>
+                <p class="textfield">
+                    <input type="number" min="0" ng-model="stage.rounds">
+                    <label for="">Rounds (0 to disable stage)</label>
+                </p>
+                <p>
+                    <button class="btn" ng-click="ok()" ng-disabled="!stageDefValid()">Ok</button>
+                    <button class="btn" ng-click="cancel()">Cancel</button>
+                </p>
+            </div>
+        </section>
     </div>
-
-    <div class="fll-dialog-shim" ng-controller="RoundDialogController" ng-show="dialogVisible">
-        <div class="fll-dialog" id="roundDialog">
-            <h1>
-                <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
-                <span class="header-text">Select a round</span>
-                <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()"><div class="material-icons">close</div></button>
-            </h1>
-            <section>
-                <table class="table table-striped">
-                    <tbody>
-                        <tr ng-repeat="stage in stages">
-                            <td>
-                                <h3>{{stage.name}}</h3>
-                            </td>
-                            <td>
-                                <div class="btn-group btn-group-justified">
-                                    <div class="btn-group" >
-                                        <button
-                                            type="button"
-                                            class="btn btn-round"
-                                            ng-repeat="dummy in getNumber(stage.rounds) track by $index"
-                                            ng-click="selectRoundPop(stage, $index+1)"
-                                            ><div class="round-label">{{$index+1}}</div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr ng-repeat-end>
-                    </tbody>
-                </table>
-            </section>
-        </div>
-    </div>
-
-    <div class="fll-dialog-shim" ng-controller="DescriptionDialogController" ng-show="dialogVisible">
-        <div class="fll-dialog" id="descriptionDialog">
-            <h1>
-                <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
-                <span class="header-text">{{mission.title}}</span>
-                <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()"><div class="material-icons">close</div></button>
-            </h1>
-            <section>
-                <div class="modal-body" ng-bind-html="mission.description">
-                   {{mission.description}}
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <div class="fll-dialog-shim" ng-controller="NewStageDialogController" ng-show="dialogVisible">
-        <div class="fll-dialog" id="newStageDialog">
-            <h1>
-                <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
-                <span class="header-text">Create new Stage</span>
-                <button class="fll-dialog-close btn btn-danger btn-dialog" ng-click="cancel()"><div class="material-icons">close</div></button>
-            </h1>
-            <section>
-                <div class="modal-body">
-                    <p class="textfield">
-                        <input type="text" ng-model="stage.name" ng-change="nameChanged()">
-                        <label for="">Name</label>
-                    </p>
-                    <p class="textfield">
-                        <input type="text" ng-model="stage.id" ng-change="idChanged()">
-                        <label for="">Id (unique)</label>
-                    </p>
-                    <p class="textfield">
-                        <input type="number" min="0" ng-model="stage.rounds">
-                        <label for="">Rounds (0 to disable stage)</label>
-                    </p>
-                    <p>
-                        <button class="btn" ng-click="ok()" ng-disabled="!stageDefValid()">Ok</button>
-                        <button class="btn" ng-click="cancel()">Cancel</button>
-                    </p>
-                </div>
-            </section>
-        </div>
-    </div>
+</div>
 
