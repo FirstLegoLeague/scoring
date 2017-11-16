@@ -1,4 +1,4 @@
-    <div class="fll-dialog-shim" ng-controller="TeamImportDialogController" ng-show="dialogVisible">
+    <div class="fll-dialog-shim" ng-controller="TeamImportDialogController" ng-show="dialogVisible" ngf-drop="upload($files, $file)" ngf-pattern=".csv">
         <div class="fll-dialog" id="teamImportDialog">
             <h1>
                 <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
@@ -8,15 +8,15 @@
             <section>
                 <div class="modal-body">
                     <p>
-                        Paste a team list below
+                        Paste a team list below, or drag a csv file here
                     </p>
                     <p>
                         <textarea name="" ng-model="importRaw"></textarea>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox" ng-model="importHeader">
-                            Data contains header
+                            <input type="number" ng-model="headerLength">
+                            Number of Header Lines
                         </label>
                     </p>
                     <p>
@@ -37,7 +37,7 @@
 
                     <table>
                         <tr ng-repeat="line in importLines">
-                            <td ng-repeat="field in line">
+                            <td ng-repeat="field in line track by $index">
                                 {{field}}
                             </td>
                         </tr>
