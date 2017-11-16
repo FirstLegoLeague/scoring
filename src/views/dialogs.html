@@ -34,16 +34,18 @@
                         <input type="checkbox" ng-model="useCustomDelimiter">
                         <input type="text" ng-model="delimiter">
                     </p>
-
-                    <table>
+                    <p>
+                        <button class="btn" ng-click="ok()">Ok</button>
+                        <button class="btn" ng-click="cancel()">Cancel</button>
+                    </p>
+                    <table class="table">
                         <tr ng-repeat="line in importLines">
                             <td ng-repeat="field in line track by $index">
                                 {{field}}
                             </td>
                         </tr>
                     </table>
-                    <button class="btn" ng-click="ok()">Ok</button>
-                    <button class="btn" ng-click="cancel()">Cancel</button>
+
                 </div>
             </section>
         </div>
