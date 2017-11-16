@@ -7,6 +7,8 @@ describe('TeamImportDialogController',function() {
     var $scope, controller, handshakeMock;
 
     beforeEach(function() {
+        angular.module("ngFileUpload", []);//this creates an empty "ngFileUpload" module to be required by the team import dialog controller
+        //this fine because the only relevance of the FileUpload module is in its directives, which are not used here
         angular.mock.module(module.name);
         angular.mock.inject(function($controller,$rootScope,$q) {
             $scope = $rootScope.$new();
