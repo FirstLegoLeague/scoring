@@ -1,5 +1,5 @@
 <div class="fll-dialog-shim" ng-controller="TeamImportDialogController" ng-show="dialogVisible"
-     xmlns="http://www.w3.org/1999/html">
+     xmlns="http://www.w3.org/1999/html"  ngf-drop="upload($files, $file)" ngf-pattern=".csv">
     <div class="fll-dialog" id="teamImportDialog">
         <h1>
             <div class="fll-dialog-back material-icons" ng-click="cancel()">arrow_back</div>
@@ -10,7 +10,7 @@
         </h1>
         <div class="modal-body" style="max-height: 320px;">
             <div>
-                <label>Paste a team list below</label>
+                <label>Paste a team list below, or drag a csv file here</label>
                 <textarea style="width: 70%;" ng-model="importRaw"></textarea>
             </div>
 
@@ -196,4 +196,3 @@
         </section>
     </div>
 </div>
-
