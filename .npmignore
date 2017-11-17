@@ -30,6 +30,7 @@ npm-shrinkwrap.json
 !src/components/angular-bootstrap/*.js
 !src/components/bootstrap-show-password/*.js
 !src/components/angular-storage/*.js
+!src/components/ng-file-upload/*.js
 
 !src/components/bootstrap-css/css
 !src/components/bootstrap-css/img

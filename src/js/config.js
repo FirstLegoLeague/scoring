@@ -13,7 +13,8 @@ var require = {
         'angular-bootstrap': '../components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-storage': '../components/angular-storage/angular-storage',
         'idbstore':'../components/idbwrapper/idbstore',
-        'signaturepad':'../components/signature-pad/jquery.signaturepad.min'
+        'signaturepad':'../components/signature-pad/jquery.signaturepad.min',
+        'ng-file-upload':'../components/ng-file-upload/ng-file-upload.min'
     },
     shim: {
         'signaturepad': {
@@ -36,6 +37,9 @@ var require = {
         },
         'angular-storage': {
             deps: ['angular']
+        },
+        'ng-file-upload' : {
+            deps : ['angular']
         }
     }
 };
