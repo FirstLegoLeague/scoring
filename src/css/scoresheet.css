@@ -171,6 +171,10 @@
     align-items: center;
 }
 
+#missions .errors.card .error {
+    margin: 0.5em 1em;
+}
+
 #missions .mission:not(.error) .errors {
     display: none;
 }

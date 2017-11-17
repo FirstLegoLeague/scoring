@@ -156,7 +156,10 @@ define('views/scoresheet',[
                 let className = mission.title.substr(0, mission.title.indexOf(' '));
                 let missionsElement = $document.context.getElementById('missions');
                 let missionElement = missions.getElementsByClassName(className)[0];
-                missionsElement.scrollTop = missionElement.offsetTop + missionElement.clientHeight - 150;
+                let startingPosition = missionsElement.scrollTop;
+                for(var i = startingPosition; i < missionElement.offsetTop + missionElement.clientHeight - 150; i++) {
+                    missionsElement.scrollTop = i;
+                }
             }
 
             $scope.score = function() {
