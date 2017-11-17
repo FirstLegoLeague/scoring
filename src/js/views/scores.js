@@ -185,7 +185,7 @@ define('views/scores', [
                 $scope.scoresTableConfig.columns[5].options = $settings.settings.tables.map(table => { return { value: table.name, text: table.name }; });
 
                 $scope.ranksTableConfig.view = $settings.settings.currentStage || $scope.stages[0].id;
-                calcRanksColumns();
+                $scope.calcRanksColumns();
                 $scores.getRankings();
             });
 

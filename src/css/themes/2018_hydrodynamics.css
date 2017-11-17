@@ -66,31 +66,10 @@ ng-datatable thead {
 	background: #2A93D5; /* Bondi Blue */
 }
 
-#scoresheet-teams .teams-list {
-	border-radius: 1em;
-	border-color: #2A93D5; /* Bondi Blue */
-    overflow-x: hidden;
-}
-
-#scoresheet-teams .teams-list table {
-	width: calc(100% + 1px);
-	max-width: unset;
-}
-
-#scoresheet-teams .teams-list table th {
-    background: #2A93D5; /* Bondi Blue */
-}
-
-#scoresheet-teams .teams-list table tr:nth-child(2n) {
-    background: #AED9DA; /* Chill */
-}
-
-#scoresheet-teams .teams-list table tr:nth-child(2n+1) {
-    background: white;
-}
-
 #scoresheet-teams .teams-list table tr.selected {
-    background: #3DDAD7 !important; /* Californian Coral */
+    background: #2A93D5; /* Bondi Blue */
+    color: white;
+    font-weight: bold;
 }
 
 #scoresheet-teams .stage-select .round {

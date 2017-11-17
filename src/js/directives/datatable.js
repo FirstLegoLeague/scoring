@@ -45,14 +45,14 @@ define('directives/datatable',[
                             }
                             return newColumn;
                         }),
-                        actions: conf.actions.map(action => {
+                        actions: conf.actions ? conf.actions.map(action => {
                             return {
                                 onClick: action.onClick || doNothing,
                                 show: action.show || returnTrue,
                                 classes: action.classes || returnEmptyString,
                                 icon: action.icon || ''
                             };
-                        }),
+                        }) : [],
                         row: {
                             classes: conf.row ? (conf.row.classes || returnEmptyString) : returnEmptyString,
                             show: conf.row ? (conf.row.show || returnTrue) : returnTrue

@@ -96,6 +96,7 @@ i.material-icons.big {
 
 ng-datatable table {
     height: 100%;
+    margin-bottom: 0 !important; /* Overrides bootstrap */
 }
 
 ng-datatable thead td i {

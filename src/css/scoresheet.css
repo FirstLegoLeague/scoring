@@ -8,7 +8,8 @@
 
 #intro {
     height: inherit;
-    background: url('http://www.firstlegoleague.org/sites/default/files/home_hero2.jpg');
+    background-image: url('/img/scoresheet_lobby_background.jpg');
+    background-size: 100%;
     transition: all linear 0.2s;
 }
 
@@ -75,23 +76,18 @@
 #scoresheet-teams .teams-list {
     grid-row-end: span 2;
     overflow-y: auto;
-    border: 1px solid gray;
 }
 
-#scoresheet-teams .teams-list table {
-    width: 100%;
+#scoresheet-teams .teams-list table tbody {
+    height: calc(100% - 4em);
 }
 
-#scoresheet-teams .teams-list table th {
-    background: grey;
+#scoresheet-teams .teams-list table tr {
+    cursor: pointer;
 }
 
-#scoresheet-teams .teams-list table tr:nth-child(2n) {
-    background: lightgrey;
-}
-
-#scoresheet-teams .teams-list table tr:nth-child(2n+1) {
-    background: white;
+#scoresheet-teams .teams-list table td.name {
+    flex: 1;
 }
 
 #scoresheet-teams .stage-select .stage {

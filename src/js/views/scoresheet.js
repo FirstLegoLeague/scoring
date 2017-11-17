@@ -27,6 +27,21 @@ define('views/scoresheet',[
         function($document, $scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$handshake) {
             log('init scoresheet ctrl');
 
+            $scope.selectTeam = function(team) {
+                $scope.scoreEntry.team = team
+                $scope.fillStageRound(team);
+            };
+
+            $scope.teamChoosingTableConfig = {
+                columns: [
+                    { field: 'number', header: '#', onCellClick: $scope.selectTeam },
+                    { field: 'name', header: 'Name', onCellClick: $scope.selectTeam },
+                ],
+                row: {
+                    classes: team => team === $scope.scoreEntry.team ? 'selected' : ''
+                }
+            }
+
             // Set up defaults
             $scope.settings = {};
             $scope.missions = [];
@@ -75,11 +90,6 @@ define('views/scoresheet',[
                     rounds.push(i+1);
                 }
                 return rounds;
-            };
-
-            $scope.selectTeam = function(team) {
-                $scope.scoreEntry.team = team
-                $scope.fillStageRound(team);
             };
 
             $scope.selectStageAndRound = function(stage, round) {
