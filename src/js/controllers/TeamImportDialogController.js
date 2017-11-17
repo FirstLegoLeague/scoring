@@ -16,6 +16,8 @@ define('controllers/TeamImportDialogController', [
             function parseData(data, headerLength) {
                 if(!data) {
                     $scope.importLines = [];
+                    $scope.importNumberExample = '';
+                    $scope.importNameExample = '';
                     return;
                 }
 
