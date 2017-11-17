@@ -57,7 +57,7 @@
                     No data available.
                 </span>
                 <tr ng-repeat="line in importLines">
-                    <td ng-repeat="field in line">
+                    <td ng-repeat="field in line track by $index">
                         {{field}}
                     </td>
                 </tr>

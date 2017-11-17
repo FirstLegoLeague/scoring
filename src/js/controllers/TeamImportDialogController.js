@@ -10,9 +10,25 @@ define('controllers/TeamImportDialogController', [
         function ($scope, $handshake) {
             var defer;
 
+            var BRIAN_LEES_SCHEDULER_FORMAT = /^Version Number,\d+,*\sBlock Format,\d+,*\sNumber of Teams,\d+,*\s((.|\s)*)$/;
+            var BRIAN_LEES_SCHEDULER_DELIMITER = ',';
+
             function parseData(data, headerLength) {
+                if(!data) {
+                    $scope.importLines = [];
+                    return;
+                }
+
+                // Checking special case for Brian Lee's scheduler program
+                var brianLeesFormattedData = data.match(BRIAN_LEES_SCHEDULER_FORMAT);
+                if(brianLeesFormattedData) {
+                    $scope.useCustomDelimiter = true;
+                    $scope.delimiter = BRIAN_LEES_SCHEDULER_DELIMITER;
+                    return parseData(brianLeesFormattedData[1], 0);
+                }
+
                 //parse raw import, split lines
-                var lines = data ? data.match(/[^\r\n]+/g) : [];
+                var lines = data.match(/[^\r\n]+/g);
                 headerLength = headerLength ? headerLength : 0;
                 lines.splice(0, headerLength);
                 lines = lines.map(function (line) {
