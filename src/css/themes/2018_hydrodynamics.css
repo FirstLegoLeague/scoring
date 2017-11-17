@@ -54,6 +54,12 @@ ng-datatable thead {
     color: white;
 }
 
+.btn.btn-primary {
+    background: #2A93D5; /* Bondi Blue */
+    color: white;
+    font-weight: bold;
+}
+
 .btn.active {
     background: #135589 !important; /* Marina */
     color: #EDFAFD; /* Glass */
