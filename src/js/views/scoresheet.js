@@ -27,6 +27,8 @@ define('views/scoresheet',[
         function($document, $scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$handshake) {
             log('init scoresheet ctrl');
 
+            const AUTOSCROLL_SPEED = 0.1;
+
             $scope.selectTeam = function(team) {
                 $scope.scoreEntry.team = team
                 $scope.fillStageRound(team);
@@ -156,10 +158,20 @@ define('views/scoresheet',[
                 let className = mission.title.substr(0, mission.title.indexOf(' '));
                 let missionsElement = $document.context.getElementById('missions');
                 let missionElement = missions.getElementsByClassName(className)[0];
+
                 let startingPosition = missionsElement.scrollTop;
-                for(var i = startingPosition; i < missionElement.offsetTop + missionElement.clientHeight - 150; i++) {
-                    missionsElement.scrollTop = i;
+                let endingPosition = missionElement.offsetTop + missionElement.clientHeight - 150;
+                let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED;
+
+                function scrollTick() {
+                    if(missionsElement.scrollTop + tick < endingPosition) {
+                        missionsElement.scrollTop += tick;
+                        requestAnimationFrame(scrollTick);
+                    } else {
+                        missionsElement.scrollTop = endingPosition;
+                    }
                 }
+                requestAnimationFrame(scrollTick);
             }
 
             $scope.score = function() {
