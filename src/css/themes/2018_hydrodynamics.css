@@ -78,13 +78,20 @@ ng-datatable thead {
     font-weight: bold;
 }
 
+#scoresheet-teams .stage-select .stage .stage-title {
+    border-color: #2A93D5; /* Bondi Blue */
+    border-width: 2px;
+}
+
 #scoresheet-teams .stage-select .round {
     background: white;
-    border: #3DDAD7 1px solid; /* Californian Coral */
+    border: #135589 1px solid; /* Marina */
 }
 
 #scoresheet-teams .stage-select .round.selected {
-    background: #3DDAD7 !important; /* Californian Coral */
+    background: #135589 !important; /* Marina */
+    color: white;
+    font-weight: bold;
 }
 
 #team-toolbar {

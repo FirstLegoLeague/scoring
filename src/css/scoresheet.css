@@ -90,11 +90,28 @@
     flex: 1;
 }
 
+#scoresheet-teams .stage-select .stages {
+    display: flex;
+    flex-direction: column;
+}
+
+#scoresheet-teams .stage-select .stages i {
+    vertical-align: middle;
+}
+
 #scoresheet-teams .stage-select .stage {
-    display: inline-block;
     text-align: center;
-    border: lightgray 1px solid;
     margin: 0.5em;
+}
+
+#scoresheet-teams .stage-select .stage .stage-title {
+    border: 1px solid gray;
+    border-bottom: none;
+}
+
+#scoresheet-teams .stage-select .stage .rounds {
+    display: flex;
+    justify-content: space-around;
 }
 
 #scoresheet-teams .stage-select .round {
@@ -131,6 +148,10 @@
 
     #scoresheet-teams .teams-list {
         grid-row-end: span 1;
+    }
+
+    #scoresheet-teams .stage-select .stages {
+        flex-direction: row;
     }
 
 }

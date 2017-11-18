@@ -2,13 +2,18 @@
 
 <div class="stage-select">
 	<h3 class="title" ng-show="scoreEntry.team">{{scoreEntry.team.name}} - {{scoreEntry.team.number}}</h3>
-	<div ng-show="scoreEntry.team" ng-repeat="stage in stages" class="stage">
-		<div class="stage-title" ng-show="scoreEntry.team">
-			{{stage.id}}
-		</div>
-		<div class="rounds">
-			<div class="round" ng-class="{ selected: isStageAndRoundSelected(stage, round) }" ng-repeat="round in rounds(stage)" ng-click="selectStageAndRound(stage, round)">
-				{{round}}
+	<div class="stages">
+		<div ng-show="scoreEntry.team" ng-repeat="stage in stages" class="stage" style="flex: {{stage.rounds}}">
+			<div class="stage-title" ng-show="scoreEntry.team">
+				{{stage.id}}
+			</div>
+			<div class="rounds">
+				<div ng-repeat="round in rounds(stage)">
+					<i ng-if="$index !== 0" class="material-icons">arrow_forward</i>
+					<div class="round" ng-class="{ selected: isStageAndRoundSelected(stage, round) }" ng-click="selectStageAndRound(stage, round)">
+						{{round}}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
