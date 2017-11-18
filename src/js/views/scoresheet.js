@@ -158,9 +158,13 @@ define('views/scoresheet',[
                 let className = mission.title.substr(0, mission.title.indexOf(' '));
                 let missionsElement = $document.context.getElementById('missions');
                 let missionElement = missions.getElementsByClassName(className)[0];
+                if(!missionElement) {
+                    return;
+                }
 
                 let startingPosition = missionsElement.scrollTop;
-                let endingPosition = missionElement.offsetTop + missionElement.clientHeight - 150;
+                let endingPosition = Math.min(missionElement.offsetTop + missionElement.clientHeight - 150,
+                                            missionsElement.scrollHeight - missionsElement.clientHeight);
                 let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED;
 
                 function scrollTick() {
@@ -226,9 +230,6 @@ define('views/scoresheet',[
                 }
                 if (incomplete) {
                     list.push('Some missions are incomplete');
-                }
-                if(!$scope.signature){
-                    list.push('Scoresheet not signed');
                 }
 
                 return list;

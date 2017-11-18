@@ -1,11 +1,8 @@
-<h2 class="team-title">
-	Team #{{scoreEntry.team.number}} - {{scoreEntry.team.name}}
-</h2>
-
 <div class="signoff-grid">
 
 	<div class="missions">
-		<div class="mission" ng-repeat="mission in missions">
+		<div class="mission card" ng-repeat="mission in missions">
+			<div class="title">{{mission.title}} ({{mission.result}})</div>
 			<div class="objective" ng-repeat="objective in mission.objectives">
 				<div class="title">{{objective.title}}</div> - <div class="value">{{objective.value}}</div>
 			</div>
