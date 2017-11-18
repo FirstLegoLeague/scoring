@@ -161,6 +161,15 @@
     transition: none;
 }
 
+#scoresheet-teams .stage-select .round-score {
+    font-weight: bolder;
+    font-size: 1.5rem;
+    transform: rotate(-20deg);
+    margin-top: -0.5em;
+    border-radius: 2px;
+    padding: 0.1em;
+}
+
 #team-toolbar {
     background: lightgrey;
     color: black;

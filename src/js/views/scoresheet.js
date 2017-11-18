@@ -54,6 +54,8 @@ define('views/scoresheet',[
             $scope.stages = $stages.stages;
             $scope.scores = $scores.scores;
 
+            $scope.completedScores = [];
+
             $scope.step = 'intro';
 
             $scope.load = function() {
@@ -101,6 +103,14 @@ define('views/scoresheet',[
 
             $scope.isStageAndRoundSelected = function(stage, round) {
                 return $scope.scoreEntry.stage === stage && $scope.scoreEntry.round === round;
+            };
+
+            $scope.isDoneRound = function(stage, round) {
+                return $scope.completedScores.some(score => score.round === round && score.stageId === stage.id);
+            };
+
+            $scope.roundScore = function(stage, round) {
+                return $scope.completedScores.find(score => score.round === round && score.stageId === stage.id).score;
             };
 
             function getObjectives(names) {
@@ -269,8 +279,6 @@ define('views/scoresheet',[
                     $scope.editingScore = false;
                 }
                 log('scoresheet cleared');
-                $scope.moveOn('teams');
-                $document.context.getElementById('missions').scrollTop = 0;
             };
 
             $scope.saveEdit = function () {
@@ -325,10 +333,14 @@ define('views/scoresheet',[
                 return $scores.create(scoresheet, scoreEntry).then(function() {
                     log('result saved: ');
                     $scope.clear();
+                    $document.context.getElementById('missions').scrollTop = 0;
+                    $scope.moveOn('teams');
                     setTimeout(() => $window.alert(message), 0);
                 }).catch(function(err) {
                     log(`Error: ${err}`);
                     $scope.clear();
+                    $document.context.getElementById('missions').scrollTop = 0;
+                    $scope.moveOn('teams');
                     setTimeout(() => $window.alert(message), 0);
                     throw err;
                 });
@@ -343,12 +355,16 @@ define('views/scoresheet',[
                     return;
                 }
                 var currentStageObject = $stages.get($settings.settings.currentStage);
-                var completedRoundsInCurrentStage = $scores.scores.filter((score)=>{
-                    return score.teamNumber === team.number && score.stageId === currentStageObject.id;
-                }).map((score)=>score.round);
-                var firstNotCompleted = currentStageObject.$rounds.find((round)=>{
-                    return completedRoundsInCurrentStage.indexOf(round) === -1;
-                });
+                $scope.completedScores = $scores.scores
+                    .filter(score => score.teamNumber === team.number);
+
+                var completedRoundsInCurrentStage = $scope.completedScores
+                    .filter(score => score.stageId === currentStageObject.id)
+                    .map(score => score.round);
+
+                var firstNotCompleted = currentStageObject.$rounds
+                    .find(round => completedRoundsInCurrentStage.indexOf(round) === -1);
+
                 $scope.scoreEntry.stage = currentStageObject;
                 $scope.scoreEntry.round = firstNotCompleted;
             }

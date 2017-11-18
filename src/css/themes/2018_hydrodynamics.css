@@ -88,6 +88,19 @@ ng-datatable thead {
     border: #135589 1px solid; /* Marina */
 }
 
+#scoresheet-teams .stage-select .round.done {
+    opacity: 0.5;
+}
+
+#scoresheet-teams .stage-select .stage .rounds > *:not(:first-child) > .round-score {
+    margin-left: calc(0.5em + 26px);
+}
+
+#scoresheet-teams .stage-select .round-score {
+    color: #008417;
+    border: 2px solid #008417;
+}
+
 #scoresheet-teams .stage-select .round.selected {
     background: #135589 !important; /* Marina */
     color: white;
