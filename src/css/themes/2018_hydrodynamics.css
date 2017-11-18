@@ -103,6 +103,7 @@ ng-datatable thead {
 	line-height: 1.6em;
     font-size: 2em;
     margin: 0 1em;
+    cursor: pointer;
 }
 
 #team-toolbar .score {

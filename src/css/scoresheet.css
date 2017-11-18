@@ -246,6 +246,8 @@
 
 #signoff .signoff-grid [fll-sigpad] canvas {
     border: lightgray 1px solid;
+    width: 100%;
+    height: fit-content;
 }
 
 #signoff .signoff-grid .missions .objective {

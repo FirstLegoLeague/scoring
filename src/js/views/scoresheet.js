@@ -269,6 +269,8 @@ define('views/scoresheet',[
                     $scope.editingScore = false;
                 }
                 log('scoresheet cleared');
+                $scope.moveOn('teams');
+                $document.context.getElementById('missions').scrollTop = 0;
             };
 
             $scope.saveEdit = function () {
@@ -327,7 +329,6 @@ define('views/scoresheet',[
                 }).catch(function(err) {
                     log(`Error: ${err}`);
                     $scope.clear();
-                    $scope.moveOn('teams');
                     setTimeout(() => $window.alert(message), 0);
                     throw err;
                 });
