@@ -27,7 +27,7 @@
                         <option ng-repeat="option in column.options" ng-value="option.value">{{option.text}}</option>
                     </select>
 
-                    <input class="text" ng-show="column.edit === 'text'" ng-model="item[column.writeField]">
+                    <input class="text" ng-show="column.edit === 'text'" ng-model="item[column.writeField]" ng-keyup="$event.keyCode == 13 ? edit.save() : null; $event.stopPropagation()">
 
                     <i class="material-icons" ng-click="edit.save(); $event.stopPropagation()">done</i>
                     <i class="material-icons" ng-click="edit.cancel(); $event.stopPropagation()">clear</i>
