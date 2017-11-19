@@ -86,6 +86,12 @@ define('views/scoresheet',[
 
             $scope.moveOn = function(step) {
                 $scope.step = step;
+                requestAnimationFrame(() => {
+                    let scrollElements = $document.context.getElementsByClassName('reset-scroll');
+                    for(var i = 0; i < scrollElements.length; i++) {
+                        scrollElements[i].scrollTop = 0;
+                    }
+                });
             };
 
             $scope.rounds = function(stage) {
@@ -333,13 +339,11 @@ define('views/scoresheet',[
                 return $scores.create(scoresheet, scoreEntry).then(function() {
                     log('result saved: ');
                     $scope.clear();
-                    $document.context.getElementById('missions').scrollTop = 0;
                     $scope.moveOn('teams');
                     setTimeout(() => $window.alert(message), 0);
                 }).catch(function(err) {
                     log(`Error: ${err}`);
                     $scope.clear();
-                    $document.context.getElementById('missions').scrollTop = 0;
                     $scope.moveOn('teams');
                     setTimeout(() => $window.alert(message), 0);
                     throw err;
