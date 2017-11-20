@@ -1,8 +1,13 @@
 <div class="mission card {{mission.title.substr(0, mission.title.indexOf(' '))}}" ng-repeat="mission in missions" ng-repeat="mission in missions" ng-class="{error:mission.errors.length, ok:mission.completed}">
 
-	<h2 class="card-header">
-        {{mission.title}}
-    </h2>
+    <div class="card-top">
+    	<h2 class="card-header">
+            {{mission.title}}
+        </h2>
+        <div class="card-menu">
+            <div class="mission-score" ng-if="mission.result">{{mission.result}}</div>
+        </div>
+    </div>
 
     <div class="card-body">
 	    <div class="errors">

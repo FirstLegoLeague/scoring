@@ -138,6 +138,17 @@ ng-datatable thead {
     padding: 0.2em;
 }
 
+#missions .mission .mission-score {
+    color: #008417;
+    border: 2px solid #008417;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    transform: rotate(-20deg);
+    margin-top: -0.5em;
+    border-radius: 2px;
+    padding: 0.1em;
+}
+
 #signoff .mission.card {
     background: #3DDAD7; /* Californian Coral */
     padding: 0.5em;
