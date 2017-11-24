@@ -220,3 +220,14 @@ ng-datatable thead {
 .setting .setting-title {
     color: #135589; /* Marina */
 }
+
+#team-import-dialog.dragover {
+    background: rgba(19, 85, 137, 0.7); /* Marina */
+}
+
+#team-import-dialog.dragover .drag-indication {
+    border: 10px dashed #2A93D5;
+    box-sizing: border-box;
+    color: #2A93D5;
+    border-radius: 12px;
+}
