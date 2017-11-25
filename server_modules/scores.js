@@ -27,23 +27,30 @@ function changeScores(action) {
                 if(err.message === 'file not found') {
                     return { version:3, scores: [] };
                 } else {
+                    lockfile.unlock('scores.json.lock', function (err) {
+                        if (err) rej(err);
+                    });
                     throw err;
                 }
             })
             .then(action)
             .then(function(scores) {
                 return fileSystem.writeFile(path, JSON.stringify(scores)).then(function() {
-                    lockfile.unlock('scores.json.lock', function(err) {
-                        if(err) rej(err);
-                    });
                     return scores;
                 }).catch(function() {
-                    lockfile.unlock('scores.json.lock', function(err) {
-                        if(err) rej(err);
-                    });
                     return scores;
                 });
-            }).then(res).catch(rej);
+            }).then(function (scores) {
+                lockfile.unlock('scores.json.lock', function (err) {
+                    if (err) rej(err);
+                });
+                res(scores);
+            }).catch(function (error) {
+                lockfile.unlock('scores.json.lock', function (err) {
+                    if (err) rej(err);
+                });
+                rej(error);
+            });
         });
     });
 }
