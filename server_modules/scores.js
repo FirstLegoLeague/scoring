@@ -20,7 +20,7 @@ function reduceToMap(key) {
 function changeScores(action) {
     return new Promise(function(res, rej) {
         var path = fileSystem.getDataFilePath('scores.json');
-        lockfile.lock('scores.json.lock', { retries: 5, retryWait: 100 }, function (err) {
+        lockfile.lock('scores.json.lock', { retries: 5, retryWait: 100 , stale : 1000}, function (err) {
             if(err) rej(err);
             fileSystem.readJsonFile(path)
             .catch(function(err) {
