@@ -42,6 +42,11 @@ define('services/ng-independence',[
         function actionToPromise(action) {
             const promise = $http.post(action.url, action.data);
             promise.then(() => delete $localStorage[action.originalKey]);
+            promise.catch(error => {
+                if (error.status === 500){
+                    delete $localStorage[action.originalKey];
+                }
+            });
             return promise;
         }
 
