@@ -20,30 +20,37 @@ function reduceToMap(key) {
 function changeScores(action) {
     return new Promise(function(res, rej) {
         var path = fileSystem.getDataFilePath('scores.json');
-        lockfile.lock('scores.json.lock', { retries: 5, retryWait: 100 }, function (err) {
+        lockfile.lock('scores.json.lock', { retries: 5, retryWait: 100 , stale : 1000}, function (err) {
             if(err) rej(err);
             fileSystem.readJsonFile(path)
             .catch(function(err) {
                 if(err.message === 'file not found') {
                     return { version:3, scores: [] };
                 } else {
+                    lockfile.unlock('scores.json.lock', function (err) {
+                        if (err) rej(err);
+                    });
                     throw err;
                 }
             })
             .then(action)
             .then(function(scores) {
                 return fileSystem.writeFile(path, JSON.stringify(scores)).then(function() {
-                    lockfile.unlock('scores.json.lock', function(err) {
-                        if(err) rej(err);
-                    });
                     return scores;
                 }).catch(function() {
-                    lockfile.unlock('scores.json.lock', function(err) {
-                        if(err) rej(err);
-                    });
                     return scores;
                 });
-            }).then(res).catch(rej);
+            }).then(function (scores) {
+                lockfile.unlock('scores.json.lock', function (err) {
+                    if (err) rej(err);
+                });
+                res(scores);
+            }).catch(function (error) {
+                lockfile.unlock('scores.json.lock', function (err) {
+                    if (err) rej(err);
+                });
+                rej(error);
+            });
         });
     });
 }
