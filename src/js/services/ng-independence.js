@@ -3,8 +3,9 @@
  * use them later when the server's back up.
  */
 define('services/ng-independence',[
-    'services/ng-services'
-],function(module) {
+    'services/ng-services',
+    'services/log'
+],function(module, log) {
     "use strict";
 
     return module.service('$independence', ['$q','$localStorage', '$http',
@@ -44,6 +45,7 @@ define('services/ng-independence',[
             promise.then(() => delete $localStorage[action.originalKey]);
             promise.catch(error => {
                 if (error.status === 500){
+                    log(`server reports error in request to ${action.url} with data ${JSON.stringify(action.data)}`);
                     delete $localStorage[action.originalKey];
                 }
             });
