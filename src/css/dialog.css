@@ -23,7 +23,7 @@
     width: 50vw;
     padding: 1em;
     border-radius: 0.5em;
-    height: 70vh;
+    height: 75vh;
     display: flex;
     flex-direction: column;
 }
@@ -44,8 +44,8 @@
     flex: 1;
 }
 .dialog-actions {
-    margin-top: 1.75em;
+    margin-top: .75em;
     direction: rtl;
     border-top: 1px solid lightgray;
-    padding-top: 1em;
+    padding-top: .75em;
 }

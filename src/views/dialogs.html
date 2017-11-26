@@ -12,8 +12,8 @@
             <div id="teams-data-formatting-container">
                 <h4>Format</h4>
                 <div class="field">
-                    <input type="checkbox" ng-model="importHeader">
-                    <div class="title">Data contains header</div>
+                    <div>Header length</div>
+                    <input type="number" ng-model="headerLength">
                 </div>
                 <div class="field">
                     <div>Number column ({{importNumberExample}})</div>
@@ -32,7 +32,7 @@
                     <input type="text" ng-show="useCustomDelimiter" ng-model="delimiter">
                 </div>
             </div>
-            <h4>Teams</h4>
+             <h4>Teams</h4>
             <div id="teams-data" ng-if="importLines">
                 <table>
                     <tr ng-repeat="line in importLines" class="team">

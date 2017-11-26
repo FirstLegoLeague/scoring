@@ -3,6 +3,6 @@
   "main": "nwindex.html",
   "version": "0.0.0",
   "window": {
-    "toolbar":false
+    "toolbar": false
   }
 }
