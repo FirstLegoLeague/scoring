@@ -1,3 +1,44 @@
+/* loaders */
+.loader {
+    border-radius: 1em;
+    width: 1em;
+    height: 1em;
+    animation: spin-clockwise 1.5s linear infinite;
+    font-size: 5vw;
+
+    border: 0.05em solid lightgray;
+    border-top: 0.05em solid gray;
+}
+
+.loader.slow { animation-duration: 2s; }
+.loader.slower { animation-duration: 2.5s; }
+.loader.slowest { animation-duration: 3s; }
+
+.loader.fast { animation-duration: 1s; }
+.loader.faster { animation-duration: 0.75s; }
+.loader.fastest { animation-duration: 0.5s; }
+.loader.extreme { animation-duration: 0.2s; }
+
+.loader.counter-clockwise { animation-name: spin-counter-clockwise; }
+
+.loader.tiny { font-size: initial; }
+.loader.small { font-size: 2vw; }
+.loader.big { font-size: 10vw; }
+.loader.large { font-size: 15vw; }
+.loader.huge { font-size: 25vw; }
+
+@keyframes spin-clockwise {
+    0% { transform: rotate(0deg);  }
+    100% { transform: rotate(360deg);  }
+}
+
+@keyframes spin-counter-clockwise {
+    0% { transform: rotate(0deg);  }
+    100% { transform: rotate(-360deg);  }
+}
+
+/* icons */
+
 i.material-icons[ng-click] {
     cursor: pointer;
     margin: 0.25em;
@@ -34,7 +75,7 @@ i.material-icons.big {
     justify-content: center;
 }
 
-/*
+    /*
 * "toolbar" class: describes a toolbar. Any element in it will baecome an element in the toolbar
 */
 .toolbar {
