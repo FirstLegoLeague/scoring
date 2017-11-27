@@ -64,7 +64,7 @@ define('controllers/TeamImportDialogController', [
                         $scope.delimiter = BRIAN_LEES_SCHEDULER_DELIMITER;
                         $scope.headerLength = 0;
                         var teamCount = parseInt(brianLeesFormattedData[1]); //regex has two group matches: the first matches the team count in the file
-                        var lines = brianLeesFormattedData[2].match(/[^\r\n]+/g);//the second group matchs the rest of the file, without the header- but including some other irrelevant data in the end
+                        var lines = brianLeesFormattedData[2].split("\n");//the second group matchs the rest of the file, without the header- but including some other irrelevant data in the end
                         $scope.importRaw = lines.splice(0, teamCount).join("\n");//from that group, we take an amount of lines matching the amount of teams, and join those to build the import string
                     } else {
                         $scope.useCustomDelimiter = true;
