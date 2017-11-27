@@ -18,7 +18,7 @@
 
             <h4>Data format</h4>
             <div>
-                <input type="checkbox" ng-model="importHeader"> Data contains header </input>
+                <input type="number" ng-model="headerLength"> Header Length (Number of lines to skip)</input>
             </div>
             <table>
                 <tr>
@@ -52,7 +52,7 @@
             <hr style="margin-top: 7px; margin-bottom: 0;">
 
             <h4>Data to be loaded:</h4>
-            <table>
+            <table class="table">
                 <span ng-hide="importLines">
                     No data available.
                 </span>
