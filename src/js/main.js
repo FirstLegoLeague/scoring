@@ -30,8 +30,8 @@ define([
     //initialize main controller and load main view
     //load other main views to create dynamic views for different device layouts
     angular.module('main',['ngAnimate']).controller('mainCtrl',[
-        '$scope', '$session',
-        function($scope, $session) {
+        '$scope', '$session', '$location',
+        function($scope, $session, $location) {
             log('init main ctrl');
 
             const PAGES = [
@@ -53,7 +53,10 @@ define([
                 } else {
                     $scope.pages = PAGES;
                 }
-                $scope.currentPage = $scope.pages[0];
+                let urlPath = $location.path();
+                console.log(urlPath);
+                let pageFromURL = $scope.pages.find(page => `/${page.name}` === urlPath);
+                $scope.setPage(pageFromURL || $scope.pages[0]);
             });
 
             $scope.$on('validationError',function(e,validationErrors) {
@@ -70,7 +73,7 @@ define([
 
             $scope.setPage = function(page) {
                 $scope.currentPage = page;
-                $('body').scrollTop(0);
+                $location.path(page.name);
                 $scope.drawerVisible = false;
             };
 
