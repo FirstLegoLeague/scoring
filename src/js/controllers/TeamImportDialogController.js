@@ -10,7 +10,7 @@ define('controllers/TeamImportDialogController', [
         function ($scope, $handshake) {
             var defer;
 
-            var BRIAN_LEES_SCHEDULER_FORMAT = /^Version Number,\d+,*\sBlock Format,\d+,*\sNumber of Teams,\d+,*\s((.|\s)*)$/;
+            var BRIAN_LEES_SCHEDULER_FORMAT = /^Version Number,\d+,*\s+Block Format,\d+,*\s+Number of Teams,(\d+),*\s+((.|\s)*)$/;
             var BRIAN_LEES_SCHEDULER_DELIMITER = ',';
 
             function parseData(data, headerLength) {
@@ -19,14 +19,6 @@ define('controllers/TeamImportDialogController', [
                     $scope.importNumberExample = '';
                     $scope.importNameExample = '';
                     return;
-                }
-
-                // Checking special case for Brian Lee's scheduler program
-                var brianLeesFormattedData = data.match(BRIAN_LEES_SCHEDULER_FORMAT);
-                if(brianLeesFormattedData) {
-                    $scope.useCustomDelimiter = true;
-                    $scope.delimiter = BRIAN_LEES_SCHEDULER_DELIMITER;
-                    return parseData(brianLeesFormattedData[1], 0);
                 }
 
                 //parse raw import, split lines
@@ -63,10 +55,23 @@ define('controllers/TeamImportDialogController', [
                     return;
                 }
                 var reader = new FileReader();
-                $scope.useCustomDelimiter = true;
-                $scope.delimiter = ",";
-                $scope.headerLength = 3;
-                reader.onload = (event) => $scope.importRaw = event.target.result; //no need to explicitly call parseData(), because it will trigger on it's own when we change $scope.importRaw
+                reader.onload = (event) => { //no need to explicitly call parseData(), because it will trigger on it's own when we change $scope.importRaw
+                    // Checking special case for Brian Lee's scheduler program
+                    var data = event.target.result;
+                    var brianLeesFormattedData = data.match(BRIAN_LEES_SCHEDULER_FORMAT);
+                    if (brianLeesFormattedData) {
+                        $scope.useCustomDelimiter = true;
+                        $scope.delimiter = BRIAN_LEES_SCHEDULER_DELIMITER;
+                        $scope.headerLength = 0;
+                        var teamCount = parseInt(brianLeesFormattedData[1]); //regex has two group matches: the first matches the team count in the file
+                        var lines = brianLeesFormattedData[2].split("\n");//the second group matchs the rest of the file, without the header- but including some other irrelevant data in the end
+                        $scope.importRaw = lines.splice(0, teamCount).join("\n");//from that group, we take an amount of lines matching the amount of teams, and join those to build the import string
+                    } else {
+                        $scope.useCustomDelimiter = true;
+                        $scope.delimiter = ",";
+                        $scope.importRaw = data;
+                    }
+                };
                 reader.readAsText(file);
 
             };
