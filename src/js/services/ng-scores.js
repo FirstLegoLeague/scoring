@@ -55,25 +55,25 @@ define('services/ng-scores',[
             // Note that the scores on disk only store stageId's, not
             // the full stage, as the content of a stage may change
             // (mostly during development).
-            $rootScope.$watch(function() {
+            $rootScope.$watchCollection(function() {
                 return $stages.stages;
             }, function() {
                 self._update();
-            }, true);
+            });
 
             // Also need to track updates to $teams
-            $rootScope.$watch(function() {
+            $rootScope.$watchCollection(function() {
                 return $teams.teams;
             }, function() {
                 self._update();
-            }, true);
+            });
 
             // Watching for changes in currentStage
             $rootScope.$watch(() => $settings.settings.currentStage, function (newValue, oldValue, scope){
                 if(oldValue && $settings.settings.currentStage) {
                     self.broadcastRanking($stages.get($settings.settings.currentStage));
                 }
-            },true);
+            });
 
             this._updating = 0;
             this._initialized = null; // Promise<void>

@@ -1,6 +1,7 @@
 define('views/tournament', [
     'services/log',
     'services/ng-handshake',
+    'services/ng-message',
     'services/ng-stages',
     'services/ng-teams',
     'services/ng-settings',

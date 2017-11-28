@@ -19,19 +19,13 @@
             };
         </script>
         <script src="components/requirejs/require.js" data-main="main"></script>
-        <div ng-controller="mainCtrl" ng-init="setPlatform('nodejs')">
-            <div fll-size ng-class="containerClass($width,$height)">
-                <div ng-show="pages.length > 1" ng-include="drawer"></div>
-                <div class="viewMain" ng-class="currentPage.name" ng-cloak>
-                    <div ng-show="pages.length > 1" ng-include="'views/appbar.html'"></div>
-                    <div ng-repeat="page in pages"
-                        ng-include="'views/pages/' + page.name + '.html'"
-                        ng-class="'page view-' + page.name + (pages.length === 1 ? ' only-page' : '')"
-                        ng-show="currentPage === page"
-                    ></div>
-                </div>
-                <div ng-include="'views/dialogs.html'"></div>
+        <div ng-controller="mainCtrl">
+            <div ng-if="pages.length > 1" ng-include="drawer"></div>
+            <div class="viewMain" ng-class="currentPage.name" ng-cloak>
+                <div ng-if="pages.length > 1" ng-include="'views/appbar.html'"></div>
+                <div ng-repeat="page in pages track by page.name" ng-include="page.route" ng-class="page.classes" ng-if="currentPage === page"></div>
             </div>
+            <div ng-include="'views/dialogs.html'"></div>
         </div>
 
     </body>

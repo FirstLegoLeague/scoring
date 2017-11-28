@@ -3,10 +3,22 @@
         <tab heading="Advanced settings">
         	<div class="card advanced main">
         		<div class="card-body">
-                    <div ng-repeat="setting in advancedSettings" class="setting">
-                        <input type="{{setting.type}}" ng-model="setting.model" ng-change="save()">
-                        <div class="setting-title">{{setting.title}}</div>
-                        <div class="setting-description">{{setting.description}}</div>
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.autoBroadcast" ng-change="save()">
+                        <div class="setting-title">Automatic publishing</div>
+                        <div class="setting-description">When enabled, upon every change in the score, the display system will be updated.</div>
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.autoPublish" ng-change="save()">
+                        <div class="setting-title">Automatic approval</div>
+                        <div class="setting-description">When enabled, scores submitted will be automatically approved.</div>
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.ignoreNegativeScores" ng-change="save()">
+                        <div class="setting-title">Ignore negative scores</div>
+                        <div class="setting-description">When enabled, all negative scores will be displayed as 0 in the display system.</div>
                     </div>
                 </div>
         	</div>

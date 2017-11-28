@@ -35,7 +35,7 @@
              <h4>Teams</h4>
             <div id="teams-data" ng-if="importLines">
                 <table>
-                    <tr ng-repeat="line in importLines" class="team">
+                    <tr ng-repeat="line in importLines track by $index" class="team">
                         <td ng-repeat="field in line track by $index" class="field">
                             {{field}}
                         </td>

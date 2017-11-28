@@ -28,7 +28,7 @@
                             Broadcast
                         </div>
                         <select ng-model="ranksTableConfig.view" ng-change="calcRanksColumns()" id="viewed-rank">
-                            <option ng-repeat="option in stages" ng-selected="option.id === viewedStage" ng-value="option.id">{{option.name}}</option>
+                            <option ng-repeat="option in stages track by option.id" ng-selected="option.id === viewedStage" ng-value="option.id">{{option.name}}</option>
                         </select>
                     </div>
                 </div>

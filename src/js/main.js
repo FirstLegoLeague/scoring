@@ -1,31 +1,29 @@
 define([
+    'directives/ng-directives',
+    'directives/datatable',
+
+    'services/ng-services',
     'services/log',
     'services/ng-session',
+
+    'filters/ng-filters',
+    'filters/index',
+
     'views/settings',
     'views/tournament',
     'views/scoresheet',
     'views/scores',
-    'views/clock',
-    'services/ng-services',
-    'directives/ng-directives',
-    'directives/size',
-    'directives/datatable',
-    'filters/ng-filters',
-    'filters/index',
-    'tests/fsTest',
-    'tests/indexedDBTest',
+
     'angular-bootstrap',
     'angular-touch',
     'angular-animate',
     'angular-sanitize',
     'angular-storage',
     'angular'
-],function(log,session,settings,tournament,scoresheet,scores,clock,services,directives,size,filters,indexFilter,fsTest,dbTest) {
+
+],function(directives, datatable, services, log, session, filters, indexFilter, settings, tournament, scoresheet, scores) {
 
     log('device ready');
-
-    // fsTest();
-    // dbTest();
 
     //initialize main controller and load main view
     //load other main views to create dynamic views for different device layouts
@@ -53,9 +51,16 @@ define([
                 } else {
                     $scope.pages = PAGES;
                 }
+                // Enrich pages
+                $scope.pages.forEach(page => {
+                    page.route = `views/pages/${page.name}.html`;
+                    page.classes = `page view-${page.name}${($scope.pages.length === 1 ? ' only-page' : '')}`;
+                });
+                // Set current page
                 let urlPath = $location.path();
                 console.log(urlPath);
                 let pageFromURL = $scope.pages.find(page => `/${page.name}` === urlPath);
+
                 $scope.setPage(pageFromURL || $scope.pages[0]);
             });
 
@@ -77,22 +82,6 @@ define([
                 $scope.drawerVisible = false;
             };
 
-            $scope.setPlatform = function(platform) {
-                $scope.platform = platform;
-            };
-
-            $scope.containerClass = function(w,h) {
-                w = w();
-                if (w <= 480) {
-                    return $scope.platform + ' smallWindow';
-                } else if (w <= 1024) {
-                    return $scope.platform + ' mediumWindow';
-                } else {
-                    return $scope.platform + ' largeWindow';
-                }
-            };
-
-            // $scope.
         }
     ]);
     angular.module('main').config(function($compileProvider){
@@ -108,7 +97,6 @@ define([
         tournament.name,
         scoresheet.name,
         scores.name,
-        clock.name,
         filters.name,
         services.name,
         directives.name

@@ -3,12 +3,12 @@
 <div class="stage-select">
 	<h3 class="title" ng-show="scoreEntry.team">{{scoreEntry.team.name}} - {{scoreEntry.team.number}}</h3>
 	<div class="stages">
-		<div ng-show="scoreEntry.team" ng-repeat="stage in stages" class="stage" style="flex: {{stage.rounds}}">
+		<div ng-show="scoreEntry.team" ng-repeat="stage in stages track by stage.id" class="stage" style="flex: {{stage.rounds}}">
 			<div class="stage-title" ng-show="scoreEntry.team">
 				{{stage.id}}
 			</div>
 			<div class="rounds">
-				<div ng-repeat="round in rounds(stage)">
+				<div ng-repeat="round in rounds(stage) track by $index">
 					<i ng-if="$index !== 0" class="material-icons">arrow_forward</i>
 					<div class="round" ng-class="{ selected: isStageAndRoundSelected(stage, round), done: isDoneRound(stage, round) }" ng-click="selectStageAndRound(stage, round)">
 						{{round}}

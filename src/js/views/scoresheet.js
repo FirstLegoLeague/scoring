@@ -10,19 +10,11 @@ define('views/scoresheet',[
     'services/ng-handshake',
     'directives/sigpad',
     'directives/spinner',
-    'controllers/DescriptionDialogController',
-    'controllers/TeamDialogController',
-    'controllers/RoundDialogController',
     'angular'
 ], function(log, fs) {
     var moduleName = 'scoresheet';
-    var module = angular.module(moduleName, [
-        'DescriptionDialog',
-        'TeamDialog',
-        'RoundDialog'
-    ]);
 
-    return module.controller(moduleName + 'Ctrl', [
+    return angular.module(moduleName, []).controller(moduleName + 'Ctrl', [
         '$document','$scope','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams','$handshake',
         function($document, $scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$handshake) {
             log('init scoresheet ctrl');

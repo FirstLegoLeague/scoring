@@ -48,9 +48,9 @@ define('directives/sigpad',[
                     }
                 });
 
-                $scope.$watch(attrs.ngModel,function(newValue) {
+                $scope.$watchCollection(attrs.ngModel,function(newValue) {
                     api.regenerate(ctrl.expand(newValue));
-                },true);
+                });
             }
         };
     }]);

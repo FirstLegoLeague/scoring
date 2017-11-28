@@ -1,7 +1,6 @@
 define('views/scores', [
     'services/log',
     'services/ng-scores',
-    'directives/really',
     'angular'
 ], function (log) {
     var moduleName = 'scores';
