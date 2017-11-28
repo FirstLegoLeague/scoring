@@ -14,7 +14,7 @@ var stream = rotate(LOG_PATH, {
 });
 
 exports.log = function(level, message) {
-    let line = `${level.toUpperCase()} - ${Date.now().toLocaleString()}: ${message}`;
+    let line = `${level.toUpperCase()} - ${new Date().toISOString().toLocaleString()}: ${message}`;
 
     console.log(line);
     fs.appendFileSync(LOG_PATH, line + '\n');
@@ -33,6 +33,6 @@ exports.beforeLayer = function(req, res, next) {
 };
 
 exports.afterLayer = function(req, res, next) {
-    exports.log(`Completed status ${res.statusCode}`);
+    exports.log.debug(`Completed status ${res.statusCode}`);
     next();
 };
