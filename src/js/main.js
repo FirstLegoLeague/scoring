@@ -6,9 +6,6 @@ define([
     'services/log',
     'services/ng-session',
 
-    'filters/ng-filters',
-    'filters/index',
-
     'views/settings',
     'views/tournament',
     'views/scoresheet',
@@ -21,7 +18,7 @@ define([
     'angular-storage',
     'angular'
 
-],function(directives, datatable, services, log, session, filters, indexFilter, settings, tournament, scoresheet, scores) {
+],function(directives, datatable, services, log, session, settings, tournament, scoresheet, scores) {
 
     log('device ready');
 
@@ -58,7 +55,6 @@ define([
                 });
                 // Set current page
                 let urlPath = $location.path();
-                console.log(urlPath);
                 let pageFromURL = $scope.pages.find(page => `/${page.name}` === urlPath);
 
                 $scope.setPage(pageFromURL || $scope.pages[0]);
@@ -97,7 +93,6 @@ define([
         tournament.name,
         scoresheet.name,
         scores.name,
-        filters.name,
         services.name,
         directives.name
     ]);
