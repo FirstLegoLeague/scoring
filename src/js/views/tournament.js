@@ -60,7 +60,8 @@ define('views/tournament', [
                 row: {
                     classes: (team) => `team_${team.number}`
                 },
-                search : () => $scope.teamsSearch
+                search : () => $scope.teamsSearch,
+                scrollCount: 10
             };
 
             $teams.init().then(function() {

@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in collection() track by $index | orderBy:config.sort || sort.sort.field:sort.reverse | filter:config.search()" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
+        <tr ng-repeat="item in collection() | orderBy:config.sort || sort.sort.field:sort.reverse | filter:config.search() | limitTo:scroll() track by $index" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
             <td ng-repeat="column in config.columns track by column.field" ng-class="column.field" ng-show="column.show(item)" ng-click="onCellClick(item, column)">
 
                 <span ng-show="!edit || !edit.is(item, column)" ng-click="onCellClick(item, column)">{{column.value(item)}}</span>

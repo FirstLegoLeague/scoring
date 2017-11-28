@@ -63,10 +63,14 @@ define('directives/datatable',[
                 }
                 calcConfig(attrConfig);
 
-                scope.collection = () => scope.$parent.$eval(attrs.collection) || [];
+                scope.collection = () => {
+                    var collection = (scope.$parent.$eval(attrs.collection) || []);
+                    scope.collectionLength = collection.length;
+                    return collection;
+                };
 
                 scope.sort = {
-                    sort: scope.config.columns[attrs.config.sort || 0],
+                    sort: scope.config.columns[attrConfig.sort || 0],
                     reverse: attrConfig.reverse || false,
                     get: () => scope.sort.sort,
                     set: (column) => {
@@ -158,6 +162,30 @@ define('directives/datatable',[
                         scope.edit.start(item, column);
                     }
                 };
+
+                scope.scroll = (function() {
+                    if(attrConfig.scrollCount) {
+                        var _currentScroll = attrConfig.scrollCount;
+
+                        var body = jQuery(element).find('tbody');
+
+                        function continueScroll() {
+                            if(body[0].scrollTop + body[0].offsetHeight + body.children().first().height() > body[0].scrollHeight) {
+                                _currentScroll += attrConfig.scrollCount;
+                                scope.$digest();
+                            }
+                            if(_currentScroll > scope.collectionLength) {
+                                body.off('scroll');
+                            }
+                        }
+
+                        body.on('scroll', continueScroll);
+
+                        return () => _currentScroll;
+                    } else {
+                        return () => undefined;
+                    }
+                })();
 
                 scope.$watch(() => scope.$parent.$eval(attrs.config), (newConfig) => calcConfig(newConfig), true);
             },

@@ -4,7 +4,7 @@ define('views/scores', [
     'angular'
 ], function (log) {
     var moduleName = 'scores';
-    return angular.module(moduleName, ['filters', 'ui.bootstrap']).controller(moduleName + 'Ctrl', [
+    return angular.module(moduleName, ['ui.bootstrap']).controller(moduleName + 'Ctrl', [
         '$scope', '$scores', '$teams', '$stages', '$settings', '$window', '$rootScope',
         function ($scope, $scores, $teams, $stages, $settings, $window, $rootScope) {
             log('init scores ctrl');
@@ -69,7 +69,8 @@ define('views/scores', [
                     classes: (score) => `score_${score.index}`
                 },
                 search : () => $scope.scoresTableConfig.searchValue,
-                searchValue: ''
+                searchValue: '',
+                scrollCount: 20
             };
             $scope.exportFiles = {};
 
@@ -104,6 +105,7 @@ define('views/scores', [
                 },
                 sort: false,
                 view: undefined,
+                scrollCount: 20
             };
 
             function formatRanks(scoreboard) {
