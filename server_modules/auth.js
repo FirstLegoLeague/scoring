@@ -59,6 +59,11 @@ if(users) {
             failureRedirect: '/login'
         }));
 
+        app.get('/logout', function (req, res, next) {
+            req.logout();
+            res.redirect('/login')
+        })
+
     };
 
     /**
