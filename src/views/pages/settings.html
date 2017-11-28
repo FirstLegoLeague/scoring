@@ -143,10 +143,17 @@
                 </p>
             </div>
         </div>
-        <p>
-            <select title="currentStageSelect" ng-model="settings.currentStage" ng-options="stage.id as stage.name for stage in allStages | filter : {rounds :'!0'}">
-            </select>
-        </p>
+        <div class="card">
+            <h3 class="card-header">Current Stage</h3>
+            <div class="card-actions">
+                <label for="currentStageSelect">
+                    <select id="currentStageSelect" ng-model="settings.currentStage" ng-options="stage.id as stage.name for stage in allStages | filter : {rounds :'!0'}">
+                    </select>
+                    <br/>
+                    This setting is used for automatic broadcasting and to auto-fill the stage in the ref's scoresheets
+                </label>
+            </div>
+        </div>
     </div>
     <div ng-show="tab === 3">
         <p>
