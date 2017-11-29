@@ -23,7 +23,10 @@
             <div ng-if="pages.length > 1" ng-include="drawer"></div>
             <div class="viewMain" ng-class="currentPage.name" ng-cloak>
                 <div ng-if="pages.length > 1" ng-include="'views/appbar.html'"></div>
-                <div ng-repeat="page in pages track by page.name" ng-include="page.route" ng-class="page.classes" ng-if="currentPage === page"></div>
+                <div class="center page partial dimmer">
+                    <div class="big loader"></div>
+                </div>
+                <div ng-repeat="page in pages track by page.name" ng-include="page.route" ng-class="page.classes" onload="disablePageLoader()" ng-if="currentPage === page"></div>
             </div>
             <div ng-include="'views/dialogs.html'"></div>
         </div>

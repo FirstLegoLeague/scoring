@@ -36,6 +36,8 @@ define([
                 { name: 'settings', title: 'Settings', icon: 'settings' }
             ];
 
+            const pageLoader = angular.element('.viewMain .dimmer');
+
             $scope.drawer = 'views/drawer.html';
             $scope.scoringPages = ['scoresheet','settings'];
             $scope.validationErrors = [];
@@ -75,7 +77,12 @@ define([
             $scope.setPage = function(page) {
                 $scope.currentPage = page;
                 $location.path(page.name);
+                pageLoader.removeClass('disabled');
                 $scope.drawerVisible = false;
+            };
+
+            $scope.disablePageLoader = function() {
+                pageLoader.addClass('disabled');
             };
 
         }
