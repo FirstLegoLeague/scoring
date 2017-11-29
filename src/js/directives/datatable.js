@@ -64,6 +64,8 @@ define('directives/datatable',[
                 calcConfig(attrConfig);
 
                 scope.collection = () => {
+                    element.addClass('dimmed');
+                    $timeout(() => element.removeClass('dimmed'), 0, false);
                     var collection = (scope.$parent.$eval(attrs.collection) || []);
                     scope.collectionLength = collection.length;
                     return collection;
@@ -135,7 +137,7 @@ define('directives/datatable',[
                         disableMessage: () => {
                             scope.create.showMessage = false;
                             $timeout(() => {
-                                angular.element(`ng-datatable#${attrConfig.id} tbody tr:last-child td:first-child`).triggerHandler('click');
+                                onCellClick(scope.create.newItem, scope.config.columns[0]);
                             });
                         },
                         reset: () => {
@@ -190,6 +192,9 @@ define('directives/datatable',[
                 })();
 
                 scope.$watch(() => scope.$parent.$eval(attrs.config), (newConfig) => calcConfig(newConfig), true);
+                $timeout(() => element.removeClass('dimmed'), 0, false);
+
+                element.addClass('dimmable dimmed');
             },
             templateUrl: 'js/directives/datatable.html'
         };

@@ -1,4 +1,4 @@
-/* loaders */
+/* loaders and dimmers */
 .loader {
     border-radius: 1em;
     width: 1em;
@@ -35,6 +35,24 @@
 @keyframes spin-counter-clockwise {
     0% { transform: rotate(0deg);  }
     100% { transform: rotate(-360deg);  }
+}
+
+.dimmer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dimmable {
+    position: relative;
+}
+
+.dimmable:not(.dimmed) .dimmer {
+    display: none;
 }
 
 /* icons */
