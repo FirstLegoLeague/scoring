@@ -183,7 +183,9 @@ define('directives/datatable',[
 
                         return () => _currentScroll;
                     } else {
-                        return () => undefined;
+                        // We assume the collection will not double itself
+                        let maxSize = attrConfig.scrollMaxSize || 2 * scope.collection().length;
+                        return () => maxSize;
                     }
                 })();
 
