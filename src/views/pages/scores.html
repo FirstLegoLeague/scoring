@@ -20,7 +20,7 @@
                 <div class="card-top">
                     <div class="card-header">Rankings</div>
                     <div class="card-menu">
-                        <a class="btn" href="{{exportFiles[viewedStage]}}" download="{{'ranking_' + viewedStage + '.csv'}}" id="download-ranks">
+                        <a class="btn" ng-click="downloadCurrentStage()" id="download-ranks">
                             <i class="material-icons">file_download</i>Download
                         </a>
                         <div class="btn" ng-click="broadcastRanking()" id="broadcast-ranks">

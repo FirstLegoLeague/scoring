@@ -74,24 +74,6 @@ define('views/scores', [
             };
             $scope.exportFiles = {};
 
-            function formatScores(scores) {
-                return scores.map((score, index) => {
-                    var formattedScore = {};
-                    for(var key in score) formattedScore[key] = score[key];
-                    formattedScore.index = index + 1;
-                    formattedScore.team = $teams.get(score.teamNumber);
-                    formattedScore.stage = $stages.get(score.stageId);
-
-                    if(formattedScore.team) {
-                        formattedScore.teamFullName = `#${formattedScore.team.number} ${formattedScore.team.name}`;
-                    }
-                    if(formattedScore.stage) {
-                        formattedScore.match = `${formattedScore.stage.id} #${formattedScore.round}`;
-                    }
-                    return formattedScore;
-                });
-            }
-
             $scope.ranksTableConfig = {
                 columns: [
                     { field: 'rank', header: '#' },
@@ -107,29 +89,6 @@ define('views/scores', [
                 view: undefined,
                 scrollCount: 20
             };
-
-            function formatRanks(scoreboard) {
-                let result = {};
-                for(let stageId in scoreboard) {
-                    let stage = scoreboard[stageId];
-                    result[stageId] = stage.filter((rank, index) => {
-                        rank.index = index;
-                        rank.teamNumber = rank.team.number;
-                        rank.teamFullName = `#${rank.team.number} ${rank.team.name}`;
-                        rank.highScore = rank.highest ? rank.highest.score : undefined;
-                        return rank.scores.filter((score, index) => {
-                            if(score) {
-                                rank[`round_${index+1}`] = score.score;
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        }).length !== 0;
-                    });
-                }
-
-                return result;
-            }
 
             $scope.$watch(() => $scores.scores, function () {
                 $scope.scores = formatScores($scores.scores);
@@ -149,12 +108,7 @@ define('views/scores', [
 
             $scope.$watch(() => $scores.scoreboard, function () {
                 $scope.scoreboard = formatRanks($scores.scoreboard);
-                buildExportFiles();
             }, true);
-
-            $scope.$watch(() => $settings.settings.lineStartString, buildExportFiles);
-            $scope.$watch(() => $settings.settings.separatorString, buildExportFiles);
-            $scope.$watch(() => $settings.settings.lineEndString, buildExportFiles);
 
             $scope.calcRanksColumns = function() {
                 let stage = $stages.get($scope.ranksTableConfig.view);
@@ -196,8 +150,15 @@ define('views/scores', [
             };
 
             $scope.broadcast = function() {
-                $scores.broadcastRanking($stages.get($scope.viewedStage));
+                $scores.broadcastRanking($stages.get($scope.$scope.ranksTableConfig.view));
             };
+
+            $scope.downloadCurrentStage = function() {
+                var downloadLink = angular.element('<a></a>');
+                downloadLink.attr('href', currentStageExportableDataLink());
+                downloadLink.attr('download', `ranking_${$stages.get($scope.ranksTableConfig.view).name}.csv`);
+                downloadLink[0].click();
+            }
 
             function saveScore(score, forceAutoBroadcast) {
                 try {
@@ -207,16 +168,52 @@ define('views/scores', [
                 }
             }
 
-            function buildExportFiles() {
-                Object.keys($scope.scoreboard).forEach(function (stageID) {
-                    var teams = $scope.scoreboard[stageID];
-                    teams = teams.map(function (teamEntry) {
-                        return [teamEntry.rank, teamEntry.team.number,
-                            teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores);
-                    });
-                    $scope.exportFiles[stageID] = "data:text/csv;charset=utf-8,"+encodeURIComponent(encodeArray(teams));
+            function formatScores(scores) {
+                return scores.map((score, index) => {
+                    var formattedScore = {};
+                    for(var key in score) formattedScore[key] = score[key];
+                    formattedScore.index = index + 1;
+                    formattedScore.team = $teams.get(score.teamNumber);
+                    formattedScore.stage = $stages.get(score.stageId);
+
+                    if(formattedScore.team) {
+                        formattedScore.teamFullName = `#${formattedScore.team.number} ${formattedScore.team.name}`;
+                    }
+                    if(formattedScore.stage) {
+                        formattedScore.match = `${formattedScore.stage.id} #${formattedScore.round}`;
+                    }
+                    return formattedScore;
                 });
-            };
+            }
+
+            function formatRanks(scoreboard) {
+                let result = {};
+                for(let stageId in scoreboard) {
+                    let stage = scoreboard[stageId];
+                    result[stageId] = stage.filter((rank, index) => {
+                        rank.index = index;
+                        rank.teamNumber = rank.team.number;
+                        rank.teamFullName = `#${rank.team.number} ${rank.team.name}`;
+                        rank.highScore = rank.highest ? rank.highest.score : undefined;
+                        return rank.scores.filter((score, index) => {
+                            if(score) {
+                                rank[`round_${index+1}`] = score.score;
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }).length !== 0;
+                    });
+                }
+
+                return result;
+            }
+
+            function currentStageExportableDataLink() {
+                 var data = $scope.scoreboard[$scope.ranksTableConfig.view]
+                     .map(teamEntry => [teamEntry.rank, teamEntry.team.number, teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores));
+                return `data:text/csv;charset=utf-8,${ encodeURIComponent(encodeArray(data)) }`;
+            }
 
             function encodeArray(array) {
                 var string = "";
@@ -228,7 +225,7 @@ define('views/scores', [
                     string = string.concat((settings.lineEndString ? String(settings.lineEndString) : "") + "\r\n");
                 });
                 return string;
-            };
+            }
 
         }]);
 });

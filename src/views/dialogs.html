@@ -7,29 +7,29 @@
         </div>
         <div class="dialog-body">
             <div id="teams-data-textbox-container">
-                <textarea ng-model="importRaw"></textarea>
+                <textarea ng-model="importRaw" ng-change="parseData()"></textarea>
             </div>
             <div id="teams-data-formatting-container">
                 <h4>Format</h4>
                 <div class="field">
                     <div>Header length</div>
-                    <input type="number" ng-model="headerLength">
+                    <input type="number" ng-model="headerLength" ng-change="parseData()">
                 </div>
                 <div class="field">
                     <div>Number column ({{importNumberExample}})</div>
-                    <input type="number" ng-model="importNumberColumn" placholder="choose another">
+                    <input type="number" ng-model="importNumberColumn" ng-change="parseData()" placholder="choose another">
                 </div>
                 <div class="field">
                     <div>Name column ({{importNameExample}})</div>
-                    <input type="number" ng-model="importNameColumn" placholder="choose another">
+                    <input type="number" ng-model="importNameColumn" ng-change="parseData()" placholder="choose another">
                 </div>
                 <div class="field">
-                    <input type="checkbox" ng-model="useCustomDelimiter">
+                    <input type="checkbox" ng-model="useCustomDelimiter" ng-change="parseData()">
                     <div class="title">
                         Custom delimiter
                         <div class="description" ng-hide="useCustomDelimiter">(Default is tab, the delimiter used when pasting from excel)</div>
                     </div>
-                    <input type="text" ng-show="useCustomDelimiter" ng-model="delimiter">
+                    <input type="text" ng-show="useCustomDelimiter" ng-model="delimiter" ng-change="parseData()">
                 </div>
             </div>
              <h4>Teams</h4>

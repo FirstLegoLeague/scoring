@@ -68,13 +68,6 @@ define('services/ng-scores',[
                 self._update();
             });
 
-            // Watching for changes in currentStage
-            $rootScope.$watch(() => $settings.settings.currentStage, function (newValue, oldValue, scope){
-                if(oldValue && $settings.settings.currentStage) {
-                    self.broadcastRanking($stages.get($settings.settings.currentStage));
-                }
-            });
-
             this._updating = 0;
             this._initialized = null; // Promise<void>
             this.init();
@@ -270,7 +263,6 @@ define('services/ng-scores',[
                     return scoreboard;
                 });
             } else {
-                console.log(this.validationErrors);
                 return new Promise(function(resolve) {
                     resolve(self.scoreboard);
                 });

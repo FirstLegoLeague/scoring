@@ -4,6 +4,7 @@ define('views/tournament', [
     'services/ng-message',
     'services/ng-stages',
     'services/ng-teams',
+    'services/ng-scores',
     'services/ng-settings',
     'services/ng-challenge',
     'controllers/TeamImportDialogController',
@@ -11,8 +12,8 @@ define('views/tournament', [
 ], function (log) {
     var moduleName = 'tournament';
     return angular.module(moduleName, ['TeamImportDialog']).controller(moduleName + 'Ctrl', [
-        '$scope', '$stages', '$teams', '$settings','$challenge','$handshake', '$message',
-        function ($scope, $stages, $teams, $settings, $challenge, $handshake, $message) {
+        '$scope', '$stages', '$teams', '$scores', '$settings','$challenge','$handshake', '$message',
+        function ($scope, $stages, $teams, $scores, $settings, $challenge, $handshake, $message) {
             log('init tournament ctrl');
 
             $scope.show = {};
@@ -103,6 +104,7 @@ define('views/tournament', [
                             }
                             $scope.settings.currentStage = stage.id;
                             $settings.save();
+                            $scores.broadcastRanking(stage);
                         },
                         icon: 'input'
                     }, {
@@ -148,15 +150,8 @@ define('views/tournament', [
                 sort: (stage1, stage2) => $scope.stages.indexOf(stage1) - $scope.stages.indexOf(stage2)
             };
 
-            $scope.$watch(function () {
-                return $settings.settings.currentStage;
-            }, function () {
-                $settings.currentStageObject = $stages.get($settings.settings.currentStage);
-                $message.send("settings:currentStage",$settings.settings.currentStage);
-            }, true);
-
             $message.on('settings:currentStage',function(data){
-                $settings.currentStageObject = $stages.get(data);
+               $settings.settings.currentStage = data;
             },true);
 
             $settings.init().then(function() {

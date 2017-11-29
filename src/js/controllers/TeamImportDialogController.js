@@ -13,8 +13,8 @@ define('controllers/TeamImportDialogController', [
             var BRIAN_LEES_SCHEDULER_FORMAT = /^Version Number,\d+,*\s+Block Format,\d+,*\s+Number of Teams,(\d+),*\s+((.|\s)*)$/;
             var BRIAN_LEES_SCHEDULER_DELIMITER = ',';
 
-            function parseData(data, headerLength) {
-                if(!data) {
+            $scope.parseData = function() {
+                if(!$scope.importRaw) {
                     $scope.importLines = [];
                     $scope.importNumberExample = '';
                     $scope.importNameExample = '';
@@ -22,8 +22,8 @@ define('controllers/TeamImportDialogController', [
                 }
 
                 //parse raw import, split lines
-                var lines = data.match(/[^\r\n]+/g);
-                headerLength = headerLength ? headerLength : 0;
+                var lines = $scope.importRaw.match(/[^\r\n]+/g);
+                var headerLength = $scope.headerLength ? $scope.headerLength : 0;
                 lines.splice(0, headerLength);
                 lines = lines.map(function (line) {
                     if ($scope.useCustomDelimiter) {
@@ -55,7 +55,7 @@ define('controllers/TeamImportDialogController', [
                     return;
                 }
                 var reader = new FileReader();
-                reader.onload = (event) => { //no need to explicitly call parseData(), because it will trigger on it's own when we change $scope.importRaw
+                reader.onload = (event) => {
                     // Checking special case for Brian Lee's scheduler program
                     var data = event.target.result;
                     var brianLeesFormattedData = data.match(BRIAN_LEES_SCHEDULER_FORMAT);
@@ -71,27 +71,11 @@ define('controllers/TeamImportDialogController', [
                         $scope.delimiter = ",";
                         $scope.importRaw = data;
                     }
+                    parseData();
                 };
                 reader.readAsText(file);
 
             };
-
-            $scope.$watch('importRaw', function (data) {
-                parseData($scope.importRaw, $scope.headerLength);
-            });
-
-            $scope.$watch('headerLength', function (data) {
-                parseData($scope.importRaw, $scope.headerLength);
-            });
-
-            $scope.$watch('useCustomDelimiter', function (data) {
-                parseData($scope.importRaw, $scope.headerLength)
-            });
-
-            $scope.$watch('delimiter', function (data) {
-                parseData($scope.importRaw, $scope.headerLength)
-            });
-
 
             $handshake.$on('importTeams', function (e) {
                 $scope.dialogVisible = true;
