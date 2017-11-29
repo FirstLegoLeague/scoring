@@ -37,7 +37,7 @@ ng-datatable thead {
     text-indent: 0.5em;
 }
 
-.drawer a:hover {
+.drawer a:hover, .drawer .active {
     background: #2A93D5 !important; /* Bondi Blue */
 }
 
