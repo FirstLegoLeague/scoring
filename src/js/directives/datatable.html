@@ -8,15 +8,15 @@
             <td ng-repeat="column in config.columns track by column.field" ng-if="column.header" ng-class="column.field">
                 <div>
                     <i class="material-icons sort-icon" ng-click="sort.set(column)">{{sort.icon(column)}}</i>
-                    <a ng-show="!sort.disabled" href="#" ng-click="sort.set(column)">{{column.header}}</a>
-                    <span ng-show="sort.disabled">{{column.header}}</span>
+                    <a ng-if="!sort.disabled" href="#" ng-click="sort.set(column)">{{column.header}}</a>
+                    <span ng-if="sort.disabled">{{column.header}}</span>
                 </div>
             </td>
             <td ng-if="config.actions.length" class="actions"></td>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in collection() | orderBy:config.sort || sort.sort.field:sort.reverse | filter:config.search() | limitTo:scroll() track by $index" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
+        <tr ng-repeat="item in collection() | orderBy:config.sort || sort.get():sort.reverse | filter:config.search() | limitTo:scroll() track by $index" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
             <td ng-repeat="column in config.columns track by column.field" ng-class="column.field" ng-show="column.show(item)" ng-click="onCellClick(item, column)">
 
                 <span ng-show="!edit || !edit.is(item, column)" ng-click="onCellClick(item, column)">{{column.value(item)}}</span>

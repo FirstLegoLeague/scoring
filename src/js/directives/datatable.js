@@ -78,7 +78,7 @@ define('directives/datatable',[
                 scope.sort = {
                     sort: scope.config.columns[attrConfig.sort || 0],
                     reverse: attrConfig.reverse || false,
-                    get: () => scope.sort.sort,
+                    get: () => attrConfig.sort || scope.sort.sort,
                     set: (column) => {
                         if(scope.sort.disabled) {
                             return;
@@ -99,7 +99,7 @@ define('directives/datatable',[
                             return 'arrow_drop_up';
                         }
                     },
-                    disabled: attrConfig.sort === false,
+                    disabled: attrConfig.sort !== undefined,
                 };
 
                 if(attrConfig.edit) {
