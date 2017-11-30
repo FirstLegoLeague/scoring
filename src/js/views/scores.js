@@ -56,7 +56,7 @@ define('views/scores', [
                         icon: 'edit'
                     }, {
                         onClick: (score) => {
-                            saveScore(score);
+                            $scores.delete(score);
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete'

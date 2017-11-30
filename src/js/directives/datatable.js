@@ -9,6 +9,7 @@ define('directives/datatable',[
                 var doNothing = () => {};
                 var returnTrue = () => true;
                 var returnEmptyString = () => '';
+                var dontLoad = false;
 
                 var attrConfig = scope.$parent.$eval(attrs.config);
 
@@ -64,7 +65,10 @@ define('directives/datatable',[
                 calcConfig(attrConfig);
 
                 scope.collection = () => {
-                    element.addClass('dimmed');
+                    if(!dontLoad) {
+                        element.addClass('dimmed');
+                        dontLoad = false;
+                    }
                     $timeout(() => element.removeClass('dimmed'), 0, false);
                     var collection = (scope.$parent.$eval(attrs.collection) || []);
                     scope.collectionLength = collection.length;
@@ -161,6 +165,7 @@ define('directives/datatable',[
                     if(column.onCellClick) {
                         column.onCellClick(item);
                     } else if(scope.edit && !scope.edit.is(item, column)) {
+                        dontLoad = true;
                         scope.edit.start(item, column);
                     }
                 };
@@ -192,7 +197,9 @@ define('directives/datatable',[
                 })();
 
                 scope.$watch(() => scope.$parent.$eval(attrs.config), (newConfig) => calcConfig(newConfig), true);
-                $timeout(() => element.removeClass('dimmed'), 0, false);
+                $timeout(() => {
+                    element.removeClass('dimmed')
+                }, 0, false);
 
                 element.addClass('dimmable dimmed');
             },

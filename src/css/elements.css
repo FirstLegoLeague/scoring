@@ -199,9 +199,13 @@ ng-datatable .editing-form {
     display: flex;
 }
 
-ng-datatable .editing-form input, ng-datatable .editing-form select {
+ng-datatable .editing-form .input-container {
     width: 0;
     flex: 1;
+}
+
+ng-datatable .editing-form input, ng-datatable .editing-form select {
+    width: 100%;
 }
 
 ng-datatable .editing-form i {
