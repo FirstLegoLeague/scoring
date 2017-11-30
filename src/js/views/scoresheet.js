@@ -7,7 +7,6 @@ define('views/scoresheet',[
     'services/ng-teams',
     'services/ng-stages',
     'services/ng-settings',
-    'services/ng-handshake',
     'directives/sigpad',
     'directives/spinner',
     'angular'
@@ -15,8 +14,8 @@ define('views/scoresheet',[
     var moduleName = 'scoresheet';
 
     return angular.module(moduleName, []).controller(moduleName + 'Ctrl', [
-        '$document','$scope','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams','$handshake',
-        function($document, $scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$handshake) {
+        '$document','$scope','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams',
+        function($document, $scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams) {
             log('init scoresheet ctrl');
 
             const AUTOSCROLL_SPEED = 0.1;
@@ -340,10 +339,6 @@ define('views/scoresheet',[
                     setTimeout(() => $window.alert(message), 0);
                     throw err;
                 });
-            };
-
-            $scope.openDescriptionModal = function (mission) {
-                $handshake.$emit('showDescription',mission);
             };
 
             $scope.fillStageRound = function(team){
