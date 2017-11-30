@@ -1,15 +1,14 @@
 define('controllers/TeamImportDialogController', [
     'ng-file-upload',
-    'services/ng-handshake',
+    'services/ng-teams',
+    'services/dialogs',
     'angular'
 ], function () {
     var moduleName = 'TeamImportDialog';
 
     return angular.module(moduleName, ['ngFileUpload']).controller('TeamImportDialogController', [
-        '$scope', '$handshake',
-        function ($scope, $handshake) {
-            var defer;
-
+        '$scope', '$dialogs', '$teams',
+        function ($scope, $dialogs, $teams) {
             var BRIAN_LEES_SCHEDULER_FORMAT = /^Version Number,\d+,*\s+Block Format,\d+,*\s+Number of Teams,(\d+),*\s+((.|\s)*)$/;
             var BRIAN_LEES_SCHEDULER_DELIMITER = ',';
 
@@ -77,26 +76,32 @@ define('controllers/TeamImportDialogController', [
 
             };
 
-            $handshake.$on('importTeams', function (e) {
-                $scope.dialogVisible = true;
-                defer = $handshake.defer();
-                return defer.promise;
-            });
-
-            $scope.ok = function () {
-                $scope.dialogVisible = false;
+            $scope.save = function () {
+                $scope.dialog.show = false;
                 var teams = $scope.importLines.map(function (line) {
                     return {
                         number: line[$scope.importNumberColumn - 1],
                         name: line[$scope.importNameColumn - 1]
                     };
                 });
-                defer.resolve({teams: teams});
+
+                if (teams) {
+                    $teams.clear();
+                    teams.forEach(function(team) {
+                        $teams.add({
+                            number: team.number,
+                            name: team.name
+                        });
+                    });
+                }
             };
 
+            $scope.dialog = $dialogs.teamsImport;
+
             $scope.cancel = function () {
-                $scope.dialogVisible = false;
-                defer.resolve();
+                $scope.importRaw = '';
+                $scope.parseData();
+                $scope.dialog.show = false;
             };
         }
     ]);

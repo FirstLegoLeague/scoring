@@ -1,6 +1,6 @@
 define('views/tournament', [
     'services/log',
-    'services/ng-handshake',
+    'services/dialogs',
     'services/ng-message',
     'services/ng-stages',
     'services/ng-teams',
@@ -12,8 +12,8 @@ define('views/tournament', [
 ], function (log) {
     var moduleName = 'tournament';
     return angular.module(moduleName, ['TeamImportDialog']).controller(moduleName + 'Ctrl', [
-        '$scope', '$stages', '$teams', '$scores', '$settings','$challenge','$handshake', '$message',
-        function ($scope, $stages, $teams, $scores, $settings, $challenge, $handshake, $message) {
+        '$scope', '$stages', '$teams', '$scores', '$settings','$challenge','$dialogs', '$message',
+        function ($scope, $stages, $teams, $scores, $settings, $challenge, $dialogs, $message) {
             log('init tournament ctrl');
 
             $scope.show = {};
@@ -72,19 +72,8 @@ define('views/tournament', [
             $scope.teamsSearch = '';
 
             $scope.importTeams = function() {
-                $handshake.$emit('importTeams').then(function(result) {
-                    if (result) {
-                        $teams.clear();
-                        result.teams.forEach(function(team) {
-                            $teams.add({
-                                number: team.number,
-                                name: team.name
-                            });
-                        });
-                        $scope.status = '';
-                    }
-                });
-            }
+                $dialogs.teamsImport.show = true;
+            };
 
             $stages.init().then(function() {
                 $scope.stages = $stages._rawStages;
