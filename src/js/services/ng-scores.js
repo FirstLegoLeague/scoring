@@ -203,9 +203,7 @@ define('services/ng-scores',[
                 return;
             }
             var self = this;
-            this.getRankings().then(function() {
-                $rootScope.$broadcast('validationError', self.validationErrors);
-            });
+            this.getRankings();
         };
 
         Scores.prototype.acceptScores = function(res, tryAutoBroadcast) {

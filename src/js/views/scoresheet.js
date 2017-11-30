@@ -16,7 +16,7 @@ define('views/scoresheet',[
     return angular.module(moduleName, []).controller(moduleName + 'Ctrl', [
         '$document','$scope','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams',
         function($document, $scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams) {
-            log('init scoresheet ctrl');
+            $scope.$parent.initPage(moduleName, $scope);
 
             const AUTOSCROLL_SPEED = 0.1;
 
@@ -153,7 +153,7 @@ define('views/scoresheet',[
                     mission.completed = mission.completedObjectives.every(function(objectCompleted) {
                         return objectCompleted;
                     }) && mission.errors.length === 0;
-                    if(mission.completed && !mission.previouslyCompleted) {
+                    if(mission.completed && !mission.previouslyCompleted && !$scope.editingScore) {
                         scrollToNextMission(mission);
                     }
                     mission.previouslyCompleted = mission.completed;
@@ -272,14 +272,18 @@ define('views/scoresheet',[
                 });
 
                 if($scope.editingScore){
-                    $scope.setPage($scope.pages.find(function (p) {return p.name === "scores"}));
+                    $scope.goTo('scores');
                     $scope.editingScore = false;
                 }
                 log('scoresheet cleared');
             };
 
-            $scope.saveEdit = function () {
-                $scope.setPage($scope.pages.find(function (p) {return p.name === "scores"}));//When you finish editing a scoresheet, it returns you to the scores view
+            $scope.save = function() {
+                $scope.editingScore ? update() : create();
+            }
+
+            function update() {
+                $scope.goTo('scores');//When you finish editing a scoresheet, it returns you to the scores view
                 $scores.delete($scope.scoreEntry);
                 return $scores.loadScoresheet($scope.scoreEntry).then(function (result) {
                     result.missions.forEach(function (mission) {
@@ -302,12 +306,12 @@ define('views/scoresheet',[
                     result.table !== $scope.scoreEntry.table ? log("changed table to " + $scope.scoreEntry.table) : void(0);
                     result.referee !== $scope.scoreEntry.referee ? log("changed referee to " + $scope.scoreEntry.referee) : void(0);
                     $scope.scoreEntry.id = $score.generateUniqueId();//This is a different score after being edited, so it has a different id
-                    $scope.save()
+                    create();
                 });
             };
 
             //saves mission scoresheet
-            $scope.save = function() {
+            function create() {
                 if(!$scope.isSavable()) {
                     return;
                 }
@@ -374,10 +378,6 @@ define('views/scoresheet',[
                     });
                 });
             };
-
-            $scope.$on("editScoresheet", function (e, score) {
-                $scope.loadScoresheet(score);
-            });
 
             // Initialize empty scoresheet (mostly uniqueId)
             $scope.clear();

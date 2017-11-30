@@ -62,10 +62,6 @@ define([
                 $scope.setPage(pageFromURL || $scope.pages[0]);
             });
 
-            $scope.$on('validationError',function(e,validationErrors) {
-                $scope.validationErrors = validationErrors;
-            });
-
             $scope.toggleDrawer = function(set) {
                 if (set !== undefined) {
                     $scope.drawerVisible = set;
@@ -75,15 +71,32 @@ define([
             };
 
             $scope.setPage = function(page) {
+                if($scope.currentPage) {
+                    $scope.currentPage.scope = undefined;
+                }
                 $scope.currentPage = page;
                 $location.path(page.name);
                 pageLoader.removeClass('disabled');
                 $scope.drawerVisible = false;
             };
 
-            $scope.disablePageLoader = function() {
+            $scope.goTo = function(pageName, callback) {
+                var page = $scope.pages.find(page => page.name === pageName);
+                $scope.pageLoadCallback = callback;
+            }
+
+            $scope.pageLoaded = function() {
+                if($scope.pageLoadCallback) {
+                    $scope.pageLoadCallback($scope.currentPage.scope);
+                    $scope.pageLoadCallback = undefined;
+                }
                 pageLoader.addClass('disabled');
             };
+
+            $scope.initPage = function(pageName, pageScope) {
+                log(`init ${pageName} page`);
+                $scope.pages.find(page => page.name === pageName).scope = pageScope;
+            }
 
         }
     ]);

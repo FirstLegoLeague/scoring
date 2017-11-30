@@ -1,13 +1,12 @@
 define('views/scores', [
-    'services/log',
     'services/ng-scores',
     'angular'
-], function (log) {
+], function () {
     var moduleName = 'scores';
     return angular.module(moduleName, ['ui.bootstrap']).controller(moduleName + 'Ctrl', [
-        '$scope', '$scores', '$teams', '$stages', '$settings', '$window', '$rootScope',
-        function ($scope, $scores, $teams, $stages, $settings, $window, $rootScope) {
-            log('init scores ctrl');
+        '$scope', '$scores', '$teams', '$stages', '$settings', '$window',
+        function ($scope, $scores, $teams, $stages, $settings, $window) {
+            $scope.$parent.initPage(moduleName, $scope);
 
             $scope.scoresTableConfig = {
                 columns: [
@@ -49,7 +48,10 @@ define('views/scores', [
                     }, {
                         onClick: (score) => {
                             $scope.setPage($scope.pages.find(function (p) {return p.name === "scoresheet"}));
-                            $rootScope.$broadcast("editScoresheet", score);
+                            $scope.$parent.goTo('scoresheet', $scoresheet => {
+                                $scoresheet.loadScoresheet(score);
+                                $scoresheet.moveOn('missions');
+                            });
                         },
                         icon: 'edit'
                     }, {

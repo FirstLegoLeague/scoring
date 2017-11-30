@@ -1,5 +1,4 @@
 define('views/tournament', [
-    'services/log',
     'services/dialogs',
     'services/ng-message',
     'services/ng-stages',
@@ -9,12 +8,12 @@ define('views/tournament', [
     'services/ng-challenge',
     'controllers/TeamImportDialogController',
     'angular'
-], function (log) {
+], function () {
     var moduleName = 'tournament';
     return angular.module(moduleName, ['TeamImportDialog']).controller(moduleName + 'Ctrl', [
         '$scope', '$stages', '$teams', '$scores', '$settings','$challenge','$dialogs', '$message',
         function ($scope, $stages, $teams, $scores, $settings, $challenge, $dialogs, $message) {
-            log('init tournament ctrl');
+            $scope.$parent.initPage(moduleName, $scope);
 
             $scope.show = {};
 

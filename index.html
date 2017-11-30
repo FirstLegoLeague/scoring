@@ -26,7 +26,7 @@
                 <div class="center page partial dimmer">
                     <div class="big loader"></div>
                 </div>
-                <div ng-repeat="page in pages track by page.name" ng-include="page.route" ng-class="page.classes" onload="disablePageLoader()" ng-if="currentPage === page"></div>
+                <div ng-repeat="page in pages track by page.name" ng-include="page.route" ng-class="page.classes" onload="pageLoaded()" ng-if="currentPage === page"></div>
             </div>
             <div ng-include="'views/dialogs.html'"></div>
         </div>
