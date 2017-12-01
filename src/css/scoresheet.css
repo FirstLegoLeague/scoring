@@ -154,6 +154,10 @@
         flex-direction: row;
     }
 
+    #scoresheet-teams .stage-select i {
+        display: none;
+    }
+
 }
 
 #scoresheet-teams.ng-hide {

@@ -98,6 +98,13 @@ define([
                 $scope.pages.find(page => page.name === pageName).scope = pageScope;
             }
 
+            // Because of a bug in iOS (https://bugs.webkit.org/show_bug.cgi?id=136041) We'll add
+            // A class 'ios' to the body if we're in iOS so we could change it in the css. see file css/ios.css
+            // TODO delete this when the bug is fixed
+            if (navigator.appVersion.indexOf("Mac")!=-1) {
+                angular.element('body').addClass('ios');
+            }
+
         }
     ]);
     angular.module('main').config(function($compileProvider){
