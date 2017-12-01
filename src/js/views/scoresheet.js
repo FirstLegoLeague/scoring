@@ -14,8 +14,8 @@ define('views/scoresheet',[
     var moduleName = 'scoresheet';
 
     return angular.module(moduleName, []).controller(moduleName + 'Ctrl', [
-        '$document','$scope','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams',
-        function($document, $scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams) {
+        '$scope','$document','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams',
+        function($scope, $document,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams) {
             $scope.$parent.initPage(moduleName, $scope);
 
             const AUTOSCROLL_SPEED = 0.1;
