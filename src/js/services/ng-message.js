@@ -24,16 +24,26 @@ define('services/ng-message',[
                 socketOpen = true;
                 isInitializedPromise = def.promise;
                 return $session.load().then(() => $settings.init()).then(function(settings) {
-                    if (!(settings.mhub && settings.node)) {
-                        throw new Error('no message bus configured');
+                    var mhubNode;
+                    var mhubAddress;
+                    if(settings.customMhub && settings.mhub){
+                        mhubAddress = settings.mhub;
+                    } else {
+                        mhubAddress = `ws://${window.location.hostname}:13900`;
                     }
 
-                    var ws = new WebSocket(settings.mhub);
-                    ws.node = settings.node;
+                    if(settings.customMhub && settings.node){
+                        mhubNode = settings.node;
+                    } else {
+                        mhubNode = 'default';
+                    }
+
+                    var ws = new WebSocket(mhubAddress);
+                    ws.node = mhubNode;
                     ws.onopen = function() {
                         ws.send(JSON.stringify({
                             type: "subscribe",
-                            node: settings.node
+                            node: mhubNode
                         }));
 
                         let passport = $session.get('passport');
@@ -41,7 +51,7 @@ define('services/ng-message',[
                         if(passport) {
                             ws.send(JSON.stringify({
                                 type: "login",
-                                node: settings.node,
+                                node: mhubNode,
                                 username: passport.user.username,
                                 password: passport.user.mhubPassword
                             }));
@@ -90,7 +100,7 @@ define('services/ng-message',[
                 },
                 on: function(topic, handler, ignoreSelfMessages) {
                     init();
-                    listeners.push({ topic: topic, handler: (msgData, msg) => msg.fromMe && ignoreSelfMessages ? void(0) : handler(msgData, msg)});
+                    listeners.push({ topic: topic, handler: (msgData, msg) => msg.fromMe && ignoreSelfMssages ? void(0) : handler(msgData, msg)});
                 }
             };
         }
