@@ -77,7 +77,7 @@ define('controllers/TeamImportDialogController', [
             };
 
             $scope.save = function () {
-                $scope.dialog.show = false;
+                var closeDialog = true;
                 var teams = $scope.importLines.map(function (line) {
                     return {
                         number: line[$scope.importNumberColumn - 1],
@@ -86,14 +86,23 @@ define('controllers/TeamImportDialogController', [
                 });
 
                 if (teams) {
-                    $teams.clear();
-                    teams.forEach(function(team) {
-                        $teams.add({
-                            number: team.number,
-                            name: team.name
+                    try {
+                        $teams.clear();
+                        teams.forEach(function(team) {
+                            $teams.add({
+                                number: team.number,
+                                name: team.name
+                            });
                         });
-                    });
-                    $teams.save();
+                        $teams.save();
+                    } catch(e) {
+                        alert(`An error acoured trying to save the teams: ${e.message}`);
+                        closeDialog = false;
+                    }
+                }
+
+                if(closeDialog) {
+                    $scope.dialog.show = false;
                 }
             };
 
