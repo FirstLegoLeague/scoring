@@ -2,12 +2,12 @@
 /* pages */
 
 .page {
-	overflow-y: auto;
-	height: 100vh;
+    overflow-y: auto;
+    height: 100vh;
 }
 
 .page:not(.only-page) {
-	height: calc(100vh - 3em);
+    height: calc(100vh - 3em);
 }
 
 
@@ -17,14 +17,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-	height: 3em;
+    height: 3em;
     background: grey;
     color: white;
 }
 
 .appbar h3 {
-	display: inline;
-	vertical-align: bottom;
+    display: inline;
+    vertical-align: bottom;
 }
 
 .appbar .logout {
@@ -35,11 +35,11 @@
 }
 
 @media screen and (min-width: 100vh) {
-	#menu-icon {
-		display: none;
-	}
+    #menu-icon {
+        display: none;
+    }
 
-	.page:not(.only-page) {
-		margin-left: 10em;
-	}
+    .page:not(.only-page) {
+        margin-left: 10em;
+    }
 }

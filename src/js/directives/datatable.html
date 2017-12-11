@@ -17,7 +17,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="item in collection() | orderBy:config.sort || sort.get():sort.reverse | filter:config.search() | limitTo:scroll() track by $index" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
-            <td ng-repeat="column in config.columns track by column.field" ng-class="column.field" ng-show="column.show(item)" ng-click="onCellClick(item, column)">
+            <td ng-repeat="column in config.columns track by column.field" ng-class="column.field+(column.edit?' editable':'')" ng-show="column.show(item)" ng-click="onCellClick(item, column)">
 
                 <span ng-show="!edit || !edit.is(item, column)" ng-click="onCellClick(item, column)">{{column.value(item)}}</span>
 
@@ -50,9 +50,11 @@
                 </div>
             </td>
         </tr>
+    </tbody>
 
-        <tr ng-if="edit && create" ng-class="create.classes()" ng-show="create.show()">
-            <td ng-repeat="column in config.columns track by column.field" ng-class="column.field" ng-show="!create.showMessage && column.show(create.newItem)" ng-click="onCellClick(create.newItem, column)">
+    <tbody class="create-body" ng-if="edit && create">
+        <tr ng-class="create.classes()" ng-show="create.show()">
+            <td ng-repeat="column in config.columns track by column.field" ng-class="column.field+(column.edit?' editable':'')" ng-show="!create.showMessage && column.show(create.newItem)" ng-click="onCellClick(create.newItem, column)">
 
                 <span ng-show="!edit || !edit.is(create.newItem, column)" ng-click="onCellClick(create.newItem, column)">{{create.newItem[column.field]}}</span>
 

@@ -9,7 +9,7 @@
 */
 
 body {
-	background: #AED9DA; /* Chill */
+    background: #AED9DA; /* Chill */
 }
 
 ::-webkit-scrollbar {
@@ -31,8 +31,8 @@ ng-datatable thead {
 }
 
 .appbar, .drawer {
-	color: #EDFAFD; /* Glass */
-	background: #135589; /* Marina */
+    color: #EDFAFD; /* Glass */
+    background: #135589; /* Marina */
     font-weight: bold;
     text-indent: 0.5em;
 }
@@ -68,8 +68,8 @@ ng-datatable thead {
 /* scoresheet */
 
 #intro-toolbar {
-	color: #EDFAFD; /* Glass */
-	background: #2A93D5; /* Bondi Blue */
+    color: #EDFAFD; /* Glass */
+    background: #2A93D5; /* Bondi Blue */
 }
 
 #scoresheet-teams .teams-list table tr.selected {
@@ -108,29 +108,29 @@ ng-datatable thead {
 }
 
 #team-toolbar {
-	background: #EDFAFD; /* Glass */
-	color: #135589; /* Marina */
+    background: #EDFAFD; /* Glass */
+    color: #135589; /* Marina */
 }
 
 #team-toolbar .team-title {
-	line-height: 1.6em;
+    line-height: 1.6em;
     font-size: 2em;
     margin: 0 1em;
     cursor: pointer;
 }
 
 #team-toolbar .score {
-	line-height: 1.6em;
+    line-height: 1.6em;
     font-size: 2em;
     margin: 0 1em;
 }
 
 #missions .mission.ok {
-	background: #3DDAD7; /* Californian Coral */
+    background: #3DDAD7; /* Californian Coral */
 }
 
 #missions .mission.error, #missions .errors.card {
-	background: #FFB1B1;
+    background: #FFB1B1;
 }
 
 #missions .mission.error .errors {

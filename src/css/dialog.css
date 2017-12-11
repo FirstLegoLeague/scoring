@@ -1,5 +1,5 @@
 
-.fll-dialog-shim {
+.fll-dialog-background {
     position: fixed;
     z-index: 1999;
     left: 0;
@@ -11,7 +11,7 @@
     opacity: 1;
     overflow: auto;
 }
-.fll-dialog-shim.ng-hide {
+.fll-dialog-background.ng-hide {
     display: block !important;
     opacity: 0;
     z-index: -1;
@@ -45,7 +45,12 @@
 }
 .dialog-actions {
     margin-top: .75em;
-    direction: rtl;
+    display: flex;
+    justify-content: flex-end;
     border-top: 1px solid lightgray;
     padding-top: .75em;
+}
+
+.dialog-actions > *:not(:last-child) {
+    margin-right: 0.2em;
 }

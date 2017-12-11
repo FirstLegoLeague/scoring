@@ -36,21 +36,28 @@
                 <div class="card-header">Connectivity</div>
 
                 <div class="card-body">
+
                     <div class="setting">
                         <div class="setting-title">Challenge Host</div>
                         <input type="text" ng-model="settings.host" ng-change="save()">
                     </div>
 
-                <div class="setting">
-                    <div class="setting-title">Mhub Host</div>
-                    <input type="text" ng-model="settings.mhub" ng-change="save()">
-                </div>
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.customMhub" ng-change="save()">
+                        <div class="setting-title">Enable custom mhub</div>
+                    </div>
 
-                <div class="setting">
-                    <div class="setting-title">Mhub node</div>
-                    <input type="text" ng-model="settings.node" ng-change="save()">
+                    <div class="setting" ng-class="{disabled: !settings.customMhub}">
+                        <div class="setting-title">Mhub Host</div>
+                        <input type="text" ng-model="settings.mhub" ng-change="save()">
+                    </div>
+
+                    <div class="setting" ng-class="{disabled: !settings.customMhub}">
+                        <div class="setting-title">Mhub node</div>
+                        <input type="text" ng-model="settings.node" ng-change="save()">
+                    </div>
+
                 </div>
-            </div>
 
         	</div>
         </tab>

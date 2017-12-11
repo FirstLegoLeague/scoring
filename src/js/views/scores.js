@@ -47,8 +47,7 @@ define('views/scores', [
                         icon: 'add_circle_outline'
                     }, {
                         onClick: (score) => {
-                            $scope.setPage($scope.pages.find(function (p) {return p.name === "scoresheet"}));
-                            $scope.$parent.goTo('scoresheet', $scoresheet => {
+                            $scope.goTo('scoresheet', $scoresheet => {
                                 $scoresheet.loadScoresheet(score);
                                 $scoresheet.moveOn('missions');
                             });

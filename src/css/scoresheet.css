@@ -263,15 +263,19 @@
     height: fit-content;
 }
 
+#signoff .signoff-grid .missions .mission > .title {
+    font-weight: bold;
+}
+
 #signoff .signoff-grid .missions .objective {
     margin: 0.5em;
 }
 
 #signoff .signoff-grid .missions .objective .title {
     display: inline-block;
-    font-weight: bold;
 }
 
 #signoff .signoff-grid .missions .objective .value {
     display: inline-block;
+    font-weight: bold;
 }

@@ -93,6 +93,7 @@ define('controllers/TeamImportDialogController', [
                             name: team.name
                         });
                     });
+                    $teams.save();
                 }
             };
 

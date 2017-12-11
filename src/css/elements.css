@@ -1,4 +1,48 @@
-/* loaders and dimmers */
+/* dimmers: dimm a component by making it half-whittened. use like this:
+    <div class="I want this component to be dimmed" class="dimmable">
+        <div class="dimmer"></div>
+    </div>
+
+    Dimmer only works if its dimmable has a class "dimmed"
+    Add class 'disabled' to disable the dimmer
+    Add class 'patial' to gain control over the dimmer's bounds
+ */
+
+.dimmer {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dimmer.disabled {
+    display: none;
+}
+
+.dimmer:not(.partial) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.dimmable {
+    position: relative;
+}
+
+.dimmable:not(.dimmed) .dimmer {
+    display: none;
+}
+
+/* loaders: show the loading animation. Use inside a dimmer, like this:
+    <div id="I want the loader to be shown on this component" class="dimmable">
+        <div class="dimmer">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    Use the extra classes (slow-extreme, counter-clockwise, tiny-huge)
+    To add custom style to the loader
+ */
+
 .loader {
     border-radius: 1em;
     width: 1em;
@@ -35,30 +79,6 @@
 @keyframes spin-counter-clockwise {
     0% { transform: rotate(0deg);  }
     100% { transform: rotate(-360deg);  }
-}
-
-.dimmer {
-    background: rgba(255, 255, 255, 0.5);
-}
-
-.dimmer.disabled {
-    display: none;
-}
-
-.dimmer:not(.partial) {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
-.dimmable {
-    position: relative;
-}
-
-.dimmable:not(.dimmed) .dimmer {
-    display: none;
 }
 
 /* icons */
@@ -135,7 +155,7 @@ i.material-icons.big {
     justify-content: space-between;
 }
 
-.card .card-header i {
+.card .card-header i.material-icons {
     vertical-align: bottom;
 }
 
@@ -164,7 +184,7 @@ ng-datatable table {
     margin-bottom: 0 !important; /* Overrides bootstrap */
 }
 
-ng-datatable thead td i {
+ng-datatable thead td i.material-icons {
     margin: 0 !important;
     vertical-align: middle;
 }
@@ -208,7 +228,7 @@ ng-datatable .editing-form input, ng-datatable .editing-form select {
     width: 100%;
 }
 
-ng-datatable .editing-form i {
+ng-datatable .editing-form i.material-icons {
     font-size: 1.5em;
     margin: 0 !important;
     vertical-align: middle;
@@ -232,4 +252,12 @@ ng-datatable.scrollable-body tbody {
     overflow-y: auto;
     display: block;
     width: 100%;
+}
+
+ng-datatable td.editable:not(.actions) {
+    cursor: pointer;
+}
+
+ng-datatable td.editable:not(.actions):hover {
+    background: lightgray;
 }

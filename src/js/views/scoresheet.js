@@ -283,7 +283,6 @@ define('views/scoresheet',[
             }
 
             function update() {
-                $scope.goTo('scores');//When you finish editing a scoresheet, it returns you to the scores view
                 $scores.delete($scope.scoreEntry);
                 return $scores.loadScoresheet($scope.scoreEntry).then(function (result) {
                     result.missions.forEach(function (mission) {
@@ -307,13 +306,14 @@ define('views/scoresheet',[
                     result.referee !== $scope.scoreEntry.referee ? log("changed referee to " + $scope.scoreEntry.referee) : void(0);
                     $scope.scoreEntry.id = $score.generateUniqueId();//This is a different score after being edited, so it has a different id
                     create();
+                    $scope.goTo('scores'); //When you finish editing a scoresheet, it returns you to the scores view
                 });
             };
 
             //saves mission scoresheet
             function create() {
                 if(!$scope.isSavable()) {
-                    return;
+                    return Promise.resolve();
                 }
 
                 var scoresheet = angular.copy($scope.field);
@@ -367,6 +367,7 @@ define('views/scoresheet',[
             $scope.loadScoresheet = function (score) {
                 log(`Editing scoresheet: stage ${score.stageId}, round ${score.round}, team ${score.teamNumber}, score ${score.score}`);
                 $scope.editingScore = true;
+                score.referee = $scope.scoreEntry.referee;
                 $scope.scoreEntry = score;
                 $scores.loadScoresheet(score).then(function (result) {
                     $scope.scoreEntry.signature = result.signature;

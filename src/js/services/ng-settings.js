@@ -41,6 +41,7 @@ define('services/ng-settings',[
                 var defaults = {
                     tables: [{name: 'Table 1'}],
                     referees: [{name: 'Head referee'}],
+                    customMhub: false,
                     mhub: `ws://${window.location.hostname}:13900`,
                     node: 'default',
                     challenge: '2017_en_US-official',

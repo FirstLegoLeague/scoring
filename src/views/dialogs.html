@@ -1,4 +1,4 @@
-<div id="team-import-dialog" class="fll-dialog-shim" ng-controller="TeamImportDialogController" ng-show="dialog.show" xmlns="http://www.w3.org/1999/html"  ngf-drop="upload($files, $file)" ngf-pattern=".csv" ng-click="cancel()">
+<div id="team-import-dialog" class="fll-dialog-background" ng-controller="TeamImportDialogController" ng-show="dialog.show" xmlns="http://www.w3.org/1999/html"  ngf-drop="upload($files, $file)" ngf-pattern=".csv" ng-click="cancel()">
     <div class="fll-dialog" id="teamImportDialog" ng-click="$event.stopPropagation()">
         <div class="drag-indication">Drop CSV file here</div>
         <div class="dialog-header">
@@ -32,19 +32,21 @@
                     <input type="text" ng-show="useCustomDelimiter" ng-model="delimiter" ng-change="parseData()">
                 </div>
             </div>
-             <h4>Teams</h4>
             <div id="teams-data" ng-if="importLines">
-                <table>
-                    <tr ng-repeat="line in importLines track by $index" class="team">
-                        <td ng-repeat="field in line track by $index" class="field">
-                            {{field}}
-                        </td>
-                    </tr>
-                </table>
+                <h4>Teams</h4>
+                <div class="table-container">
+                    <table class="table table-condensed">
+                        <tr ng-repeat="line in importLines track by $index" class="team">
+                            <td ng-repeat="field in line track by $index" class="field">
+                                {{field}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="dialog-actions">
-            <button class="btn btn-primary" ng-click="ok()">Import</button>
+            <button class="btn btn-primary" ng-click="save()">Import</button>
             <button class="btn" ng-click="cancel()">Cancel</button>
         </div>
     </div>

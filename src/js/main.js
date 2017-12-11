@@ -82,7 +82,10 @@ define([
 
             $scope.goTo = function(pageName, callback) {
                 var page = $scope.pages.find(page => page.name === pageName);
-                $scope.pageLoadCallback = callback;
+                if(page) {
+                    $scope.pageLoadCallback = callback;
+                    setPage(page);
+                }
             }
 
             $scope.pageLoaded = function() {

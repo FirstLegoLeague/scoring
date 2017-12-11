@@ -17,6 +17,7 @@ define('directives/datatable',[
                     if(!conf)   return;
 
                     scope.config = {
+                        tableClasses: conf.tableClasses || '',
                         columns: conf.columns.map(column => {
                             var newColumn = {
                                 field: column.field,
@@ -76,21 +77,21 @@ define('directives/datatable',[
                 };
 
                 scope.sort = {
-                    sort: scope.config.columns[attrConfig.sort || 0],
+                    column: scope.config.columns[attrConfig.sort || 0],
                     reverse: attrConfig.reverse || false,
-                    get: () => attrConfig.sort || scope.sort.sort.field,
+                    get: () => attrConfig.sort || scope.sort.column.field,
                     set: (column) => {
                         if(scope.sort.disabled) {
                             return;
                         }
-                        if(scope.sort.sort === column) {
+                        if(scope.sort.column === column) {
                             scope.sort.reverse = !scope.sort.reverse;
                         } else {
-                            scope.sort.sort = column;
+                            scope.sort.column = column;
                         }
                     },
                     icon: (column) => {
-                        if(scope.sort.disabled || scope.sort.sort !== column) {
+                        if(scope.sort.disabled || scope.sort.column !== column) {
                             return '';
                         }
                         if (scope.sort.reverse) {
@@ -109,7 +110,8 @@ define('directives/datatable',[
                             if(column.edit) {
                                 scope.edit.editing = { item: item, column: column, originalValue: angular.copy(item[column.field]) }
                                 $timeout(() => {
-                                    angular.element(`ng-datatable#${attrConfig.id} tbody tr.${scope.config.row.classes(item)} td.${column.field} .${column.edit}`).focus();
+                                    let classes = (attrConfig.create && item === scope.create.newItem) ? scope.create.classes() : scope.config.row.classes(item)
+                                    angular.element(`ng-datatable#${attrConfig.id} tbody tr${classes ? `.${classes}` : '' } td.${column.field} .${column.edit}`).focus();
                                 });
                             }
                         },
@@ -141,7 +143,7 @@ define('directives/datatable',[
                         disableMessage: () => {
                             scope.create.showMessage = false;
                             $timeout(() => {
-                                onCellClick(scope.create.newItem, scope.config.columns[0]);
+                                scope.onCellClick(scope.create.newItem, scope.config.columns[0]);
                             });
                         },
                         reset: () => {

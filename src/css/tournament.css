@@ -28,7 +28,7 @@
 #teams-table td.judgingGroup { flex: 3; }
 #teams-table td.pitLocation { flex: 2; }
 #teams-table td.translationNeeded { flex: 2; }
-#teams-table td.actions { flex: 1; }
+#teams-table td.actions { flex: 2; }
 
 .card.structure tbody {
     max-height: 30vh;
@@ -76,7 +76,7 @@
 
 #teams-data-formatting-container .field {
     display: flex;
-    margin-top: 1em;
+    margin-top: 0.2rem;
     align-items: end;
 }
 
@@ -104,6 +104,12 @@
 #teams-data {
     grid-column: span 2;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#teams-data > .table-container {
+    overflow-y: scroll;
 }
 
 #teams-data table {
