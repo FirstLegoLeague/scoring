@@ -367,7 +367,7 @@ define('views/scoresheet',[
             $scope.loadScoresheet = function (score) {
                 log(`Editing scoresheet: stage ${score.stageId}, round ${score.round}, team ${score.teamNumber}, score ${score.score}`);
                 $scope.editingScore = true;
-                score.referee = $scope.scoreEntry.referee;
+                score.referee = $scope.scoreEntry.referee || score.referee;
                 $scope.scoreEntry = score;
                 $scores.loadScoresheet(score).then(function (result) {
                     $scope.scoreEntry.signature = result.signature;
