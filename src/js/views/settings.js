@@ -8,7 +8,7 @@ define('views/settings',[
     return angular.module(moduleName,[]).controller(moduleName+'Ctrl',[
         '$scope', '$settings',
         function($scope, $settings) {
-            $scope.$parent.initPage(moduleName, $scope);
+            $scope.initPage(moduleName, $scope);
 
             $scope.log = log.get();
 

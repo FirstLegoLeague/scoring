@@ -123,7 +123,7 @@ define('services/ng-stages',[
          * clipping to top or bottom of the list
          */
         Stages.prototype.moveStage = function(stage,steps) {
-            var oldIndex = this._rawStages.indexOf(stage);
+            var oldIndex = stage.hasOwnProperty('index') ? stage.index : this._rawStages.indexOf(stage);
             var newIndex = oldIndex + steps;
             this._rawStages.splice(oldIndex, 1);
             this._rawStages.splice(newIndex, 0, stage);

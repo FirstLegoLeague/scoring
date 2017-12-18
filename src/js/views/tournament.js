@@ -13,7 +13,7 @@ define('views/tournament', [
     return angular.module(moduleName, ['TeamImportDialog']).controller(moduleName + 'Ctrl', [
         '$scope', '$stages', '$teams', '$scores', '$settings','$challenge','$dialogs', '$message',
         function ($scope, $stages, $teams, $scores, $settings, $challenge, $dialogs, $message) {
-            $scope.$parent.initPage(moduleName, $scope);
+            $scope.initPage(moduleName, $scope);
 
             $scope.show = {};
 

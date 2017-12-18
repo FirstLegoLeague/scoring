@@ -68,8 +68,7 @@ describe('ng-settings',function() {
             var defaults = {
                 tables: [{name:'Table 1'}],
                 referees: [{name:'Head referee'}],
-                askTable: true,
-                askReferee: true,
+                customMhub: false,
                 mhub: `ws://${window.location.hostname}:13900`, //notice that window.location in necessary because you can't know where the karma server will run
                 node: 'default',
                 challenge: '2017_en_US-official',
@@ -94,8 +93,7 @@ describe('ng-settings',function() {
             var defaults = {
                 tables: [{name:'Table 1'}],
                 referees: [{name:'Head referee'}],
-                askTable: true,
-                askReferee: true,
+                customMhub: false,
                 mhub: `ws://${window.location.hostname}:13900`, //notice that window.location in necessary because you can't know where the karma server will run
                 node: 'default',
                 challenge: '2017_en_US-official',

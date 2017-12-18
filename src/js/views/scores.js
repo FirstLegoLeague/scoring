@@ -6,7 +6,7 @@ define('views/scores', [
     return angular.module(moduleName, ['ui.bootstrap']).controller(moduleName + 'Ctrl', [
         '$scope', '$scores', '$teams', '$stages', '$settings', '$window',
         function ($scope, $scores, $teams, $stages, $settings, $window) {
-            $scope.$parent.initPage(moduleName, $scope);
+            $scope.initPage(moduleName, $scope);
 
             $scope.scoresTableConfig = {
                 columns: [

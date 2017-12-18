@@ -16,7 +16,7 @@ define('views/scoresheet',[
     return angular.module(moduleName, []).controller(moduleName + 'Ctrl', [
         '$scope','$document','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams',
         function($scope, $document,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams) {
-            $scope.$parent.initPage(moduleName, $scope);
+            $scope.initPage(moduleName, $scope);
 
             const AUTOSCROLL_SPEED = 0.1;
 
@@ -279,7 +279,7 @@ define('views/scoresheet',[
             };
 
             $scope.save = function() {
-                $scope.editingScore ? update() : create();
+                return $scope.editingScore ? update() : create();
             }
 
             function update() {
@@ -305,8 +305,9 @@ define('views/scoresheet',[
                     result.table !== $scope.scoreEntry.table ? log("changed table to " + $scope.scoreEntry.table) : void(0);
                     result.referee !== $scope.scoreEntry.referee ? log("changed referee to " + $scope.scoreEntry.referee) : void(0);
                     $scope.scoreEntry.id = $score.generateUniqueId();//This is a different score after being edited, so it has a different id
-                    create();
+                    let creationPromise = create();
                     $scope.goTo('scores'); //When you finish editing a scoresheet, it returns you to the scores view
+                    return creationPromise;
                 });
             };
 

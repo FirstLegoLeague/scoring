@@ -14,7 +14,7 @@ describe('ng-stages',function() {
     var mockStageSanitized;
     var unusedMockStage;
     var unusedMockStageSanitized;
-        
+
 
     //initialize
     beforeEach(function() {
@@ -193,14 +193,14 @@ describe('ng-stages',function() {
             $stages.moveStage(mockStageSanitized,1);
             expect($stages.allStages).toEqual([
                 { index: 0, id: "unused", name: "Foobar", rounds: 0, $rounds: [] },
-                {index:1,id:"practice",name:"Practice Rounds",rounds:2,$rounds:[1,2]}
+                { index: 1, id:"practice", name:"Practice Rounds", rounds:2, $rounds:[1,2] }
             ]);
         });
         it('move up 1 step',function() {
             $stages.moveStage(unusedMockStageSanitized,-1);
             expect($stages.allStages).toEqual([
                 { index: 0, id: "unused", name: "Foobar", rounds: 0, $rounds: [] },
-                {index:1,id:"practice",name:"Practice Rounds",rounds:2,$rounds:[1,2]}
+                { index: 1, id:"practice", name:"Practice Rounds", rounds:2, $rounds:[1,2] }
             ]);
         });
     });
