@@ -18,6 +18,7 @@ module.exports = function(config) {
       'src/components/angular/angular.min.js',
       'src/components/angular-mocks/angular-mocks.js',
       'src/components/angular-storage/angular-storage.js',
+      'src/components/angular-bootstrap/ui-bootstrap-tpls.js',
       'src/components/q/q.js',
       'src/components/idbwrapper/idbstore.js',
       'spec/helpers/*.js',

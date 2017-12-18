@@ -120,7 +120,7 @@ define('views/tournament', [
                 ],
                 edit: {
                     onSave: () => {
-                        $settings.save()
+                        $stages.save()
                     }
                 },
                 create: {
@@ -128,7 +128,7 @@ define('views/tournament', [
                     save: (newStage) => {
                         newStage.id = newStage.name.replace(' ', '_');
                         newStage.rounds = newStage.rounds || 0;
-                        $scope.stages.push(newStage);
+                        $stages.add(newStage);
                         $stages.save();
                     }
                 },

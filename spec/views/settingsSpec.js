@@ -24,25 +24,32 @@ describe('settings', function() {
     describe('initialization', function() {
         it('should initialize', function() {
             $scope.$digest();
-            expect($scope.save).not.toBe(undefined);
+            expect($scope.initPage).toHaveBeenCalled();
+        });
+
+        it('should init settings', function() {
+            $scope.$digest();
+            expect(settingsMock.init).toHaveBeenCalled();
+        });
+
+        it('should load log content', function() {
+            $scope.$digest();
+            expect(logMock.get).toHaveBeenCalled();
         });
     });
 
-    describe('missing settings.json on storage',function() {
-        beforeEach(function() {
-            fsMock.read = jasmine.createSpy('fsReadSpy').andCallFake(function() {
-                return Q.reject(new Error('fake file-not-found for settings'));
-            });
-        });
-        xit('should initialize in editmode when no teams found on storage', function() {
-            //TODO: check state after reading
+    describe('log', function() {
+        it('shuold contain the content of the log', function() {
+            $scope.$digest();
+            expect($scope.log).toEqual('log-content');
         });
     });
 
-    describe('saving',function() {
-        it('should write to the file system',function() {
+    describe('save',function() {
+        it('should call $setiings.save',function() {
             $scope.save();
             expect(settingsMock.save).toHaveBeenCalled();
         });
     });
+
 });
