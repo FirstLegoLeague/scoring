@@ -23,24 +23,20 @@ describe('settings', function() {
 
     describe('initialization', function() {
         it('should initialize', function() {
-            $scope.$digest();
             expect($scope.initPage).toHaveBeenCalled();
         });
 
         it('should init settings', function() {
-            $scope.$digest();
             expect(settingsMock.init).toHaveBeenCalled();
         });
 
         it('should load log content', function() {
-            $scope.$digest();
             expect(logMock.get).toHaveBeenCalled();
         });
     });
 
     describe('log', function() {
         it('shuold contain the content of the log', function() {
-            $scope.$digest();
             expect($scope.log).toEqual('log-content');
         });
     });

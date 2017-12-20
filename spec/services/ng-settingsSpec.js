@@ -86,8 +86,6 @@ describe('ng-settings',function() {
                 done();
             });
             $rootScope.$digest();
-
-
         });
         it('should just use the default settings if no settings file could be created',function(done) {
             var defaults = {

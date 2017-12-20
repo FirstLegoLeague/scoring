@@ -47,32 +47,26 @@ describe('tournament', function() {
 
     describe('initialization', function() {
         it('should initialize', function() {
-            $scope.$digest();
             expect($scope.initPage).toHaveBeenCalled();
         });
 
         it('should init teams', function() {
-            $scope.$digest();
             expect(teamsMock.init).toHaveBeenCalled();
         });
 
         it('should init stages', function() {
-            $scope.$digest();
             expect(stagesMock.init).toHaveBeenCalled();
         });
 
         it('should init settings', function() {
-            $scope.$digest();
             expect(settingsMock.init).toHaveBeenCalled();
         });
 
         it('should listen to messages', function() {
-            $scope.$digest();
             expect(messageMock.on).toHaveBeenCalled();
         });
 
         it('should load challenges', function() {
-            $scope.$digest();
             expect(challengeMock.getChallenges).toHaveBeenCalled();
         });
     });

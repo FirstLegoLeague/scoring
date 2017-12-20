@@ -32,7 +32,6 @@ describe('scores', function() {
                 '$window': $window
             });
         });
-        $scope.$digest();//resolve all initialization promises
     });
 
     describe('initialization', function() {
