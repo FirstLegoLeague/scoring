@@ -103,6 +103,7 @@ define('controllers/TeamImportDialogController', [
 
                 if(closeDialog) {
                     $scope.dialog.show = false;
+                    $scope.dialog.onClose ? $scope.dialog.onClose() : undefined;
                 }
             };
 

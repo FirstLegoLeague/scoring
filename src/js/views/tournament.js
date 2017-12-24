@@ -40,6 +40,7 @@ define('views/tournament', [
                         onClick: (team) => {
                             $teams.remove(team.number);
                             $teams.save();
+                            $scope.teams = $teams._rawTeams;
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete'
@@ -48,6 +49,7 @@ define('views/tournament', [
                 edit: {
                     onSave: () => {
                         $teams.save();
+                        $scope.teams = $teams._rawTeams;
                     }
                 },
                 create: {
@@ -55,6 +57,7 @@ define('views/tournament', [
                     save: (newTeam) => {
                         $teams.add(newTeam);
                         $teams.save();
+                        $scope.teams = $teams._rawTeams;
                     }
                 },
                 row: {
@@ -72,6 +75,9 @@ define('views/tournament', [
 
             $scope.importTeams = function() {
                 $dialogs.teamsImport.show = true;
+                $dialogs.teamsImport.onClose = () => {
+                    $scope.teams = $teams._rawTeams;
+                }
             };
 
             $stages.init().then(function() {
