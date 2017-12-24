@@ -28,11 +28,16 @@
                             Broadcast
                         </div>
                         <select ng-model="ranksTableConfig.view" ng-change="calcRanksColumns()" id="viewed-rank">
-                            <option ng-repeat="option in stages track by option.id" ng-selected="option.id === viewedStage" ng-value="option.id">{{option.name}}</option>
+                            <option ng-repeat="option in stages track by option.id" ng-selected="option.id === ranksTableConfig.view" ng-value="option.id">{{option.name}}</option>
                         </select>
                     </div>
                 </div>
-                <ng-datatable id="ranks-table" collection="scoreboard[ranksTableConfig.view]" config="ranksTableConfig" class="scrollable-body"></ng-datatable>
+                <div ng-if="scoreboard[ranksTableConfig.view].length === 0" class="big message">No scores</div>
+                <div ng-if="errors.length !== 0" class="big message">
+                    There are some errors in the score entries.
+                    <small>We cannot calculate the rankings until you resolve them</small>
+                </div>
+                <ng-datatable ng-if="errors.length === 0 && scoreboard[ranksTableConfig.view].length !== 0" id="ranks-table" collection="scoreboard[ranksTableConfig.view]" config="ranksTableConfig" class="scrollable-body"></ng-datatable>
             </div>
         </tab>
     </tabset>

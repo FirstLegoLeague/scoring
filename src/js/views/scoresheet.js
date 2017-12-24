@@ -279,6 +279,9 @@ define('views/scoresheet',[
             };
 
             $scope.save = function() {
+                if($scope.preventSaveErrors()[0] === 'No signature') {
+                    alert('The team must sign in order to submit the scoresheet.');
+                }
                 return $scope.editingScore ? update() : create();
             }
 

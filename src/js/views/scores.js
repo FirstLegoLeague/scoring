@@ -142,7 +142,9 @@ define('views/scores', [
 
                 $scope.ranksTableConfig.view = $settings.settings.currentStage || $scope.stages[0].id;
                 $scope.calcRanksColumns();
-                $scores.getRankings();
+                $scores.getRankings().then(() => {
+                    $scope.errors = $scores.validationErrors;
+                });
             });
 
             function togglePublished(score) {

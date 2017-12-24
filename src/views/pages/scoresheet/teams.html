@@ -1,9 +1,9 @@
-<ng-datatable collection="teams" config="teamChoosingTableConfig" class="teams-list scrollable-body"></ng-datatable>
+<ng-datatable ng-if="teams.length !== 0" collection="teams" config="teamChoosingTableConfig" class="teams-list scrollable-body"></ng-datatable>
 
-<div class="stage-select">
-	<h3 class="title" ng-show="scoreEntry.team">{{scoreEntry.team.name}} - {{scoreEntry.team.number}}</h3>
+<div ng-if="scoreEntry.team" class="stage-select">
+	<h3 class="title">{{scoreEntry.team.name}} - {{scoreEntry.team.number}}</h3>
 	<div class="stages">
-		<div ng-show="scoreEntry.team" ng-repeat="stage in stages track by stage.id" class="stage" style="flex: {{stage.rounds}}">
+		<div ng-repeat="stage in stages track by stage.id" class="stage" style="flex: {{stage.rounds}}">
 			<div class="stage-title" ng-show="scoreEntry.team">
 				{{stage.id}}
 			</div>
@@ -21,8 +21,13 @@
 
 </div>
 
-<div class="actions">
+<div ng-if="scoreEntry.team" class="actions">
 	<div class="move-on btn btn-primary" ng-disabled="!scoreEntry.team || !scoreEntry.stage || !scoreEntry.round" ng-click="moveOn('missions')">
 		3 2 1 LEGO!
 	</div>
+</div>
+
+<div id="no-teams-message" ng-if="teams.length === 0">
+	There are no teams!
+	<small>Please ask your tournament official to enter some</small>
 </div>

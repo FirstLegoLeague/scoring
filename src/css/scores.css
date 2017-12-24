@@ -195,6 +195,17 @@
 
 }
 
+#scores .ranks.card .big.message {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+#scores .ranks.card .big.message small {
+    display: block;
+    margin-top: 1em;
+}
+
 #ranks-table td.rank { flex: 0; }
 #ranks-table td.teamNumber { display: none; }
 #ranks-table td.teamFullName { flex: 4; }
