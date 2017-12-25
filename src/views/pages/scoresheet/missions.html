@@ -19,16 +19,16 @@
             <span class="objective-title">{{objective.title}}</span>
             <span class="field" ng-switch-when="yesno">
                 <div class="btn-group">
-                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'yes'">{{getString('yes')}}</label>
-                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'no'">{{getString('no')}}</label>
+                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'yes'" ng-change="recalcScorediff()">{{getString('yes')}}</label>
+                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'no'" ng-change="recalcScorediff()">{{getString('no')}}</label>
                 </div>
             </span>
             <span class="field" ng-switch-when="number">
-                <span fll-spinner ng-model="objective.value" min="objective.min || 0" max="objective.max"></span>
+                <span fll-spinner ng-model="objective.value" min="objective.min || 0" max="objective.max" ng-change="recalcScorediff()"></span>
             </span>
             <div class="field" ng-switch-when="enum">
                 <div class="btn-group">
-                    <label ng-repeat="line in objective.options track by line.title" class="btn btn-enum" ng-model="objective.value" btn-radio="line.value">{{line.title}}</label>
+                    <label ng-repeat="line in objective.options track by line.title" class="btn btn-enum" ng-model="objective.value" btn-radio="line.value" ng-change="recalcScorediff()">{{line.title}}</label>
                 </div>
             </div>
 	    </div>

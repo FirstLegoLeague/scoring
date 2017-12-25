@@ -14,11 +14,15 @@ define('views/scoresheet',[
     var moduleName = 'scoresheet';
 
     return angular.module(moduleName, []).controller(moduleName + 'Ctrl', [
-        '$scope','$document','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams',
-        function($scope, $document,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams) {
+        '$scope','$document','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams','$timeout',
+        function($scope, $document,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$timeout) {
             $scope.initPage(moduleName, $scope);
 
             const AUTOSCROLL_SPEED = 0.1;
+
+            var shouldRecalcScorediff = false,
+                oldScore = 0,
+                scorediff = 0;
 
             $scope.selectTeam = function(team) {
                 $scope.scoreEntry.team = team
@@ -211,7 +215,27 @@ define('views/scoresheet',[
                     return total + m.result;
                 },0);
 
-                return bonusScore + restScore;
+                var score = bonusScore + restScore;
+
+                if(shouldRecalcScorediff) {
+                    scorediff = score - oldScore;
+                    oldScore = score;
+                    shouldRecalcScorediff = false;
+                    $timeout(() => {
+                        angular.element('.score-diff').removeClass('animating');
+                        scorediff = 0;
+                    }, 1500);
+                }
+
+                return score;
+            };
+
+            $scope.recalcScorediff = function() {
+                shouldRecalcScorediff = true;
+            };
+
+            $scope.scorediff = function() {
+                return scorediff;
             };
 
             function empty(val) {
