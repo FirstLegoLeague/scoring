@@ -55,7 +55,9 @@ define('views/scores', [
                         icon: 'edit'
                     }, {
                         onClick: (score) => {
-                            $scores.delete(score);
+                            $scores.delete(score).then(() => {
+                                $scope.errors = $scores.validationErrors;
+                            });
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete'
@@ -63,7 +65,9 @@ define('views/scores', [
                 ],
                 edit: {
                     onSave: (score) => {
-                        $scores.update(score);
+                        $scores.update(score).then(() => {
+                            $scope.errors = $scores.validationErrors;
+                        });
                     }
                 },
                 row: {
@@ -165,7 +169,9 @@ define('views/scores', [
 
             function saveScore(score, forceAutoBroadcast) {
                 try {
-                    $scores.update(score, forceAutoBroadcast);
+                    $scores.update(score, forceAutoBroadcast).then(() => {
+                        $scope.errors = $scores.validationErrors;
+                    });
                 } catch(e) {
                     $window.alert("Error updating score: " + e);
                 }
