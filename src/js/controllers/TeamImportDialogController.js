@@ -70,7 +70,7 @@ define('controllers/TeamImportDialogController', [
                         $scope.delimiter = ",";
                         $scope.importRaw = data;
                     }
-                    parseData();
+                    $scope.parseData();
                 };
                 reader.readAsText(file);
 
