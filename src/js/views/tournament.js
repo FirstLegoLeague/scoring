@@ -43,7 +43,8 @@ define('views/tournament', [
                             $scope.teams = $teams._rawTeams;
                         },
                         classes: () => 'btn-danger',
-                        icon: 'delete'
+                        icon: 'delete',
+                        requireLoading: true
                     }
                 ],
                 edit: {
@@ -107,7 +108,8 @@ define('views/tournament', [
                             $stages.save();
                         },
                         classes: () => 'btn-danger',
-                        icon: 'delete'
+                        icon: 'delete',
+                        requireLoading: true
                     }, {
                         onClick: (stage) => {
                             $stages.moveStage(stage, -1);
@@ -132,8 +134,12 @@ define('views/tournament', [
                 create: {
                     message: 'New stage',
                     save: (newStage) => {
+                        if(isNaN(newStage.rounds)) {
+                            alert('Stage\' rounds must be a number')
+                            return;
+                        }
                         newStage.id = newStage.name.replace(' ', '_');
-                        newStage.rounds = newStage.rounds || 0;
+                        newStage.rounds = parseInt(newStage.rounds) || 0;
                         $stages.add(newStage);
                         $stages.save();
                     }
@@ -165,7 +171,8 @@ define('views/tournament', [
                             $settings.save();
                         },
                         classes: () => 'btn-danger',
-                        icon: 'delete'
+                        icon: 'delete',
+                        requireLoading: true
                     }
                 ],
                 edit: {
@@ -196,7 +203,8 @@ define('views/tournament', [
                             $settings.save();
                         },
                         classes: () => 'btn-danger',
-                        icon: 'delete'
+                        icon: 'delete',
+                        requireLoading: true
                     }
                 ],
                 edit: {

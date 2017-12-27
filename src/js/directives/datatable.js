@@ -9,7 +9,6 @@ define('directives/datatable',[
                 var doNothing = () => {};
                 var returnTrue = () => true;
                 var returnEmptyString = () => '';
-                var dontLoad = false;
 
                 var attrConfig = scope.$parent.$eval(attrs.config);
 
@@ -48,8 +47,16 @@ define('directives/datatable',[
                             return newColumn;
                         }),
                         actions: conf.actions ? conf.actions.map(action => {
+                            if(action.requireLoading) {
+                                var onClick = (item) => {
+                                    load();
+                                    action.onClick(item);
+                                };
+                            } else {
+                                var onClick = action.onClick || doNothing;
+                            }
                             return {
-                                onClick: action.onClick || doNothing,
+                                onClick: onClick,
                                 show: action.show || returnTrue,
                                 classes: action.classes || returnEmptyString,
                                 icon: action.icon || ''
@@ -66,10 +73,6 @@ define('directives/datatable',[
                 calcConfig(attrConfig);
 
                 scope.collection = () => {
-                    if(!dontLoad) {
-                        element.addClass('dimmed');
-                        dontLoad = false;
-                    }
                     $timeout(() => element.removeClass('dimmed'), 0, false);
                     var collection = (scope.$parent.$eval(attrs.collection) || []);
                     scope.collectionLength = collection.length;
@@ -152,6 +155,7 @@ define('directives/datatable',[
                             scope.config.columns.forEach((column) => scope.create.newItem[column.key] = '');
                         },
                         save: () => {
+                            load();
                             if(attrConfig.create.save) {
                                 attrConfig.create.save(scope.create.newItem);
                             }
@@ -165,12 +169,16 @@ define('directives/datatable',[
 
                 scope.onCellClick = function(item, column) {
                     if(column.onCellClick) {
+                        load();
                         column.onCellClick(item);
                     } else if(scope.edit && !scope.edit.is(item, column)) {
-                        dontLoad = true;
                         scope.edit.start(item, column);
                     }
                 };
+
+                function load() {
+                    element.addClass('dimmed');
+                }
 
                 scope.scroll = (function() {
                     if(attrConfig.scrollCount) {
