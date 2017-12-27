@@ -156,7 +156,7 @@ define('views/scores', [
                 saveScore(score, true);
             };
 
-            $scope.broadcast = function() {
+            $scope.broadcastRanking = function() {
                 $scores.broadcastRanking($stages.get($scope.$scope.ranksTableConfig.view));
             };
 
