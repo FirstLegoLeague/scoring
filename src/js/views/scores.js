@@ -157,7 +157,7 @@ define('views/scores', [
             };
 
             $scope.broadcastRanking = function() {
-                $scores.broadcastRanking($stages.get($scope.$scope.ranksTableConfig.view));
+                $scores.broadcastRanking($stages.get($scope.ranksTableConfig.view));
             };
 
             $scope.downloadCurrentStage = function() {
