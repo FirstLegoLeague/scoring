@@ -220,7 +220,7 @@ define('views/scores', [
 
             function currentStageExportableDataLink() {
                  var data = $scope.scoreboard[$scope.ranksTableConfig.view]
-                     .map(teamEntry => [teamEntry.rank, teamEntry.team.number, teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores));
+                     .map(teamEntry => [teamEntry.rank, teamEntry.team.number, teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores.map(scoreObject => scoreObject.score)));
                 return `data:text/csv;charset=utf-8,${ encodeURIComponent(encodeArray(data)) }`;
             }
 
