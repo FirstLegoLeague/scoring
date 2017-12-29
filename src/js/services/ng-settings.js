@@ -49,7 +49,12 @@ define('services/ng-settings',[
                     autoPublish: true,
                     autoBroadcast: true,
                     currentStage: 'practice',
-                    ignoreNegativeScores: true
+                    ignoreNegativeScores: true,
+                    lineStartString: '',
+                    separatorString: ',',
+                    lineEndString: '',
+                    autoScrolling: true,
+                    requireSignatrue: true
                 };
                 //create settings file if not there
                 log('settings read error, trying to create file', err);

@@ -208,21 +208,7 @@
     border-radius: 100%;
     background: radial-gradient(circle at 50% 55%, rgba(240, 245, 255, 0.9), rgba(240, 245, 255, 0.9) 40%, rgba(225, 238, 255, 0.8) 60%, rgba(43, 130, 255, 0.4));
 }
-#team-toolbar .score-diff:before {
-    height: 80%;
-    width: 40%;
-    transform: translateX(131%) translateY(58%) rotateZ(168deg) rotateX(10deg);
-    content: "";
-    position: absolute;
-    top: 1%;
-    left: 5%;
-    width: 90%;
-    height: 90%;
-    border-radius: 100%;
-    background: radial-gradient(circle at top, white, rgba(255, 255, 255, 0) 58%);
-    filter: blur(5px);
-    z-index: 2;
-}
+
 #team-toolbar .score-diff:after {
     content: "";
     position: absolute;
@@ -242,7 +228,7 @@
     animation: 1s linear score-diff-animation;
 }
 
-#team-toolbar .score-diff:not(.ng-animate) {
+#team-toolbar .score-diff:not(.animating) {
     display: none;
 }
 

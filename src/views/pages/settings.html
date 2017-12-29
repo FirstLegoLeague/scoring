@@ -1,5 +1,22 @@
 <div ng-controller="settingsCtrl" id="settings">
     <tabset>
+        <tab heading="Scoresheet settings">
+            <div class="card scoresheet main">
+                <div class="card-body">
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.autoScrolling" ng-change="save()">
+                        <div class="setting-title">Automatic scrolling</div>
+                        <div class="setting-description">When enabled, upon every mission submission, the scoresheet will scroll to the next mission</div>
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.requireSignatrue" ng-change="save()">
+                        <div class="setting-title">Require signature</div>
+                        <div class="setting-description">When enabled, every scoresheet must be signed before it can be sent</div>
+                    </div>
+                </div>
+            </div>
+        </tab>
         <tab heading="Advanced settings">
         	<div class="card advanced main">
         		<div class="card-body">
@@ -19,6 +36,23 @@
                         <input type="checkbox" ng-model="settings.ignoreNegativeScores" ng-change="save()">
                         <div class="setting-title">Ignore negative scores</div>
                         <div class="setting-description">When enabled, all negative scores will be displayed as 0 in the display system.</div>
+                    </div>
+
+                    <div class="card-header">Exporting format</div>
+
+                    <div class="setting">
+                        <div class="setting-title">Line beggining string</div>
+                        <input type="text" ng-model="settings.lineStartString" ng-change="save()">
+                    </div>
+
+                    <div class="setting">
+                        <div class="setting-title">Value seperating string</div>
+                        <input type="text" ng-model="settings.separatorString" ng-change="save()">
+                    </div>
+
+                    <div class="setting">
+                        <div class="setting-title">Line ending string</div>
+                        <input type="text" ng-model="settings.lineEndString" ng-change="save()">
                     </div>
                 </div>
         	</div>

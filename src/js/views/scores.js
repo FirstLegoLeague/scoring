@@ -220,7 +220,10 @@ define('views/scores', [
 
             function currentStageExportableDataLink() {
                  var data = $scope.scoreboard[$scope.ranksTableConfig.view]
-                     .map(teamEntry => [teamEntry.rank, teamEntry.team.number, teamEntry.team.name, teamEntry.highest.score].concat(teamEntry.scores.map(scoreObject => scoreObject.score)));
+                     .map(teamEntry =>
+                        [teamEntry.rank, teamEntry.team.number, teamEntry.team.name, teamEntry.highest.score]
+                        .concat(teamEntry.scores.map(scoreObject => scoreObject ? scoreObject.score : 0)));
+
                 return `data:text/csv;charset=utf-8,${ encodeURIComponent(encodeArray(data)) }`;
             }
 
@@ -229,9 +232,9 @@ define('views/scores', [
                 var settings = $settings.settings;
                 array.forEach(function (row) {
                     row = row.map((elem) => elem || elem === 0 ? String(elem) : "");
-                    string = string.concat(settings.lineStartString ? String(settings.lineStartString) : "");
-                    string = string.concat(row.join(settings.separatorString ? String(settings.separatorString) : ""));
-                    string = string.concat((settings.lineEndString ? String(settings.lineEndString) : "") + "\r\n");
+                    string = string.concat(settings.lineStartString);
+                    string = string.concat(row.join(settings.separatorString));
+                    string = string.concat((settings.lineEndString) + "\r\n");
                 });
                 return string;
             }

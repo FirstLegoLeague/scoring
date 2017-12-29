@@ -9,7 +9,7 @@
 		</div>
 	</div>
 
-	<div fll-sigpad ng-model="scoreEntry.signature" class="center"></div>
+	<div ng-if="settings.requireSignature" fll-sigpad ng-model="scoreEntry.signature" class="center"></div>
 
 	<div class="btn-group center">
 		<div class="btn back" ng-click="moveOn('missions')">Back to missions</div>

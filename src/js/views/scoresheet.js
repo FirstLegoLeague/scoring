@@ -157,7 +157,7 @@ define('views/scoresheet',[
                     mission.completed = mission.completedObjectives.every(function(objectCompleted) {
                         return objectCompleted;
                     }) && mission.errors.length === 0;
-                    if(mission.completed && !mission.previouslyCompleted && !$scope.editingScore) {
+                    if($settings.settings.autoScrolling && mission.completed && !mission.previouslyCompleted && !$scope.editingScore) {
                         scrollToNextMission(mission);
                     }
                     mission.previouslyCompleted = mission.completed;
@@ -217,7 +217,7 @@ define('views/scoresheet',[
 
                 var score = bonusScore + restScore;
 
-                if(shouldRecalcScorediff) {
+                if(shouldRecalcScorediff && $settings.settings.autoScrolling) {
                     scorediff = score - oldScore;
                     oldScore = score;
                     shouldRecalcScorediff = false;
@@ -270,7 +270,7 @@ define('views/scoresheet',[
             $scope.preventSaveErrors = function() {
                 let list = $scope.missionsErrors();
 
-                if(!$scope.scoreEntry.signature) {
+                if($settings.settings.requireSignature && !$scope.scoreEntry.signature) {
                     list.push('No signature');
                 }
 
