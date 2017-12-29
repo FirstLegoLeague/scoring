@@ -77,7 +77,6 @@ define('views/scores', [
                 searchValue: '',
                 scrollCount: 20
             };
-            $scope.exportFiles = {};
 
             $scope.ranksTableConfig = {
                 columns: [
