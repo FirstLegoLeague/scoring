@@ -22,8 +22,12 @@
     color: white;
 }
 
+.appbar * {
+    color: inherit;
+}
+
 .appbar h3 {
-    display: inline;
+    display: none;
     vertical-align: bottom;
 }
 
@@ -37,6 +41,10 @@
 @media screen and (min-width: 100vh) {
     #menu-icon {
         display: none;
+    }
+
+    .appbar h3 {
+        display: inline;
     }
 
     .page:not(.only-page) {

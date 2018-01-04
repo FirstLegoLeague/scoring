@@ -22,7 +22,7 @@ define('views/scoresheet',[
 
             var shouldRecalcScorediff = false,
                 oldScore = 0,
-                scorediff = 0;
+                scorediff = undefined;
 
             $scope.selectTeam = function(team) {
                 $scope.scoreEntry.team = team
@@ -36,7 +36,9 @@ define('views/scoresheet',[
                 ],
                 row: {
                     classes: team => team === $scope.scoreEntry.team ? 'selected' : ''
-                }
+                },
+                search : () => $scope.teamChoosingTableConfig.teamsSearch,
+                teamsSearch: undefined
             }
 
             // Set up defaults
@@ -166,16 +168,25 @@ define('views/scoresheet',[
             }
 
             function scrollToNextMission(mission) {
-                let className = mission.title.substr(0, mission.title.indexOf(' '));
+                let startingPosition, endingPosition;
+
                 let missionsElement = $document.context.getElementById('missions');
-                let missionElement = missions.getElementsByClassName(className)[0];
-                if(!missionElement) {
-                    return;
+                startingPosition = missionsElement.scrollTop;
+
+                if(mission) {
+                    let className = mission.title.substr(0, mission.title.indexOf(' '));
+                    let missionElement = missions.getElementsByClassName(className)[0];
+                    if(!missionElement) {
+                        return;
+                    }
+
+                    endingPosition = Math.min(
+                        missionElement.offsetTop + ($settings.settings.fastScrolling ? missionElement.clientHeight : 0) - 150,
+                        missionsElement.scrollHeight - missionsElement.clientHeight);
+                } else {
+                    endingPosition = 0;
                 }
 
-                let startingPosition = missionsElement.scrollTop;
-                let endingPosition = Math.min(missionElement.offsetTop + missionElement.clientHeight - 150,
-                                            missionsElement.scrollHeight - missionsElement.clientHeight);
                 let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED;
 
                 function scrollTick() {
@@ -217,13 +228,17 @@ define('views/scoresheet',[
 
                 var score = bonusScore + restScore;
 
-                if(shouldRecalcScorediff && $settings.settings.autoScrolling) {
+                if(shouldRecalcScorediff && $settings.settings.autoScrolling && $settings.settings.fastScrolling) {
                     scorediff = score - oldScore;
                     oldScore = score;
                     shouldRecalcScorediff = false;
-                    $timeout(() => {
+                    if($scope.animationTimeout) {
+                        clearTimeout($scope.animationTimeout);
                         angular.element('.score-diff').removeClass('animating');
-                        scorediff = 0;
+                    }
+                    $scope.animationTimeout = $timeout(() => {
+                        angular.element('.score-diff').removeClass('animating');
+                        scorediff = undefined;
                     }, 1500);
                 }
 
@@ -233,6 +248,14 @@ define('views/scoresheet',[
             $scope.recalcScorediff = function() {
                 shouldRecalcScorediff = true;
             };
+
+            $scope.hideScoreDiff = function() {
+                return scorediff === undefined || (!$settings.settings.showZeroScore && scorediff === 0);
+            }
+
+            $scope.hideMissionResult = function(mission) {
+                return mission.result === undefined || (!$settings.settings.showZeroScore && mission.result === 0);
+            }
 
             $scope.scorediff = function() {
                 return scorediff;
@@ -260,10 +283,23 @@ define('views/scoresheet',[
                     list.push('Some missions have errors');
                 }
                 if (incomplete) {
-                    list.push('Some missions are incomplete');
+                    list.push('Some missions not yet scored');
                 }
 
                 return list;
+            };
+
+            $scope.scrollToError = function(error) {
+                let mission;
+                // TODO fix this if/else/if. It's not clean code. This should be encapsulated together with the errors.
+                if(error === 'Some missions have errors') {
+                    mission = $scope.missions.find(mission => !!mission.errors.length);
+                } else {
+                    mission = $scope.missions.find(mission => mission.objectives.some(objective => empty(objective.value)));
+                }
+
+                let previousMission = $scope.missions[$scope.missions.indexOf(mission) - 1];
+                scrollToNextMission(previousMission);
             };
 
             //lists reasons why the scoresheet cannot be saved

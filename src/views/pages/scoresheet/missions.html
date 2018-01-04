@@ -5,7 +5,7 @@
             {{mission.title}}
         </h2>
         <div class="card-menu">
-            <div class="mission-score" ng-if="mission.result">{{mission.result}}</div>
+            <div class="mission-score" ng-if="!hideMissionResult(mission)">{{mission.result}}</div>
         </div>
     </div>
 
@@ -19,16 +19,16 @@
             <span class="objective-title">{{objective.title}}</span>
             <span class="field" ng-switch-when="yesno">
                 <div class="btn-group">
-                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'yes'" ng-change="recalcScorediff()">{{getString('yes')}}</label>
-                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'no'" ng-change="recalcScorediff()">{{getString('no')}}</label>
+                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'yes'" ng-change="$last ? recalcScorediff() : null">{{getString('yes')}}</label>
+                    <label class="btn btn-enum" ng-model="objective.value" btn-radio="'no'" ng-change="$last ? recalcScorediff() : null">{{getString('no')}}</label>
                 </div>
             </span>
             <span class="field" ng-switch-when="number">
-                <span fll-spinner ng-model="objective.value" min="objective.min || 0" max="objective.max" ng-change="recalcScorediff()"></span>
+                <span fll-spinner ng-model="objective.value" min="objective.min || 0" max="objective.max" ng-change="$last ? recalcScorediff() : null"></span>
             </span>
             <div class="field" ng-switch-when="enum">
                 <div class="btn-group">
-                    <label ng-repeat="line in objective.options track by line.title" class="btn btn-enum" ng-model="objective.value" btn-radio="line.value" ng-change="recalcScorediff()">{{line.title}}</label>
+                    <label ng-repeat="line in objective.options track by line.title" class="btn btn-enum" ng-model="objective.value" btn-radio="line.value" ng-change="$parent.$last ? recalcScorediff() : null">{{line.title}}</label>
                 </div>
             </div>
 	    </div>
@@ -37,7 +37,7 @@
 </div>
 
 <div class="errors card" ng-hide="!missionsErrors().length">
-    <div class="error" ng-repeat="error in missionsErrors() track by $index">
+    <div class="error error-link" ng-repeat="error in missionsErrors() track by $index" ng-click="scrollToError(error)">
         <i class="material-icons">warning</i>{{error}}
     </div>
 </div>

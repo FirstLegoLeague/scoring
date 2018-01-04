@@ -9,6 +9,18 @@
                         <div class="setting-description">When enabled, upon every mission submission, the scoresheet will scroll to the next mission</div>
                     </div>
 
+                    <div class="setting" ng-class="{disabled: !settings.autoScrolling}">
+                        <input type="checkbox" ng-model="settings.fastScrolling" ng-change="save()">
+                        <div class="setting-title">Fast scrolling</div>
+                        <div class="setting-description">When enabled, automatic scrolling will hide the previous mission, making the next mission more in focus.</div>
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.showZeroScore" ng-change="save()">
+                        <div class="setting-title">Show 0 for mission</div>
+                        <div class="setting-description">When enabled, the result of a mission with 0 points will still be shown</div>
+                    </div>
+
                     <div class="setting">
                         <input type="checkbox" ng-model="settings.requireSignatrue" ng-change="save()">
                         <div class="setting-title">Require signature</div>

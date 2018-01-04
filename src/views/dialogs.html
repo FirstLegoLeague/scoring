@@ -1,4 +1,4 @@
-<div id="team-import-dialog" class="fll-dialog-background" ng-controller="TeamImportDialogController" ng-show="dialog.show" xmlns="http://www.w3.org/1999/html"  ngf-drop="upload($files, $file)" ngf-pattern=".csv" ng-click="cancel()">
+<div id="team-import-dialog" class="fll-dialog-background" ng-controller="TeamImportDialogController" ng-show="dialog.show" xmlns="http://www.w3.org/1999/html"  ngf-drop="upload($files, $file)" ngf-pattern=".csv" ng-click="close()">
     <div class="fll-dialog" id="teamImportDialog" ng-click="$event.stopPropagation()">
         <div class="drag-indication">Drop CSV file here</div>
         <div class="dialog-header">
@@ -27,13 +27,13 @@
                     <input type="checkbox" ng-model="useCustomDelimiter" ng-change="parseData()">
                     <div class="title">
                         Custom delimiter
-                        <div class="description" ng-hide="useCustomDelimiter">(Default is tab, the delimiter used when pasting from excel)</div>
+                        <div class="description" ng-hide="useCustomDelimiter">(Default is tab, the delimiter used when pasting from Excel)</div>
                     </div>
-                    <input type="text" ng-show="useCustomDelimiter" ng-model="delimiter" ng-change="parseData()">
+                    <input type="text" ng-show="useCustomDelimiter" ng-model="delimiter" ng-trim="false" ng-change="parseData()">
                 </div>
             </div>
             <div id="teams-data" ng-if="importLines">
-                <h4>Teams</h4>
+                <h4>Teams preview</h4>
                 <div class="table-container">
                     <table class="table table-condensed">
                         <tr ng-repeat="line in importLines track by $index" class="team">
@@ -47,7 +47,7 @@
         </div>
         <div class="dialog-actions">
             <button class="btn btn-primary" ng-click="save()">Import</button>
-            <button class="btn" ng-click="cancel()">Cancel</button>
+            <button class="btn" ng-click="close()">Cancel</button>
         </div>
     </div>
 </div>

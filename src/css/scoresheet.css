@@ -4,6 +4,10 @@
     flex-direction: column;
 }
 
+#scoresheet .error-link {
+    cursor: pointer;
+}
+
 /* Intro */
 
 #intro {
@@ -71,6 +75,7 @@
     grid-gap: 1em;
     grid-template: 2fr 1fr / 1fr 1fr;
     transition: all linear 0.2s;
+    position: relative;
 }
 
 #no-teams-message {
@@ -83,6 +88,13 @@
 #no-teams-message small {
     display: block;
     margin-top: 1em;
+}
+
+#scoresheet-teams .teams-search-input {
+    position: absolute;
+    z-index: 1;
+    right: 50%;
+    top: 1.5em;
 }
 
 #scoresheet-teams .teams-list {
@@ -152,10 +164,26 @@
     width: 6em;
 }
 
+@media screen and (max-width: 875px) and (min-width: 100vh) {
+
+    #scoresheet-teams .teams-search-input {
+        display: none;
+    }
+
+}
+
 @media screen and (max-width: 100vh) {
 
     #scoresheet-teams {
         grid-template: 3fr 2fr 1fr / 1fr;
+    }
+
+    #scoresheet-teams .teams-search-input {
+        right: 1em;
+    }
+
+    #scoresheet-teams .teams-list {
+        grid-row-end: span 1;
     }
 
     #scoresheet-teams .teams-list {
@@ -167,6 +195,14 @@
     }
 
     #scoresheet-teams .stage-select i {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+
+    #scoresheet-teams .teams-search-input {
         display: none;
     }
 
@@ -225,7 +261,7 @@
 }
 
 #team-toolbar .score-diff.animating {
-    animation: 1s linear score-diff-animation;
+    animation: 2s linear score-diff-animation;
 }
 
 #team-toolbar .score-diff:not(.animating) {
@@ -234,13 +270,17 @@
 
 @keyframes score-diff-animation {
     0% { top: 4em;  }
-    100% { top: -2em;  }
+    100% { top: -5em;  }
 }
 
 /* Missions */
 
 #missions {
     overflow-y: auto;
+}
+
+#missions .mission:not(.ok) .mission-score {
+    display: none;
 }
 
 #missions .mission .objective {

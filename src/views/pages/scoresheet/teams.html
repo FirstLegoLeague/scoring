@@ -1,3 +1,7 @@
+<div class="teams-search-input">
+    <input type="text" placeholder="search teams" class="form-control" ng-model="teamChoosingTableConfig.teamsSearch">
+</div>
+
 <ng-datatable ng-if="teams.length !== 0" collection="teams" config="teamChoosingTableConfig" class="teams-list scrollable-body"></ng-datatable>
 
 <div ng-if="scoreEntry.team" class="stage-select">

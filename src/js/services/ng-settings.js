@@ -54,6 +54,8 @@ define('services/ng-settings',[
                     separatorString: ',',
                     lineEndString: '',
                     autoScrolling: true,
+                    fastScrolling: false,
+                    showZeroScore: false,
                     requireSignatrue: true
                 };
                 //create settings file if not there

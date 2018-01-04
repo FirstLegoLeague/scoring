@@ -1,7 +1,7 @@
 define('directives/datatable',[
     'directives/ng-directives',
 ],function(module) {
-    return module.directive('ngDatatable',['$timeout', function($timeout) {
+    return module.directive('ngDatatable',['$timeout', '$document', function($timeout, $document) {
         return {
             restrict: 'E',
             scope: {},
@@ -59,7 +59,8 @@ define('directives/datatable',[
                                 onClick: onClick,
                                 show: action.show || returnTrue,
                                 classes: action.classes || returnEmptyString,
-                                icon: action.icon || ''
+                                icon: action.icon || '',
+                                tooltip: action.tooltip || ''
                             };
                         }) : [],
                         row: {
@@ -124,6 +125,14 @@ define('directives/datatable',[
                             }
                             scope.edit.editing = undefined;
                         },
+                        saveAndGoToNextInput: () => {
+                            let item = scope.edit.editing.item;
+                            let currentColumn = scope.edit.editing.column;
+                            let nextColumnIndex = scope.config.columns.indexOf(currentColumn) + 1;
+                            let nextColumn = scope.config.columns[nextColumnIndex];
+                            scope.edit.save();
+                            scope.onCellClick(item, nextColumn);
+                        },
                         cancel: () => {
                             if(!scope.create || scope.edit.editing.item !== scope.create.newItem) {
                                 scope.edit.editing.item[scope.edit.editing.column.field] = scope.edit.editing.originalValue;
@@ -140,7 +149,7 @@ define('directives/datatable',[
 
                 if(attrConfig.create && attrConfig.edit) {
                     scope.create = {
-                        classes: attrConfig.create.classes || returnEmptyString,
+                        classes: attrConfig.create.classes || (() => 'create'),
                         show: attrConfig.create.show || returnTrue,
                         message: attrConfig.create.message || '',
                         disableMessage: () => {

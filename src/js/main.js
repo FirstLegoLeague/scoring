@@ -114,6 +114,11 @@ define([
         // Override to allow data: URI's (e.g. for CSV export)
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|data):/);
     });
+    angular.module( 'ui.bootstrap.tooltip').config(['$tooltipProvider', function($tooltipProvider) {
+        $tooltipProvider.options({
+            appendToBody: true
+        });
+    }])
     angular.bootstrap(document.body,[
         'main',
         'ui.bootstrap',

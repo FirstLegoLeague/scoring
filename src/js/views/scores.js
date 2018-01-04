@@ -1,6 +1,7 @@
 define('views/scores', [
     'services/ng-scores',
-    'angular'
+    'angular',
+    'angular-bootstrap'
 ], function () {
     var moduleName = 'scores';
     return angular.module(moduleName, ['ui.bootstrap']).controller(moduleName + 'Ctrl', [
@@ -20,8 +21,8 @@ define('views/scores', [
                         }
                         , show: (score) => !score.showError
                     },
-                    { field: 'referee', header: 'Referee', edit: 'options', options: [], writeField: 'referee', show: (score) => !score.showError },
-                    { field: 'table', header: 'Table', edit: 'options', options: [], writeField: 'table', show: (score) => !score.showError },
+                    { field: 'referee', header: 'referee', edit: 'options', options: [], writeField: 'referee', show: (score) => !score.showError },
+                    { field: 'table', header: 'table', edit: 'options', options: [], writeField: 'table', show: (score) => !score.showError },
                     { field: 'score', header: 'score', edit: 'text', writeField: 'score', show: (score) => !score.showError },
                     { field: 'error', show: (score) => score.showError, value: (score) => score.error ? score.error.message : '' }
                 ],
@@ -32,19 +33,22 @@ define('views/scores', [
                         },
                         classes: () => 'btn-danger',
                         show: (score) => score.error,
-                        icon: 'error'
+                        icon: 'error',
+                        tooltip: 'show error'
                     }, {
                         onClick: (score) => {
                             togglePublished(score);
                         },
                         show: (score) => score.published,
-                        icon: 'remove_circle_outline'
+                        icon: 'remove_circle_outline',
+                        tooltip: 'unpublish'
                     }, {
                         onClick: (score) => {
                             togglePublished(score);
                         },
                         show: (score) => !score.published,
-                        icon: 'add_circle_outline'
+                        icon: 'add_circle_outline',
+                        tooltip: 'publish'
                     }, {
                         onClick: (score) => {
                             $scope.goTo('scoresheet', $scoresheet => {
@@ -52,7 +56,8 @@ define('views/scores', [
                                 $scoresheet.moveOn('missions');
                             });
                         },
-                        icon: 'edit'
+                        icon: 'edit',
+                        tooltip: 'edit in scoresheet'
                     }, {
                         onClick: (score) => {
                             $scores.delete(score).then(() => {
@@ -60,7 +65,8 @@ define('views/scores', [
                             });
                         },
                         classes: () => 'btn-danger',
-                        icon: 'delete'
+                        icon: 'delete',
+                        tooltip: 'delete'
                     }
                 ],
                 edit: {
@@ -80,7 +86,7 @@ define('views/scores', [
 
             $scope.ranksTableConfig = {
                 columns: [
-                    { field: 'rank', header: '#' },
+                    { field: 'rank', header: 'ranking' },
                     { field: 'teamNumber', header: 'team' },
                     { field: 'teamFullName', header: 'team' },
                     { field: 'highScore', header: 'high' }

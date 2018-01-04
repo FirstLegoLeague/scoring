@@ -24,18 +24,18 @@ define('controllers/TeamImportDialogController', [
                 var lines = $scope.importRaw.match(/[^\r\n]+/g);
                 var headerLength = $scope.headerLength ? $scope.headerLength : 0;
                 lines.splice(0, headerLength);
-                lines = lines.map(function (line) {
-                    if ($scope.useCustomDelimiter) {
-                        return line.split($scope.delimiter);
-                    }
-                    //split by tab character
-                    return line.split(/\t/);
-                });
-                //try to guess names and number columns
-                $scope.importNumberColumn = 1;
-                $scope.importNameColumn = 2;
+                lines = lines.map(line => {
+                    var delimeter = $scope.useCustomDelimiter && $scope.delimiter ? $scope.delimiter : /\t/;
+                    return line.split(delimeter);
+                }).map(parsedLine => {
+                    var number = parsedLine[$scope.importNumberColumn - 1];
+                    var name = parsedLine[$scope.importNameColumn - 1];
+                    var name = name.charAt(0).toUpperCase() + name.slice(1);
+                    return [number, name];
 
-                lines = lines.filter((parsedLine) => parsedLine[$scope.importNumberColumn - 1] !== ""); //filter lines which don't contain a team- we do this by looking for a team number
+                });
+
+                lines = lines.filter(parsedLine => parsedLine[$scope.importNumberColumn - 1] !== ""); //filter lines which don't contain a team- we do this by looking for a team number
 
                 if (lines[0]) {
                     $scope.importNumberExample = lines[0][$scope.importNumberColumn - 1];
@@ -80,8 +80,8 @@ define('controllers/TeamImportDialogController', [
                 var closeDialog = true;
                 var teams = $scope.importLines.map(function (line) {
                     return {
-                        number: line[$scope.importNumberColumn - 1],
-                        name: line[$scope.importNameColumn - 1]
+                        number: line[0],
+                        name: line[1]
                     };
                 });
 
@@ -102,18 +102,28 @@ define('controllers/TeamImportDialogController', [
                 }
 
                 if(closeDialog) {
-                    $scope.dialog.show = false;
+                    $scope.close();
                     $scope.dialog.onClose ? $scope.dialog.onClose() : undefined;
                 }
             };
 
             $scope.dialog = $dialogs.teamsImport;
 
-            $scope.cancel = function () {
-                $scope.importRaw = '';
-                $scope.parseData();
+            $scope.close = function () {
+                reset();
                 $scope.dialog.show = false;
             };
+
+            function reset() {
+                $scope.importRaw = '';
+                $scope.useCustomDelimiter = false;
+                $scope.delimiter = '';
+                $scope.headerLength = 0;
+                $scope.importNumberColumn = 1;
+                $scope.importNameColumn = 2;
+            }
+
+            reset();
         }
     ]);
 });
