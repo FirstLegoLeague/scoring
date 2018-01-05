@@ -84,7 +84,7 @@ define([
                 var page = $scope.pages.find(page => page.name === pageName);
                 if(page) {
                     $scope.pageLoadCallback = callback;
-                    setPage(page);
+                    $scope.setPage(page);
                 }
             }
 

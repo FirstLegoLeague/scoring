@@ -230,6 +230,11 @@
     transition: all linear 0.2s;
 }
 
+.round-and-stage {
+    display: inline;
+    font-size: small;
+}
+
 #team-toolbar.ng-hide {
     margin-top: -3em;
     transition: none;
@@ -288,6 +293,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#missions .mission .btn {
+    font-size: 1.5rem;
 }
 
 #missions .card .error {

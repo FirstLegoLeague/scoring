@@ -1,4 +1,9 @@
-<div class="team-title" ng-click="moveOn('teams')">{{scoreEntry.team.name}}</div>
+<div class="team-title" ng-click="moveOn('teams')">
+	{{scoreEntry.team.name}}
+	<div class="round-and-stage">{{scoreEntry.stage.name}} #{{scoreEntry.round}}</div>
+</div>
+
+
 
 <div class="score-diff center" ng-class="{ animating: !hideScoreDiff() }"><dif>{{scorediff()}}</dif></div>
 

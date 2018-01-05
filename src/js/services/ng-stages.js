@@ -52,7 +52,7 @@ define('services/ng-stages',[
         };
 
         Stages.prototype.save = function () {
-            return $http.post("/stages/save", { stages: this.stages }).then(function (data, status) {
+            return $http.post("/stages/save", { stages: this._rawStages }).then(function (data, status) {
                 log('Stages saved');
             },function (error) {
                 log('stages write error', error);
@@ -103,7 +103,11 @@ define('services/ng-stages',[
                 throw new Error("cannot add stage: invalid or missing name");
             }
             if (typeof stage.rounds !== "number") {
-                throw new Error("cannot add stage: invalid or missing rounds");
+                if(isFinite(stage.rounds)) {
+                    stage.rounds = parseInt(stage.rounds)
+                } else {
+                    throw new Error("cannot add stage: invalid or missing rounds");
+                }
             }
             if (stage.id in this._stagesMap) {
                 throw new Error("cannot add stage: duplicate stage id " + stage.id);
