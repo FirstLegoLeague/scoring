@@ -44,6 +44,7 @@ define('views/tournament', [
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete',
+                        tooltip: 'delete',
                         requireLoading: true
                     }
                 ],
@@ -101,7 +102,8 @@ define('views/tournament', [
                             $settings.save();
                             $scores.broadcastRanking(stage);
                         },
-                        icon: 'input'
+                        icon: 'input',
+                        tooltip: 'set as current stage'
                     }, {
                         onClick: (stage) => {
                             $stages.remove(stage.id);
@@ -109,6 +111,7 @@ define('views/tournament', [
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete',
+                        tooltip: 'delete',
                         requireLoading: true
                     }, {
                         onClick: (stage) => {
@@ -116,14 +119,16 @@ define('views/tournament', [
                             $stages.save();
                         },
                         show: (stage) => $scope.stages.indexOf(stage) !== 0,
-                        icon: 'arrow_upward'
+                        icon: 'arrow_upward',
+                        tooltip: 'move before'
                     }, {
                         onClick: (stage) => {
                             $stages.moveStage(stage, 1);
                             $stages.save();
                         },
                         show: (stage) => $scope.stages.indexOf(stage) !== $scope.stages.length - 1,
-                        icon: 'arrow_downward'
+                        icon: 'arrow_downward',
+                        tooltip: 'move after'
                     }
                 ],
                 edit: {
@@ -172,11 +177,14 @@ define('views/tournament', [
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete',
+                        tooltip: 'delete',
                         requireLoading: true
                     }
                 ],
                 edit: {
-                    onSave: () => $settings.save()
+                    onSave: () => {
+                        $settings.save()
+                    }
                 },
                 create: {
                     message: 'New referee',
@@ -204,11 +212,14 @@ define('views/tournament', [
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete',
+                        tooltip: 'delete',
                         requireLoading: true
                     }
                 ],
                 edit: {
-                    onSave: () => $settings.save()
+                    onSave: () => {
+                        $settings.save()
+                    }
                 },
                 create: {
                     message: 'New table',

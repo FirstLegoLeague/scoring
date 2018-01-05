@@ -56,7 +56,7 @@ define('services/ng-settings',[
                     autoScrolling: true,
                     fastScrolling: false,
                     showZeroScore: false,
-                    requireSignatrue: true
+                    requireSignature: true
                 };
                 //create settings file if not there
                 log('settings read error, trying to create file', err);

@@ -14,7 +14,7 @@
     cursor: pointer;
 }
 
-#teams-table tbody {
+#teams-table tbody:not(.create-body) {
     height: 30vh;
 }
 
