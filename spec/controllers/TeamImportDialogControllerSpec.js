@@ -96,10 +96,10 @@ describe('TeamImportDialogController',function() {
         });
     });
 
-    describe('cancel',function() {
+    describe('close',function() {
         it('should hide the dialog',function() {
             $scope.dialog.show = true;
-            $scope.cancel();
+            $scope.close();
             expect($scope.dialog.show).toBe(false);
             expect(teamsMock.save).not.toHaveBeenCalled();
         });

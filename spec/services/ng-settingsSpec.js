@@ -17,7 +17,14 @@ describe('ng-settings',function() {
         autoPublish: true,
         autoBroadcast: true,
         currentStage: 'practice',
-        ignoreNegativeScores: true
+        ignoreNegativeScores: true,
+        lineStartString: '',
+        separatorString: ',',
+        lineEndString: '',
+        autoScrolling: true,
+        fastScrolling: false,
+        showZeroScore: false,
+        requireSignature: true
     }
     var httpMock = createHttpMock({
         get: {
@@ -76,7 +83,14 @@ describe('ng-settings',function() {
                 autoPublish: true,
                 autoBroadcast: true,
                 currentStage: 'practice',
-                ignoreNegativeScores: true
+                ignoreNegativeScores: true,
+                lineStartString: '',
+                separatorString: ',',
+                lineEndString: '',
+                autoScrolling: true,
+                fastScrolling: false,
+                showZeroScore: false,
+                requireSignature: true
             }
             httpMock.addResponse('get','/settings',undefined);
             httpMock.addResponse('post','/settings/save',{settings:defaults});
@@ -99,7 +113,14 @@ describe('ng-settings',function() {
                 autoPublish: true,
                 autoBroadcast: true,
                 currentStage: 'practice',
-                ignoreNegativeScores: true
+                ignoreNegativeScores: true,
+                lineStartString: '',
+                separatorString: ',',
+                lineEndString: '',
+                autoScrolling: true,
+                fastScrolling: false,
+                showZeroScore: false,
+                requireSignature: true
             }
             $settings.settings = {}; //this is how settings starts out
             $settings.load().then(function(){
