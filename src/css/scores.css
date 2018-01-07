@@ -1,0 +1,250 @@
+#scores {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+#scores > *:first-child {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+#scores .tab-content {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#scores .tab-content .tab-pane.active {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#scores .nav-tabs {
+    padding: 0.25em 0 0 0;
+    margin-bottom: 0;
+}
+
+#scores .card.main {
+    display: grid;
+    grid-template-rows: 3.5em 1fr;
+    height: calc(100% - 2em);
+}
+
+#scores ng-datatable {
+    margin: 1em 1.5em;
+    width: calc(100% - 3em);
+    height: calc(100% - 3em);
+}
+
+#scores-table .sort-icon {
+    display: inline;
+}
+
+#scores thead, #scores tbody {
+	display: block;
+}
+
+#scores-table tr {
+	display: flex;
+}
+
+#scores-table tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+#scores-table td:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+}
+
+#scores thead td {
+    height: 2em;
+}
+
+#scores tbody {
+    height: calc(100% - 3em);
+    overflow-y: auto;
+}
+
+#scores-table td {
+    min-width: 3em;
+    overflow-x: auto;
+    margin: 0;
+}
+
+#scores-table .editing-form {
+	display: flex;
+}
+
+#scores-table .editing-form i {
+    font-size: 1.5em;
+    margin: 0;
+    vertical-align: middle;
+    padding: 0.15em 0 0 0;
+}
+
+#scores-table .editing-form input, #scores .scores-table  .editing-form select {
+    width: calc(100% - 2em);
+}
+
+#scores-table td.index { flex: 0; }
+#scores-table td.teamNumber { display: none; }
+#scores-table td.teamFullName { flex: 4; }
+#scores-table td.match { flex: 2; }
+#scores-table td.referee { flex: 1; }
+#scores-table td.table { flex: 1; }
+#scores-table td.score { flex: 0; }
+#scores-table td.actions { flex: 2; }
+#scores-table td.error {
+    flex: 10;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#scores-table td.actions .btn-group {
+    float: right;
+}
+
+#scores-table td.actions .btn {
+    margin-top: 0.2em;
+    padding: 0.3em 0.5em 0 0.5em;
+}
+
+#scores .ranks .card-menu .btn {
+    display: inline-block;
+    height: 1.5em;
+    margin: 0 0.5em;
+    flex: 1;
+    line-height: 1.5em;
+}
+
+#scores .ranks .card-menu .btn i {
+    vertical-align: middle;
+}
+
+#scores .ranks .card-menu select {
+    margin: 0;
+}
+
+@media screen and (max-width: 1050px) {
+
+	#scores-table td.table {
+	    display: none;
+	}
+
+}
+
+@media screen and (max-width: 880px) {
+
+    #scores-table td.referee {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+    #scores-table td.actions {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 710px) and (min-width: 100vh) {
+
+	#scores .scores .card-menu {
+		display: none;
+	}
+
+	#scores-table td.match {
+	    display: none;
+	}
+
+}
+
+@media screen and (max-width: 520px) {
+
+	#scores .scores.card-menu {
+		display: none;
+	}
+
+	#scores-table td.match {
+	    display: none;
+	}
+
+}
+
+@media screen and (max-width: 400px) {
+
+	#scores-table td.teamFullName {
+	    display: none;
+	}
+
+	#scores-table td.teamNumber {
+	    display: block;
+	    flex: 2;
+	}
+
+}
+
+#scores .ranks.card .big.message {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+#scores .ranks.card .big.message small {
+    display: block;
+    margin-top: 1em;
+}
+
+#ranks-table td.rank { flex: 0; }
+#ranks-table td.teamNumber { display: none; }
+#ranks-table td.teamFullName { flex: 4; }
+#ranks-table td.highScore { flex: 2; font-weight: bold }
+#ranks-table td:not(.rank, .teamNumber, .teamFullName, .highScore) { flex: 1; }
+
+@media screen and (max-width: 850px) {
+
+    #download-ranks {
+        display: none !important;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    #ranks-table td.teamNumber { display: block; flex: 1; }
+    #ranks-table td.teamFullName { display: none; }
+
+}
+
+@media screen and (max-width: 725px) {
+
+    #broadcast-ranks {
+        display: none !important;
+    }
+
+}
+
+@media screen and (max-width: 675px) {
+
+    #ranks-table td[class*="round_"] {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 585px) {
+
+    #viewed-rank {
+        display: none !important;
+    }
+
+}

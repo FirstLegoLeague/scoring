@@ -250,26 +250,6 @@ describe('ng-scores',function() {
         });
     });
 
-    describe('update', function() {
-        it('calls ng-independence act', function() {
-            $scores.update({ id: 'asdfg' });
-            expect(independenceMock.act).toHaveBeenCalled();
-        });
-
-        it('updates a score in scores upon failure', function() {
-            var newScore = { id: 'asdfg' };
-            independenceMock.act = jasmine.createSpy('independenceAct').and.callFake(function(url, data, fallback) {
-                fallback();
-                return new Promise(function(res, rej) {
-                    res();
-                });
-            });
-            $scores.update(newScore).then(function() {
-                expect($scores.scores.filter(score => score.id === newScore.id)).toBe(newScore);
-            });
-        });
-    });
-
     describe('getRankings',function() {
         it('calls ng-validation validate', function() {
             $scores.getRankings();
@@ -294,6 +274,26 @@ describe('ng-scores',function() {
         it('calls ng-independence pendingActions', function() {
             $scores.pendingActions();
             expect(independenceMock.pendingActions).toHaveBeenCalled();
+        });
+    });
+
+    describe('update', function() {
+        it('calls ng-independence act', function() {
+            $scores.update({ id: 'asdfg' });
+            expect(independenceMock.act).toHaveBeenCalled();
+        });
+
+        it('updates a score in scores upon failure', function() {
+            var newScore = { id: 'asdfg' };
+            independenceMock.act = jasmine.createSpy('independenceAct').and.callFake(function(url, data, fallback) {
+                fallback();
+                return new Promise(function(res, rej) {
+                    res();
+                });
+            });
+            $scores.update(newScore).then(function() {
+                expect($scores.scores.filter(score => score.id === newScore.id)).toBe(newScore);
+            });
         });
     });
 

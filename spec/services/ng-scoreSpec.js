@@ -1,4 +1,4 @@
-describe('ng-rankings',function() {
+describe('ng-score',function() {
     var ngServices = factory('services/ng-services');
     var module = factory('services/ng-score',{
         'services/ng-services': ngServices
@@ -149,9 +149,10 @@ describe('ng-rankings',function() {
                 stage: { id: 'qual' },
                 round: 3,
                 table: 'red 2',
+                referee: 'tom',
                 team: { number: 132 }
             });
-            filename = 'score_qual_round3_tablered 2_team132_42cda0ib.json';
+            filename = 'score_qual_round3_tablered 2_reftom_team132_42cda0ib.json';
         });
 
         it('returns a correctly calculated filename', function() {

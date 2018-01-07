@@ -1,345 +1,264 @@
-html,body {
-    margin: 0;
-    padding: 0;
+/* dimmers: dimm a component by making it half-whittened. use like this:
+    <div class="I want this component to be dimmed" class="dimmable">
+        <div class="dimmer"></div>
+    </div>
+
+    Dimmer only works if its dimmable has a class "dimmed"
+    Add class 'disabled' to disable the dimmer
+    Add class 'patial' to gain control over the dimmer's bounds
+ */
+
+.dimmer {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dimmer.disabled {
+    display: none;
+}
+
+.dimmer:not(.partial) {
+    position: absolute;
+    width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.dimmable {
     position: relative;
 }
-body {
-    font-family: 'latolight', 'Segoe UI','helvetica','Arial';
-    font-size: 18px;
-    background-color: white;
+
+.dimmable:not(.dimmed) .dimmer {
+    display: none;
 }
 
-h1 {
-    font-family: 'latolight', 'Segoe UI Light','helvetica','Arial';
-    color: dodgerblue;
-    font-size: 32px;
-    padding: 0 12px;
-    font-weight: normal;
+/* loaders: show the loading animation. Use inside a dimmer, like this:
+    <div id="I want the loader to be shown on this component" class="dimmable">
+        <div class="dimmer">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    Use the extra classes (slow-extreme, counter-clockwise, tiny-huge)
+    To add custom style to the loader
+ */
+
+.loader {
+    border-radius: 1em;
+    width: 1em;
+    height: 1em;
+    animation: spin-clockwise 1.5s linear infinite;
+    font-size: 5vw;
+
+    border: 0.05em solid lightgray;
+    border-top: 0.05em solid gray;
 }
 
-table {
-    border-collapse: collapse;
+.loader.slow { animation-duration: 2s; }
+.loader.slower { animation-duration: 2.5s; }
+.loader.slowest { animation-duration: 3s; }
+
+.loader.fast { animation-duration: 1s; }
+.loader.faster { animation-duration: 0.75s; }
+.loader.fastest { animation-duration: 0.5s; }
+.loader.extreme { animation-duration: 0.2s; }
+
+.loader.counter-clockwise { animation-name: spin-counter-clockwise; }
+
+.loader.tiny { font-size: initial; }
+.loader.small { font-size: 2vw; }
+.loader.big { font-size: 10vw; }
+.loader.large { font-size: 15vw; }
+.loader.huge { font-size: 25vw; }
+
+@keyframes spin-clockwise {
+    0% { transform: rotate(0deg);  }
+    100% { transform: rotate(360deg);  }
+}
+
+@keyframes spin-counter-clockwise {
+    0% { transform: rotate(0deg);  }
+    100% { transform: rotate(-360deg);  }
+}
+
+/* icons */
+
+i.material-icons[ng-click] {
+    cursor: pointer;
+    margin: 0.25em;
+}
+
+i.material-icons.big {
+    font-size: 2em;
+}
+
+/* tabs */
+.nav-tabs > li {
+    cursor: pointer;
+}
+
+/*
+* "fluid" class: the first child of an element with this class will take the whole width of the parent element.
+*/
+
+.fluid {
+	display: flex;
+}
+
+.fluid :first-child {
+	flex: 1;
+}
+
+/*
+* "center" class: the children of an element with this class will be centered
+*/
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    /*
+* "toolbar" class: describes a toolbar. Any element in it will baecome an element in the toolbar
+*/
+.toolbar {
+	display: flex;
+	width: 100%;
+    align-items: center;
+}
+
+/*
+* "card" class: describes a content card.
+*/
+
+.card {
+    background: #fff;
+    border-color: whitesmoke;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    margin: 1em;
+}
+
+.card.main {
+    flex: 1;
+}
+
+.card .card-header {
+    padding: 1em;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin: 0;
+}
+
+.card .card-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card .card-header i.material-icons {
+    vertical-align: bottom;
+}
+
+
+.card .card-top .card-menu {
+    padding: 1.5rem;
+    margin: 0;
+}
+
+.card .card-top .card-menu > * {
+    display: inline-block;
+}
+
+.card .card-top .card-menu input {
+    margin: 0;
+}
+
+.card .card-body {
+    padding: 1em;
+}
+
+/* ng-datatble directive global styles */
+
+ng-datatable table {
+    height: 100%;
+    margin-bottom: 0 !important; /* Overrides bootstrap */
+}
+
+ng-datatable thead td i.material-icons {
+    margin: 0 !important;
+    vertical-align: middle;
+}
+
+ng-datatable tr {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 4em;
+}
+
+ng-datatable td {
+    min-width: 3em;
+    overflow-y: hidden;
+}
+
+ng-datatable td > * {
+    margin-top: 0.5em;
+    display: block;
+}
+
+ng-datatable .actions .btn-group {
+    float: right;
+}
+
+ng-datatable .actions .btn {
+    margin-top: 0.2em;
+    padding: 0.3em 0.5em 0 0.5em;
+}
+
+ng-datatable .editing-form {
+    display: flex;
+}
+
+ng-datatable .editing-form .input-container {
+    width: 0;
+    flex: 1;
+}
+
+ng-datatable .editing-form input, ng-datatable .editing-form select {
     width: 100%;
 }
 
-/* teams */
-@media screen {
-
-    .active i {
-        color: #319cff;
-    }
-
-    .active {
-        outline: 0;
-    }
+ng-datatable .editing-form i.material-icons {
+    font-size: 1.5em;
+    margin: 0 !important;
+    vertical-align: middle;
+    padding: 0.15em 0 0 0;
+    flex: 0;
 }
 
-/* navigation bar */
-@media screen {
-    .navbar .nav {
-        margin: 0;
-        width: 100%;
-    }
-    .navbar li {
-        box-sizing: border-box;
-        width: 20%;
-        text-align: center;
-        cursor: pointer;
-    }
-    .navbar .nav li a {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .smallWindow .navbar i {
-        font-size: 28px;
-        display: block;
-    }
-
-    .smallWindow .navbar .nav span {
-        /*display: none;*/
-    }
+ng-datatable td.create-message {
+    flex: 22.5;
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
 }
 
-/* app bar http://www.google.com/design/spec/layout/structure.html#structure-app-bar */
-@media screen {
-    .appbar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        right: 0;
-        height: 64px;
-        line-height: 64px;
-        background-color: dodgerblue;
-        padding-left: 4px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-        z-index: 1990;
-    }
-    .appbar button {
-        height: 48px;
-        width: 48px;
-        border: none;
-        padding: 12px;
-        background: none;
-        display: inline-block;
-        vertical-align: 3px;
-    }
-    .appbar button i {
-        font-size: 22px;
-        color: white;
-    }
-    .appbar h1 {
-        display: inline-block;
-        color: white;
-        text-transform: capitalize;
-    }
-
-    .appbar .score {
-        float: right;
-    }
-
-    .appbar .appbar-actions {
-        position: absolute;
-        top: 6px;
-        right: 8px;
-    }
+ng-datatable.scrollable-body thead {
+    display: block;
+    width: 100%;
 }
 
-/* navigation drawer: http://www.google.com/design/spec/patterns/navigation-drawer.html */
-@media screen {
-    .drawer {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        /* The width of the side nav is equal to the width of the screen minus the height of the action bar */
-        max-width: -webkit-calc(100% - 64px);
-        max-width: calc(100% - 64px);
-        /* The maximum width of the nav drawer is 5 times the standard increment (56dp on mobile and 64dp on tablet). */
-        width: 320px;
-        background-color: white;
-        -webkit-transform: translate(-100%);
-        transform: translate(-100%);
-        -webkit-transition: -webkit-transform 0.2s;
-        transition: transform 0.2s;
-        z-index: 1998;
-        border-right: 1px solid rgba(0,0,0,0.14);
-    }
-    .drawer.visible {
-        -webkit-transform: translate(0);
-        transform: translate(0);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-    }
-    .drawer .drawerLead {
-        /*height: 156px;*/
-        height: 64px;
-        /*background-color: red;*/
-        border-bottom: 1px solid rgba(0,0,0,0.14);
-        background-image: url('../img/colors4.png');
-        background-position: center;
-    }
-    .drawerShim {
-        opacity: 0;
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        z-index: 1997;
-        -webkit-transition: opacity 0.2s;
-        transition: opacity 0.2s;
-        pointer-events: none;
-    }
-    .drawerShim.visible {
-        opacity: 0.5;
-        pointer-events: inherit;
-    }
-    .drawer .nav {
-        margin-top: 8px;
-    }
-    .drawer .nav li {
-        height: 48px;
-        line-height: 48px;
-    }
-    .drawer .nav li a {
-        padding: 0 16px;
-        cursor: pointer;
-    }
-    .drawer .nav li i {
-        width: 24px;
-        margin-right: 16px;
-        display: inline-block;
-        width: 20px;
-        font-size: 24px;
-    }
+ng-datatable.scrollable-body tbody {
+    overflow-y: auto;
+    display: block;
+    width: 100%;
 }
 
-/* material design icons */
-.material-icons {
-    vertical-align: text-bottom;
-    font-size: inherit;
-}
-button .material-icons {
+ng-datatable td.editable:not(.actions) {
+    cursor: pointer;
 }
 
-/* main view */
-@media screen {
-    .viewMain {
-        overflow: hidden;
-        padding-top: 16px;
-    }
-    /* backgrounds */
-    .viewMain.scoresheet {
-        background-color: #FAFAFA;
-    }
-}
-
-/* small layout */
-@media screen and (max-width: 480px) {
-    .appbar {
-        height: 56px;
-    }
-    .drawer {
-        max-width: calc(100% - 56px);
-        width: 280px;
-    }
-    .drawer .drawerLead {
-        height: 56px;
-    }
-    .viewMain {
-        margin-top: 56px;
-        overflow: hidden;
-    }
-
-    .viewMain > div {
-        display: none;
-        padding-bottom: 40px;
-    }
-
-    .viewMain.teams .view-teams,
-    .viewMain.scoresheet .view-scoresheet,
-    .viewMain.scores .view-scores,
-    .viewMain.ranking .view-ranking,
-    .viewMain.settings .view-settings,
-    .viewMain.clock .view-clock {
-        display: block;
-    }
-
-    .btn-enum {
-        text-rendering: optimizeLegibility;
-    }
-
-    .panel {
-        padding: 1px;
-    }
-
-    .smallLayoutShow {
-        display: initial;
-    }
-
-    .smallLayoutHide {
-        display: none !important;
-    }
-}
-
-/* medium layout */
-@media screen and (min-width: 481px) and (max-width: 1024px) {
-    .appbar {
-        height: 64px;
-    }
-    .drawer {
-        max-width: calc(100% - 64px);
-        width: 320px;
-    }
-    .viewMain {
-        margin-top: 64px;
-        overflow: hidden;
-    }
-    .viewMain > div {
-        display: none;
-        padding-bottom: 40px;
-    }
-
-    .viewMain.teams .view-teams,
-    .viewMain.scoresheet .view-scoresheet,
-    .viewMain.scores .view-scores,
-    .viewMain.ranking .view-ranking,
-    .viewMain.settings .view-settings,
-    .viewMain.clock .view-clock {
-        display: block;
-    }
-
-    .panel, #teams {
-        padding: 5px;
-    }
-
-    #teams .table-teams {
-        display: none;
-    }
-
-    .mediumLayoutShow {
-        display: initial;
-    }
-
-    .mediumLayoutHide {
-        display: none !important;
-    }
-}
-
-/* large layout */
-@media screen and (min-width: 1025px) {
-    .appbar {
-        height: 64px;
-        padding-left: 272px;
-    }
-    .drawer {
-        max-width: calc(100% - 64px);
-        width: 320px;
-        -webkit-transform: translate(0);
-        transform: translate(0);
-        box-shadow: none;
-    }
-    .drawerShim {
-        display: none;
-    }
-    .viewMain {
-        margin-top: 64px;
-        margin-left: 320px;
-        overflow: hidden;
-    }
-    .viewMain > div {
-        padding: 0 10px;
-        display: none;
-        padding-bottom: 40px;
-    }
-    .viewMain.teams .view-teams,
-    .viewMain.scoresheet .view-scoresheet,
-    .viewMain.scores .view-scores,
-    .viewMain.ranking .view-ranking,
-    .viewMain.settings .view-settings,
-    .viewMain.clock .view-clock {
-        display: block;
-    }
-
-    /*.panel, #teams {
-       padding: 10px;
-    }*/
-
-    .largeLayoutShow {
-        display: initial;
-    }
-
-    .largeLayoutHide {
-        display: none !important;
-    }
-}
-
-.sortable span{
-    float: left;
-}
-
-.sortable i{
-    float: right;
+ng-datatable td.editable:not(.actions):hover {
+    background: lightgray;
 }

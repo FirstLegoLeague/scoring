@@ -1,5 +1,5 @@
-function createStagesMock() {
-    var stages = [
+function createStagesMock(stages) {
+    stages = stages || [
         { id: "practice", name: "Oefenrondes", rounds: 2, $rounds: [1, 2] },
         { id: "qualifying", name: "Voorrondes", rounds: 3, $rounds: [1, 2, 3] },
         { id: "quarter", name: "Kwart finales", rounds: 0, $rounds: [] },

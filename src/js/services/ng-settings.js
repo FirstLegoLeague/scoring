@@ -41,8 +41,7 @@ define('services/ng-settings',[
                 var defaults = {
                     tables: [{name: 'Table 1'}],
                     referees: [{name: 'Head referee'}],
-                    askTable: true,
-                    askReferee: true,
+                    customMhub: false,
                     mhub: `ws://${window.location.hostname}:13900`,
                     node: 'default',
                     challenge: '2017_en_US-official',
@@ -50,7 +49,14 @@ define('services/ng-settings',[
                     autoPublish: true,
                     autoBroadcast: true,
                     currentStage: 'practice',
-                    ignoreNegativeScores: true
+                    ignoreNegativeScores: true,
+                    lineStartString: '',
+                    separatorString: ',',
+                    lineEndString: '',
+                    autoScrolling: true,
+                    fastScrolling: false,
+                    showZeroScore: false,
+                    requireSignature: true
                 };
                 //create settings file if not there
                 log('settings read error, trying to create file', err);

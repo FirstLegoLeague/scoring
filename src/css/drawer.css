@@ -1,0 +1,36 @@
+.drawer {
+  transition: all linear 0.2s;
+
+  position: absolute;
+  top: 3em;
+  left: 0;
+  width: 10em;
+  height: calc(100vh - 3em);
+  z-index: 1;
+
+  background: grey;
+}
+
+.drawer.ng-hide {
+  left: -10em;
+}
+
+.drawer a {
+  cursor: pointer;
+	color: inherit;
+}
+
+.drawer a:hover {
+    background-color: black !important;
+}
+
+.drawer a span {
+	vertical-align: super;
+}
+
+@media screen and (min-width: 100vh) {
+	.drawer.ng-hide {
+		left: 0;
+		display: block !important;
+	}
+}

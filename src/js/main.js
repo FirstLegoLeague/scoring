@@ -1,46 +1,42 @@
 define([
+    'directives/ng-directives',
+    'directives/datatable',
+
+    'services/ng-services',
     'services/log',
     'services/ng-session',
+
     'views/settings',
-    'views/teams',
+    'views/tournament',
     'views/scoresheet',
     'views/scores',
-    'views/ranking',
-    'views/clock',
-    'services/ng-services',
-    'directives/ng-directives',
-    'directives/size',
-    'filters/ng-filters',
-    'filters/index',
-    'tests/fsTest',
-    'tests/indexedDBTest',
+
     'angular-bootstrap',
     'angular-touch',
+    'angular-animate',
     'angular-sanitize',
     'angular-storage',
     'angular'
-],function(log,session,settings,teams,scoresheet,scores,ranking,clock,services,directives,size,filters,indexFilter,fsTest,dbTest) {
+
+],function(directives, datatable, services, log, session, settings, tournament, scoresheet, scores) {
 
     log('device ready');
 
-    // fsTest();
-    // dbTest();
-
     //initialize main controller and load main view
     //load other main views to create dynamic views for different device layouts
-    angular.module('main',[]).controller('mainCtrl',[
-        '$scope', '$session',
-        function($scope, $session) {
+    angular.module('main',['ngAnimate']).controller('mainCtrl',[
+        '$scope', '$session', '$location',
+        function($scope, $session, $location) {
             log('init main ctrl');
 
             const PAGES = [
                 { name: 'scoresheet', title: 'Scoresheet', icon: 'check' },
-                { name: 'teams', title: 'Teams', icon: 'people' },
-                { name: 'scores', title: 'Scorekeeping', icon: 'list' },
-                { name: 'ranking', title: 'Ranking', icon: 'format_list_numbered' },
-                { name: 'settings', title: 'Settings', icon: 'settings' },
-                { name: 'clock', title: 'Clock', icon: 'alarm'}
+                { name: 'scores', title: 'Scores', icon: 'list' },
+                { name: 'tournament', title: 'Tournament', icon: 'people' },
+                { name: 'settings', title: 'Settings', icon: 'settings' }
             ];
+
+            const pageLoader = angular.element('.viewMain .dimmer');
 
             $scope.drawer = 'views/drawer.html';
             $scope.scoringPages = ['scoresheet','settings'];
@@ -54,11 +50,16 @@ define([
                 } else {
                     $scope.pages = PAGES;
                 }
-                $scope.currentPage = $scope.pages[0];
-            });
+                // Enrich pages
+                $scope.pages.forEach(page => {
+                    page.route = `views/pages/${page.name}.html`;
+                    page.classes = `page view-${page.name}${($scope.pages.length === 1 ? ' only-page' : '')}`;
+                });
+                // Set current page
+                let urlPath = $location.path();
+                let pageFromURL = $scope.pages.find(page => `/${page.name}` === urlPath);
 
-            $scope.$on('validationError',function(e,validationErrors) {
-                $scope.validationErrors = validationErrors;
+                $scope.setPage(pageFromURL || $scope.pages[0]);
             });
 
             $scope.toggleDrawer = function(set) {
@@ -70,45 +71,63 @@ define([
             };
 
             $scope.setPage = function(page) {
+                if($scope.currentPage) {
+                    $scope.currentPage.scope = undefined;
+                }
                 $scope.currentPage = page;
-                $('body').scrollTop(0);
+                $location.path(page.name);
+                pageLoader.removeClass('disabled');
                 $scope.drawerVisible = false;
             };
 
-            $scope.setPlatform = function(platform) {
-                $scope.platform = platform;
-            };
-
-            $scope.containerClass = function(w,h) {
-                w = w();
-                if (w <= 480) {
-                    return $scope.platform + ' smallWindow';
-                } else if (w <= 1024) {
-                    return $scope.platform + ' mediumWindow';
-                } else {
-                    return $scope.platform + ' largeWindow';
+            $scope.goTo = function(pageName, callback) {
+                var page = $scope.pages.find(page => page.name === pageName);
+                if(page) {
+                    $scope.pageLoadCallback = callback;
+                    $scope.setPage(page);
                 }
+            }
+
+            $scope.pageLoaded = function() {
+                if($scope.pageLoadCallback) {
+                    $scope.pageLoadCallback($scope.currentPage.scope);
+                    $scope.pageLoadCallback = undefined;
+                }
+                pageLoader.addClass('disabled');
             };
 
-            // $scope.
+            $scope.initPage = function(pageName, pageScope) {
+                log(`init ${pageName} page`);
+                $scope.pages.find(page => page.name === pageName).scope = pageScope;
+            }
+
+            // Because of a bug in iOS (https://bugs.webkit.org/show_bug.cgi?id=136041) We'll add
+            // A class 'ios' to the body if we're in iOS so we could change it in the css. see file css/ios.css
+            // TODO delete this when the bug is fixed
+            if (navigator.appVersion.indexOf("Mac")!=-1) {
+                angular.element('body').addClass('ios');
+            }
+
         }
     ]);
     angular.module('main').config(function($compileProvider){
         // Override to allow data: URI's (e.g. for CSV export)
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|data):/);
     });
+    angular.module( 'ui.bootstrap.tooltip').config(['$tooltipProvider', function($tooltipProvider) {
+        $tooltipProvider.options({
+            appendToBody: true
+        });
+    }])
     angular.bootstrap(document.body,[
         'main',
         'ui.bootstrap',
         'ngSanitize',
         'ngTouch',
         settings.name,
-        teams.name,
+        tournament.name,
         scoresheet.name,
         scores.name,
-        ranking.name,
-        clock.name,
-        filters.name,
         services.name,
         directives.name
     ]);

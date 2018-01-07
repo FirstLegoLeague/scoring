@@ -7,36 +7,53 @@ define('views/scoresheet',[
     'services/ng-teams',
     'services/ng-stages',
     'services/ng-settings',
-    'services/ng-handshake',
     'directives/sigpad',
     'directives/spinner',
-    'controllers/DescriptionDialogController',
-    'controllers/TeamDialogController',
-    'controllers/RoundDialogController',
     'angular'
 ], function(log, fs) {
     var moduleName = 'scoresheet';
-    var module = angular.module(moduleName, [
-        'DescriptionDialog',
-        'TeamDialog',
-        'RoundDialog'
-    ]);
 
-    return module.controller(moduleName + 'Ctrl', [
-        '$scope','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams','$handshake',
-        function($scope,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$handshake) {
-            log('init scoresheet ctrl');
+    return angular.module(moduleName, []).controller(moduleName + 'Ctrl', [
+        '$scope','$document','$fs','$stages','$scores','$score','$settings','$challenge','$window','$q','$teams','$timeout',
+        function($scope, $document,$fs,$stages,$scores,$score,$settings,$challenge,$window,$q,$teams,$timeout) {
+            $scope.initPage(moduleName, $scope);
+
+            const AUTOSCROLL_SPEED = 0.1;
+
+            var shouldRecalcScorediff = false,
+                oldScore = 0,
+                scorediff = undefined;
+
+            $scope.selectTeam = function(team) {
+                $scope.scoreEntry.team = team
+                $scope.fillStageRound(team);
+            };
+
+            $scope.teamChoosingTableConfig = {
+                columns: [
+                    { field: 'number', header: '#', onCellClick: $scope.selectTeam },
+                    { field: 'name', header: 'Name', onCellClick: $scope.selectTeam },
+                ],
+                row: {
+                    classes: team => team === $scope.scoreEntry.team ? 'selected' : ''
+                },
+                search : () => $scope.teamChoosingTableConfig.teamsSearch,
+                teamsSearch: undefined
+            }
 
             // Set up defaults
             $scope.settings = {};
             $scope.missions = [];
             $scope.strings = [];
-            $scope.referee = null;
 
             // add teams and stages to scope for selection
             $scope.teams = $teams.teams;
             $scope.stages = $stages.stages;
             $scope.scores = $scores.scores;
+
+            $scope.completedScores = [];
+
+            $scope.step = 'intro';
 
             $scope.load = function() {
                 return $settings.init()
@@ -62,6 +79,41 @@ define('views/scoresheet',[
 
             $scope.getString = function(key) {
                 return $scope.strings[key]||key;
+            };
+
+            $scope.moveOn = function(step) {
+                $scope.step = step;
+                requestAnimationFrame(() => {
+                    let scrollElements = $document.context.getElementsByClassName('reset-scroll');
+                    for(var i = 0; i < scrollElements.length; i++) {
+                        scrollElements[i].scrollTop = 0;
+                    }
+                });
+            };
+
+            $scope.rounds = function(stage) {
+                let rounds = [];
+                for(var i = 0; i < stage.rounds; i++) {
+                    rounds.push(i+1);
+                }
+                return rounds;
+            };
+
+            $scope.selectStageAndRound = function(stage, round) {
+                $scope.scoreEntry.stage = stage;
+                $scope.scoreEntry.round = round;
+            };
+
+            $scope.isStageAndRoundSelected = function(stage, round) {
+                return $scope.scoreEntry.stage === stage && $scope.scoreEntry.round === round;
+            };
+
+            $scope.isDoneRound = function(stage, round) {
+                return $scope.completedScores.some(score => score.round === round && score.stageId === stage.id);
+            };
+
+            $scope.roundScore = function(stage, round) {
+                return $scope.completedScores.find(score => score.round === round && score.stageId === stage.id).score;
             };
 
             function getObjectives(names) {
@@ -106,9 +158,46 @@ define('views/scoresheet',[
                     },0);
                     mission.completed = mission.completedObjectives.every(function(objectCompleted) {
                         return objectCompleted;
-                    });
+                    }) && mission.errors.length === 0;
+                    if($settings.settings.autoScrolling && mission.completed && !mission.previouslyCompleted && !$scope.editingScore) {
+                        scrollToNextMission(mission);
+                    }
+                    mission.previouslyCompleted = mission.completed;
                 });
 
+            }
+
+            function scrollToNextMission(mission) {
+                let startingPosition, endingPosition;
+
+                let missionsElement = $document.context.getElementById('missions');
+                startingPosition = missionsElement.scrollTop;
+
+                if(mission) {
+                    let className = mission.title.substr(0, mission.title.indexOf(' '));
+                    let missionElement = missions.getElementsByClassName(className)[0];
+                    if(!missionElement) {
+                        return;
+                    }
+
+                    endingPosition = Math.min(
+                        missionElement.offsetTop + ($settings.settings.fastScrolling ? missionElement.clientHeight : 0) - 150,
+                        missionsElement.scrollHeight - missionsElement.clientHeight);
+                } else {
+                    endingPosition = 0;
+                }
+
+                let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED;
+
+                function scrollTick() {
+                    if(missionsElement.scrollTop + tick < endingPosition) {
+                        missionsElement.scrollTop += tick;
+                        requestAnimationFrame(scrollTick);
+                    } else {
+                        missionsElement.scrollTop = endingPosition;
+                    }
+                }
+                requestAnimationFrame(scrollTick);
             }
 
             $scope.score = function() {
@@ -137,73 +226,94 @@ define('views/scoresheet',[
                     return total + m.result;
                 },0);
 
-                return bonusScore + restScore;
+                var score = bonusScore + restScore;
+
+                if(shouldRecalcScorediff && $settings.settings.autoScrolling && $settings.settings.fastScrolling) {
+                    scorediff = score - oldScore;
+                    oldScore = score;
+                    shouldRecalcScorediff = false;
+                    if($scope.animationTimeout) {
+                        clearTimeout($scope.animationTimeout);
+                        angular.element('.score-diff').removeClass('animating');
+                    }
+                    $scope.animationTimeout = $timeout(() => {
+                        angular.element('.score-diff').removeClass('animating');
+                        scorediff = undefined;
+                    }, 1500);
+                }
+
+                return score;
+            };
+
+            $scope.recalcScorediff = function() {
+                shouldRecalcScorediff = true;
+            };
+
+            $scope.hideScoreDiff = function() {
+                return scorediff === undefined || (!$settings.settings.showZeroScore && scorediff === 0);
+            }
+
+            $scope.hideMissionResult = function(mission) {
+                return mission.result === undefined || (!$settings.settings.showZeroScore && mission.result === 0);
+            }
+
+            $scope.scorediff = function() {
+                return scorediff;
             };
 
             function empty(val) {
                 return val === undefined || val === null;
             }
 
-            //lists reasons why the scoresheet cannot be saved
-            $scope.preventSaveErrors = function() {
-                var list = $scope.teamRoundErrors();
+            $scope.missionsErrors = function() {
                 if (!$scope.missions) {return [];}
+                let list = [];
 
-                function errors() {
-                    return $scope.missions.some(function(mission) {
-                        return !!mission.errors.length;
-                    });
-                }
-                function inComplete() {
-                    return $scope.missions.some(function(mission) {
-                        return mission.objectives.some(function(objective) {
-                            return empty(objective.value);
-                        });
-                    });
-                }
-                function signed(){
-                    return $scope.signature ? true : false;
-                }
+                let errors =  $scope.missions.some(function(mission) {
+                    return !!mission.errors.length;
+                });
 
-                if (errors()) {
+                let incomplete = $scope.missions.some(function(mission) {
+                    return mission.objectives.some(function(objective) {
+                        return empty(objective.value);
+                    });
+                });
+
+                if (errors) {
                     list.push('Some missions have errors');
                 }
-                if (inComplete()) {
-                    list.push('Some missions are incomplete');
-                }
-                if(!signed()){
-                    list.push('Scoresheet not signed');
+                if (incomplete) {
+                    list.push('Some missions not yet scored');
                 }
 
                 return list;
             };
 
-            $scope.teamRoundErrors = function() {
-                var list = [];
-                if (empty($scope.scoreEntry.stage)) {
-                    list.push('No stage selected');
+            $scope.scrollToError = function(error) {
+                let mission;
+                // TODO fix this if/else/if. It's not clean code. This should be encapsulated together with the errors.
+                if(error === 'Some missions have errors') {
+                    mission = $scope.missions.find(mission => !!mission.errors.length);
+                } else {
+                    mission = $scope.missions.find(mission => mission.objectives.some(objective => empty(objective.value)));
                 }
-                if (empty($scope.scoreEntry.round)) {
-                    list.push('No round selected');
-                }
-                if (empty($scope.scoreEntry.team)) {
-                    list.push('No team selected');
-                }
-                if ($scope.settings.askTable && !$scope.scoreEntry.table) {
-                    list.push('No table number entered');
-                }
-                if ($scope.settings.askReferee && !$scope.referee) {
-                    list.push('No referee entered');
+
+                let previousMission = $scope.missions[$scope.missions.indexOf(mission) - 1];
+                scrollToNextMission(previousMission);
+            };
+
+            //lists reasons why the scoresheet cannot be saved
+            $scope.preventSaveErrors = function() {
+                let list = $scope.missionsErrors();
+
+                if($settings.settings.requireSignature && !$scope.scoreEntry.signature) {
+                    list.push('No signature');
                 }
 
                 return list;
             };
 
-            $scope.teamRoundOk = function() {
-                return !$scope.teamRoundErrors().length;
-            }
-
-            $scope.isSaveable = function() {
+            $scope.isSavable = function() {
                 if (!$scope.missions) {return false;}
 
                 return !$scope.preventSaveErrors().length;
@@ -212,8 +322,9 @@ define('views/scoresheet',[
             $scope.clear = function() {
 
                 var table = $scope.scoreEntry ? $scope.scoreEntry.table : undefined;
-                $scope.scoreEntry = new $score({ table: table });
-                $scope.signature = null;
+                var referee = $scope.scoreEntry ? $scope.scoreEntry.referee : undefined;
+                $scope.scoreEntry = new $score({ table: table, referee: referee });
+                $scope.scoreEntry.signature = null;
                 $scope.missions.forEach(function(mission) {
                     mission.objectives.forEach(function(objective) {
                         delete objective["value"];
@@ -221,14 +332,20 @@ define('views/scoresheet',[
                 });
 
                 if($scope.editingScore){
-                    $scope.setPage($scope.pages.find(function (p) {return p.name === "scores"}));
+                    $scope.goTo('scores');
                     $scope.editingScore = false;
                 }
                 log('scoresheet cleared');
             };
 
-            $scope.saveEdit = function () {
-                $scope.setPage($scope.pages.find(function (p) {return p.name === "scores"}));//When you finish editing a scoresheet, it returns you to the scores view
+            $scope.save = function() {
+                if($scope.preventSaveErrors()[0] === 'No signature') {
+                    alert('The team must sign in order to submit the scoresheet.');
+                }
+                return $scope.editingScore ? update() : create();
+            }
+
+            function update() {
                 $scores.delete($scope.scoreEntry);
                 return $scores.loadScoresheet($scope.scoreEntry).then(function (result) {
                     result.missions.forEach(function (mission) {
@@ -249,17 +366,18 @@ define('views/scoresheet',[
                     result.stage.id !== $scope.scoreEntry.stage.id ? log("changed stage to " + $scope.scoreEntry.stage.name) : void(0);
                     result.round !== $scope.scoreEntry.round ? log("changed round to " + $scope.scoreEntry.round) : void(0);
                     result.table !== $scope.scoreEntry.table ? log("changed table to " + $scope.scoreEntry.table) : void(0);
-                    result.referee !== $scope.referee ? log("changed referee to " + $scope.referee) : void(0);
+                    result.referee !== $scope.scoreEntry.referee ? log("changed referee to " + $scope.scoreEntry.referee) : void(0);
                     $scope.scoreEntry.id = $score.generateUniqueId();//This is a different score after being edited, so it has a different id
-                    $scope.save()
+                    let creationPromise = create();
+                    $scope.goTo('scores'); //When you finish editing a scoresheet, it returns you to the scores view
+                    return creationPromise;
                 });
             };
 
             //saves mission scoresheet
-            $scope.save = function() {
-                if (!$scope.scoreEntry.team || !$scope.scoreEntry.stage || !$scope.scoreEntry.round) {
-                    $window.alert('no team selected, do so first');
-                    return $q.reject(new Error('no team selected, do so first'));
+            function create() {
+                if(!$scope.isSavable()) {
+                    return Promise.resolve();
                 }
 
                 var scoresheet = angular.copy($scope.field);
@@ -268,8 +386,8 @@ define('views/scoresheet',[
                 scoresheet.stage = $scope.scoreEntry.stage;
                 scoresheet.round = $scope.scoreEntry.round;
                 scoresheet.table = $scope.scoreEntry.table;
-                scoresheet.referee = $scope.referee;
-                scoresheet.signature = $scope.signature;
+                scoresheet.referee = $scope.scoreEntry.referee;
+                scoresheet.signature = $scope.scoreEntry.signature;
                 scoreEntry.score = $scope.score();
                 scoreEntry.published = $settings.settings.autoPublish || false;
                 scoreEntry.calcFilename();
@@ -280,25 +398,14 @@ define('views/scoresheet',[
                 return $scores.create(scoresheet, scoreEntry).then(function() {
                     log('result saved: ');
                     $scope.clear();
+                    $scope.moveOn('teams');
                     setTimeout(() => $window.alert(message), 0);
                 }).catch(function(err) {
                     log(`Error: ${err}`);
                     $scope.clear();
+                    $scope.moveOn('teams');
                     setTimeout(() => $window.alert(message), 0);
                     throw err;
-                });
-            };
-
-            $scope.openDescriptionModal = function (mission) {
-                $handshake.$emit('showDescription',mission);
-            };
-
-            $scope.openTeamModal = function (teams) {
-                $handshake.$emit('chooseTeam',teams).then(function(result) {
-                    if (result) {
-                        $scope.scoreEntry.team = result.team;
-                        $scope.fillStageRound(result.team);
-                    }
                 });
             };
 
@@ -307,32 +414,27 @@ define('views/scoresheet',[
                     return;
                 }
                 var currentStageObject = $stages.get($settings.settings.currentStage);
-                var completedRoundsInCurrentStage = $scores.scores.filter((score)=>{
-                    return score.teamNumber === team.number && score.stageId === currentStageObject.id;
-                }).map((score)=>score.round);
-                var firstNotCompleted = currentStageObject.$rounds.find((round)=>{
-                    return completedRoundsInCurrentStage.indexOf(round) === -1;
-                });
+                $scope.completedScores = $scores.scores
+                    .filter(score => score.teamNumber === team.number);
+
+                var completedRoundsInCurrentStage = $scope.completedScores
+                    .filter(score => score.stageId === currentStageObject.id)
+                    .map(score => score.round);
+
+                var firstNotCompleted = currentStageObject.$rounds
+                    .find(round => completedRoundsInCurrentStage.indexOf(round) === -1);
+
                 $scope.scoreEntry.stage = currentStageObject;
                 $scope.scoreEntry.round = firstNotCompleted;
             }
 
-            $scope.openRoundModal = function (stages) {
-                $handshake.$emit('chooseRound',stages).then(function(result) {
-                    if (result) {
-                        $scope.scoreEntry.stage = result.stage;
-                        $scope.scoreEntry.round = result.round;
-                    }
-                });
-            };
-
             $scope.loadScoresheet = function (score) {
                 log(`Editing scoresheet: stage ${score.stageId}, round ${score.round}, team ${score.teamNumber}, score ${score.score}`);
                 $scope.editingScore = true;
+                score.referee = $scope.scoreEntry.referee || score.referee;
                 $scope.scoreEntry = score;
                 $scores.loadScoresheet(score).then(function (result) {
-                    $scope.signature = result.signature;
-                    $scope.referee = result.referee;
+                    $scope.scoreEntry.signature = result.signature;
                     $scope.missions.forEach(function (mission) {
                         var filledMission = result.missions.find(function (e) {return e.title === mission.title});
                         mission.objectives.forEach(function (objective, index) {
@@ -341,10 +443,6 @@ define('views/scoresheet',[
                     });
                 });
             };
-
-            $scope.$on("editScoresheet", function (e, score) {
-                $scope.loadScoresheet(score);
-            });
 
             // Initialize empty scoresheet (mostly uniqueId)
             $scope.clear();

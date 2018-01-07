@@ -1,0 +1,233 @@
+/*
+* Colors used in this theme from light to dark:
+* - #EDFAFD (Glass)
+* - #AED9DA (Chill)
+* - #3DDAD7 (Californian Coral)
+* - #2A93D5 (Bondi Blue)
+* - #135589 (Marina)
+*
+*/
+
+body {
+    background: #AED9DA; /* Chill */
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #AED9DA; /* Chill */
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #135589; /* Marina */
+    border-radius: 2px;
+}
+
+ng-datatable thead {
+    width: calc(100% - 10px) !important;
+}
+
+.appbar, .drawer {
+    color: #EDFAFD; /* Glass */
+    background: #135589; /* Marina */
+    font-weight: bold;
+    text-indent: 0.5em;
+}
+
+.drawer a:hover, .drawer .active {
+    background: #2A93D5 !important; /* Bondi Blue */
+}
+
+/* buttons */
+
+.btn {
+    background: #EDFAFD; /* Glass */
+    border: 1px #AED9DA solid; /* Glass */
+    color: #135589; /* Marina */
+}
+
+.btn.btn-danger {
+    background: #DC4545;
+    color: white;
+}
+
+.btn.btn-primary {
+    background: #2A93D5; /* Bondi Blue */
+    color: white;
+    font-weight: bold;
+}
+
+.btn.active {
+    background: #135589 !important; /* Marina */
+    color: #EDFAFD; /* Glass */
+}
+
+/* scoresheet */
+
+#intro-toolbar {
+    color: #EDFAFD; /* Glass */
+    background: #2A93D5; /* Bondi Blue */
+}
+
+#scoresheet-teams .teams-list table tr.selected {
+    background: #2A93D5; /* Bondi Blue */
+    color: white;
+    font-weight: bold;
+}
+
+#scoresheet-teams .stage-select .stage .stage-title {
+    border-color: #2A93D5; /* Bondi Blue */
+    border-width: 2px;
+}
+
+#scoresheet-teams .stage-select .round {
+    background: white;
+    border: #135589 1px solid; /* Marina */
+}
+
+#scoresheet-teams .stage-select .round.done {
+    opacity: 0.5;
+}
+
+#scoresheet-teams .stage-select .stage .rounds > *:not(:first-child) > .round-score {
+    margin-left: calc(0.5em + 26px);
+}
+
+#scoresheet-teams .stage-select .round-score {
+    color: #008417;
+    border: 2px solid #008417;
+}
+
+#scoresheet-teams .stage-select .round.selected {
+    background: #135589 !important; /* Marina */
+    color: white;
+    font-weight: bold;
+}
+
+#team-toolbar {
+    background: #EDFAFD; /* Glass */
+    color: #135589; /* Marina */
+}
+
+#team-toolbar .team-title {
+    line-height: 1.6em;
+    font-size: 2em;
+    margin: 0 1em;
+    cursor: pointer;
+}
+
+#team-toolbar .score {
+    line-height: 1.6em;
+    font-size: 2em;
+    margin: 0 1em;
+}
+
+#missions .mission.ok {
+    background: #3DDAD7; /* Californian Coral */
+}
+
+#missions .mission.error, #missions .errors.card {
+    background: #FFB1B1;
+}
+
+#missions .mission.error .errors {
+    border: #8c3030 1px solid;
+    padding: 0.2em;
+}
+
+#missions .mission .mission-score {
+    color: #008417;
+    border: 2px solid #008417;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    transform: rotate(-20deg);
+    margin-top: -0.5em;
+    border-radius: 2px;
+    padding: 0.1em;
+}
+
+#signoff .mission.card {
+    background: #3DDAD7; /* Californian Coral */
+    padding: 0.5em;
+}
+
+/* scores */
+
+.nav-tabs {
+    background: #2A93D5; /* Bondi Blue */
+    color: #EDFAFD; /* Glass */
+    border-bottom: 1px solid #135589; /* Marina */
+}
+
+.nav-tabs li a {
+    border: 1px solid #135589; /* Marina */
+    color: #EDFAFD; /* Glass */
+    border-bottom: none;
+    margin-left: 0.5em;
+    font-weight: bold;
+}
+
+.nav-tabs li.active a {
+    background: #AED9DA; /* Chill */
+    color: #135589; /* Marina */
+}
+
+.nav-tabs li a:hover {
+    background: #EDFAFD; /* Glass */
+    color: #2A93D5; /* Bondi Blue */
+}
+
+#scores-table td.error {
+    background: #DC5f5f;
+    color: white;
+}
+
+#scores .scores-table .editing-form i {
+    color: #135589; /* Marina */
+}
+
+#scores .scores-table .editing-form i {
+    color: #135589; /* Marina */
+}
+
+#scores .scores-table tr.error, #scores .scores-table tr.error td {
+    background: #DC8686;
+}
+
+#scores .scores-table .error-description {
+    color: #4e0000;
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+/* tournament */
+
+#tournament .card.structure .currentStage {
+    background: #AED9DA; /* Chill */
+}
+
+/* settings */
+
+.setting {
+    border: 1px lightblue solid;
+    margin: 0.5em;
+    padding: 0.5em;
+}
+
+.setting .setting-title {
+    color: #135589; /* Marina */
+}
+
+#team-import-dialog.dragover {
+    background: rgba(19, 85, 137, 0.7); /* Marina */
+}
+
+#team-import-dialog.dragover .drag-indication {
+    border: 10px dashed #2A93D5;
+    box-sizing: border-box;
+    color: #2A93D5;
+    border-radius: 12px;
+}

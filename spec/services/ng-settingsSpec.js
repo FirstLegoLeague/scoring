@@ -17,7 +17,14 @@ describe('ng-settings',function() {
         autoPublish: true,
         autoBroadcast: true,
         currentStage: 'practice',
-        ignoreNegativeScores: true
+        ignoreNegativeScores: true,
+        lineStartString: '',
+        separatorString: ',',
+        lineEndString: '',
+        autoScrolling: true,
+        fastScrolling: false,
+        showZeroScore: false,
+        requireSignature: true
     }
     var httpMock = createHttpMock({
         get: {
@@ -68,8 +75,7 @@ describe('ng-settings',function() {
             var defaults = {
                 tables: [{name:'Table 1'}],
                 referees: [{name:'Head referee'}],
-                askTable: true,
-                askReferee: true,
+                customMhub: false,
                 mhub: `ws://${window.location.hostname}:13900`, //notice that window.location in necessary because you can't know where the karma server will run
                 node: 'default',
                 challenge: '2017_en_US-official',
@@ -77,7 +83,14 @@ describe('ng-settings',function() {
                 autoPublish: true,
                 autoBroadcast: true,
                 currentStage: 'practice',
-                ignoreNegativeScores: true
+                ignoreNegativeScores: true,
+                lineStartString: '',
+                separatorString: ',',
+                lineEndString: '',
+                autoScrolling: true,
+                fastScrolling: false,
+                showZeroScore: false,
+                requireSignature: true
             }
             httpMock.addResponse('get','/settings',undefined);
             httpMock.addResponse('post','/settings/save',{settings:defaults});
@@ -87,15 +100,12 @@ describe('ng-settings',function() {
                 done();
             });
             $rootScope.$digest();
-
-
         });
         it('should just use the default settings if no settings file could be created',function(done) {
             var defaults = {
                 tables: [{name:'Table 1'}],
                 referees: [{name:'Head referee'}],
-                askTable: true,
-                askReferee: true,
+                customMhub: false,
                 mhub: `ws://${window.location.hostname}:13900`, //notice that window.location in necessary because you can't know where the karma server will run
                 node: 'default',
                 challenge: '2017_en_US-official',
@@ -103,7 +113,14 @@ describe('ng-settings',function() {
                 autoPublish: true,
                 autoBroadcast: true,
                 currentStage: 'practice',
-                ignoreNegativeScores: true
+                ignoreNegativeScores: true,
+                lineStartString: '',
+                separatorString: ',',
+                lineEndString: '',
+                autoScrolling: true,
+                fastScrolling: false,
+                showZeroScore: false,
+                requireSignature: true
             }
             $settings.settings = {}; //this is how settings starts out
             $settings.load().then(function(){

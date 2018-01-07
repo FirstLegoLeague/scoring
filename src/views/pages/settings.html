@@ -1,236 +1,111 @@
-<div class="appbar">
-    <button ng-click="toggleDrawer()">
-        <i class="material-icons">menu</i>
-    </button>
-    <h1>
-        {{currentPage.title}}
-    </h1>
-</div>
-<div ng-controller="settingsCtrl">
-    <button class="fab main-fab" ng-click="createStage()" ng-if="tab === 2">
-        +
-    </button>
-    <p>
-        <button class="raised" ng-click="save()">
-            <i class="material-icons">check</i>
-            Save settings
-        </button>
-    </p>
-    <ul class="nav nav-tabs nav-justified" role="tablist">
-        <li role="presentation" ng-class="{active:tab===1}"><a href ng-click="tab = 1">Tables &amp; Referees</a></li>
-        <li role="presentation" ng-class="{active:tab===2}"><a href ng-click="tab = 2">Rounds &amp; Stages</a></li>
-        <li role="presentation" ng-class="{active:tab===3}"><a href ng-click="tab = 3">Challenge</a></li>
-        <li role="presentation" ng-class="{active:tab===4}"><a href ng-click="tab = 4">Messaging</a></li>
-        <li role="presentation" ng-class="{active:tab===5}"><a href ng-click="tab = 5">Automation</a></li>
-        <li role="presentation" ng-class="{active:tab===6}"><a href ng-click="tab = 6">Log</a></li>
-    </ul>
-
-    <div ng-show="tab === 1">
-        <div class="card">
-            <h1 class="card-header">
-                Tables
-            </h1>
-            <div class="list">
-                <div ng-repeat="table in settings.tables" class="list-item">
-                    <p class="textfield nolabel">
-                        <input type="text" ng-model="table.name">
-                        <label for="">Name</label>
-                    </p>
-                    <span class="list-icon-right">
-                        <i class="material-icons clickable" ng-click="removeItem(settings.tables,$index)">delete</i>
-                    </span>
-                </div>
-            </div>
-            <div class="card-actions">
-                <button class="flat" ng-click="addTable()">New table</button>
-            </div>
-        </div>
-        <div class="card">
-            <h1 class="card-header">
-                Referees
-            </h1>
-            <div class="list">
-                <div ng-repeat="referee in settings.referees" class="list-item">
-                    <p class="textfield nolabel">
-                        <input type="text" ng-model="referee.name">
-                        <label for="">Name</label>
-                    </p>
-                    <span class="list-icon-right">
-                        <i class="material-icons clickable" ng-click="removeItem(settings.referees,$index)">delete</i>
-                    </span>
-                </div>
-            </div>
-            <div class="card-actions">
-                <button class="flat" ng-click="addItem(settings.referees)">New referee</button>
-            </div>
-        </div>
-        <div class="card">
-            <h1 class="card-header">Scoresheet</h1>
-            <div class="card-body">
-                <p>
-                    <label for="hideTotal">
-                        <input id="hideTotal" type="checkbox" ng-model="settings.hideTotal">
-                        Hide total score
-                    </label>
-                </p>
-                <p>
-                    <label for="askTable">
-                        <input id="askTable" type="checkbox" ng-model="settings.askTable">
-                        Ask for table
-                    </label>
-                </p>
-                <p>
-                    <label for="askReferee">
-                        <input id="askReferee" type="checkbox" ng-model="settings.askReferee">
-                        Ask for referee
-                    </label>
-                </p>
-                <p>
-                    <label for="teamSort">Sort teams by:</label>
-                    <label for="teamSortNumber">
-                        <input id="teamSortNumber" type="radio" ng-model="settings.teamSort" value="number">
-                        Team number
-                    </label>
-                    <label for="teamSortName">
-                        <input id="teamSortName" type="radio" ng-model="settings.teamSort" value="name">
-                        Team name
-                    </label>
-                </p>
-            </div>
-        </div>
-        <div class="card">
-            <h1 class="card-header">Score Export Format</h1>
-            <div class="card-body">
-                <p class="textfield">
-                    <input id="lineStartString" type="text" ng-model="settings.lineStartString" value="">
-                    <label for="lineStartString">String at start of line</label>
-                </p>
-                <p class="textfield">
-                    <input id="separatorString" type="text" ng-model="settings.separatorString" value=",">
-                    <label for="separatorString">Separator String</label>
-                </p>
-                <p class="textfield">
-                    <input id="lineEndString" type="text" ng-model="settings.lineEndString" value="">
-                    <label for="lineEndString">String at end of line</label>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div ng-show="tab === 2">
-        <div ng-repeat="stage in allStages" class="card">
-            <h1 class="card-header">
-                {{stage.name}}
-                <span ng-if="stage.rounds === 0">(disabled)</span>
-                <span ng-if="stage.rounds != 0">({{stage.rounds}} rounds)</span>
-            </h1>
-            <div class="card-body">
-                <p class="textfield">
-                    <input type="text" ng-model="stage.name">
-                    <label for="">Name</label>
-                </p>
-                <p class="textfield">
-                    <input type="number" min="0" ng-model="stage.rounds">
-                    <label for="">Rounds (0 to disable stage)</label>
-                </p>
-            </div>
-            <div class="card-actions">
-                <p class="pull-left">
-                    <button class="flat" ng-click="removeStage(stage)">Remove stage</button>
-                </p>
-                <p class="pull-right">
-                    <button class="flat" ng-click="moveUp(stage)">Up</button>
-                    <button class="flat" ng-click="moveDown(stage)">Down</button>
-                </p>
-            </div>
-        </div>
-        <div class="card">
-            <h3 class="card-header">Current Stage</h3>
-            <div class="card-actions">
-                <label for="currentStageSelect">
-                    <select id="currentStageSelect" ng-model="settings.currentStage" ng-options="stage.id as stage.name for stage in allStages | filter : {rounds :'!0'}">
-                    </select>
-                    <br/>
-                    This setting is used for automatic broadcasting and to auto-fill the stage in the ref's scoresheets
-                </label>
-            </div>
-        </div>
-    </div>
-    <div ng-show="tab === 3">
-        <p>
-            <span class="textfield">
-                <input type="text" ng-model="settings.host"/>
-                <label for="">Host</label>
-            </span>
-            shared host to get data from and save data to. E.g. 'http://localhost:1390/'
-        </p>
-        <p>
-            <span class="textfield">
-                <select ng-model="settings.challenge" ng-options="x for x in challenges" />
-                <label for="">Challenge</label>
-            </span>
-            Select the Challenge used at this event.
-        </p>
-    </div>
-    <div ng-show="tab === 4">
-        <p>
-            <span class="textfield">
-                <input type="checkbox" ng-model="settings.customMhub"/>
-                <label for="">Custom messaging options</label>
-            </span>
-            Enable custom settings for mhub. If you don't know what this means, keep this setting turned <b>off</b>.
-        </p>
-        <p>
-            <span class="textfield">
-                <input type="text" ng-model="settings.mhub"/>
-                <label for="">MHub server</label>
-            </span>
-            MHub server to send messages to. E.g. 'ws://localhost:13900/'
-        </p>
-        <p>
-            <span class="textfield">
-                <input type="text" ng-model="settings.node"/>
-                <label for="">MHub node</label>
-            </span>
-            MHub server node to subscribe and publish to. E.g. 'scoring'
-        </p>
-    </div>
-    <div ng-show="tab === 5">
-            <div class="card">
+<div ng-controller="settingsCtrl" id="settings">
+    <tabset>
+        <tab heading="Scoresheet settings">
+            <div class="card scoresheet main">
                 <div class="card-body">
-                    <p>
-                        <label for="autoBroadcast">
-                            <input id="autoBroadcast" type="checkbox" ng-model="settings.autoBroadcast">
-                            Auto Broadcast:
-                        </label>
-                        <select title="currentStageSelect" ng-model="settings.currentStage" ng-options="stage.id as stage.name for stage in allStages | filter : {rounds :'!0'}">
-                        </select>
-                    </p>
-                    <p>
-                        <label for="autoPublish">
-                            <input id="autoPublish" type="checkbox" ng-model="settings.autoPublish">
-                            Auto Publish
-                        </label>
-                    </p>
-                    <p>
-                        <label for="ignoreNegativeScores">
-                            <input id="ignoreNegativeScores" type="checkbox" ng-model="settings.ignoreNegativeScores">
-                            Broadcast 0 for negative scores
-                        </label>
-                    </p>
-                </div>
-        </div>
-    </div>
-    <div ng-show="tab === 6">
-        <h1 >Log</h1>
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.autoScrolling" ng-change="save()">
+                        <div class="setting-title">Automatic scrolling</div>
+                        <div class="setting-description">When enabled, upon every mission submission, the scoresheet will scroll to the next mission</div>
+                    </div>
 
-        <pre>
-            <code ng-repeat="line in log track by $index">{{line}}<br></code>
-        </pre>
-    </div>
-    <p>
-        <button class="raised" ng-click="save()">
-            <i class="material-icons">check</i>
-            Save settings
-        </button>
-    </p>
+                    <div class="setting" ng-class="{disabled: !settings.autoScrolling}">
+                        <input type="checkbox" ng-model="settings.fastScrolling" ng-change="save()">
+                        <div class="setting-title">Fast scrolling</div>
+                        <div class="setting-description">When enabled, automatic scrolling will hide the previous mission, making the next mission more in focus.</div>
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.showZeroScore" ng-change="save()">
+                        <div class="setting-title">Show 0 for mission</div>
+                        <div class="setting-description">When enabled, the result of a mission with 0 points will still be shown</div>
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.requireSignature" ng-change="save()">
+                        <div class="setting-title">Require signature</div>
+                        <div class="setting-description">When enabled, every scoresheet must be signed before it can be sent</div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab heading="Advanced settings">
+        	<div class="card advanced main">
+        		<div class="card-body">
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.autoBroadcast" ng-change="save()">
+                        <div class="setting-title">Automatic publishing</div>
+                        <div class="setting-description">When enabled, upon every change in the score, the display system will be updated.</div>
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.autoPublish" ng-change="save()">
+                        <div class="setting-title">Automatic approval</div>
+                        <div class="setting-description">When enabled, scores submitted will be automatically approved.</div>
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.ignoreNegativeScores" ng-change="save()">
+                        <div class="setting-title">Ignore negative scores</div>
+                        <div class="setting-description">When enabled, all negative scores will be displayed as 0 in the display system.</div>
+                    </div>
+
+                    <div class="card-header">Rankings format</div>
+
+                    <div class="setting">
+                        <div class="setting-title">Line beginning string</div>
+                        <input type="text" ng-model="settings.lineStartString" ng-change="save()">
+                    </div>
+
+                    <div class="setting">
+                        <div class="setting-title">Value separating string</div>
+                        <input type="text" ng-model="settings.separatorString" ng-change="save()">
+                    </div>
+
+                    <div class="setting">
+                        <div class="setting-title">Line ending string</div>
+                        <input type="text" ng-model="settings.lineEndString" ng-change="save()">
+                    </div>
+                </div>
+        	</div>
+        </tab>
+        <tab heading="Developer view">
+        	<div class="card developer main">
+
+		        <div class="card-header">Log</div>
+
+		        <div class="card-body">
+                    <pre class="log">
+                        <code ng-repeat="line in log track by $index">{{line}}<br></code>
+                    </pre>
+                </div>
+                <div class="card-header">Connectivity</div>
+
+                <div class="card-body">
+
+                    <div class="setting">
+                        <div class="setting-title">Challenge Host</div>
+                        <input type="text" ng-model="settings.host" ng-change="save()">
+                    </div>
+
+                    <div class="setting">
+                        <input type="checkbox" ng-model="settings.customMhub" ng-change="save()">
+                        <div class="setting-title">Enable custom mhub</div>
+                    </div>
+
+                    <div class="setting" ng-class="{disabled: !settings.customMhub}">
+                        <div class="setting-title">Mhub Host</div>
+                        <input type="text" ng-model="settings.mhub" ng-change="save()">
+                    </div>
+
+                    <div class="setting" ng-class="{disabled: !settings.customMhub}">
+                        <div class="setting-title">Mhub node</div>
+                        <input type="text" ng-model="settings.node" ng-change="save()">
+                    </div>
+
+                </div>
+
+        	</div>
+        </tab>
+    </tabset>
 </div>

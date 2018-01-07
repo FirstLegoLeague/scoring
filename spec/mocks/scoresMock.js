@@ -17,6 +17,7 @@ function createScoresMock(scoreboard) {
         update: jasmine.createSpy('scoreUpdateSpy'),
         _update: jasmine.createSpy('score_UpdateSpy'),
         getRankings: jasmine.createSpy('getRankings').and.returnValue(Promise.resolve(scoreboard)),
-        pendingActions: jasmine.createSpy('scorePendingActionsSpy').and.returnValue(1)
+        pendingActions: jasmine.createSpy('scorePendingActionsSpy').and.returnValue(1),
+        broadcastRanking: jasmine.createSpy('broadcastRankings')
     };
 }

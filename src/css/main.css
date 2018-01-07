@@ -1,13 +1,16 @@
 @import url('../fonts/lato.css');
 @import url('elements.css');
+
 @import url('scoresheet.css');
-@import url('teams.css');
+@import url('scores.css');
+@import url('settings.css');
+@import url('tournament.css');
+
 @import url('spinner.css');
 @import url('dialog.css');
-@import url('material.css');
+@import url('pages.css');
+@import url('drawer.css');
 @import url('scoresheetRTL.css');
-@import url('clock.css');
+@import url('ios.css');
 
-table.table td.clearCell, table.table th.clearCell {
-    background-color: #ffffff !important;
-}
+@import url('themes/2018_hydrodynamics.css');

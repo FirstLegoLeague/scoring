@@ -1,83 +1,56 @@
-.fll-dialog-shim {
+
+.fll-dialog-background {
     position: fixed;
     z-index: 1999;
     left: 0;
     top: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.7);
+    transition: z-index linear 0s, opacity linear 0.2s;
+    opacity: 1;
+    overflow: auto;
+}
+.fll-dialog-background.ng-hide {
+    display: block !important;
+    opacity: 0;
+    z-index: -1;
+    transition: z-index linear 0s 0.2s, opacity linear 0.2s;
 }
 .fll-dialog {
-    position: fixed;
-    z-index: 2000;
-    left: 50%;
-    top: 50%;
-    width: 600px;
-    height: 400px;
-    margin-left: -300px;
-    margin-top: -200px;
-    border: 1px solid #999;
-    border: 1px solid rgba(0,0,0,0.3);
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.6);
-    overflow: hidden;
-}
-
-.fll-dialog h1 {
-    margin: 0;
-    line-height: 30px;
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 24.5px;
-    color: inherit;
-    text-rendering: optimizelegibility;
-    padding: 9px 15px;
-    border-bottom: 1px solid #eee;
-    height: 30px;
-    white-space: nowrap;
+    background: white;
+    margin: 10vh auto;
+    width: 50vw;
+    padding: 1em;
+    border-radius: 0.5em;
+    height: 75vh;
     display: flex;
+    flex-direction: column;
 }
-
-.fll-dialog h1 .header-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
+.dialog-header {
+    font-size: 2.5rem;
+    padding: 0.3em 0.3em 0 0.3em;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 0.5em;
+}
+.dialog-header .sub-header {
+    font-size: 1rem;
+    margin-top: 0.6em;
+    margin-left: 0.3em;
+    color: gray;
+    font-style: italic;
+}
+.dialog-body {
     flex: 1;
 }
-
-.fll-dialog section {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    overflow-scrolling: touch;
-    position: absolute;
-    top: 48px;
-    width: 100%;
-    bottom: 0;
-    left: 0;
+.dialog-actions {
+    margin-top: .75em;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid lightgray;
+    padding-top: .75em;
 }
 
-/* don't display back arrow */
-.fll-dialog-back {
-    display: none;
-}
-
-
-/* small window dialog overrides */
-.smallWindow .fll-dialog {
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    margin-left: 0;
-    margin-top: 0;
-    position: absolute;
-    border: none;
-}
-
-/* display back arrow on fullscreen dialogs */
-.smallWindow .fll-dialog-back {
-    display: inline-block;
-}
-.smallWindow .fll-dialog-close {
-    display: none;
+.dialog-actions > *:not(:last-child) {
+    margin-right: 0.2em;
 }

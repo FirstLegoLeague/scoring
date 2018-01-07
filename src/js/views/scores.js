@@ -1,44 +1,132 @@
 define('views/scores', [
-    'services/log',
     'services/ng-scores',
-    'directives/really',
-    'angular'
-], function (log) {
+    'angular',
+    'angular-bootstrap'
+], function () {
     var moduleName = 'scores';
-    return angular.module(moduleName, ['filters']).controller(moduleName + 'Ctrl', [
-        '$scope', '$scores', '$teams', '$stages', '$window', '$rootScope',
-        function ($scope, $scores, $teams, $stages, $window, $rootScope) {
-            log('init scores ctrl');
+    return angular.module(moduleName, ['ui.bootstrap']).controller(moduleName + 'Ctrl', [
+        '$scope', '$scores', '$teams', '$stages', '$settings', '$window',
+        function ($scope, $scores, $teams, $stages, $settings, $window) {
+            $scope.initPage(moduleName, $scope);
 
-            $scope.sort = 'index';
-            $scope.rev = true;
+            $scope.scoresTableConfig = {
+                columns: [
+                    { field: 'index', header: '#', edit: false },
+                    { field: 'teamNumber', header: 'team', edit: 'options', options: [], writeField: 'teamNumber', show: (score) => !score.showError },
+                    { field: 'teamFullName', header: 'team', edit: 'options', options: [], writeField: 'teamNumber', show: (score) => !score.showError },
+                    { field: 'match', header: 'match', edit: 'complex_options', options: [], onChange: (score) => {
+                            let split = score.match.split(' #');
+                            score.stageId = split[0];
+                            score.round = parseInt(split[1]);
+                        }
+                        , show: (score) => !score.showError
+                    },
+                    { field: 'referee', header: 'referee', edit: 'options', options: [], writeField: 'referee', show: (score) => !score.showError },
+                    { field: 'table', header: 'table', edit: 'options', options: [], writeField: 'table', show: (score) => !score.showError },
+                    { field: 'score', header: 'score', edit: 'text', writeField: 'score', show: (score) => !score.showError },
+                    { field: 'error', show: (score) => score.showError, value: (score) => score.error ? score.error.message : '' }
+                ],
+                actions: [
+                    {
+                        onClick: (score) => {
+                            score.showError = !score.showError
+                        },
+                        classes: () => 'btn-danger',
+                        show: (score) => score.error,
+                        icon: 'error',
+                        tooltip: 'show error'
+                    }, {
+                        onClick: (score) => {
+                            togglePublished(score);
+                        },
+                        show: (score) => score.published,
+                        icon: 'remove_circle_outline',
+                        tooltip: 'unpublish'
+                    }, {
+                        onClick: (score) => {
+                            togglePublished(score);
+                        },
+                        show: (score) => !score.published,
+                        icon: 'add_circle_outline',
+                        tooltip: 'publish'
+                    }, {
+                        onClick: (score) => {
+                            $scope.goTo('scoresheet', $scoresheet => {
+                                $scoresheet.loadScoresheet(score);
+                                $scoresheet.moveOn('missions');
+                            });
+                        },
+                        icon: 'edit',
+                        tooltip: 'edit in scoresheet'
+                    }, {
+                        onClick: (score) => {
+                            $scores.delete(score).then(() => {
+                                $scope.errors = $scores.validationErrors;
+                            });
+                        },
+                        classes: () => 'btn-danger',
+                        icon: 'delete',
+                        tooltip: 'delete'
+                    }
+                ],
+                edit: {
+                    onSave: (score) => {
+                        $scores.update(score).then(() => {
+                            $scope.errors = $scores.validationErrors;
+                        });
+                    }
+                },
+                row: {
+                    classes: (score) => `score_${score.index}`
+                },
+                search : () => $scope.scoresTableConfig.searchValue,
+                searchValue: '',
+                scrollCount: 20
+            };
 
-            function enrich(scores) {
-                return scores.map(score => {
-                    var enrichedScore = {};
-                    for(var key in score) enrichedScore[key] = score[key];
-                    enrichedScore.team = $teams.get(score.teamNumber);
-                    enrichedScore.stage = $stages.get(score.stageId);
-                    return enrichedScore;
-                });
-            }
+            $scope.ranksTableConfig = {
+                columns: [
+                    { field: 'rank', header: 'ranking' },
+                    { field: 'teamNumber', header: 'team' },
+                    { field: 'teamFullName', header: 'team' },
+                    { field: 'highScore', header: 'high' }
+                ],
+                actions: [],
+                row: {
+                    classes: (rank) => `rank_${rank.index}`
+                },
+                sort: false,
+                view: undefined,
+                scrollCount: 20
+            };
 
-            $scope.$watch(function () {
-                return $scores.scores;
-            }, function () {
-                $scope.scores = enrich($scores.scores);
+            $scope.$watch(() => $scores.scores, function () {
+                $scope.scores = formatScores($scores.scores);
             }, true);
-            
-            $scope.$watch(function () {
-                return $teams._teamsMap;
-            }, function (newValue, oldValue) {
+
+            $scope.$watch(() => $teams.teams, function (newValue, oldValue) {
                 if (newValue !== oldValue && indexIsTeamNum(newValue)) {
                     $scope.scores.forEach(function (score) {
                         score.team = $teams.get(score.teamNumber);
                     });
                     $scores._update();
                 }
+
+                $scope.scoresTableConfig.columns[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
+                $scope.scoresTableConfig.columns[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
             }, true);
+
+            $scope.$watch(() => $scores.scoreboard, function () {
+                $scope.scoreboard = formatRanks($scores.scoreboard);
+            }, true);
+
+            $scope.calcRanksColumns = function() {
+                let stage = $stages.get($scope.ranksTableConfig.view);
+                $scope.ranksTableConfig.columns = $scope.ranksTableConfig.columns.filter(column => !column.field.startsWith('round'));
+                for(var i = 1; i <= stage.rounds; i++) {
+                    $scope.ranksTableConfig.columns.push({ field: `round_` + i, header: i });
+                }
+            };
 
             function indexIsTeamNum(teamMap) {
                 return !Object.keys(teamMap).some((key)=>{
@@ -48,74 +136,113 @@ define('views/scores', [
 
             $scores.init().then(function() {
                 $scope.stages = $stages.stages;
+                $scope.scores = formatScores($scores.scores);
+
+                $scope.scoresTableConfig.columns[1].options = $teams.teams.map(team => { return { value: team.number, text: team.number }; });
+                $scope.scoresTableConfig.columns[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
+                $scope.stages.forEach(stage => {
+                    for(var round = 1; round <= stage.rounds; round++) {
+                        let match = `${stage.id} #${round}`;
+                        $scope.scoresTableConfig.columns[3].options.push({ value: match, text: match });
+                    }
+                });
+                $scope.scoresTableConfig.columns[4].options = $settings.settings.referees.map(ref => { return { value: ref.name, text: ref.name }; });
+                $scope.scoresTableConfig.columns[5].options = $settings.settings.tables.map(table => { return { value: table.name, text: table.name }; });
+
+                $scope.ranksTableConfig.view = $settings.settings.currentStage || $scope.stages[0].id;
+                $scope.calcRanksColumns();
+                $scores.getRankings().then(() => {
+                    $scope.errors = $scores.validationErrors;
+                });
             });
 
-            $scope.doSort = function(col, defaultSort) {
-                $scope.rev = (String($scope.sort) === String(col)) ? !$scope.rev : !!defaultSort;
-                $scope.sort = col;
+            function togglePublished(score) {
+                score.published = !score.published;
+                saveScore(score, true);
             };
 
-            $scope.sortIcon = function (col) {
-                if (!angular.equals($scope.sort, col)) {
-                    return '';
-                }
-                if ($scope.rev) {
-                    return 'arrow_drop_down';
-                } else {
-                    return 'arrow_drop_up';
-                }
+            $scope.broadcastRanking = function() {
+                $scores.broadcastRanking($stages.get($scope.ranksTableConfig.view));
             };
 
-            $scope.deleteScore = function (score) {
-                $scores.delete(score);
-            };
-
-            $scope.editScore = function (score) {
-                score.$editing = true;
-            };
-
-            $scope.publishScore = function (score) {
-                score.published = true;
-                saveScore(score);
-            };
-
-            $scope.unpublishScore = function(score) {
-                var wasPublished = score.published;
-                score.published = false;
-                saveScore(score, wasPublished);
-            };
-
-            $scope.finishEditScore = function (score) {
-                // The score entry is edited 'inline', then used to
-                // replace the entry in the scores list and its storage.
-                // Because scores are always 'sanitized' before storing,
-                // the $editing flag is automatically discarded.
-                score.$editing = false;
-                saveScore(score);
-            };
+            $scope.downloadCurrentStage = function() {
+                var downloadLink = angular.element('<a></a>');
+                downloadLink.attr('href', currentStageExportableDataLink());
+                downloadLink.attr('download', `ranking_${$stages.get($scope.ranksTableConfig.view).name}.csv`);
+                downloadLink[0].click();
+            }
 
             function saveScore(score, forceAutoBroadcast) {
                 try {
-                    $scores.update(score, forceAutoBroadcast);
+                    $scores.update(score, forceAutoBroadcast).then(() => {
+                        $scope.errors = $scores.validationErrors;
+                    });
                 } catch(e) {
                     $window.alert("Error updating score: " + e);
                 }
             }
 
-            $scope.cancelEditScore = function (score) {
-                score.$editing = false;
-            };
+            function formatScores(scores) {
+                return scores.map((score, index) => {
+                    var formattedScore = {};
+                    for(var key in score) formattedScore[key] = score[key];
+                    formattedScore.index = index + 1;
+                    formattedScore.team = $teams.get(score.teamNumber);
+                    formattedScore.stage = $stages.get(score.stageId);
 
-            $scope.refresh = function () {
-
+                    if(formattedScore.team) {
+                        formattedScore.teamFullName = `#${formattedScore.team.number} ${formattedScore.team.name}`;
+                    }
+                    if(formattedScore.stage) {
+                        formattedScore.match = `${formattedScore.stage.id} #${formattedScore.round}`;
+                    }
+                    return formattedScore;
+                });
             }
-            $scope.editScoresheet = function (score) {
-                $scope.setPage($scope.pages.find(function (p) {return p.name === "scoresheet"}));
-                $rootScope.$broadcast("editScoresheet", score)
-            };
 
-            $scope.refresh = function() {
-                $scores.load();
-            };
+            function formatRanks(scoreboard) {
+                let result = {};
+                for(let stageId in scoreboard) {
+                    let stage = scoreboard[stageId];
+                    result[stageId] = stage.filter((rank, index) => {
+                        rank.index = index;
+                        rank.teamNumber = rank.team.number;
+                        rank.teamFullName = `#${rank.team.number} ${rank.team.name}`;
+                        rank.highScore = rank.highest ? rank.highest.score : undefined;
+                        return rank.scores.filter((score, index) => {
+                            if(score) {
+                                rank[`round_${index+1}`] = score.score;
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }).length !== 0;
+                    });
+                }
+
+                return result;
+            }
+
+            function currentStageExportableDataLink() {
+                 var data = $scope.scoreboard[$scope.ranksTableConfig.view]
+                     .map(teamEntry =>
+                        [teamEntry.rank, teamEntry.team.number, teamEntry.team.name, teamEntry.highest.score]
+                        .concat(teamEntry.scores.map(scoreObject => scoreObject ? scoreObject.score : 0)));
+
+                return `data:text/csv;charset=utf-8,${ encodeURIComponent(encodeArray(data)) }`;
+            }
+
+            function encodeArray(array) {
+                var string = "";
+                var settings = $settings.settings;
+                array.forEach(function (row) {
+                    row = row.map((elem) => elem || elem === 0 ? String(elem) : "");
+                    string = string.concat(settings.lineStartString);
+                    string = string.concat(row.join(settings.separatorString));
+                    string = string.concat((settings.lineEndString) + "\r\n");
+                });
+                return string;
+            }
+
         }]);
 });

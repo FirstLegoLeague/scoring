@@ -1,0 +1,98 @@
+<div class="center dimmer">
+    <div class="loader"></div>
+</div>
+
+<table class="table" ng-class="config.tableClasses">
+    <thead>
+        <tr>
+            <td ng-repeat="column in config.columns track by column.field" ng-if="column.header" ng-class="column.field">
+                <div>
+                    <i class="material-icons sort-icon" ng-click="sort.set(column)">{{sort.icon(column)}}</i>
+                    <a ng-if="!sort.disabled" href="#" ng-click="sort.set(column)">{{column.header}}</a>
+                    <span ng-if="sort.disabled">{{column.header}}</span>
+                </div>
+            </td>
+            <td ng-if="config.actions.length" class="actions"></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in collection() | orderBy:config.sort || sort.get():sort.reverse | filter:config.search() | limitTo:scroll() track by $index" ng-class="config.row.classes(item)" ng-show="config.row.show(item)">
+            <td ng-repeat="column in config.columns track by column.field" ng-class="column.field+(column.edit?' editable':'')" ng-show="column.show(item)" ng-click="onCellClick(item, column)">
+
+                <span ng-show="!edit || !edit.is(item, column)" ng-click="onCellClick(item, column)">{{column.value(item)}}</span>
+
+                <div ng-if="edit" ng-show="edit.is(item, column)" class="editing-form">
+
+                    <div ng-switch="column.edit" class="input-container">
+
+                        <select class="options" ng-switch-when="options" ng-model="item[column.writeField]">
+                            <option ng-repeat="option in column.options track by option.value" ng-selected="option.value === item[column.writeField]" ng-value="option.value">{{option.text}}</option>
+                        </select>
+
+                        <select class="complex_options" ng-switch-when="complex_options" ng-model="item[column.writeField]" ng-change="column.onChange(item)">
+                            <option ng-repeat="option in column.options track by option.value" ng-value="option.value">{{option.text}}</option>
+                        </select>
+
+                        <input class="text" ng-switch-when="text" ng-model="item[column.writeField]" ng-keyup="$event.keyCode === 13 ? edit.save() : null; $event.stopPropagation()">
+
+                    </div>
+
+                    <i class="material-icons" ng-click="edit.save(); $event.stopPropagation()">done</i>
+                    <i class="material-icons" ng-click="edit.cancel(); $event.stopPropagation()">clear</i>
+                </div>
+            </td>
+
+            <td ng-if="config.actions.length" class="actions">
+                <div class="btn-group">
+                    <div class="btn" ng-repeat="action in config.actions track by $index" ng-class="action.classes(item)" ng-show="action.show(item)" ng-click="action.onClick(item)" tooltip="{{action.tooltip}}">
+                        <i class="material-icons">{{action.icon}}</i>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+
+    <tbody class="create-body" ng-if="edit && create">
+        <tr ng-class="create.classes()" ng-show="create.show()">
+            <td ng-repeat="column in config.columns track by column.field" ng-class="column.field+(column.edit?' editable':'')" ng-show="!create.showMessage && column.show(create.newItem)" ng-click="onCellClick(create.newItem, column)">
+
+                <span ng-show="!edit || !edit.is(create.newItem, column)" ng-click="onCellClick(create.newItem, column)">{{create.newItem[column.field]}}</span>
+
+                <div ng-if="edit" ng-show="edit.is(create.newItem, column)" class="editing-form">
+
+                    <div ng-switch="column.edit" class="input-container">
+
+                        <select class="options" ng-switch-when="options" ng-model="create.newItem[column.writeField]">
+                            <option ng-repeat="option in column.option track by option.values" ng-selected="option.value === create.newItem[column.writeField]" ng-value="option.value">{{option.text}}</option>
+                        </select>
+
+                        <select class="complex_options" ng-switch-when="complex_options" ng-model="create.newItem[column.writeField]" ng-change="column.onChange(create.newItem)">
+                            <option ng-repeat="option in column.options track by option.value" ng-selected="option.value === create.newItem[column.writeField]" ng-value="option.value">{{option.text}}</option>
+                        </select>
+
+                        <input class="text" ng-switch-when="text" ng-model="create.newItem[column.writeField]"  ng-keyup="$event.keyCode === 13 ? edit.saveAndGoToNextInput() : null; $event.stopPropagation()">
+
+                    </div>
+
+                    <i class="material-icons" ng-click="edit.save(); $event.stopPropagation()">done</i>
+                    <i class="material-icons" ng-click="edit.cancel(); $event.stopPropagation()">clear</i>
+                </div>
+            </td>
+
+            <td class="actions" ng-show="!create.showMessage">
+                <div class="btn-group">
+                    <div class="btn" class="save" ng-click="create.reset()">
+                        <i class="material-icons">undo</i>
+                    </div>
+                    <div class="btn" class="save" ng-click="create.save()">
+                        <i class="material-icons">save</i>
+                    </div>
+                </div>
+            </td>
+
+            <td class="create-message" ng-show="create.showMessage" ng-click="create.disableMessage()">
+                <span ng-click="create.disableMessage()">{{create.message}}</span>
+            </td>
+        </tr>
+    </tbody>
+</table>

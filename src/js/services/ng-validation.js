@@ -18,7 +18,7 @@ define('services/ng-validation',[
                     return {
                         name: 'UnknownStageError',
                         stageId: score.stageId,
-                        message: `unknown stage '${String(score.stageId)}'`
+                        message: `Unknown stage '${String(score.stageId)}'`
                     };
                 }
             }, {
@@ -27,7 +27,7 @@ define('services/ng-validation',[
                     return {
                         name: 'UnknownRoundError',
                         round: score.round,
-                        message: `unknown round '${String(score.round)}'`
+                        message: `Unknown round '${String(score.round)}'`
                     };
                 }
             }, {
@@ -36,7 +36,7 @@ define('services/ng-validation',[
                     return {
                         name: 'InvalidScoreError',
                         score: score.score,
-                        message: `invalid score '${String(score.score)}'`
+                        message: `Invalid score '${String(score.score)}'`
                     };
                 }
             }, {
@@ -45,7 +45,7 @@ define('services/ng-validation',[
                     return {
                         name: 'UnknownTeamError',
                         team: score.teamNumber,
-                        message: `invalid team '${String(score.teamNumber)}'`
+                        message: `Invalid team '${String(score.teamNumber)}'`
                     };
                 }
             }, {
@@ -63,7 +63,7 @@ define('services/ng-validation',[
                         team: score.teamNumber,
                         stage: score.stageId,
                         round: score.round,
-                        message: `duplicate score for team #${score.teamNumber}, ${score.stageId}, round ${score.round}`
+                        message: `duplicate score for team #${score.teamNumber}, ${score.stageId} #${score.round}`
                     };
                 }
             }];

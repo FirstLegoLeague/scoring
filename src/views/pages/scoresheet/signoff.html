@@ -1,0 +1,21 @@
+<div>{{settings.requireSignature}}</div>
+
+<div class="signoff-grid">
+
+	<div class="missions">
+		<div class="mission card" ng-repeat="mission in missions track by mission.title">
+			<div class="title">{{mission.title}} ({{mission.result}})</div>
+			<div class="objective" ng-repeat="objective in mission.objectives track by objective.title">
+				<div class="title">{{objective.title}}</div> - <div class="value">{{objective.value}}</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="settings.requireSignature" fll-sigpad ng-model="scoreEntry.signature" class="center"></div>
+
+	<div class="btn-group center">
+		<div class="btn back" ng-click="moveOn('missions')">Back to missions</div>
+		<div class="btn btn-primary done" ng-click="save()" ng-disabled="!isSavable()" >Submit score</div>
+	</div>
+
+</div>

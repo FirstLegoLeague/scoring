@@ -35,16 +35,9 @@ img/colors4.png
 
 js/config.js
 js/main.js
-js/controllers/DescriptionDialogController.js
-js/controllers/ExportRankingDialogController.js
-js/controllers/NewStageDialogController.js
-js/controllers/RoundDialogController.js
-js/controllers/TeamDialogController.js
 js/controllers/TeamImportDialogController.js
 js/directives/ng-directives.js
-js/directives/really.js
 js/directives/sigpad.js
-js/directives/size.js
 js/directives/spinner.js
 js/filters/index.js
 js/filters/ng-filters.js
@@ -54,7 +47,6 @@ js/services/fs-xhr.js
 js/services/log.js
 js/services/ng-challenge.js
 js/services/ng-fs.js
-js/services/ng-handshake.js
 js/services/ng-message.js
 js/services/ng-scores.js
 js/services/ng-services.js

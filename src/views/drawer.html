@@ -1,12 +1,9 @@
-<div class="drawer" ng-class="{visible:drawerVisible}">
+<div class="drawer" ng-show="drawerVisible">
     <div class="drawerLead">
     </div>
     <ul class="nav">
-        <li ng-repeat="page in pages" ng-class="{active: currentPage === page}">
+        <li ng-repeat="page in pages track by page.name" ng-class="{active: currentPage === page}">
             <a ng-click="setPage(page)"><i class="material-icons">{{page.icon}}</i> <span>{{page.title}}</span></a>
-        </li>
-        <li>
-            <a href="/logout"><i class="material-icons">exit_to_app</i> <span>Logout</span></a>
         </li>
     </ul>
 </div>

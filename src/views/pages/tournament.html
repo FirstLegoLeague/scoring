@@ -1,0 +1,44 @@
+<div ng-controller="tournamentCtrl" id="tournament">
+
+    <div class="teams card">
+        <div class="card-top">
+            <div class="card-header" ng-click="show.teams = !show.teams">
+                <i class="material-icons">{{showIcon(show.teams)}}</i>
+                Teams
+            </div>
+            <div class="card-menu">
+                <div class="input-container">
+                    <input type="text" placeholder="search teams" class="form-control" ng-model="teamsSearch">
+                </div>
+                <div class="btn" ng-click="importTeams()">Import</div>
+            </div>
+        </div>
+        <ng-datatable id="teams-table" collection="teams" config="teamsTableConfig" ng-show="show.teams" class="scrollable-body"></ng-datatable>
+    </div>
+
+    <div class="structure card">
+        <div class="card-header" ng-click="show.structure = !show.structure">
+            <i class="material-icons">{{showIcon(show.structure)}}</i>
+            Tournament structure
+        </div>
+
+        <div class="card-body" ng-show="show.structure">
+            <ng-datatable id="stages-table" collection="stages" config="stagesTableConfig" class="scrollable-body"></ng-datatable>
+            <ng-datatable id="referees-table" collection="settings.referees" config="refereesTableConfig" class="scrollable-body"></ng-datatable>
+            <ng-datatable id="tables-table" collection="settings.tables" config="tablesTableConfig" class="scrollable-body"></ng-datatable>
+        </div>
+    </div>
+
+    <div class="challenge card">
+        <div class="card-header" ng-click="show.challenge = !show.challenge">
+            <i class="material-icons">{{showIcon(show.challenge)}}</i>
+            Challenge
+        </div>
+
+        <div ng-show="show.challenge">
+            <select ng-model="settings.challenge" ng-options="challenge for challenge in challenges" ng-change="saveSettings()" />
+        </div>
+
+    </div>
+
+</div>

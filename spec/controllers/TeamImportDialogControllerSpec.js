@@ -4,7 +4,7 @@ describe('TeamImportDialogController',function() {
         'services/log': logMock,
     });
 
-    var $scope, controller, handshakeMock;
+    var $scope, controller, teamsMock;
 
     beforeEach(function() {
         angular.module("ngFileUpload", []);//this creates an empty "ngFileUpload" module to be required by the team import dialog controller
@@ -12,10 +12,11 @@ describe('TeamImportDialogController',function() {
         angular.mock.module(module.name);
         angular.mock.inject(function($controller,$rootScope,$q) {
             $scope = $rootScope.$new();
-            handshakeMock = createHandshakeMock($q);
+            teamsMock = createTeamsMock([]);
             controller = $controller('TeamImportDialogController', {
                 '$scope': $scope,
-                '$handshake': handshakeMock
+                '$dialogs': { teamsImport: { show: true } },
+                '$teams': teamsMock
             });
         });
     });
@@ -24,7 +25,7 @@ describe('TeamImportDialogController',function() {
         it('should populate importLines',function() {
             $scope.importLines = [];
             $scope.importRaw = '42\tFooBar\n7\tQuxMoo';
-            $scope.$digest();
+            $scope.parseData();
             expect($scope.importLines).toEqual([
                 ['42','FooBar'],
                 ['7','QuxMoo']
@@ -37,7 +38,7 @@ describe('TeamImportDialogController',function() {
             $scope.importLines = [];
             $scope.importRaw = 'Number\tName\n7\tQuxMoo\n42\tUniLif';
             $scope.headerLength = 1;
-            $scope.$digest();
+            $scope.parseData();
             expect($scope.importLines).toEqual([
                 ['7','QuxMoo'],['42','UniLif']
             ]);
@@ -46,7 +47,7 @@ describe('TeamImportDialogController',function() {
 
             $scope.importLines = [];
             $scope.headerLength = 2;
-            $scope.$digest();
+            $scope.parseData();
             expect($scope.importLines).toEqual([
                 ['42','UniLif']
             ]);
@@ -60,7 +61,7 @@ describe('TeamImportDialogController',function() {
             $scope.importNumberExample = 'numberExample';
             $scope.importNameExample = 'nameExample';
             $scope.importRaw = '';
-            $scope.$digest();
+            $scope.parseData();
             expect($scope.importLines).toEqual([]);
             expect($scope.importNumberExample).toEqual('');
             expect($scope.importNameExample).toEqual('');
@@ -71,7 +72,7 @@ describe('TeamImportDialogController',function() {
             $scope.useCustomDelimiter = true;
             $scope.delimiter = ",";
             $scope.importRaw = "42,FooBar\n7,QuxMoo";
-            $scope.$digest();
+            $scope.parseData();
             expect($scope.importLines).toEqual([
                 ['42','FooBar'],
                 ['7','QuxMoo']
@@ -81,35 +82,26 @@ describe('TeamImportDialogController',function() {
         })
     });
 
-    describe('handshake receive',function() {
-        it('should set the mission and show the dialog',function() {
-            handshakeMock.fire('importTeams');
-            expect($scope.dialogVisible).toBe(true);
-        });
-    });
-
-    describe('ok ',function() {
+    describe('save',function() {
         it('should hide the dialog',function() {
-            handshakeMock.fire('importTeams',{},[]);
-            $scope.dialogVisible = true;
+            $scope.dialog.show = true;
             $scope.importLines = [[42,'foo']];
             $scope.importNumberColumn = 1;
             $scope.importNameColumn = 2;
-            $scope.ok();
-            expect($scope.dialogVisible).toBe(false);
-            expect(handshakeMock.getPromise().resolve).toHaveBeenCalledWith({
-                teams: [{number:42,name:'foo'}],
-            });
+            $scope.save();
+            expect($scope.dialog.show).toBe(false);
+            expect(teamsMock.clear).toHaveBeenCalled();
+            expect(teamsMock.add).toHaveBeenCalledWith({number:42,name:'foo'});
+            expect(teamsMock.save).toHaveBeenCalled();
         });
     });
 
-    describe('cancel',function() {
+    describe('close',function() {
         it('should hide the dialog',function() {
-            handshakeMock.fire('importTeams',{},[]);
-            $scope.dialogVisible = true;
-            $scope.cancel();
-            expect($scope.dialogVisible).toBe(false);
-            expect(handshakeMock.getPromise().resolve).toHaveBeenCalled();
+            $scope.dialog.show = true;
+            $scope.close();
+            expect($scope.dialog.show).toBe(false);
+            expect(teamsMock.save).not.toHaveBeenCalled();
         });
     });
 });
