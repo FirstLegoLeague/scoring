@@ -81,6 +81,8 @@ define('views/scores', [
                 },
                 search : () => $scope.scoresTableConfig.searchValue,
                 searchValue: '',
+                onlyErrors: false,
+                onlyUnpublished: false,
                 scrollCount: 20
             };
 
@@ -98,6 +100,10 @@ define('views/scores', [
                 sort: false,
                 view: undefined,
                 scrollCount: 20
+            };
+
+            $scope.filteredScores = function() {
+                return $scope.scores.filter(score => (!$scope.scoresTableConfig.onlyErrors || score.error) && (!$scope.scoresTableConfig.onlyUnpublished || score.published === false))
             };
 
             $scope.$watch(() => $scores.scores, function () {
