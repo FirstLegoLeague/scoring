@@ -60,9 +60,11 @@ define('views/scores', [
                         tooltip: 'edit in scoresheet'
                     }, {
                         onClick: (score) => {
-                            $scores.delete(score).then(() => {
-                                $scope.errors = $scores.validationErrors;
-                            });
+                            if(confirm('Are you sure you want to delete this score? This cannot be undone.')) {
+                                $scores.delete(score).then(() => {
+                                    $scope.errors = $scores.validationErrors;
+                                });
+                            }
                         },
                         classes: () => 'btn-danger',
                         icon: 'delete',
