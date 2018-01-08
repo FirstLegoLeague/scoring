@@ -27,7 +27,7 @@ define('services/ng-independence',[
         IndependentActionStroage.prototype.sendSavedActionsToServer = function () {
             var self = this;
             if(self._sendingActions){
-                throw new Error("Already sending actions to server");
+                return;
             }
             self._sendingActions = true;
             var queue = Object.keys($localStorage).filter(k => k.startsWith("action")).map(key => {
