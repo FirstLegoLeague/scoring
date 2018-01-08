@@ -94,6 +94,7 @@ define('views/tournament', [
                 ],
                 actions: [
                     {
+                        classes: () => 'set-current-stage',
                         onClick: (stage) => {
                             if($scope.settings.currentStage === stage.id) {
                                 return;
@@ -150,7 +151,7 @@ define('views/tournament', [
                     }
                 },
                 row: {
-                    classes: (stage) => `stage_${stage.id}`
+                    classes: (stage) => `stage_${stage.id}${stage.id === $settings.settings.currentStage ? ' current-stage' : ''}`
                 },
                 sort: (stage1, stage2) => $scope.stages.indexOf(stage1) - $scope.stages.indexOf(stage2)
             };
