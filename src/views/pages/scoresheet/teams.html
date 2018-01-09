@@ -9,7 +9,7 @@
 	<div class="stages">
 		<div ng-repeat="stage in stages track by stage.id" class="stage" style="flex: {{stage.rounds}}">
 			<div class="stage-title" ng-show="scoreEntry.team">
-				{{stage.id}}
+				{{stage.name}}
 			</div>
 			<div class="rounds">
 				<div ng-repeat="round in rounds(stage) track by $index">

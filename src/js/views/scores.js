@@ -16,7 +16,8 @@ define('views/scores', [
                     { field: 'teamFullName', header: 'team', edit: 'options', options: [], writeField: 'teamNumber', show: (score) => !score.showError },
                     { field: 'match', header: 'match', edit: 'complex_options', options: [], onChange: (score) => {
                             let split = score.match.split(' #');
-                            score.stageId = split[0];
+                            let stage = $scope.stages.find(stage => stage.name === split[0]);
+                            score.stageId = stage ? stage.id : undefined;
                             score.round = parseInt(split[1]);
                         }
                         , show: (score) => !score.showError
@@ -158,7 +159,7 @@ define('views/scores', [
                 $scope.scoresTableConfig.columns[2].options = $teams.teams.map(team => { return { value: team.number, text: `#${team.number} ${team.name}` }; });
                 $scope.stages.forEach(stage => {
                     for(var round = 1; round <= stage.rounds; round++) {
-                        let match = `${stage.id} #${round}`;
+                        let match = `${stage.name} #${round}`;
                         $scope.scoresTableConfig.columns[3].options.push({ value: match, text: match });
                     }
                 });
@@ -210,7 +211,7 @@ define('views/scores', [
                         formattedScore.teamFullName = `#${formattedScore.team.number} ${formattedScore.team.name}`;
                     }
                     if(formattedScore.stage) {
-                        formattedScore.match = `${formattedScore.stage.id} #${formattedScore.round}`;
+                        formattedScore.match = `${formattedScore.stage.name} #${formattedScore.round}`;
                     }
                     return formattedScore;
                 });
