@@ -104,6 +104,14 @@ define('views/scores', [
                 scrollCount: 20
             };
 
+            $scope.showOnlyUnpublishedButton = function() {
+                return $scope.scores.some(score => !score.published);
+            };
+
+            $scope.showOnlyErrorButton = function() {
+                return $scope.scores.some(score => score.error);
+            };
+
             $scope.filteredScores = function() {
                 return $scope.scores.filter(score => (!$scope.scoresTableConfig.onlyErrors || score.error) && (!$scope.scoresTableConfig.onlyUnpublished || score.published === false))
             };
