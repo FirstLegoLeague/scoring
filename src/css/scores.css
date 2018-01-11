@@ -100,7 +100,7 @@
 #scores-table td.match { flex: 2; }
 #scores-table td.referee { flex: 1; }
 #scores-table td.table { flex: 1; }
-#scores-table td.score { flex: 0; }
+#scores-table td.score { flex: 1; }
 #scores-table td.actions { flex: 2; }
 #scores-table td.error {
     flex: 10;
@@ -204,11 +204,11 @@
     margin-top: 1em;
 }
 
-#ranks-table td.rank { flex: 0; }
+#ranks-table td.rank { flex: 1; }
 #ranks-table td.teamNumber { display: none; }
-#ranks-table td.teamFullName { flex: 4; }
-#ranks-table td.highScore { flex: 2; font-weight: bold }
-#ranks-table td:not(.rank, .teamNumber, .teamFullName, .highScore) { flex: 1; }
+#ranks-table td.teamFullName { flex: 8; }
+#ranks-table td.highScore { flex: 4; font-weight: bold }
+#ranks-table td:not(.rank, .teamNumber, .teamFullName, .highScore) { flex: 2; }
 
 @media screen and (max-width: 850px) {
 

@@ -5,6 +5,8 @@
                 <div class="card-top">
                     <div class="card-header">Score entries</div>
                     <form class="card-menu">
+                        <div class="btn" ng-class="{ active: scoresTableConfig.onlyUnpublished }" ng-if="showOnlyUnpublishedButton()" ng-click="scoresTableConfig.onlyUnpublished = !scoresTableConfig.onlyUnpublished">Show only unpublished</div>
+                        <div class="btn" ng-class="{ active: scoresTableConfig.onlyErrors }" ng-if="showOnlyErrorButton()" ng-click="scoresTableConfig.onlyErrors = !scoresTableConfig.onlyErrors">Show only errors</div>
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search scores" ng-model="scoresTableConfig.searchValue">
@@ -12,7 +14,7 @@
                         </div>
                     </form>
                 </div>
-                <ng-datatable id="scores-table" collection="scores" config="scoresTableConfig" class="scrollable-body"></ng-datatable>
+                <ng-datatable id="scores-table" collection="filteredScores()" config="scoresTableConfig" class="scrollable-body"></ng-datatable>
             </div>
         </tab>
         <tab heading="Rankings">

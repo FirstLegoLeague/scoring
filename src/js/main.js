@@ -88,17 +88,16 @@ define([
                 }
             }
 
-            $scope.pageLoaded = function() {
-                if($scope.pageLoadCallback) {
-                    $scope.pageLoadCallback($scope.currentPage.scope);
-                    $scope.pageLoadCallback = undefined;
-                }
-                pageLoader.addClass('disabled');
-            };
-
             $scope.initPage = function(pageName, pageScope) {
                 log(`init ${pageName} page`);
-                $scope.pages.find(page => page.name === pageName).scope = pageScope;
+
+                pageScope.$$postDigest(() => {
+                    if($scope.pageLoadCallback) {
+                        $scope.pageLoadCallback(pageScope);
+                        $scope.pageLoadCallback = undefined;
+                    }
+                    pageLoader.addClass('disabled');
+                })
             }
 
             // Because of a bug in iOS (https://bugs.webkit.org/show_bug.cgi?id=136041) We'll add

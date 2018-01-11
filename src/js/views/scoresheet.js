@@ -332,7 +332,7 @@ define('views/scoresheet',[
                 });
 
                 if($scope.editingScore){
-                    $scope.goTo('scores');
+                    $scope.goTo('scores'); //When you finish editing a scoresheet, it returns you to the scores view
                     $scope.editingScore = false;
                 }
                 log('scoresheet cleared');
@@ -346,8 +346,9 @@ define('views/scoresheet',[
             }
 
             function update() {
-                $scores.delete($scope.scoreEntry);
-                return $scores.loadScoresheet($scope.scoreEntry).then(function (result) {
+                return $scores.delete($scope.scoreEntry)
+                    .then(() => $scores.loadScoresheet($scope.scoreEntry))
+                    .then(function (result) {
                     result.missions.forEach(function (mission) {
                         var changedMission = $scope.missions.find(function (e) {return e.title === mission.title});
                         mission.objectives.forEach(function (objective, i) {
@@ -369,7 +370,6 @@ define('views/scoresheet',[
                     result.referee !== $scope.scoreEntry.referee ? log("changed referee to " + $scope.scoreEntry.referee) : void(0);
                     $scope.scoreEntry.id = $score.generateUniqueId();//This is a different score after being edited, so it has a different id
                     let creationPromise = create();
-                    $scope.goTo('scores'); //When you finish editing a scoresheet, it returns you to the scores view
                     return creationPromise;
                 });
             };

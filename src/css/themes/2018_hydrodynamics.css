@@ -205,8 +205,9 @@ ng-datatable thead {
 
 /* tournament */
 
-#tournament .card.structure .currentStage {
-    background: #AED9DA; /* Chill */
+#tournament .card.structure .current-stage .set-current-stage {
+    background: #135589; /* Glass */
+    color: #EDFAFD; /* Marina */
 }
 
 /* settings */
