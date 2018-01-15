@@ -23,16 +23,21 @@ define('controllers/TeamImportDialogController', [
                 //parse raw import, split lines
                 var lines = $scope.importRaw.match(/[^\r\n]+/g);
                 var headerLength = $scope.headerLength ? $scope.headerLength : 0;
+                var delimeter = $scope.useCustomDelimiter && $scope.delimiter ? $scope.delimiter : '\t';
+                var valuePattern = new RegExp(`(\\${delimeter}|\\r?\\n|\\r|^)(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|([^\"\\${delimeter}\\r\\n]*))`, 'gi');
                 lines.splice(0, headerLength);
                 lines = lines.map(line => {
-                    var delimeter = $scope.useCustomDelimiter && $scope.delimiter ? $scope.delimiter : /\t/;
-                    return line.split(delimeter);
+                    var values = [];
+                    var match;
+                    while(match = valuePattern.exec(line)) {
+                        values.push(match[2] || match[3]); // qouted value or unqouted value
+                    }
+                    return values;
                 }).map(parsedLine => {
                     var number = parsedLine[$scope.importNumberColumn - 1];
                     var name = parsedLine[$scope.importNameColumn - 1];
                     var name = name.charAt(0).toUpperCase() + name.slice(1);
                     return [number, name];
-
                 });
 
                 lines = lines.filter(parsedLine => parsedLine[$scope.importNumberColumn - 1] !== ""); //filter lines which don't contain a team- we do this by looking for a team number
