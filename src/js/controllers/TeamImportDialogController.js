@@ -23,7 +23,7 @@ define('controllers/TeamImportDialogController', [
                 //parse raw import, split lines
                 var lines = $scope.importRaw.match(/[^\r\n]+/g);
                 var headerLength = $scope.headerLength ? $scope.headerLength : 0;
-                var delimeter = $scope.useCustomDelimiter && $scope.delimiter ? $scope.delimiter : /\t/;
+                var delimeter = $scope.useCustomDelimiter && $scope.delimiter ? $scope.delimiter : '\t';
                 var valuePattern = new RegExp(`(\\${delimeter}|\\r?\\n|\\r|^)(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|([^\"\\${delimeter}\\r\\n]*))`, 'gi');
                 lines.splice(0, headerLength);
                 lines = lines.map(line => {
