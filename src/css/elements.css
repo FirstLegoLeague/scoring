@@ -1,3 +1,10 @@
+/* disabled elements shouldn't respond to events */
+
+
+[disabled="disabled"] {
+    pointer-events: none;
+}
+
 /* dimmers: dimm a component by making it half-whittened. use like this:
     <div class="I want this component to be dimmed" class="dimmable">
         <div class="dimmer"></div>
