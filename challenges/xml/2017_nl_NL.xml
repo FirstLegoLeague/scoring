@@ -490,7 +490,7 @@ Ieder deksel scoort individueel.]]></string>
                 <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="0" /> <index-ref value="no" /> <points amount="0"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="0" /> <index-ref value="yes" /> <points amount="0"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="1" /> <index-ref value="no" /> <points amount="10"  /> </case>
-                <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="1" /> <index-ref value="yes" /> <points amount="10"  /> </case>
+                <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="1" /> <index-ref value="yes" /> <points amount="40"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="2" /> <index-ref value="no" /> <points amount="20"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="2" /> <index-ref value="yes" /> <points amount="50"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="3" /> <index-ref value="no" /> <points amount="30"  /> </case>
@@ -503,7 +503,7 @@ Ieder deksel scoort individueel.]]></string>
                 <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="0" /> <index-ref value="no" /> <points amount="10"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="0" /> <index-ref value="yes" /> <points amount="10"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="1" /> <index-ref value="no" /> <points amount="20"  /> </case>
-                <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="1" /> <index-ref value="yes" /> <points amount="20"  /> </case>
+                <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="1" /> <index-ref value="yes" /> <points amount="50"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="2" /> <index-ref value="no" /> <points amount="30"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="2" /> <index-ref value="yes" /> <points amount="60"  /> </case>
                 <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="3" /> <index-ref value="no" /> <points amount="40"  /> </case>
