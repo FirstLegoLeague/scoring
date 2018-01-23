@@ -240,44 +240,6 @@
     transition: none;
 }
 
-#team-toolbar .score-diff{
-    position: absolute;
-    height: 3em;
-    width: 3em;
-    right: 10%;
-    font-size: 2rem;
-    border-radius: 100%;
-    background: radial-gradient(circle at 50% 55%, rgba(240, 245, 255, 0.9), rgba(240, 245, 255, 0.9) 40%, rgba(225, 238, 255, 0.8) 60%, rgba(43, 130, 255, 0.4));
-}
-
-#team-toolbar .score-diff:after {
-    content: "";
-    position: absolute;
-    top: 5%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    border-radius: 100%;
-    filter: blur(1px);
-    z-index: 2;
-    transform: rotateZ(-30deg);
-    display: block;
-    background: radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 74%, white 80%, white 84%, rgba(255, 255, 255, 0) 100%);
-}
-
-#team-toolbar .score-diff.animating {
-    animation: 2s linear score-diff-animation;
-}
-
-#team-toolbar .score-diff:not(.animating) {
-    display: none;
-}
-
-@keyframes score-diff-animation {
-    0% { top: 4em;  }
-    100% { top: -5em;  }
-}
-
 /* Missions */
 
 #missions {
