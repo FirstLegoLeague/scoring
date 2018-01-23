@@ -6,8 +6,8 @@ define('views/settings',[
 ],function(log) {
     var moduleName = 'settings';
     return angular.module(moduleName,[]).controller(moduleName+'Ctrl',[
-        '$scope', '$settings',
-        function($scope, $settings) {
+        '$scope', '$settings','$timeout',
+        function($scope, $settings, $timeout) {
             $scope.initPage(moduleName, $scope);
 
             $scope.log = log.get();
@@ -17,7 +17,17 @@ define('views/settings',[
             });
 
             $scope.save = function() {
-                $settings.save();
+                $settings.save().then(res => {
+                    angular.element('.settings-message.success').addClass('animating');
+                    $timeout(() => {
+                      angular.element('.settings-message').removeClass('animating');
+                    }, 3000);
+                }).catch(err => {
+                    angular.element('.settings-message.fail').addClass('animating');
+                    $timeout(() => {
+                      angular.element('.settings-message').removeClass('animating');
+                    }, 3000);
+                });
             };
 
         }

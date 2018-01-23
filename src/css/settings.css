@@ -60,3 +60,36 @@
 #settings .setting .setting-description {
     text-indent: 1.2em;
 }
+
+.settings-message {
+    position: absolute;
+    right: 5vh;
+    bottom: 5vh;
+    width: 20em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1em;
+    animation: 1s 2s linear settings-message-animation;
+}
+
+.settings-message.success {
+    background: lightgreen;
+    border: green 1px solid;
+}
+
+.settings-message.fail {
+    background: pink;
+    border: red 1px solid;
+}
+
+.settings-message:not(.animating) {
+    display: none;
+}
+
+@keyframes settings-message-animation {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0; }
+}
