@@ -39,6 +39,7 @@ describe('ng-settings',function() {
         httpMock.resetResponses();
         angular.mock.module(function($provide) {
             $provide.value('$http',httpMock);
+            $provide.value('$message',createMessageMock());
         });
         angular.mock.inject(function(_$settings_, _$q_,_$rootScope_) {
             $settings = _$settings_;
