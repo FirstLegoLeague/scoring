@@ -9,6 +9,7 @@ define('services/ng-settings',[
 
     return module.service('$settings', ["$http", "$message", function($http, $message) {
         function Settings() {
+            let self = this;
             /**
              * Array of all settings.
              * The reference will remain valid, so
@@ -40,7 +41,8 @@ define('services/ng-settings',[
             var self = this;
             // this.clear();
             return $http.get('/settings').then(function(res) {
-                self.settings = res.data;
+                // Keep the same Object for external references
+                Object.assign(self.settings, res.data);
                 return self.settings;
             }).catch(function(err) {
                 var defaults = {
