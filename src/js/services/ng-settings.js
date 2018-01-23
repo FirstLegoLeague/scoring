@@ -7,7 +7,7 @@ define('services/ng-settings',[
 ],function(module,log) {
     "use strict";
 
-    return module.service('$settings', ["$http", function($http) {
+    return module.service('$settings', ["$http", "$message", function($http, $message) {
         function Settings() {
             /**
              * Array of all settings.
@@ -17,6 +17,11 @@ define('services/ng-settings',[
              */
             this.settings = {};
             this.init();
+
+            $message.on('settings:reload',function(data, msg) {
+                if(!msg.fromMe)
+                    self.load();
+            });
         }
 
 
@@ -75,10 +80,10 @@ define('services/ng-settings',[
             });
         };
 
-
-
         Settings.prototype.save = function() {
-            return $http.post('/settings/save',{settings: this.settings});
+            return $http.post('/settings/save',{settings: this.settings}).then(() => {
+                $message.send('settings:reload');
+            });
         };
 
         return new Settings();
