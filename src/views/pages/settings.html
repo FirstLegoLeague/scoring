@@ -89,8 +89,8 @@
                     </div>
 
                     <div class="setting">
-                        <input type="checkbox" ng-model="settings.customMhub" ng-change="save()">
-                        <div class="setting-title">Enable custom mhub</div>
+                        <input type="checkbox" ng-model="settings.customMhub" class="disabled" ng-change="save()">
+                        <div class="setting-title">Enable custom mhub (this version does not allow this setting)</div>
                     </div>
 
                     <div class="setting" ng-class="{disabled: !settings.customMhub}">
