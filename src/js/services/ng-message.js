@@ -9,8 +9,8 @@ define('services/ng-message',[
     "use strict";
 
     return module.service('$message',[
-        '$http','$settings','$session','$q',
-        function($http,$settings,$session,$q) {
+        '$http','$session','$q',
+        function($http,$session,$q) {
             var isInitializedPromise;
             var listeners = [];
             var token = parseInt(Math.floor(0x100000*(Math.random())), 16);
@@ -23,22 +23,10 @@ define('services/ng-message',[
                 var def = $q.defer();
                 socketOpen = true;
                 isInitializedPromise = def.promise;
-                return $session.load().then(() => $settings.init()).then(function(settings) {
-                    var mhubNode;
-                    var mhubAddress;
-                    if(settings.customMhub && settings.mhub){
-                        mhubAddress = settings.mhub;
-                    } else {
-                        mhubAddress = `ws://${window.location.hostname}:13900`;
-                    }
+                return $session.load().then(function(settings) {
+                    var ws = new WebSocket(`ws://${window.location.hostname}:13900`);
+                    var mhubNode = 'default';
 
-                    if(settings.customMhub && settings.node){
-                        mhubNode = settings.node;
-                    } else {
-                        mhubNode = 'default';
-                    }
-
-                    var ws = new WebSocket(mhubAddress);
                     ws.node = mhubNode;
                     ws.onopen = function() {
                         ws.send(JSON.stringify({

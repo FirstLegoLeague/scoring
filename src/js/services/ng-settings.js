@@ -7,8 +7,9 @@ define('services/ng-settings',[
 ],function(module,log) {
     "use strict";
 
-    return module.service('$settings', ["$http", function($http) {
+    return module.service('$settings', ["$http", "$message", function($http, $message) {
         function Settings() {
+            let self = this;
             /**
              * Array of all settings.
              * The reference will remain valid, so
@@ -17,6 +18,11 @@ define('services/ng-settings',[
              */
             this.settings = {};
             this.init();
+
+            $message.on('settings:reload',function(data, msg) {
+                if(!msg.fromMe)
+                    self.load();
+            });
         }
 
 
@@ -35,7 +41,8 @@ define('services/ng-settings',[
             var self = this;
             // this.clear();
             return $http.get('/settings').then(function(res) {
-                self.settings = res.data;
+                // Keep the same Object for external references
+                Object.assign(self.settings, res.data);
                 return self.settings;
             }).catch(function(err) {
                 var defaults = {
@@ -75,10 +82,10 @@ define('services/ng-settings',[
             });
         };
 
-
-
         Settings.prototype.save = function() {
-            return $http.post('/settings/save',{settings: this.settings});
+            return $http.post('/settings/save',{settings: this.settings}).then(() => {
+                $message.send('settings:reload');
+            });
         };
 
         return new Settings();
