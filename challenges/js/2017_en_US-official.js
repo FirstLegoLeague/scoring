@@ -512,7 +512,7 @@
                     return 10
                 }
                 if (M16_1 === 'yes' && M16_2 === 'no' && M16_3 === '1' && M16_4 === 'yes') {
-                    return 10
+                    return 40
                 }
                 if (M16_1 === 'yes' && M16_2 === 'no' && M16_3 === '2' && M16_4 === 'no') {
                     return 20
@@ -548,7 +548,7 @@
                     return 20
                 }
                 if (M16_1 === 'yes' && M16_2 === 'yes' && M16_3 === '1' && M16_4 === 'yes') {
-                    return 20
+                    return 50
                 }
                 if (M16_1 === 'yes' && M16_2 === 'yes' && M16_3 === '2' && M16_4 === 'no') {
                     return 30

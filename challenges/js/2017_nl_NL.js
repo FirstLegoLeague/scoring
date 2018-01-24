@@ -121,7 +121,7 @@
         },
         {
             "title": "M08 Putdeksels",
-            "description": "Draai putdeksel(s) om, duidelijk voorbij verticaal *zonder dat ze ooit in de basis zijn geweest. 15 punten PER DEKSEL\nIeder deksel scoort individueel.",
+            "description": "Draai putdeksel(s) om, duidelijk voorbij verticaal *zonder dat ze ooit in de basis zijn geweest. 15 punten PER DEKSEL\r\nIeder deksel scoort individueel.",
             "objectives": [{
                     "id": "M08_1",
                     "title": "Putdeksels die voorbij verticaal zijn (en nooit in de basis geweest)",
@@ -478,7 +478,7 @@
                     return 10
                 }
                 if (M16_1 === 'yes' && M16_2 === 'no' && M16_3 === '1' && M16_4 === 'yes') {
-                    return 10
+                    return 40
                 }
                 if (M16_1 === 'yes' && M16_2 === 'no' && M16_3 === '2' && M16_4 === 'no') {
                     return 20
@@ -514,7 +514,7 @@
                     return 20
                 }
                 if (M16_1 === 'yes' && M16_2 === 'yes' && M16_3 === '1' && M16_4 === 'yes') {
-                    return 20
+                    return 50
                 }
                 if (M16_1 === 'yes' && M16_2 === 'yes' && M16_3 === '2' && M16_4 === 'no') {
                     return 30
@@ -675,7 +675,7 @@
         "M07-desc": "Laat de middelste laag van de fontein duidelijk wat omhoog komen, uitsluitend door het plaatsen van een Groot Water in de grijze kuip.",
         "M07-scoring": "Middelste laag is omhoog (alleen door groot water in de grijze kuip)",
         "M08-name": "M08 Putdeksels",
-        "M08-desc": "Draai putdeksel(s) om, duidelijk voorbij verticaal *zonder dat ze ooit in de basis zijn geweest. 15 punten PER DEKSEL\nIeder deksel scoort individueel.",
+        "M08-desc": "Draai putdeksel(s) om, duidelijk voorbij verticaal *zonder dat ze ooit in de basis zijn geweest. 15 punten PER DEKSEL\r\nIeder deksel scoort individueel.",
         "M08-scoring1": "Putdeksels die voorbij verticaal zijn (en nooit in de basis geweest)",
         "M08-scoring2": "2 deksels in aparte Statiefgebieden",
         "M08-scoring3": "Putdeksels die voorbij verticaal zijn en volledig in aparte Statiefgebieden",
