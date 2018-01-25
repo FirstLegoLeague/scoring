@@ -28,6 +28,5 @@ exports.log = function(level, message) {
 
 exports.middleware = function(req, res, next) {
     req.log = res.log = exports.log;
-    req.log.debug(`Starting ${req.method} ${req.originalUrl}`);
     next();
 };
