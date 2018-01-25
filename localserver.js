@@ -7,9 +7,8 @@ var views = require('./server_modules/views');
 var auth = require('./server_modules/auth');
 var bodyParser = require('body-parser');
 var log = require('./server_modules/log');
-var closeRequest = () => {}; // A middleware that doesn't call the next() function.
 
-var configs = [require('./server_modules/slave_mode')];
+var configs = [require('./server_modules/slave_mode'), log];
 
 var middlewares = [express.static(fileSystem.resolve('src')),
                         require('cookie-parser')(),
@@ -21,8 +20,7 @@ var middlewares = [express.static(fileSystem.resolve('src')),
                         auth.session(),
                         auth.middleware,
                         require('./server_modules/cors').middleware,
-                        require('./server_modules/cache').middleware,
-                        log.middleware];
+                        require('./server_modules/cache').middleware];
 
 var routers = [views,
                 auth,
