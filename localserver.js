@@ -7,11 +7,10 @@ var views = require('./server_modules/views');
 var auth = require('./server_modules/auth');
 var bodyParser = require('body-parser');
 var log = require('./server_modules/log');
-var closeRequest = () => {}; // A middleware that doesn't call the next() function.
 
-var configs = [require('./server_modules/slave_mode')];
+var configs = [require('./server_modules/slave_mode'), log];
 
-var beforeLayers = [express.static(fileSystem.resolve('src')),
+var middlewares = [express.static(fileSystem.resolve('src')),
                         require('cookie-parser')(),
                         bodyParser.urlencoded({ extended: true }),
                         bodyParser.json(),
@@ -21,8 +20,7 @@ var beforeLayers = [express.static(fileSystem.resolve('src')),
                         auth.session(),
                         auth.middleware,
                         require('./server_modules/cors').middleware,
-                        require('./server_modules/cache').middleware,
-                        log.beforeLayer];
+                        require('./server_modules/cache').middleware];
 
 var routers = [views,
                 auth,
@@ -34,12 +32,9 @@ var routers = [views,
                 require('./server_modules/scores'),
                 require('./server_modules/challenges')];
 
-var afterLayers = [log.afterLayer, closeRequest];
-
 configs.forEach(config => config.configure(app));
-beforeLayers.forEach(layer => app.use(layer));
+middlewares.forEach(layer => app.use(layer));
 routers.forEach(router => router.route(app));
-afterLayers.forEach(layer => app.use(layer));
 
 app.listen(args.port, function() {
     log.log.info(`Listening on port ${args.port}`);

@@ -9,10 +9,8 @@ exports.route = function (app) {
                 return team.number == req.params.nr;
             })[0];
             res.json(team);
-            next();
         }).catch(err => {
             res.sendError(err);
-            next();
         }).done();
     });
     file.route(app, 'teams');

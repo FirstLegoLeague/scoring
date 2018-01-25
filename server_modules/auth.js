@@ -43,15 +43,13 @@ if(users) {
             next();
         } else {
             res.redirect('/login');
-            next();
         }
     };
 
     exports.route = function(app) {
 
-        app.get('/login', function(req,res,next) {
+        app.get('/login', function(req,res) {
             res.sendFile(fileSystem.resolve('login.html'));
-            next();
         });
 
         app.post('/login', passport.authenticate('local', {
@@ -59,7 +57,7 @@ if(users) {
             failureRedirect: '/login'
         }));
 
-        app.get('/logout', function (req, res, next) {
+        app.get('/logout', function (req, res) {
             req.logout();
             res.redirect('/login')
         })
@@ -98,7 +96,6 @@ if(users) {
                 next();
             } else {
                 res.sendError({ status: 403, message: 'Not Authorized' });
-                next();
             }
         }
     }
