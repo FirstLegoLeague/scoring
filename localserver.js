@@ -11,7 +11,7 @@ var closeRequest = () => {}; // A middleware that doesn't call the next() functi
 
 var configs = [require('./server_modules/slave_mode')];
 
-var beforeLayers = [express.static(fileSystem.resolve('src')),
+var middlewares = [express.static(fileSystem.resolve('src')),
                         require('cookie-parser')(),
                         bodyParser.urlencoded({ extended: true }),
                         bodyParser.json(),
@@ -22,7 +22,7 @@ var beforeLayers = [express.static(fileSystem.resolve('src')),
                         auth.middleware,
                         require('./server_modules/cors').middleware,
                         require('./server_modules/cache').middleware,
-                        log.beforeLayer];
+                        log.middleware];
 
 var routers = [views,
                 auth,
@@ -34,12 +34,9 @@ var routers = [views,
                 require('./server_modules/scores'),
                 require('./server_modules/challenges')];
 
-var afterLayers = [log.afterLayer, closeRequest];
-
 configs.forEach(config => config.configure(app));
-beforeLayers.forEach(layer => app.use(layer));
+middlewares.forEach(layer => app.use(layer));
 routers.forEach(router => router.route(app));
-afterLayers.forEach(layer => app.use(layer));
 
 app.listen(args.port, function() {
     log.log.info(`Listening on port ${args.port}`);

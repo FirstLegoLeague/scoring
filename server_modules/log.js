@@ -26,13 +26,8 @@ exports.log = function(level, message) {
     }
 });
 
-exports.beforeLayer = function(req, res, next) {
-    req.log = exports.log;
+exports.middleware = function(req, res, next) {
+    req.log = res.log = exports.log;
     req.log.debug(`Starting ${req.method} ${req.originalUrl}`);
-    next();
-};
-
-exports.afterLayer = function(req, res, next) {
-    exports.log.debug(`Completed status ${res.statusCode}`);
     next();
 };

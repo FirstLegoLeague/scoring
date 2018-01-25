@@ -16,7 +16,6 @@ exports.route = function(app) {
 
     app.get('/session', function(req, res, next) {
         res.json(req.session);
-        next();
     })
 
 };
