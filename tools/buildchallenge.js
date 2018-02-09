@@ -75,12 +75,19 @@ function parseMission(xml,index) {
     //only return elements starting with 'objective-''
     var objectives = Object.keys(xml).filter(function(key) {
         return (key.indexOf('objective-') === 0);
-    }).reduce(function(all,key) {
+    }).reduce(function(all,key){
         return all.concat(xml[key].map(function(objective) {
             objective.$.type = key.replace('objective-','');
             return objective;
         }));
-    },[]);
+    },[]).sort(function (a, b) {
+        //Sorting the array by the objective id
+        let aIndx = a.$.id.search("-[0-9]");
+        let aNum = parseInt(a.$.id[aIndx+1]);
+        let bIndx = b.$.id.search("-[0-9]");
+        let  bNum = parseInt(b.$.id[bIndx+1]);
+        return aNum > bNum;
+    });
     return {
         title: getString(xml.$.name),
         description: getString(xml.$.description),
@@ -127,7 +134,6 @@ function processFile(fn) {
     // console.log(strings);
     // return;
         var missions = def['fll:challenge'].mission;
-        // console.log(missions);
         var jsm = {
             title: def['fll:challenge'].$.name,
             missions: missions.map(parseMission),
