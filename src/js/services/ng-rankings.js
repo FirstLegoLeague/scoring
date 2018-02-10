@@ -68,9 +68,11 @@ define('services/ng-rankings',[
 
                             // Adding rank number
                             var lastRank = null;
+                            let teamsAmount = 0;
                             stageRanks[stage.id].forEach((rank) => {
+                                teamsAmount++;
                                 if(lastRank === null || Rank.compare(lastRank,rank) !== 0) {
-                                    rankNumber++;
+                                    rankNumber = teamsAmount;
                                 }
                                 rank.rank = rankNumber;
                                 lastRank = rank;
