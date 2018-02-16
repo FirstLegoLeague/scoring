@@ -11,13 +11,13 @@
 }
 
 #scores .tab-content {
-	flex: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 #scores .tab-content .tab-pane.active {
-	flex: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -44,11 +44,16 @@
 }
 
 #scores thead, #scores tbody {
-	display: block;
+    display: block;
 }
 
 #scores-table tr {
-	display: flex;
+    display: flex;
+    height: 3em;
+}
+
+#scores-table td {
+    padding: 0 0.5em;
 }
 
 #scores-table tr:after {
@@ -80,7 +85,7 @@
 }
 
 #scores-table .editing-form {
-	display: flex;
+    display: flex;
 }
 
 #scores-table .editing-form i {
@@ -135,9 +140,9 @@
 
 @media screen and (max-width: 1050px) {
 
-	#scores-table td.table {
-	    display: none;
-	}
+    #scores-table td.table {
+        display: none;
+    }
 
 }
 
@@ -158,38 +163,38 @@
 
 @media screen and (max-width: 710px) and (min-width: 100vh) {
 
-	#scores .scores .card-menu {
-		display: none;
-	}
+    #scores .scores .card-menu {
+        display: none;
+    }
 
-	#scores-table td.match {
-	    display: none;
-	}
+    #scores-table td.match {
+        display: none;
+    }
 
 }
 
 @media screen and (max-width: 520px) {
 
-	#scores .scores.card-menu {
-		display: none;
-	}
+    #scores .scores.card-menu {
+        display: none;
+    }
 
-	#scores-table td.match {
-	    display: none;
-	}
+    #scores-table td.match {
+        display: none;
+    }
 
 }
 
 @media screen and (max-width: 400px) {
 
-	#scores-table td.teamFullName {
-	    display: none;
-	}
+    #scores-table td.teamFullName {
+        display: none;
+    }
 
-	#scores-table td.teamNumber {
-	    display: block;
-	    flex: 2;
-	}
+    #scores-table td.teamNumber {
+        display: block;
+        flex: 2;
+    }
 
 }
 
