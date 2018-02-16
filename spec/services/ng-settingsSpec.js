@@ -6,8 +6,8 @@ describe('ng-settings',function() {
     });
     var $settings, $q, $rootScope, settingsMock, fsMock;
     var defaults = {
-        tables: [{ name: 'Table 1' }],
-        referees: [{ name: 'Head referee' }],
+        tables: [{name: 'Table 1'},{name: 'Table 2'},{name: 'Table 3'},{name: 'Table 4'},{name: 'Table 5'},{name: 'Table 6'},{name: 'Table 7'},{name: 'Table 8'}],
+        referees: [{name: 'Ref 1'},{name: 'Ref 2'},{name: 'Ref 3'},{name: 'Ref 4'},{name: 'Ref 5'},{name: 'Ref 6'},{name: 'Ref 7'},{name: 'Ref 8'},{name: 'Head Ref 1'},{name: 'Head Ref 2'},{name: 'Head Ref 3'}],
         askTable: true,
         askReferee: true,
         mhub: `ws://${window.location.hostname}:13900`, //notice that window.location in necessary because you can't know where the karma server will run
@@ -74,8 +74,8 @@ describe('ng-settings',function() {
         });
         it('should write a default settings file if the file is not there',function(done) {
             var defaults = {
-                tables: [{name:'Table 1'}],
-                referees: [{name:'Head referee'}],
+                tables: [{name: 'Table 1'},{name: 'Table 2'},{name: 'Table 3'},{name: 'Table 4'},{name: 'Table 5'},{name: 'Table 6'},{name: 'Table 7'},{name: 'Table 8'}],
+                referees: [{name: 'Ref 1'},{name: 'Ref 2'},{name: 'Ref 3'},{name: 'Ref 4'},{name: 'Ref 5'},{name: 'Ref 6'},{name: 'Ref 7'},{name: 'Ref 8'},{name: 'Head Ref 1'},{name: 'Head Ref 2'},{name: 'Head Ref 3'}],
                 customMhub: false,
                 mhub: `ws://${window.location.hostname}:13900`, //notice that window.location in necessary because you can't know where the karma server will run
                 node: 'default',
@@ -104,8 +104,8 @@ describe('ng-settings',function() {
         });
         it('should just use the default settings if no settings file could be created',function(done) {
             var defaults = {
-                tables: [{name:'Table 1'}],
-                referees: [{name:'Head referee'}],
+                tables: [{name: 'Table 1'},{name: 'Table 2'},{name: 'Table 3'},{name: 'Table 4'},{name: 'Table 5'},{name: 'Table 6'},{name: 'Table 7'},{name: 'Table 8'}],
+                referees: [{name: 'Ref 1'},{name: 'Ref 2'},{name: 'Ref 3'},{name: 'Ref 4'},{name: 'Ref 5'},{name: 'Ref 6'},{name: 'Ref 7'},{name: 'Ref 8'},{name: 'Head Ref 1'},{name: 'Head Ref 2'},{name: 'Head Ref 3'}],
                 customMhub: false,
                 mhub: `ws://${window.location.hostname}:13900`, //notice that window.location in necessary because you can't know where the karma server will run
                 node: 'default',
