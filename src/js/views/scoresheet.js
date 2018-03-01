@@ -22,7 +22,8 @@ define('views/scoresheet',[
 
             var shouldRecalcScorediff = false,
                 oldScore = 0,
-                scorediff = undefined;
+                scorediff = undefined,
+                scrolling = undefined;
 
             $scope.selectTeam = function(team) {
                 $scope.scoreEntry.team = team
@@ -189,12 +190,18 @@ define('views/scoresheet',[
 
                 let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED;
 
+                scrolling = endingPosition;
+
                 function scrollTick() {
+                    if(scrolling !== endingPosition) {
+                        return;
+                    }
                     if(missionsElement.scrollTop + tick < endingPosition) {
                         missionsElement.scrollTop += tick;
                         requestAnimationFrame(scrollTick);
                     } else {
                         missionsElement.scrollTop = endingPosition;
+                        scrolling = undefined;
                     }
                 }
                 requestAnimationFrame(scrollTick);
