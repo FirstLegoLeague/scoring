@@ -56,6 +56,8 @@ define('views/scoresheet',[
 
             $scope.step = 'intro';
 
+            $scope.saving = false;
+
             $scope.load = function() {
                 return $settings.init()
                 .then(function(res) {
@@ -349,7 +351,10 @@ define('views/scoresheet',[
                 if($scope.preventSaveErrors()[0] === 'No signature') {
                     alert('The team must sign in order to submit the scoresheet.');
                 }
-                return $scope.editingScore ? update() : create();
+                $scope.saving = true;
+                return ($scope.editingScore ? update() : create()).then(() => {
+                    $scope.saving = false;
+                });
             }
 
             function update() {
