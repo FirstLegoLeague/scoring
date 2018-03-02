@@ -13,7 +13,7 @@
 
 	<div class="btn-group center">
 		<div class="btn back" ng-click="moveOn('missions')">Back to missions</div>
-		<div class="btn btn-primary done" ng-click="save()" ng-disabled="!isSavable()" >Submit score</div>
+		<div class="btn btn-primary done" ng-click="save()" ng-disabled="!isSavable() || saving" >Submit score</div>
 	</div>
 
 </div>

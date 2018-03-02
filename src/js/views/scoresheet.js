@@ -22,7 +22,8 @@ define('views/scoresheet',[
 
             var shouldRecalcScorediff = false,
                 oldScore = 0,
-                scorediff = undefined;
+                scorediff = undefined,
+                scrolling = undefined;
 
             $scope.selectTeam = function(team) {
                 $scope.scoreEntry.team = team
@@ -54,6 +55,8 @@ define('views/scoresheet',[
             $scope.completedScores = [];
 
             $scope.step = 'intro';
+
+            $scope.saving = false;
 
             $scope.load = function() {
                 return $settings.init()
@@ -189,12 +192,18 @@ define('views/scoresheet',[
 
                 let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED;
 
+                scrolling = endingPosition;
+
                 function scrollTick() {
+                    if(scrolling !== endingPosition) {
+                        return;
+                    }
                     if(missionsElement.scrollTop + tick < endingPosition) {
                         missionsElement.scrollTop += tick;
                         requestAnimationFrame(scrollTick);
                     } else {
                         missionsElement.scrollTop = endingPosition;
+                        scrolling = undefined;
                     }
                 }
                 requestAnimationFrame(scrollTick);
@@ -342,7 +351,10 @@ define('views/scoresheet',[
                 if($scope.preventSaveErrors()[0] === 'No signature') {
                     alert('The team must sign in order to submit the scoresheet.');
                 }
-                return $scope.editingScore ? update() : create();
+                $scope.saving = true;
+                return ($scope.editingScore ? update() : create()).then(() => {
+                    $scope.saving = false;
+                });
             }
 
             function update() {
