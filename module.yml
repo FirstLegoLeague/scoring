@@ -1,0 +1,5 @@
+api: "1.0"
+name: "scoring"
+type: node
+config:
+  

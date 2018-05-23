@@ -4,7 +4,9 @@ const express = require('express')
 const mongojs = require('mongojs')
 const Promise = require('bluebird')
 
-const db = Promise.promisifyAll(mongojs(process.env.MONGO, ['scores']))
+const DEFAULTS = require('./defaults')
+
+const db = Promise.promisifyAll(mongojs(process.env.MONGO || DEFAULTS.MONGO, ['scores']))
 
 const router = express.Router()
 
@@ -40,6 +42,15 @@ router.delete('/:id/delete', (req, res) => {
 
 router.get('/:id', (req, res) => {
   db.scores.findOne({ _id: mongojs.ObjectId(req.params.id) }).then(score => {
+    res.status(200).json(score)
+  }).catch(err => {
+    // TODO log
+    res.status(500).send(err)
+  })
+})
+
+router.get('/search', (req, res) => {
+  db.scores.findOne(req.query).then(score => {
     res.status(200).json(score)
   }).catch(err => {
     // TODO log

@@ -2,14 +2,22 @@
   "name": "scoring",
   "version": "1.0.0",
   "description": "Main scoring service",
-  "main": "index.js",
+  "main": "server/index.js",
   "repository": "https://github.com/FirstLegoLeagueIL/scoring",
   "author": "Idan Stark <idanstark42@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "node ./index.js"
+  },
   "dependencies": {
+    "@first-lego-league/ms-authentication": "^1.0.0",
+    "@first-lego-league/ms-configuration": "^1.0.0",
+    "@first-lego-league/ms-correlation": "^0.0.2",
+    "@first-lego-league/ms-logger": "^1.2.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongojs": "^2.5.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

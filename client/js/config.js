@@ -1,0 +1,45 @@
+//store require if it exists, to be able to catch nodejs' require
+var nodeRequire = require;
+//requirejs base config
+var require = {
+    baseUrl: 'js/',
+    paths: {
+        'q': '../components/q/q',
+        'jquery': '../components/jquery/jquery.min',
+        'angular': '../components/angular/angular.min',
+        'angular-sanitize': '../components/angular-sanitize/angular-sanitize.min',
+        'angular-animate': '../components/angular-animate/angular-animate',
+        'angular-touch': '../components/angular-touch/angular-touch.min',
+        'angular-bootstrap': '../components/angular-bootstrap/ui-bootstrap-tpls',
+        'angular-storage': '../components/angular-storage/angular-storage',
+        'idbstore':'../components/idbwrapper/idbstore',
+        'signaturepad':'../components/signature-pad/jquery.signaturepad.min',
+        'ng-file-upload':'../components/ng-file-upload/ng-file-upload.min'
+    },
+    shim: {
+        'signaturepad': {
+            deps: ['jquery']
+        },
+        'angular': {
+            deps: ['jquery']
+        },
+        'angular-animate': {
+            deps: ['angular']
+        },
+        'angular-bootstrap': {
+            deps: ['angular']
+        },
+        'angular-touch': {
+            deps: ['angular']
+        },
+        'angular-sanitize': {
+            deps: ['angular']
+        },
+        'angular-storage': {
+            deps: ['angular']
+        },
+        'ng-file-upload' : {
+            deps : ['angular']
+        }
+    }
+};

@@ -1,0 +1,53 @@
+<div id="team-import-dialog" class="fll-dialog-background" ng-controller="TeamImportDialogController" ng-show="dialog.show" xmlns="http://www.w3.org/1999/html"  ngf-drop="upload($files, $file)" ngf-pattern=".csv" ng-click="close()">
+    <div class="fll-dialog" id="teamImportDialog" ng-click="$event.stopPropagation()">
+        <div class="drag-indication">Drop CSV file here</div>
+        <div class="dialog-header">
+            Import teams
+            <div class="sub-header">Paste a teams list, or drag a csv file, in order to set the teams in the scoring system</div>
+        </div>
+        <div class="dialog-body">
+            <div id="teams-data-textbox-container">
+                <textarea ng-model="importRaw" ng-change="parseData()"></textarea>
+            </div>
+            <div id="teams-data-formatting-container">
+                <h4>Format</h4>
+                <div class="field">
+                    <div>Header length</div>
+                    <input type="number" ng-model="headerLength" ng-change="parseData()">
+                </div>
+                <div class="field">
+                    <div>Number column ({{importNumberExample}})</div>
+                    <input type="number" ng-model="importNumberColumn" ng-change="parseData()" placholder="choose another">
+                </div>
+                <div class="field">
+                    <div>Name column ({{importNameExample}})</div>
+                    <input type="number" ng-model="importNameColumn" ng-change="parseData()" placholder="choose another">
+                </div>
+                <div class="field">
+                    <input type="checkbox" ng-model="useCustomDelimiter" ng-change="parseData()">
+                    <div class="title">
+                        Custom delimiter
+                        <div class="description" ng-hide="useCustomDelimiter">(Default is tab, the delimiter used when pasting from Excel)</div>
+                    </div>
+                    <input type="text" ng-show="useCustomDelimiter" ng-model="delimiter" ng-trim="false" ng-change="parseData()">
+                </div>
+            </div>
+            <div id="teams-data" ng-if="importLines">
+                <h4>Teams preview</h4>
+                <div class="table-container">
+                    <table class="table table-condensed">
+                        <tr ng-repeat="line in importLines track by $index" class="team">
+                            <td ng-repeat="field in line track by $index" class="field">
+                                {{field}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="dialog-actions">
+            <button class="btn btn-primary" ng-click="save()">Import</button>
+            <button class="btn" ng-click="close()">Cancel</button>
+        </div>
+    </div>
+</div>

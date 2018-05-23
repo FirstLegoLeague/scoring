@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html manifest="fllscoring.appcache">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="components/bootstrap-css/css/bootstrap.min.css">
+        <link href="css/materialIcons.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="icon" href="img/first-favicon.ico" />
+        <title>FLL Scoring</title>
+    </head>
+    <body>
+        <script src="js/config.js"></script>
+        <script>
+            require.map = {
+                '*': {
+                    'services/fs':'services/fs-xhr'
+                }
+            };
+        </script>
+        <script src="components/requirejs/require.js" data-main="main"></script>
+        <div ng-controller="mainCtrl">
+            <div ng-if="pages.length > 1" ng-include="drawer"></div>
+            <div class="viewMain" ng-class="currentPage.name" ng-cloak>
+                <div ng-if="pages.length > 1" ng-include="'views/appbar.html'"></div>
+                <div class="center page partial dimmer">
+                    <div class="big loader"></div>
+                </div>
+                <div ng-repeat="page in pages track by page.name" ng-include="page.route" ng-class="page.classes" ng-if="currentPage === page"></div>
+            </div>
+            <div ng-include="'views/dialogs.html'"></div>
+        </div>
+
+    </body>
+</html>

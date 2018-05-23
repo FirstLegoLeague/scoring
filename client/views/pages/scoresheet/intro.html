@@ -1,0 +1,18 @@
+<div class="intro-card">
+
+    <h3>So who's gonna be working here?</h3>
+
+    <label>Table:</label>
+    <div class="fluid">
+        <select ng-model="scoreEntry.table" ng-options="item.name as item.name for item in settings.tables"></select>
+    </div>
+
+    <label>Referee:</label>
+    <div class="fluid">
+        <select ng-model="scoreEntry.referee" ng-options="item.name as item.name for item in settings.referees"></select>
+    </div>
+
+    <div class="center">
+        <div class="btn btn-primary" ng-click="moveOn('teams')" ng-disabled="!scoreEntry.referee || !scoreEntry.table">Start</div>
+    </div>
+</div>
