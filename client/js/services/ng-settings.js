@@ -3,7 +3,8 @@
  */
 define('services/ng-settings',[
     'services/ng-services',
-    'services/log'
+    'services/log',
+    'services/ng-message'
 ],function(module,log) {
     "use strict";
 

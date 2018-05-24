@@ -12,6 +12,7 @@ define('services/ng-scores',[
     'services/ng-rankings',
     'services/ng-settings',
     'services/ng-validation',
+    'services/ng-message',
     'services/ng-score'
 ],function(module,log) {
     "use strict";

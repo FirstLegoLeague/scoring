@@ -4,7 +4,6 @@ define([
 
     'services/ng-services',
     'services/log',
-    'services/ng-session',
 
     'views/scoresheet',
     'views/scores',
@@ -16,22 +15,20 @@ define([
     'angular-storage',
     'angular'
 
-],function(directives, datatable, services, log, session, scoresheet, scores) {
+],function(directives, datatable, services, log, scoresheet, scores) {
 
     log('device ready');
 
     //initialize main controller and load main view
     //load other main views to create dynamic views for different device layouts
     angular.module('main',['ngAnimate']).controller('mainCtrl',[
-        '$scope', '$session', '$location',
-        function($scope, $session, $location) {
+        '$scope', '$location',
+        function($scope, $location) {
             log('init main ctrl');
 
             const PAGES = [
                 { name: 'scoresheet', title: 'Scoresheet', icon: 'check' },
-                { name: 'scores', title: 'Scores', icon: 'list' },
-                { name: 'tournament', title: 'Tournament', icon: 'people' },
-                { name: 'settings', title: 'Settings', icon: 'settings' }
+                { name: 'scores', title: 'Scores', icon: 'list' }
             ];
 
             const pageLoader = angular.element('.viewMain .dimmer');
@@ -40,25 +37,17 @@ define([
             $scope.scoringPages = ['scoresheet','settings'];
             $scope.validationErrors = [];
             $scope.drawerVisible = false;
+            
+            $scope.pages = PAGES;
 
-            $session.load().then(function(session) {
-                if(session['passport']) {
-                    $scope.user = session['passport'].user;
-                    $scope.pages = PAGES.filter(page => $scope.user.pages.includes(page.name));
-                } else {
-                    $scope.pages = PAGES;
-                }
-                // Enrich pages
-                $scope.pages.forEach(page => {
-                    page.route = `views/pages/${page.name}.html`;
-                    page.classes = `page view-${page.name}${($scope.pages.length === 1 ? ' only-page' : '')}`;
-                });
-                // Set current page
-                let urlPath = $location.path();
-                let pageFromURL = $scope.pages.find(page => `/${page.name}` === urlPath);
-
-                $scope.setPage(pageFromURL || $scope.pages[0]);
+            // Enrich pages
+            $scope.pages.forEach(page => {
+                page.route = `views/pages/${page.name}.html`;
+                page.classes = `page view-${page.name}${($scope.pages.length === 1 ? ' only-page' : '')}`;
             });
+            // Set current page
+            let urlPath = $location.path();
+            let pageFromURL = $scope.pages.find(page => `/${page.name}` === urlPath);
 
             $scope.toggleDrawer = function(set) {
                 if (set !== undefined) {
@@ -77,6 +66,8 @@ define([
                 pageLoader.removeClass('disabled');
                 $scope.drawerVisible = false;
             };
+
+            $scope.setPage(pageFromURL || $scope.pages[0]);
 
             $scope.goTo = function(pageName, callback) {
                 var page = $scope.pages.find(page => page.name === pageName);
