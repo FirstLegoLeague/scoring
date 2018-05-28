@@ -22,6 +22,7 @@ app.use(loggerMiddleware)
 
 // app.use('/index.html', auth)
 
+app.use('/webfonts', express.static(path.resolve(__dirname, 'client/node_modules/@first-lego-league/user-interface/current/assets/fonts')))
 app.use(express.static(path.resolve(__dirname, 'client')))
 
 const apis = ['scores', 'challenge']

@@ -1,0 +1,19 @@
+scores {
+	margin: 1em;
+    transition: margin linear 0.5s;
+	height: 50%;
+}
+
+scores.ng-hide {
+	margin-top: -100vh;
+}
+
+scoresheet {
+    padding: 1em;
+    height: 100%;
+    display: block;
+}
+
+scoresheet.ng-hide {
+	margin-top: 100vh;
+}
