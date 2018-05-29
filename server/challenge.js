@@ -8,10 +8,10 @@ const fs = Promise.promisifyAll(require('fs'))
 
 const router = express.Router()
 
-router.use((req, res) => {
-  fs.readFile(path.resolve(__dirname, 'challenges', 'challenge' /* TODO configurable challenge */))
+router.use('/:challenge', (req, res) => {
+  fs.readFileAsync(path.resolve(__dirname, '..', 'challenges', 'js', `${req.params['challenge']}.js`))
     .then(challenge => {
-      res.json(challenge)
+      res.send(challenge)
     }).catch(err => {
       // TODO log
       res.status(500).send(err)

@@ -25,11 +25,11 @@ app.use(loggerMiddleware)
 app.use('/webfonts', express.static(path.resolve(__dirname, 'client/node_modules/@first-lego-league/user-interface/current/assets/fonts')))
 app.use(express.static(path.resolve(__dirname, 'client')))
 
-const apis = ['scores', 'challenge']
+const apis = ['/scores', '/challenge']
 
 apis.forEach(api => {
   // eslint-disable-next-line import/no-dynamic-require
-  app.use(api, require(`./server/${api}`))
+  app.use(api, require(`./server${api}`))
 })
 
 app.listen(port, () => {
