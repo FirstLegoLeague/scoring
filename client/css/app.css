@@ -1,6 +1,14 @@
+body {
+	background: url('/node_modules/@first-lego-league/user-interface/current/assets/img/background_tile.jpg');
+}
+
+.top-bar .button {
+	margin: 0;
+}
+
 scores {
 	margin: 1em;
-    transition: margin linear 0.5s;
+  transition: margin linear 0.5s;
 	height: 50%;
 }
 
@@ -8,12 +16,11 @@ scores.ng-hide {
 	margin-top: -100vh;
 }
 
-scoresheet {
-    padding: 1em;
-    height: 100%;
-    display: block;
+objective .button-group input{
+  display: none;
 }
 
-scoresheet.ng-hide {
-	margin-top: 100vh;
+objective .button-group input:checked + label,
+objective .button-group input:checked + label:active {
+  background-color: #d67924;
 }

@@ -1,9 +1,9 @@
 'use strict'
 
 export default {
-	templateUrl: 'src/components/mission.html',
+	template: ``,
 	controller: function() { },
-	controllerAs: 'mission',
+	controllerAs: 'objective',
 	bindings: {
 		data: '=?'
 	}
