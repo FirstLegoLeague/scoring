@@ -6,9 +6,12 @@ class ObjectiveController {
 		this.$scope = $scope
 	}
 
-	markAsComplete () {
-		this.data.complete = true
-		this.$scope.$emit('objective complete')
+	$onInit () {
+		let self = this
+		this.$scope.$watch(() => self.data.value, () => {
+			self.data.complete = true
+			self.$scope.$emit('objective complete')
+		})
 	}
 
 }

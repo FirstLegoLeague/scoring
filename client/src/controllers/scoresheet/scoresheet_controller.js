@@ -1,37 +1,53 @@
 'use strict'
 
-const AUTOSCROLL_SPEED = 0.02
+const AUTOSCROLL_SPEED = 0.05
 const MISSION_SCROLL_OFFSET = -150
 
 class ScoresheetController {
 
 	constructor ($scope, $document, Scoresheet) {
-		let self = this
+        this.$scope = $scope
         this.$document = $document
 		this.Scoresheet = Scoresheet
-        $scope.$on('mission complete', event => {
+	}
+
+	$onInit () {
+        let self = this
+
+        this.$scope.$on('mission complete', event => {
             let missionId = event.targetScope.mission.data.id
-            let missionIndex = self.Scoresheet.challenge.missions.findIndex(mission => mission.id === missionId)
-            let nextMission = self.Scoresheet.challenge.missions[missionIndex + 1]
+            let missionIndex = self.scoresheet.missions.findIndex(mission => mission.id === missionId)
+            let nextMission = self.scoresheet.missions[missionIndex + 1]
             if(nextMission) {
                 self.scrollToMission(nextMission)
             }
         })
-	}
-
-	$onInit() {
-		let self = this
-	    self.Scoresheet.load().then(scoresheet => {
-			self.scoresheet = scoresheet
-			self.missions = scoresheet.missions
-			self.missions.forEach(mission => {
-				mission.id = mission.title.split(' ')[0]
-			})
-		})
+        
+        return this.Scoresheet.load().then(() => self.reset())
 	 }
 
+     score () {
+        return this.Scoresheet.score()
+     }
+
+     complete () {
+        this.signature = this.$scope.getSignature()
+        return this.missions && this.missions.every(mission => mission.complete) && !this.signature.isEmpty
+     }
+
+     reset () {
+        let self = this
+        return this.Scoresheet.reset().then(scoresheet => {
+            self.scoresheet = scoresheet
+            self.missions = scoresheet.missions
+            self.$scope.clearSignature()
+            self.$scope.$apply()
+            self.scrollToMission(self.scoresheet.missions[0])
+        })
+     }
+
 	 scrollToMission (mission) {
-        let missionsElement = this.$document[0].getElementsByClassName('top-bar-page')[0]
+        let missionsElement = this.$document[0].querySelector('scoresheet > .top-bar-page')
         let startingPosition = missionsElement.scrollTop
         let endingPosition = startingPosition
 

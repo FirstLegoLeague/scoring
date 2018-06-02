@@ -2,18 +2,13 @@ body {
 	background: url('/node_modules/@first-lego-league/user-interface/current/assets/img/background_tile.jpg');
 }
 
-.top-bar .button {
+.top-bar .button, .top-bar .button-group {
 	margin: 0;
 }
 
 scores {
 	margin: 1em;
-  transition: margin linear 0.5s;
 	height: 50%;
-}
-
-scores.ng-hide {
-	margin-top: -100vh;
 }
 
 objective .button-group input{
@@ -23,4 +18,42 @@ objective .button-group input{
 objective .button-group input:checked + label,
 objective .button-group input:checked + label:active {
   background-color: #d67924;
+}
+
+/* TODO remove this */
+.top-bar +.top-bar-page {
+	overflow-y: auto;
+	height: calc(100% - 3.5rem);
+}
+
+scoresheet > .top-bar {
+    background: white;
+    border-bottom: lightgray 2px solid;
+}
+
+mission .stamp {
+	float: right;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    border-width: 2px !important;
+    font-weight: bold;
+    transform: rotate(-10deg);
+}
+
+#signature {
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+}
+
+#signature canvas {
+    border: lightgray 2px solid;
+    border-radius: 1em;
+}
+
+bm-signature-pad {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
