@@ -4,9 +4,12 @@ import scores from './scores/scores'
 import scoresheet from './scoresheet/scoresheet'
 import mission from './scoresheet/mission'
 import objective from './scoresheet/objective'
+
 import enumObjective from './scoresheet/objective_types/enum_objective'
 import yesnoObjective from './scoresheet/objective_types/yesno_objective'
 import numberObjective from './scoresheet/objective_types/number_objective'
+
+import identity from './scoresheet/modals/identity'
 
 // eslint-disable-next-line node/exports-style
 export default {
@@ -14,7 +17,10 @@ export default {
 	scoresheet,
 	mission,
 	objective,
+
 	enumObjective,
 	yesnoObjective,
-	numberObjective
+	numberObjective,
+
+	identity
 }

@@ -3,7 +3,7 @@
 const STORAGE_KEY = 'referee'
 const EMPTY_DATA = { referee: undefined, table: undefined }
 
-class Referee {
+class Identity {
 
 	constructor ($window) {
 		this.$window = $window
@@ -40,6 +40,6 @@ class Referee {
 
 }
 
-Referee.$inject = ['$window']
+Identity.$inject = ['$window']
 
 export default Configuration

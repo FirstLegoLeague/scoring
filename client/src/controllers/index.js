@@ -5,10 +5,14 @@ import ScoresheetController from './scoresheet/scoresheet_controller'
 import MissionController from './scoresheet/mission_controller'
 import ObjectiveController from './scoresheet/objective_controller'
 
+import IdentityController from './scoresheet/identity_controller'
+
 // eslint-disable-next-line node/exports-style
 export default {
 	ScoringController,
 	ScoresheetController,
 	MissionController,
-	ObjectiveController
+	ObjectiveController,
+
+	IdentityController
 }
