@@ -6,7 +6,8 @@
             "objectives": [{
                 "id": "M01",
                 "title": "Broken Pipe is completely in Base",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M01) {
                 if (M01 === 'no') {
@@ -23,7 +24,8 @@
             "objectives": [{
                 "id": "M02",
                 "title": "Big Water is on other team's Field (only by turning Pump System's valves(s))",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M02) {
                 if (M02 === 'no') {
@@ -40,7 +42,8 @@
             "objectives": [{
                 "id": "M03",
                 "title": "Pump Addition has contact with the mat completely inside the target area",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M03) {
                 if (M03 === 'no') {
@@ -57,7 +60,8 @@
             "objectives": [{
                 "id": "M04",
                 "title": "At least one Rain is out of the Rain Cloud",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M04) {
                 if (M04 === 'no') {
@@ -74,7 +78,8 @@
             "objectives": [{
                 "id": "M05",
                 "title": "Lock latch is in dropped position",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M05) {
                 if (M05 === 'no') {
@@ -91,7 +96,8 @@
             "objectives": [{
                 "id": "M06",
                 "title": "Big Water is ejected from Water Treatment model (only by Toilet's lever)",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M06) {
                 if (M06 === 'no') {
@@ -108,7 +114,8 @@
             "objectives": [{
                 "id": "M07",
                 "title": "Middle layer is raised (due only to a Big Water in gray tub)",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M07) {
                 if (M07 === 'no') {
@@ -138,12 +145,14 @@
                             "title": "0"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "0"
                 },
                 {
                     "id": "M08_2",
                     "title": "Both covers are flipped over and completely in separate Tripod targets",
-                    "type": "yesno"
+                    "type": "yesno",
+                "default": "no"
                 }
             ],
             "score": [function(M08_1, M08_2) {
@@ -171,32 +180,48 @@
             "title": "M09 Tripod",
             "description": "Move the inspection camera Tripod.",
             "objectives": [{
-                "id": "M09",
-                "title": "All the Tripod’s feet are touching the mat and Tripod is in a Tripod target",
-                "options": [{
-                        "value": "completely",
-                        "title": "Completely"
-                    },
-                    {
-                        "value": "partially",
-                        "title": "Partially"
-                    },
-                    {
-                        "value": "none",
-                        "title": "No"
-                    }
-                ],
-                "type": "enum"
-            }],
-            "score": [function(M09) {
-                if (M09 === 'none') {
+                    "id": "M09_1",
+                    "title": "All the Tripod’s feet are touching the mat",
+                    "type": "yesno",
+                "default": "no"
+                },
+                {
+                    "id": "M09_2",
+                    "title": "Tripod is partially in a Tripod target",
+                    "type": "yesno",
+                "default": "no"
+                },
+                {
+                    "id": "M09_3",
+                    "title": "OR Tripod is completely in a Tripod target",
+                    "type": "yesno",
+                "default": "no"
+                }
+            ],
+            "score": [function(M09_1, M09_2, M09_3) {
+                if (M09_1 === 'no' && M09_2 === 'no' && M09_3 === 'no') {
                     return 0
                 }
-                if (M09 === 'partially') {
+                if (M09_1 === 'no' && M09_2 === 'no' && M09_3 === 'yes') {
+                    return 0
+                }
+                if (M09_1 === 'no' && M09_2 === 'yes' && M09_3 === 'no') {
+                    return 0
+                }
+                if (M09_1 === 'no' && M09_2 === 'yes' && M09_3 === 'yes') {
+                    return new Error("Choose one of the two options")
+                }
+                if (M09_1 === 'yes' && M09_2 === 'no' && M09_3 === 'no') {
+                    return 0
+                }
+                if (M09_1 === 'yes' && M09_2 === 'no' && M09_3 === 'yes') {
+                    return 20
+                }
+                if (M09_1 === 'yes' && M09_2 === 'yes' && M09_3 === 'no') {
                     return 15
                 }
-                if (M09 === 'completely') {
-                    return 20
+                if (M09_1 === 'yes' && M09_2 === 'yes' && M09_3 === 'yes') {
+                    return new Error("Choose one of the two options")
                 }
             }]
         },
@@ -204,15 +229,29 @@
             "title": "M10 Pipe Replacement",
             "description": "Move a New Pipe so it is where the broken one started, in full/flat contact with the mat.",
             "objectives": [{
-                "id": "M10",
-                "title": "New Pipe is installed where Broken Pipe was, in full/flat contact with the mat",
-                "type": "yesno"
-            }],
-            "score": [function(M10) {
-                if (M10 === 'no') {
+                    "id": "M10_1",
+                    "title": "New Pipe is installed where Broken Pipe was",
+                    "type": "yesno",
+                "default": "no"
+                },
+                {
+                    "id": "M10_2",
+                    "title": "This New Pipe has full/flat contact with the mat",
+                    "type": "yesno",
+                "default": "no"
+                }
+            ],
+            "score": [function(M10_1, M10_2) {
+                if (M10_1 === 'no' && M10_2 === 'no') {
                     return 0
                 }
-                if (M10 === 'yes') {
+                if (M10_1 === 'no' && M10_2 === 'yes') {
+                    return 0
+                }
+                if (M10_1 === 'yes' && M10_2 === 'no') {
+                    return 0
+                }
+                if (M10_1 === 'yes' && M10_2 === 'yes') {
                     return 20
                 }
             }]
@@ -221,32 +260,48 @@
             "title": "M11 Pipe Construction",
             "description": "Move a New Pipe.",
             "objectives": [{
-                "id": "M11",
-                "title": "New Pipe has full/flat contact with the mat and is in its target",
-                "options": [{
-                        "value": "completely",
-                        "title": "Completely"
-                    },
-                    {
-                        "value": "partially",
-                        "title": "Partially"
-                    },
-                    {
-                        "value": "none",
-                        "title": "No"
-                    }
-                ],
-                "type": "enum"
-            }],
-            "score": [function(M11) {
-                if (M11 === 'none') {
+                    "id": "M11_1",
+                    "title": "New Pipe has full/flat contact with the mat",
+                    "type": "yesno",
+                "default": "no"
+                },
+                {
+                    "id": "M11_2",
+                    "title": "This New Pipe is partially in its target",
+                    "type": "yesno",
+                "default": "no"
+                },
+                {
+                    "id": "M11_3",
+                    "title": "OR this New Pipe is completely in its target",
+                    "type": "yesno",
+                "default": "no"
+                }
+            ],
+            "score": [function(M11_1, M11_2, M11_3) {
+                if (M11_1 === 'no' && M11_2 === 'no' && M11_3 === 'no') {
                     return 0
                 }
-                if (M11 === 'partially') {
+                if (M11_1 === 'no' && M11_2 === 'no' && M11_3 === 'yes') {
+                    return 0
+                }
+                if (M11_1 === 'no' && M11_2 === 'yes' && M11_3 === 'no') {
+                    return 0
+                }
+                if (M11_1 === 'no' && M11_2 === 'yes' && M11_3 === 'yes') {
+                    return new Error("Choose one of the two options")
+                }
+                if (M11_1 === 'yes' && M11_2 === 'no' && M11_3 === 'no') {
+                    return 0
+                }
+                if (M11_1 === 'yes' && M11_2 === 'no' && M11_3 === 'yes') {
+                    return 20
+                }
+                if (M11_1 === 'yes' && M11_2 === 'yes' && M11_3 === 'no') {
                     return 15
                 }
-                if (M11 === 'completely') {
-                    return 20
+                if (M11_1 === 'yes' && M11_2 === 'yes' && M11_3 === 'yes') {
+                    return new Error("Choose one of the two options")
                 }
             }]
         },
@@ -256,7 +311,8 @@
             "objectives": [{
                 "id": "M12",
                 "title": "Sludge is touching the visible wood of a drawn garden box",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M12) {
                 if (M12 === 'no') {
@@ -273,12 +329,14 @@
             "objectives": [{
                     "id": "M13_1",
                     "title": "Flower is raised (due only to a Big Water in brown pot)",
-                    "type": "yesno"
+                    "type": "yesno",
+                "default": "no"
                 },
                 {
                     "id": "M13_2",
                     "title": "At least one rain is in the purple part, touching nothing but Flower model",
-                    "type": "yesno"
+                    "type": "yesno",
+                "default": "no"
                 }
             ],
             "score": [function(M13_1, M13_2) {
@@ -300,32 +358,30 @@
             "title": "M14 Water Well",
             "description": "Move the Water Well so it has contact with the mat.",
             "objectives": [{
-                "id": "M14",
-                "title": "Water Well has contact with the mat inside the target area",
-                "options": [{
-                        "value": "completely",
-                        "title": "Completely"
-                    },
-                    {
-                        "value": "partially",
-                        "title": "Partially"
-                    },
-                    {
-                        "value": "none",
-                        "title": "No"
-                    }
-                ],
-                "type": "enum"
-            }],
-            "score": [function(M14) {
-                if (M14 === 'none') {
+                    "id": "M14_1",
+                    "title": "Water Well has contact with the mat partially inside the target area",
+                    "type": "yesno",
+                "default": "no"
+                },
+                {
+                    "id": "M14_2",
+                    "title": "Water Well has contact with the mat completely inside the target area",
+                    "type": "yesno",
+                "default": "no"
+                }
+            ],
+            "score": [function(M14_1, M14_2) {
+                if (M14_1 === 'no' && M14_2 === 'no') {
                     return 0
                 }
-                if (M14 === 'partially') {
+                if (M14_1 === 'no' && M14_2 === 'yes') {
+                    return 25
+                }
+                if (M14_1 === 'yes' && M14_2 === 'no') {
                     return 15
                 }
-                if (M14 === 'completely') {
-                    return 25
+                if (M14_1 === 'yes' && M14_2 === 'yes') {
+                    return new Error("Choose one of the two options")
                 }
             }]
         },
@@ -335,7 +391,8 @@
             "objectives": [{
                 "id": "M15",
                 "title": "Fire is dropped (due only to Firetruck applying direct force to House’s lever)",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M15) {
                 if (M15 === 'no') {
@@ -352,17 +409,20 @@
             "objectives": [{
                     "id": "M16_1",
                     "title": "Water Target is East of Off-Limits line (and never reached Off-Limit line)",
-                    "type": "yesno"
+                    "type": "yesno",
+                "default": "no"
                 },
                 {
                     "id": "M16_2",
                     "title": "At least one Rain is touching mat in Water Target",
-                    "type": "yesno"
+                    "type": "yesno",
+                "default": "no"
                 },
                 {
                     "id": "M16_4",
                     "title": "At least one pair of Big Waters are stacked in Water Target",
-                    "type": "yesno"
+                    "type": "yesno",
+                "default": "no"
                 },
                 {
                     "id": "M16_3",
@@ -392,7 +452,8 @@
                             "title": "0"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "0"
                 }
             ],
             "score": [function(M16_1, M16_2, M16_3, M16_4) {
@@ -548,12 +609,14 @@
             "objectives": [{
                     "id": "M17_1",
                     "title": "Slingshot is completely in the Slingshot target",
-                    "type": "yesno"
+                    "type": "yesno",
+                "default": "no"
                 },
                 {
                     "id": "M17_2",
                     "title": "Rain AND Dirty Water are completely in the Slingshot target",
-                    "type": "yesno"
+                    "type": "yesno",
+                "default": "no"
                 }
             ],
             "score": [function(M17_1, M17_2) {
@@ -577,7 +640,8 @@
             "objectives": [{
                 "id": "M18",
                 "title": "Water level is more blue than white (only by turning Faucet handle)",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M18) {
                 if (M18 === 'no') {
@@ -623,7 +687,8 @@
                         "title": "0"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "0"
             }],
             "score": [function(penalties) {
                 if (penalties === '0') {
@@ -684,10 +749,6 @@
         "M09-scoring1": "All the Tripod’s feet are touching the mat",
         "M09-scoring2": "Tripod is partially in a Tripod target",
         "M09-scoring3": "OR Tripod is completely in a Tripod target",
-        "M09-scoring4": "All the Tripod’s feet are touching the mat and Tripod is in a Tripod target",
-        "M09-scoring5": "No",
-        "M09-scoring6": "Partially",
-        "M09-scoring7": "Completely",
         "M09-error": "Choose one of the two options",
         "M10-name": "M10 Pipe Replacement",
         "M10-desc": "Move a New Pipe so it is where the broken one started, in full/flat contact with the mat.",
@@ -699,10 +760,6 @@
         "M11-scoring1": "New Pipe has full/flat contact with the mat",
         "M11-scoring2": "This New Pipe is partially in its target",
         "M11-scoring3": "OR this New Pipe is completely in its target",
-        "M11-scoring4": "New Pipe has full/flat contact with the mat and is in its target",
-        "M11-scoring5": "No",
-        "M11-scoring6": "Partially",
-        "M11-scoring7": "Completely",
         "M12-name": "M12 Sludge",
         "M12-desc": "Move the Sludge so it is touching the visible wood of any of the six drawn garden boxes.",
         "M12-scoring": "Sludge is touching the visible wood of a drawn garden box",
@@ -714,10 +771,6 @@
         "M14-desc": "Move the Water Well so it has contact with the mat.",
         "M14-scoring1": "Water Well has contact with the mat partially inside the target area",
         "M14-scoring2": "Water Well has contact with the mat completely inside the target area",
-        "M14-scoring4": "Water Well has contact with the mat inside the target area",
-        "M14-scoring5": "No",
-        "M14-scoring6": "Partially",
-        "M14-scoring7": "Completely",
         "M15-name": "M15 Fire",
         "M15-desc": "ake the fire drop *only by making the Firetruck apply direct force to the House’s lever.",
         "M15-scoring": "Fire is dropped (due only to Firetruck applying direct force to House’s lever)",
