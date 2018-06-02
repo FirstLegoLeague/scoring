@@ -5,8 +5,9 @@ export default {
 	<div class="top-bar">
 		<div class="top-bar-right">
 			<div class="button-group">
-				<div class="button" ng-click="scoresheet.reset()"><i class="fa fa-sync-alt"></i></div>
 				<div class="hollow button">{{scoresheet.score()}} pts.</div>
+				<div class="button" ng-click="scoresheet.setDefault()"><i class="fa fa-arrow-down"></i></div>
+				<div class="button" ng-click="scoresheet.reset()"><i class="fa fa-undo"></i></div>
 			</div>
 		</div>
 	</div>

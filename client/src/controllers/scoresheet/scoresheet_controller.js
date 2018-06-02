@@ -5,9 +5,10 @@ const MISSION_SCROLL_OFFSET = -150
 
 class ScoresheetController {
 
-	constructor ($scope, $document, Scoresheet) {
+	constructor ($scope, $document, Configuration, Scoresheet) {
         this.$scope = $scope
         this.$document = $document
+        this.Configuration = Configuration
 		this.Scoresheet = Scoresheet
 	}
 
@@ -32,7 +33,7 @@ class ScoresheetController {
 
      complete () {
         this.signature = this.$scope.getSignature()
-        return this.missions && this.missions.every(mission => mission.complete) && !this.signature.isEmpty
+        return this.missions && this.missions.every(mission => mission.complete) && !(this.Configuration.requireSignature && this.signature.isEmpty)
      }
 
      reset () {
@@ -44,6 +45,10 @@ class ScoresheetController {
             self.$scope.$apply()
             self.scrollToMission(self.scoresheet.missions[0])
         })
+     }
+
+     setDefault () {
+        this.$scope.$broadcast('set default')
      }
 
 	 scrollToMission (mission) {
@@ -82,6 +87,6 @@ class ScoresheetController {
 
 }
 
-ScoresheetController.$inject = ['$scope', '$document', 'Scoresheet']
+ScoresheetController.$inject = ['$scope', '$document', 'Configuration', 'Scoresheet']
 
 export default ScoresheetController

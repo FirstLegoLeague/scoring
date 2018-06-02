@@ -12,6 +12,12 @@ class ObjectiveController {
 			self.data.complete = true
 			self.$scope.$emit('objective complete')
 		})
+
+		this.$scope.$on('set default', () => self.setDefault())
+	}
+
+	setDefault () {
+		this.data.value = this.data.default
 	}
 
 }

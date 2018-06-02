@@ -4,14 +4,13 @@ import angular from 'angular'
 
 class Scoresheet {
 
-	constructor (Configuration, Challenge) {
+	constructor (Challenge) {
 		this.Challenge = Challenge
-		this.Configuration = Configuration
 	}
 
 	load () {
 		let self = this
-		return this.Challenge.load(self.Configuration.challenge)
+		return this.Challenge.load()
 			.then(challenge => self._challenge = challenge)
 	}
 
@@ -69,6 +68,6 @@ class Scoresheet {
 
 }
 
-Scoresheet.$inject = ['Configuration', 'Challenge']
+Scoresheet.$inject = ['Challenge']
 
 export default Scoresheet

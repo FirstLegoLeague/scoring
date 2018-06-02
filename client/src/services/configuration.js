@@ -2,11 +2,20 @@
 
 class Configuration {
 
-	constructor () {
-		this.MHUB = `ws://${document.location}:13900/`
-		this.challenge = '2017_en_US-official'
+	constructor ($http) {
+		this.$http = $http
+	}
+
+	load () {
+		let self = this
+		return this.$http.get('/config').then(response => {
+			Object.assign(self, response.data)
+			return self
+		})
 	}
 
 }
+
+Configuration.$inject = ['$http']
 
 export default Configuration

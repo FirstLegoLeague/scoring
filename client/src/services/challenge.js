@@ -4,8 +4,9 @@ const MISSION_DEPENDENCIES_REGEX = /^function\((.+)\)/
 
 class Challenge {
 
-	constructor ($http) {
+	constructor ($http, Configuration) {
 		this.$http = $http
+		this.Configuration = Configuration
 	}
 
 	list () {
@@ -15,12 +16,16 @@ class Challenge {
 
 	load (challenge) {
 		let self = this
-		return this.$http.get(`/challenge/${challenge}`).then(response => {
+		let challengePromise = challenge ? Promise.resolve(challenge) : this.getConfiguratedChallenge()
+
+		return challengePromise
+		.then(challenge => this.$http.get(`/challenge/${challenge}`))
+		.then(response => {
             self.challenge = eval(`(${response.data})`) // We can't use JSON.parse because the file contains functions
             self.challenge.objectives = self.objectives(self.challenge.missions)
 	        self.challenge.missions.forEach(mission => self.assignDependencies(mission, self.challenge.objectives))
             return self.challenge
-        })
+	    })
 	}
 
 	objectives (missions) {
@@ -43,8 +48,16 @@ class Challenge {
 		return this.challenge.strings[key]
 	}
 
+	getConfiguratedChallenge () {
+		return this.Configuration.load().then(config => {
+			let year = config.year.split(' ')[0]
+			let language = config.language.split(' ')[0]
+			return `${year}_${language}`
+		})
+	}
+
 }
 
-Challenge.$inject = ['$http']
+Challenge.$inject = ['$http', 'Configuration']
 
 export default Challenge

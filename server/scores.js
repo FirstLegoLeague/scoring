@@ -14,8 +14,7 @@ router.post('/create', (req, res) => {
   db.scores.save(req.body).then(() => {
     res.status(201).send()
   }).catch(err => {
-    // TODO log
-    res.status(500).send(err)
+    res.status(500).send('A problem occoured while trying to save score.')
   })
 })
 
@@ -26,8 +25,7 @@ router.put('/:id/update', (req, res) => {
   }).then(() => {
     res.status(204).send()
   }).catch(err => {
-    // TODO log
-    res.status(500).send(err)
+    res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
   })
 })
 
@@ -35,8 +33,7 @@ router.delete('/:id/delete', (req, res) => {
   db.scores.remove({ _id: mongojs.ObjectId(req.params.id) }).then(() => {
     res.status(204).send()
   }).catch(err => {
-    // TODO log
-    res.status(500).send(err)
+    res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)
   })
 })
 
@@ -44,8 +41,7 @@ router.get('/:id', (req, res) => {
   db.scores.findOne({ _id: mongojs.ObjectId(req.params.id) }).then(score => {
     res.status(200).json(score)
   }).catch(err => {
-    // TODO log
-    res.status(500).send(err)
+    res.status(500).send(`A problem occoured while trying to get score ${req.params.id}.`)
   })
 })
 
@@ -53,8 +49,7 @@ router.get('/search', (req, res) => {
   db.scores.findOne(req.query).then(score => {
     res.status(200).json(score)
   }).catch(err => {
-    // TODO log
-    res.status(500).send(err)
+    res.status(500).send(`A problem occoured while trying to find score.`)
   })
 })
 

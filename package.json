@@ -2,12 +2,13 @@
   "name": "scoring",
   "version": "1.0.0",
   "description": "Main scoring service",
-  "main": "server/index.js",
+  "main": "index.js",
   "repository": "https://github.com/FirstLegoLeagueIL/scoring",
   "author": "Idan Stark <idanstark42@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "node ./index.js"
+    "dev": "set DEV=true && node ./index.js",
+    "prod": "node ./index.js"
   },
   "dependencies": {
     "@first-lego-league/ms-authentication": "^1.0.0",

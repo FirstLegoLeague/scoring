@@ -2,7 +2,7 @@ Arguments:
   C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js run dev
 
 PATH: 
-  C:\Users\Idan Stark\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Idan Stark\bin;C:\Perl64\site\bin;C:\Perl64\bin;C:\ProgramData\Oracle\Java\javapath;C:\MinGw\bin;C:\MinGw\libexec\gcc\x86_64-pc-mingw32\4.6.4;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Lenovo\Bluetooth Software;C:\Program Files\Lenovo\Bluetooth Software\syswow64;C:\Program Files (x86)\QuickTime\QTSystem;C:\Program Files (x86)\Windows Live\Shared;C:\PROGRA~2\IVIFOU~1\VISA\WinNT\Bin;C:\Program Files (x86)\Heroku\bin;C:\Program Files (x86)\git\cmd;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit;C:\Program Files\PuTTY;C:\Program Files (x86)\Skype\Phone;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin;C:\Users\Idan Stark\AppData\Local\Programs\Python\Python36-32\Scripts;C:\Users\Idan Stark\AppData\Local\Programs\Python\Python36-32;C:\RailsInstaller\Ruby2.1.0\bin;C:\Users\Idan Stark\AppData\Local\Microsoft\WindowsApps;C:\Users\Idan Stark\AppData\Roaming\npm;C:\Users\Idan Stark\AppData\Local\Yarn\bin;C:\Program Files\Docker Toolbox;C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;C:\msys\1.0\bin;C:\Perl64\bin;C:\Program Files\Mercurial;C:\commands;C:\Program Files\MongoDB\Server\3.6\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Users\Idan Stark\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Idan Stark\bin;C:\Perl64\site\bin;C:\Perl64\bin;C:\ProgramData\Oracle\Java\javapath;C:\MinGw\bin;C:\MinGw\libexec\gcc\x86_64-pc-mingw32\4.6.4;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Lenovo\Bluetooth Software;C:\Program Files\Lenovo\Bluetooth Software\syswow64;C:\Program Files (x86)\QuickTime\QTSystem;C:\Program Files (x86)\Windows Live\Shared;C:\PROGRA~2\IVIFOU~1\VISA\WinNT\Bin;C:\Program Files (x86)\Heroku\bin;C:\Program Files (x86)\git\cmd;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit;C:\Program Files\PuTTY;C:\Program Files (x86)\Skype\Phone;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin;C:\WINDOWS\System32\OpenSSH;C:\Users\Idan Stark\AppData\Local\Programs\Python\Python36-32\Scripts;C:\Users\Idan Stark\AppData\Local\Programs\Python\Python36-32;C:\RailsInstaller\Ruby2.1.0\bin;C:\Users\Idan Stark\AppData\Local\Microsoft\WindowsApps;C:\Users\Idan Stark\AppData\Roaming\npm;C:\Users\Idan Stark\AppData\Local\Yarn\bin;C:\Program Files\Docker Toolbox;C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;C:\msys\1.0\bin;C:\Perl64\bin;C:\Program Files\Mercurial;C:\commands;C:\Program Files\MongoDB\Server\3.6\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   0.27.5
@@ -18,12 +18,13 @@ npm manifest:
     "name": "scoring",
     "version": "1.0.0",
     "description": "Main scoring service",
-    "main": "server/index.js",
+    "main": "index.js",
     "repository": "https://github.com/FirstLegoLeagueIL/scoring",
     "author": "Idan Stark <idanstark42@gmail.com>",
     "license": "MIT",
     "scripts": {
-      "dev": "node ./server/index.js",
+      "dev": "node ./index.js DEV=true"
+      "prod": "node ./index.js"
     },
     "dependencies": {
       "@first-lego-league/ms-authentication": "^1.0.0",
@@ -78,8 +79,8 @@ Lockfile:
       randomatic "^3.0.0"
   
   "@first-lego-league/ms-logger@^1.2.0", "@first-lego-league/ms-logger@^1.2.1":
-    version "1.2.1"
-    resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.2.1.tgz#00946a8caf5818b2f552ffb2d803d89796970385"
+    version "1.2.2"
+    resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.2.2.tgz#c5e2623d687566745b5f782930a9ec92fd5ee15c"
     dependencies:
       jsonfile "^4.0.0"
       on-finished "^2.3.0"
@@ -2454,7 +2455,7 @@ Lockfile:
       yargs-parser "^2.4.1"
 
 Trace: 
-  SyntaxError: C:\workspace\flltools\scoring\package.json: Unexpected token } in JSON at position 303
+  SyntaxError: C:\workspace\flltools\scoring\package.json: Unexpected string in JSON at position 299
       at JSON.parse (<anonymous>)
       at C:\Program Files (x86)\Yarn\lib\yarn-cli.js:747:57
       at Generator.next (<anonymous>)
