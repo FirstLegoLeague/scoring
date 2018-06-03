@@ -4,6 +4,8 @@
 const express = require('express')
 const path = require('path')
 const domain = require('domain')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 
 const { correlationMiddleware, correlateSession } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-authentication')
@@ -18,6 +20,9 @@ const logger = new Logger()
 
 app.use(correlationMiddleware)
 app.use(loggerMiddleware)
+app.use(cookieParser())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 if(process.env.DEV) {
 	app.use(authenticationDevMiddleware)

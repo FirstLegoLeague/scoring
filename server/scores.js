@@ -1,17 +1,23 @@
 'use strict'
 
 const express = require('express')
-const mongojs = require('mongojs')
-const Promise = require('bluebird')
+const mongo = require('mongodb-bluebird')
 
 const DEFAULTS = require('./defaults')
 
-const db = Promise.promisifyAll(mongojs(process.env.MONGO || DEFAULTS.MONGO, ['scores']))
+const mongoUrl = process.env.MONGO || DEFAULTS.MONGO
 
 const router = express.Router()
 
+function connect () {
+  return mongo.connect(mongoUrl)
+    .then(db => db.collection('scores'))
+}
+
 router.post('/create', (req, res) => {
-  db.scores.save(req.body).then(() => {
+  connect().then(scores => {
+    scores.save(req.body)
+  }).then(() => {
     res.status(201).send()
   }).catch(err => {
     res.status(500).send('A problem occoured while trying to save score.')
@@ -19,9 +25,11 @@ router.post('/create', (req, res) => {
 })
 
 router.put('/:id/update', (req, res) => {
-  db.scores.findAndModify({
-    query: { _id: mongojs.ObjectId(req.params.id) },
-    update: req.body
+  connect().then(scores => {
+    scores.findAndModify({
+      query: { _id: mongo.ObjectId(req.params.id) },
+      update: req.body
+    })
   }).then(() => {
     res.status(204).send()
   }).catch(err => {
@@ -30,15 +38,32 @@ router.put('/:id/update', (req, res) => {
 })
 
 router.delete('/:id/delete', (req, res) => {
-  db.scores.remove({ _id: mongojs.ObjectId(req.params.id) }).then(() => {
+  connect().then(scores => {
+    scores.remove({ _id: mongo.ObjectId(req.params.id) })
+  }).then(() => {
     res.status(204).send()
   }).catch(err => {
     res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)
   })
 })
 
+router.get('/all', (req, res) => {
+  connect().then(scores => {
+    console.log('here')
+    return scores.find()
+  }).then(scores => {
+    console.log(`count: ${scores.count}`)
+    res.status(201).send(scores)
+  }).catch(err => {
+    console.log(err)
+    res.status(500).send('A problem occoured while trying to save score.')
+  })
+})
+
 router.get('/:id', (req, res) => {
-  db.scores.findOne({ _id: mongojs.ObjectId(req.params.id) }).then(score => {
+  connect().then(scores => {
+    return scores.findOne({ _id: mongojs.ObjectId(req.params.id) })
+  }).then(score => {
     res.status(200).json(score)
   }).catch(err => {
     res.status(500).send(`A problem occoured while trying to get score ${req.params.id}.`)
@@ -46,10 +71,12 @@ router.get('/:id', (req, res) => {
 })
 
 router.get('/search', (req, res) => {
-  db.scores.findOne(req.query).then(score => {
+  connect().then(scores => {
+    return scores.findOne(req.query)
+  }).then(score => {
     res.status(200).json(score)
   }).catch(err => {
-    res.status(500).send(`A problem occoured while trying to find score.`)
+    res.status(500).send(err)
   })
 })
 

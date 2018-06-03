@@ -2,7 +2,6 @@
 
 const express = require('express')
 const path = require('path')
-const Promise = require('bluebird')
 
 const Configuration = require('@first-lego-league/ms-configuration')
 

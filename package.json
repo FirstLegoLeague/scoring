@@ -16,9 +16,9 @@
     "@first-lego-league/ms-correlation": "^0.0.2",
     "@first-lego-league/ms-logger": "^1.2.1",
     "bluebird": "^3.5.1",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "mongojs": "^2.5.0"
+    "mongodb-bluebird": "^0.1.2"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

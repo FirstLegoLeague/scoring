@@ -3,8 +3,8 @@
 
 
 "@first-lego-league/ms-authentication@^1.0.0":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-authentication/-/ms-authentication-1.0.4.tgz#2cfaf9bc2669c6f06f69ba5e718b4b612527b174"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-authentication/-/ms-authentication-1.0.5.tgz#7bd7d1b0acc0b41886ff23b70f140f6c276a3906"
   dependencies:
     "@first-lego-league/ms-logger" "^1.2.0"
     cookie-parser "^1.4.3"
@@ -12,8 +12,8 @@
     jsonwebtoken "^8.2.0"
 
 "@first-lego-league/ms-configuration@^1.0.0":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-configuration/-/ms-configuration-1.0.2.tgz#69a17a64d73b8c32ccd0ad03c40f73511d96e488"
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-configuration/-/ms-configuration-1.0.3.tgz#ffb1c35bf4e3dee89f6dfc6a7bc87ad88e090f1e"
   dependencies:
     mhub "^0.9.1"
     yamljs "^0.3.0"
@@ -185,7 +185,7 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-bluebird@^3.5.1:
+bluebird@^3.3.1, bluebird@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
@@ -204,7 +204,7 @@ body-parser@1.18.2:
     raw-body "2.3.2"
     type-is "~1.6.15"
 
-body-parser@^1.18.2:
+body-parser@^1.18.3:
   version "1.18.3"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.18.3.tgz#5b292198ffdd553b3a0f20ded0592b956955c8b4"
   dependencies:
@@ -314,6 +314,10 @@ chalk@^2.0.0, chalk@^2.1.0:
 chardet@^0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.4.2.tgz#b5473b33dc97c424e5d98dc87d55d4d8a29c8bf2"
+
+check-types@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/check-types/-/check-types-6.0.0.tgz#de12a2ffc295df40b3afca2bcfeb831bc5f5edf0"
 
 circular-json@^0.3.1:
   version "0.3.3"
@@ -510,10 +514,6 @@ doctrine@^2.1.0:
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.1.0.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
   dependencies:
     esutils "^2.0.2"
-
-each-series@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/each-series/-/each-series-1.0.0.tgz#f886e6c66dfdb25ef1fe73564146ee5cb478afcb"
 
 ecdsa-sig-formatter@1.0.10:
   version "1.0.10"
@@ -857,7 +857,7 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
-function-bind@^1.0.2:
+function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
@@ -941,10 +941,10 @@ has-values@^1.0.0:
     kind-of "^4.0.0"
 
 has@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/has/-/has-1.0.1.tgz#8461733f538b0837c9361e39a9ab9e9704dc2f28"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/has/-/has-1.0.2.tgz#1a64bfe4b52e67fb87b9822503d97c019fb6ba42"
   dependencies:
-    function-bind "^1.0.2"
+    function-bind "^1.1.1"
 
 hosted-git-info@^2.1.4:
   version "2.6.0"
@@ -1431,6 +1431,15 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+mongodb-bluebird@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/mongodb-bluebird/-/mongodb-bluebird-0.1.2.tgz#70f3c4eca77fd6aee94da95a09362f98878034e6"
+  dependencies:
+    bluebird "^3.3.1"
+    check-types "^6.0.0"
+    mongodb "^2.1.7"
+    object-assign "^4.0.1"
+
 mongodb-core@2.1.19:
   version "2.1.19"
   resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-2.1.19.tgz#00fbd5e5a3573763b9171cfd844e60a8f2a3a18b"
@@ -1438,26 +1447,13 @@ mongodb-core@2.1.19:
     bson "~1.0.4"
     require_optional "~1.0.0"
 
-mongodb@^2.2.31:
+mongodb@^2.1.7:
   version "2.2.35"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.35.tgz#cd1b5af8a9463e3f9a787fa5b3d05565579730f9"
   dependencies:
     es6-promise "3.2.1"
     mongodb-core "2.1.19"
     readable-stream "2.2.7"
-
-mongojs@^2.5.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/mongojs/-/mongojs-2.6.0.tgz#333f580621a0dc64800865e38e36a6e61ff16989"
-  dependencies:
-    each-series "^1.0.0"
-    mongodb "^2.2.31"
-    once "^1.4.0"
-    parse-mongo-url "^1.1.1"
-    readable-stream "^2.3.3"
-    thunky "^1.0.2"
-    to-mongodb-core "^2.0.0"
-    xtend "^4.0.1"
 
 ms@2.0.0:
   version "2.0.0"
@@ -1543,7 +1539,7 @@ on-headers@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/on-headers/-/on-headers-1.0.1.tgz#928f5d0f470d49342651ea6794b0857c100693f7"
 
-once@^1.3.0, once@^1.4.0:
+once@^1.3.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
   dependencies:
@@ -1601,10 +1597,6 @@ parse-json@^2.2.0:
   resolved "https://registry.yarnpkg.com/parse-json/-/parse-json-2.2.0.tgz#f480f40434ef80741f8469099f8dea18f55a4dc9"
   dependencies:
     error-ex "^1.2.0"
-
-parse-mongo-url@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/parse-mongo-url/-/parse-mongo-url-1.1.1.tgz#66238df5f8e7c0c8ca4cd970d4ab6a1373eb75b5"
 
 parseurl@~1.3.2:
   version "1.3.2"
@@ -1800,7 +1792,7 @@ readable-stream@2.2.7:
     string_decoder "~1.0.0"
     util-deprecate "~1.0.1"
 
-readable-stream@^2.2.2, readable-stream@^2.3.3:
+readable-stream@^2.2.2:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
   dependencies:
@@ -2183,19 +2175,11 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
-thunky@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.0.2.tgz#a862e018e3fb1ea2ec3fce5d55605cf57f247371"
-
 tmp@^0.0.33:
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
   dependencies:
     os-tmpdir "~1.0.2"
-
-to-mongodb-core@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/to-mongodb-core/-/to-mongodb-core-2.0.0.tgz#3596ec7613ac9ad3b98a89dcb9aefba569cd27eb"
 
 to-object-path@^0.3.0:
   version "0.3.0"
