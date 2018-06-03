@@ -1,8 +1,8 @@
 'use strict'
 
 export default {
-	template: `<input name="scores" ng-model="scoreText" />
-		<div class="scores-template">{{scoreText}}</div>`,
+	template: `<div></div>`,
+	controller: 'ScoresController as scores',
 	bidings: {
 		scoreText: '='
 	}

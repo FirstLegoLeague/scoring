@@ -3,6 +3,9 @@
 export default {
 	template: `
 	<div class="top-bar">
+		<div class="top-bar-left">
+			<identity></identity>
+		</div>
 		<div class="top-bar-right">
 			<div class="button-group">
 				<div class="hollow button">{{scoresheet.score()}} pts.</div>

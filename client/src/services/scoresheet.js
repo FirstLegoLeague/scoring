@@ -4,14 +4,19 @@ import angular from 'angular'
 
 class Scoresheet {
 
-	constructor (Challenge) {
+	constructor (Challenge, Identity, Independence) {
 		this.Challenge = Challenge
+		this.Identity = Identity
+		this.Independence = Independence
 	}
 
 	load () {
 		let self = this
 		return this.Challenge.load()
-			.then(challenge => self._challenge = challenge)
+			.then(challenge => {
+				self._challenge = challenge
+				self._challenge.signature = undefined
+			})
 	}
 
 	setTeam (team) {
@@ -63,11 +68,38 @@ class Scoresheet {
 	}
 
 	save () {
-		// TODO
+		this.Identity.load().then(identity => {
+			let sanitizedScoresheet = {
+				missions:  this.current.missions.map(mission => {
+					return {
+						id:mission.id,
+						title:mission.title,
+						description: mission.description,
+						score:mission.score,
+						objectives: mission.objectives.map(objective => {
+							return {
+								id:objective.id,
+								title:objective.title,
+								type: objective.type,
+								default:objective.default,
+								value: objective.value
+							}
+						})
+					}
+				}),
+				score: this.current.score,
+				title: this.current.title,
+				signature: this.current.signature,
+				referee: identity.referee,
+				table: identity.table
+			}
+
+			this.Independence.send('POST', '/scores/create', sanitizedScoresheet)
+		})
 	}
 
 }
 
-Scoresheet.$inject = ['Challenge']
+Scoresheet.$inject = ['Challenge', 'Identity', 'Independence']
 
 export default Scoresheet

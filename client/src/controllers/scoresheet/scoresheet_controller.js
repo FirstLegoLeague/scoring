@@ -32,8 +32,10 @@ class ScoresheetController {
      }
 
      complete () {
-        this.signature = this.$scope.getSignature()
-        return this.missions && this.missions.every(mission => mission.complete) && !(this.Configuration.requireSignature && this.signature.isEmpty)
+        if(!this.scoresheet)    return false
+        
+        this.scoresheet.signature = this.$scope.getSignature()
+        return this.missions && this.missions.every(mission => mission.complete) && !(this.Configuration.requireSignature && this.scoresheet.signature.isEmpty)
      }
 
      reset () {
@@ -45,6 +47,10 @@ class ScoresheetController {
             self.$scope.$apply()
             self.scrollToMission(self.scoresheet.missions[0])
         })
+     }
+
+     save () {
+      this.Scoresheet.save()  
      }
 
      setDefault () {
