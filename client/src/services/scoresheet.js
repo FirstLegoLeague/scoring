@@ -68,7 +68,7 @@ class Scoresheet {
 	}
 
 	save () {
-		this.Identity.load().then(identity => {
+		return this.Identity.load().then(identity => {
 			let sanitizedScoresheet = {
 				missions:  this.current.missions.map(mission => {
 					return {
@@ -94,7 +94,7 @@ class Scoresheet {
 				table: identity.table
 			}
 
-			this.Independence.send('POST', '/scores/create', sanitizedScoresheet)
+			return this.Independence.send('POST', '/scores/create', sanitizedScoresheet)
 		})
 	}
 

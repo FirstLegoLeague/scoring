@@ -50,7 +50,10 @@ class ScoresheetController {
      }
 
      save () {
-      this.Scoresheet.save()  
+        let self = this
+        this.Scoresheet.save().then(() => {
+            self.reset()
+        })  
      }
 
      setDefault () {
