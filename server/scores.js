@@ -26,10 +26,7 @@ router.post('/create', (req, res) => {
 
 router.put('/:id/update', (req, res) => {
   connect().then(scores => {
-    scores.findAndModify({
-      query: { _id: mongo.ObjectId(req.params.id) },
-      update: req.body
-    })
+    scores.update({ _id: req.params.id }, { $set: req.body })
   }).then(() => {
     res.status(204).send()
   }).catch(err => {
@@ -39,7 +36,7 @@ router.put('/:id/update', (req, res) => {
 
 router.delete('/:id/delete', (req, res) => {
   connect().then(scores => {
-    scores.remove({ _id: mongo.ObjectId(req.params.id) })
+    scores.remove({ _id: req.params.id })
   }).then(() => {
     res.status(204).send()
   }).catch(err => {
@@ -49,13 +46,10 @@ router.delete('/:id/delete', (req, res) => {
 
 router.get('/all', (req, res) => {
   connect().then(scores => {
-    console.log('here')
     return scores.find()
   }).then(scores => {
-    console.log(`count: ${scores.count}`)
     res.status(201).send(scores)
   }).catch(err => {
-    console.log(err)
     res.status(500).send('A problem occoured while trying to save score.')
   })
 })

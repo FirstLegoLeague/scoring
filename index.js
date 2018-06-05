@@ -24,10 +24,10 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-if(process.env.DEV) {
-	app.use(authenticationDevMiddleware)
+if (process.env.DEV) {
+  app.use(authenticationDevMiddleware)
 } else {
-	app.use(authenticationMiddleware)
+  app.use(authenticationMiddleware)
 }
 
 app.use('/webfonts', express.static(path.resolve(__dirname, 'client/node_modules/@first-lego-league/user-interface/current/assets/fonts')))

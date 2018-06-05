@@ -88,7 +88,7 @@ class Scoresheet {
 					}
 				}),
 				score: this.current.score,
-				title: this.current.title,
+				challenge: this.current.title,
 				signature: this.current.signature,
 				referee: identity.referee,
 				table: identity.table

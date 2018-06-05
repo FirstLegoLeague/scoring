@@ -57,3 +57,7 @@ bm-signature-pad {
     height: 100%;
     display: block;
 }
+
+#scores-list {
+    margin-top: 1rem;
+}

@@ -1,5 +1,4 @@
 #TODO List
-1. Actually save scores
 1. Add score management
 1. Add general errors for the scoresheet
 1. Finish this readme.md

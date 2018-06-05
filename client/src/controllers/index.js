@@ -8,6 +8,7 @@ import ObjectiveController from './scoresheet/objective_controller'
 import IdentityController from './scoresheet/identity_controller'
 
 import ScoresController from './scores/scores_controller'
+import ScoreController from './scores/score_controller'
 
 // eslint-disable-next-line node/exports-style
 export default {
@@ -16,5 +17,7 @@ export default {
 	MissionController,
 	ObjectiveController,
 	IdentityController,
-	ScoresController
+	
+	ScoresController,
+	ScoreController
 }
