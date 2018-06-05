@@ -53,7 +53,8 @@ class ScoresheetController {
         let self = this
         this.Scoresheet.save().then(() => {
             self.reset()
-        })  
+            self.$scope.$emit('notify', { level: 'success', message: 'Score saved successfully' })
+        })
      }
 
      setDefault () {
