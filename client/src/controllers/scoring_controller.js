@@ -12,6 +12,16 @@ class ScoringController {
   	this.$scope.$on('notify', (event, options) => {
   		self.Notifications.notify(options.level, options.message)
   	})
+
+    this.$scope.$on('open scoresheet', (event, score) => {
+      self.$scope.$broadcast('load', score)
+      self.toggleScoresList()
+    })
+
+    this.$scope.$on('close scoresheet', (event, score) => {
+      self.$scope.$broadcast('reload')
+      self.toggleScoresList()
+    })
   }
 
   toggleScoresList () {

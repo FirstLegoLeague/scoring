@@ -10,7 +10,7 @@ class Scoresheet {
 		this.Independence = Independence
 	}
 
-	load () {
+	init () {
 		let self = this
 		return this.Challenge.load()
 			.then(challenge => {
@@ -70,7 +70,7 @@ class Scoresheet {
 	save () {
 		return this.Identity.load().then(identity => {
 			let sanitizedScoresheet = {
-				missions:  this.current.missions.map(mission => {
+				missions: this.current.missions.map(mission => {
 					return {
 						id:mission.id,
 						title:mission.title,
@@ -90,11 +90,31 @@ class Scoresheet {
 				score: this.current.score,
 				challenge: this.current.title,
 				signature: this.current.signature,
-				referee: identity.referee,
-				table: identity.table
+				referee: identity.referee || this.crurent.referee,
+				table: identity.table || this.crurent.referee
 			}
 
-			return this.Independence.send('POST', '/scores/create', sanitizedScoresheet)
+			let action = this.current._id ? `/scores/${this.current._id}/update/` : '/scores/create'
+			return this.Independence.send('POST', action, sanitizedScoresheet)
+		})
+	}
+
+	load (scoresheet) {
+		return this.reset().then(current => {
+			scoresheet.missions.forEach(mission => {
+				mission.objectives.forEach(objective => {
+					current.objectives[objective.id].value = objective.value
+				})
+			})
+			Object.assign(current, {
+				referee: scoresheet.referee,
+				table: scoresheet.table,
+				signature: scoresheet.signature,
+				score: scoresheet.score,
+				title: scoresheet.challenge,
+				_id: scoresheet._id
+			})
+			return current
 		})
 	}
 

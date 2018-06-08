@@ -23,8 +23,15 @@ class ScoresheetController {
                 self.scrollToMission(nextMission)
             }
         })
+
+        this.$scope.$on('load', (event, scoresheet) => {
+            self.Scoresheet.load(scoresheet).then(scoresheet => {
+                self.scoresheet = scoresheet
+                self.missions = scoresheet.missions
+            })
+        })
         
-        return this.Scoresheet.load().then(() => self.reset())
+        return this.Scoresheet.init().then(() => self.reset())
 	 }
 
      score () {
@@ -33,9 +40,8 @@ class ScoresheetController {
 
      complete () {
         if(!this.scoresheet)    return false
-        
-        this.scoresheet.signature = this.$scope.getSignature()
-        return this.missions && this.missions.every(mission => mission.complete) && !(this.Configuration.requireSignature && this.scoresheet.signature.isEmpty)
+        let signatureMissing = this.Configuration.requireSignature && this.$scope.getSignature().isEmpty && !this.scoresheet._id
+        return this.missions && this.missions.every(mission => mission.complete) && !signatureMissing
      }
 
      reset () {
@@ -52,6 +58,10 @@ class ScoresheetController {
      save () {
         let self = this
         this.Scoresheet.save().then(() => {
+            self.scoresheet.signature = this.$scope.getSignature()
+            if(self.scoresheet._id) {
+                self.$scope.$emit('close scoresheet')
+            }
             self.reset()
             self.$scope.$emit('notify', { level: 'success', message: 'Score saved successfully' })
         })
@@ -80,11 +90,14 @@ class ScoresheetController {
         let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED
         let scrolling = endingPosition
 
+        let lastScorllPosition = undefined
+
         function scrollTick() {
             if(scrolling !== endingPosition) {
                 return
             }
-            if(missionsElement.scrollTop + tick < endingPosition) {
+            if(missionsElement.scrollTop + tick < endingPosition && missionsElement.scrollTop !== lastScorllPosition) {
+                lastScorllPosition = mission.scrollTop
                 missionsElement.scrollTop += tick
                 requestAnimationFrame(scrollTick)
             } else {

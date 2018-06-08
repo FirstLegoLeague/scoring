@@ -10,7 +10,7 @@ export default {
 	<div class="card-divider">{{score.data.referee}} On table {{score.data.table}}</div>
 	<div class="card-section">
 		<div class="button-group">
-			<div class="button"><i class="fa fa-edit"></i></div>
+			<div class="button" ng-click="score.open()"><i class="fa fa-edit"></i></div>
 			<div class="button" ng-click="score.togglePublish()"><i class="fa"  ng-class="score.togglingPublish ? 'fa-circle-notch fa-spin' : (score.data.public ? 'fa-minus-circle' : 'fa-plus-circle')"></i></div>
 			<div class="alert button" ng-click="score.delete()"><i class="fa" ng-class="score.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i></div>
 		</div>

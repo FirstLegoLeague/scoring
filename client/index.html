@@ -8,7 +8,7 @@
 	<body ng-controller="ScoringController as scoring">
 		<div class="top-bar">
 	    	<div class="top-bar-left">
-	    		<button class="hamburger--vortex" data-hamburger type="button" ng-click="scoring.toggleScoresList()">
+	    		<button class="hamburger--vortex" ng-class="{'is-active': scoring.showScoresScreen}" data-hamburger type="button" ng-click="scoring.toggleScoresList()">
 					<span class="hamburger-box">
 						<span class="hamburger-inner"></span>
 					</span>

@@ -24,7 +24,7 @@ router.post('/create', (req, res) => {
   })
 })
 
-router.put('/:id/update', (req, res) => {
+router.post('/:id/update', (req, res) => {
   connect().then(scores => {
     scores.update({ _id: req.params.id }, { $set: req.body })
   }).then(() => {

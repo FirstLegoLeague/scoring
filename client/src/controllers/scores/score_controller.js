@@ -26,6 +26,10 @@ class ScoreController {
 			})
 	}
 
+	open () {
+		this.$scope.$emit('open scoresheet', this.data)
+	}
+
 }
 
 ScoreController.$inject = ['$scope', 'Scores']
