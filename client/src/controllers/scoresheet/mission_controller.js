@@ -11,7 +11,7 @@ class MissionController {
 		this.$scope.$on('objective complete', () => {
 			self.data.process()
 			if(self.data.complete) {
-				self.$scope.$emit(`mission complete`)
+				self.$scope.$emit('mission complete')
 			}
 		})
 	}

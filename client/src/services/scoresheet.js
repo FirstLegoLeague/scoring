@@ -14,8 +14,8 @@ class Scoresheet {
 		let self = this
 		return this.Challenge.load()
 			.then(challenge => {
-				self._challenge = challenge
-				self._challenge.signature = undefined
+				self._original = challenge
+				self._original.signature = undefined
 			})
 	}
 
@@ -29,7 +29,7 @@ class Scoresheet {
 
 	reset () {
 		let self = this
-		this.current = angular.copy(this._challenge) // Using a copy of the challenge as the current scoresheet
+		this.current = angular.copy(this._original) // Using a copy of the challenge as the current scoresheet
 		this.current.missions.forEach(mission => {
             mission.id = mission.title.split(' ')[0]
 			mission.scoreFunction = mission.score[0]

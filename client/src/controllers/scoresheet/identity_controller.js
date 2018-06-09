@@ -1,11 +1,12 @@
 'use strict'
 
+const MODAL = '#identity-modal'
+
 class IdentityController {
 
 	constructor (Identity, Modals) {
 		this.Identity = Identity
 		this.Modals = Modals
-		this.modal = '#identity-modal'
 		this.showTopbarButton = false
 	}
 
@@ -23,17 +24,17 @@ class IdentityController {
 
 	open () {
 		this.showTopbarButton = false
-		this.Modals.open(this.modal)
+		this.Modals.open(MODAL)
 	}
 
 	close () {
 		this.showTopbarButton = true
 		this.Identity.save({ referee: this.referee, table: this.table })
-		this.Modals.close(this.modal)
+		this.Modals.close(MODAL)
 	}
 
 	display () {
-		return `${this.referee} (On table "${this.table}")`
+		return `${this.referee} (On ${this.table})`
 	}
 
 }

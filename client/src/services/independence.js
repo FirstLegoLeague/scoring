@@ -1,7 +1,7 @@
 'use strict'
 
 const TEMPORARY_TIMESPAN = 60 * 1000 // 10 minutes
-
+const STORAGE_KEY_PREFIX = 'independence_actions'
 const STATUS_CODES = {
 	ONLINE: 0,
 	TEMPORARY_OFFLINE: 1,
@@ -43,7 +43,7 @@ class Independence {
 	// Storage functions
 
 	saveRequest (action) {
-		this.$window.localStorage[`independence_action_${Date.now()}`] = JSON.stringify(action)
+		this.$window.localStorage[`${STORAGE_KEY_PREFIX}_${Date.now()}`] = JSON.stringify(action)
 	}
 
 	deleteRequest (key) {
@@ -53,7 +53,7 @@ class Independence {
 
 	loadRequests () {
 		return Object.keys(this.$window.localStorage)
-			.filter(key => key.startsWith('independence_actions'))
+			.filter(key => key.startsWith(STORAGE_KEY_PREFIX))
 			.map(key => Object.assign(JSON.parse(this.$window.localStorage[key]), { key }))
 	}
 
@@ -80,3 +80,4 @@ Independence.$inject = ['$http', '$window']
 Independence.STATUS_CODES = STATUS_CODES
 
 export default Independence
+11

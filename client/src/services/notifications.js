@@ -2,18 +2,24 @@
 
 // Wraps the JQuery interface of Foundation in order to seperate it from angular.
 
-const LEVEL_CLASS_ALLIASES = {
-	error: 'alert'
-}
-
 class Notifications {
 
-	notify (level, message) {
+	notify (message, level) {
 		new Foundation.Notification(message, level)
 	}
 
-}
+	success (message) {
+		this.notify('success', message)
+	}
 
-Notifications.$inject = ['$window']
+	warning (message) {
+		this.notify('warning', message)
+	}
+
+	error (message) {
+		this.notify('error', message)
+	}
+
+}
 
 export default Notifications

@@ -12,6 +12,8 @@ import numberObjective from './scoresheet/objective_types/number_objective'
 import scores from './scores/scores'
 import score from './scores/score'
 
+import status from './status'
+
 export default {
 	scoresheet,
 	mission,
@@ -25,4 +27,6 @@ export default {
 
 	scores,
 	score,
+
+	status
 }

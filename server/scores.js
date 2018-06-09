@@ -19,7 +19,7 @@ router.post('/create', (req, res) => {
     scores.save(req.body)
   }).then(() => {
     res.status(201).send()
-  }).catch(err => {
+  }).catch(() => {
     res.status(500).send('A problem occoured while trying to save score.')
   })
 })
@@ -29,7 +29,7 @@ router.post('/:id/update', (req, res) => {
     scores.update({ _id: req.params.id }, { $set: req.body })
   }).then(() => {
     res.status(204).send()
-  }).catch(err => {
+  }).catch(() => {
     res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
   })
 })
@@ -39,7 +39,7 @@ router.delete('/:id/delete', (req, res) => {
     scores.remove({ _id: req.params.id })
   }).then(() => {
     res.status(204).send()
-  }).catch(err => {
+  }).catch(() => {
     res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)
   })
 })
@@ -49,17 +49,17 @@ router.get('/all', (req, res) => {
     return scores.find()
   }).then(scores => {
     res.status(201).send(scores)
-  }).catch(err => {
+  }).catch(() => {
     res.status(500).send('A problem occoured while trying to save score.')
   })
 })
 
 router.get('/:id', (req, res) => {
   connect().then(scores => {
-    return scores.findOne({ _id: mongojs.ObjectId(req.params.id) })
+    return scores.findOne({ _id: req.params.id })
   }).then(score => {
     res.status(200).json(score)
-  }).catch(err => {
+  }).catch(() => {
     res.status(500).send(`A problem occoured while trying to get score ${req.params.id}.`)
   })
 })

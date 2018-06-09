@@ -1,15 +1,24 @@
 'use strict'
 
 const AUTOSCROLL_SPEED = 0.05
+const SCORE_DIFF_SPEEFD = -0.05
+const SCORE_DIFF_ENDING_POSITION = -100
+const SCORE_DIFF_STARTING_POSITION = 100
 const MISSION_SCROLL_OFFSET = -150
+
+const MISSIONS_ELEMENTS = 'scoresheet > .top-bar-page'
+const DIFF_ANIMATION_ELEMENT = '#score-diff-animation'
+const DIFF_ANIMATION_CLASS = 'animating'
 
 class ScoresheetController {
 
-	constructor ($scope, $document, Configuration, Scoresheet) {
+	constructor ($scope, $document, $timeout, Configuration, Scoresheet, Notifications) {
         this.$scope = $scope
         this.$document = $document
+        this.$timeout = $timeout
         this.Configuration = Configuration
 		this.Scoresheet = Scoresheet
+        this.Notifications = Notifications
 	}
 
 	$onInit () {
@@ -35,7 +44,13 @@ class ScoresheetController {
 	 }
 
      score () {
-        return this.Scoresheet.score()
+        let previousScore = this.scoresheet.score // This score is saved from the last calculation by the Scoresheet service
+        let newScore =  this.Scoresheet.score() // This score is the newly calculated score
+        let scoreDiff = newScore - previousScore
+        if(scoreDiff !== 0) {
+            this.showScoreDiffAnimation(scoreDiff)
+        }
+        return newScore
      }
 
      complete () {
@@ -63,7 +78,7 @@ class ScoresheetController {
                 self.$scope.$emit('close scoresheet')
             }
             self.reset()
-            self.$scope.$emit('notify', { level: 'success', message: 'Score saved successfully' })
+            self.Notifications.success('Score saved successfully')
         })
      }
 
@@ -71,8 +86,23 @@ class ScoresheetController {
         this.$scope.$broadcast('set default')
      }
 
+     showScoreDiffAnimation (scoreDiff) {
+        let self = this
+        this.showScoreDiffAnimation = true
+        this.scoreDiff = scoreDiff
+
+        requestAnimationFrame(() => {
+            let animationElement = self.$document[0].getElementById(DIFF_ANIMATION_ELEMENT)
+            animationElement.classList.add(DIFF_ANIMATION_CLASS)
+            self.$timeout(() => {
+                animationElement.classList.remove(DIFF_ANIMATION_CLASS)
+                self.showScoreDiffAnimation = false
+            }, 1000)
+        })
+     }
+
 	 scrollToMission (mission) {
-        let missionsElement = this.$document[0].querySelector('scoresheet > .top-bar-page')
+        let missionsElement = this.$document[0].querySelector(MISSIONS_ELEMENTS)
         let startingPosition = missionsElement.scrollTop
         let endingPosition = startingPosition
 
@@ -82,7 +112,8 @@ class ScoresheetController {
                 return
             }
 
-            endingPosition = Math.min(missionElement.offsetTop + MISSION_SCROLL_OFFSET, missionsElement.scrollHeight - missionsElement.clientHeight)
+            endingPosition = Math.min(missionElement.offsetTop + MISSION_SCROLL_OFFSET,
+                missionsElement.scrollHeight - missionsElement.clientHeight)
         } else {
             endingPosition = 0
         }
@@ -110,6 +141,6 @@ class ScoresheetController {
 
 }
 
-ScoresheetController.$inject = ['$scope', '$document', 'Configuration', 'Scoresheet']
+ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Notifications']
 
 export default ScoresheetController

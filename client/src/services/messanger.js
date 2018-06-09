@@ -1,10 +1,18 @@
 'use strict'
 
+const MESSAGE_TYPES = {
+    SUBSCRIBE: 'subscribe',
+    LOGIN: 'login',
+    PUBLISH: 'publish'
+}
+const IDENTITY_TOKEN_KEY = 'scoring-token'
+const DEFAULT_NODE = 'default'
+
 class Messanger {
 
 	constructor (Configuration) {
 		this.ws = new WebSocket(Configuration.MHUB)
-		this.node = Configuration.node || 'default'
+		this.node = Configuration.node || DEFAULT_NODE
 		this.open = false
 		this.token = parseInt(Math.floor(0x100000*(Math.random())), 16)
 		this.listeners = []
@@ -18,7 +26,7 @@ class Messanger {
 		return new Promise((resolve, reject) => {
 			self.ws.onopen = function () {
                 ws.send(JSON.stringify({
-                    type: "subscribe",
+                    type: MESSAGE_TYPES.SUBSCRIBE,
                     node: self.node
                 }));
 
@@ -40,7 +48,7 @@ class Messanger {
                 var headers = data.headers
                 var topic = data.topic
 
-                msg.from = headers["scoring-token"]
+                msg.from = headers[IDENTITY_TOKEN_KEY]
                 msg.fromMe = (msg.from === self.token)
 
                 listeners.filter(listener => {
@@ -63,13 +71,16 @@ class Messanger {
 	}
 
 	send (topic, data) {
-		return init().then(function(ws) {
+        let headers = {}  // TODO add auth-token and correlation-id
+        headers[IDENTITY_TOKEN_KEY] = this.token
+		
+        return init().then(function(ws) {
             ws.send(JSON.stringify({
-                type: "publish",
-                node: ws.node,
+                type: MESSAGE_TYPES.PUBLISH,
+                node: this.ws.node,
                 topic: topic,
                 data: data || {},
-                headers: { "scoring-token": token } // TODO add auth-token and correlation-id
+                headers: headers
             }))
         })
 	}

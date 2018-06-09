@@ -13,10 +13,10 @@ router.use('/:challenge', (req, res) => {
     .then(challenge => {
       res.send(challenge)
     }).catch(err => {
-      if(err.code === 'ENOENT') {
-      	res.status(404).send(`Could not find challenge ${req.params['challenge']}.`)
+      if (err.code === 'ENOENT') {
+        res.status(404).send(`Could not find challenge ${req.params['challenge']}.`)
       } else {
-      	res.status(404).send(`A problem occoured while trying to find challenge ${req.params['challenge']}.`)
+        res.status(404).send(`A problem occoured while trying to find challenge ${req.params['challenge']}.`)
       }
     })
 })
