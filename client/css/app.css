@@ -6,6 +6,22 @@ body {
 	margin: 0;
 }
 
+.top-bar .status i {
+    margin-right: 0.5rem;
+}
+
+.top-bar .status.online {
+    color: green;
+}
+
+.top-bar .status.temporary-offline {
+    color: orange;
+}
+
+.top-bar .status.permanently-offline {
+    color: crimson;
+}
+
 scores {
 	margin: 1em;
 	height: 50%;
@@ -18,17 +34,6 @@ objective .button-group input{
 objective .button-group input:checked + label,
 objective .button-group input:checked + label:active {
   background-color: #d67924;
-}
-
-/* TODO remove this */
-.top-bar +.top-bar-page {
-	overflow-y: auto;
-	height: calc(100% - 3.5rem);
-}
-
-scoresheet > .top-bar {
-    background: white;
-    border-bottom: lightgray 2px solid;
 }
 
 mission .stamp {
@@ -60,19 +65,4 @@ bm-signature-pad {
 
 #scores-list {
     margin-top: 1rem;
-}
-
-#notifications {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 20vw;
-}
-
-.notification {
-    width: 100%;
-    height: 5rem;
-    display: flex;
-    justify-content: space-between;
-    transition: opacity linear 0.5s;
 }

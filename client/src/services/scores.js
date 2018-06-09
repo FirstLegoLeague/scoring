@@ -15,7 +15,7 @@ class Scores {
 	}
 
 	update (id, attributes) {
-		return this.$http.put(`/scores/${id}/update`, attributes)
+		return this.$http.post(`/scores/${id}/update`, attributes)
 	}
 
 }

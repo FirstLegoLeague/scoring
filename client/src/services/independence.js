@@ -1,6 +1,6 @@
 'use strict'
 
-const TEMPORARY_TIMESPAN = 10 * 60 * 1000 // 10 minutes
+const TEMPORARY_TIMESPAN = 60 * 1000 // 10 minutes
 
 const STATUS_CODES = {
 	ONLINE: 0,
@@ -76,5 +76,7 @@ class Independence {
 }
 
 Independence.$inject = ['$http', '$window']
+
+Independence.STATUS_CODES = STATUS_CODES
 
 export default Independence

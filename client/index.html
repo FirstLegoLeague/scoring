@@ -16,6 +16,9 @@
 				<span class="h2" ng-click="scoring.notify()"><i>FIRST</i> LEGO League Scoring</span>
 			</div>
 			<div class="top-bar-right">
+				<span ng-class="scoring.statusClass()" class="hollow button status">
+					<i class="fa fa-circle"></i>{{scoring.statusText()}}
+				</span>
 				<a class="button" href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
 			</div>
 	    </div>
