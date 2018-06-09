@@ -97,7 +97,7 @@ class ScoresheetController {
                 return
             }
             if(missionsElement.scrollTop + tick < endingPosition && missionsElement.scrollTop !== lastScorllPosition) {
-                lastScorllPosition = mission.scrollTop
+                lastScorllPosition = missionsElement.scrollTop
                 missionsElement.scrollTop += tick
                 requestAnimationFrame(scrollTick)
             } else {
