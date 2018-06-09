@@ -188,6 +188,10 @@ angular-animate@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.7.0.tgz#c04293068ee0986dc00ba154626d74bf51f25576"
 
+angular-cookies@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/angular-cookies/-/angular-cookies-1.7.1.tgz#513d5b0d1c81df472b4bfa2114e31d08330e1433"
+
 angular-signature@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/angular-signature/-/angular-signature-1.0.3.tgz#21182fc715d39489e2147f6da4a7e96a497fe1c6"

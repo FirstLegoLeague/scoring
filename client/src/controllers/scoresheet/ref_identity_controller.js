@@ -2,17 +2,17 @@
 
 const MODAL = '#identity-modal'
 
-class IdentityController {
+class RefIdentityController {
 
-	constructor (Identity, Modals) {
-		this.Identity = Identity
+	constructor (RefIdentity, Modals) {
+		this.RefIdentity = RefIdentity
 		this.Modals = Modals
 		this.showTopbarButton = false
 	}
 
 	$onInit () {
 		let self = this
-		this.Identity.init().then(identity => {
+		this.RefIdentity.init().then(identity => {
 			if(identity.initialized) {
 				Object.assign(self, { referee: identity.referee, table: identity.table })
 				self.showTopbarButton = true
@@ -29,7 +29,7 @@ class IdentityController {
 
 	close () {
 		this.showTopbarButton = true
-		this.Identity.save({ referee: this.referee, table: this.table })
+		this.RefIdentity.save({ referee: this.referee, table: this.table })
 		this.Modals.close(MODAL)
 	}
 
@@ -39,6 +39,6 @@ class IdentityController {
 
 }
 
-IdentityController.$inject = ['Identity', 'Modals']
+RefIdentityController.$inject = ['RefIdentity', 'Modals']
 
-export default IdentityController
+export default RefIdentityController

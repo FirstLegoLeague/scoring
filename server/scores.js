@@ -3,6 +3,8 @@
 const express = require('express')
 const mongo = require('mongodb-bluebird')
 
+const { authroizationMiddlware } = require('@first-lego-league/ms-authentication')
+
 const DEFAULTS = require('./defaults')
 
 const mongoUrl = process.env.MONGO || DEFAULTS.MONGO
@@ -14,6 +16,8 @@ function connect () {
     .then(db => db.collection('scores'))
 }
 
+const adminAction = authorize(['admin', 'scorekeeper', 'development'])
+
 router.post('/create', (req, res) => {
   connect().then(scores => {
     scores.save(req.body)
@@ -24,7 +28,7 @@ router.post('/create', (req, res) => {
   })
 })
 
-router.post('/:id/update', (req, res) => {
+router.post('/:id/update', adminAction, (req, res) => {
   connect().then(scores => {
     scores.update({ _id: req.params.id }, { $set: req.body })
   }).then(() => {
@@ -34,7 +38,7 @@ router.post('/:id/update', (req, res) => {
   })
 })
 
-router.delete('/:id/delete', (req, res) => {
+router.delete('/:id/delete', adminAction, (req, res) => {
   connect().then(scores => {
     scores.remove({ _id: req.params.id })
   }).then(() => {

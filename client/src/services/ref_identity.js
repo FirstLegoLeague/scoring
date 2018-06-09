@@ -3,7 +3,7 @@
 const STORAGE_KEY = 'referee'
 const EMPTY_DATA = JSON.stringify({ referee: undefined, table: undefined })
 
-class Identity {
+class RefIdentity {
 
 	constructor ($window) {
 		this.$window = $window
@@ -28,6 +28,6 @@ class Identity {
 
 }
 
-Identity.$inject = ['$window']
+RefIdentity.$inject = ['$window']
 
-export default Identity
+export default RefIdentity

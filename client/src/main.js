@@ -2,6 +2,7 @@
 
 import angular from 'angular'
 import 'angular-animate'
+import 'angular-cookies'
 
 import SignaturePad from 'signature_pad/dist/signature_pad.min'
 global['SignaturePad'] = SignaturePad
@@ -11,7 +12,7 @@ import services from './services'
 import components from './components'
 import controllers from './controllers'
 
-const main = angular.module('scoring', ['ngAnimate', 'signature'])
+const main = angular.module('scoring', ['ngAnimate', 'ngCookies', 'signature'])
 
 Object.keys(services).forEach(serviceName => {
 	main.service(serviceName, services[serviceName])

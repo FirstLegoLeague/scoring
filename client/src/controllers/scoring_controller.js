@@ -2,10 +2,11 @@
 
 class ScoringController {
 
-  constructor ($scope, Configuration, Notifications) {
+  constructor ($scope, Configuration, Notifications, User) {
   	this.$scope = $scope
   	this.Notifications = Notifications
     this.Configuration = Configuration
+    this.isAdmin = User.isAdmin()
   }
 
   $onInit () {
@@ -41,6 +42,6 @@ class ScoringController {
 
 }
 
-ScoringController.$inject = ['$scope', 'Configuration', 'Notifications']
+ScoringController.$inject = ['$scope', 'Configuration', 'Notifications', 'User']
 
 export default ScoringController

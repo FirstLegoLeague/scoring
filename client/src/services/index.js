@@ -4,9 +4,10 @@ import Messanger from './messanger'
 import Challenge from './challenge'
 import Scoresheet from './scoresheet'
 import Configuration from './configuration'
-import Identity from './identity'
+import RefIdentity from './ref_identity'
 import Independence from './independence'
 import Scores from './scores'
+import User from './user'
 
 import Modals from './modals'
 import Notifications from './notifications'
@@ -19,7 +20,8 @@ export default {
 	Scores,
 	Configuration,
 	Independence,
-	Identity,
+	RefIdentity,
+	User,
 	Modals,
 	Notifications
 }

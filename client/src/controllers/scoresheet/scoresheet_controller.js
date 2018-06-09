@@ -12,13 +12,14 @@ const DIFF_ANIMATION_CLASS = 'animating'
 
 class ScoresheetController {
 
-	constructor ($scope, $document, $timeout, Configuration, Scoresheet, Notifications) {
+	constructor ($scope, $document, $timeout, Configuration, Scoresheet, Notifications, User) {
         this.$scope = $scope
         this.$document = $document
         this.$timeout = $timeout
         this.Configuration = Configuration
 		this.Scoresheet = Scoresheet
         this.Notifications = Notifications
+        this.isAdmin = User.isAdmin()
 	}
 
 	$onInit () {
@@ -141,6 +142,6 @@ class ScoresheetController {
 
 }
 
-ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Notifications']
+ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Notifications', 'User']
 
 export default ScoresheetController
