@@ -96,6 +96,12 @@ class ScoresheetController {
             }
             self.reset()
             self.Notifications.success('Score saved successfully')
+        }).catch(err => {
+            self.reset()
+            let pendingScores = err.pendingRequestsCount
+            let scoresWord = pendingScores > 1 ? 'scores' : 'score'
+            self.Notifications.error(`Score saved failed. Don\'t worry, We\'re keeping
+                an eye on your ${pendingScores} pending ${scoresWord}.`)
         })
      }
 

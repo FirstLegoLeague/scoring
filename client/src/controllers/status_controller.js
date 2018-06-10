@@ -15,11 +15,11 @@ class StatusController {
   }
 
   class () {
-    return this.UI[this.Independence.status()].class
+    return this.UI[this.Independence.status].class
   }
 
   text () {
-    return this.UI[this.Independence.status()].text
+    return this.UI[this.Independence.status].text
   }
 
 }

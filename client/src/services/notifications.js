@@ -9,15 +9,15 @@ class Notifications {
 	}
 
 	success (message) {
-		this.notify('success', message)
+		this.notify(message, 'success')
 	}
 
 	warning (message) {
-		this.notify('warning', message)
+		this.notify(message, 'warning')
 	}
 
 	error (message) {
-		this.notify('error', message)
+		this.notify(message, 'error')
 	}
 
 }
