@@ -6,8 +6,8 @@ export default {
 		<div class="top-bar-left">
 			<identity ng-if="!scoresheet.isAdmin"></identity>
 		</div>
-		<div class="top-bar-right">
-			<div id="score-diff-animation" ng-show="scoresheet.showScoreDiffAnimation">{{scoresheet.scoreDiff}}</div>
+		<div class="top-bar-right flex-container">
+			<span id="score-diff-animation" ng-show="scoresheet.showingScoreDiffAnimation">{{scoresheet.scoreDiff}}</span>
 			<div class="button-group">
 				<div class="hollow button">{{scoresheet.score()}} pts.</div>
 				<div class="button" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()"><i class="fa fa-arrow-down"></i></div>
@@ -23,10 +23,11 @@ export default {
 						<mission data="mission"></mission>
 					</div>
 				</div>
-				<div class="cell">
-					<div id="signature" class="callout">
-						<signature-pad accept="getSignature" clear="clearSignature" height="128" width="300" disabled="false"  ng-hide="scoresheet.scoresheet._id" ></signature-pad>
+				<div class="cell" >
+					<div id="signature" class="callout" ng-class="{ alert: scoresheet.error(), success: !(scoresheet.error() || scoresheet.signatureMissing()) }">
+						<signature-pad accept="getSignature" clear="clearSignature" height="128" width="300" disabled="false" ng-hide="scoresheet.scoresheet._id" ></signature-pad>
 						<img ng-src="{{scoresheet.scoresheet.signature.dataUrl}}" ng-show="scoresheet.scoresheet._id" />
+						<div ng-show="scoresheet.error()" class="stamp hollow alert button" ng-click="scoresheet.scrollToMission(scoresheet.error().mission)">{{scoresheet.error().error}}</div>
 					</div>
 				</div>
 				<div class="cell small-2 small-offset-5">

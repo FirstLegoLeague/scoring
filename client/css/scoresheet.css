@@ -1,0 +1,23 @@
+scores {
+	margin: 1em;
+	height: 50%;
+}
+
+objective .button-group input{
+  display: none;
+}
+
+objective .button-group input:checked + label,
+objective .button-group input:checked + label:active {
+  background-color: #d67924;
+}
+
+scoresheet .stamp {
+	float: right;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    border-width: 2px !important;
+    font-weight: bold;
+    transform: rotate(-10deg);
+}

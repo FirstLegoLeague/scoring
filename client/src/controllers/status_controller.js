@@ -14,11 +14,11 @@ class StatusController {
     this.UI[this.Independence.STATUS_CODES.PERMENENTLY_OFFLINE] = { class: 'permanently-offline', text: 'Permenently offline' }
   }
 
-  statusClass () {
+  class () {
     return this.UI[this.Independence.status()].class
   }
 
-  statusText () {
+  text () {
     return this.UI[this.Independence.status()].text
   }
 

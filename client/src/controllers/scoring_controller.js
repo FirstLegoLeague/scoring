@@ -11,7 +11,7 @@ class ScoringController {
 
   $onInit () {
     this._initConfiguration()
-    this._initEventListeners()
+    this._initEvents()
   }
 
   _initConfiguration () {

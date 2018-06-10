@@ -2,6 +2,8 @@
 
 const express = require('express')
 
+console.log(process.env.MHUB)
+
 const Configuration = require('@first-lego-league/ms-configuration')
 
 const router = express.Router()

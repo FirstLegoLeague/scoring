@@ -2,12 +2,15 @@
 
 import angular from 'angular'
 
+const INCOMPLETE_MISSION_ERROR = 'Some missions are incomplete'
+
 class Scoresheet {
 
-	constructor (Challenge, Identity, Independence) {
+	constructor (Challenge, RefIdentity, Independence) {
 		this.Challenge = Challenge
-		this.Identity = Identity
+		this.RefIdentity = RefIdentity
 		this.Independence = Independence
+		this.errors = []
 	}
 
 	init () {
@@ -36,6 +39,7 @@ class Scoresheet {
 			mission.score = 0
 			mission.process = () => self.processMission(mission)
 		})
+		this.errors = [{ mission: this.current.missions[0], error: INCOMPLETE_MISSION_ERROR }]
 		return Promise.resolve(self.current)
 	}
 
@@ -60,15 +64,28 @@ class Scoresheet {
 		if(result instanceof Error) {
 			mission.complete = false
 			mission.error = result
+			if(self.errors.every(error => error.mission !== mission)) {
+				self.errors.push({ mission, error: mission.error })
+			}
 		} else {
 			mission.error = undefined
 			mission.complete = true
 			mission.score = result
+			self.errors = self.errors.filter(error => error.mission !== mission)
 		}
+
+		self.errors = self.errors.filter(error => error.error !== INCOMPLETE_MISSION_ERROR)
+		self.current.missions.forEach(mission => {
+			if(!mission.complete) {
+				self.errors.push({ mission, error: INCOMPLETE_MISSION_ERROR })
+				return false
+			}
+			return true
+		})
 	}
 
 	save () {
-		return this.Identity.load().then(identity => {
+		return this.RefIdentity.load().then(identity => {
 			let sanitizedScoresheet = {
 				missions: this.current.missions.map(mission => {
 					return {
@@ -120,6 +137,6 @@ class Scoresheet {
 
 }
 
-Scoresheet.$inject = ['Challenge', 'Identity', 'Independence']
+Scoresheet.$inject = ['Challenge', 'RefIdentity', 'Independence']
 
 export default Scoresheet

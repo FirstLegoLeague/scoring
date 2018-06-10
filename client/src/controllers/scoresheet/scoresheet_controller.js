@@ -7,7 +7,7 @@ const SCORE_DIFF_STARTING_POSITION = 100
 const MISSION_SCROLL_OFFSET = -150
 
 const MISSIONS_ELEMENTS = 'scoresheet > .top-bar-page'
-const DIFF_ANIMATION_ELEMENT = '#score-diff-animation'
+const DIFF_ANIMATION_ELEMENT = 'score-diff-animation'
 const DIFF_ANIMATION_CLASS = 'animating'
 
 class ScoresheetController {
@@ -20,6 +20,8 @@ class ScoresheetController {
 		this.Scoresheet = Scoresheet
         this.Notifications = Notifications
         this.isAdmin = User.isAdmin()
+        this.scoreDiff = 0
+        this.showingScoreDiffAnimation = false
 	}
 
 	$onInit () {
@@ -45,6 +47,10 @@ class ScoresheetController {
 	 }
 
      score () {
+        if(!this.scoresheet) {
+            return 0
+        }
+        
         let previousScore = this.scoresheet.score // This score is saved from the last calculation by the Scoresheet service
         let newScore =  this.Scoresheet.score() // This score is the newly calculated score
         let scoreDiff = newScore - previousScore
@@ -54,11 +60,19 @@ class ScoresheetController {
         return newScore
      }
 
-     complete () {
+    error () {
+        return this.Scoresheet.errors[0]
+    }
+
+    signatureMissing () {
+        return this.Configuration.requireSignature && this.$scope.getSignature().isEmpty && !this.scoresheet._id
+    }
+
+    complete () {
         if(!this.scoresheet)    return false
-        let signatureMissing = this.Configuration.requireSignature && this.$scope.getSignature().isEmpty && !this.scoresheet._id
+        let signatureMissing = this.signatureMissing()
         return this.missions && this.missions.every(mission => mission.complete) && !signatureMissing
-     }
+    }
 
      reset () {
         let self = this
@@ -74,8 +88,10 @@ class ScoresheetController {
      save () {
         let self = this
         this.Scoresheet.save().then(() => {
-            self.scoresheet.signature = this.$scope.getSignature()
-            if(self.scoresheet._id) {
+            if (this.Configuration.requireSignature) {
+                self.scoresheet.signature = this.$scope.getSignature()
+            }
+            if (self.scoresheet._id) {
                 self.$scope.$emit('close scoresheet')
             }
             self.reset()
@@ -89,7 +105,7 @@ class ScoresheetController {
 
      showScoreDiffAnimation (scoreDiff) {
         let self = this
-        this.showScoreDiffAnimation = true
+        this.showingScoreDiffAnimation = true
         this.scoreDiff = scoreDiff
 
         requestAnimationFrame(() => {
@@ -97,7 +113,7 @@ class ScoresheetController {
             animationElement.classList.add(DIFF_ANIMATION_CLASS)
             self.$timeout(() => {
                 animationElement.classList.remove(DIFF_ANIMATION_CLASS)
-                self.showScoreDiffAnimation = false
+                self.showingScoreDiffAnimation = false
             }, 1000)
         })
      }

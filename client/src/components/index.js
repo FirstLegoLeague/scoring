@@ -3,7 +3,7 @@
 import scoresheet from './scoresheet/scoresheet'
 import mission from './scoresheet/mission'
 import objective from './scoresheet/objective'
-import identity from './scoresheet/identity'
+import refIdentity from './scoresheet/ref_identity'
 
 import enumObjective from './scoresheet/objective_types/enum_objective'
 import yesnoObjective from './scoresheet/objective_types/yesno_objective'
@@ -23,7 +23,7 @@ export default {
 	yesnoObjective,
 	numberObjective,
 
-	identity,
+	refIdentity,
 
 	scores,
 	score,

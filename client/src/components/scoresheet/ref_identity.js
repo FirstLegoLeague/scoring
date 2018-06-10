@@ -2,9 +2,9 @@
 
 export default {
 	template: `
-	<div class="hollow button" ng-click="identity.open()" ng-show="identity.showTopbarButton">
+	<div class="hollow button" ng-click="refIdentity.open()" ng-show="refIdentity.showTopbarButton">
 		<i class="fa fa-person"></i>
-		{{identity.display()}}
+		{{refIdentity.display()}}
 	</div>
 	<div class="reveal" id="identity-modal" data-reveal data-close-on-click="false">
 		<h1>Choose your codename</h1>
@@ -12,17 +12,17 @@ export default {
 			<div class="grid-container">
 				<div class="grid-x grid-padding-x">
 					<div class="cell">
-						<input type="text" placeholder="referee" ng-model="identity.referee">
+						<input type="text" placeholder="referee" ng-model="refIdentity.referee">
 					</div>
 					<div class="cell">
-						<input type="text" placeholder="table" ng-model="identity.table">
+						<input type="text" placeholder="table" ng-model="refIdentity.table">
 					</div>
 					<div class="cell small-2 small-offset-5">
-						<input type="button" class="button" value="save" ng-click="identity.close()">
+						<input type="button" class="button" value="save" ng-click="refIdentity.close()">
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>`,
-	controller: 'IdentityController as identity',
+	controller: 'RefIdentityController as refIdentity',
 }

@@ -3,7 +3,7 @@
 const express = require('express')
 const mongo = require('mongodb-bluebird')
 
-const { authroizationMiddlware } = require('@first-lego-league/ms-authentication')
+const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
 
 const DEFAULTS = require('./defaults')
 
@@ -16,7 +16,7 @@ function connect () {
     .then(db => db.collection('scores'))
 }
 
-const adminAction = authorize(['admin', 'scorekeeper', 'development'])
+const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
   connect().then(scores => {

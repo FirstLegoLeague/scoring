@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@first-lego-league/ms-authentication@^1.0.0":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-authentication/-/ms-authentication-1.0.5.tgz#7bd7d1b0acc0b41886ff23b70f140f6c276a3906"
+"@first-lego-league/ms-auth@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-auth/-/ms-auth-1.1.0.tgz#c50ad6a55835cd1048f2b7344ef34f8c65560fed"
   dependencies:
     "@first-lego-league/ms-logger" "^1.2.0"
     cookie-parser "^1.4.3"

@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const { correlationMiddleware, correlateSession } = require('@first-lego-league/ms-correlation')
-const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-authentication')
+const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
 const { Logger, loggerMiddleware } = require('@first-lego-league/ms-logger')
 
 const DEFAULTS = require('./server/defaults')
@@ -27,7 +27,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 if (process.env.DEV) {
-  app.use(authenticationDevMiddleware)
+  app.use(authenticationDevMiddleware())
 } else {
   app.use(authenticationMiddleware)
 }

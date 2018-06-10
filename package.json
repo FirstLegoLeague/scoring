@@ -7,11 +7,11 @@
   "author": "Idan Stark <idanstark42@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "set DEV=true && node ./index.js",
+    "dev": "set DEV=true&& set MHUB=ws://localhost:13900&& node ./index.js",
     "prod": "node ./index.js"
   },
   "dependencies": {
-    "@first-lego-league/ms-authentication": "^1.0.0",
+    "@first-lego-league/ms-auth": "^1.1.0",
     "@first-lego-league/ms-configuration": "^1.0.0",
     "@first-lego-league/ms-correlation": "^0.0.2",
     "@first-lego-league/ms-logger": "^1.2.1",
