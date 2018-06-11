@@ -4,10 +4,10 @@ export default {
 	template: `
 	<div class="top-bar secondary">
 		<div class="top-bar-left">
-			<identity ng-if="!scoresheet.isAdmin"></identity>
+			<ref-identity ng-if="scoresheet.isRef"></ref-identity>
 		</div>
 		<div class="top-bar-right flex-container">
-			<span id="score-diff-animation" ng-show="scoresheet.showingScoreDiffAnimation">{{scoresheet.scoreDiff}}</span>
+			<span id="score-diff-animation" ng-show="isFinite(scoresheet.showingScoreDiffAnimation)">{{scoresheet.scoreDiff}}</span>
 			<div class="button-group">
 				<div class="hollow button">{{scoresheet.score()}} pts.</div>
 				<div class="button" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()"><i class="fa fa-arrow-down"></i></div>

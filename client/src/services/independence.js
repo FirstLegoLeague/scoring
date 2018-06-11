@@ -1,6 +1,6 @@
 'use strict'
 
-const TEMPORARY_TIMESPAN = 60 * 1000 // 10 minutes
+const TEMPORARY_TIMESPAN = 10 * 60 * 1000 // 10 minutes
 const STORAGE_KEY_PREFIX = 'independence_actions'
 const STATUS_CODES = {
 	ONLINE: 0,

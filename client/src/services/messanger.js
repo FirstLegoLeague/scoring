@@ -82,7 +82,7 @@ class Messanger {
     let headers = {}  // TODO add auth-token and correlation-id
     headers[IDENTITY_TOKEN_KEY] = this.token
     
-    return init().then(function(ws) {
+    return this.init().then(function(ws) {
       ws.send(JSON.stringify({
         type: MESSAGE_TYPES.PUBLISH,
         node: this.ws.node,

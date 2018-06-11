@@ -20,6 +20,7 @@ class ScoresheetController {
 		this.Scoresheet = Scoresheet
         this.Notifications = Notifications
         this.isAdmin = User.isAdmin()
+        this.isRef = User.isRef()
         this.scoreDiff = 0
         this.showingScoreDiffAnimation = false
 	}

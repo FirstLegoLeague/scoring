@@ -30,6 +30,22 @@ class ScoreController {
 		this.$scope.$emit('open scoresheet', this.data)
 	}
 
+	save () {
+		let self = this
+		let updateData = {
+			score: this.data.score,
+			team: this.data.team,
+			round: this.data.round,
+			table: this.data.table,
+			referee: this.data.referee
+		}
+
+		this.Scores.update(this.data._id, updateData)
+		.then(() => {
+			self.$scope.$emit('reload')
+		})
+	}
+
 }
 
 ScoreController.$inject = ['$scope', 'Scores']

@@ -2,6 +2,7 @@
 
 const COOKIE_KEY = 'username'
 const ADMINS = ['admin', 'scorekeeper', 'development']
+const REFS = ['referee', 'development']
 
 class User {
 
@@ -10,7 +11,11 @@ class User {
 	}
 
 	isAdmin () {
-		return this.username in ADMINS
+		return ADMINS.includes(this.username)
+	}
+
+	isRef () {
+		return REFS.includes(this.username)
 	}
 
 }

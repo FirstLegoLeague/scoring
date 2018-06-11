@@ -17,7 +17,9 @@ class ObjectiveController {
 	}
 
 	setDefault () {
-		this.data.value = this.data.default
+		if(!this.data.value) {
+			this.data.value = this.data.default
+		}
 	}
 
 }
