@@ -6,6 +6,7 @@ class ScoresController {
 		this.$scope = $scope
 		this.Scores = Scores
 		this.Messanger = Messanger
+		this.search = ''
 	}
 
 	$onInit () {
@@ -20,10 +21,20 @@ class ScoresController {
 	load (shouldBroadcast) {
 		let self = this
 		this.Scores.all().then(scores => {
-			self.scores = scores
+			self._scores = scores
 			if(shouldBroadcast) {
 				self.Messanger.send('reload')
 			}
+		})
+	}
+
+	scores () {
+		let self = this
+		if(!this.search) {
+			return this._scores
+		}
+		return this._scores.filter(score => {
+			return Object.values(score).some(value => value.toString().includes(self.search))
 		})
 	}
 
