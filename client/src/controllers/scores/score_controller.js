@@ -2,17 +2,31 @@
 
 class ScoreController {
 
-	constructor ($scope, Scores) {
+	constructor ($scope, Scores, Modals, Notifications) {
 		this.$scope = $scope
 		this.Scores = Scores
+		this.Notifications = Notifications
+		this.Modals = Modals
+	}
+
+	openDeletionDialog () {
+		this.Modals.open(`#score-${this.data._id} .deletion-modal`)
+	}
+
+	closeDeletionDialog () {
+		this.Modals.close(`#score-${this.data._id} .deletion-modal`)
 	}
 
 	delete () {
 		let self = this
-		self.deleting = true
+		this.closeDeletionDialog()
+		this.deleting = true
 		this.Scores.delete(this.data._id)
 			.then(() => {
 				self.$scope.$emit('reload')
+			}).catch(() => {
+				self.Notifications.error('Unable to delete score: Possible network error.')
+				self.deleting = false
 			})
 	}
 
@@ -43,11 +57,13 @@ class ScoreController {
 		this.Scores.update(this.data._id, updateData)
 		.then(() => {
 			self.$scope.$emit('reload')
+		}).catch(() => {
+			self.Notifications.error('Unable to update score: Possible network error.')
 		})
 	}
 
 }
 
-ScoreController.$inject = ['$scope', 'Scores']
+ScoreController.$inject = ['$scope', 'Scores', 'Modals', 'Notifications']
 
 export default ScoreController

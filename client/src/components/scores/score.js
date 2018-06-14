@@ -32,8 +32,19 @@ export default {
 		<div class="button-group">
 			<div class="button" ng-click="score.open()"><i class="fa fa-edit"></i></div>
 			<div class="button" ng-click="score.togglePublish()"><i class="fa"  ng-class="score.togglingPublish ? 'fa-circle-notch fa-spin' : (score.data.public ? 'fa-minus-circle' : 'fa-plus-circle')"></i></div>
-			<div class="alert button" ng-click="score.delete()"><i class="fa" ng-class="score.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i></div>
+			<div class="alert button" ng-click="score.openDeletionDialog()"><i class="fa" ng-class="score.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i></div>
 		</div>
+	</div>
+	<div class="deletion-modal reveal" data-reveal>
+		<h4>Do you really want to delete this score?</h4>
+		<div class="subheader">This operation is ireversable!</div>
+		<div class="grid-x align-center button-group button-group">
+			<div class="button" ng-click="score.closeDeletionDialog()">No, I think I'll pass...</div>
+			<div class="secondary button" ng-click="score.delete()">Yes, just do it!</div>
+		</div>
+		<button class="close-button" data-close aria-label="Close modal" type="button">
+			<span aria-hidden="true">&times;</span>
+		</button>
 	</div>`,
 	controller: 'ScoreController as score',
 	bindings: {
