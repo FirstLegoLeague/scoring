@@ -7,6 +7,7 @@ class ScoresController {
 		this.Scores = Scores
 		this.Messanger = Messanger
 		this.search = ''
+		this.showDuplicates = false
 	}
 
 	$onInit () {
@@ -30,11 +31,37 @@ class ScoresController {
 
 	scores () {
 		let self = this
-		if(!this.search) {
-			return this._scores
+		let scores = this._scores
+
+		// Filter by search
+		if(this.search) {
+			scores = this._scores.filter(score => {
+				return Object.values(score).some(value => value.toString().includes(self.search))
+			})
 		}
-		return this._scores.filter(score => {
-			return Object.values(score).some(value => value.toString().includes(self.search))
+
+		// Filter by showDuplicates
+		if(this.showDuplicates) {
+			scores = this.duplicateScores(scores)
+
+			if(scores.length === 0) {
+				this.showDuplicates = false
+				scores = this._scores
+			}
+		}
+
+		return scores
+	}
+
+	duplicateScores (scores) {
+		let self = this
+		scores = scores || this._scores || []
+
+		return scores.filter(score => {
+			return self._scores.some(otherScore => {
+				return score !== otherScore
+					&& otherScore.team === score.team && otherScore.round === score.round
+			})
 		})
 	}
 

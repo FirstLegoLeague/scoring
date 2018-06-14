@@ -5,6 +5,9 @@ export default {
 	<div class="top-bar secondary">
 		<div class="top-bar-left">
 			<input name="search" type="text" ng-model="scores.search" placeholder="search Scores" />
+			<button class="button" ng-hide="scores.duplicateScores().length === 0" ng-click="scores.showDuplicates = !scores.showDuplicates">
+				{{ scores.showDuplicates ? 'Show all scores' : 'Show only duplicates' }}
+			</button>
 		</div>
 	</div>
 	<div class="top-bar-page">
