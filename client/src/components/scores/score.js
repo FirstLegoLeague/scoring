@@ -40,7 +40,7 @@ export default {
 		<div class="subheader">This operation is ireversable!</div>
 		<div class="grid-x align-center button-group button-group">
 			<div class="button" ng-click="score.closeDeletionDialog()">No, I think I'll pass...</div>
-			<div class="secondary button" ng-click="score.delete()">Yes, just do it!</div>
+			<div class="alert button" ng-click="score.delete()">Yes, just do it!</div>
 		</div>
 		<button class="close-button" data-close aria-label="Close modal" type="button">
 			<span aria-hidden="true">&times;</span>
