@@ -86,12 +86,12 @@ class ScoresheetController {
         })
      }
 
-     save () {
+    save () {
         let self = this
+        if (this.Configuration.requireSignature) {
+            this.scoresheet.signature = this.$scope.getSignature()
+        }
         this.Scoresheet.save().then(() => {
-            if (this.Configuration.requireSignature) {
-                self.scoresheet.signature = this.$scope.getSignature()
-            }
             self.$scope.$emit('close scoresheet', { goToScores: Boolean(self.scoresheet._id) })
             self.reset()
             self.Notifications.success('Score saved successfully')
