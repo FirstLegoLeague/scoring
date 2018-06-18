@@ -60,7 +60,7 @@ class ScoresController {
 		return scores.filter(score => {
 			return self._scores.some(otherScore => {
 				return score !== otherScore
-					&& otherScore.team === score.team && otherScore.round === score.round
+					&& otherScore.teamNumber === score.teamNumber && otherScore.round === score.round
 			})
 		})
 	}
