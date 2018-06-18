@@ -13,6 +13,7 @@ class RefIdentityController {
 	$onInit () {
 		let self = this
 		this.RefIdentity.init().then(identity => {
+			self.tables = identity.tables
 			if(identity.initialized) {
 				Object.assign(self, { referee: identity.referee, table: identity.table })
 				self.showTopbarButton = true
@@ -34,7 +35,7 @@ class RefIdentityController {
 	}
 
 	display () {
-		return `${this.referee} (On ${this.table})`
+		return this.showTopbarButton ? `${this.referee} (On ${this.table.tableName})` : ''
 	}
 
 }

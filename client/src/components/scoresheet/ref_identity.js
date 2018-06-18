@@ -15,7 +15,9 @@ export default {
 						<input type="text" placeholder="referee" ng-model="refIdentity.referee">
 					</div>
 					<div class="cell">
-						<input type="text" placeholder="table" ng-model="refIdentity.table">
+						<select name="table" placeholder="table" ng-model="refIdentity.table"
+							ng-options="table.tableName for table in refIdentity.tables track by table.tableId">
+						</select>
 					</div>
 					<div class="cell small-2 small-offset-5">
 						<input type="button" class="button" value="save" ng-click="refIdentity.close()">

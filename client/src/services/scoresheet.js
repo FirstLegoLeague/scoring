@@ -107,8 +107,8 @@ class Scoresheet {
 				score: this.current.score,
 				challenge: this.current.title,
 				signature: this.current.signature,
-				referee: identity.referee || this.crurent.referee,
-				table: identity.table || this.crurent.referee
+				referee: identity.referee || this.current.referee,
+				tableId: identity.tableId || this.current.tableId
 			}
 
 			let action = this.current._id ? `/scores/${this.current._id}/update/` : '/scores/create'
@@ -125,7 +125,7 @@ class Scoresheet {
 			})
 			Object.assign(current, {
 				referee: scoresheet.referee,
-				table: scoresheet.table,
+				tableId: scoresheet.tableId,
 				signature: scoresheet.signature,
 				score: scoresheet.score,
 				title: scoresheet.challenge,

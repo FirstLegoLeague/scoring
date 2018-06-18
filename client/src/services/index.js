@@ -8,6 +8,7 @@ import RefIdentity from './ref_identity'
 import Independence from './independence'
 import Scores from './scores'
 import User from './user'
+import Tournament from './tournament'
 
 import Modals from './modals'
 import Notifications from './notifications'
@@ -23,5 +24,6 @@ export default {
 	RefIdentity,
 	User,
 	Modals,
-	Notifications
+	Notifications,
+	Tournament
 }

@@ -1,0 +1,53 @@
+'use strict'
+
+class Tournament {
+
+	constructor ($http, Configuration) {
+		this.$http = $http
+		this.Configuration = Configuration
+	}
+
+	init () {
+		let self = this
+
+		return this.Configuration.load().then(config => {
+			self.tournament = config.tournament
+			return self
+		})
+	}
+
+	teams () {
+		if(this._teams) {
+			return Promise.resolve(this._teams)
+		}
+
+		let self = this
+
+		return this.init()
+			.then(() => self.$http.get(`${self.tournament}/team/all`))
+			.then(response => {
+				self._teams = response.data
+				return self._teams
+			})
+	}
+
+	tables () {
+		if(this._tables) {
+			return Promise.resolve(this._tables)
+		}
+
+		let self = this
+
+		return this.init()
+			.then(() => self.$http.get(`${self.tournament}/table/all`))
+			.then(response => {
+				self._tables = response.data
+				return self._tables
+			})
+	}
+
+}
+
+Tournament.$inject = ['$http', 'Configuration']
+
+export default Tournament

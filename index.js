@@ -42,6 +42,10 @@ apis.forEach(api => {
   app.use(api, require(`./server${api}`))
 })
 
+if (process.env.DEV) {
+  app.use('', require('./server/dev_router'))
+}
+
 app.listen(port, () => {
   domain.create().run(() => {
     correlateSession()

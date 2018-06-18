@@ -2,12 +2,36 @@
 
 class ScoreController {
 
-	constructor ($scope, Scores, Modals, Notifications) {
+	constructor ($scope, Scores, Tournament, Modals, Notifications) {
 		this.$scope = $scope
 		this.Scores = Scores
+		this.Tournament = Tournament
 		this.Notifications = Notifications
 		this.Modals = Modals
+		this.loading = true
 	}
+
+	$onInit () {
+		let self = this
+
+		this.Tournament.tables().then(tables => {
+			self.loading = false
+			self.tables = tables
+		})
+	}
+
+	// Views
+
+	tableText () {
+		if(this.data.tableId) {
+			let self = this
+			return this.tables.find(table => table.tableId === self.data.tableId).tableName
+		} else {
+			return 'no table'
+		}
+	}
+
+	// Actions
 
 	openDeletionDialog () {
 		this.Modals.open(`#score-${this.data._id} .deletion-modal`)
@@ -50,7 +74,7 @@ class ScoreController {
 			score: this.data.score,
 			team: this.data.team,
 			round: this.data.round,
-			table: this.data.table,
+			tableId: this.data.tableId,
 			referee: this.data.referee
 		}
 
@@ -64,6 +88,6 @@ class ScoreController {
 
 }
 
-ScoreController.$inject = ['$scope', 'Scores', 'Modals', 'Notifications']
+ScoreController.$inject = ['$scope', 'Scores', 'Tournament', 'Modals', 'Notifications']
 
 export default ScoreController

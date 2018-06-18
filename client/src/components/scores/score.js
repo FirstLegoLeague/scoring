@@ -2,7 +2,7 @@
 
 export default {
 	template: `
-	<div class="card-section">
+	<div class="card-section" ng-class="{ loading: loading }">
 	<h4>
 		<a editable-text="score.data.team" buttons="no" blur="submit" onaftersave="score.save()">
 			{{ score.data.team || 'Missing team' }}
@@ -24,8 +24,9 @@ export default {
 			{{ score.data.referee || 'No one' }}
 		</a>
 		&#160;on table&#160;
-		<a editable-text="score.data.table" buttons="no" blur="submit" onaftersave="score.save()">
-			{{ score.data.table || 'no table' }}.
+		<a editable-select="score.data.tableId" buttons="no"
+			e-ng-options="table.tableId as table.tableName for table in score.tables" blur="submit" onaftersave="score.save()">
+			{{ score.tableText() }}.
 		</a>
 	</div>
 	<div class="card-section">
