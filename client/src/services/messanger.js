@@ -56,7 +56,7 @@ class Messanger {
         msg.from = headers[IDENTITY_TOKEN_KEY]
         msg.fromMe = (msg.from === self.token)
 
-        listeners.filter(listener => {
+        self.listeners.filter(listener => {
           return (typeof(listener.topic) === 'string' && topic === listener.topic) ||
             (listener.topic instanceof RegExp && topic.matches(listener.topic))
         }).forEach(listener => listener.handler(data, msg))
@@ -86,7 +86,7 @@ class Messanger {
     return this.init().then(function(ws) {
       ws.send(JSON.stringify({
         type: MESSAGE_TYPES.PUBLISH,
-        node: self.ws.node,
+        node: self.node,
         topic: topic,
         data: data || {},
         headers: headers
