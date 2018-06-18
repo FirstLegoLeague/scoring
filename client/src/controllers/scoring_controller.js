@@ -30,9 +30,11 @@ class ScoringController {
       self.toggleScoresList()
     })
 
-    this.$scope.$on('close scoresheet', (event, score) => {
+    this.$scope.$on('close scoresheet', (event, options) => {
       self.$scope.$broadcast('reload')
-      self.toggleScoresList()
+      if(options.goToScores) {
+        self.toggleScoresList()
+      }
     })
   }
 

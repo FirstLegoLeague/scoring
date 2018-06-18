@@ -23,7 +23,7 @@ class ScoreController {
 	// Views
 
 	tableText () {
-		if(this.data.tableId) {
+		if(this.data.tableId && this.tables) {
 			let self = this
 			return this.tables.find(table => table.tableId === self.data.tableId).tableName
 		} else {
