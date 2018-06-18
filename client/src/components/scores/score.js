@@ -4,8 +4,9 @@ export default {
 	template: `
 	<div class="card-section" ng-class="{ loading: loading }">
 	<h4>
-		<a editable-text="score.data.team" buttons="no" blur="submit" onaftersave="score.save()">
-			{{ score.data.team || 'Missing team' }}
+		<a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.save()"
+			e-ng-options="team.number as team.displayText for team in score.teams">
+			{{ score.teamText() }}
 		</a>
 	</h4>
 	<h6 class="subheader">
@@ -24,8 +25,8 @@ export default {
 			{{ score.data.referee || 'No one' }}
 		</a>
 		&#160;on table&#160;
-		<a editable-select="score.data.tableId" buttons="no"
-			e-ng-options="table.tableId as table.tableName for table in score.tables" blur="submit" onaftersave="score.save()">
+		<a editable-select="score.data.tableId" buttons="no" blur="submit" onaftersave="score.save()"
+			e-ng-options="table.tableId as table.tableName for table in score.tables">
 			{{ score.tableText() }}.
 		</a>
 	</div>

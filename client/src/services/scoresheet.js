@@ -22,14 +22,6 @@ class Scoresheet {
 			})
 	}
 
-	setTeam (team) {
-		this.current.team = team
-	}
-
-	setRound (round) {
-		this.current.round = round
-	}
-
 	reset () {
 		let self = this
 		this.current = angular.copy(this._original) // Using a copy of the challenge as the current scoresheet
@@ -107,6 +99,7 @@ class Scoresheet {
 				score: this.current.score,
 				challenge: this.current.title,
 				signature: this.current.signature,
+				teamNumber: this.current.teamNumber,
 				referee: identity.referee || this.current.referee,
 				tableId: identity.tableId || this.current.tableId
 			}
@@ -127,6 +120,7 @@ class Scoresheet {
 				referee: scoresheet.referee,
 				tableId: scoresheet.tableId,
 				signature: scoresheet.signature,
+				teamNumber: this.current.teamNumber,
 				score: scoresheet.score,
 				title: scoresheet.challenge,
 				_id: scoresheet._id

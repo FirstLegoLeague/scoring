@@ -14,13 +14,24 @@ class ScoreController {
 	$onInit () {
 		let self = this
 
-		this.Tournament.tables().then(tables => {
+		Promise.all([this.Tournament.teams(), this.Tournament.tables()])
+		.then(responses => {
 			self.loading = false
-			self.tables = tables
+			self.teams = responses[0]
+			self.tables = responses[1]
 		})
 	}
 
 	// Views
+
+	teamText () {
+		if(this.data.teamNumber && this.teams) {
+			let self = this
+			return this.teams.find(team => team.number === self.data.teamNumber).displayText
+		} else {
+			return 'Missing team'
+		}
+	}
 
 	tableText () {
 		if(this.data.tableId && this.tables) {
@@ -72,7 +83,7 @@ class ScoreController {
 		let self = this
 		let updateData = {
 			score: this.data.score,
-			team: this.data.team,
+			teamNumber: this.data.teamNumber,
 			round: this.data.round,
 			tableId: this.data.tableId,
 			referee: this.data.referee

@@ -27,6 +27,9 @@ class Tournament {
 			.then(() => self.$http.get(`${self.tournament}/team/all`))
 			.then(response => {
 				self._teams = response.data
+				self._teams.forEach(team => {
+					team.displayText = `#${team.number} ${team.name}`
+				})
 				return self._teams
 			})
 	}
