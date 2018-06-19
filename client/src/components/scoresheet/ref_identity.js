@@ -3,7 +3,7 @@
 export default {
 	template: `
 	<div class="hollow button" ng-click="refIdentity.open()" ng-show="refIdentity.showTopbarButton">
-		<i class="fa fa-person"></i>
+		<i class="fa fa-user"></i>
 		{{refIdentity.display()}}
 	</div>
 	<div class="reveal" id="identity-modal" data-reveal data-close-on-click="false">

@@ -3,6 +3,8 @@
 import angular from 'angular'
 
 const INCOMPLETE_MISSION_ERROR = 'Some missions are incomplete'
+const MISSING_TEAM_ERROR = 'Missing team'
+const MISSING_ROUND_ERROR = 'Missing round'
 
 class Scoresheet {
 
@@ -31,7 +33,11 @@ class Scoresheet {
 			mission.score = 0
 			mission.process = () => self.processMission(mission)
 		})
-		this.errors = [{ mission: this.current.missions[0], error: INCOMPLETE_MISSION_ERROR }]
+		this.errors = [
+			{ error: MISSING_TEAM_ERROR },
+			{ error: MISSING_ROUND_ERROR },
+			{ mission: this.current.missions[0], error: INCOMPLETE_MISSION_ERROR }
+		]
 		return Promise.resolve(self.current)
 	}
 
@@ -44,7 +50,6 @@ class Scoresheet {
 	}
 
 	processMission (mission) {
-		let self = this
 		let values = mission.dependencies.map(dependency => dependency.value)
 		if(values.some(value => value === undefined)) {
 			mission.error = undefined
@@ -56,16 +61,22 @@ class Scoresheet {
 		if(result instanceof Error) {
 			mission.complete = false
 			mission.error = result
-			if(self.errors.every(error => error.mission !== mission)) {
-				self.errors.push({ mission, error: mission.error })
+			if(this.errors.every(error => error.mission !== mission)) {
+				this.errors.push({ mission, error: mission.error })
 			}
 		} else {
 			mission.error = undefined
 			mission.complete = true
 			mission.score = result
-			self.errors = self.errors.filter(error => error.mission !== mission)
+			this.errors = this.errors.filter(error => error.mission !== mission)
 		}
 
+		this.processErrors()
+	}
+
+	processErrors () {
+		let self = this
+		// Missinon errors
 		self.errors = self.errors.filter(error => error.error !== INCOMPLETE_MISSION_ERROR)
 		self.current.missions.forEach(mission => {
 			if(!mission.complete) {
@@ -74,6 +85,15 @@ class Scoresheet {
 			}
 			return true
 		})
+
+		// Missing data errors
+		if(self.current.teamNumber) {
+			self.errors = self.errors.filter(error => error.error !== MISSING_TEAM_ERROR)
+		}
+
+		if(self.current.round) {
+			self.errors = self.errors.filter(error => error.error !== MISSING_ROUND_ERROR)
+		}
 	}
 
 	save () {

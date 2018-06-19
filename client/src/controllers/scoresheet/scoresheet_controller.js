@@ -12,12 +12,13 @@ const DIFF_ANIMATION_CLASS = 'ng-hide-animate'
 
 class ScoresheetController {
 
-	constructor ($scope, $document, $timeout, Configuration, Scoresheet, Notifications, User) {
+	constructor ($scope, $document, $timeout, Configuration, Scoresheet, Tournament, Notifications, User) {
         this.$scope = $scope
         this.$document = $document
         this.$timeout = $timeout
         this.Configuration = Configuration
 		this.Scoresheet = Scoresheet
+        this.Tournament = Tournament
         this.Notifications = Notifications
         this.isAdmin = User.isAdmin()
         this.isRef = User.isRef()
@@ -44,7 +45,12 @@ class ScoresheetController {
             })
         })
         
-        return this.Scoresheet.init().then(() => self.reset())
+        return this.Scoresheet.init()
+            .then(() => self.Tournament.teams())
+            .then(teams => {
+                self.teams = teams
+            })
+            .then(() => self.reset())
 	 }
 
      score () {
@@ -65,14 +71,31 @@ class ScoresheetController {
         return this.Scoresheet.errors[0]
     }
 
+    teamText () {
+        if(this.scoresheet && this.scoresheet.teamNumber && this.teams) {
+            let self = this
+            return this.teams.find(team => team.number === self.scoresheet.teamNumber).displayText
+        } else {
+            return 'Missing team'
+        }
+    }
+
     signatureMissing () {
         return this.Configuration.requireSignature && this.$scope.getSignature().isEmpty && !this.scoresheet._id
+    }
+
+    processErrors () {
+        if(this.scoresheet) {
+            this.Scoresheet.processErrors()
+        }
     }
 
     complete () {
         if(!this.scoresheet)    return false
         let signatureMissing = this.signatureMissing()
-        return this.missions && this.missions.every(mission => mission.complete) && !signatureMissing
+        return this.missions
+            && this.errors.length === 0
+            && !signatureMissing
     }
 
      reset () {
@@ -124,6 +147,10 @@ class ScoresheetController {
      }
 
 	 scrollToMission (mission) {
+        if(!mission) {
+            return
+        }
+
         let missionsElement = this.$document[0].querySelector(MISSIONS_ELEMENTS)
         let startingPosition = missionsElement.scrollTop
         let endingPosition = startingPosition
@@ -163,6 +190,6 @@ class ScoresheetController {
 
 }
 
-ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Notifications', 'User']
+ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Tournament', 'Notifications', 'User']
 
 export default ScoresheetController

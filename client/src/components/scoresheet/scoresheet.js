@@ -4,15 +4,26 @@ export default {
 	template: `
 	<div class="top-bar secondary">
 		<div class="top-bar-left">
-			<ref-identity ng-if="scoresheet.isRef"></ref-identity>
+			<ul class="menu">
+				<li><ref-identity ng-if="scoresheet.isRef"></ref-identity></li>
+				<a editable-select="scoresheet.scoresheet.teamNumber" buttons="no" blur="submit"
+					class="menu-text" onaftersave="scoresheet.processErrors()"
+					e-ng-options="team.number as team.displayText for team in scoresheet.teams">
+					{{ scoresheet.teamText() }}
+				</a>
+			</ul>
 		</div>
 		<div class="top-bar-right flex-container">
-			<span id="score-diff-animation" ng-show="isFinite(scoresheet.showingScoreDiffAnimation)">{{scoresheet.scoreDiff}}</span>
-			<div class="button-group">
-				<div class="hollow button">{{scoresheet.score()}} pts.</div>
-				<div class="button" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()"><i class="fa fa-arrow-down"></i></div>
-				<div class="button" ng-click="scoresheet.reset()"><i class="fa fa-undo"></i></div>
-			</div>
+			<ul class="menu">
+				<il>
+					<span id="score-diff-animation" ng-show="isFinite(scoresheet.showingScoreDiffAnimation)">{{scoresheet.scoreDiff}}</span>
+				</il>
+				<il><div class="hollow button">{{scoresheet.score()}} pts.</div></il>
+				<il><div class="button" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()">
+					<i class="fa fa-arrow-down"></i>
+				</div></il>
+				<il><div class="button" ng-click="scoresheet.reset()"><i class="fa fa-undo"></i></div></il>
+			</ul>
 		</div>
 	</div>
 	<div class="top-bar-page">
