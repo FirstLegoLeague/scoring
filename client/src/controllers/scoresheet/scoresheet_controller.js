@@ -94,7 +94,7 @@ class ScoresheetController {
         if(!this.scoresheet)    return false
         let signatureMissing = this.signatureMissing()
         return this.missions
-            && this.errors.length === 0
+            && (!this.errors || this.errors.length === 0)
             && !signatureMissing
     }
 

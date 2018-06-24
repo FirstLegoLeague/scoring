@@ -4,3 +4,5 @@
 1. Finish this readme.md
 1. Score-diff animation
 1. Score errors
+1. Add rounds
+1. Change team to be easier to select (with search and stuff)

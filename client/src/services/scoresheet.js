@@ -35,7 +35,7 @@ class Scoresheet {
 		})
 		this.errors = [
 			{ error: MISSING_TEAM_ERROR },
-			{ error: MISSING_ROUND_ERROR },
+			// { error: MISSING_ROUND_ERROR },
 			{ mission: this.current.missions[0], error: INCOMPLETE_MISSION_ERROR }
 		]
 		return Promise.resolve(self.current)
@@ -91,9 +91,9 @@ class Scoresheet {
 			self.errors = self.errors.filter(error => error.error !== MISSING_TEAM_ERROR)
 		}
 
-		if(self.current.round) {
-			self.errors = self.errors.filter(error => error.error !== MISSING_ROUND_ERROR)
-		}
+		// if(self.current.round) {
+			// self.errors = self.errors.filter(error => error.error !== MISSING_ROUND_ERROR)
+		// }
 	}
 
 	save () {
