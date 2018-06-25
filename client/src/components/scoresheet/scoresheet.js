@@ -5,11 +5,11 @@ export default {
 	<div class="top-bar-left">
 		<ul class="menu">
 			<li><ref-identity ng-if="scoresheet.isRef"></ref-identity></li>
-			<input list="teams">
+			<input type="text" list="teams">
 			<datalist id="teams">
-				<option type="text" editable-select="scoresheet.scoresheet.teamNumber" buttons="no" blur="submit"
-					class="menu-text" onaftersave="scoresheet.processErrors()"
-					ng-repeat="team.number as team.displayText for team in scoresheet.teams" value={{scoresheet.teamText()}}>
+				<option type="text" ng-model="scoresheet.teamText()" editable-select="scoresheet.scoresheet.teamNumber" buttons="no" blur="submit" class="menu-text" onaftersave="scoresheet.processErrors()"
+                    ng-repeat="team in scoresheet.teams" 
+                    value="{{ scoresheet.teamText() }}">{{ scoresheet.teamText() }}</option>
 			</datalist>
 		</ul>
 	</div>
