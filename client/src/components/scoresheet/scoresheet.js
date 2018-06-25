@@ -5,10 +5,10 @@ export default {
 	<div class="top-bar-left">
 		<ul class="menu">
 			<li><ref-identity ng-if="scoresheet.isRef"></ref-identity></li>
-			<input type="text" ng-model="scoresheet.teamText()" editable-select="scoresheet.scoresheet.teamNumber" buttons="no" blur="submit"
+			<a type="text" ng-model="scoresheet.teamText()" editable-select="scoresheet.scoresheet.teamNumber" buttons="no" blur="submit"
 				class="menu-text" onaftersave="scoresheet.processErrors()"
 				e-ng-options="team.number as team.displayText for team in scoresheet.teams">
-		</input>
+		</a>
 		</ul>
 	</div>
 	<div class="top-bar-right flex-container">
