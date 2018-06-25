@@ -1,3 +1,5 @@
+import scoresheet from "../../components/scoresheet/scoresheet";
+
 'use strict'
 
 const AUTOSCROLL_SPEED = 0.05
@@ -88,6 +90,7 @@ class ScoresheetController {
         if(this.scoresheet) {
             this.Scoresheet.processErrors()
         }
+        console.log(this.scoresheet.teamNumber)
     }
 
     complete () {
