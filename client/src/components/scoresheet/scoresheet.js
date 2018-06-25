@@ -1,15 +1,13 @@
 'use strict'
 
 export default {
-	template: `
-	<div class="top-bar secondary">
+	template: `<div class="top-bar secondary">
 	<div class="top-bar-left">
 		<ul class="menu">
 			<li><ref-identity ng-if="scoresheet.isRef"></ref-identity></li>
-			<input type="text" editable-select="scoresheet.scoresheet.teamNumber" buttons="no" blur="submit"
+			<input type="text" ng-model="scoresheet.teamText()" editable-select="scoresheet.scoresheet.teamNumber" buttons="no" blur="submit"
 				class="menu-text" onaftersave="scoresheet.processErrors()"
 				e-ng-options="team.number as team.displayText for team in scoresheet.teams">
-				{{ scoresheet.teamText() }}
 		</input>
 		</ul>
 	</div>
