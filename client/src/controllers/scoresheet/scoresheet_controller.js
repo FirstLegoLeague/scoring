@@ -73,15 +73,6 @@ class ScoresheetController {
         return this.Scoresheet.errors[0]
     }
 
-    teamText () {
-        if(this.scoresheet && this.scoresheet.teamNumber && this.teams) {
-            let self = this
-            return this.teams.find(team => team.number === self.scoresheet.teamNumber).displayText
-        } else {
-            return 'Missing teams'
-        }
-    }
-
     signatureMissing () {
         return this.Configuration.requireSignature && this.$scope.getSignature().isEmpty && !this.scoresheet._id
     }
@@ -90,7 +81,6 @@ class ScoresheetController {
         if(this.scoresheet) {
             this.Scoresheet.processErrors()
         }
-        console.log(this.scoresheet.teamNumber)
     }
 
     complete () {
