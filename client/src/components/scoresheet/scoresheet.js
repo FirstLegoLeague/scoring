@@ -7,11 +7,13 @@ export default {
 			<li><ref-identity ng-if="scoresheet.isRef"></ref-identity></li>
 			<form>
 				<input type="text" list="teams" ng-model="scoresheet.scoresheet.teamNumber" onaftersave="scoresheet.processErrors()">
-				<select id="teams">
-					<option type="text" ng-repeat="team in scoresheet.teams">
-						{{ team.displayText }}
-					</option>
-				</select>
+				<datalist id="teams">
+					<select>
+						<option type="text" ng-repeat="team in scoresheet.teams">
+							{{ team.displayText }}
+						</option>
+					</select>
+				</datalist>
 			</form>
 		</ul>
 	</div>
