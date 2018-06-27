@@ -44,6 +44,7 @@ class ScoringController {
 
 }
 
+ScoringController.$$ngIsClass = true
 ScoringController.$inject = ['$scope', 'Configuration', 'Notifications', 'User']
 
 export default ScoringController

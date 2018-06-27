@@ -24,6 +24,7 @@ class StatusController {
 
 }
 
+StatusController.$$ngIsClass = true
 StatusController.$inject = ['Independence']
 
 export default StatusController

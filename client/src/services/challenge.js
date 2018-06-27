@@ -58,6 +58,7 @@ class Challenge {
 
 }
 
+Challenge.$$ngIsClass = true
 Challenge.$inject = ['$http', 'Configuration']
 
 export default Challenge

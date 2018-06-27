@@ -99,6 +99,7 @@ class ScoreController {
 
 }
 
+ScoreController.$$ngIsClass = true
 ScoreController.$inject = ['$scope', 'Scores', 'Tournament', 'Modals', 'Notifications']
 
 export default ScoreController

@@ -22,4 +22,6 @@ class Notifications {
 
 }
 
+Notifications.$$ngIsClass = true
+
 export default Notifications

@@ -94,6 +94,7 @@ class Independence {
 
 }
 
+Independence.$$ngIsClass = true
 Independence.$inject = ['$http', '$window']
 
 Independence.STATUS_CODES = STATUS_CODES

@@ -51,6 +51,7 @@ class Tournament {
 
 }
 
+Tournament.$$ngIsClass = true
 Tournament.$inject = ['$http', 'Configuration']
 
 export default Tournament

@@ -42,6 +42,7 @@ class Modals {
 
 }
 
+Modals.$$ngIsClass = true
 Modals.$inject = ['$window', '$timeout']
 
 export default Modals

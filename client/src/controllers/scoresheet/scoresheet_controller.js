@@ -190,6 +190,7 @@ class ScoresheetController {
 
 }
 
+ScoresheetController.$$ngIsClass = true
 ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Tournament', 'Notifications', 'User']
 
 export default ScoresheetController

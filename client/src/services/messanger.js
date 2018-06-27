@@ -96,6 +96,7 @@ class Messanger {
 
 }
 
+Messanger.$$ngIsClass = true
 Messanger.$inject = ['Configuration']
 
 export default Messanger
