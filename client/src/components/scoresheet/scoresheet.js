@@ -5,7 +5,14 @@ export default {
 	<div class="top-bar-left">
 		<ul class="menu">
 			<li><ref-identity ng-if="scoresheet.isRef"></ref-identity></li>
-				
+			<form>
+				<input type="text" list="teams" ng-model="scoresheet.scoresheet.teamNumber" onaftersave="scoresheet.processErrors()">
+				<select id="teams">
+					<option type="text" ng-repeat="team in scoresheet.teams">
+						{{ team.displayText }}
+					</option>
+				</select>
+			</form>
 		</ul>
 	</div>
 	<div class="top-bar-right flex-container">
