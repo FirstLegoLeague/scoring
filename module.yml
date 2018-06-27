@@ -1,6 +1,7 @@
 api: "1.0"
 name: "scoring"
 type: node
+script: index.js
 config:
   - name: Scoresheet
     fields:
