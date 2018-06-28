@@ -23,13 +23,10 @@ class ScoresController {
 		Promise.all([this.Tournament.teams()]).then(
 			responses =>
 			{
-				console.log(responses[0])
-
 				for (var i = 0; i < responses[0].length; i++)//Creates list of team numbers.
 				{
-					teamNumberList.push(responses[0][i].number)
+					this.teamNumberList.push(responses[0][i].number)
 				}
-
 			}
 		)
 	}
