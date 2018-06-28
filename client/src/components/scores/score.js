@@ -37,7 +37,7 @@ export default {
 			<div class="alert button" ng-click="score.openDeletionDialog()"><i class="fa" ng-class="score.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i></div>
         </div>
         <div>
-            <h6 style="color:#610000"><strong>Error!</strong></h6>
+            <h6 style="color:#610000"><strong>{{ score.error() }}</strong></h6>
         </div>
 	</div>
 	<div class="deletion-modal reveal" data-reveal>

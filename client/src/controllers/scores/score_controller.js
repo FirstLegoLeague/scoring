@@ -19,6 +19,12 @@ class ScoreController {
 				self.loading = false
 				self.teams = responses[0]
 				self.tables = responses[1]
+
+				this._teamNumberList = []
+				for (var i = 0; i < responses[0].length; i++)//Creates list of team numbers.
+				{
+					this._teamNumberList.push(responses[0][i].number)
+				}
 			})
 	}
 
@@ -102,7 +108,22 @@ class ScoreController {
 	}
 
 	error() {
+		let self = this
 
+		if (!this.loading)
+		{
+			if (this.data.round == null)
+			{
+				return "Missing round!"
+			}
+
+			if (this._teamNumberList.indexOf(this.data.teamNumber) === -1)
+			{
+				return "Team not in tournament!"
+			}
+		}
+
+		return ""
 	}
 
 }
