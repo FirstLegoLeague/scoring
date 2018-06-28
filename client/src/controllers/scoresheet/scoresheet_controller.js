@@ -78,7 +78,7 @@ class ScoresheetController {
             let self = this
             return this.teams.find(team => team.number === self.scoresheet.teamNumber).displayText
         } else {
-            return 'Missing teams'
+            return 'Missing team'
         }
     }
 
