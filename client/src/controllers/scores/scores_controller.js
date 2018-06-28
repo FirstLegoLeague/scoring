@@ -76,7 +76,7 @@ class ScoresController {
 
 		let self = this
 
-		badScores = duplicateErrors.concat(scores.filter(score => {
+		var badScores = duplicateErrors.concat(scores.filter(score => {
 			return !score.data.round || typeof score.data.teamNumber != "number"
 		}))
 
@@ -90,6 +90,8 @@ class ScoresController {
 				}
 			}
 		}
+
+		return badScores;
 	}
 
 }
