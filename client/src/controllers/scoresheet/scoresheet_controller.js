@@ -90,7 +90,6 @@ class ScoresheetController {
         if(this.scoresheet) {
             this.Scoresheet.processErrors()
         }
-        console.log(this.scoresheet.teamNumber)
     }
 
     complete () {
