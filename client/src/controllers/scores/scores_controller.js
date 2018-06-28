@@ -8,6 +8,7 @@ class ScoresController {
 		this.Messanger = Messanger
 		this.search = ''
 		this.showDuplicates = false
+		this.showErrors = false;
 	}
 
 	$onInit() {
