@@ -2,7 +2,7 @@
 
 class ScoresController {
 
-	constructor ($scope, Scores, Messanger) {
+	constructor($scope, Scores, Messanger) {
 		this.$scope = $scope
 		this.Scores = Scores
 		this.Messanger = Messanger
@@ -10,7 +10,7 @@ class ScoresController {
 		this.showDuplicates = false
 	}
 
-	$onInit () {
+	$onInit() {
 		let self = this
 		this.load(false)
 		// If the reload event comes from within this client, reload and send the message to every other client
@@ -19,32 +19,36 @@ class ScoresController {
 		this.Messanger.on('reload', () => self.load(false), true)
 	}
 
-	load (shouldBroadcast) {
+	load(shouldBroadcast) {
 		let self = this
 		this.Scores.all().then(scores => {
 			self._scores = scores
-			if(shouldBroadcast) {
+			if (shouldBroadcast)
+			{
 				self.Messanger.send('reload')
 			}
 		})
 	}
 
-	scores () {
+	scores() {
 		let self = this
 		let scores = this._scores
 
 		// Filter by search
-		if(this.search) {
+		if (this.search)
+		{
 			scores = this._scores.filter(score => {
 				return Object.values(score).some(value => value.toString().includes(self.search))
 			})
 		}
 
 		// Filter by showDuplicates
-		if(this.showDuplicates) {
+		if (this.showDuplicates)
+		{
 			scores = this.duplicateScores(scores)
 
-			if(scores.length === 0) {
+			if (scores.length === 0)
+			{
 				this.showDuplicates = false
 				scores = this._scores
 			}
@@ -53,7 +57,7 @@ class ScoresController {
 		return scores
 	}
 
-	duplicateScores (scores) {
+	duplicateScores(scores) {
 		let self = this
 		scores = scores || this._scores || []
 
@@ -65,11 +69,26 @@ class ScoresController {
 		})
 	}
 
-	errorScores (scores) {
+	errorScores(scores) {
 		scores = scores || this._scores || []
 		var duplicateErrors = this.duplicateScores(scores)
 
 		let self = this
+
+		badScores = duplicateErrors.concat(scores.filter(score => {
+			return !score.data.round || typeof score.data.teamNumber != "number"
+		}))
+
+		for (var i = 0; i < badScores.length; i++)
+		{
+			for (var j = i + 1; j < badScores.length; j++)
+			{
+				if (badScores[i] === badScores[j])
+				{
+					badScores.splice(j--, 1)
+				}
+			}
+		}
 	}
 
 }
