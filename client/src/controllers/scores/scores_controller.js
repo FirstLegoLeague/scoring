@@ -103,8 +103,6 @@ class ScoresController {
 			}
 		}
 
-		console.log(badScores)
-
 		return badScores;
 	}
 
