@@ -35,7 +35,10 @@ export default {
 			<div class="button" ng-click="score.open()"><i class="fa fa-edit"></i></div>
 			<div class="button" ng-click="score.togglePublish()"><i class="fa"  ng-class="score.togglingPublish ? 'fa-circle-notch fa-spin' : (score.data.public ? 'fa-minus-circle' : 'fa-plus-circle')"></i></div>
 			<div class="alert button" ng-click="score.openDeletionDialog()"><i class="fa" ng-class="score.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i></div>
-		</div>
+        </div>
+        <div>
+            <h6 style="color:#610000"><strong>Error!</strong></h6>
+        </div>
 	</div>
 	<div class="deletion-modal reveal" data-reveal>
 		<h4>Do you really want to delete this score?</h4>
@@ -47,7 +50,7 @@ export default {
 		<button class="close-button" data-close aria-label="Close modal" type="button">
 			<span aria-hidden="true">&times;</span>
 		</button>
-	</div>`,
+    </div>`,
 	controller: 'ScoreController as score',
 	bindings: {
 		data: '=?'
