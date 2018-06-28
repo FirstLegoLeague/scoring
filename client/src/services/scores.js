@@ -20,6 +20,7 @@ class Scores {
 
 }
 
+Scores.$$ngIsClass = true
 Scores.$inject = ['$http']
 
 export default Scores

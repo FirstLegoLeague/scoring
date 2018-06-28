@@ -18,6 +18,7 @@ class MissionController {
 
 }
 
+MissionController.$$ngIsClass = true
 MissionController.$inject = ['$scope']
 
 export default MissionController

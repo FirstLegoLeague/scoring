@@ -16,6 +16,7 @@ class Configuration {
 
 }
 
+Configuration.$$ngIsClass = true
 Configuration.$inject = ['$http']
 
 export default Configuration

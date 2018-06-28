@@ -24,6 +24,7 @@ class ObjectiveController {
 
 }
 
+ObjectiveController.$$ngIsClass = true
 ObjectiveController.$inject = ['$scope']
 
 export default ObjectiveController

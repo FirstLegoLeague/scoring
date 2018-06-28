@@ -20,6 +20,7 @@ class User {
 
 }
 
+User.$$ngIsClass = true
 User.$inject = ['$cookies']
 
 export default User
