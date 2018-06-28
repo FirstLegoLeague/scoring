@@ -65,6 +65,13 @@ class ScoresController {
 		})
 	}
 
+	errorScores (scores) {
+		scores = scores || this._scores || []
+		var duplicateErrors = this.duplicateScores(scores)
+
+		let self = this
+	}
+
 }
 
 ScoresController.$$ngIsClass = true
