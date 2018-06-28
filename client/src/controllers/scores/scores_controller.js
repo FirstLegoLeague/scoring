@@ -77,10 +77,8 @@ class ScoresController {
 		let self = this
 
 		var badScores = duplicateErrors.concat(scores.filter(score => 
-			typeof score.teamNumber != "number"
+			typeof score.teamNumber != "number" || score.round == null
 		))
-
-		console.log(badScores)
 
 		for (var i = 0; i < badScores.length; i++)
 		{
