@@ -55,6 +55,18 @@ class ScoresController {
 			}
 		}
 
+		// Filter by showErrors
+		if (this.showErrors)
+		{
+			scores = this.errorScores(scores)
+
+			if (scores.length === 0)
+			{
+				this.showErrors = false
+				scores = this._scores
+			}
+		}
+
 		return scores
 	}
 
@@ -76,11 +88,11 @@ class ScoresController {
 
 		let self = this
 
-		var badScores = duplicateErrors.concat(scores.filter(score => 
+		var badScores = duplicateErrors.concat(scores.filter(score =>
 			typeof score.teamNumber != "number" || score.round == null
 		))
 
-		for (var i = 0; i < badScores.length; i++)
+		for (var i = 0; i < badScores.length; i++) //Removes duplicate error scores.
 		{
 			for (var j = i + 1; j < badScores.length; j++)
 			{
@@ -90,6 +102,8 @@ class ScoresController {
 				}
 			}
 		}
+
+		console.log(badScores)
 
 		return badScores;
 	}
