@@ -10,7 +10,7 @@ class ScoresController {
 		this.search = ''
 		this.showDuplicates = false
 		this.showErrors = false
-		this.loading = true
+		this._loading = true
 	}
 
 	$onInit() {
@@ -22,11 +22,11 @@ class ScoresController {
 		this.Messanger.on('reload', () => self.load(false), true)
 		Promise.all([this.Tournament.teams()]).then(
 			responses => {
-				this.loading = false
-				this.teamNumberList = []
+				this._loading = false
+				this._teamNumberList = []
 				for (var i = 0; i < responses[0].length; i++)//Creates list of team numbers.
 				{
-					this.teamNumberList.push(responses[0][i].number)
+					this._teamNumberList.push(responses[0][i].number)
 				}
 			}
 		)
@@ -100,18 +100,18 @@ class ScoresController {
 
 		let self = this
 
-		var badScores = duplicateErrors.concat(scores.filter(score =>
-			typeof score.teamNumber != "number" || score.round == null || (!this.loading && this.teamNumberList.indexOf(score.teamNumber) === -1)
+		var _badScores = duplicateErrors.concat(scores.filter(score =>
+			typeof score.teamNumber != "number" || score.round == null || (!this._loading && this._teamNumberList.indexOf(score.teamNumber) === -1)
 		))
 
 
-		for (var i = 0; i < badScores.length; i++) //Removes duplicate error scores.
+		for (var i = 0; i < _badScores.length; i++) //Removes duplicate error scores.
 		{
-			for (var j = i + 1; j < badScores.length; j++)
+			for (var j = i + 1; j < _badScores.length; j++)
 			{
-				if (badScores[i] === badScores[j])
+				if (_badScores[i] === _badScores[j])
 				{
-					badScores.splice(j--, 1)
+					_badScores.splice(j--, 1)
 				}
 			}
 		}
