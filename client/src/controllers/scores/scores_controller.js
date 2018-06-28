@@ -116,7 +116,7 @@ class ScoresController {
 			}
 		}
 
-		return badScores;
+		return _badScores;
 	}
 
 }
