@@ -5,7 +5,8 @@ export default {
 	<div class="card-section" ng-class="{ loading: loading }">
     <h4>
         <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="team.number as team.displayText for team in score.teams">
-            {{ score.teamText() }}
+            <span ng-if='!score.loading && score.error()!="team-error"'>{{ score.teamText() }}</span>
+            <strong style="color: #610000" ng-if='!score.loading && score.error()=="team-error"'>{{ 'Missing team!' }}</strong>
         </a>
     </h4>
     <h6 class="subheader">
