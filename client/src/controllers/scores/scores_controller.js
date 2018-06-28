@@ -2,9 +2,10 @@
 
 class ScoresController {
 
-	constructor($scope, Scores, Messanger) {
+	constructor($scope, Scores,Tournament, Messanger) {
 		this.$scope = $scope
 		this.Scores = Scores
+		this.Tournament = Tournament
 		this.Messanger = Messanger
 		this.search = ''
 		this.showDuplicates = false
@@ -109,6 +110,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['$scope', 'Scores', 'Messanger']
+ScoresController.$inject = ['$scope', 'Scores', 'Tournament', 'Messanger']
 
 export default ScoresController
