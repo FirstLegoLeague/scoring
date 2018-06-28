@@ -9,7 +9,8 @@ class ScoresController {
 		this.Messanger = Messanger
 		this.search = ''
 		this.showDuplicates = false
-		this.showErrors = false		
+		this.showErrors = false
+		this.loading = true
 	}
 
 	$onInit() {
@@ -21,6 +22,7 @@ class ScoresController {
 		this.Messanger.on('reload', () => self.load(false), true)
 		Promise.all([this.Tournament.teams()]).then(
 			responses => {
+				this.loading = false
 				this.teamNumberList = []
 				for (var i = 0; i < responses[0].length; i++)//Creates list of team numbers.
 				{
@@ -99,7 +101,7 @@ class ScoresController {
 		let self = this
 
 		var badScores = duplicateErrors.concat(scores.filter(score =>
-			typeof score.teamNumber != "number" || score.round == null || this.teamNumberList.indexOf(score.teamNumber) === -1
+			typeof score.teamNumber != "number" || score.round == null || (!this.loading && this.teamNumberList.indexOf(score.teamNumber) === -1)
 		))
 
 
