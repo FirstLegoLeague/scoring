@@ -114,12 +114,12 @@ class ScoreController {
 		{
 			if (this.data.round == null)
 			{
-				return "Missing round!"
+				return "round-error"
 			}
 
 			if (this._teamNumberList.indexOf(this.data.teamNumber) === -1)
 			{
-				return "Team not in tournament!"
+				return "team-error"
 			}
 		}
 
