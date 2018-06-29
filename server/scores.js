@@ -41,36 +41,6 @@ function _validateScore(score) {
 
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
-/*router.post('/create', (req, res) => {
-  var scoreValidation = []
-  connect().then(scores => {
-    scores.save(req.body)
-    scoreValidation = _validateScore(req.body)
-    console.log(req.body)
-    if (scoreValidation[0] != "loud-fail")
-    {
-      
-    }
-  }).then(() => {
-    switch (scoreValidation[0])
-    {
-      case "silent-fail":
-        console.log("Invalid score, missing " + scoreValidation[1] + ". " + scoreValidation[0] + ".")
-      case "ok":
-        res.status(201).send()
-        break
-    }
-  }).catch(() => {
-    if (scoreValidation[0] === "loud-fail")
-    {
-      res.status(422).send("Invalid score, missing " + scoreValidation[1])
-    } else
-    {
-      res.status(500).send('A problem occoured while trying to save score.')
-    }
-  })
-})*/
-
 router.post('/create', (req, res) => {
   var scoreValidation = []
   connect().then(scores => {
