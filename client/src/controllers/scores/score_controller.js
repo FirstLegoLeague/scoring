@@ -116,8 +116,8 @@ class ScoreController {
 			{
 				return "round-error"
 			}
-
-			if (this._teamNumberList.indexOf(this.data.teamNumber) === -1)
+			
+			if (typeof self.data.teamNumber != "number")
 			{
 				return "team-error"
 			}
