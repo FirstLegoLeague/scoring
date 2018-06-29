@@ -6,13 +6,13 @@ export default {
     <h4>
         <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="team.number as team.displayText for team in score.teams">
             <span ng-if='!score.loading && !score.teamNumberError()'>{{ score.teamText() }}</span>
-            <ins class="card-section alert" ng-if='!score.loading && score.teamNumberError()'>Missing team!</ins>
+            <div class="card-section alert" ng-if='!score.loading && score.teamNumberError()'>Missing team!</div>
         </a>
     </h4>
     <h6 class="subheader">
         <a editable-text="score.data.round" buttons="no" blur="submit" onaftersave="score.save()">
             <span ng-if='!score.loading && !score.teamRoundError()'>{{ score.data.round }}</span>
-            <ins class="card-section alert" ng-if='!score.loading && score.teamRoundError()'>Missing round!</ins>
+            <div class="card-section alert" ng-if='!score.loading && score.teamRoundError()'>Missing round!</div>
         </a>
     </h6>
 </div>
