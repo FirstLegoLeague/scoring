@@ -11,29 +11,26 @@ const mongoUrl = process.env.MONGO || DEFAULTS.MONGO
 
 const router = express.Router()
 
-function connect() {
+function connect () {
   return mongo.connect(mongoUrl)
     .then(db => db.collection('scores'))
 }
 
-function _validateScore(score) {
-  var retError = ["ok", ""]
-  if (typeof score.teamNumber != "number")
-  {
-    retError[0] = "loud-fail";
-    retError[1] += "team number "
+function _validateScore (score) {
+  let retError = ['ok', '']
+  if (typeof score.teamNumber !== 'number') {
+    retError[0] = 'loud-fail'
+    retError[1] += 'team number '
   }
 
-  if (score.score == null)
-  {
-    retError[0] = "loud-fail"
-    retError[1] += "score "
+  if (score.score == null) {
+    retError[0] = 'loud-fail'
+    retError[1] += 'score '
   }
 
-  if (score.signature.isEmpty)
-  {
-    retError[1] += "signature "
-    retError[0] = retError[0] === "loud-fail" ? "loud-fail" : "silent-fail"
+  if (score.signature.isEmpty) {
+    retError[1] += 'signature '
+    retError[0] = retError[0] === 'loud-fail' ? 'loud-fail' : 'silent-fail'
   }
 
   return retError
@@ -42,33 +39,26 @@ function _validateScore(score) {
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
-  var scoreValidation = []
+  let scoreValidation = []
   connect().then(scores => {
     scoreValidation = _validateScore(req.body)
-    if (scoreValidation[0] != "loud-fail")
-    {
+    if (scoreValidation[0] !== 'loud-fail') {
       scores.save(req.body)
     }
   }).then(() => {
-    if (scoreValidation[0] != "loud-fail")
-    {
+    if (scoreValidation[0] !== 'loud-fail') {
       res.status(201).send()
-    } else
-    {
-      throw "Invalid score"
+    } else {
+      throw 'Invalid score'
     }
 
-    if (scoreValidation[0] != "ok")
-    {
-      console.log("Invalid score, missing " + scoreValidation[1] + ". " + scoreValidation[0] + ".")
+    if (scoreValidation[0] !== 'ok') {
+      console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
     }
-
   }).catch(() => {
-    if (scoreValidation[0] === "loud-fail")
-    {
-      res.status(422).send("Invalid score, missing " + scoreValidation[1])
-    } else
-    {
+    if (scoreValidation[0] === 'loud-fail') {
+      res.status(422).send('Invalid score, missing ' + scoreValidation[1])
+    } else {
       res.status(500).send('A problem occoured while trying to save score.')
     }
   })
