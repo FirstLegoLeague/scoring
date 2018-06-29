@@ -80,7 +80,19 @@ router.post('/create', (req, res) => {
       scores.save(req.body)
     }
   }).then(() => {
-    res.status(201).send()
+    if (scoreValidation[0] != "loud-fail")
+    {
+      res.status(201).send()
+    } else
+    {
+      res.status(422).send("Invalid score, missing " + scoreValidation[1])
+    }
+
+    if (scoreValidation[0] != "ok")
+    {
+      console.log("Invalid score, missing " + scoreValidation[1] + ". " + scoreValidation[0] + ".")
+    }
+
   }).catch(() => {
     res.status(500).send('A problem occoured while trying to save score.')
   })
