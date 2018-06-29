@@ -21,19 +21,19 @@ function _validateScore(score) {
   if (typeof score.teamNumber != "number")
   {
     retError[0] = "loud-fail";
-    retError[1] += "team number"
+    retError[1] += "team number "
   }
 
   if (score.score == null)
   {
     retError[0] = "loud-fail"
-    retError[1] += "score"
+    retError[1] += "score "
   }
 
-  if (!score.signature.isEmpty)
+  if (score.signature.isEmpty)
   {
-    retError[1] += "signature"
-    retError[0] = retError[0] === "loud-fail" ? "load-fail" : "silent-fail"
+    retError[1] += "signature "
+    retError[0] = retError[0] === "loud-fail" ? "loud-fail" : "silent-fail"
   }
 
   return retError
@@ -41,10 +41,44 @@ function _validateScore(score) {
 
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
-router.post('/create', (req, res) => {
+/*router.post('/create', (req, res) => {
+  var scoreValidation = []
   connect().then(scores => {
-    console.log(req.body)
     scores.save(req.body)
+    scoreValidation = _validateScore(req.body)
+    console.log(req.body)
+    if (scoreValidation[0] != "loud-fail")
+    {
+      
+    }
+  }).then(() => {
+    switch (scoreValidation[0])
+    {
+      case "silent-fail":
+        console.log("Invalid score, missing " + scoreValidation[1] + ". " + scoreValidation[0] + ".")
+      case "ok":
+        res.status(201).send()
+        break
+    }
+  }).catch(() => {
+    if (scoreValidation[0] === "loud-fail")
+    {
+      res.status(422).send("Invalid score, missing " + scoreValidation[1])
+    } else
+    {
+      res.status(500).send('A problem occoured while trying to save score.')
+    }
+  })
+})*/
+
+router.post('/create', (req, res) => {
+  var scoreValidation = []
+  connect().then(scores => {
+    scoreValidation = _validateScore(req.body)
+    if (scoreValidation[0] != "loud-fail")
+    {
+      scores.save(req.body)
+    }
   }).then(() => {
     res.status(201).send()
   }).catch(() => {
