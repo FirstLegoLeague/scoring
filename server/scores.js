@@ -11,15 +11,33 @@ const mongoUrl = process.env.MONGO || DEFAULTS.MONGO
 
 const router = express.Router()
 
-function connect () {
+function connect() {
   return mongo.connect(mongoUrl)
     .then(db => db.collection('scores'))
+}
+
+function _validateScore(score) {
+  var retError = [false, ""]
+  if (typeof score.teamNumber != "number")
+  {
+    retError[0] = true;
+    retError[1] += "team number"
+  }
+
+  if (score.score == null)
+  {
+    retError[0] = true
+    retError[1] += "score"
+  }
+
+  return retError
 }
 
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
   connect().then(scores => {
+    console.log(req.body)
     scores.save(req.body)
   }).then(() => {
     res.status(201).send()
