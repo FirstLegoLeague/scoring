@@ -17,17 +17,23 @@ function connect() {
 }
 
 function _validateScore(score) {
-  var retError = [false, ""]
+  var retError = ["ok", ""]
   if (typeof score.teamNumber != "number")
   {
-    retError[0] = true;
+    retError[0] = "loud-fail";
     retError[1] += "team number"
   }
 
   if (score.score == null)
   {
-    retError[0] = true
+    retError[0] = "loud-fail"
     retError[1] += "score"
+  }
+
+  if (!score.signature.isEmpty)
+  {
+    retError[1] += "signature"
+    retError[0] = retError[0] === "loud-fail" ? "load-fail" : "silent-fail"
   }
 
   return retError
