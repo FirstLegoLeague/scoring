@@ -7,9 +7,10 @@
   "author": "Idan Stark <idanstark42@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "start mongod&& start mhub-server&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set DEV=true&& set MHUB=ws://localhost:13900&& node ./index.js",
+    "dev": "start mongod&& start mhub-server&& set MODULE_TOURNAMENT_URL=http://192.168.14.175:3000&& set DEV=true&& set MHUB=ws://192.168.14.175:13900&& node ./index.js",
     "build": "cd client && yarn run build && cd ../",
-    "install": "yarn upgrade && cd client && yarn upgrade && cd ../",
+    "install": "yarn install && cd client && yarn install && cd ../",
+    "upgrade": "yarn upgrade && cd client && yarn upgrade && cd ../",
     "prod": "node ./index.js"
   },
   "dependencies": {
