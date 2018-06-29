@@ -107,25 +107,25 @@ class ScoreController {
 			})
 	}
 
-	error() {
+	teamRoundError() {
 		let self = this
 
-		if (!this.loading)
+		if (!this.loading && this.data.round == null)
 		{
-			if (this.data.round == null)
-			{
-				return "round-error"
-			}
-			
-			if (typeof self.data.teamNumber != "number")
-			{
-				return "team-error"
-			}
+			return true
 		}
-
-		return ""
+		return false
 	}
 
+	teamNumberError() {
+		let self = this
+
+		if (!this.loading && typeof self.data.teamNumber != "number")
+		{
+			return true
+		}
+		return false
+	}
 }
 
 ScoreController.$$ngIsClass = true
