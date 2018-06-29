@@ -85,7 +85,7 @@ router.post('/create', (req, res) => {
       res.status(201).send()
     } else
     {
-      res.status(422).send("Invalid score, missing " + scoreValidation[1])
+      throw "Invalid score"
     }
 
     if (scoreValidation[0] != "ok")
@@ -94,7 +94,13 @@ router.post('/create', (req, res) => {
     }
 
   }).catch(() => {
-    res.status(500).send('A problem occoured while trying to save score.')
+    if (scoreValidation[0] === "loud-fail")
+    {
+      res.status(422).send("Invalid score, missing " + scoreValidation[1])
+    } else
+    {
+      res.status(500).send('A problem occoured while trying to save score.')
+    }
   })
 })
 
