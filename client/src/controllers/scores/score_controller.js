@@ -19,12 +19,6 @@ class ScoreController {
 				self.loading = false
 				self.teams = responses[0]
 				self.tables = responses[1]
-
-				this._teamNumberList = []
-				for (var i = 0; i < responses[0].length; i++)//Creates list of team numbers.
-				{
-					this._teamNumberList.push(responses[0][i].number)
-				}
 			})
 	}
 
