@@ -10,7 +10,7 @@ export default {
         </button>
         <button class="button" ng-hide="scores.errorScores().length === 0"
         ng-click="scores.showErrors = !scores.showErrors">
-        {{ scores.showErrors ? 'Show all scores' : 'Show only bad scores'}}
+        {{ scores.showErrors ? 'Show all scores' : 'Show only errors'}}
         </button>
     </div>
 </div>
