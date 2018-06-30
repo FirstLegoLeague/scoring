@@ -20,8 +20,7 @@ class ScoresController {
 		// Otherwise just reload
 		this.$scope.$on('reload', () => self.load(true))
 		this.Messanger.on('reload', () => self.load(false), true)
-		Promise.all([this.Tournament.teams()]).then(
-			responses => {
+		this.Tournament.teams().then(responses => {
 				this._loading = false
 				this._teamNumberList = []
 				for (var i = 0; i < responses[0].length; i++)//Creates list of team numbers.
