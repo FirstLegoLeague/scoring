@@ -36,8 +36,7 @@ class ScoresController {
 		let self = this
 		this.Scores.all().then(scores => {
 			self._scores = scores
-			if (shouldBroadcast)
-			{
+			if (shouldBroadcast) {
 				self.Messanger.send('reload')
 			}
 		})
@@ -48,32 +47,27 @@ class ScoresController {
 		let scores = this._scores
 
 		// Filter by search
-		if (this.search)
-		{
+		if (this.search) {
 			scores = this._scores.filter(score => {
 				return Object.values(score).some(value => value.toString().includes(self.search))
 			})
 		}
 
 		// Filter by showDuplicates
-		if (this.showDuplicates)
-		{
+		if (this.showDuplicates) {
 			scores = this.duplicateScores(scores)
 
-			if (scores.length === 0)
-			{
+			if (scores.length === 0) {
 				this.showDuplicates = false
 				scores = this._scores
 			}
 		}
 
 		// Filter by showErrors
-		if (this.showErrors)
-		{
+		if (this.showErrors) {
 			scores = this.errorScores(scores)
 
-			if (scores.length === 0)
-			{
+			if (scores.length === 0) {
 				this.showErrors = false
 				scores = this._scores
 			}
@@ -107,10 +101,8 @@ class ScoresController {
 
 		for (var i = 0; i < _badScores.length; i++) //Removes duplicate error scores.
 		{
-			for (var j = i + 1; j < _badScores.length; j++)
-			{
-				if (_badScores[i] === _badScores[j])
-				{
+			for (var j = i + 1; j < _badScores.length; j++) {
+				if (_badScores[i] === _badScores[j]) {
 					_badScores.splice(j--, 1)
 				}
 			}

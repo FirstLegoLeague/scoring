@@ -31,23 +31,19 @@ class ScoreController {
 	// Views
 
 	teamText() {
-		if (this.data.teamNumber && this.teams)
-		{
+		if (this.data.teamNumber && this.teams) {
 			let self = this
 			return this.teams.find(team => team.number === self.data.teamNumber).displayText
-		} else
-		{
+		} else {
 			return 'Missing team'
 		}
 	}
 
 	tableText() {
-		if (this.data.tableId && this.tables)
-		{
+		if (this.data.tableId && this.tables) {
 			let self = this
 			return this.tables.find(table => table.tableId === self.data.tableId).tableName
-		} else
-		{
+		} else {
 			return 'no table'
 		}
 	}
@@ -110,8 +106,7 @@ class ScoreController {
 	teamRoundError() {
 		let self = this
 
-		if (!this.loading && this.data.round == null)
-		{
+		if (!this.loading && this.data.round == null) {
 			return true
 		}
 		return false
@@ -120,8 +115,7 @@ class ScoreController {
 	teamNumberError() {
 		let self = this
 
-		if (!this.loading && typeof self.data.teamNumber != "number")
-		{
+		if (!this.loading && typeof self.data.teamNumber != "number") {
 			return true
 		}
 		return false
