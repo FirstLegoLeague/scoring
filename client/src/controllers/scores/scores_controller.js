@@ -20,7 +20,7 @@ class ScoresController {
 		// Otherwise just reload
 		this.$scope.$on('reload', () => self.load(true))
 		this.Messanger.on('reload', () => self.load(false), true)
-		this.Tournament.teams().then(responses => {
+		Promise.all([this.Tournament.teams()]).then(responses => {
 			this._loading = false
 			this._teamNumberList = []
 			for (var i = 0; i < responses[0].length; i++)//Creates list of team numbers.
@@ -91,22 +91,21 @@ class ScoresController {
 		var duplicateErrors = this.duplicateScores(scores)
 
 		let self = this
-
-		var _badScores = duplicateErrors.concat(scores.filter(score =>
+		
+		var badScores = duplicateErrors.concat(scores.filter(score =>
 			typeof score.teamNumber != "number" || score.round == null || (!this._loading && this._teamNumberList.indexOf(score.teamNumber) === -1)
 		))
 
-
-		for (var i = 0; i < _badScores.length; i++) //Removes duplicate error scores.
+		for (var i = 0; i < badScores.length; i++) //Removes duplicate error scores.
 		{
-			for (var j = i + 1; j < _badScores.length; j++) {
-				if (_badScores[i] === _badScores[j]) {
-					_badScores.splice(j--, 1)
+			for (var j = i + 1; j < badScores.length; j++) {
+				if (badScores[i] === badScores[j]) {
+					badScores.splice(j--, 1)
 				}
 			}
 		}
 
-		return _badScores;
+		return badScores;
 	}
 
 }
