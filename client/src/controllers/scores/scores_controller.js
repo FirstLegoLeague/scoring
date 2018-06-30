@@ -91,23 +91,15 @@ class ScoresController {
 		let duplicateErrors = this.duplicateScores(scores)
 
 		let self = this
-		
 
-		let otherErrors= scores.filter(score =>
-			typeof score.teamNumber != "number" || score.round == null || 
+
+		let otherErrors = scores.filter(score =>
+			typeof score.teamNumber != "number" || score.round == null ||
 			(!this._loading && this._teamNumberList.indexOf(score.teamNumber) === -1)
 		)
 		let badScores = duplicateErrors.concat(otherErrors)
-
-		for (var i = 0; i < badScores.length; i++) //Removes duplicate error scores.
-		{
-			for (var j = i + 1; j < badScores.length; j++) {
-				if (badScores[i] === badScores[j]) {
-					badScores.splice(j--, 1)
-				}
-			}
-		}
-
+		badScores = badScores.filter(function (value, index) { return badScores.indexOf(value) == index })
+		
 		return badScores;
 	}
 
