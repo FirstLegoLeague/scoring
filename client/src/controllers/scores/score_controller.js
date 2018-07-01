@@ -8,7 +8,7 @@ class ScoreController {
 		this.Tournament = Tournament
 		this.Notifications = Notifications
 		this.Modals = Modals
-		this.loading = true
+		this._loading = true
 	}
 
 	$onInit() {
@@ -16,7 +16,7 @@ class ScoreController {
 
 		Promise.all([this.Tournament.teams(), this.Tournament.tables()])
 			.then(responses => {
-				self.loading = false
+				self._loading = false
 				self.teams = responses[0]
 				self.tables = responses[1]
 			})
@@ -29,7 +29,7 @@ class ScoreController {
 			let self = this
 			return this.teams.find(team => team.number === self.data.teamNumber).displayText
 		} else {
-			return 'Missing team'
+			return 'Missing team!'
 		}
 	}
 
@@ -100,7 +100,7 @@ class ScoreController {
 	teamRoundError() {
 		let self = this
 
-		if (!this.loading && this.data.round == null) {
+		if (!this._loading && this.data.round == null) {
 			return true
 		}
 		return false
@@ -109,7 +109,7 @@ class ScoreController {
 	teamNumberError() {
 		let self = this
 
-		if (!this.loading && typeof self.data.teamNumber != "number") {
+		if (!this._loading && typeof self.data.teamNumber != "number") {
 			return true
 		}
 		return false

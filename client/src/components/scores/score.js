@@ -5,8 +5,7 @@ export default {
 	<div class="card-section" ng-class="{ loading: loading }">
     <h4>
         <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="team.number as team.displayText for team in score.teams">
-            <span ng-if='!score.loading && !score.teamNumberError()'>{{ score.teamText() }}</span>
-            <div class="card-section alert" ng-if='!score.loading && score.teamNumberError()'>Missing team!</div>
+            <div ng-class="score.teamNumberError() ? 'card-section alert':''">{{ score.teamText() }}</div>
         </a>
     </h4>
     <h6 class="subheader">
