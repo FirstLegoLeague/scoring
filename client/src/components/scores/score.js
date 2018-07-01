@@ -30,7 +30,7 @@ export default {
 			{{ score.tableText() }}.
 		</a>
 	</div>
-	<div class="card-section">
+	<div class="card-section flex-child-shrink">
 		<div class="button-group">
 			<div class="button" ng-click="score.open()"><i class="fa fa-edit"></i></div>
 			<div class="button" ng-click="score.togglePublish()"><i class="fa"  ng-class="score.togglingPublish ? 'fa-circle-notch fa-spin' : (score.data.public ? 'fa-minus-circle' : 'fa-plus-circle')"></i></div>
