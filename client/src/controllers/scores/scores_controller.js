@@ -95,7 +95,7 @@ class ScoresController {
 
 		let otherErrors = scores.filter(score =>
 			typeof score.teamNumber != "number" || score.round == null ||
-			(!this._loading && this._teamNumberList.indexOf(score.teamNumber) === -1)
+			(!this._loading && !this._teamNumberList.includes(score.teamNumber))
 		)
 		let badScores = duplicateErrors.concat(otherErrors)
 		badScores = badScores.filter(function (value, index) { return badScores.indexOf(value) == index })
