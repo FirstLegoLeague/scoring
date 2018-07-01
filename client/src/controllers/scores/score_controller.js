@@ -100,19 +100,13 @@ class ScoreController {
 	teamRoundError() {
 		let self = this
 
-		if (!this._loading && this.data.round == null) {
-			return true
-		}
-		return false
+		return !this._loading && this.data.round == null
 	}
 
 	teamNumberError() {
 		let self = this
 
-		if (!this._loading && typeof self.data.teamNumber != "number") {
-			return true
-		}
-		return false
+		return !this._loading && typeof self.data.teamNumber != "number"
 	}
 }
 

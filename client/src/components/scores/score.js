@@ -10,8 +10,7 @@ export default {
     </h4>
     <h6 class="subheader">
         <a editable-text="score.data.round" buttons="no" blur="submit" onaftersave="score.save()">
-            <span ng-if='!score.loading && !score.teamRoundError()'>{{ score.data.round }}</span>
-            <div class="card-section alert" ng-if='!score.loading && score.teamRoundError()'>Missing round!</div>
+            <div ng-class="score.teamRoundError() ? 'card-section alert':''">{{ score.data.round || 'Missing round!'}}</div>
         </a>
     </h6>
 </div>
