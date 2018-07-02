@@ -12,6 +12,8 @@ import ScoreController from './scores/score_controller'
 import RefIdentityController from './scoresheet/ref_identity_controller'
 import StatusController from './status_controller'
 
+import GenericController from './generic/generic_controller'
+
 // eslint-disable-next-line node/exports-style
 export default {
 	ScoringController,
@@ -24,5 +26,7 @@ export default {
 	ScoreController,
 
 	RefIdentityController,
-	StatusController
+	StatusController,
+
+	GenericController
 }
