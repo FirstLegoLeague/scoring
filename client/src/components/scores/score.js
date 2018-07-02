@@ -5,12 +5,12 @@ export default {
 	<div class="card-section" ng-class="{ loading: loading }">
     <h4>
         <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="team.number as team.displayText for team in score.teams">
-            <div ng-class="score.teamNumberError() ? 'card-section alert':''">{{ score.teamText() }}</div>
+            <div ng-class="{'card-section alert' : score.teamNumberError()}">{{ score.teamText() }}</div>
         </a>
     </h4>
     <h6 class="subheader">
         <a editable-text="score.data.round" buttons="no" blur="submit" onaftersave="score.save()">
-            <div ng-class="score.teamRoundError() ? 'card-section alert':''">{{ score.data.round || 'Missing round!'}}</div>
+            <div ng-class="{'card-section alert' : score.teamRoundError()}">{{ score.data.round || 'Missing round!'}}</div>
         </a>
     </h6>
 </div>
