@@ -6,7 +6,7 @@ export default {
 		<ul class="menu">
 			<li><ref-identity ng-if="scoresheet.isRef"></ref-identity></li>
 			<form>
-				<input type="text" list="teams" ng-model="scoresheet.scoresheet.teamNumber" onaftersave="scoresheet.processErrors()">
+				<input type="text" list="teams" ng-model="scoresheet.scoresheet.teamNumber" ng-change="scoresheet.processErrors()">
 				<datalist id="teams">
 					<select>
 						<option type="text" ng-repeat="team in scoresheet.teams">
