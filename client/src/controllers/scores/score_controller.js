@@ -98,8 +98,6 @@ class ScoreController {
 	}
 
 	roundError() {
-		let self = this
-
 		return !this._loading && this.data.round == null
 	}
 
