@@ -5,7 +5,7 @@ export default {
 	<div class="top-bar-left">
 		<ul class="menu">
 			<li><ref-identity ng-if="scoresheet.isRef"></ref-identity></li>
-			<teamSearchList></teamSearchList>			
+			<team-search></team-search>			
 		</ul>
 	</div>
 	<div class="top-bar-right flex-container">
