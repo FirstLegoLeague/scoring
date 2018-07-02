@@ -1,5 +1,3 @@
-import scoresheet from "../../components/scoresheet/scoresheet";
-
 'use strict'
 
 const AUTOSCROLL_SPEED = 0.05
