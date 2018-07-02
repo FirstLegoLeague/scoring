@@ -10,7 +10,7 @@ export default {
     </h4>
     <h6 class="subheader">
         <a editable-text="score.data.round" buttons="no" blur="submit" onaftersave="score.save()">
-            <div ng-class="{'card-section alert' : score.teamRoundError()}">{{ score.data.round || 'Missing round!'}}</div>
+            <div ng-class="{'card-section alert' : score.roundError()}">{{ score.data.round || 'Missing round!'}}</div>
         </a>
     </h6>
 </div>

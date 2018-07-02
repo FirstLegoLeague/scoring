@@ -23,8 +23,7 @@ class ScoresController {
 		this.Tournament.teams().then(teams => {
 			this._loading = false
 			this._teamNumberList = []
-			for (var i = 0; i < teams.length; i++)//Creates list of team numbers.
-			{
+			for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
 				this._teamNumberList.push(teams[i].number)
 			}
 		})
@@ -99,7 +98,7 @@ class ScoresController {
 		)
 		let badScores = duplicateErrors.concat(otherErrors)
 		badScores = badScores.filter(function (value, index) { return badScores.indexOf(value) == index })
-		
+
 		return badScores;
 	}
 
