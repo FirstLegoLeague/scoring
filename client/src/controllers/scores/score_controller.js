@@ -102,9 +102,7 @@ class ScoreController {
 	}
 
 	teamNumberError() {
-		let self = this
-
-		return !this._loading && typeof self.data.teamNumber != "number"
+		return !this._loading && typeof this.data.teamNumber != 'number'
 	}
 }
 

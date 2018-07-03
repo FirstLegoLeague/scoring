@@ -28,7 +28,7 @@ export default {
 	        {{ score.tableText() }}.
 	    </a>
 	</div>
-	<div class="card-section">
+	<div class="card-section flex-child-shrink">
 	    <div class="button-group">
 	        <div class="button" ng-click="score.open()">
 	            <i class="fa fa-edit"></i>
