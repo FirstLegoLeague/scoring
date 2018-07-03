@@ -1,6 +1,6 @@
 'use strict'
 
-const MISSION_DEPENDENCIES_REGEX = /^function\((.+)\)/
+const MISSION_DEPENDENCIES_REGEX = /^function\s*\((.+)\)/
 
 class Challenge {
 
@@ -58,6 +58,7 @@ class Challenge {
 
 }
 
+Challenge.$$ngIsClass = true
 Challenge.$inject = ['$http', 'Configuration']
 
 export default Challenge

@@ -151,6 +151,7 @@ class Scoresheet {
 
 }
 
+Scoresheet.$$ngIsClass = true
 Scoresheet.$inject = ['Challenge', 'RefIdentity', 'Independence']
 
 export default Scoresheet

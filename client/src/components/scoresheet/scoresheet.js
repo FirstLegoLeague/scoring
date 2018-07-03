@@ -56,11 +56,11 @@ export default {
 					<div ng-show="scoresheet.error()" class="stamp hollow alert button" ng-click="scoresheet.scrollToMission(scoresheet.error().mission)">{{scoresheet.error().error}}</div>
 				</div>
 			</div>
-			<div class="cell small-2 small-offset-5">
-				<div class="large button" ng-click="scoresheet.save()" ng-disabled="!scoresheet.complete()">Submit</div>
+				<div class="cell small-2 small-offset-5">
+					<div class="large button" ng-click="scoresheet.save()" ng-disabled="!scoresheet.complete()">Submit</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>`,
+	</div>`,
 	controller: 'ScoresheetController as scoresheet',
 }

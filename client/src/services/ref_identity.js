@@ -42,6 +42,7 @@ class RefIdentity {
 
 }
 
+RefIdentity.$$ngIsClass = true
 RefIdentity.$inject = ['$window', 'Tournament']
 
 export default RefIdentity

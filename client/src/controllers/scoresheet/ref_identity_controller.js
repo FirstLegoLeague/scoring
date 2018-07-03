@@ -40,6 +40,7 @@ class RefIdentityController {
 
 }
 
+RefIdentityController.$$ngIsClass = true
 RefIdentityController.$inject = ['RefIdentity', 'Modals']
 
 export default RefIdentityController
