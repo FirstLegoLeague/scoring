@@ -140,7 +140,7 @@ class Scoresheet {
 				referee: scoresheet.referee,
 				tableId: scoresheet.tableId,
 				signature: scoresheet.signature,
-				teamNumber: this.current.teamNumber,
+				teamNumber: scoresheet.teamNumber,
 				score: scoresheet.score,
 				title: scoresheet.challenge,
 				_id: scoresheet._id

@@ -42,7 +42,30 @@ class ScoresheetController {
             self.Scoresheet.load(scoresheet).then(scoresheet => {
                 self.scoresheet = scoresheet
                 self.missions = scoresheet.missions
+                self.Tournament.teams().then(teams => {
+                    self.team = teams.find(team => team.number === self.scoresheet.teamNumber).displayText
+                })
+                self.signatureMissing = false
             })
+        })
+
+        this.$scope.$watch(() => this.team, () => {
+            if(this.team) {
+                self.scoresheet.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
+                self.processErrors()
+            }
+        })
+
+        this.Configuration.load().then(config => {
+            if (config.requireSignature) {
+                this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
+                    if(self.scoresheet) {
+                        let signature = this.$scope.getSignature()
+                        self.scoresheet.signature = signature
+                        self.signatureMissing = signature.isEmpty && !self.scoresheet._id
+                    }
+                })
+            }
         })
 
         return this.Scoresheet.init()
@@ -71,10 +94,6 @@ class ScoresheetController {
         return this.Scoresheet.errors[0]
     }
 
-    signatureMissing() {
-        return this.Configuration.requireSignature && this.$scope.getSignature().isEmpty && !this.scoresheet._id
-    }
-
     processErrors() {
         if (this.scoresheet) {
             this.Scoresheet.processErrors()
@@ -83,10 +102,9 @@ class ScoresheetController {
 
     complete() {
         if (!this.scoresheet) return false
-        let signatureMissing = this.signatureMissing()
         return this.missions
             && (!this.errors || this.errors.length === 0)
-            && !signatureMissing
+            && !this.signatureMissing
     }
 
     reset() {
@@ -103,13 +121,6 @@ class ScoresheetController {
     save() {
         let self = this
 
-        if (typeof this.scoresheet.teamNumber != 'undefined') {
-            this.scoresheet.teamNumber = Number(this.scoresheet.teamNumber.substring(1, this.scoresheet.teamNumber.indexOf(' ')))
-        }
-
-        if (this.Configuration.requireSignature) {
-            this.scoresheet.signature = this.$scope.getSignature()
-        }
         this.Scoresheet.save().then(() => {
             self.$scope.$emit('close scoresheet', { goToScores: Boolean(self.scoresheet._id) })
             self.reset()

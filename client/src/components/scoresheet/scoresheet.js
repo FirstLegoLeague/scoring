@@ -7,17 +7,18 @@ export default {
 			<li>
 				<ref-identity ng-if="scoresheet.isRef"></ref-identity>
 			</li>
-			<form>
-				<input type="text" list="teams" blur="submit" 
-				ng-model="scoresheet.scoresheet.teamNumber" ng-change="scoresheet.processErrors()">
-				<datalist id="teams">
-					<select>
-						<option type="text" ng-repeat="team in scoresheet.teams">
-							{{ team.displayText }}
-						</option>
-					</select>
-				</datalist>
-			</form>
+			<li>
+				<form>
+					<input type="text" list="teams" blur="submit" ng-model="scoresheet.team">
+					<datalist id="teams">
+						<select>
+							<option type="text" ng-repeat="team in scoresheet.teams">
+								{{ team.displayText }}
+							</option>
+						</select>
+					</datalist>
+				</form>
+			</li>
 		</ul>
 	</div>
 	<div class="top-bar-right flex-container">
@@ -50,7 +51,7 @@ export default {
 				</div>
 			</div>
 			<div class="cell">
-				<div id="signature" class="callout" ng-class="{ alert: scoresheet.error(), success: !(scoresheet.error() || scoresheet.signatureMissing()) }">
+				<div id="signature" class="callout" ng-class="{ alert: scoresheet.error(), success: !(scoresheet.error() || scoresheet.signatureMissing) }">
 					<signature-pad accept="getSignature" clear="clearSignature" height="128" width="300" disabled="false" ng-hide="scoresheet.scoresheet._id"></signature-pad>
 					<img ng-src="{{scoresheet.scoresheet.signature.dataUrl}}" ng-show="scoresheet.scoresheet._id" />
 					<div ng-show="scoresheet.error()" class="stamp hollow alert button" ng-click="scoresheet.scrollToMission(scoresheet.error().mission)">{{scoresheet.error().error}}</div>
