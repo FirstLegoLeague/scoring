@@ -103,11 +103,8 @@ class ScoresheetController {
     save() {
         let self = this
 
-        console.log(this.scoresheet.teamNumber)
-
-        if(typeof this.scoresheet.teamNumber != 'undefined'){
-            this.scoresheet.teamNumber = this.scoresheet.teamNumber.substring(1,this.scoresheet.teamNumber.indexOf(' '))
-            console.log(this.scoresheet.teamNumber, "post")
+        if (typeof this.scoresheet.teamNumber != 'undefined') {
+            this.scoresheet.teamNumber = Number(this.scoresheet.teamNumber.substring(1, this.scoresheet.teamNumber.indexOf(' ')))
         }
 
         if (this.Configuration.requireSignature) {
