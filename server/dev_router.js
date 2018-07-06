@@ -22,6 +22,17 @@ const TEAMS = [
   { number: 8846, name: 'Syntax error' }
 ]
 
+var TEAMS_MATCHES = []
+const MATCH_LIST = [
+  { complete: false, match: '1' },
+  { complete: false, match: '2' },
+  { complete: false, match: '3' }
+]
+
+for (let i = 0; i < TEAMS.length; i++) {
+  TEAMS_MATCHES.push({ number: TEAMS[i], matches: MATCH_LIST })
+}
+
 const TABLES = [
   { tableId: 1, tableName: 'Rick' },
   { tableId: 2, tableName: 'Morty' },
