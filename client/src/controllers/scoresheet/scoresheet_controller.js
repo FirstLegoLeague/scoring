@@ -68,12 +68,13 @@ class ScoresheetController {
             }
         })
 
-        self.teamMatchList = this.Tournament.teams_matches()
-        
         return this.Scoresheet.init()
             .then(() => self.Tournament.teams())
             .then(teams => {
                 self.teams = teams
+            }).then(() => self.Tournament.teams_matches())
+            .then(matches => {
+                self.teamMatchList = matches
             })
             .then(() => self.reset())
     }
@@ -144,6 +145,19 @@ class ScoresheetController {
 
     setDefault() {
         this.$scope.$broadcast('set default')
+    }
+
+    selectedTeamMatches() {
+        let self = this
+        if (typeof self.teamMatchList != 'undefined' && typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined') {
+            for (var i = 0; i < self.teamMatchList.length; i++) {
+                if (self.teamMatchList[i].number == self.scoresheet.teamNumber) {
+                    return self.teamMatchList[i].matches
+                }
+            }
+        }
+
+        return []
     }
 
     showScoreDiffAnimation(scoreDiff) {

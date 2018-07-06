@@ -21,8 +21,8 @@ export default {
 			</li>
 			<li>
 				<select ng-disabled="scoresheet.teamIsSelected()" ng-model="scoresheet.selectedRound">
-					<option>
-						Temp
+					<option type="text" ng-repeat="match in scoresheet.selectedTeamMatches()">
+						{{match.match}}
 					</option>
 				</select>
 			</li>
