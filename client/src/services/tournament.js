@@ -49,6 +49,21 @@ class Tournament {
 			})
 	}
 
+	teams_matches(){
+		if(this._teams_matches){
+			return Promise.resolve(this._teams_matches)
+		}
+
+		let self = this
+
+		return this.init()
+			.then(() => self.$http.get(`${self.tournament}/teamsmatches/all`))
+			.then(response => {
+				self._teams_matches = response.data
+				return self._teams_matches
+			})
+	}
+
 }
 
 Tournament.$$ngIsClass = true

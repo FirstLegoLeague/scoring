@@ -48,5 +48,9 @@ router.use('/table/all', (req, res) => {
   res.json(TABLES)
 })
 
+router.use('/teamsmatches/all', (req, res) => {
+  res.json(TEAMS_MATCHES)
+})
+
 // eslint-disable-next-line node/exports-style
 module.exports = router
