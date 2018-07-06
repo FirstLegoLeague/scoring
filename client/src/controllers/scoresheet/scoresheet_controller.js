@@ -124,6 +124,7 @@ class ScoresheetController {
             self.$scope.clearSignature()
             self.$scope.$apply()
             self.scrollToMission(self.scoresheet.missions[0])
+            self.team = null
         })
     }
 
