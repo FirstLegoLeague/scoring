@@ -68,6 +68,8 @@ class ScoresheetController {
             }
         })
 
+        self.teamMatchList = this.Tournament.teams_matches()
+        
         return this.Scoresheet.init()
             .then(() => self.Tournament.teams())
             .then(teams => {
