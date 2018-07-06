@@ -30,7 +30,7 @@ const MATCH_LIST = [
 ]
 
 for (let i = 0; i < TEAMS.length; i++) {
-  TEAMS_MATCHES.push({ number: TEAMS[i], matches: MATCH_LIST })
+  TEAMS_MATCHES.push({ number: TEAMS[i].number, matches: MATCH_LIST })
 }
 
 const TABLES = [
