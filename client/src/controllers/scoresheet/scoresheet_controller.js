@@ -110,7 +110,7 @@ class ScoresheetController {
         if (!this.scoresheet) return false
         return this.missions
             && (!this.errors || this.errors.length === 0)
-            && !this.signatureMissing
+            && !this.signatureMissing && this.selectedRound
     }
 
     reset() {
