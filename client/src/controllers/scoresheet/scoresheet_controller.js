@@ -50,7 +50,7 @@ class ScoresheetController {
         })
 
         this.$scope.$watch(() => this.team, () => {
-            if(this.team) {
+            if (this.team) {
                 self.scoresheet.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
                 self.processErrors()
             }
@@ -59,7 +59,7 @@ class ScoresheetController {
         this.Configuration.load().then(config => {
             if (config.requireSignature) {
                 this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
-                    if(self.scoresheet) {
+                    if (self.scoresheet) {
                         let signature = this.$scope.getSignature()
                         self.scoresheet.signature = signature
                         self.signatureMissing = signature.isEmpty && !self.scoresheet._id
@@ -92,6 +92,12 @@ class ScoresheetController {
 
     error() {
         return this.Scoresheet.errors[0]
+    }
+
+    teamIsSelected() {
+        let self = this
+
+        return !(this.scoresheet && typeof self.scoresheet.teamNumber != 'undefined')
     }
 
     processErrors() {

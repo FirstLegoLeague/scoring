@@ -20,7 +20,7 @@ export default {
 				</form>
 			</li>
 			<li>
-				<select ng-disabled="true">
+				<select ng-disabled="scoresheet.teamIsSelected()">
 					<option>
 						Temp
 					</option>
