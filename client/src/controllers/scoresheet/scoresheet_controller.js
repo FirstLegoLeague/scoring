@@ -79,9 +79,9 @@ class ScoresheetController {
             .then(() => self.Tournament.teams())
             .then(teams => {
                 self.teams = teams
-            }).then(() => self.Tournament.teams_matches())
-            .then(matches => {
-                self.teamMatchList = matches
+            }).then(() => self.Tournament.teams_rounds())
+            .then(rounds => {
+                self.teamRoundList = rounds
             })
             .then(() => self.reset())
     }
@@ -161,12 +161,12 @@ class ScoresheetController {
         this.$scope.$broadcast('set default')
     }
 
-    selectedTeamMatches() {
+    selectedTeamRounds() {
         let self = this
-        if (typeof self.teamMatchList != 'undefined' && typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined') {
-            for (var i = 0; i < self.teamMatchList.length; i++) {
-                if (self.teamMatchList[i].number == self.scoresheet.teamNumber) {
-                    return self.teamMatchList[i].matches
+        if (typeof self.teamRoundList != 'undefined' && typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined') {
+            for (var i = 0; i < self.teamRoundList.length; i++) {
+                if (self.teamRoundList[i].number == self.scoresheet.teamNumber) {
+                    return self.teamRoundList[i].rounds
                 }
             }
         }
