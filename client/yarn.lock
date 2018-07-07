@@ -3,8 +3,8 @@
 
 
 "@first-lego-league/user-interface@^1.1.7":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.2.1.tgz#fa957bea73deb75f99d0fd5fdf90e459d3f1d9c0"
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.2.2.tgz#66529f5f014c783914cf260a5868edd8d5ff77ed"
   dependencies:
     hamburgers "^0.9.3"
 
