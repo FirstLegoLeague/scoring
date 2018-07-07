@@ -56,6 +56,13 @@ class ScoresheetController {
             }
         })
 
+        this.$scope.$watch(() => this.round, () => {
+            if (this.round) {
+                self.scoresheet.round = this.round
+                self.processErrors()
+            }
+        })
+
         this.Configuration.load().then(config => {
             if (config.requireSignature) {
                 this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
@@ -113,7 +120,7 @@ class ScoresheetController {
         if (!this.scoresheet) return false
         return this.missions
             && (!this.errors || this.errors.length === 0)
-            && !this.signatureMissing && this.selectedRound
+            && !this.signatureMissing && this.round
     }
 
     reset() {
@@ -125,7 +132,7 @@ class ScoresheetController {
             self.$scope.$apply()
             self.scrollToMission(self.scoresheet.missions[0])
             self.team = null
-            self.selectedRound = null
+            self.round = null
         })
     }
 
