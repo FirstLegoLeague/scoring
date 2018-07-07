@@ -125,6 +125,7 @@ class ScoresheetController {
             self.$scope.$apply()
             self.scrollToMission(self.scoresheet.missions[0])
             self.team = null
+            self.selectedRound = null
         })
     }
 

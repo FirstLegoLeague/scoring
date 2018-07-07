@@ -24,7 +24,7 @@ const TEAMS = [
 
 var TEAMS_MATCHES = []
 const MATCH_LIST = [
-  { complete: false, match: '1' },
+  { complete: true, match: '1' },
   { complete: false, match: '2' },
   { complete: false, match: '3' }
 ]
