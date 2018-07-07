@@ -58,7 +58,7 @@ class ScoresheetController {
 
         this.$scope.$watch(() => this.round, () => {
             if (this.round) {
-                self.scoresheet.round = this.round
+                self.scoresheet.round = this.round.replace('✔', '')
                 self.processErrors()
             }
         })
@@ -97,6 +97,11 @@ class ScoresheetController {
         if (scoreDiff !== 0 && isFinite(scoreDiff)) {
             this.showScoreDiffAnimation(scoreDiff)
         }
+
+        if (this.round && this.round.indexOf('✔') > -1) {
+            return '"' + newScore.toString() + '"'
+        }
+
         return newScore
     }
 
