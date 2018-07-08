@@ -21,11 +21,11 @@ class ScoresController {
 		this.$scope.$on('reload', () => self.load(true))
 		this.Messanger.on('reload', () => self.load(false), true)
 		this.Tournament.teams().then(teams => {
-			this._loading = false
 			this._teamNumberList = []
 			for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
 				this._teamNumberList.push(teams[i].number)
 			}
+			this._loading = false
 		})
 	}
 
@@ -100,6 +100,18 @@ class ScoresController {
 		badScores = badScores.filter(function (value, index) { return badScores.indexOf(value) == index })
 
 		return badScores;
+	}
+
+	teamIsSelected() {
+		return !this._loading && this._teamNumberList.includes(parseInt(this.search))
+	}
+
+	selectedTeamRounds() {
+		if (this.teamIsSelected()) {
+			return this.Tournament.teams()[this._teamNumberList.indexOf(this.search)].rounds
+		}
+
+		return [];
 	}
 
 }
