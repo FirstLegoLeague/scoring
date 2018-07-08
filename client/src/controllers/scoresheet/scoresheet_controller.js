@@ -58,7 +58,7 @@ class ScoresheetController {
 
         this.$scope.$watch(() => this.round, () => {
             if (this.round) {
-                self.scoresheet.round = this.round.replace('✔', '')
+                self.scoresheet.round = this.round.replace('✔', '').trim()
                 self.processErrors()
             }
         })
