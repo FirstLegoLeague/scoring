@@ -25,8 +25,12 @@ class ScoresController {
 			for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
 				this._teamNumberList.push(teams[i].number)
 			}
-			this._loading = false
 		})
+		self.Tournament.teams_rounds().then(rounds => {
+			this.teamRoundList = rounds
+		})
+
+		this._loading = false
 	}
 
 	load(shouldBroadcast) {
@@ -103,13 +107,19 @@ class ScoresController {
 	}
 
 	teamIsSelected() {
-		return !this._loading && this._teamNumberList.includes(parseInt(this.search))
+		return !this._loading && this._teamNumberList && this._teamNumberList.indexOf(parseInt(this.search)) > -1
 	}
 
 	selectedTeamRounds() {
-		if (this.teamIsSelected()) {
-			return this.Tournament.teams()[this._teamNumberList.indexOf(this.search)].rounds
-		}
+		/*if (this.teamIsSelected()) {
+			console.log(this.teamRoundList)
+			for (var i = 0; i < this.teamRoundList.length; i++) {
+				console.log(this._teamNumberList)
+				if (this.teamRoundList[i].number == parseInt(this.search)) {
+					return this.teamRoundList[i].rounds
+				}
+			}
+		}*/
 
 		return [];
 	}
