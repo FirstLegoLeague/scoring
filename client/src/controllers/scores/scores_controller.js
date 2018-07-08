@@ -113,14 +113,14 @@ class ScoresController {
 	}
 
 	selectedTeamRounds() {
-	/*if (this.teamIsSelected() && this.teamRoundList) {
+		if (this.teamIsSelected() && this.teamRoundList) {
 			for (var i = 0; i < this.teamRoundList.length; i++) {
 				console.log(this._teamNumberList)
 				if (this.teamRoundList[i].number == parseInt(this.search)) {
 					return this.teamRoundList[i].rounds
 				}
 			}
-	}*/
+		}
 
 		return [];
 	}
