@@ -9,7 +9,7 @@ export default {
                 <input name="search" type="text" ng-model="scores.search" placeholder="search Scores" />
             </li>
             <li>
-                <select ng-disabled="scores.teamIsSelected()" ng-model="scores.round">
+                <select ng-disabled="!scores.teamIsSelected()" ng-model="scores.round">
                     <option type="text" ng-repeat="round in scores.selectedTeamRounds()">
                         {{round.round}}
                     </option>
