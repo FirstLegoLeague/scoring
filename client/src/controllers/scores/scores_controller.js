@@ -31,7 +31,8 @@ class ScoresController {
 		})
 
 
-		self.search = null
+		self.search = ''
+		self.round = null
 		this._loading = false
 	}
 
@@ -52,6 +53,9 @@ class ScoresController {
 		// Filter by search
 		if (this.search) {
 			scores = this._scores.filter(score => {
+				if (this.round) {
+					return score.round === this.round.toString().trim()
+				}
 				return Object.values(score).some(value => value.toString().includes(self.search))
 			})
 		}
@@ -115,7 +119,6 @@ class ScoresController {
 	selectedTeamRounds() {
 		if (this.teamIsSelected() && this.teamRoundList) {
 			for (var i = 0; i < this.teamRoundList.length; i++) {
-				console.log(this._teamNumberList)
 				if (this.teamRoundList[i].number == parseInt(this.search)) {
 					return this.teamRoundList[i].rounds
 				}
