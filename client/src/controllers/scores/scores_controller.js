@@ -26,13 +26,13 @@ class ScoresController {
 				this._teamNumberList.push(teams[i].number)
 			}
 		})
-		this.Tournament.teams_rounds().then(rounds => {
-			this.teamRoundList = rounds
+		this.Tournament.teams_matches().then(matches => {
+			this.teamMatchList = matches
 		})
 
 
 		self.search = ''
-		self.round = null
+		self.match = null
 		this._loading = false
 	}
 
@@ -53,8 +53,8 @@ class ScoresController {
 		// Filter by search
 		if (this.search) {
 			scores = this._scores.filter(score => {
-				if (this.round) {
-					return score.round === this.round.toString().trim()
+				if (this.match) {
+					return score.match === this.match.toString().trim()
 				}
 				return Object.values(score).some(value => value.toString().includes(self.search))
 			})
@@ -90,7 +90,7 @@ class ScoresController {
 		return scores.filter(score => {
 			return self._scores.some(otherScore => {
 				return score !== otherScore
-					&& otherScore.teamNumber === score.teamNumber && otherScore.round === score.round
+					&& otherScore.teamNumber === score.teamNumber && otherScore.match === score.match
 			})
 		})
 	}
@@ -103,7 +103,7 @@ class ScoresController {
 
 
 		let otherErrors = scores.filter(score =>
-			typeof score.teamNumber != "number" || score.round == null ||
+			typeof score.teamNumber != "number" || score.match == null ||
 			(!this._loading && !this._teamNumberList.includes(score.teamNumber))
 		)
 		let badScores = duplicateErrors.concat(otherErrors)
@@ -116,11 +116,11 @@ class ScoresController {
 		return !this._loading && this._teamNumberList && this._teamNumberList.indexOf(parseInt(this.search)) > -1
 	}
 
-	selectedTeamRounds() {
-		if (this.teamIsSelected() && this.teamRoundList) {
-			for (var i = 0; i < this.teamRoundList.length; i++) {
-				if (this.teamRoundList[i].number == parseInt(this.search)) {
-					return this.teamRoundList[i].rounds
+	selectedTeamMatches() {
+		if (this.teamIsSelected() && this.teamMatchList) {
+			for (var i = 0; i < this.teamMatchList.length; i++) {
+				if (this.teamMatchList[i].number == parseInt(this.search)) {
+					return this.teamMatchList[i].matches
 				}
 			}
 		}

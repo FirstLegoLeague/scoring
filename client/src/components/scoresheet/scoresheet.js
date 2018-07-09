@@ -20,9 +20,9 @@ export default {
 				</form>
 			</li>
 			<li>
-				<select ng-disabled="scoresheet.teamIsSelected()" ng-model="scoresheet.round">
-					<option type="text" ng-repeat="round in scoresheet.selectedTeamRounds()">
-						{{round.round}}{{round.complete ? '✔' : ''}}
+				<select ng-disabled="scoresheet.teamIsSelected()" ng-model="scoresheet.match">
+					<option type="text" ng-repeat="match in scoresheet.selectedTeamMatches()">
+						{{match.match}}{{match.complete ? '✔' : ''}}
 					</option>
 				</select>
 			</li>

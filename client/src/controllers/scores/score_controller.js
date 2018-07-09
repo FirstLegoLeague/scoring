@@ -84,7 +84,7 @@ class ScoreController {
 		let updateData = {
 			score: this.data.score,
 			teamNumber: this.data.teamNumber,
-			round: this.data.round,
+			match: this.data.match,
 			tableId: this.data.tableId,
 			referee: this.data.referee
 		}
@@ -97,8 +97,8 @@ class ScoreController {
 			})
 	}
 
-	roundError() {
-		return !this._loading && this.data.round == null
+	matchError() {
+		return !this._loading && this.data.match == null
 	}
 
 	teamNumberError() {

@@ -22,15 +22,15 @@ const TEAMS = [
   { number: 8846, name: 'Syntax error' }
 ]
 
-var TEAMS_ROUNDS = []
-const ROUND_LIST = [
-  { complete: true, round: '1' },
-  { complete: false, round: '2' },
-  { complete: false, round: '3' }
+var TEAMS_MATCHES = []
+const MATCH_LIST = [
+  { complete: true, match: '1' },
+  { complete: false, match: '2' },
+  { complete: false, match: '3' }
 ]
 
 for (let i = 0; i < TEAMS.length; i++) {
-  TEAMS_ROUNDS.push({ number: TEAMS[i].number, rounds: ROUND_LIST })
+  TEAMS_MATCHES.push({ number: TEAMS[i].number, matches: MATCH_LIST })
 }
 
 const TABLES = [
@@ -48,8 +48,8 @@ router.use('/table/all', (req, res) => {
   res.json(TABLES)
 })
 
-router.use('/teamsrounds/all', (req, res) => {
-  res.json(TEAMS_ROUNDS)
+router.use('/teamsmatches/all', (req, res) => {
+  res.json(TEAMS_MATCHES)
 })
 
 // eslint-disable-next-line node/exports-style

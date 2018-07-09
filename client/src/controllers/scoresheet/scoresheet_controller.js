@@ -56,9 +56,9 @@ class ScoresheetController {
             }
         })
 
-        this.$scope.$watch(() => this.round, () => {
-            if (this.round) {
-                self.scoresheet.round = this.round.replace('✔', '').trim()
+        this.$scope.$watch(() => this.match, () => {
+            if (this.match) {
+                self.scoresheet.match = this.match.replace('✔', '').trim()
                 self.processErrors()
             }
         })
@@ -79,9 +79,9 @@ class ScoresheetController {
             .then(() => self.Tournament.teams())
             .then(teams => {
                 self.teams = teams
-            }).then(() => self.Tournament.teams_rounds())
-            .then(rounds => {
-                self.teamRoundList = rounds
+            }).then(() => self.Tournament.teams_matches())
+            .then(matches => {
+                self.teamMatchList = matches
             })
             .then(() => self.reset())
     }
@@ -98,7 +98,7 @@ class ScoresheetController {
             this.showScoreDiffAnimation(scoreDiff)
         }
 
-        if (this.round && this.round.indexOf('✔') > -1) {
+        if (this.match && this.match.indexOf('✔') > -1) {
             return '"' + newScore.toString() + '"'
         }
 
@@ -125,7 +125,7 @@ class ScoresheetController {
         if (!this.scoresheet) return false
         return this.missions
             && (!this.errors || this.errors.length === 0)
-            && !this.signatureMissing && this.round
+            && !this.signatureMissing && this.match
     }
 
     reset() {
@@ -137,7 +137,7 @@ class ScoresheetController {
             self.$scope.$apply()
             self.scrollToMission(self.scoresheet.missions[0])
             self.team = null
-            self.round = null
+            self.match = null
         })
     }
 
@@ -161,12 +161,12 @@ class ScoresheetController {
         this.$scope.$broadcast('set default')
     }
 
-    selectedTeamRounds() {
+    selectedTeamMatches() {
         let self = this
-        if (typeof self.teamRoundList != 'undefined' && typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined') {
-            for (var i = 0; i < self.teamRoundList.length; i++) {
-                if (self.teamRoundList[i].number == self.scoresheet.teamNumber) {
-                    return self.teamRoundList[i].rounds
+        if (typeof self.teamMatchList != 'undefined' && typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined') {
+            for (var i = 0; i < self.teamMatchList.length; i++) {
+                if (self.teamMatchList[i].number == self.scoresheet.teamNumber) {
+                    return self.teamMatchList[i].matches
                 }
             }
         }
