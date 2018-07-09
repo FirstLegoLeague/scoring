@@ -26,7 +26,7 @@ class ScoresController {
 				this._teamNumberList.push(teams[i].number)
 			}
 		})
-		this.Tournament.teams_matches().then(matches => {
+		this.Tournament.teamsMatches().then(matches => {
 			this.teamMatchList = matches
 		})
 
