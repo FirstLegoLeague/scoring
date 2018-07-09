@@ -20,7 +20,7 @@ export default {
 				</form>
 			</li>
 			<li>
-				<select ng-disabled="scoresheet.teamIsSelected()" ng-model="scoresheet.match">
+				<select ng-disabled="!scoresheet.teamIsSelected()" ng-model="scoresheet.match">
 					<option type="text" ng-repeat="match in scoresheet.selectedTeamMatches()">
 						{{match.match}}{{match.complete ? '✔' : ''}}
 					</option>

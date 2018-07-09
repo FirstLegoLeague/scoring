@@ -112,7 +112,7 @@ class ScoresheetController {
     teamIsSelected() {
         let self = this
 
-        return !(this.scoresheet && typeof self.scoresheet.teamNumber != 'undefined')
+        return this.scoresheet && typeof self.scoresheet.teamNumber != 'undefined'
     }
 
     processErrors() {
