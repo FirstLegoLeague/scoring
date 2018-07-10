@@ -30,7 +30,7 @@ export default {
 </div>
 <div class="top-bar-page">
     <div id="scores-list" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5">
-        <div ng-repeat="score in scores.scores()" class="cell">
+        <div ng-repeat="score in scores.scores()" class="cell grid-y">
             <score id="score-{{score._id}}" data="score" class="card"></score>
         </div>
     </div>
