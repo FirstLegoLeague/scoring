@@ -28,7 +28,7 @@ export default {
         {{ score.tableText() }}.
     </a>
 </div>
-<div class="card-section">
+<div class="card-section flex-child-shrink">
     <div class="button-group">
         <div class="button" ng-click="score.open()">
             <i class="fa fa-edit"></i>
@@ -44,7 +44,7 @@ export default {
 <div class="deletion-modal reveal" data-reveal>
     <h4>Do you really want to delete this score?</h4>
     <div class="subheader">This operation is ireversable!</div>
-    <div class="grid-x align-center button-group button-group">
+    <div class="grid-x align-center button-group">
         <div class="button" ng-click="score.closeDeletionDialog()">No, I think I'll pass...</div>
         <div class="alert button" ng-click="score.delete()">Yes, just do it!</div>
     </div>
