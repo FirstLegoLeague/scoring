@@ -114,8 +114,13 @@ class ScoresController {
 	}
 
 	selectedTeamMatches() {
+		let self = this
 		if (this.teamIsSelected()) {
-			return this.Tournament.teamsMatches(parseInt(this.search))
+			if(self._matches){
+				return self._matches
+			}
+			self._matches = self.Tournament.teamsMatches(parseInt(this.search))
+			return self._matches
 		}
 
 		return [];

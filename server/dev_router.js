@@ -49,7 +49,7 @@ router.use('/table/all', (req, res) => {
 })
 
 router.use(`/teams/:teamNumber/matches`, (req, res) => {
-  res.json(TEAMS_MATCHES[TEAMS_MATCHES.findIndex(team => team.number === req.params.teamNumber)])
+  res.json(TEAMS_MATCHES[TEAMS_MATCHES.findIndex(team => team.number === parseInt(req.params.teamNumber))].matches)
 })
 
 // eslint-disable-next-line node/exports-style

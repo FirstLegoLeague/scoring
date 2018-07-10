@@ -52,6 +52,9 @@ class ScoresheetController {
         this.$scope.$watch(() => this.team, () => {
             if (this.team) {
                 self.scoresheet.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
+                self.Tournament.teamsMatches(self.scoresheet.teamNumber).then(matches => {
+                    self._matches = matches
+                })
                 self.processErrors()
             }
         })
@@ -135,6 +138,7 @@ class ScoresheetController {
             self.scrollToMission(self.scoresheet.missions[0])
             self.team = null
             self.match = null
+            self._matches = null
         })
     }
 
@@ -160,8 +164,9 @@ class ScoresheetController {
 
     selectedTeamMatches() {
         let self = this
-        if (typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined') {
-            return this.Tournament.teamsMatches(self.scoresheet.teamNumber)
+
+        if (typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined' && self._matches) {
+            return self._matches
         }
 
         return []
