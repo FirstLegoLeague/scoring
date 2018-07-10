@@ -79,9 +79,6 @@ class ScoresheetController {
             .then(() => self.Tournament.teams())
             .then(teams => {
                 self.teams = teams
-            }).then(() => self.Tournament.teams_matches())
-            .then(matches => {
-                self.teamMatchList = matches
             })
             .then(() => self.reset())
     }
@@ -163,12 +160,8 @@ class ScoresheetController {
 
     selectedTeamMatches() {
         let self = this
-        if (typeof self.teamMatchList != 'undefined' && typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined') {
-            for (var i = 0; i < self.teamMatchList.length; i++) {
-                if (self.teamMatchList[i].number == self.scoresheet.teamNumber) {
-                    return self.teamMatchList[i].matches
-                }
-            }
+        if (typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined') {
+            return this.Tournament.teamsMatches(self.scoresheet.teamNumber)
         }
 
         return []

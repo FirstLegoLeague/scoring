@@ -49,15 +49,17 @@ class Tournament {
 			})
 	}
 
-	teamsMatches(){
-		if(this._teamsMatches){
+	teamsMatches(teamNumber){
+		if(this._teamsMatches && this._teamNumber && this._teamNumber == teamNumber){
 			return Promise.resolve(this._teamsMatches)
 		}
 
 		let self = this
 
+		this._teamNumber = teamNumber
+
 		return this.init()
-			.then(() => self.$http.get(`${self.tournament}/teamsmatches/all`))
+			.then(() => self.$http.get(`${self.tournament}/teams/${teamNumber}/matches`))
 			.then(response => {
 				self._teamsMatches = response.data
 				return self._teamsMatches

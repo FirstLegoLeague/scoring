@@ -26,9 +26,6 @@ class ScoresController {
 				this._teamNumberList.push(teams[i].number)
 			}
 		})
-		this.Tournament.teamsMatches().then(matches => {
-			this.teamMatchList = matches
-		})
 
 
 		self.search = ''
@@ -117,12 +114,8 @@ class ScoresController {
 	}
 
 	selectedTeamMatches() {
-		if (this.teamIsSelected() && this.teamMatchList) {
-			for (var i = 0; i < this.teamMatchList.length; i++) {
-				if (this.teamMatchList[i].number == parseInt(this.search)) {
-					return this.teamMatchList[i].matches
-				}
-			}
+		if (this.teamIsSelected()) {
+			return this.Tournament.teamsMatches(parseInt(this.search))
 		}
 
 		return [];

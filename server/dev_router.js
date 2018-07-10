@@ -48,8 +48,8 @@ router.use('/table/all', (req, res) => {
   res.json(TABLES)
 })
 
-router.use('/teamsmatches/all', (req, res) => {
-  res.json(TEAMS_MATCHES)
+router.use(`/teams/${reqTeamNumber}/matches`, (req, res) => {
+  res.json(TEAMS_MATCHES[TEAMS_MATCHES.findIndex(team => team.number === reqTeamNumber)])
 })
 
 // eslint-disable-next-line node/exports-style
