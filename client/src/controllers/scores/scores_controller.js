@@ -50,9 +50,6 @@ class ScoresController {
 		// Filter by search
 		if (this.search) {
 			scores = this._scores.filter(score => {
-				if (this.match) {
-					return score.match === this.match.toString().trim()
-				}
 				return Object.values(score).some(value => value.toString().includes(self.search))
 			})
 		}
@@ -108,28 +105,6 @@ class ScoresController {
 
 		return badScores;
 	}
-
-	teamIsSelected() {
-		return !this._loading && this._teamNumberList && this._teamNumberList.indexOf(parseInt(this.search)) > -1
-	}
-
-	selectedTeamMatches() {
-		let self = this
-		if (this.teamIsSelected()) {
-			if(self._matches){
-				return self._matches
-			}
-			self.Tournament.teamsMatches(parseInt(this.search)).then(matches => {
-				self._matches = matches
-			})
-			return self._matches
-		}
-
-		self._matches = null
-
-		return [];
-	}
-
 }
 
 ScoresController.$$ngIsClass = true
