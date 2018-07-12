@@ -9,7 +9,7 @@ export default {
         </a>
     </h4>
     <h6 class="subheader">
-        <select ng-model="score.data.match" onchange="score.save()" ng-class="{'card-section alert' : score.matchError()}">
+        <select ng-click="score.isSelected = !score.isSelected" ng-model="score.data.match" onchange="score.save()" ng-class="{'card-section alert' : score.matchError()}">
             <option type="text" ng-repeat="match in score.teamMatches()">
                 {{match.match}}
             </option>

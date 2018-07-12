@@ -9,6 +9,7 @@ class ScoreController {
 		this.Notifications = Notifications
 		this.Modals = Modals
 		this._loading = true
+		this.isSelected = false
 	}
 
 	$onInit() {
@@ -100,13 +101,17 @@ class ScoreController {
 	teamMatches() {
 		let self = this
 
-		if(this.mouseOver){
+		if (this.isSelected) {
+			if (self._matches) {
+				return self._matches
+			}
+
 			self.Tournament.teamsMatches(this.data.teamNumber).then(matches => {
-				if (matches) {
-					return matches
-				}
+				return matches
+			}).then(resolvedMatches => {
+				self._matches = resolvedMatches
 			})
-		}		
+		}
 
 		return []
 	}
