@@ -15,11 +15,12 @@ class ScoreController {
 	$onInit() {
 		let self = this
 
-		Promise.all([this.Tournament.teams(), this.Tournament.tables()])
+		Promise.all([this.Tournament.teams(), this.Tournament.tables(), this.Tournament.teamsMatches(this.data.teamNumber)])
 			.then(responses => {
 				self._loading = false
 				self.teams = responses[0]
 				self.tables = responses[1]
+				this.$scope._matches = responses[2]
 			})
 	}
 
@@ -101,16 +102,8 @@ class ScoreController {
 	teamMatches() {
 		let self = this
 
-		if (this.isSelected) {
-			if (self._matches) {
-				return self._matches
-			}
-
-			self.Tournament.teamsMatches(this.data.teamNumber).then(matches => {
-				return matches
-			}).then(resolvedMatches => {
-				self._matches = resolvedMatches
-			})
+		if (this.$scope._matches) {
+			return this.$scope._matches
 		}
 
 		return []
