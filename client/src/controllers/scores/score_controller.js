@@ -83,6 +83,11 @@ class ScoreController {
 
 	save() {
 		let self = this
+
+		this.Tournament.teamsMatches(this.data.teamNumber).then(response => {
+			this.$scope._matches = response
+		})
+
 		let updateData = {
 			score: this.data.score,
 			teamNumber: this.data.teamNumber,
@@ -101,7 +106,7 @@ class ScoreController {
 
 	teamMatches() {
 		let self = this
-
+		
 		if (this.$scope._matches) {			
 			return this.$scope._matches
 		}
