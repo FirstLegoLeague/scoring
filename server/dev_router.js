@@ -29,7 +29,8 @@ const MATCH_LIST = [
   { complete: false, match: '3' }
 ]
 
-for (let i = 0; i < TEAMS.length; i++) {
+TEAMS_MATCHES.push({ number: TEAMS[0].number, matches: [{ complete: false, match: 'test' }] })
+for (let i = 1; i < TEAMS.length; i++) {
   TEAMS_MATCHES.push({ number: TEAMS[i].number, matches: MATCH_LIST })
 }
 
