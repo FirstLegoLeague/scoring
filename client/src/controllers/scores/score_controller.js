@@ -97,6 +97,20 @@ class ScoreController {
 			})
 	}
 
+	teamMatches() {
+		let self = this
+
+		if(this.mouseOver){
+			self.Tournament.teamsMatches(this.data.teamNumber).then(matches => {
+				if (matches) {
+					return matches
+				}
+			})
+		}		
+
+		return []
+	}
+
 	matchError() {
 		return !this._loading && this.data.match == null
 	}

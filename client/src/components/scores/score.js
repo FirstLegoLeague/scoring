@@ -9,9 +9,11 @@ export default {
         </a>
     </h4>
     <h6 class="subheader">
-        <a editable-text="score.data.match" buttons="no" blur="submit" onaftersave="score.save()">
-            <div ng-class="{'card-section alert' : score.matchError()}">{{ score.data.match || 'Missing match!'}}</div>
-        </a>
+        <select ng-model="score.data.match" onchange="score.save()" ng-class="{'card-section alert' : score.matchError()}">
+            <option type="text" ng-repeat="match in score.teamMatches()">
+                {{match.match}}
+            </option>
+        </select>
     </h6>
 </div>
 <div class="stat text-center">
