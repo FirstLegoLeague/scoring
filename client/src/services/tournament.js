@@ -52,7 +52,7 @@ class Tournament {
 
 	teamsMatches(teamNumber){
 		if(this._teamsMatches && this._teamsMatches[teamNumber]){
-			return Promise.resolve(this._teamsMatches.teamNumber)
+			return Promise.resolve(this._teamsMatches[teamNumber])
 		}
 
 		let self = this
