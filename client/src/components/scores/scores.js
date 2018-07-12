@@ -9,13 +9,6 @@ export default {
                 <input name="search" type="text" ng-model="scores.search" placeholder="search Scores" />
             </li>
             <li>
-                <select ng-disabled="!scores.teamIsSelected()" ng-model="scores.match">
-                    <option type="text" ng-repeat="match in scores.selectedTeamMatches()">
-                        {{match.match}}
-                    </option>
-                </select>
-            </li>
-            <li>
                 <button class="button" ng-hide="scores.duplicateScores().length === 0" ng-click="scores.showDuplicates = !scores.showDuplicates">
                     {{ scores.showDuplicates ? 'Show all scores' : 'Show only duplicates' }}
                 </button>
