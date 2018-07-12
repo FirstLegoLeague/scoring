@@ -20,7 +20,7 @@ class ScoreController {
 				self._loading = false
 				self.teams = responses[0]
 				self.tables = responses[1]
-				this.$scope._matches = responses[2]
+				self._matches = responses[2]
 			})
 	}
 
@@ -85,7 +85,14 @@ class ScoreController {
 		let self = this
 
 		this.Tournament.teamsMatches(this.data.teamNumber).then(response => {
-			this.$scope._matches = response
+			self._matches = response
+		}).then(() => {
+			/*
+			if (!self._matches.some(match => {
+				return match.match === this.data.match
+			})) {
+				this.data.match = null
+			}*/
 		})
 
 		let updateData = {
@@ -106,9 +113,9 @@ class ScoreController {
 
 	teamMatches() {
 		let self = this
-		
-		if (this.$scope._matches) {			
-			return this.$scope._matches
+
+		if (self._matches) {
+			return self._matches
 		}
 
 		return []
