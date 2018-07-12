@@ -51,7 +51,6 @@ class Tournament {
 	}
 
 	teamsMatches(teamNumber){
-		console.log(this._teamsMatches)
 		if(this._teamsMatches && this._teamsMatches[teamNumber]){
 			return Promise.resolve(this._teamsMatches.teamNumber)
 		}
