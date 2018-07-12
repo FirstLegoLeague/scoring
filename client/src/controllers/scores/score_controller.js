@@ -120,8 +120,21 @@ class ScoreController {
 		return []
 	}
 
+	matchText() {
+		if (this.matchError()) {
+			this.data.match = null
+			return 'Missing match'
+		} else {
+			return this.data.match
+		}
+	}
+
 	matchError() {
-		return !this._loading && this.data.match == null
+		let self = this
+		return !this._loading && (this.data.match == null || (self._matches &&
+			!self._matches.some(match => {
+				return match.match === this.data.match
+			})))
 	}
 
 	teamNumberError() {
