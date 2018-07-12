@@ -102,7 +102,7 @@ class ScoreController {
 	teamMatches() {
 		let self = this
 
-		if (this.$scope._matches) {
+		if (this.$scope._matches) {			
 			return this.$scope._matches
 		}
 
