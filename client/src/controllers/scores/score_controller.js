@@ -87,12 +87,11 @@ class ScoreController {
 		this.Tournament.teamsMatches(this.data.teamNumber).then(response => {
 			self._matches = response
 		}).then(() => {
-			/*
 			if (!self._matches.some(match => {
 				return match.match === this.data.match
 			})) {
 				this.data.match = null
-			}*/
+			}
 		})
 
 		let updateData = {
