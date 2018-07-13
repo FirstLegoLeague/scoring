@@ -61,7 +61,8 @@ class ScoresheetController {
 
         this.$scope.$watch(() => this.match, () => {
             if (this.match) {
-                self.scoresheet.match = this.match.replace('✔', '').trim()
+                console.log(this.match)
+                self.scoresheet.match = this.match
                 self.processErrors()
             }
         })
