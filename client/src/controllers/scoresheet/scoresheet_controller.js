@@ -61,8 +61,8 @@ class ScoresheetController {
 
         this.$scope.$watch(() => this.match, () => {
             if (this.match) {
-                console.log(this.match)
-                self.scoresheet.match = this.match
+                this._match = JSON.parse(this.match)
+                self.scoresheet.match = this._match.match
                 self.processErrors()
             }
         })
@@ -99,7 +99,7 @@ class ScoresheetController {
             this.showScoreDiffAnimation(scoreDiff)
         }
 
-        if (this.match && this.match.indexOf('✔') > -1) {
+        if (this._match && this._match.complete) {
             return '"' + newScore.toString() + '"'
         }
 
