@@ -164,10 +164,8 @@ class ScoresheetController {
     }
 
     selectedTeamMatches() {
-        let self = this
-
-        if (typeof self.scoresheet != 'undefined' && typeof self.scoresheet.teamNumber != 'undefined' && self._matches) {
-            return self._matches
+        if (typeof this.scoresheet != 'undefined' && typeof this.scoresheet.teamNumber != 'undefined' && this._matches) {
+            return this._matches
         }
 
         return []
