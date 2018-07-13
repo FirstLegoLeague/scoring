@@ -81,15 +81,20 @@ class ScoreController {
 		this.$scope.$emit('open scoresheet', this.data)
 	}
 
+	isCorrectMatchList() {
+		let self = this
+		return self._matches && self._matches.some(match => {
+			return match.match === this.data.match
+		})
+	}
+
 	save() {
 		let self = this
 
 		this.Tournament.teamsMatches(this.data.teamNumber).then(response => {
 			self._matches = response
 		}).then(() => {
-			if (!self._matches.some(match => {
-				return match.match === this.data.match
-			})) {
+			if (!this.isCorrectMatchList()) {
 				this.data.match = null
 			}
 		})
@@ -124,11 +129,7 @@ class ScoreController {
 	}
 
 	matchError() {
-		let self = this
-		return !this._loading && (this.data.match == null || (self._matches &&
-			!self._matches.some(match => {
-				return match.match === this.data.match
-			})))
+		return !this._loading && (this.data.match == null || !this.isCorrectMatchList())
 	}
 
 	teamNumberError() {
