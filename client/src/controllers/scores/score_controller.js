@@ -111,13 +111,7 @@ class ScoreController {
 	}
 
 	teamMatches() {
-		let self = this
-
-		if (self._matches) {
-			return self._matches
-		}
-
-		return []
+		return this._matches || []
 	}
 
 	matchText() {
