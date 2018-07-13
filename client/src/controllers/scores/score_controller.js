@@ -121,7 +121,6 @@ class ScoreController {
 
 	matchText() {
 		if (this.matchError()) {
-			this.data.match = null
 			return 'Missing match'
 		} else {
 			return this.data.match
