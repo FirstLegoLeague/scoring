@@ -100,7 +100,7 @@ class ScoresheetController {
         }
 
         if (this._match && this._match.complete) {
-            return '"' + newScore.toString() + '"'
+            return `"${newScore.toString()}"`
         }
 
         return newScore
