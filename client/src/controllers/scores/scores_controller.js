@@ -21,6 +21,7 @@ class ScoresController {
 		this.$scope.$on('reload', () => self.load(true))
 		this.Messanger.on('reload', () => self.load(false), true)
 		this.Tournament.teams().then(teams => {
+			this._loading = false
 			this._teamNumberList = []
 			for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
 				this._teamNumberList.push(teams[i].number)
@@ -30,7 +31,6 @@ class ScoresController {
 
 		self.search = ''
 		self.match = null
-		this._loading = false
 	}
 
 	load(shouldBroadcast) {
