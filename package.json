@@ -1,48 +1,36 @@
 {
-  "name": "@first-lego-league/scoring",
-  "version": "0.8.4",
-  "description": "fll scoring application",
+  "name": "scoring",
+  "version": "1.0.0",
+  "description": "Main scoring service",
   "main": "index.js",
+  "repository": "https://github.com/FirstLegoLeagueIL/scoring",
+  "author": "Idan Stark <idanstark42@gmail.com>",
+  "license": "MIT",
   "scripts": {
-    "start": "node localserver",
-    "test": "./node_modules/.bin/karma start --single-run --reporters dots,coverage"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/FirstLegoLeague/fllscoring.git"
-  },
-  "author": "rikkert@rikkertkoppes.com",
-  "license": "GPL-2.0",
-  "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-compress": "^1.3.0",
-    "grunt-http-server": "^2.0.0",
-    "grunt-karma": "^2.0.0",
-    "grunt-nw-builder": "^3.0.0",
-    "jasmine-core": "^2.4.1",
-    "karma": "^1.1.1",
-    "karma-chrome-launcher": "^2.0.0",
-    "karma-coverage": "^1.1.0",
-    "karma-firefox-launcher": "^1.0.0",
-    "karma-jasmine": "^1.0.2",
-    "saxon-stream2": "0.0.1"
+    "dev": "start mongod&& start mhub-server&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set DEV=true&& set MHUB=ws://localhost:13900&& node ./index.js",
+    "build": "cd client && yarn run build && cd ../",
+    "install": "yarn install && cd client && yarn install && cd ../",
+    "upgrade": "yarn upgrade && cd client && yarn upgrade && cd ../",
+    "prod": "node ./index.js"
   },
   "dependencies": {
-    "basic-auth-connect": "~1.0.0",
-    "body-parser": "^1.17.2",
+    "@first-lego-league/ms-auth": "^1.1.0",
+    "@first-lego-league/ms-configuration": "^1.0.0",
+    "@first-lego-league/ms-correlation": "^0.0.2",
+    "@first-lego-league/ms-logger": "^1.2.1",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
-    "express": "^4.10.4",
-    "express-session": "^1.5.0",
-    "js-beautify": "^1.6.14",
-    "lockfile": "~1.0.3",
-    "minimist": "^1.1.0",
-    "mkdirp": "~0.5.0",
-    "morgan": "^1.9.0",
-    "passport": "~0.4.0",
-    "passport-local": "~1.0.0",
-    "q": "^1.4.1",
-    "rotating-file-stream": "~1.3.2",
-    "uuid": "^3.1.0",
-    "xml2js": "^0.4.4"
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongodb-bluebird": "^0.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0"
   }
 }

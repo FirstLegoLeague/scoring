@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "build": "webpack -p",
+    "watch": "webpack --watch"
+  },
+  "dependencies": {
+    "@first-lego-league/user-interface": "^1.1.7",
+    "angular": "^1.7.0",
+    "angular-animate": "^1.7.0",
+    "angular-cookies": "^1.7.1",
+    "angular-signature": "^1.0.3",
+    "angular-xeditable": "^0.8.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.9.1",
+    "webpack-cli": "^2.1.4"
+  }
+}

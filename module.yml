@@ -1,0 +1,41 @@
+api: "1.0"
+name: "scoring"
+type: node
+script: index.js
+config:
+  - name: Scoresheet
+    fields:
+      - name: year
+        display: Challenge
+        type: values
+        default: 2017 Hydrodynamics
+        values:
+          - 2018 Into Orbit
+          - 2017 Hydrodynamics
+          - 2016 Animal Allies
+          - 2015 Trash Trek
+          - 2014 World Class
+      - name: language
+        display: Language
+        type: values
+        default: US english
+        values:
+          - US english
+          - NL Dutch
+          - IL Hebrew
+      - name: requireRef
+        display: Require a Referee
+        type: boolean
+        default: true
+      - name: requireTable
+        display: Require a Table
+        type: boolean
+        default: true
+      - name: requireSignature
+        display: Require a Signature
+        type: boolean
+        default: true
+      - name: displayZeroMissions
+        display: Display zero mission results
+        type: boolean
+        default: false

@@ -1,0 +1,45 @@
+<html ng-app="scoring">
+	<head>
+		<title>FLL Scoring</title>
+		<link href="/node_modules/@first-lego-league/user-interface/current/assets/css/app.css" rel="stylesheet" type="text/css" />
+		
+		<link href="/css/background.css" rel="stylesheet" type="text/css" />
+		<link href="/css/scores.css" rel="stylesheet" type="text/css" />
+		<link href="/css/scoresheet.css" rel="stylesheet" type="text/css" />
+		<link href="/css/signature.css" rel="stylesheet" type="text/css" />
+		<link href="/css/status.css" rel="stylesheet" type="text/css" />
+		<link href="/css/inputs.css" rel="stylesheet" type="text/css" />
+		
+		<link rel="icon" href="/node_modules/@first-lego-league/user-interface/current/assets/img/first-favicon.ico" type="image/x-icon"/>
+	</head>
+	<body ng-controller="ScoringController as scoring">
+		<div class="top-bar">
+	    	<div class="top-bar-left">
+	    		<ul class="menu">
+	    			<il>
+	    				<button ng-if="scoring.isAdmin" class="hamburger--vortex" ng-class="{'is-active': scoring.showScoresScreen}" data-hamburger type="button" ng-click="scoring.toggleScoresList()">
+							<span class="hamburger-box">
+								<span class="hamburger-inner"></span>
+							</span>
+						</button>
+	    			</il>
+					<il><span class="h2" ng-click="scoring.notify()"><i>FIRST</i> LEGO League Scoring</span></il>
+				</ul>
+			</div>
+			<div class="top-bar-right">
+				<ul class="menu">
+					<il><status></status></il>
+					<il><a class="button" href="{{scoring.logoutLink}}"><i class="fas fa-sign-out-alt"></i>Logout</a></il>
+				</ul>
+			</div>
+	    </div>
+
+	    <div class="top-bar-page">
+	    	<scores ng-show="scoring.showScoresScreen"></scores>
+	    	<scoresheet id="scoresheet" ng-hide="scoring.showScoresScreen"></scoresheet>
+	    </div>
+
+		<script src="/node_modules/@first-lego-league/user-interface/current/assets/js/app.js" type="text/javascript"></script>
+		<script src="/dist/bundle.js" type="text/javascript"></script>
+	</body>
+</html>
