@@ -27,6 +27,10 @@ class ScoresController {
 				this._teamNumberList.push(teams[i].number)
 			}
 		})
+
+
+		self.search = ''
+		self.match = null
 	}
 
 	load(shouldBroadcast) {
@@ -80,7 +84,7 @@ class ScoresController {
 		return scores.filter(score => {
 			return self._scores.some(otherScore => {
 				return score !== otherScore
-					&& otherScore.teamNumber === score.teamNumber && otherScore.round === score.round
+					&& otherScore.teamNumber === score.teamNumber && otherScore.match === score.match
 			})
 		})
 	}
@@ -93,7 +97,7 @@ class ScoresController {
 
 
 		let otherErrors = scores.filter(score =>
-			typeof score.teamNumber != "number" || score.round == null ||
+			typeof score.teamNumber != "number" || score.match == null ||
 			(!this._loading && !this._teamNumberList.includes(score.teamNumber))
 		)
 		let badScores = duplicateErrors.concat(otherErrors)
@@ -101,7 +105,6 @@ class ScoresController {
 
 		return badScores;
 	}
-
 }
 
 ScoresController.$$ngIsClass = true

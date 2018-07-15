@@ -50,8 +50,19 @@ class ScoresheetController {
         })
 
         this.$scope.$watch(() => this.team, () => {
-            if(this.team) {
+            if (this.team) {
                 self.scoresheet.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
+                self.Tournament.teamsMatches(self.scoresheet.teamNumber).then(matches => {
+                    self._matches = matches
+                })
+                self.processErrors()
+            }
+        })
+
+        this.$scope.$watch(() => this.match, () => {
+            if (this.match) {
+                this._match = JSON.parse(this.match)
+                self.scoresheet.match = this._match.match
                 self.processErrors()
             }
         })
@@ -59,7 +70,7 @@ class ScoresheetController {
         this.Configuration.load().then(config => {
             if (config.requireSignature) {
                 this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
-                    if(self.scoresheet) {
+                    if (self.scoresheet) {
                         let signature = this.$scope.getSignature()
                         self.scoresheet.signature = signature
                         self.signatureMissing = signature.isEmpty && !self.scoresheet._id
@@ -87,11 +98,22 @@ class ScoresheetController {
         if (scoreDiff !== 0 && isFinite(scoreDiff)) {
             this.showScoreDiffAnimation(scoreDiff)
         }
+
+        if (this._match && this._match.complete) {
+            return `"${newScore.toString()}"`
+        }
+
         return newScore
     }
 
     error() {
         return this.Scoresheet.errors[0]
+    }
+
+    teamIsSelected() {
+        let self = this
+
+        return this.scoresheet && typeof self.scoresheet.teamNumber != 'undefined'
     }
 
     processErrors() {
@@ -104,7 +126,7 @@ class ScoresheetController {
         if (!this.scoresheet) return false
         return this.missions
             && (!this.errors || this.errors.length === 0)
-            && !this.signatureMissing
+            && !this.signatureMissing && this.match
     }
 
     reset() {
@@ -115,6 +137,9 @@ class ScoresheetController {
             self.$scope.clearSignature()
             self.$scope.$apply()
             self.scrollToMission(self.scoresheet.missions[0])
+            self.team = null
+            self.match = null
+            self._matches = null
         })
     }
 
@@ -136,6 +161,14 @@ class ScoresheetController {
 
     setDefault() {
         this.$scope.$broadcast('set default')
+    }
+
+    selectedTeamMatches() {
+        if (typeof this.scoresheet != 'undefined' && typeof this.scoresheet.teamNumber != 'undefined' && this._matches) {
+            return this._matches
+        }
+
+        return []
     }
 
     showScoreDiffAnimation(scoreDiff) {

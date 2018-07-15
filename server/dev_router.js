@@ -22,6 +22,18 @@ const TEAMS = [
   { number: 8846, name: 'Syntax error' }
 ]
 
+var TEAMS_MATCHES = []
+const MATCH_LIST = [
+  { complete: true, match: '1' },
+  { complete: false, match: '2' },
+  { complete: false, match: '3' }
+]
+
+TEAMS_MATCHES.push({ number: TEAMS[0].number, matches: [{ complete: false, match: 'test' }] })
+for (let i = 1; i < TEAMS.length; i++) {
+  TEAMS_MATCHES.push({ number: TEAMS[i].number, matches: MATCH_LIST })
+}
+
 const TABLES = [
   { tableId: 1, tableName: 'Rick' },
   { tableId: 2, tableName: 'Morty' },
@@ -35,6 +47,10 @@ router.use('/team/all', (req, res) => {
 
 router.use('/table/all', (req, res) => {
   res.json(TABLES)
+})
+
+router.use(`/teams/:teamNumber/matches`, (req, res) => {
+  res.json(TEAMS_MATCHES[TEAMS_MATCHES.findIndex(team => team.number === parseInt(req.params.teamNumber))].matches)
 })
 
 // eslint-disable-next-line node/exports-style

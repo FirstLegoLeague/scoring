@@ -5,6 +5,7 @@ class Tournament {
 	constructor ($http, Configuration) {
 		this.$http = $http
 		this.Configuration = Configuration
+		this._teamsMatches = {}
 	}
 
 	init () {
@@ -18,7 +19,8 @@ class Tournament {
 
 	teams () {
 		if(this._teams) {
-			return Promise.resolve(this._teams)
+			let resolvedPromise = Promise.resolve(this._teams)
+			return resolvedPromise
 		}
 
 		let self = this
@@ -36,7 +38,8 @@ class Tournament {
 
 	tables () {
 		if(this._tables) {
-			return Promise.resolve(this._tables)
+			let resolvedPromise = Promise.resolve(this._tables)
+			return resolvedPromise
 		}
 
 		let self = this
@@ -46,6 +49,22 @@ class Tournament {
 			.then(response => {
 				self._tables = response.data
 				return self._tables
+			})
+	}
+
+	teamsMatches(teamNumber){
+		if(this._teamsMatches && this._teamsMatches[teamNumber]){
+			let resolvedPromise = Promise.resolve(this._teamsMatches[teamNumber])
+			return resolvedPromise
+		}
+
+		let self = this
+
+		return this.init()
+			.then(() => self.$http.get(`${self.tournament}/teams/${teamNumber}/matches`))
+			.then(response => {
+				this._teamsMatches[teamNumber] = response.data
+				return this._teamsMatches[teamNumber]
 			})
 	}
 

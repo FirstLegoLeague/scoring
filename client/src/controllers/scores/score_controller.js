@@ -9,16 +9,18 @@ class ScoreController {
 		this.Notifications = Notifications
 		this.Modals = Modals
 		this._loading = true
+		this.isSelected = false
 	}
 
 	$onInit() {
 		let self = this
 
-		Promise.all([this.Tournament.teams(), this.Tournament.tables()])
+		Promise.all([this.Tournament.teams(), this.Tournament.tables(), this.Tournament.teamsMatches(this.data.teamNumber)])
 			.then(responses => {
 				self._loading = false
 				self.teams = responses[0]
 				self.tables = responses[1]
+				self._matches = responses[2]
 			})
 	}
 
@@ -79,12 +81,28 @@ class ScoreController {
 		this.$scope.$emit('open scoresheet', this.data)
 	}
 
+	isCorrectMatchList() {
+		let self = this
+		return self._matches && self._matches.some(match => {
+			return match.match === this.data.match
+		})
+	}
+
 	save() {
 		let self = this
+
+		this.Tournament.teamsMatches(this.data.teamNumber).then(response => {
+			self._matches = response
+		}).then(() => {
+			if (!this.isCorrectMatchList()) {
+				this.data.match = null
+			}
+		})
+
 		let updateData = {
 			score: this.data.score,
 			teamNumber: this.data.teamNumber,
-			round: this.data.round,
+			match: this.data.match,
 			tableId: this.data.tableId,
 			referee: this.data.referee
 		}
@@ -97,8 +115,20 @@ class ScoreController {
 			})
 	}
 
-	roundError() {
-		return !this._loading && this.data.round == null
+	teamMatches() {
+		return this._matches || []
+	}
+
+	matchText() {
+		if (this.matchError()) {
+			return 'Missing match'
+		} else {
+			return this.data.match
+		}
+	}
+
+	matchError() {
+		return !this._loading && (this.data.match == null || !this.isCorrectMatchList())
 	}
 
 	teamNumberError() {
