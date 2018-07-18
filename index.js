@@ -52,3 +52,8 @@ app.listen(port, () => {
     logger.info(`Scoring service listening on port ${port}`)
   })
 })
+
+process.on('SIGINT', () => {
+  logger.info('Process received SIGINT: shutting down')
+  process.exit(1)
+})
