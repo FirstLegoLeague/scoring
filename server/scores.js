@@ -50,7 +50,7 @@ router.delete('/:id/delete', adminAction, (req, res) => {
 
 router.get('/all', (req, res) => {
   connectionPromise
-    .then(scores => scores.find())
+    .then(scores => scores.find().toArray())
     .then(scores => res.status(201).send(scores))
     .catch(err => {
       req.logger.error(err.message)
