@@ -14,7 +14,7 @@
     "prepack": "yarn run build"
   },
   "dependencies": {
-    "@first-lego-league/ms-auth": "^1.1.0",
+    "@first-lego-league/ms-auth": "^1.2.2",
     "@first-lego-league/ms-configuration": "^1.1.2",
     "@first-lego-league/ms-correlation": "^0.0.3",
     "@first-lego-league/ms-logger": "^1.2.5",
