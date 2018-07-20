@@ -42,8 +42,7 @@ if (process.env.DEV) {
   app.get(authenticationMiddleware)
 }
 
-app.use('/webfonts', express.static(path.resolve(__dirname, 'client/node_modules/@first-lego-league/user-interface/current/assets/fonts')))
-app.use(express.static(path.resolve(__dirname, 'client')))
+app.use(express.static(path.resolve(__dirname, 'client/dist')))
 
 app.listen(port, () => {
   logger.info(`Scoring service listening on port ${port}`)

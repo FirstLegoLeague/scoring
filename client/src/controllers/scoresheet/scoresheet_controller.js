@@ -33,7 +33,7 @@ class ScoresheetController {
             let missionId = event.targetScope.mission.data.id
             let missionIndex = self.scoresheet.missions.findIndex(mission => mission.id === missionId)
             let nextMission = self.scoresheet.missions[missionIndex + 1]
-            if (nextMission) {
+            if (nextMission && !self.defaulting) {
                 self.scrollToMission(nextMission)
             }
         })
@@ -160,6 +160,7 @@ class ScoresheetController {
     }
 
     setDefault() {
+        this.defaulting = true
         this.$scope.$broadcast('set default')
     }
 
