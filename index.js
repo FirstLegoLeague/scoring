@@ -3,12 +3,11 @@
 
 const express = require('express')
 const path = require('path')
-const domain = require('domain')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const { correlationMiddleware, correlateSession } = require('@first-lego-league/ms-correlation')
+const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
 const { Logger, loggerMiddleware } = require('@first-lego-league/ms-logger')
 
@@ -47,16 +46,20 @@ if (process.env.DEV) {
 }
 
 app.listen(port, () => {
-  domain.create().run(() => {
-    correlateSession()
-    logger.info(`Scoring service listening on port ${port}`)
-  })
+  logger.info(`Scoring service listening on port ${port}`)
 })
 
 process.on('SIGINT', () => {
-  domain.create().run(() => {
-    correlateSession()
-    logger.info('Process received SIGINT: shutting down')
-    process.exit(1)
-  })
+  logger.info('Process received SIGINT: shutting down')
+  process.exit(130)
+})
+
+process.on('uncaughtException', err => {
+  logger.fatal(err.message)
+  process.exit(1)
+})
+
+process.on('unhandledRejection', err => {
+  logger.fatal(err.message)
+  process.exit(1)
 })
