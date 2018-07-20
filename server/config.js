@@ -16,7 +16,7 @@ router.use('/', (req, res) => {
     res.json(config)
   }).catch(err => {
     req.logger.error(err)
-    res.send('Could not load configuration').status(500)
+    res.status(500).send('Could not load configuration')
   })
 })
 
