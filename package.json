@@ -11,6 +11,7 @@
     "install": "yarn install && cd client && yarn install && cd ../",
     "upgrade": "yarn upgrade && cd client && yarn upgrade && cd ../",
     "build": "cd client && yarn run build && cd ../",
+    "postinstall": "cd client && yarn install && cd ../",
     "prepack": "yarn run build"
   },
   "dependencies": {
