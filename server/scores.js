@@ -20,7 +20,7 @@ const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development
 
 router.post('/create', (req, res) => {
   connectionPromise
-    .then(scores => scores.save(req.body))
+    .then(scoringCollection => scoringCollection.save(req.body))
     .then(() => res.status(201).send())
     .catch(err => {
       req.logger.error(err.message)
@@ -30,7 +30,7 @@ router.post('/create', (req, res) => {
 
 router.post('/:id/update', adminAction, (req, res) => {
   connectionPromise
-    .then(scores => scores.update({ _id: req.params.id }, { $set: req.body }))
+    .then(scoringCollection => scoringCollection.update({ _id: req.params.id }, { $set: req.body }))
     .then(() => res.status(204).send())
     .catch(err => {
       req.logger.error(err.message)
@@ -40,7 +40,7 @@ router.post('/:id/update', adminAction, (req, res) => {
 
 router.delete('/:id/delete', adminAction, (req, res) => {
   connectionPromise
-    .then(scores => scores.remove({ _id: req.params.id }))
+    .then(scoringCollection => scoringCollection.remove({ _id: req.params.id }))
     .then(() => res.status(204).send())
     .catch(err => {
       req.logger.error(err.message)
@@ -50,7 +50,7 @@ router.delete('/:id/delete', adminAction, (req, res) => {
 
 router.get('/all', (req, res) => {
   connectionPromise
-    .then(scores => scores.find().toArray())
+    .then(scoringCollection => scoringCollection.find().toArray())
     .then(scores => res.status(201).send(scores))
     .catch(err => {
       req.logger.error(err.message)
@@ -60,7 +60,7 @@ router.get('/all', (req, res) => {
 
 router.get('/:id', (req, res) => {
   connectionPromise
-    .then(scores => scores.findOne({ _id: req.params.id }))
+    .then(scoringCollection => scoringCollection.findOne({ _id: req.params.id }))
     .then(score => res.status(200).json(score))
     .catch(err => {
       req.logger.error(err.message)
@@ -70,7 +70,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/search', (req, res) => {
   connectionPromise
-    .then(scores => scores.findOne(req.query))
+    .then(scoringCollection => scoringCollection.findOne(req.query))
     .then(score => res.status(200).json(score))
     .catch(err => {
       req.logger.error(err.message)
