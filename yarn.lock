@@ -10,9 +10,9 @@
     express "^4.16.3"
     jsonwebtoken "^8.2.0"
 
-"@first-lego-league/ms-configuration@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-configuration/-/ms-configuration-1.1.1.tgz#28db049bb773de1fd782f92d460d6e88617e1a20"
+"@first-lego-league/ms-configuration@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-configuration/-/ms-configuration-1.1.2.tgz#4daeb2a8d4e7c964a9ef74dae82297d87afe3805"
   dependencies:
     jsonfile-promised "^0.0.1"
     mhub "^0.9.1"
@@ -28,7 +28,7 @@
     jsonwebtoken "^8.2.1"
     randomatic "^3.0.0"
 
-"@first-lego-league/ms-logger@^1.2.1":
+"@first-lego-league/ms-logger@^1.2.5":
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.2.5.tgz#f670eabc7dbe8185649f0d298e0772d9f7a07a19"
   dependencies:

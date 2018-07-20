@@ -61,7 +61,7 @@ router.get('/all', (req, res) => {
   }).then(scores => {
     res.status(201).send(scores)
   }).catch(() => {
-    res.status(500).send('A problem occoured while trying to save score.')
+    res.status(500).send('A problem occoured while trying to get scores.')
   })
 })
 
