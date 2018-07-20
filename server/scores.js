@@ -8,7 +8,7 @@ const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
 
 const DEFAULTS = require('./defaults')
 
-const mongoUrl = process.env.MONGO || DEFAULTS.MONGO
+const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 
 const router = express.Router()
 
