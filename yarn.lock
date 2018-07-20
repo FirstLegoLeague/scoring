@@ -21,9 +21,9 @@
     path-exists "^3.0.0"
     read-yaml-promise "^1.0.2"
 
-"@first-lego-league/ms-correlation@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-0.0.2.tgz#387abe6f243ee5c603c25731e0a789f74bbd3c49"
+"@first-lego-league/ms-correlation@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-0.0.3.tgz#a8b674fd7b401a4dc86cf8605030255c152ab5eb"
   dependencies:
     jsonwebtoken "^8.2.1"
     randomatic "^3.0.0"

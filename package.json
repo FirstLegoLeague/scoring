@@ -7,16 +7,16 @@
   "author": "Idan Stark <idanstark42@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "start mongod&& start mhub-server&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set DEV=true&& set MHUB=ws://localhost:13900&& node ./index.js",
-    "build": "cd client && yarn run build && cd ../",
+    "start": "start mongod&& start mhub-server&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set DEV=true&& set MHUB=ws://localhost:13900&& node ./index.js",
     "install": "yarn install && cd client && yarn install && cd ../",
     "upgrade": "yarn upgrade && cd client && yarn upgrade && cd ../",
-    "prod": "node ./index.js"
+    "build": "cd client && yarn run build && cd ../",
+    "prepack": "yarn run install && yarn run build"
   },
   "dependencies": {
     "@first-lego-league/ms-auth": "^1.1.0",
     "@first-lego-league/ms-configuration": "^1.1.1",
-    "@first-lego-league/ms-correlation": "^0.0.2",
+    "@first-lego-league/ms-correlation": "^0.0.3",
     "@first-lego-league/ms-logger": "^1.2.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",

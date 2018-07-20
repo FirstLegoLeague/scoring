@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require('express')
+const Promise = require('bluebird')
 const mongo = require('mongodb-bluebird')
 
 const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
@@ -12,8 +13,14 @@ const mongoUrl = process.env.MONGO || DEFAULTS.MONGO
 const router = express.Router()
 
 function connect () {
-  return mongo.connect(mongoUrl)
-    .then(db => db.collection('scores'))
+  return new Promise((resolve, reject) => {
+    mongo.connect(mongoUrl)
+      .then(db => {
+        resolve(db.collection('scores'))
+        db.close()
+      })
+      .catch(reject)
+  })
 }
 
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
