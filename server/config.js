@@ -6,7 +6,7 @@ const Configuration = require('@first-lego-league/ms-configuration')
 
 const router = express.Router()
 
-router.use('/', (req, res) => {
+router.get('/', (req, res) => {
   Configuration.all().then(config => {
     Object.assign(config, {
       mhub: process.env.MHUB,

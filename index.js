@@ -25,15 +25,6 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-if (process.env.DEV) {
-  app.use(authenticationDevMiddleware())
-} else {
-  app.use(authenticationMiddleware)
-}
-
-app.use('/webfonts', express.static(path.resolve(__dirname, 'client/node_modules/@first-lego-league/user-interface/current/assets/fonts')))
-app.use(express.static(path.resolve(__dirname, 'client')))
-
 const apis = ['/scores', '/challenge', '/config']
 
 apis.forEach(api => {
@@ -44,6 +35,15 @@ apis.forEach(api => {
 if (process.env.DEV) {
   app.use('', require('./server/dev_router'))
 }
+
+if (process.env.DEV) {
+  app.get(authenticationDevMiddleware())
+} else {
+  app.get(authenticationMiddleware)
+}
+
+app.use('/webfonts', express.static(path.resolve(__dirname, 'client/node_modules/@first-lego-league/user-interface/current/assets/fonts')))
+app.use(express.static(path.resolve(__dirname, 'client')))
 
 app.listen(port, () => {
   logger.info(`Scoring service listening on port ${port}`)

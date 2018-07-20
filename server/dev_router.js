@@ -41,15 +41,15 @@ const TABLES = [
   { tableId: 4, tableName: 'Beware of the Leopard' }
 ]
 
-router.use('/team/all', (req, res) => {
+router.get('/team/all', (req, res) => {
   res.json(TEAMS)
 })
 
-router.use('/table/all', (req, res) => {
+router.get('/table/all', (req, res) => {
   res.json(TABLES)
 })
 
-router.use(`/teams/:teamNumber/matches`, (req, res) => {
+router.get(`/teams/:teamNumber/matches`, (req, res) => {
   res.json(TEAMS_MATCHES[TEAMS_MATCHES.findIndex(team => team.number === parseInt(req.params.teamNumber))].matches)
 })
 
