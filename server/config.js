@@ -2,8 +2,6 @@
 
 const express = require('express')
 
-console.log(process.env.MHUB)
-
 const Configuration = require('@first-lego-league/ms-configuration')
 
 const router = express.Router()
@@ -16,7 +14,8 @@ router.use('/', (req, res) => {
       tournament: process.env.MODULE_TOURNAMENT_URL
     })
     res.json(config)
-  }).catch(() => {
+  }).catch(err => {
+    req.logger.error(err)
     res.send('Could not load configuration').status(500)
   })
 })
