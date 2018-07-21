@@ -8,7 +8,7 @@ const fs = Promise.promisifyAll(require('fs'))
 
 const router = express.Router()
 
-router.use('/:challenge', (req, res) => {
+router.get('/:challenge', (req, res) => {
   fs.readFileAsync(path.resolve(__dirname, '..', 'challenges', 'js', `${req.params['challenge']}.js`))
     .then(challenge => {
       res.send(challenge)

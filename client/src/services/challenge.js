@@ -1,6 +1,6 @@
 'use strict'
 
-const MISSION_DEPENDENCIES_REGEX = /^function\((.+)\)/
+const MISSION_DEPENDENCIES_REGEX = /^function\s*\((.+)\)/
 
 class Challenge {
 

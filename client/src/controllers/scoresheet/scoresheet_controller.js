@@ -12,28 +12,28 @@ const DIFF_ANIMATION_CLASS = 'ng-hide-animate'
 
 class ScoresheetController {
 
-	constructor ($scope, $document, $timeout, Configuration, Scoresheet, Tournament, Notifications, User) {
+    constructor($scope, $document, $timeout, Configuration, Scoresheet, Tournament, Notifications, User) {
         this.$scope = $scope
         this.$document = $document
         this.$timeout = $timeout
         this.Configuration = Configuration
-		this.Scoresheet = Scoresheet
+        this.Scoresheet = Scoresheet
         this.Tournament = Tournament
         this.Notifications = Notifications
         this.isAdmin = User.isAdmin()
         this.isRef = User.isRef()
         this.scoreDiff = 0
         this.showingScoreDiffAnimation = false
-	}
+    }
 
-	$onInit () {
+    $onInit() {
         let self = this
 
         this.$scope.$on('mission complete', event => {
             let missionId = event.targetScope.mission.data.id
             let missionIndex = self.scoresheet.missions.findIndex(mission => mission.id === missionId)
             let nextMission = self.scoresheet.missions[missionIndex + 1]
-            if(nextMission) {
+            if (nextMission && !self.defaulting) {
                 self.scrollToMission(nextMission)
             }
         })
@@ -42,63 +42,94 @@ class ScoresheetController {
             self.Scoresheet.load(scoresheet).then(scoresheet => {
                 self.scoresheet = scoresheet
                 self.missions = scoresheet.missions
+                self.Tournament.teams().then(teams => {
+                    self.team = teams.find(team => team.number === self.scoresheet.teamNumber).displayText
+                })
+                self.signatureMissing = false
             })
         })
-        
+
+        this.$scope.$watch(() => this.team, () => {
+            if (this.team) {
+                self.scoresheet.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
+                self.Tournament.teamsMatches(self.scoresheet.teamNumber).then(matches => {
+                    self._matches = matches
+                })
+                self.processErrors()
+            }
+        })
+
+        this.$scope.$watch(() => this.match, () => {
+            if (this.match) {
+                this._match = JSON.parse(this.match)
+                self.scoresheet.match = this._match.match
+                self.processErrors()
+            }
+        })
+
+        this.Configuration.load().then(config => {
+            if (config.requireSignature) {
+                this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
+                    if (self.scoresheet) {
+                        let signature = this.$scope.getSignature()
+                        self.scoresheet.signature = signature
+                        self.signatureMissing = signature.isEmpty && !self.scoresheet._id
+                    }
+                })
+            }
+        })
+
         return this.Scoresheet.init()
             .then(() => self.Tournament.teams())
             .then(teams => {
                 self.teams = teams
             })
             .then(() => self.reset())
-	 }
+    }
 
-     score () {
-        if(!this.scoresheet) {
+    score() {
+        if (!this.scoresheet) {
             return 0
         }
-        
+
         let previousScore = this.scoresheet.score // This score is saved from the last calculation by the Scoresheet service
-        let newScore =  this.Scoresheet.score() // This score is the newly calculated score
+        let newScore = this.Scoresheet.score() // This score is the newly calculated score
         let scoreDiff = newScore - previousScore
-        if(scoreDiff !== 0 && isFinite(scoreDiff)) {
+        if (scoreDiff !== 0 && isFinite(scoreDiff)) {
             this.showScoreDiffAnimation(scoreDiff)
         }
-        return newScore
-     }
 
-    error () {
+        if (this._match && this._match.complete) {
+            return `"${newScore.toString()}"`
+        }
+
+        return newScore
+    }
+
+    error() {
         return this.Scoresheet.errors[0]
     }
 
-    teamText () {
-        if(this.scoresheet && this.scoresheet.teamNumber && this.teams) {
-            let self = this
-            return this.teams.find(team => team.number === self.scoresheet.teamNumber).displayText
-        } else {
-            return 'Missing team'
-        }
+    teamIsSelected() {
+        let self = this
+
+        return this.scoresheet && typeof self.scoresheet.teamNumber != 'undefined'
     }
 
-    signatureMissing () {
-        return this.Configuration.requireSignature && this.$scope.getSignature().isEmpty && !this.scoresheet._id
-    }
-
-    processErrors () {
-        if(this.scoresheet) {
+    processErrors() {
+        if (this.scoresheet) {
             this.Scoresheet.processErrors()
         }
     }
 
-    complete () {
-        if(!this.scoresheet)    return false
-        let signatureMissing = this.signatureMissing()
+    complete() {
+        if (!this.scoresheet) return false
         return this.missions
             && (!this.errors || this.errors.length === 0)
-            && !signatureMissing
+            && !this.signatureMissing && this.match
     }
 
-     reset () {
+    reset() {
         let self = this
         return this.Scoresheet.reset().then(scoresheet => {
             self.scoresheet = scoresheet
@@ -106,14 +137,15 @@ class ScoresheetController {
             self.$scope.clearSignature()
             self.$scope.$apply()
             self.scrollToMission(self.scoresheet.missions[0])
+            self.team = null
+            self.match = null
+            self._matches = null
         })
-     }
+    }
 
-    save () {
+    save() {
         let self = this
-        if (this.Configuration.requireSignature) {
-            this.scoresheet.signature = this.$scope.getSignature()
-        }
+
         this.Scoresheet.save().then(() => {
             self.$scope.$emit('close scoresheet', { goToScores: Boolean(self.scoresheet._id) })
             self.reset()
@@ -125,13 +157,22 @@ class ScoresheetController {
             self.Notifications.error(`Score submit failed. Don\'t worry, We\'re keeping
                 an eye on your ${pendingScores} pending ${scoresWord}.`)
         })
-     }
+    }
 
-     setDefault () {
+    setDefault() {
+        this.defaulting = true
         this.$scope.$broadcast('set default')
-     }
+    }
 
-     showScoreDiffAnimation (scoreDiff) {
+    selectedTeamMatches() {
+        if (typeof this.scoresheet != 'undefined' && typeof this.scoresheet.teamNumber != 'undefined' && this._matches) {
+            return this._matches
+        }
+
+        return []
+    }
+
+    showScoreDiffAnimation(scoreDiff) {
         let self = this
         this.showingScoreDiffAnimation = true
         this.scoreDiff = scoreDiff
@@ -144,10 +185,10 @@ class ScoresheetController {
                 self.showingScoreDiffAnimation = false
             }, 1000)
         })
-     }
+    }
 
-	 scrollToMission (mission) {
-        if(!mission) {
+    scrollToMission(mission) {
+        if (!mission) {
             return
         }
 
@@ -155,9 +196,9 @@ class ScoresheetController {
         let startingPosition = missionsElement.scrollTop
         let endingPosition = startingPosition
 
-        if(mission) {
+        if (mission) {
             let missionElement = this.$document[0].getElementById(mission.id)
-            if(!missionElement) {
+            if (!missionElement) {
                 return
             }
 
@@ -173,10 +214,10 @@ class ScoresheetController {
         let lastScorllPosition = undefined
 
         function scrollTick() {
-            if(scrolling !== endingPosition) {
+            if (scrolling !== endingPosition) {
                 return
             }
-            if(missionsElement.scrollTop + tick < endingPosition && missionsElement.scrollTop !== lastScorllPosition) {
+            if (missionsElement.scrollTop + tick < endingPosition && missionsElement.scrollTop !== lastScorllPosition) {
                 lastScorllPosition = missionsElement.scrollTop
                 missionsElement.scrollTop += tick
                 requestAnimationFrame(scrollTick)
@@ -186,7 +227,7 @@ class ScoresheetController {
             }
         }
         requestAnimationFrame(scrollTick)
-	 }
+    }
 
 }
 

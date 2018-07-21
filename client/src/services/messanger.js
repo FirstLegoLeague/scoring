@@ -71,7 +71,7 @@ class Messanger {
       self.listeners.push({
         topic: topic,
         handler: (data, msg) => {
-          if (msg.fromMe && ignoreSelfMessages)
+          if (!(msg.fromMe && ignoreSelfMessages))
             handler(data, msg)
         }
       })

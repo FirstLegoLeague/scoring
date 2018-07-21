@@ -7,22 +7,23 @@
   "author": "Idan Stark <idanstark42@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "start mongod&& start mhub-server&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set DEV=true&& set MHUB=ws://localhost:13900&& node ./index.js",
+    "start": "start mongod&& start mhub-server&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set DEV=true&& set MHUB=ws://localhost:13900&& node ./index.js",
+    "install-all": "yarn install && cd client && yarn install && cd ../",
+    "upgrade": "yarn upgrade && cd client && yarn upgrade && cd ../",
     "build": "cd client && yarn run build && cd ../",
-    "install": "yarn upgrade && cd client && yarn upgrade && cd ../",
-    "prod": "node ./index.js"
+    "prepack": "yarn run build"
   },
   "dependencies": {
-    "@first-lego-league/ms-auth": "^1.1.0",
-    "@first-lego-league/ms-configuration": "^1.0.0",
-    "@first-lego-league/ms-correlation": "^0.0.2",
-    "@first-lego-league/ms-logger": "^1.2.1",
+    "@first-lego-league/ms-auth": "^1.2.2",
+    "@first-lego-league/ms-configuration": "1.2.0",
+    "@first-lego-league/ms-correlation": "^0.0.3",
+    "@first-lego-league/ms-logger": "^1.2.5",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "mongodb-bluebird": "^0.1.2"
+    "mongodb": "^3.1.1"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

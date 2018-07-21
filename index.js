@@ -3,12 +3,11 @@
 
 const express = require('express')
 const path = require('path')
-const domain = require('domain')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const { correlationMiddleware, correlateSession } = require('@first-lego-league/ms-correlation')
+const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
 const { Logger, loggerMiddleware } = require('@first-lego-league/ms-logger')
 
@@ -26,15 +25,6 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-if (process.env.DEV) {
-  app.use(authenticationDevMiddleware())
-} else {
-  app.use(authenticationMiddleware)
-}
-
-app.use('/webfonts', express.static(path.resolve(__dirname, 'client/node_modules/@first-lego-league/user-interface/current/assets/fonts')))
-app.use(express.static(path.resolve(__dirname, 'client')))
-
 const apis = ['/scores', '/challenge', '/config']
 
 apis.forEach(api => {
@@ -46,9 +36,29 @@ if (process.env.DEV) {
   app.use('', require('./server/dev_router'))
 }
 
+if (process.env.DEV) {
+  app.get(authenticationDevMiddleware())
+} else {
+  app.get(authenticationMiddleware)
+}
+
+app.use(express.static(path.resolve(__dirname, 'client/dist')))
+
 app.listen(port, () => {
-  domain.create().run(() => {
-    correlateSession()
-    logger.info(`Scoring service listening on port ${port}`)
-  })
+  logger.info(`Scoring service listening on port ${port}`)
+})
+
+process.on('SIGINT', () => {
+  logger.info('Process received SIGINT: shutting down')
+  process.exit(130)
+})
+
+process.on('uncaughtException', err => {
+  logger.fatal(err.message)
+  process.exit(1)
+})
+
+process.on('unhandledRejection', err => {
+  logger.fatal(err.message)
+  process.exit(1)
 })
