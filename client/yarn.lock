@@ -3294,6 +3294,10 @@ neo-async@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
 
+ng-fittext@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/ng-fittext/-/ng-fittext-4.2.3.tgz#897c63ff7b68b030ccf8a9e1aa23a715b48f3caf"
+
 nice-try@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
