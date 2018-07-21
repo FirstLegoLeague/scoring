@@ -38,38 +38,32 @@ function _validateScore (score) {
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
+  let scoreValidation = []
+
   connectionPromise
-    .then(scoringCollection => scoringCollection.save(req.body))
-    .then(() => res.status(201).send())
+    .then(scoringCollection => {
+      scoreValidation = _validateScore(req.body)
+      if (scoreValidation[0] !== 'loud-fail') {
+        scoringCollection.save(req.body)
+      }
+    })
+    .then(() => {
+      if (scoreValidation[0] !== 'loud-fail') {
+        res.status(201).send()
+      }
+
+      if (scoreValidation[0] !== 'ok') {
+        console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
+      }
+    })
     .catch(err => {
       req.logger.error(err.message)
-      res.status(500).send('A problem occoured while trying to save score.')
+      if (scoreValidation[0] === 'loud-fail') {
+        res.status(422).send('Invalid score, missing ' + scoreValidation[1])
+      } else {
+        res.status(500).send('A problem occoured while trying to save score.')
+      }
     })
-
-    /*
-    let scoreValidation = []
-  connect().then(scores => {
-    scoreValidation = _validateScore(req.body)
-    if (scoreValidation[0] !== 'loud-fail') {
-      scores.save(req.body)
-    }
-  }).then(() => {
-    if (scoreValidation[0] !== 'loud-fail') {
-      res.status(201).send()
-    } else {
-      throw 'Invalid score'
-    }
-
-    if (scoreValidation[0] !== 'ok') {
-      console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
-    }
-  }).catch(() => {
-    if (scoreValidation[0] === 'loud-fail') {
-      res.status(422).send('Invalid score, missing ' + scoreValidation[1])
-    } else {
-      res.status(500).send('A problem occoured while trying to save score.')
-    }
-  }) */
 })
 
 router.post('/:id/update', adminAction, (req, res) => {
