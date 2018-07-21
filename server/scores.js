@@ -2,8 +2,7 @@
 
 const express = require('express')
 const Promise = require('bluebird')
-const MongoClient = require('mongodb').MongoClient
-
+const { MongoClient, ObjectID } = require('mongodb')
 const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
 
 const DEFAULTS = require('./defaults')
@@ -30,7 +29,7 @@ router.post('/create', (req, res) => {
 
 router.post('/:id/update', adminAction, (req, res) => {
   connectionPromise
-    .then(scoringCollection => scoringCollection.update({ _id: req.params.id }, { $set: req.body }))
+    .then(scoringCollection => scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: req.body }))
     .then(() => res.status(204).send())
     .catch(err => {
       req.logger.error(err.message)
@@ -40,7 +39,7 @@ router.post('/:id/update', adminAction, (req, res) => {
 
 router.delete('/:id/delete', adminAction, (req, res) => {
   connectionPromise
-    .then(scoringCollection => scoringCollection.remove({ _id: req.params.id }))
+    .then(scoringCollection => scoringCollection.deleteOne({ _id: new ObjectID(req.params.id) }))
     .then(() => res.status(204).send())
     .catch(err => {
       req.logger.error(err.message)
@@ -60,7 +59,7 @@ router.get('/all', (req, res) => {
 
 router.get('/:id', (req, res) => {
   connectionPromise
-    .then(scoringCollection => scoringCollection.findOne({ _id: req.params.id }))
+    .then(scoringCollection => scoringCollection.findOne({ _id: new ObjectID(req.params.id) }))
     .then(score => res.status(200).json(score))
     .catch(err => {
       req.logger.error(err.message)
