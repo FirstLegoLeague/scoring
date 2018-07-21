@@ -39,7 +39,16 @@ function _validateScore (score) {
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
-  let scoreValidation = []
+  connectionPromise
+    .then(scoringCollection => scoringCollection.save(req.body))
+    .then(() => res.status(201).send())
+    .catch(err => {
+      req.logger.error(err.message)
+      res.status(500).send('A problem occoured while trying to save score.')
+    })
+
+    /*
+    let scoreValidation = []
   connect().then(scores => {
     scoreValidation = _validateScore(req.body)
     if (scoreValidation[0] !== 'loud-fail') {
@@ -61,14 +70,7 @@ router.post('/create', (req, res) => {
     } else {
       res.status(500).send('A problem occoured while trying to save score.')
     }
-  })
-  connectionPromise
-    .then(scoringCollection => scoringCollection.save(req.body))
-    .then(() => res.status(201).send())
-    .catch(err => {
-      req.logger.error(err.message)
-      res.status(500).send('A problem occoured while trying to save score.')
-    })
+  }) */
 })
 
 router.post('/:id/update', adminAction, (req, res) => {
