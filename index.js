@@ -37,9 +37,9 @@ if (process.env.DEV) {
 }
 
 if (process.env.DEV) {
-  app.get(authenticationDevMiddleware())
+  app.use(authenticationDevMiddleware())
 } else {
-  app.get(authenticationMiddleware)
+  app.use(authenticationMiddleware)
 }
 
 app.use(express.static(path.resolve(__dirname, 'client/dist')))
