@@ -36,12 +36,12 @@ export default {
 			<il>
 				<div class="hollow button">{{scoresheet.score()}} pts.</div>
 			</il>
-			<il>
+			<il id="default-scoresheet">
 				<div class="button" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()">
 					<i class="fa fa-arrow-down"></i>
 				</div>
 			</il>
-			<il>
+			<il id="reset-scoresheet">
 				<div class="button" ng-click="scoresheet.reset()">
 					<i class="fa fa-undo"></i>
 				</div>

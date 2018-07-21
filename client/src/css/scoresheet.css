@@ -16,3 +16,32 @@ scoresheet .stamp {
     font-weight: bold;
     transform: rotate(-10deg);
 }
+
+@media only screen and (max-width: 640px) {
+
+  #score-diff-animation {
+    display: none;  
+  }
+
+	#default-scoresheet {
+		display: none;	
+	}
+
+	#reset-scoresheet {
+		display: none;	
+	}
+
+}
+
+@media only screen and (max-width: 510px) {
+
+  ref-identity .button {
+    font-size: 0;
+  }
+
+  ref-identity .button i {
+    font-size: 1rem;
+    margin: 0; 
+  }
+
+}

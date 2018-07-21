@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@first-lego-league/user-interface@^1.1.7":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.2.3.tgz#96b66500a1f35f3912263a4ea17dd7baf9b74cd3"
+"@first-lego-league/user-interface@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.2.5.tgz#fef326f172447f19e605ae6eb0f4e8b6cb6d57e9"
   dependencies:
     hamburgers "^0.9.3"
 
@@ -3293,10 +3293,6 @@ needle@^2.2.1:
 neo-async@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
-
-ng-fittext@^4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/ng-fittext/-/ng-fittext-4.2.3.tgz#897c63ff7b68b030ccf8a9e1aa23a715b48f3caf"
 
 nice-try@^1.0.4:
   version "1.0.4"
