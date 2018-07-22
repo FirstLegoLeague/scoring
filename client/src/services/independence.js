@@ -43,6 +43,9 @@ class Independence {
 				self.recalcStatus()
 			})
 			.catch(err => {
+				if(err.status === 422){
+					self.deleteRequest(action)
+				}
 				self.recalcStatus()
 				err.pendingRequestsCount = self.pendingRequestsCount()
 				throw err
@@ -91,7 +94,6 @@ class Independence {
 	pendingRequestsCount () {
 		return this.loadRequests().length
 	}
-
 }
 
 Independence.$$ngIsClass = true
