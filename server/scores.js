@@ -15,7 +15,7 @@ const connectionPromise = MongoClient
   .connect(mongoUrl, { promiseLibrary: Promise, useNewUrlParser: true })
   .then(client => client.db().collection('scores'))
 
-function _validateScore (score) {
+function _validateScore(score) {
   let retError = ['ok', '']
   if (typeof score.teamNumber !== 'number') {
     retError[0] = 'loud-fail'
@@ -43,35 +43,28 @@ function _validateScore (score) {
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
-  let scoreValidation = []
+  const scoreValidation = _validateScore(req.body)
 
-  connectionPromise
-    .then(scoringCollection => {
-      scoreValidation = _validateScore(req.body)
-      if (scoreValidation[0] !== 'loud-fail') {
+  if (scoreValidation[0] !== 'loud-fail') {
+    connectionPromise
+      .then(scoringCollection => {
         scoringCollection.save(req.body)
-      }
-    })
-    .then(() => {
-      if (scoreValidation[0] !== 'loud-fail') {
-        res.status(201).send()
-      } else {
-        throw Error
-      }
+      })
+      .then(() => {
+        if (scoreValidation[0] !== 'ok') {
+          console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
+        }
 
-      if (scoreValidation[0] !== 'ok') {
-        console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
-      }
-    })
-    .catch(err => {
-      req.logger.error(err.message)
-      if (scoreValidation[0] === 'loud-fail') {
-        console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
-        res.status(422).send('Invalid score, missing ' + scoreValidation[1])
-      } else {
+        res.status(201).send()
+      })
+      .catch(err => {
+        req.logger.error(err.message)
         res.status(500).send('A problem occoured while trying to save score.')
-      }
-    })
+      })
+  } else {
+    console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
+    res.status(422).send('Invalid score, missing ' + scoreValidation[1])
+  }
 })
 
 router.post('/:id/update', adminAction, (req, res) => {
