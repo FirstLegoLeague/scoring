@@ -102,4 +102,3 @@ Independence.$inject = ['$http', '$window']
 Independence.STATUS_CODES = STATUS_CODES
 
 export default Independence
-11
