@@ -22,6 +22,11 @@ function _validateScore (score) {
     retError[1] += 'team number '
   }
 
+  if (score.match == null) {
+    retError[0] = 'loud-fail'
+    retError[1] += 'match '
+  }
+
   if (score.score == null) {
     retError[0] = 'loud-fail'
     retError[1] += 'score '
@@ -50,6 +55,8 @@ router.post('/create', (req, res) => {
     .then(() => {
       if (scoreValidation[0] !== 'loud-fail') {
         res.status(201).send()
+      } else {
+        throw Error
       }
 
       if (scoreValidation[0] !== 'ok') {
@@ -59,6 +66,7 @@ router.post('/create', (req, res) => {
     .catch(err => {
       req.logger.error(err.message)
       if (scoreValidation[0] === 'loud-fail') {
+        console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
         res.status(422).send('Invalid score, missing ' + scoreValidation[1])
       } else {
         res.status(500).send('A problem occoured while trying to save score.')
