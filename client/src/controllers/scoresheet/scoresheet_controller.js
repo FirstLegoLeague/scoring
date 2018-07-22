@@ -152,10 +152,14 @@ class ScoresheetController {
             self.Notifications.success('Score saved successfully')
         }).catch(err => {
             self.reset()
-            let pendingScores = err.pendingRequestsCount
-            let scoresWord = pendingScores > 1 ? 'scores' : 'score'
-            self.Notifications.error(`Score submit failed. Don\'t worry, We\'re keeping
-                an eye on your ${pendingScores} pending ${scoresWord}.`)
+            if (err.status === 422) {
+                self.Notifications.error(`Cannot submit score, there are some missing fields.`)
+            } else {
+                let pendingScores = err.pendingRequestsCount
+                let scoresWord = pendingScores > 1 ? 'scores' : 'score'
+                self.Notifications.error(`Score submit failed. Don\'t worry, We\'re keeping
+                    an eye on your ${pendingScores} pending ${scoresWord}.`)
+            }
         })
     }
 

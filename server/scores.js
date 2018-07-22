@@ -15,7 +15,7 @@ const connectionPromise = MongoClient
   .connect(mongoUrl, { promiseLibrary: Promise, useNewUrlParser: true })
   .then(client => client.db().collection('scores'))
 
-function _validateScore(score) {
+function _validateScore (score) {
   let retError = ['ok', '']
   if (typeof score.teamNumber !== 'number') {
     retError[0] = 'loud-fail'
