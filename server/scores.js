@@ -16,7 +16,6 @@ const connectionPromise = MongoClient
   .then(client => client.db().collection('scores'))
 
 function _validateScore (score) {
-  console.log(authroizationMiddlware)
   let retError = { 'status': 'ok', 'errors': '' }
 
   if (typeof score.teamNumber !== 'number' || score.match == null || score.score == null) {
