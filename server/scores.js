@@ -56,21 +56,27 @@ const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development
 router.post('/create', (req, res) => {
   const scoreValidation = _validateScore(req.body)
 
-  if (scoreValidation.status === STATUS.GOOD) {
-    connectionPromise
-      .then(scoringCollection => {
-        scoringCollection.save(req.body)
-      })
-      .then(() => {
-        res.status(201).send()
-      })
-      .catch(err => {
-        req.logger.error(err.message)
-        res.status(500).send('A problem occoured while trying to save score.')
-      })
-  } else {
-    req.logger.error('Invalid score, missing ' + scoreValidation.errors + '. ' + scoreValidation.status + '.')
-    res.status(422).send('Invalid score, missing ' + scoreValidation.errors)
+  switch (scoreValidation.status) {
+    case STATUS.GOOD:
+      connectionPromise
+        .then(scoringCollection => {
+          scoringCollection.save(req.body)
+        })
+        .then(() => {
+          res.status(201).send()
+        })
+        .catch(err => {
+          req.logger.error(err.message)
+          res.status(500).send('A problem occoured while trying to save score.')
+        })
+      break
+    case STATUS.LOUD_FAIL:
+      req.logger.error('Invalid score, missing ' + scoreValidation.errors + '. ' + scoreValidation.status + '.')
+      res.status(422).send('Invalid score, missing ' + scoreValidation.errors)
+      break
+    case STATUS.CONFIGURATION_ERROR:
+      res.status(500).send('Could not load configuration')
+      break
   }
 })
 
