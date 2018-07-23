@@ -15,14 +15,14 @@ const connectionPromise = MongoClient
   .connect(mongoUrl, { promiseLibrary: Promise, useNewUrlParser: true })
   .then(client => client.db().collection('scores'))
 
-function _validateScore(score) {
+function _validateScore (score) {
   let retError = { 'status': 'ok', 'errors': '' }
 
   if (typeof score.teamNumber !== 'number' || score.match == null || score.score == null) {
     retError.status = 'loud-fail'
     if (typeof score.teamNumber !== 'number') { retError.errors += 'team number ' }
     if (score.score == null) { retError.errors += 'score ' }
-    if (score.match == null) { retError[1] += 'match ' }
+    if (score.match == null) { retError.errors += 'match ' }
   }
 
   if (score.signature.isEmpty) {
@@ -38,16 +38,16 @@ const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development
 router.post('/create', (req, res) => {
   const scoreValidation = _validateScore(req.body)
 
+  if (scoreValidation.status !== 'ok') {
+    req.logger.error('Invalid score, missing ' + scoreValidation.errors + '. ' + scoreValidation.status + '.')
+  }
+
   if (scoreValidation.status !== 'loud-fail') {
     connectionPromise
       .then(scoringCollection => {
         scoringCollection.save(req.body)
       })
       .then(() => {
-        if (scoreValidation[0] !== 'ok') {
-          console.log('Invalid score, missing ' + scoreValidation[1] + '. ' + scoreValidation[0] + '.')
-        }
-
         res.status(201).send()
       })
       .catch(err => {
@@ -55,7 +55,6 @@ router.post('/create', (req, res) => {
         res.status(500).send('A problem occoured while trying to save score.')
       })
   } else {
-    req.logger.error('Invalid score, missing ' + scoreValidation.errors + '. ' + scoreValidation.status + '.')
     res.status(422).send('Invalid score, missing ' + scoreValidation.errors)
   }
 })
