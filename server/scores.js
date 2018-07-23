@@ -18,12 +18,19 @@ const STATUS = {
   LOUD_FAIL: 'loud-fail'
 }
 
+const ERROR = {
+  TEAM_NUMBER: 'team number ',
+  SCORE: 'score ',
+  MATCH: 'match ',
+  NONE: ''
+}
+
 const connectionPromise = MongoClient
   .connect(mongoUrl, { promiseLibrary: Promise, useNewUrlParser: true })
   .then(client => client.db().collection('scores'))
 
 function _validateScore (score) {
-  let retError = { 'status': STATUS.GOOD, 'errors': '' }
+  let retError = { 'status': STATUS.GOOD, 'errors': ERROR.NONE }
 
   Configuration.get('autoPublish').then(autoPublishSetting => {
     const publishBool = autoPublishSetting
@@ -35,9 +42,9 @@ function _validateScore (score) {
     return retError
   })
 
-  if (typeof score.teamNumber !== 'number') { retError.errors += 'team number ' }
-  if (score.score == null) { retError.errors += 'score ' }
-  if (score.match == null) { retError.errors += 'match ' }
+  if (typeof score.teamNumber !== 'number') { retError.errors += ERROR.TEAM_NUMBER }
+  if (score.score == null) { retError.errors += ERROR.SCORE }
+  if (score.match == null) { retError.errors += ERROR.MATCH }
 
   if (retError.errors !== STATUS.GOOD) { retError.status = STATUS.LOUD_FAIL }
 
