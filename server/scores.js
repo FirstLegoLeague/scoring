@@ -15,26 +15,19 @@ const connectionPromise = MongoClient
   .connect(mongoUrl, { promiseLibrary: Promise, useNewUrlParser: true })
   .then(client => client.db().collection('scores'))
 
-function _validateScore (score) {
-  let retError = ['ok', '']
-  if (typeof score.teamNumber !== 'number') {
-    retError[0] = 'loud-fail'
-    retError[1] += 'team number '
-  }
+function _validateScore(score) {
+  let retError = { 'status': 'ok', 'errors': '' }
 
-  if (score.match == null) {
-    retError[0] = 'loud-fail'
-    retError[1] += 'match '
-  }
-
-  if (score.score == null) {
-    retError[0] = 'loud-fail'
-    retError[1] += 'score '
+  if (typeof score.teamNumber !== 'number' || score.match == null || score.score == null) {
+    retError.status = 'loud-fail'
+    if (typeof score.teamNumber !== 'number') { retError.errors += 'team number ' }
+    if (score.score == null) { retError.errors += 'score ' }
+    if (score.match == null) { retError[1] += 'match ' }
   }
 
   if (score.signature.isEmpty) {
-    retError[1] += 'signature '
-    retError[0] = retError[0] === 'loud-fail' ? 'loud-fail' : 'silent-fail'
+    retError.errors += 'signature '
+    retError.status = retError.status === 'loud-fail' ? 'loud-fail' : 'silent-fail'
   }
 
   return retError
