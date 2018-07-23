@@ -43,7 +43,7 @@ class Independence {
 				self.recalcStatus()
 			})
 			.catch(err => {
-				if(err.status === 422){
+				if(err.status < 500){
 					self.deleteRequest(action)
 				}
 				self.recalcStatus()
