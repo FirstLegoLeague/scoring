@@ -27,6 +27,9 @@ config:
         display: Require a Referee
         type: boolean
         default: true
+      - name: autoPublish
+        type: boolean
+        default: true
       - name: requireTable
         display: Require a Table
         type: boolean
