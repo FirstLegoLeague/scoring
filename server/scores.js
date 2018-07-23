@@ -46,7 +46,7 @@ function _validateScore (score) {
   if (score.score == null) { retError.errors += ERROR.SCORE }
   if (score.match == null) { retError.errors += ERROR.MATCH }
 
-  if (retError.errors !== STATUS.GOOD) { retError.status = STATUS.LOUD_FAIL }
+  if (retError.errors !== ERROR.NONE) { retError.status = STATUS.LOUD_FAIL }
 
   return retError
 }
