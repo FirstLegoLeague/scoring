@@ -4,6 +4,12 @@ const express = require('express')
 const Promise = require('bluebird')
 const { MongoClient, ObjectID } = require('mongodb')
 const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
+const Configuration = require('@first-lego-league/ms-configuration')
+
+const autoPublish = Configuration.all().then(config => {
+  let publishBool = config.autoPublish
+  return publishBool
+})
 
 const DEFAULTS = require('./defaults')
 
@@ -48,6 +54,12 @@ router.post('/create', (req, res) => {
         scoringCollection.save(req.body)
       })
       .then(() => {
+        autoPublish.then(result => {
+          req.body.published = result
+        }).catch(err => {
+          req.logger.error(err)
+          res.status(500).send('Could not load configuration')
+        })
         res.status(201).send()
       })
       .catch(err => {
