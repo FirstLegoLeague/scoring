@@ -3,7 +3,7 @@
 const express = require('express')
 const Promise = require('bluebird')
 const { MongoClient, ObjectID } = require('mongodb')
-const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
+const { authorizationMiddlware } = require('@first-lego-league/ms-auth')
 
 const DEFAULTS = require('./defaults')
 
@@ -33,7 +33,7 @@ function _validateScore (score) {
   return retError
 }
 
-const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
+const adminAction = authorizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
   const scoreValidation = _validateScore(req.body)
