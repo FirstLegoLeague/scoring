@@ -3,7 +3,7 @@
 const express = require('express')
 const Promise = require('bluebird')
 const { MongoClient, ObjectID } = require('mongodb')
-const { authorizationMiddlware } = require('@first-lego-league/ms-auth')
+const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
 
 const DEFAULTS = require('./defaults')
 
@@ -16,6 +16,7 @@ const connectionPromise = MongoClient
   .then(client => client.db().collection('scores'))
 
 function _validateScore (score) {
+  console.log(authroizationMiddlware)
   let retError = { 'status': 'ok', 'errors': '' }
 
   if (typeof score.teamNumber !== 'number' || score.match == null || score.score == null) {
@@ -33,7 +34,7 @@ function _validateScore (score) {
   return retError
 }
 
-const adminAction = authorizationMiddlware(['admin', 'scorekeeper', 'development'])
+const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
   const scoreValidation = _validateScore(req.body)
