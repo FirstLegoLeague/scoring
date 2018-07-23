@@ -12,28 +12,34 @@ const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 
 const router = express.Router()
 
+const STATUS = {
+  GOOD: 'ok',
+  CONFIGURATION_ERROR: 'config-error',
+  LOUD_FAIL: 'loud-fail'
+}
+
 const connectionPromise = MongoClient
   .connect(mongoUrl, { promiseLibrary: Promise, useNewUrlParser: true })
   .then(client => client.db().collection('scores'))
 
 function _validateScore (score) {
-  let retError = { 'status': 'ok', 'errors': '' }
+  let retError = { 'status': STATUS.GOOD, 'errors': '' }
 
   Configuration.get('autoPublish').then(autoPublishSetting => {
-    let publishBool = autoPublishSetting
+    const publishBool = autoPublishSetting
     return publishBool
   }).then(result => {
     score.published = result
   }).catch(() => {
-    retError.status = 'config-error'
+    retError.status = STATUS.CONFIGURATION_ERROR
+    return retError
   })
 
-  if (typeof score.teamNumber !== 'number' || score.match == null || score.score == null) {
-    retError.status = 'loud-fail'
-    if (typeof score.teamNumber !== 'number') { retError.errors += 'team number ' }
-    if (score.score == null) { retError.errors += 'score ' }
-    if (score.match == null) { retError.errors += 'match ' }
-  }
+  if (typeof score.teamNumber !== 'number') { retError.errors += 'team number ' }
+  if (score.score == null) { retError.errors += 'score ' }
+  if (score.match == null) { retError.errors += 'match ' }
+
+  if (retError.errors !== STATUS.GOOD) { retError.status = STATUS.LOUD_FAIL }
 
   return retError
 }
@@ -43,7 +49,7 @@ const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development
 router.post('/create', (req, res) => {
   const scoreValidation = _validateScore(req.body)
 
-  if (scoreValidation.status === 'ok') {
+  if (scoreValidation.status === STATUS.GOOD) {
     connectionPromise
       .then(scoringCollection => {
         scoringCollection.save(req.body)
