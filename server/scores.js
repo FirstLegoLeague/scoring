@@ -6,11 +6,6 @@ const { MongoClient, ObjectID } = require('mongodb')
 const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
 const Configuration = require('@first-lego-league/ms-configuration')
 
-const autoPublish = Configuration.all().then(config => {
-  let publishBool = config.autoPublish
-  return publishBool
-})
-
 const DEFAULTS = require('./defaults')
 
 const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
@@ -24,16 +19,20 @@ const connectionPromise = MongoClient
 function _validateScore (score) {
   let retError = { 'status': 'ok', 'errors': '' }
 
+  Configuration.get('autoPublish').then(autoPublishSetting => {
+    let publishBool = autoPublishSetting
+    return publishBool
+  }).then(result => {
+    score.published = result
+  }).catch(() => {
+    retError.status = 'config-error'
+  })
+
   if (typeof score.teamNumber !== 'number' || score.match == null || score.score == null) {
     retError.status = 'loud-fail'
     if (typeof score.teamNumber !== 'number') { retError.errors += 'team number ' }
     if (score.score == null) { retError.errors += 'score ' }
     if (score.match == null) { retError.errors += 'match ' }
-  }
-
-  if (score.signature.isEmpty) {
-    retError.errors += 'signature '
-    retError.status = retError.status === 'loud-fail' ? 'loud-fail' : 'silent-fail'
   }
 
   return retError
@@ -44,22 +43,12 @@ const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development
 router.post('/create', (req, res) => {
   const scoreValidation = _validateScore(req.body)
 
-  if (scoreValidation.status !== 'ok') {
-    req.logger.error('Invalid score, missing ' + scoreValidation.errors + '. ' + scoreValidation.status + '.')
-  }
-
-  if (scoreValidation.status !== 'loud-fail') {
+  if (scoreValidation.status === 'ok') {
     connectionPromise
       .then(scoringCollection => {
         scoringCollection.save(req.body)
       })
       .then(() => {
-        autoPublish.then(result => {
-          req.body.published = result
-        }).catch(err => {
-          req.logger.error(err)
-          res.status(500).send('Could not load configuration')
-        })
         res.status(201).send()
       })
       .catch(err => {
@@ -67,6 +56,7 @@ router.post('/create', (req, res) => {
         res.status(500).send('A problem occoured while trying to save score.')
       })
   } else {
+    req.logger.error('Invalid score, missing ' + scoreValidation.errors + '. ' + scoreValidation.status + '.')
     res.status(422).send('Invalid score, missing ' + scoreValidation.errors)
   }
 })
