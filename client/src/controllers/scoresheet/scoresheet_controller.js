@@ -24,6 +24,7 @@ class ScoresheetController {
         this.isRef = User.isRef()
         this.scoreDiff = 0
         this.showingScoreDiffAnimation = false
+        this.loading = true
     }
 
     $onInit() {
@@ -136,6 +137,7 @@ class ScoresheetController {
             this.team = null
             this.match = null
             this._matches = null
+            this.loading = false
         })
     }
 

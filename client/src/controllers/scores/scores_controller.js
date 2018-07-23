@@ -19,6 +19,9 @@ class ScoresController {
 		// If the reload event comes from within this client, reload and send the message to every other client
 		// Otherwise just reload
 		this.$scope.$on('reload', () => this.load(true))
+		this.$scope.$on('alter', (event, callback) => {
+			this._scores = callback(this._scores)
+		})
 		this.Messanger.on('reload', () => this.load(false), true)
 		this.Tournament.teams().then(teams => {
 			this._loading = false

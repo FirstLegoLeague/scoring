@@ -2,7 +2,7 @@
 
 export default {
 	template: `
-	<div class="top-bar secondary">
+<div class="top-bar secondary">
     <div class="top-bar-left">
         <ul class="menu">
             <li>

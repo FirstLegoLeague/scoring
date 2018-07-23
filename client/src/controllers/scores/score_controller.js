@@ -57,7 +57,7 @@ class ScoreController {
 		this.deleting = true
 		this.Scores.delete(this.data._id)
 			.then(() => {
-				this.$scope.$emit('alter', scores => scores.filter(score => score._id === this.data._id))
+				this.$scope.$emit('alter', scores => scores.filter(score => score._id !== this.data._id))
 			}).catch(() => {
 				this.Notifications.error('Unable to delete score: Possible network error.')
 				this.deleting = false

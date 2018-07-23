@@ -49,8 +49,11 @@ export default {
 		</ul>
 	</div>
 </div>
-<div class="top-bar-page">
-	<div class="grid-container">
+<div class="top-bar-page" ng-class="{ loading: scoresheet.loading }">
+    <div class="dimmer">
+        <div class="large loader"></div>
+    </div>
+	<div class="grid-container" ng-show="!scoresheet.loading">
 		<div class="grid-x grid-padding-x grid-padding-y">
 			<div class="cell">
 				<div id="{{mission.id}}" class="callout" ng-class="{ success: mission.complete, alert: mission.error }" ng-repeat="mission in scoresheet.missions">
