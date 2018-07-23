@@ -28,6 +28,7 @@ config:
         type: boolean
         default: true
       - name: autoPublish
+        display: Auto-publish setting
         type: boolean
         default: true
       - name: requireTable
