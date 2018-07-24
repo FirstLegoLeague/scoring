@@ -32,7 +32,7 @@ class ScoresheetController {
             let missionId = event.targetScope.mission.data.id
             let missionIndex = this.scoresheet.missions.findIndex(mission => mission.id === missionId) + 1
             let nextMission = this.scoresheet.missions[missionIndex]
-            if (nextMission && (!this.defaulting || missionIndex === this.scoresheet.missions.length - 1)) {
+            if (!this.defaulting || missionIndex === this.scoresheet.missions.length) {
                 this.scrollToMission(nextMission)
                 this.defaulting = false
             }
@@ -183,24 +183,16 @@ class ScoresheetController {
     }
 
     scrollToMission(mission) {
-        if (!mission) {
-            return
-        }
-
         let missionsElement = this.$document[0].querySelector(MISSIONS_ELEMENTS)
         let startingPosition = missionsElement.scrollTop
         let endingPosition = startingPosition
 
         if (mission) {
             let missionElement = this.$document[0].getElementById(mission.id)
-            if (!missionElement) {
-                return
-            }
-
             endingPosition = Math.min(missionElement.offsetTop + MISSION_SCROLL_OFFSET,
                 missionsElement.scrollHeight - missionsElement.clientHeight)
         } else {
-            endingPosition = 0
+            endingPosition = missionsElement.scrollHeight - missionsElement.offsetHeight
         }
 
         let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED
