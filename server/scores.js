@@ -32,23 +32,20 @@ const connectionPromise = MongoClient
 function _validateScore (score) {
   let retError = { 'status': STATUS.GOOD, 'errors': ERROR.NONE }
 
-  Configuration.get('autoPublish').then(autoPublishSetting => {
-    const publishBool = autoPublishSetting
-    return publishBool
-  }).then(result => {
-    score.published = result
-  }).catch(() => {
-    retError.status = STATUS.CONFIGURATION_ERROR
+  Configuration.get('autoPublish')
+  .then(autoPublishSetting => {
+    score.published = autoPublishSetting
+
+    if (typeof score.teamNumber !== 'number') { retError.errors += ERROR.TEAM_NUMBER }
+    if (score.score == null) { retError.errors += ERROR.SCORE }
+    if (score.match == null) { retError.errors += ERROR.MATCH }
+  
+    if (retError.errors !== ERROR.NONE) { retError.status = STATUS.LOUD_FAIL }
+  
     return retError
-  })
-
-  if (typeof score.teamNumber !== 'number') { retError.errors += ERROR.TEAM_NUMBER }
-  if (score.score == null) { retError.errors += ERROR.SCORE }
-  if (score.match == null) { retError.errors += ERROR.MATCH }
-
-  if (retError.errors !== ERROR.NONE) { retError.status = STATUS.LOUD_FAIL }
-
-  return retError
+  }).catch(() => {
+    
+  }) 
 }
 
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
