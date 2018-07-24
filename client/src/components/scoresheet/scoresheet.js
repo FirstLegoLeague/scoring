@@ -20,7 +20,7 @@ export default {
 				</form>
 			</li>
 			<li>
-				<select ng-disabled="!scoresheet.teamIsSelected()" ng-model="scoresheet.match">
+				<select ng-show="scoresheet.teamIsSelected()" ng-model="scoresheet.match">
 					<option type="text" ng-repeat="match in scoresheet.selectedTeamMatches()" value="{{match}}">
 						{{match.match}}{{match.complete ? '✔' : ''}}
 					</option>
@@ -62,7 +62,7 @@ export default {
 				<div id="signature" class="callout" ng-class="{ alert: scoresheet.error(), success: !(scoresheet.error() || scoresheet.signatureMissing) }">
 					<signature-pad accept="getSignature" clear="clearSignature" height="128" width="300" ng-hide="scoresheet.scoresheet._id"></signature-pad>
 					<img ng-src="{{scoresheet.scoresheet.signature.dataUrl}}" ng-show="scoresheet.scoresheet._id" />
-					<div ng-show="scoresheet.error()" class="stamp hollow alert button" ng-click="scoresheet.scrollToMission(scoresheet.error().mission)">{{scoresheet.error().error}}</div>
+					<div class="stamp hollow alert button" ng-click="scoresheet.scrollToMission(scoresheet.error().mission)">{{scoresheet.error().error}}</div>
 				</div>
 			</div>
 			<div class="cell small-2 small-offset-5">

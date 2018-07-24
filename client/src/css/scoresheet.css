@@ -9,12 +9,16 @@ objective .button-group input:checked + label:active {
 
 scoresheet .stamp {
 	float: right;
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    border-width: 2px !important;
-    font-weight: bold;
-    transform: rotate(-10deg);
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  border-width: 2px !important;
+  font-weight: bold;
+  transform: rotate(-10deg);
+}
+
+#signature:not(.alert) .stamp {
+  display: none;
 }
 
 @media only screen and (max-width: 640px) {
