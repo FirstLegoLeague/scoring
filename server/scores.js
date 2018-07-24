@@ -30,22 +30,20 @@ const connectionPromise = MongoClient
   .then(client => client.db().collection('scores'))
 
 function _validateScore (score) {
-  let retError = { 'status': STATUS.GOOD, 'errors': ERROR.NONE }
+  let retError = { 'status': STATUS.GOOD, 'errors': ERROR.NONE, 'score': score }
 
-  Configuration.get('autoPublish')
-  .then(autoPublishSetting => {
-    score.published = autoPublishSetting
+  Configuration.get('autoPublish').then(autoPublishSetting => {
+    retError.score.published = autoPublishSetting
 
     if (typeof score.teamNumber !== 'number') { retError.errors += ERROR.TEAM_NUMBER }
     if (score.score == null) { retError.errors += ERROR.SCORE }
     if (score.match == null) { retError.errors += ERROR.MATCH }
-  
+
     if (retError.errors !== ERROR.NONE) { retError.status = STATUS.LOUD_FAIL }
-  
     return retError
   }).catch(() => {
-    
-  }) 
+
+  })
 }
 
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
@@ -57,7 +55,7 @@ router.post('/create', (req, res) => {
     case STATUS.GOOD:
       connectionPromise
         .then(scoringCollection => {
-          scoringCollection.save(req.body)
+          scoringCollection.save(scoreValidation.score)
         })
         .then(() => {
           res.status(201).send()
