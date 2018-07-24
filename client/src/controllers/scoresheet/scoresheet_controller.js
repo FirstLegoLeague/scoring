@@ -6,7 +6,7 @@ const SCORE_DIFF_ENDING_POSITION = -100
 const SCORE_DIFF_STARTING_POSITION = 100
 const MISSION_SCROLL_OFFSET = -150
 
-const MISSIONS_ELEMENTS = 'scoresheet > .top-bar-page'
+const MISSIONS_ELEMENTS = 'scoresheet > .top-bar-page > .grid-container'
 const DIFF_ANIMATION_ELEMENT = 'score-diff-animation'
 const DIFF_ANIMATION_CLASS = 'ng-hide-animate'
 
@@ -95,7 +95,7 @@ class ScoresheetController {
         let previousScore = this.scoresheet.score // This score is saved from the last calculation by the Scoresheet service
         let newScore = this.Scoresheet.score() // This score is the newly calculated score
         let scoreDiff = newScore - previousScore
-        if (scoreDiff !== 0 && isFinite(scoreDiff)) {
+        if (scoreDiff > 0 && isFinite(scoreDiff)) {
             this.showScoreDiffAnimation(scoreDiff)
         }
 
@@ -178,7 +178,7 @@ class ScoresheetController {
             this.$timeout(() => {
                 animationElement.classList.remove(DIFF_ANIMATION_CLASS)
                 this.showingScoreDiffAnimation = false
-            }, 1000)
+            })
         })
     }
 

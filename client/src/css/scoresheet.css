@@ -19,10 +19,6 @@ scoresheet .stamp {
 
 @media only screen and (max-width: 640px) {
 
-  #score-diff-animation {
-    display: none;  
-  }
-
 	#default-scoresheet {
 		display: none;	
 	}
@@ -44,4 +40,42 @@ scoresheet .stamp {
     margin: 0; 
   }
 
+}
+
+scoresheet .top-bar-page {
+  position: relative;
+  overflow-x: hidden;
+}
+
+scoresheet .top-bar-page > .grid-container {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+#score-diff-animation {
+  display: block !important;
+  z-index: 1000;
+
+  position: absolute;
+  top: -6rem;
+  right: 1em;
+  width: 6rem;
+  height: 6rem;
+
+  background: url('~@first-lego-league/user-interface/current/assets/img/animation.gif');
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  transition: top linear 0.5s;
+
+  padding-top: 0.9rem;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+}
+
+#score-diff-animation.ng-hide-animate {
+  top: 6rem;
+  transition: top linear 0s;
 }
