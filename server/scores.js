@@ -12,10 +12,15 @@ const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 
 const router = express.Router()
 
-const STATUS = {
-  GOOD: 'ok',
-  CONFIGURATION_ERROR: 'config-error',
-  LOUD_FAIL: 'loud-fail'
+class MissingFieldError extends Error {
+  constructor (error) {
+    super()
+    this.error = error
+    Error.captureStackTrace(this, MissingFieldError)
+  }
+
+  get error () { return this.this.error }
+  set error (value) { this.error = value }
 }
 
 const ERROR = {
@@ -30,19 +35,21 @@ const connectionPromise = MongoClient
   .then(client => client.db().collection('scores'))
 
 function _validateScore (score) {
-  let retError = { 'status': STATUS.GOOD, 'errors': ERROR.NONE, 'score': score }
+  let validatedScore = score
+
+  let missingFieldError = new MissingFieldError(ERROR.NONE)
 
   Configuration.get('autoPublish').then(autoPublishSetting => {
-    retError.score.published = autoPublishSetting
+    validatedScore.score.published = autoPublishSetting
 
-    if (typeof score.teamNumber !== 'number') { retError.errors += ERROR.TEAM_NUMBER }
-    if (score.score == null) { retError.errors += ERROR.SCORE }
-    if (score.match == null) { retError.errors += ERROR.MATCH }
+    if (typeof validatedScore.teamNumber !== 'number') { missingFieldError.error += ERROR.TEAM_NUMBER }
+    if (validatedScore.score == null) { missingFieldError.error += ERROR.SCORE }
+    if (validatedScore.match == null) { missingFieldError.error += ERROR.MATCH }
 
-    if (retError.errors !== ERROR.NONE) { retError.status = STATUS.LOUD_FAIL }
-    return retError
-  }).catch(() => {
-
+    if (missingFieldError.error !== ERROR.NONE) { throw missingFieldError }
+    return validatedScore
+  }).catch(err => {
+    throw err
   })
 }
 
@@ -68,9 +75,6 @@ router.post('/create', (req, res) => {
     case STATUS.LOUD_FAIL:
       req.logger.error('Invalid score, missing ' + scoreValidation.errors + '. ' + scoreValidation.status + '.')
       res.status(422).send('Invalid score, missing ' + scoreValidation.errors)
-      break
-    case STATUS.CONFIGURATION_ERROR:
-      res.status(500).send('Could not load configuration')
       break
   }
 })
