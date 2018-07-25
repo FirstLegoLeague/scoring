@@ -36,7 +36,7 @@ function _validateScore (score) {
 
   let missingFieldError = new MissingFieldError(ERROR.NONE)
 
-  Configuration.get('autoPublish').then(autoPublishSetting => {
+  return Configuration.get('autoPublish').then(autoPublishSetting => {
     validatedScore.published = autoPublishSetting
 
     if (typeof validatedScore.teamNumber !== 'number') { missingFieldError.error += ERROR.TEAM_NUMBER }
@@ -44,6 +44,7 @@ function _validateScore (score) {
     if (validatedScore.match == null) { missingFieldError.error += ERROR.MATCH }
 
     if (missingFieldError.error !== ERROR.NONE) { throw missingFieldError }
+
     return validatedScore
   }).catch(err => {
     throw err
@@ -53,7 +54,7 @@ function _validateScore (score) {
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
-  Promise.resolve(_validateScore(req.body)).then(validatedScore => {
+  _validateScore(req.body).then(validatedScore => {
     connectionPromise
       .then(scoringCollection => {
         scoringCollection.save(validatedScore)
