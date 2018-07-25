@@ -2,7 +2,7 @@
 
 export default {
 	template: `
-	<div class="top-bar secondary">
+<div class="top-bar secondary">
     <div class="top-bar-left">
         <ul class="menu">
             <li>
@@ -17,6 +17,13 @@ export default {
                 <button class="button" ng-hide="scores.errorScores().length === 0" ng-click="scores.showErrors = !scores.showErrors">
                     {{ scores.showErrors ? 'Show all scores' : 'Show only bad scores'}}
                 </button>
+            </li>
+        </ul>
+    </div>
+    <div class="top-bar-right">
+        <ul class="menu">
+            <li>
+                <a class="button" href="{{scores.rankingsLink}}"><i class="fa fa-download"></i> Download rankings</a>
             </li>
         </ul>
     </div>

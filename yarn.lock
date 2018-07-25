@@ -695,6 +695,10 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+express-csv@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/express-csv/-/express-csv-0.6.0.tgz#db792d85b262207e561d6362ba39a1e681e3d503"
+
 express@^4.16.3:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.3.tgz#6af8a502350db3246ecc4becf6b5a34d22f7ed53"
