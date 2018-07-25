@@ -4,7 +4,7 @@ const MIN_LOADING_TIME = 50
 
 class ScoreController {
 
-	constructor($scope, Scores, Tournament, Modals, Notifications) {
+	constructor ($scope, Scores, Tournament, Modals, Notifications) {
 		this.$scope = $scope
 		this.Scores = Scores
 		this.Tournament = Tournament
@@ -26,7 +26,7 @@ class ScoreController {
 
 	// Views
 
-	teamText() {
+	teamText () {
 		if (this.data.teamNumber && this.teams) {
 			return this.teams.find(team => team.number === this.data.teamNumber).displayText
 		} else {
@@ -34,7 +34,7 @@ class ScoreController {
 		}
 	}
 
-	tableText() {
+	tableText () {
 		if (this.data.tableId && this.tables) {
 			return this.tables.find(table => table.tableId === this.data.tableId).tableName
 		} else {
@@ -44,11 +44,11 @@ class ScoreController {
 
 	// Actions
 
-	openDeletionDialog() {
+	openDeletionDialog () {
 		this.Modals.open(`#score-${this.data._id} .deletion-modal`)
 	}
 
-	closeDeletionDialog() {
+	closeDeletionDialog () {
 		this.Modals.close(`#score-${this.data._id} .deletion-modal`)
 	}
 
@@ -73,7 +73,7 @@ class ScoreController {
 			})
 	}
 
-	open() {
+	open () {
 		this.$scope.$emit('open scoresheet', this.data)
 	}
 
@@ -111,11 +111,11 @@ class ScoreController {
 			})
 	}
 
-	teamMatches() {
+	teamMatches () {
 		return this._matches || []
 	}
 
-	matchText() {
+	matchText () {
 		if (this.matchError()) {
 			return 'Missing match'
 		} else {
@@ -123,8 +123,13 @@ class ScoreController {
 		}
 	}
 
-	matchError() {
-		return !this.loading && (this.data.match == null || !this.isCorrectMatchList())
+	matchError () {
+		if (!this._loading && (this.data.match == null || !this.isCorrectMatchList())) {
+			this.data.match = null
+			return true
+		} else {
+			return false
+		}
 	}
 
 	teamNumberError() {
