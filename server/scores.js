@@ -53,16 +53,12 @@ const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development
 
 router.post('/create', (req, res) => {
   _validateScore(req.body).then(validatedScore => {
-    connectionPromise
+    return connectionPromise
       .then(scoringCollection => {
-        scoringCollection.save(validatedScore)
+        return scoringCollection.save(validatedScore)
       })
       .then(() => {
         res.status(201).send()
-      })
-      .catch(err => {
-        req.logger.error(err.message)
-        res.status(500).send('A problem occoured while trying to save score.')
       })
   }).catch(err => {
     if (err instanceof MissingFieldError) {
