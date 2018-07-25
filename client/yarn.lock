@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@first-lego-league/user-interface@^1.1.7":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.2.3.tgz#96b66500a1f35f3912263a4ea17dd7baf9b74cd3"
+"@first-lego-league/user-interface@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.2.7.tgz#020780aa493df3220041b5f32b0235a89bef21a0"
   dependencies:
     hamburgers "^0.9.3"
 

@@ -2,8 +2,9 @@
 
 class ScoresController {
 
-	constructor($scope, Scores, Tournament, Messanger) {
+	constructor($scope, Configuration, Scores, Tournament, Messanger) {
 		this.$scope = $scope
+		this.Configuration = Configuration
 		this.Scores = Scores
 		this.Tournament = Tournament
 		this.Messanger = Messanger
@@ -11,15 +12,18 @@ class ScoresController {
 		this.showDuplicates = false
 		this.showErrors = false
 		this._loading = true
+		this.match = null
 	}
 
 	$onInit() {
-		let self = this
 		this.load(false)
 		// If the reload event comes from within this client, reload and send the message to every other client
 		// Otherwise just reload
-		this.$scope.$on('reload', () => self.load(true))
-		this.Messanger.on('reload', () => self.load(false), true)
+		this.$scope.$on('reload', () => this.load(true))
+		this.$scope.$on('alter', (event, callback) => {
+			this._scores = callback(this._scores)
+		})
+		this.Messanger.on('reload', () => this.load(false), true)
 		this.Tournament.teams().then(teams => {
 			this._loading = false
 			this._teamNumberList = []
@@ -27,30 +31,27 @@ class ScoresController {
 				this._teamNumberList.push(teams[i].number)
 			}
 		})
-
-
-		self.search = ''
-		self.match = null
+		this.Configuration.load().then(config => {
+			this.rankingsLink = config.rankings
+		})
 	}
 
 	load(shouldBroadcast) {
-		let self = this
 		this.Scores.all().then(scores => {
-			self._scores = scores
+			this._scores = scores
 			if (shouldBroadcast) {
-				self.Messanger.send('reload')
+				this.Messanger.send('reload')
 			}
 		})
 	}
 
 	scores() {
-		let self = this
 		let scores = this._scores
 
 		// Filter by search
 		if (this.search) {
 			scores = this._scores.filter(score => {
-				return Object.values(score).some(value => value.toString().includes(self.search))
+				return Object.values(score).some(value => value.toString().includes(this.search))
 			})
 		}
 
@@ -108,6 +109,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['$scope', 'Scores', 'Tournament', 'Messanger']
+ScoresController.$inject = ['$scope', 'Configuration', 'Scores', 'Tournament', 'Messanger']
 
 export default ScoresController
