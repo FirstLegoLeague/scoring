@@ -2,8 +2,9 @@
 
 class ScoresController {
 
-	constructor($scope, Scores, Tournament, Messanger) {
+	constructor($scope, Configuration, Scores, Tournament, Messanger) {
 		this.$scope = $scope
+		this.Configuration = Configuration
 		this.Scores = Scores
 		this.Tournament = Tournament
 		this.Messanger = Messanger
@@ -29,6 +30,9 @@ class ScoresController {
 			for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
 				this._teamNumberList.push(teams[i].number)
 			}
+		})
+		this.Configuration.load().then(config => {
+			this.rankingsLink = config.rankings
 		})
 	}
 
@@ -105,6 +109,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['$scope', 'Scores', 'Tournament', 'Messanger']
+ScoresController.$inject = ['$scope', 'Configuration', 'Scores', 'Tournament', 'Messanger']
 
 export default ScoresController

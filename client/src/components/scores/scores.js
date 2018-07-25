@@ -20,6 +20,13 @@ export default {
             </li>
         </ul>
     </div>
+    <div class="top-bar-right">
+        <ul class="menu">
+            <li>
+                <a class="button" href="{{scores.rankingsLink}}"><i class="fa fa-download"></i> Download rankings</a>
+            </li>
+        </ul>
+    </div>
 </div>
 <div class="top-bar-page">
     <div id="scores-list" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5">

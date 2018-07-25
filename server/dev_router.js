@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require('express')
+require('express-csv')
 
 const router = express.Router()
 
@@ -22,7 +23,7 @@ const TEAMS = [
   { number: 8846, name: 'Syntax error' }
 ]
 
-var TEAMS_MATCHES = []
+const TEAMS_MATCHES = []
 const MATCH_LIST = [
   { complete: true, match: '1' },
   { complete: false, match: '2' },
@@ -51,6 +52,15 @@ router.get('/table/all', (req, res) => {
 
 router.get(`/teams/:teamNumber/matches`, (req, res) => {
   res.json(TEAMS_MATCHES[TEAMS_MATCHES.findIndex(team => team.number === parseInt(req.params.teamNumber))].matches)
+})
+
+router.get(`/rankings.csv`, (req, res) => {
+  const headers = ['rank', 'team', 'highest', '1', '2', '3']
+  res.csv([headers].concat(TEAMS.map((team, index) => {
+    const scores = [true, true, true].map(() => Math.floor(100 * Math.random()))
+    const highest = Math.max(scores[0], scores[1], scores[2])
+    return [index + 1, team.number, highest].concat(scores)
+  })))
 })
 
 // eslint-disable-next-line node/exports-style
