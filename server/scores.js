@@ -13,14 +13,11 @@ const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 const router = express.Router()
 
 class MissingFieldError extends Error {
-  constructor (error) {
+  constructor (err) {
     super()
-    this.error = error
+    this.error = err
     Error.captureStackTrace(this, MissingFieldError)
   }
-
-  get error () { return this.this.error }
-  set error (value) { this.error = value }
 }
 
 const ERROR = {
@@ -40,7 +37,7 @@ function _validateScore (score) {
   let missingFieldError = new MissingFieldError(ERROR.NONE)
 
   Configuration.get('autoPublish').then(autoPublishSetting => {
-    validatedScore.score.published = autoPublishSetting
+    validatedScore.published = autoPublishSetting
 
     if (typeof validatedScore.teamNumber !== 'number') { missingFieldError.error += ERROR.TEAM_NUMBER }
     if (validatedScore.score == null) { missingFieldError.error += ERROR.SCORE }
@@ -56,27 +53,27 @@ function _validateScore (score) {
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
-  const scoreValidation = _validateScore(req.body)
-
-  switch (scoreValidation.status) {
-    case STATUS.GOOD:
-      connectionPromise
-        .then(scoringCollection => {
-          scoringCollection.save(scoreValidation.score)
-        })
-        .then(() => {
-          res.status(201).send()
-        })
-        .catch(err => {
-          req.logger.error(err.message)
-          res.status(500).send('A problem occoured while trying to save score.')
-        })
-      break
-    case STATUS.LOUD_FAIL:
-      req.logger.error('Invalid score, missing ' + scoreValidation.errors + '. ' + scoreValidation.status + '.')
-      res.status(422).send('Invalid score, missing ' + scoreValidation.errors)
-      break
-  }
+  Promise.resolve(_validateScore(req.body)).then(validatedScore => {
+    connectionPromise
+      .then(scoringCollection => {
+        scoringCollection.save(validatedScore)
+      })
+      .then(() => {
+        res.status(201).send()
+      })
+      .catch(err => {
+        req.logger.error(err.message)
+        res.status(500).send('A problem occoured while trying to save score.')
+      })
+  }).catch(err => {
+    if (err instanceof MissingFieldError) {
+      req.logger.error('Invalid score, missing ' + err.error + '. ')
+      res.status(422).send('Invalid score, missing ' + err.error)
+    } else {
+      req.logger.error(err.message)
+      res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
+    }
+  })
 })
 
 router.post('/:id/update', adminAction, (req, res) => {
