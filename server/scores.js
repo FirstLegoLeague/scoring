@@ -46,8 +46,6 @@ function _validateScore (score) {
     if (missingFieldError.error !== ERROR.NONE) { throw missingFieldError }
 
     return validatedScore
-  }).catch(err => {
-    throw err
   })
 }
 
