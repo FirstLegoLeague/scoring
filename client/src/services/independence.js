@@ -5,7 +5,7 @@ const STORAGE_KEY_PREFIX = 'independence_actions'
 const STATUS_CODES = {
 	ONLINE: 0,
 	TEMPORARY_OFFLINE: 1,
-	PERMENENTLY_OFFLINE: 2
+	PERMANENTLY_OFFLINE: 2
 }
 
 class Independence {
@@ -43,6 +43,9 @@ class Independence {
 				self.recalcStatus()
 			})
 			.catch(err => {
+				if(err.status < 500){
+					self.deleteRequest(action)
+				}
 				self.recalcStatus()
 				err.pendingRequestsCount = self.pendingRequestsCount()
 				throw err
@@ -83,7 +86,7 @@ class Independence {
 			if(milisecondsSinceLastSuccessfulRequest < TEMPORARY_TIMESPAN) {
 				this.status = STATUS_CODES.TEMPORARY_OFFLINE
 			} else {
-				this.status = STATUS_CODES.PERMENENTLY_OFFLINE
+				this.status = STATUS_CODES.PERMANENTLY_OFFLINE
 			}
 		}
 	}
@@ -91,7 +94,6 @@ class Independence {
 	pendingRequestsCount () {
 		return this.loadRequests().length
 	}
-
 }
 
 Independence.$$ngIsClass = true
@@ -100,4 +102,3 @@ Independence.$inject = ['$http', '$window']
 Independence.STATUS_CODES = STATUS_CODES
 
 export default Independence
-11

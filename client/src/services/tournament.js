@@ -2,7 +2,7 @@
 
 class Tournament {
 
-	constructor ($http, Configuration) {
+	constructor($http, Configuration) {
 		this.$http = $http
 		this.Configuration = Configuration
 		this._teamsMathcesPromises = { }
