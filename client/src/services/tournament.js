@@ -5,69 +5,50 @@ class Tournament {
 	constructor($http, Configuration) {
 		this.$http = $http
 		this.Configuration = Configuration
-		this._teamsMatches = {}
+		this._teamsMathcesPromises = { }
 	}
 
-	init() {
-		let self = this
-
+	init () {
 		return this.Configuration.load().then(config => {
-			self.tournament = config.tournament
-			return self
+			this.tournament = config.tournament
+			return this
 		})
 	}
 
-	teams() {
-		if (this._teams) {
-			let resolvedPromise = Promise.resolve(this._teams)
-			return resolvedPromise
-		}
-
-		let self = this
-
-		return this.init()
-			.then(() => self.$http.get(`${self.tournament}/team/all`))
+	teams () {
+		if(!this._teamsPromise) {
+			this._teamsPromise = this.init()
+			.then(() => this.$http.get(`${this.tournament}/team/all`))
 			.then(response => {
-				self._teams = response.data
-				self._teams.forEach(team => {
+				const teams = response.data
+				teams.forEach(team => {
 					team.displayText = `#${team.number} ${team.name}`
 				})
-				return self._teams
+				return teams
 			})
-	}
-
-	tables() {
-		if (this._tables) {
-			let resolvedPromise = Promise.resolve(this._tables)
-			return resolvedPromise
 		}
 
-		let self = this
-
-		return this.init()
-			.then(() => self.$http.get(`${self.tournament}/table/all`))
-			.then(response => {
-				self._tables = response.data
-				return self._tables
-			})
+		return this._teamsPromise
 	}
 
-	teamsMatches(teamNumber) {
-		if (teamNumber && this._teams) {
-			if (this._teamsMatches && this._teamsMatches[teamNumber]) {
-				let resolvedPromise = Promise.resolve(this._teamsMatches[teamNumber])
-				return resolvedPromise
-			}
-
-			let self = this
-
-			return this.init()
-				.then(() => self.$http.get(`${self.tournament}/teams/${teamNumber}/matches`))
-				.then(response => {
-					this._teamsMatches[teamNumber] = response.data
-					return this._teamsMatches[teamNumber]
-				})
+	tables () {
+		if(!this._tablesPromise) {
+			this._tablesPromise = this.init()
+			.then(() => this.$http.get(`${this.tournament}/table/all`))
+			.then(response => response.data)
 		}
+		
+		return this._tablesPromise
+	}
+
+	teamsMatches(teamNumber){
+		if(!this._teamsMathcesPromises[teamNumber]) {
+			this._teamsMathcesPromises[teamNumber] = this.init()
+			.then(() => this.$http.get(`${this.tournament}/teams/${teamNumber}/matches`))
+			.then(response => response.data)
+		}
+
+		return this._teamsMathcesPromises[teamNumber]
 	}
 
 }

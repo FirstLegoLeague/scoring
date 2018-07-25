@@ -7,11 +7,13 @@ class Configuration {
 	}
 
 	load () {
-		let self = this
-		return this.$http.get('/config').then(response => {
-			Object.assign(self, response.data)
-			return self
-		})
+		if(!this._loadPromise) {
+			this._loadPromise = this.$http.get('/config').then(response => {
+				Object.assign(this, response.data)
+				return this
+			})
+		}
+		return this._loadPromise
 	}
 
 }

@@ -1,5 +1,7 @@
 'use strict'
 
+const MIN_LOADING_TIME = 50
+
 class ScoreController {
 
 	constructor($scope, Scores, Tournament, Modals, Notifications) {
@@ -8,19 +10,17 @@ class ScoreController {
 		this.Tournament = Tournament
 		this.Notifications = Notifications
 		this.Modals = Modals
-		this._loading = true
+		this.loading = true
 		this.isSelected = false
 	}
 
 	$onInit() {
-		let self = this
-
 		Promise.all([this.Tournament.teams(), this.Tournament.tables(), this.Tournament.teamsMatches(this.data.teamNumber)])
 			.then(responses => {
-				self._loading = false
-				self.teams = responses[0]
-				self.tables = responses[1]
-				self._matches = responses[2]
+				this.loading = false
+				this.teams = responses[0]
+				this.tables = responses[1]
+				this._matches = responses[2]
 			})
 	}
 
@@ -28,8 +28,7 @@ class ScoreController {
 
 	teamText() {
 		if (this.data.teamNumber && this.teams) {
-			let self = this
-			return this.teams.find(team => team.number === self.data.teamNumber).displayText
+			return this.teams.find(team => team.number === this.data.teamNumber).displayText
 		} else {
 			return 'Missing team!'
 		}
@@ -37,8 +36,7 @@ class ScoreController {
 
 	tableText() {
 		if (this.data.tableId && this.tables) {
-			let self = this
-			return this.tables.find(table => table.tableId === self.data.tableId).tableName
+			return this.tables.find(table => table.tableId === this.data.tableId).tableName
 		} else {
 			return 'no table'
 		}
@@ -55,25 +53,23 @@ class ScoreController {
 	}
 
 	delete() {
-		let self = this
 		this.closeDeletionDialog()
 		this.deleting = true
 		this.Scores.delete(this.data._id)
 			.then(() => {
-				self.$scope.$emit('reload')
+				this.$scope.$emit('alter', scores => scores.filter(score => score._id !== this.data._id))
 			}).catch(() => {
-				self.Notifications.error('Unable to delete score: Possible network error.')
-				self.deleting = false
+				this.Notifications.error('Unable to delete score: Possible network error.')
+				this.deleting = false
 			})
 	}
 
 	togglePublish() {
-		let self = this
-		self.togglingPublish = true
+		this.togglingPublish = true
 		this.Scores.update(this.data._id, { public: !this.data.public })
 			.then(() => {
-				self.$scope.$emit('reload')
-				self.togglingPublish = false
+				this.data.public = !this.data.public
+				setTimeout(() => this.togglingPublish = false, MIN_LOADING_TIME)
 			})
 	}
 
@@ -82,17 +78,16 @@ class ScoreController {
 	}
 
 	isCorrectMatchList() {
-		let self = this
-		return self._matches && self._matches.some(match => {
+		return this._matches && this._matches.some(match => {
 			return match.match === this.data.match
 		})
 	}
 
 	save() {
-		let self = this
+		this.loading = true
 
 		this.Tournament.teamsMatches(this.data.teamNumber).then(response => {
-			self._matches = response
+			this._matches = response
 		}).then(() => {
 			if (!this.isCorrectMatchList()) {
 				this.data.match = null
@@ -109,9 +104,10 @@ class ScoreController {
 
 		this.Scores.update(this.data._id, updateData)
 			.then(() => {
-				self.$scope.$emit('reload')
+				Object.assign(this.data, updateData)
+				setTimeout(() => this.loading = false, MIN_LOADING_TIME)
 			}).catch(() => {
-				self.Notifications.error('Unable to update score: Possible network error.')
+				this.Notifications.error('Unable to update score: Possible network error.')
 			})
 	}
 
@@ -128,11 +124,11 @@ class ScoreController {
 	}
 
 	matchError() {
-		return !this._loading && (this.data.match == null || !this.isCorrectMatchList())
+		return !this.loading && (this.data.match == null || !this.isCorrectMatchList())
 	}
 
 	teamNumberError() {
-		return !this._loading && typeof this.data.teamNumber != 'number'
+		return !this.loading && typeof this.data.teamNumber != 'number'
 	}
 }
 

@@ -1,5 +1,5 @@
 #status {
-    margin: 0.5em 1em;
+    margin: 0.5rem 1rem;
     display: inline-block;
 }
 
@@ -17,4 +17,17 @@
 
 #status.permanently-offline {
     color: crimson;
+}
+
+@media only screen and (max-width: 810px) {
+
+	#status {
+		font-size: 0;
+	}
+
+	#status i {
+		font-size: 1rem;
+		margin: 0; 
+	}
+
 }
