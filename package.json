@@ -7,7 +7,7 @@
   "author": "Idan Stark <idanstark42@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "start mongod&& start mhub-server&& set MODULE_RANKINGS_URL=http://localhost:3000&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set DEV=true&& set MHUB=ws://localhost:13900&& node ./index.js",
+    "start": "start mongod&& start mhub-server&& set MODULE_RANKINGS_URL=http://localhost:3000&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set DEV=true&& set MHUB_URI=ws://localhost:13900&& node ./index.js",
     "install-all": "yarn install && cd client && yarn install && cd ../",
     "upgrade": "yarn upgrade && cd client && yarn upgrade && cd ../",
     "build": "cd client && yarn run build && cd ../",
