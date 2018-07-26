@@ -1,5 +1,4 @@
 'use strict'
-// eslint-disable node/no-deprecated-api
 
 const express = require('express')
 const path = require('path')
