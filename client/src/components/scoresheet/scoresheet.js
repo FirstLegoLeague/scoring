@@ -22,7 +22,7 @@ export default {
 			<li>
 				<select ng-if="scoresheet.team" ng-model="scoresheet.match">
 					<option value="" disabled selected hidden>Select Match</option>
-					<option type="text" ng-repeat="match in scoresheet.matches" value="{{match.displayText}}">
+					<option type="text" ng-repeat="match in scoresheet.matches" value="{{match.matchId}}">
 						{{match.displayText}} {{match.complete ? '✔' : ''}}
 					</option>
 				</select>

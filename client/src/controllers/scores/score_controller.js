@@ -43,7 +43,7 @@ class ScoreController {
 		} else if (this.matchError()) {
 			return 'Missing match'
 		} else {
-			return this.data.match
+			return this.matches.find(match => match.matchId == this.data.matchId).displayText
 		}
 	}
 
@@ -56,15 +56,17 @@ class ScoreController {
 	}
 
 	matchError () {
-		return !this.loading && (!this.data.match || !this.isCorrectMatchList())
+		if(this.loading)		return false
+		if(!this.data.matchId)	return true
+		if(!this.matches)		return false
+		return this.matches.every(match => match.matchId != this.data.matchId)
 	}
 
 	teamNumberError() {
-		return !this.loading && (!this.data.teamNumber || !this.teams)
-	}
-
-	isCorrectMatchList() {
-		return this.matches && this.matches.some(match => match.displayText === this.data.match)
+		if(this.loading)			return false
+		if(!this.data.teamNumber)	return true
+		if(!this.teams)			return false
+		return this.teams.every(team => team.number !== this.data.teamNumber)
 	}
 
 	// Actions
@@ -108,7 +110,7 @@ class ScoreController {
 		let updateData = {
 			score: this.data.score,
 			teamNumber: this.data.teamNumber,
-			match: this.data.match,
+			matchId: this.data.matchId,
 			tableId: this.data.tableId,
 			referee: this.data.referee
 		}

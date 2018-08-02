@@ -54,7 +54,7 @@ router.get('/table/all', (req, res) => {
   res.json(TABLES)
 })
 
-router.get(`/teams/:teamNumber/matches`, (req, res) => {
+router.get(`/team/:teamNumber/matches`, (req, res) => {
   res.json(TEAMS_MATCHES.filter(teamMatch => teamMatch.teams[0] === parseInt(req.params.teamNumber)))
 })
 

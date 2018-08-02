@@ -92,7 +92,7 @@ class Scoresheet {
 		}
 
 		// Missing match errors
-		if (self.current.match) {
+		if (self.current.matchId) {
 			self.errors = self.errors.filter(error => error.error !== MISSING_MATCH_ERROR)
 		}
 	}
@@ -121,7 +121,7 @@ class Scoresheet {
 				challenge: this.current.title,
 				signature: this.current.signature,
 				teamNumber: this.current.teamNumber,
-				match: this.current.match,
+				matchId: this.current.matchId,
 				referee: identity.referee || this.current.referee,
 				tableId: identity.tableId || this.current.tableId
 			}

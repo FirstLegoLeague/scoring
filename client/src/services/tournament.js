@@ -2,9 +2,11 @@
 
 class Tournament {
 
-	constructor($http, Configuration) {
+	constructor($http, Configuration, User) {
 		this.$http = $http
 		this.Configuration = Configuration
+		this.User = User
+		this.httpRequestConfig = { headers: { 'auth-token': User.authToken } }
 		this._teamsMathcesPromises = { }
 	}
 
@@ -18,7 +20,7 @@ class Tournament {
 	teams () {
 		if(!this._teamsPromise) {
 			this._teamsPromise = this.init()
-			.then(() => this.$http.get(`${this.tournament}/team/all`))
+			.then(() => this.$http.get(`${this.tournament}/team/all`, this.httpRequestConfig))
 			.then(response => {
 				const teams = response.data
 				teams.forEach(team => {
@@ -34,7 +36,7 @@ class Tournament {
 	tables () {
 		if(!this._tablesPromise) {
 			this._tablesPromise = this.init()
-			.then(() => this.$http.get(`${this.tournament}/table/all`))
+			.then(() => this.$http.get(`${this.tournament}/table/all`, this.httpRequestConfig))
 			.then(response => response.data)
 		}
 		
@@ -44,7 +46,7 @@ class Tournament {
 	teamsMatches(teamNumber){
 		if(!this._teamsMathcesPromises[teamNumber]) {
 			this._teamsMathcesPromises[teamNumber] = this.init()
-			.then(() => this.$http.get(`${this.tournament}/teams/${teamNumber}/matches`))
+			.then(() => this.$http.get(`${this.tournament}/team/${teamNumber}/matches`, this.httpRequestConfig))
 			.then(response => {
 				const matches = response.data
 				matches.forEach(match => {
@@ -60,6 +62,6 @@ class Tournament {
 }
 
 Tournament.$$ngIsClass = true
-Tournament.$inject = ['$http', 'Configuration']
+Tournament.$inject = ['$http', 'Configuration', 'User']
 
 export default Tournament

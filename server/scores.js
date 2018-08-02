@@ -32,16 +32,16 @@ const connectionPromise = MongoClient
   .then(client => client.db().collection('scores'))
 
 function _validateScore (score) {
-  let validatedScore = score
+  const validatedScore = score
 
-  let missingFieldError = new MissingFieldError(ERROR.NONE)
+  const missingFieldError = new MissingFieldError(ERROR.NONE)
 
   return Configuration.get('autoPublish').then(autoPublishSetting => {
     validatedScore.published = autoPublishSetting
 
     if (typeof validatedScore.teamNumber !== 'number') { missingFieldError.error += ERROR.TEAM_NUMBER }
     if (validatedScore.score == null) { missingFieldError.error += ERROR.SCORE }
-    if (validatedScore.match == null) { missingFieldError.error += ERROR.MATCH }
+    if (typeof validatedScore.teamNumber !== 'number') { missingFieldError.error += ERROR.MATCH }
 
     if (missingFieldError.error !== ERROR.NONE) { throw missingFieldError }
 
