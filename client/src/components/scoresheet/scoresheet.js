@@ -9,7 +9,7 @@ export default {
 			</li>
 			<li>
 				<form>
-					<input type="text" list="teams" blur="submit" ng-model="scoresheet.team">
+					<input type="text" list="teams" placeholder="Select Team" blur="submit" ng-model="scoresheet.team">
 					<datalist id="teams">
 						<select>
 							<option type="text" ng-repeat="team in scoresheet.teams">
@@ -20,9 +20,10 @@ export default {
 				</form>
 			</li>
 			<li>
-				<select ng-show="scoresheet.teamIsSelected()" ng-model="scoresheet.match">
-					<option type="text" ng-repeat="match in scoresheet.selectedTeamMatches()" value="{{match}}">
-						{{match.match}}{{match.complete ? '✔' : ''}}
+				<select ng-if="scoresheet.team" ng-model="scoresheet.match">
+					<option value="" disabled selected hidden>Select Match</option>
+					<option type="text" ng-repeat="match in scoresheet.matches" value="{{match.matchId}}">
+						{{match.displayText}} {{match.complete ? '✔' : ''}}
 					</option>
 				</select>
 			</li>

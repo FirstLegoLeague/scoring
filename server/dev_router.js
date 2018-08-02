@@ -24,16 +24,20 @@ const TEAMS = [
 ]
 
 const TEAMS_MATCHES = []
-const MATCH_LIST = [
-  { complete: true, match: '1' },
-  { complete: false, match: '2' },
-  { complete: false, match: '3' }
+const MATCHES = [
+  { stage: 'pracitce' },
+  { stage: 'scoring' },
+  { stage: 'scoring' },
+  { stage: 'scoring' }
 ]
 
-TEAMS_MATCHES.push({ number: TEAMS[0].number, matches: [{ complete: false, match: 'test' }] })
-for (let i = 1; i < TEAMS.length; i++) {
-  TEAMS_MATCHES.push({ number: TEAMS[i].number, matches: MATCH_LIST })
-}
+let matchId = 0
+TEAMS.forEach(team => {
+  MATCHES.forEach(match => {
+    TEAMS_MATCHES.push(Object.assign({ matchId, teams: [team.number] }, match))
+    matchId++
+  })
+})
 
 const TABLES = [
   { tableId: 1, tableName: 'Rick' },
@@ -50,8 +54,8 @@ router.get('/table/all', (req, res) => {
   res.json(TABLES)
 })
 
-router.get(`/teams/:teamNumber/matches`, (req, res) => {
-  res.json(TEAMS_MATCHES[TEAMS_MATCHES.findIndex(team => team.number === parseInt(req.params.teamNumber))].matches)
+router.get(`/team/:teamNumber/matches`, (req, res) => {
+  res.json(TEAMS_MATCHES.filter(teamMatch => teamMatch.teams[0] === parseInt(req.params.teamNumber)))
 })
 
 router.get(`/rankings.csv`, (req, res) => {

@@ -12,12 +12,13 @@ const DIFF_ANIMATION_CLASS = 'ng-hide-animate'
 
 class ScoresheetController {
 
-    constructor($scope, $document, $timeout, Configuration, Scoresheet, Tournament, Notifications, User) {
+    constructor($scope, $document, $timeout, Configuration, Scoresheet, Scores, Tournament, Notifications, User) {
         this.$scope = $scope
         this.$document = $document
         this.$timeout = $timeout
         this.Configuration = Configuration
         this.Scoresheet = Scoresheet
+        this.Scores = Scores
         this.Tournament = Tournament
         this.Notifications = Notifications
         this.isAdmin = User.isAdmin()
@@ -53,7 +54,12 @@ class ScoresheetController {
             if (this.team) {
                 this.scoresheet.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
                 this.Tournament.teamsMatches(this.scoresheet.teamNumber).then(matches => {
-                    this._matches = matches
+                    this.matches = matches
+                    this.Scores.all().then(scores => {
+                        this.matches.forEach(match => {
+                            match.complete = scores.some(score => score.teamNumber === this.scoresheet.teamNumber && score.match === match.matchId)
+                        })
+                    })
                 })
                 this.processErrors()
             }
@@ -61,8 +67,7 @@ class ScoresheetController {
 
         this.$scope.$watch(() => this.match, () => {
             if (this.match) {
-                this._match = JSON.parse(this.match)
-                this.scoresheet.match = this._match.match
+                this.scoresheet.matchId = this.match
                 this.processErrors()
             }
         })
@@ -108,10 +113,6 @@ class ScoresheetController {
 
     error() {
         return this.Scoresheet.errors[0]
-    }
-
-    teamIsSelected() {
-        return this.scoresheet && typeof this.scoresheet.teamNumber != 'undefined'
     }
 
     processErrors() {
@@ -162,14 +163,6 @@ class ScoresheetController {
     setDefault() {
         this.defaulting = true
         this.$scope.$broadcast('set default')
-    }
-
-    selectedTeamMatches() {
-        if (typeof this.scoresheet != 'undefined' && typeof this.scoresheet.teamNumber != 'undefined' && this._matches) {
-            return this._matches
-        }
-
-        return []
     }
 
     showScoreDiffAnimation(scoreDiff) {
@@ -223,6 +216,6 @@ class ScoresheetController {
 }
 
 ScoresheetController.$$ngIsClass = true
-ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Tournament', 'Notifications', 'User']
+ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Scores', 'Tournament', 'Notifications', 'User']
 
 export default ScoresheetController

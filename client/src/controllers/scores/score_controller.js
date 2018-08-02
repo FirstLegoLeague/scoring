@@ -12,6 +12,7 @@ class ScoreController {
 		this.Modals = Modals
 		this.loading = true
 		this.isSelected = false
+		this.matched = []
 	}
 
 	$onInit() {
@@ -20,17 +21,29 @@ class ScoreController {
 				this.loading = false
 				this.teams = responses[0]
 				this.tables = responses[1]
-				this._matches = responses[2]
+				this.matches = responses[2]
 			})
 	}
 
 	// Views
 
 	teamText () {
-		if (this.data.teamNumber && this.teams) {
-			return this.teams.find(team => team.number === this.data.teamNumber).displayText
-		} else {
+		if(this.loading) {
+			return ''
+		} else if (this.teamNumberError()) {
 			return 'Missing team!'
+		} else {
+			return this.teams.find(team => team.number === this.data.teamNumber).displayText
+		}
+	}
+
+	matchText () {
+		if(this.loading) {
+			return ''
+		} else if (this.matchError()) {
+			return 'Missing match'
+		} else {
+			return this.matches.find(match => match.matchId == this.data.matchId).displayText
 		}
 	}
 
@@ -40,6 +53,20 @@ class ScoreController {
 		} else {
 			return 'no table'
 		}
+	}
+
+	matchError () {
+		if(this.loading)		return false
+		if(!this.data.matchId)	return true
+		if(!this.matches)		return false
+		return this.matches.every(match => match.matchId != this.data.matchId)
+	}
+
+	teamNumberError() {
+		if(this.loading)			return false
+		if(!this.data.teamNumber)	return true
+		if(!this.teams)			return false
+		return this.teams.every(team => team.number !== this.data.teamNumber)
 	}
 
 	// Actions
@@ -77,63 +104,23 @@ class ScoreController {
 		this.$scope.$emit('open scoresheet', this.data)
 	}
 
-	isCorrectMatchList() {
-		return this._matches && this._matches.some(match => {
-			return match.match === this.data.match
-		})
-	}
-
 	save() {
 		this.loading = true
-
-		this.Tournament.teamsMatches(this.data.teamNumber).then(response => {
-			this._matches = response
-		}).then(() => {
-			if (!this.isCorrectMatchList()) {
-				this.data.match = null
-			}
-		})
 
 		let updateData = {
 			score: this.data.score,
 			teamNumber: this.data.teamNumber,
-			match: this.data.match,
+			matchId: this.data.matchId,
 			tableId: this.data.tableId,
 			referee: this.data.referee
 		}
 
 		this.Scores.update(this.data._id, updateData)
-			.then(() => {
-				Object.assign(this.data, updateData)
-				setTimeout(() => this.loading = false, MIN_LOADING_TIME)
-			}).catch(() => {
-				this.Notifications.error('Unable to update score: Possible network error.')
-			})
-	}
-
-	teamMatches () {
-		return this._matches || []
-	}
-
-	matchText () {
-		if (this.matchError()) {
-			return 'Missing match'
-		} else {
-			return this.data.match
-		}
-	}
-
-	matchError () {
-		if (!this._loading && (this.data.match == null || !this.isCorrectMatchList())) {
-			this.data.match = null
-			return true
-		} else {
-			return false
-		}
-	}
-
-	teamNumberError() {
-		return !this.loading && typeof this.data.teamNumber != 'number'
+			.then(() => Object.assign(this.data, updateData))
+			.catch(() => this.Notifications.error('Unable to update score: Possible network error.'))
+			.then(() => this.Tournament.teamsMatches(this.data.teamNumber))
+			.then(matches => this.matches = matches)
+			.then(() => setTimeout(() => this.loading = false, MIN_LOADING_TIME))
 	}
 }
 

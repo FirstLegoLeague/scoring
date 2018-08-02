@@ -37,7 +37,7 @@ class ScoresController {
 	}
 
 	load(shouldBroadcast) {
-		this.Scores.all().then(scores => {
+		this.Scores.load().then(scores => {
 			this._scores = scores
 			if (shouldBroadcast) {
 				this.Messanger.send('reload')
@@ -96,9 +96,8 @@ class ScoresController {
 
 		let self = this
 
-
 		let otherErrors = scores.filter(score =>
-			typeof score.teamNumber != "number" || score.match == null ||
+			typeof score.teamNumber != "number" || typeof score.teamNumber != "number" ||
 			(!this._loading && !this._teamNumberList.includes(score.teamNumber))
 		)
 		let badScores = duplicateErrors.concat(otherErrors)
