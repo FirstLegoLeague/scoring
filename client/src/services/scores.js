@@ -4,10 +4,18 @@ class Scores {
 
 	constructor ($http) {
 		this.$http = $http
+		this._all = []
+	}
+
+	load () {
+		return this.$http.get('/scores/all').then(response => response.data).then(scores => {
+			this._all = scores
+			return this._all
+		})
 	}
 
 	all () {
-		return this.$http.get('/scores/all').then(response => response.data)
+		return (this._all.length === 0) ? this.load() : Promise.resolve(this._all)
 	}
 
 	delete (id) {

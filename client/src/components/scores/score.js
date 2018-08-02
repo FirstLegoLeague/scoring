@@ -13,8 +13,8 @@ export default {
             </a>
         </h4>
         <h6 class="subheader">
-            <a editable-select="score.data.match" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="match.match as match.match for match in score.teamMatches()">
-                <div ng-class="{'card-section alert' : score.matchError()}">{{ score.matchText()}}</div>
+            <a editable-select="score.data.match" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="match.displayText as match.displayText for match in score.matches">
+                <div ng-class="{'card-section alert' : score.matchError()}">{{ score.matchText() }}</div>
             </a>
         </h6>
     </div>

@@ -15,8 +15,9 @@ export default {
 						<input type="text" placeholder="referee" ng-model="refIdentity.referee">
 					</div>
 					<div class="cell">
-						<select name="table" placeholder="table" ng-model="refIdentity.table"
+						<select name="table" ng-model="refIdentity.table"
 							ng-options="table.tableName for table in refIdentity.tables track by table.tableId">
+							<option value="" disabled selected hidden>table</option>
 						</select>
 					</div>
 					<div class="cell small-2 small-offset-5">

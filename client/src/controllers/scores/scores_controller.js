@@ -37,7 +37,7 @@ class ScoresController {
 	}
 
 	load(shouldBroadcast) {
-		this.Scores.all().then(scores => {
+		this.Scores.load().then(scores => {
 			this._scores = scores
 			if (shouldBroadcast) {
 				this.Messanger.send('reload')

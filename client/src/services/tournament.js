@@ -45,7 +45,13 @@ class Tournament {
 		if(!this._teamsMathcesPromises[teamNumber]) {
 			this._teamsMathcesPromises[teamNumber] = this.init()
 			.then(() => this.$http.get(`${this.tournament}/teams/${teamNumber}/matches`))
-			.then(response => response.data)
+			.then(response => {
+				const matches = response.data
+				matches.forEach(match => {
+					match.displayText = `${match.stage} #${match.matchId}`
+				})
+				return matches
+			})
 		}
 
 		return this._teamsMathcesPromises[teamNumber]
