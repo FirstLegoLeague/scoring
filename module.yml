@@ -8,7 +8,7 @@ config:
       - name: year
         display: Challenge
         type: values
-        default: 2017 Hydrodynamics
+        default: 2018 Into Orbit
         values:
           - 2018 Into Orbit
           - 2017 Hydrodynamics
