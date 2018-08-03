@@ -68,6 +68,7 @@ class ScoresheetController {
         this.$scope.$watch(() => this.match, () => {
             if (this.match) {
                 this.scoresheet.matchId = this.match
+                this.scoresheet.stage = this.matches.find(match => match.matchId === this.match).stage
                 this.processErrors()
             }
         })
