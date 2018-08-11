@@ -28,6 +28,10 @@ class RefIdentityController {
 		this.Modals.open(MODAL)
 	}
 
+	allowSave () {
+		return this.referee && this.table
+	}
+
 	close () {
 		this.showTopbarButton = true
 		this.RefIdentity.save({ referee: this.referee, table: this.table })

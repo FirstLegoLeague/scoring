@@ -33,7 +33,7 @@ class RefIdentity {
 	}
 
 	save (personalizedData) {
-		if(personalizedData.hasOwnProperty('table')) {
+		if(personalizedData.table) {
 			personalizedData.tableId = personalizedData.table.tableId
 			delete personalizedData.table
 		}

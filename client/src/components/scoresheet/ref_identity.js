@@ -21,7 +21,7 @@ export default {
 						</select>
 					</div>
 					<div class="cell small-2 small-offset-5">
-						<input type="button" class="button" value="save" ng-click="refIdentity.close()">
+						<input type="button" class="button" ng-class="{ 'disabled': !refIdentity.allowSave() }" value="save" ng-click="refIdentity.close()">
 					</div>
 				</div>
 			</div>
