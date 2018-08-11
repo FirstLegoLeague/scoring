@@ -2,11 +2,6 @@ objective .button-group input{
   display: none;
 }
 
-objective .button-group input:checked + label,
-objective .button-group input:checked + label:active {
-  background-color: #d67924;
-}
-
 scoresheet .stamp {
 	float: right;
   position: absolute;
