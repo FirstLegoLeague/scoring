@@ -23,6 +23,7 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "grunt-cli": "^1.2.0",
     "mongodb": "^3.1.1"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
-    "express-csv": "^0.6.0"
+    "express-csv": "^0.6.0",
+    "grunt": "^1.0.3"
   }
 }
