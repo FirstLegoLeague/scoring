@@ -19,12 +19,11 @@
     path "^0.12.7"
     read-yaml-promise "^1.0.2"
 
-"@first-lego-league/ms-correlation@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-0.0.4.tgz#ee52ab48cb06bc01a38995b2033d3651f44529f3"
+"@first-lego-league/ms-correlation@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-0.0.5.tgz#772e5e468cdf2bab93fb7bee06e0140616b23c33"
   dependencies:
     cookie "^0.3.1"
-    jsonwebtoken "^8.2.1"
     randomatic "^3.0.0"
 
 "@first-lego-league/ms-logger@^1.2.5":
@@ -1362,7 +1361,7 @@ json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
 
-jsonwebtoken@^8.2.0, jsonwebtoken@^8.2.1:
+jsonwebtoken@^8.2.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.3.0.tgz#056c90eee9a65ed6e6c72ddb0a1d325109aaf643"
   dependencies:
