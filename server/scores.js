@@ -94,7 +94,7 @@ router.delete('/:id/delete', adminAction, (req, res) => {
 router.get('/all', (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.find().toArray())
-    .then(scores => res.status(201).send(scores))
+    .then(scores => res.status(200).send(scores))
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send('A problem occoured while trying to get scores.')
