@@ -35,7 +35,7 @@
         <string id="M05-scoring2">                  Gas Core Sample is touching the Mat and completely in Lander’s Target Circle</string>
         <string id="M05-scoring3">                  -OR- Gas Core Sample is completely in Base</string>
         <string id="M05-scoring4">                  Water Core Sample is supported only by the Food Growth Chamber</string>
-        <string id="M05-error">                     Error: Gas Core Sample location</string>
+        <string id="M05-error">                     Gas Core Sample location</string>
 
         <string id="M06-name">                      M06 Space Station Modules</string>
         <string id="M06-desc">                      <![CDATA[Remove and insert Modules among the Habitation Hub’s port holes.  *Inserted Modules must not be touching anything except the Habitation Hub.]]></string>
