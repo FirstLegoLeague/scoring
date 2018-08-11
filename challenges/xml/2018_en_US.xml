@@ -354,14 +354,14 @@
 
     <mission name="M14-name" description="M14-desc">
         <objective-enum id="M14-1" description="M14-scoring1" default="0">
-            <option name="2" description="2" />
-            <option name="1" description="1" />
             <option name="0" description="0" />
+            <option name="1" description="1" />
+            <option name="2" description="2" />
         </objective-enum>
         <objective-enum id="M14-2" description="M14-scoring2" default="0">
-            <option name="2" description="2" />
-            <option name="1" description="1" />
             <option name="0" description="0" />
+            <option name="1" description="1" />
+            <option name="2" description="2" />
         </objective-enum>
         <score>
             <indexes>
