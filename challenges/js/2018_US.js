@@ -2,7 +2,7 @@
     "title": "INTO ORBIT",
     "missions": [{
             "title": "M01 Space Travel",
-            "description": "Send payload rockets rolling down the Space Travel Ramp *rolling independently by the time they reach the first track connection.",
+            "description": "*Send payload rockets rolling down the Space Travel Ramp and must be *Independent by the time they reach the first track connection.",
             "objectives": [{
                     "id": "M01_1",
                     "title": "Vehicle Payload rolled past first track connection",
@@ -77,10 +77,10 @@
         },
         {
             "title": "M03 3D Printing",
-            "description": "Place a Regolith Core Sample in the 3D printer and deliver the result.",
+            "description": "Place a Regolith Core Sample in the 3D printer.",
             "objectives": [{
                     "id": "M03_1",
-                    "title": "2x4 Brick is ejected (*due only to a Regolith Core Sample in the 3D Printer)",
+                    "title": "2x4 Brick is ejected (due only to a Regolith Core Sample in the 3D Printer)",
                     "type": "yesno"
                 },
                 {
@@ -106,7 +106,7 @@
         },
         {
             "title": "M04 Crater Crossing",
-            "description": "The Robot or its agent needs to cross the Craters Model completely, by driving directly over it.",
+            "description": "The Robot or an agent-craft that was sent out needs to cross the Craters Model completely, by driving directly over it.",
             "objectives": [{
                     "id": "M04_1",
                     "title": "All weight-bearing features of crossing equipment crossed completely between towers",
@@ -138,7 +138,7 @@
             "description": "The Robot needs to get all the Core Samples out of the Core Site Model, and deliver them.",
             "objectives": [{
                     "id": "M05_1",
-                    "title": "All four Cores Samples are no longer touching axle of Core Site Model",
+                    "title": "All four Core Samples are no longer touching axle of Core Site Model",
                     "type": "yesno"
                 },
                 {
@@ -168,7 +168,7 @@
                     return 0
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'no') {
-                    return new Error("Impossible combination: Gas Core Sample location")
+                    return new Error("Error: Gas Core Sample location")
                 }
                 if (M05_1 === 'no' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'yes') {
                     return 0
@@ -180,7 +180,7 @@
                     return 0
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'yes') {
-                    return new Error("Impossible combination: Gas Core Sample location")
+                    return new Error("Error: Gas Core Sample location")
                 }
                 if (M05_1 === 'yes' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'no') {
                     return 16
@@ -192,7 +192,7 @@
                     return 26
                 }
                 if (M05_1 === 'yes' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'no') {
-                    return new Error("Impossible combination: Gas Core Sample location")
+                    return new Error("Error: Gas Core Sample location")
                 }
                 if (M05_1 === 'yes' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'yes') {
                     return 24
@@ -204,7 +204,7 @@
                     return 34
                 }
                 if (M05_1 === 'yes' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'yes') {
-                    return new Error("Impossible combination: Gas Core Sample location")
+                    return new Error("Error: Gas Core Sample location")
                 }
             }]
         },
@@ -289,7 +289,7 @@
         },
         {
             "title": "M08 Aerobic Exercise",
-            "description": "Move the Exercise Machine’s Handle Assemblies to make the Pointer advance.  (If the Pointer is partly covering either of the gray or orange end borders, select that color.)",
+            "description": "Move one or both of the Exercise Machine’s Handle Assemblies to make the Pointer advance.  (If the Pointer is partly covering either of the gray or orange end borders, select that color.)",
             "objectives": [{
                 "id": "M08",
                 "title": "Exercise pointer tip is in (due only to moving one or both Handle Assemblies):",
@@ -346,7 +346,7 @@
         },
         {
             "title": "M10 Food Production",
-            "description": "Move the Push Bar to get into the green scoring range.",
+            "description": "Move the Push Bar at the right distance at the right speed, to get into the green scoring range.",
             "objectives": [{
                 "id": "M10",
                 "title": "Gray weight is dropped after green, but before tan (due only to moving the Push Bar.)",
@@ -363,7 +363,7 @@
         },
         {
             "title": "M11 Escape Velocity",
-            "description": "Lauch the spacecraft so that it does not drop back down.",
+            "description": "Impact the Strike Pad hard enough to keep the spacecraft from dropping back down.",
             "objectives": [{
                 "id": "M11",
                 "title": "Spacecraft stays up (due only to pressing/hitting the Strike Pad)",
@@ -463,7 +463,7 @@
             "description": "From west of the Free-Line, send one or both Meteoroids Independently to the Meteoroid catcher.",
             "objectives": [{
                     "id": "M14_1",
-                    "title": "Meteoroids touching the Mat and in the Catcher Center Section:",
+                    "title": "Meteoroids touching the Mat and in the Center Section:",
                     "options": [{
                             "value": "2",
                             "title": "2"
@@ -544,16 +544,16 @@
                             "title": "None"
                         },
                         {
-                            "value": "circle",
-                            "title": "Target Circle"
+                            "value": "base",
+                            "title": "Base"
                         },
                         {
                             "value": "planet",
                             "title": "Northeast Planet Area"
                         },
                         {
-                            "value": "base",
-                            "title": "Base"
+                            "value": "circle",
+                            "title": "Target Circle"
                         }
                     ],
                     "type": "enum"
@@ -652,7 +652,7 @@
         "yes": "Yes",
         "no": "No",
         "M01-name": "M01 Space Travel",
-        "M01-desc": "Send payload rockets rolling down the Space Travel Ramp *rolling independently by the time they reach the first track connection.",
+        "M01-desc": "*Send payload rockets rolling down the Space Travel Ramp and must be *Independent by the time they reach the first track connection.",
         "M01-scoring1": "Vehicle Payload rolled past first track connection",
         "M01-scoring2": "Supply Payload rolled past first track connection",
         "M01-scoring3": "Crew Payload rolled past first track connection",
@@ -661,20 +661,20 @@
         "M02-scoring1": "Both Solar Panels are angled toward the same Field",
         "M02-scoring2": "Your Solar Panel is angled toward the other team’s Field",
         "M03-name": "M03 3D Printing",
-        "M03-desc": "Place a Regolith Core Sample in the 3D printer and deliver the result.",
-        "M03-scoring1": "2x4 Brick is ejected (*due only to a Regolith Core Sample in the 3D Printer)",
+        "M03-desc": "Place a Regolith Core Sample in the 3D printer.",
+        "M03-scoring1": "2x4 Brick is ejected (due only to a Regolith Core Sample in the 3D Printer)",
         "M03-scoring2": "2x4 Brick is completely in Northeast Planet Area",
         "M04-name": "M04 Crater Crossing",
-        "M04-desc": "The Robot or its agent needs to cross the Craters Model completely, by driving directly over it.",
+        "M04-desc": "The Robot or an agent-craft that was sent out needs to cross the Craters Model completely, by driving directly over it.",
         "M04-scoring1": "All weight-bearing features of crossing equipment crossed completely between towers",
         "M04-scoring2": "All crossing equipment crossed from east to west, completely past the flattened Gate",
         "M05-name": "M05 Extraction",
         "M05-desc": "The Robot needs to get all the Core Samples out of the Core Site Model, and deliver them.",
-        "M05-scoring1": "All four Cores Samples are no longer touching axle of Core Site Model",
+        "M05-scoring1": "All four Core Samples are no longer touching axle of Core Site Model",
         "M05-scoring2": "Gas Core Sample is touching the Mat and completely in Lander’s Target Circle",
         "M05-scoring3": "-OR- Gas Core Sample is completely in Base",
         "M05-scoring4": "Water Core Sample is supported only by the Food Growth Chamber",
-        "M05-error": "Impossible combination: Gas Core Sample location",
+        "M05-error": "Error: Gas Core Sample location",
         "M06-name": "M06 Space Station Modules",
         "M06-desc": "Remove and insert Modules among the Habitation Hub’s port holes.  *Inserted Modules must not be touching anything except the Habitation Hub.",
         "M06-scoring1": "Cone Module is completely in Base",
@@ -687,7 +687,7 @@
         "M07-scoring2": "Partly",
         "M07-scoring3": "Completely",
         "M08-name": "M08 Aerobic Exercise",
-        "M08-desc": "Move the Exercise Machine’s Handle Assemblies to make the Pointer advance.  (If the Pointer is partly covering either of the gray or orange end borders, select that color.)",
+        "M08-desc": "Move one or both of the Exercise Machine’s Handle Assemblies to make the Pointer advance.  (If the Pointer is partly covering either of the gray or orange end borders, select that color.)",
         "M08-scoring": "Exercise pointer tip is in (due only to moving one or both Handle Assemblies):",
         "M08-scoring1": "None",
         "M08-scoring2": "Gray",
@@ -697,10 +697,10 @@
         "M09-desc": "Lift the Strength Bar to scoring height.",
         "M09-scoring": "Strength Bar is lifted so that the tooth-strip's 4th hole is at least partly in view.",
         "M10-name": "M10 Food Production",
-        "M10-desc": "Move the Push Bar to get into the green scoring range.",
+        "M10-desc": "Move the Push Bar at the right distance at the right speed, to get into the green scoring range.",
         "M10-scoring": "Gray weight is dropped after green, but before tan (due only to moving the Push Bar.)",
         "M11-name": "M11 Escape Velocity",
-        "M11-desc": "Lauch the spacecraft so that it does not drop back down.",
+        "M11-desc": "Impact the Strike Pad hard enough to keep the spacecraft from dropping back down.",
         "M11-scoring": "Spacecraft stays up (due only to pressing/hitting the Strike Pad)",
         "M12-name": "M12 Satellite Orbits",
         "M12-desc": "Move one or more Satellites to the Outer Orbit.",
@@ -714,7 +714,7 @@
         "M13-scoring4": "Orange",
         "M14-name": "M14 Meteroid Deflection",
         "M14-desc": "From west of the Free-Line, send one or both Meteoroids Independently to the Meteoroid catcher.",
-        "M14-scoring1": "Meteoroids touching the Mat and in the Catcher Center Section:",
+        "M14-scoring1": "Meteoroids touching the Mat and in the Center Section:",
         "M14-scoring2": "Meteoroids touching the Mat and in Either Side Section:",
         "M14-error": "Impossible combination.  Too Many Meteroids",
         "M15-name": "M15 Lander Touch-Down",
@@ -722,9 +722,9 @@
         "M15-scoring1": "Lander is intact and touching the Mat",
         "M15-scoring2": "Lander is completely in:",
         "M15-scoring3": "None",
-        "M15-scoring4": "Target Circle",
+        "M15-scoring4": "Base",
         "M15-scoring5": "Northeast Planet Area",
-        "M15-scoring6": "Base",
+        "M15-scoring6": "Target Circle",
         "penalties-name": "Penalties",
         "penalties-desc": "Penalties given",
         "penalties-scoring": "Number of Penalty Discs in the southeast triangle:"
