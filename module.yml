@@ -2,6 +2,8 @@ api: "1.0"
 name: "scoring"
 type: node
 script: index.js
+require:
+  mongodb
 config:
   - name: Scoresheet
     fields:
