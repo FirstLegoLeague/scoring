@@ -16,14 +16,14 @@ class ScoresController {
 	}
 
 	$onInit() {
-		this.load(false)
+		this.load()
 		// If the reload event comes from within this client, reload and send the message to every other client
 		// Otherwise just reload
-		this.$scope.$on('reload', () => this.load(true))
+		this.$scope.$on('reload', () => this.load())
 		this.$scope.$on('alter', (event, callback) => {
 			this._scores = callback(this._scores)
 		})
-		this.Messanger.on('reload', () => this.load(false), true)
+		this.Messanger.on('scores:reload', () => this.load(), true)
 		this.Tournament.teams().then(teams => {
 			this._loading = false
 			this._teamNumberList = []
@@ -36,12 +36,9 @@ class ScoresController {
 		})
 	}
 
-	load(shouldBroadcast) {
+	load() {
 		this.Scores.load().then(scores => {
 			this._scores = scores
-			if (shouldBroadcast) {
-				this.Messanger.send('reload')
-			}
 		})
 	}
 
