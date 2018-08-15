@@ -12,24 +12,23 @@ class Messanger {
 
   constructor (Configuration) {
     this.Configuration = Configuration
+    this.open = false
+    this.listeners = []
   }
 
   init () {
-    let self = this
-
+    const self = this
     if (this.open) {
-      return Promise.resolve(self.ws)
+      return Promise.resolve(this.ws)
     }
 
     return this.Configuration.load().then(config => {
-      self.ws = new WebSocket(config.mhub)
-      self.node = config.node || DEFAULT_NODE
-      self.open = false
-      self.token = parseInt(Math.floor(0x100000*(Math.random())), 16)
-      self.listeners = []
-      return self
+      this.ws = new WebSocket(config.mhub)
+      this.node = config.node || DEFAULT_NODE
+      this.token = parseInt(Math.floor(0x100000*(Math.random())), 16)
+      return this
     }).then(() => new Promise((resolve, reject) => {
-      self.ws.onopen = function () {
+      this.ws.onopen = function () {
         self.ws.send(JSON.stringify({
           type: MESSAGE_TYPES.SUBSCRIBE,
           node: self.node
@@ -39,16 +38,16 @@ class Messanger {
         resolve(self.ws)
       }
 
-      self.ws.onerror = function (e) {
+      this.ws.onerror = function (e) {
         // TODO log
       }
 
-      self.ws.onclose = function () {
+      this.ws.onclose = function () {
         self.open = false
         // TODO log
       }
 
-      self.ws.onmessage = function (msg) {
+      this.ws.onmessage = function (msg) {
         var data = JSON.parse(msg.data)
         var headers = data.headers
         var topic = data.topic
@@ -65,28 +64,25 @@ class Messanger {
   }
 
   on (topic, handler, ignoreSelfMessages) {
-    let self = this
-    
-    this.init().then(() => {
-      self.listeners.push({
-        topic: topic,
-        handler: (data, msg) => {
-          if (!(msg.fromMe && ignoreSelfMessages))
-            handler(data, msg)
-        }
-      })
+    this.listeners.push({
+      topic: topic,
+      handler: (data, msg) => {
+        if (!(msg.fromMe && ignoreSelfMessages))
+          handler(data, msg)
+      }
     })
+
+    return this.init()
   }
 
   send (topic, data) {
-    let self = this
     let headers = {}  // TODO add auth-token and correlation-id
     headers[IDENTITY_TOKEN_KEY] = this.token
     
     return this.init().then(function(ws) {
       ws.send(JSON.stringify({
         type: MESSAGE_TYPES.PUBLISH,
-        node: self.node,
+        node: this.node,
         topic: topic,
         data: data || {},
         headers: headers

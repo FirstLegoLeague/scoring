@@ -12,7 +12,7 @@ const DIFF_ANIMATION_CLASS = 'ng-hide-animate'
 
 class ScoresheetController {
 
-    constructor($scope, $document, $timeout, Configuration, Scoresheet, Scores, Tournament, Notifications, User) {
+    constructor($scope, $document, $timeout, Configuration, Scoresheet, Scores, Tournament, Notifications, User, Messanger) {
         this.$scope = $scope
         this.$document = $document
         this.$timeout = $timeout
@@ -21,6 +21,7 @@ class ScoresheetController {
         this.Scores = Scores
         this.Tournament = Tournament
         this.Notifications = Notifications
+        this.Messanger = Messanger
         this.isAdmin = User.isAdmin()
         this.isRef = User.isRef()
         this.scoreDiff = 0
@@ -49,6 +50,7 @@ class ScoresheetController {
                 this.signatureMissing = false
             })
         })
+        this.$scope.$on('reload teams', () => this.loadTeams())
 
         this.$scope.$watch(() => this.team, () => {
             if (this.team) {
@@ -86,11 +88,15 @@ class ScoresheetController {
         })
 
         return this.Scoresheet.init()
-            .then(() => this.Tournament.teams())
+            .then(() => this.loadTeams())
+            .then(() => this.reset())
+    }
+
+    loadTeams() {
+        return this.Tournament.teams()
             .then(teams => {
                 this.teams = teams
             })
-            .then(() => this.reset())
     }
 
     score() {
@@ -217,6 +223,7 @@ class ScoresheetController {
 }
 
 ScoresheetController.$$ngIsClass = true
-ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet', 'Scores', 'Tournament', 'Notifications', 'User']
+ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet',
+                                            'Scores', 'Tournament', 'Notifications', 'User', 'Messanger']
 
 export default ScoresheetController

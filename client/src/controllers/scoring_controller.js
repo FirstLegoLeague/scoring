@@ -2,10 +2,12 @@
 
 class ScoringController {
 
-  constructor ($scope, Configuration, Notifications, User) {
+  constructor ($scope, Configuration, Tournament, Notifications, User, Messanger) {
   	this.$scope = $scope
-  	this.Notifications = Notifications
     this.Configuration = Configuration
+    this.Tournament = Tournament
+  	this.Notifications = Notifications
+    this.Messanger = Messanger
     this.isAdmin = User.isAdmin()
   }
 
@@ -36,6 +38,14 @@ class ScoringController {
         self.toggleScoresList()
       }
     })
+
+    this.Messanger.on('teams:reload', () => {
+      this.Tournament.teams(true).then(() => {
+        this.$scope.$broadcast('reload teams')
+      })
+    })
+
+
   }
 
   toggleScoresList () {
@@ -45,6 +55,6 @@ class ScoringController {
 }
 
 ScoringController.$$ngIsClass = true
-ScoringController.$inject = ['$scope', 'Configuration', 'Notifications', 'User']
+ScoringController.$inject = ['$scope', 'Configuration', 'Tournament', 'Notifications', 'User', 'Messanger']
 
 export default ScoringController

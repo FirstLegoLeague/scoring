@@ -17,8 +17,8 @@ class Tournament {
 		})
 	}
 
-	teams () {
-		if(!this._teamsPromise) {
+	teams (force) {
+		if(!this._teamsPromise || force) {
 			this._teamsPromise = this.init()
 			.then(() => this.$http.get(`${this.tournament}/team/all`, this.httpRequestConfig))
 			.then(response => {

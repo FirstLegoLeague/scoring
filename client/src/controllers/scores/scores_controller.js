@@ -22,15 +22,10 @@ class ScoresController {
 		this.$scope.$on('alter', (event, callback) => {
 			this._scores = callback(this._scores)
 		})
+		this.$scope.$on('reload teams', () => this.loadTeams())
 		this.Messanger.on('scores:reload', () => this.load())
 
-		this.Tournament.teams().then(teams => {
-			this._teamNumberList = []
-			for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
-				this._teamNumberList.push(teams[i].number)
-			}
-			return this.load()
-		})
+		this.loadTeams()
 		this.Configuration.load().then(config => {
 			this.rankingsLink = config.rankings
 		})
@@ -47,6 +42,16 @@ class ScoresController {
 				this.loading = false
 			})
 		}
+	}
+	
+	loadTeams() {
+		return this.Tournament.teams().then(teams => {
+			this._teamNumberList = []
+			for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
+				this._teamNumberList.push(teams[i].number)
+			}
+			return this.load()
+		})
 	}
 
 	scores() {
