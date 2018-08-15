@@ -86,6 +86,17 @@ router.post('/:id/update', adminAction, (req, res) => {
     })
 })
 
+router.delete('/all', adminAction, (req, res) => {
+  connectionPromise
+    .then(scoringCollection => scoringCollection.deleteMany({}))
+    .then(() => res.status(204).send())
+    .then(() => publishMsg('scores:reload'))
+    .catch(err => {
+      req.logger.error(err.message)
+      res.status(500).send('A problem occoured while trying to delete scores.')
+    })
+})
+
 router.delete('/:id/delete', adminAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.deleteOne({ _id: new ObjectID(req.params.id) }))

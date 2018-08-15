@@ -6,7 +6,7 @@ export default {
 		<i class="fa fa-user"></i>
 		{{refIdentity.display()}}
 	</div>
-	<div class="reveal" id="identity-modal" data-reveal data-close-on-click="false">
+	<div class="fast reveal" id="identity-modal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y" data-close-on-click="false">
 		<h1>Choose your codename</h1>
 		<form>
 			<div class="grid-container">

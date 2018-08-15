@@ -2,12 +2,13 @@
 
 class ScoresController {
 
-	constructor($scope, Configuration, Scores, Tournament, Messanger) {
+	constructor($scope, Configuration, Scores, Tournament, Messanger, Modals) {
 		this.$scope = $scope
 		this.Configuration = Configuration
 		this.Scores = Scores
 		this.Tournament = Tournament
 		this.Messanger = Messanger
+		this.Modals = Modals
 		this.search = ''
 		this.showDuplicates = false
 		this.showErrors = false
@@ -52,6 +53,27 @@ class ScoresController {
 			}
 			return this.load()
 		})
+	}
+
+	openDeletionDialog () {
+		this.Modals.open('#scores-deletion-modal')
+	}
+
+	closeDeletionDialog () {
+		this.Modals.close('#scores-deletion-modal')
+	}
+
+	deleteAll() {
+		this.closeDeletionDialog()
+		this.deleting = true
+		this.Scores.deleteAll()
+			.then(() => {
+				this.$scope.$emit('alter', scores => [])
+				this.deleting = false
+			}).catch(() => {
+				this.Notifications.error('Unable to delete score: Possible network error.')
+				this.deleting = false
+			})
 	}
 
 	scores() {
@@ -117,6 +139,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['$scope', 'Configuration', 'Scores', 'Tournament', 'Messanger']
+ScoresController.$inject = ['$scope', 'Configuration', 'Scores', 'Tournament', 'Messanger', 'Modals']
 
 export default ScoresController

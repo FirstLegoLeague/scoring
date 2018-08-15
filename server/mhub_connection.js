@@ -6,6 +6,7 @@ const logger = require('@first-lego-league/ms-logger').Logger()
 const { getCorrelationId } = require('@first-lego-league/ms-correlation')
 
 const MHUB_CLIENT_ID = 'cl-schedule'
+const NODE = process.env.DEV ? 'default' : 'protected'
 
 const mhubClient = new MClient(process.env.MHUB_URI)
 
@@ -18,14 +19,17 @@ let connectionPromise = null
 function connect () {
   if (!connectionPromise) {
     connectionPromise = mhubClient.connect()
-      .then(() => mhubClient.login('protected-client', process.env.PROTECTED_MHUB_PASSWORD))
+    if (!process.env.DEV) {
+      connectionPromise = connectionPromise
+        .then(() => mhubClient.login('protected-client', process.env.PROTECTED_MHUB_PASSWORD))
+    }
   }
   return connectionPromise
 }
 
 exports.publishMsg = function (topic, data = {}) {
   return connect()
-    .then(() => mhubClient.publish('protected', topic, data, {
+    .then(() => mhubClient.publish(NODE, topic, data, {
       'client-id': MHUB_CLIENT_ID,
       'correlation-id': getCorrelationId()
     }))

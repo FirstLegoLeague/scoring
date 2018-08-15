@@ -45,7 +45,7 @@ export default {
             </div>
         </div>
     </div>
-    <div class="deletion-modal reveal" data-reveal>
+    <div class="deletion-modal fast reveal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y">
         <h4>Do you really want to delete this score?</h4>
         <div class="subheader">This operation is ireversable!</div>
         <div class="grid-x align-center button-group">
