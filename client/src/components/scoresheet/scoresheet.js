@@ -4,10 +4,10 @@ export default {
 	template: `<div class="top-bar secondary">
 	<div class="top-bar-left">
 		<ul class="menu">
-			<li>
+			<div>
 				<ref-identity ng-if="scoresheet.isRef"></ref-identity>
-			</li>
-			<li>
+			</div>
+			<div>
 				<form>
 					<input type="text" list="teams" placeholder="Select Team" blur="submit" ng-model="scoresheet.team">
 					<datalist id="teams">
@@ -18,32 +18,32 @@ export default {
 						</select>
 					</datalist>
 				</form>
-			</li>
-			<li>
+			</div>
+			<div>
 				<select ng-if="scoresheet.team" ng-model="scoresheet.match">
 					<option value="" disabled selected hidden>Select Match</option>
 					<option type="text" ng-repeat="match in scoresheet.matches" value="{{match.matchId}}">
 						{{match.displayText}} {{match.complete ? '✔' : ''}}
 					</option>
 				</select>
-			</li>
+			</div>
 		</ul>
 	</div>
 	<div class="top-bar-right flex-container">
 		<ul class="menu">
-			<il>
+			<li>
 				<div class="hollow button">{{scoresheet.score()}} pts.</div>
-			</il>
-			<il id="default-scoresheet">
+			</li>
+			<li id="default-scoresheet">
 				<div class="button" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()">
 					<i class="fa fa-arrow-down"></i>
 				</div>
-			</il>
-			<il id="reset-scoresheet">
+			</li>
+			<li id="reset-scoresheet">
 				<div class="button" ng-click="scoresheet.reset()">
 					<i class="fa fa-undo"></i>
 				</div>
-			</il>
+			</li>
 		</ul>
 	</div>
 </div>

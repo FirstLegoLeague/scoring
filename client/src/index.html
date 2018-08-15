@@ -6,22 +6,22 @@
 		<div class="top-bar">
 	    	<div class="top-bar-left">
 	    		<ul class="menu">
-	    			<il>
+	    			<li>
 	    				<button ng-if="scoring.isAdmin" class="hamburger--vortex" ng-class="{'is-active': scoring.showScoresScreen}" data-hamburger type="button" ng-click="scoring.toggleScoresList()">
 							<span class="hamburger-box">
 								<span class="hamburger-inner"></span>
 							</span>
 						</button>
-	    			</il>
-					<il id="page-title" class="flex-child-grow">
-						<div class="h2">scoring</div>
-					</il>
+	    			</li>
+					<li id="page-title" class="flex-child-grow menu-text">
+						scoring
+					</li>
 				</ul>
 			</div>
 			<div class="top-bar-right">
 				<ul class="menu">
-					<il><status></status></il>
-					<il><a class="button" href="{{scoring.logoutLink}}"><i class="fas fa-sign-out-alt"></i>Logout</a></il>
+					<li class="menu-text"><status></status></li>
+					<li><a class="button" href="{{scoring.logoutLink}}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
 				</ul>
 			</div>
 	    </div>

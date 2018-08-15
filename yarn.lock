@@ -33,6 +33,12 @@
     on-finished "^2.3.0"
     on-headers "^1.0.1"
 
+"@first-lego-league/user-interface@1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-1.2.12.tgz#841e178e1e20c57cdc18849b2c8a274890fb08c2"
+  dependencies:
+    hamburgers "^0.9.3"
+
 "@types/mkdirp@^0.3.29":
   version "0.3.29"
   resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-0.3.29.tgz#7f2ad7ec55f914482fc9b1ec4bb1ae6028d46066"
@@ -1057,6 +1063,10 @@ grunt@^1.0.3:
     nopt "~3.0.6"
     path-is-absolute "~1.0.0"
     rimraf "~2.6.2"
+
+hamburgers@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/hamburgers/-/hamburgers-0.9.3.tgz#73b3d299652a028647ca68b2957df172c76cc636"
 
 has-ansi@^2.0.0:
   version "2.0.0"

@@ -13,9 +13,18 @@ mhubClient.on('error', msg => {
   logger.error('Unable to connect to mhub, other modules won\'t be notified changes \n ' + msg)
 })
 
+let connectionPromise = null
+
+function connect () {
+  if (!connectionPromise) {
+    connectionPromise = mhubClient.connect()
+      .then(() => mhubClient.login('protected-client', process.env.PROTECTED_MHUB_PASSWORD))
+  }
+  return connectionPromise
+}
+
 exports.publishMsg = function (topic, data = {}) {
-  return mhubClient.connect()
-    .then(() => mhubClient.login('protected-client', process.env.PROTECTED_MHUB_PASSWORD))
+  return connect()
     .then(() => mhubClient.publish('protected', topic, data, {
       'client-id': MHUB_CLIENT_ID,
       'correlation-id': getCorrelationId()

@@ -19,10 +19,12 @@ class Scores {
 	}
 
 	delete (id) {
+		this.ignoreNextLoad = true
 		return this.$http.delete(`/scores/${id}/delete`)
 	}
 
 	update (id, attributes) {
+		this.ignoreNextLoad = true
 		return this.$http.post(`/scores/${id}/update`, attributes)
 	}
 

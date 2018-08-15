@@ -2,9 +2,9 @@
 
 export default {
 	template: `
-<div class="card" ng-class="{ loading: score.loading }">
+<div class="card" ng-if="score.ready" ng-class="{ loading: score.loading }">
     <div class="dimmer">
-        <div class="large loader"></div>
+        <div class="big loader"></div>
     </div>
     <div class="card-section">
         <h4>

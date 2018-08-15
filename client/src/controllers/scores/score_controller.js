@@ -10,18 +10,28 @@ class ScoreController {
 		this.Tournament = Tournament
 		this.Notifications = Notifications
 		this.Modals = Modals
-		this.loading = true
+		this.ready = false
+		this.loading = false
 		this.isSelected = false
 		this.matched = []
 	}
 
 	$onInit() {
+		this.$scope.$on('reset', () => {
+			this.ready = false
+			this.load()
+		})
+
+		this.load()
+	}
+
+	load() {
 		Promise.all([this.Tournament.teams(), this.Tournament.tables(), this.Tournament.teamsMatches(this.data.teamNumber)])
 			.then(responses => {
-				this.loading = false
 				this.teams = responses[0]
 				this.tables = responses[1]
 				this.matches = responses[2]
+				this.ready = true
 			})
 	}
 

@@ -11,25 +11,25 @@ class ScoresController {
 		this.search = ''
 		this.showDuplicates = false
 		this.showErrors = false
-		this._loading = true
+		this.loading = true
 		this.match = null
 	}
 
 	$onInit() {
-		this.load()
 		// If the reload event comes from within this client, reload and send the message to every other client
 		// Otherwise just reload
 		this.$scope.$on('reload', () => this.load())
 		this.$scope.$on('alter', (event, callback) => {
 			this._scores = callback(this._scores)
 		})
-		this.Messanger.on('scores:reload', () => this.load(), true)
+		this.Messanger.on('scores:reload', () => this.load())
+
 		this.Tournament.teams().then(teams => {
-			this._loading = false
 			this._teamNumberList = []
 			for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
 				this._teamNumberList.push(teams[i].number)
 			}
+			return this.load()
 		})
 		this.Configuration.load().then(config => {
 			this.rankingsLink = config.rankings
@@ -37,9 +37,16 @@ class ScoresController {
 	}
 
 	load() {
-		this.Scores.load().then(scores => {
-			this._scores = scores
-		})
+		if(this.Scores.ignoreNextLoad) {
+			this.Scores.ignoreNextLoad = false
+		} else {
+			this.loading = true
+			this.$scope.$broadcast('reset')
+			this.Scores.load().then(scores => {
+				this._scores = scores
+				this.loading = false
+			})
+		}
 	}
 
 	scores() {
@@ -95,7 +102,7 @@ class ScoresController {
 
 		let otherErrors = scores.filter(score =>
 			typeof score.teamNumber != "number" || typeof score.teamNumber != "number" ||
-			(!this._loading && !this._teamNumberList.includes(score.teamNumber))
+			(!this.loading && !this._teamNumberList.includes(score.teamNumber))
 		)
 		let badScores = duplicateErrors.concat(otherErrors)
 		badScores = badScores.filter(function (value, index) { return badScores.indexOf(value) == index })
