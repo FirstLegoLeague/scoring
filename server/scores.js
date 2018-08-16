@@ -118,16 +118,6 @@ router.get('/all', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
-  connectionPromise
-    .then(scoringCollection => scoringCollection.findOne({ _id: new ObjectID(req.params.id) }))
-    .then(score => res.status(200).json(score))
-    .catch(err => {
-      req.logger.error(err.message)
-      res.status(500).send(`A problem occoured while trying to get score ${req.params.id}.`)
-    })
-})
-
 router.get('/search', (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.findOne(req.query))
@@ -135,6 +125,26 @@ router.get('/search', (req, res) => {
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send(err)
+    })
+})
+
+router.get('/count', (req, res) => {
+  connectionPromise
+    .then(scoringCollection => scoringCollection.count())
+    .then(count => res.status(200).json({ count }))
+    .catch(err => {
+      req.logger.error(err.message)
+      res.status(500).send(err)
+    })
+})
+
+router.get('/:id', (req, res) => {
+  connectionPromise
+    .then(scoringCollection => scoringCollection.findOne({ _id: new ObjectID(req.params.id) }))
+    .then(score => res.status(200).json(score))
+    .catch(err => {
+      req.logger.error(err.message)
+      res.status(500).send(`A problem occoured while trying to get score ${req.params.id}.`)
     })
 })
 
