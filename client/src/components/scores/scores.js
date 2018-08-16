@@ -23,7 +23,7 @@ export default {
     <div class="top-bar-right">
         <ul class="menu">
             <div>
-                <div class="alert button" ng-click="scores.openDeletionDialog()">
+                <div class="alert button" ng-if="scores.user === 'admin'" ng-click="scores.openDeletionDialog()">
                     <i class="fa" ng-class="scores.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i>
                     Delete all scores
                 </div>
