@@ -1,3 +1,7 @@
 .editable-hide {
 	display: none !important;
 }
+
+.has-tip {
+	cursor: pointer !important;
+}

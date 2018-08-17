@@ -35,12 +35,12 @@ export default {
 				<div class="hollow button">{{scoresheet.score()}} pts.</div>
 			</li>
 			<li id="default-scoresheet">
-				<div class="button" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()">
+				<div class="button" data-tooltip title="Set default values" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()">
 					<i class="fa fa-arrow-down"></i>
 				</div>
 			</li>
 			<li id="reset-scoresheet">
-				<div class="button" ng-click="scoresheet.reset()">
+				<div class="button" data-tooltip title="Reset scoresheet" data-position="top" data-alignment="right" ng-click="scoresheet.reset()">
 					<i class="fa fa-undo"></i>
 				</div>
 			</li>

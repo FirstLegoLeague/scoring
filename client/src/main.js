@@ -16,6 +16,7 @@ import 'angular-signature'
 
 import config from './config'
 import factories from './factories'
+import directives from './directives'
 import services from './services'
 import components from './components'
 import controllers from './controllers'
@@ -25,6 +26,10 @@ const main = angular.module('scoring', ['ngAnimate', 'ngCookies', 'signature', '
 
 Object.entries(factories).forEach(([factoryName, factory]) => {
 	main.service(factoryName, factory)
+})
+
+Object.entries(directives).forEach(([directiveName, directive]) => {
+	main.directive(directiveName, directive)
 })
 
 Object.entries(services).forEach(([serviceName, service]) => {

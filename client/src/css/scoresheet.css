@@ -51,6 +51,10 @@ scoresheet .top-bar-page > .grid-container {
   height: 100%;
 }
 
+mission h3 .button {
+  margin: 0;
+}
+
 #score-diff-animation {
   display: block !important;
   z-index: 1000;

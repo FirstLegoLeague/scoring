@@ -4,6 +4,7 @@ class MissionController {
 
 	constructor ($scope) {
 		this.$scope = $scope
+		this.showDescription = false
 	}
 
 	$onInit () {
@@ -14,6 +15,10 @@ class MissionController {
 				self.$scope.$emit('mission complete')
 			}
 		})
+	}
+
+	toggleDescription () {
+		this.showDescription = !this.showDescription
 	}
 
 }
