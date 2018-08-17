@@ -34,7 +34,7 @@ export default {
 			<li>
 				<div class="hollow button">{{scoresheet.score()}} pts.</div>
 			</li>
-			<li id="default-scoresheet">
+			<li id="default-scoresheet" ng-if="scoresheet.missions[0].objectives[0].default">
 				<div class="button" data-tooltip title="Set default values" ng-if="scoresheet.isAdmin" ng-click="scoresheet.setDefault()">
 					<i class="fa fa-arrow-down"></i>
 				</div>
