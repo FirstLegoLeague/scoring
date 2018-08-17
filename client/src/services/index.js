@@ -13,6 +13,7 @@ import Tournament from './tournament'
 import Modals from './modals'
 import Notifications from './notifications'
 
+
 // eslint-disable-next-line node/exports-style
 export default {
 	Messanger,
