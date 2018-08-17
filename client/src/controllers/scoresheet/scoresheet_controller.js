@@ -54,6 +54,7 @@ class ScoresheetController {
 
         this.$scope.$watch(() => this.team, () => {
             if (this.team) {
+                this.loadingMatches = true
                 this.scoresheet.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
                 this.Tournament.teamsMatches(this.scoresheet.teamNumber).then(matches => {
                     this.matches = matches
@@ -61,9 +62,10 @@ class ScoresheetController {
                         this.matches.forEach(match => {
                             match.complete = scores.some(score => score.teamNumber === this.scoresheet.teamNumber && score.match === match.matchId)
                         })
+                        this.loadingMatches = false
+                        this.processErrors()
                     })
                 })
-                this.processErrors()
             }
         })
 

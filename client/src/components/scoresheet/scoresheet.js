@@ -20,10 +20,10 @@ export default {
 				</form>
 			</div>
 			<div>
-				<select ng-if="scoresheet.team" ng-model="scoresheet.match">
-					<option value="" disabled selected hidden>Select Match</option>
+				<select ng-if="scoresheet.team" ng-model="scoresheet.match" ng-class="{'disabled': scoresheet.loadingMatches}">
+					<option value="" disabled selected hidden>{{scoresheet.loadingMatches ? 'Loading...' : 'Select Match'}}</option>
 					<option type="text" ng-repeat="match in scoresheet.matches" value="{{match.matchId}}">
-						{{match.displayText}} {{match.complete ? '✔' : ''}}
+						{{match.displayText}} <i ng-if="match.complete" class="fas fa-check"></i>
 					</option>
 				</select>
 			</div>
