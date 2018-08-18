@@ -39,7 +39,7 @@ function _validateScore (score) {
   const missingFieldError = new MissingFieldError(ERROR.NONE)
 
   return Configuration.get('autoPublish').then(autoPublishSetting => {
-    validatedScore.published = autoPublishSetting
+    validatedScore.public = autoPublishSetting
 
     if (typeof validatedScore.teamNumber !== 'number') { missingFieldError.error += ERROR.TEAM_NUMBER }
     if (validatedScore.score == null) { missingFieldError.error += ERROR.SCORE }
@@ -76,14 +76,15 @@ router.post('/create', (req, res) => {
 })
 
 router.post('/:id/update', adminAction, (req, res) => {
-  connectionPromise
-    .then(scoringCollection => scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: req.body }))
-    .then(() => res.status(204).send())
-    .then(() => publishMsg('scores:reload'))
-    .catch(err => {
-      req.logger.error(err.message)
-      res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
-    })
+  res.status(403).send('Forbidden')
+  // connectionPromise
+  //   .then(scoringCollection => scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: req.body }))
+  //   .then(() => res.status(204).send())
+  //   .then(() => publishMsg('scores:reload'))
+  //   .catch(err => {
+  //     req.logger.error(err.message)
+  //     res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
+  //   })
 })
 
 router.delete('/all', adminAction, (req, res) => {

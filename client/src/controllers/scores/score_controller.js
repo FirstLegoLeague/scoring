@@ -120,6 +120,7 @@ class ScoreController {
 		let updateData = {
 			score: this.data.score,
 			teamNumber: this.data.teamNumber,
+			stage: this.matches.find(match => match.matchId == this.data.matchId).stage,
 			matchId: this.data.matchId,
 			tableId: this.data.tableId,
 			referee: this.data.referee

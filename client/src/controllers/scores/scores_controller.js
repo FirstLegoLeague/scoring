@@ -117,7 +117,7 @@ class ScoresController {
 		return scores.filter(score => {
 			return self._scores.some(otherScore => {
 				return score !== otherScore
-					&& otherScore.teamNumber === score.teamNumber && otherScore.match === score.match
+					&& otherScore.teamNumber === score.teamNumber && otherScore.matchId === score.matchId
 			})
 		})
 	}
