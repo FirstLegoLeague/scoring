@@ -21,9 +21,9 @@ export default {
 			</div>
 			<div>
 				<select ng-if="scoresheet.team" ng-model="scoresheet.match" ng-class="{'disabled': scoresheet.loadingMatches}">
-					<option value="" disabled selected hidden>{{scoresheet.loadingMatches ? 'Loading...' : 'Select Match'}}</option>
+					<option value="" disabled selected hidden>{{scoresheet.loadingMatches ? 'Loading...' : 'Select Round'}}</option>
 					<option type="text" ng-repeat="match in scoresheet.matches" value="{{match.matchId}}">
-						{{match.displayText}} <i ng-if="match.complete" class="fas fa-check"></i>
+						{{match.displayTextWithComplition}}
 					</option>
 				</select>
 			</div>

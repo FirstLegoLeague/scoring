@@ -49,8 +49,15 @@ class Tournament {
 			.then(() => this.$http.get(`${this.tournament}/team/${teamNumber}/matches`, this.httpRequestConfig))
 			.then(response => {
 				const matches = response.data
-				matches.forEach((match, index) => {
-					match.displayText = `${match.stage} #${index + 1}`
+				let stage = matches[0].stage
+				let round = 1
+				matches.forEach(match => {
+					if(match.stage !== stage) {
+						round = 1
+						stage = match.stage
+					}
+					match.displayText = `${match.stage} #${round}`
+					round++
 				})
 				return matches
 			})

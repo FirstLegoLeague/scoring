@@ -60,7 +60,8 @@ class ScoresheetController {
                     this.matches = matches
                     this.Scores.all().then(scores => {
                         this.matches.forEach(match => {
-                            match.complete = scores.some(score => score.teamNumber === this.scoresheet.teamNumber && score.match === match.matchId)
+                            match.complete = scores.some(score => score.teamNumber === this.scoresheet.teamNumber && score.matchId == match.matchId)
+                            match.displayTextWithComplition = `${match.displayText} ${match.complete ? '✔' : ''}`
                         })
                         this.loadingMatches = false
                         this.processErrors()
