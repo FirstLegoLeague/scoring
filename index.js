@@ -18,12 +18,13 @@ const port = process.env.PORT || DEFAULTS.PORT
 const app = express()
 const logger = new Logger()
 
-app.use(correlationMiddleware)
-app.use(loggerMiddleware)
-app.use(cors())
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(correlationMiddleware)
+app.use(loggerMiddleware)
+app.use(cors())
 
 const apis = ['/scores', '/challenge', '/config']
 

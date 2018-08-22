@@ -24,16 +24,16 @@ import controllers from './controllers'
 const main = angular.module('scoring', ['ngAnimate', 'ngCookies', 'signature', 'xeditable'])
 	.config(config)
 
+Object.entries(services).forEach(([serviceName, service]) => {
+	main.service(serviceName, service)
+})
+
 Object.entries(factories).forEach(([factoryName, factory]) => {
-	main.service(factoryName, factory)
+	main.factory(factoryName, factory)
 })
 
 Object.entries(directives).forEach(([directiveName, directive]) => {
 	main.directive(directiveName, directive)
-})
-
-Object.entries(services).forEach(([serviceName, service]) => {
-	main.service(serviceName, service)
 })
 
 Object.entries(controllers).forEach(([controllerName, controller]) => {
