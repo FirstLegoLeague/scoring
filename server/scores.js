@@ -54,16 +54,16 @@ function _validateScore (score) {
 function shouldPublish () {
   return connectionPromise
     .then(scoringCollection => scoringCollection.find().toArray())
-    .then(scores => scores.filter(score => {
-      return (typeof score.teamNumber !== 'number') || (typeof score.mathcId !== 'string') ||
-        scores.some(otherScore => score !== otherScore &&
-          otherScore.teamNumber === score.teamNumber && otherScore.matchId === score.matchId)
+    .then(scores => scores.every(score => {
+      return (typeof score.teamNumber === 'number') && (typeof score.mathcId === 'string') &&
+        scores.every(otherScore => score === otherScore ||
+          otherScore.teamNumber !== score.teamNumber || otherScore.matchId !== score.matchId)
     }))
 }
 
 function publishReloadIfShould () {
   return shouldPublish().then(shouldReload => {
-    if (shouldPublish) {
+    if (shouldReload) {
       publishMsg('scores:reload')
     }
   })
