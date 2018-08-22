@@ -53,7 +53,7 @@ class ScoreController {
 		} else if (this.matchError()) {
 			return 'Missing match'
 		} else {
-			return this.matches.find(match => match.matchId == this.data.matchId).displayText
+			return this.matches.find(match => match._id == this.data.matchId).displayText
 		}
 	}
 
@@ -69,7 +69,7 @@ class ScoreController {
 		if(this.loading)		return false
 		if(!this.data.matchId)	return true
 		if(!this.matches)		return false
-		return this.matches.every(match => match.matchId != this.data.matchId)
+		return this.matches.every(match => match._id != this.data.matchId)
 	}
 
 	teamNumberError() {
@@ -120,7 +120,7 @@ class ScoreController {
 		let updateData = {
 			score: this.data.score,
 			teamNumber: this.data.teamNumber,
-			stage: this.matches.find(match => match.matchId == this.data.matchId).stage,
+			stage: this.matches.find(match => match._id == this.data.matchId).stage,
 			matchId: this.data.matchId,
 			tableId: this.data.tableId,
 			referee: this.data.referee

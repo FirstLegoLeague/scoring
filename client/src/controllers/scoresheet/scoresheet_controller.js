@@ -60,7 +60,7 @@ class ScoresheetController {
                     this.matches = matches
                     this.Scores.all().then(scores => {
                         this.matches.forEach(match => {
-                            match.complete = scores.some(score => score.teamNumber === this.scoresheet.teamNumber && score.matchId == match.matchId)
+                            match.complete = scores.some(score => score.teamNumber === this.scoresheet.teamNumber && score.matchId == match._id)
                             match.displayTextWithComplition = `${match.displayText} ${match.complete ? '✔' : ''}`
                         })
                         this.loadingMatches = false
@@ -73,7 +73,7 @@ class ScoresheetController {
         this.$scope.$watch(() => this.match, () => {
             if (this.match) {
                 this.scoresheet.matchId = this.match
-                this.scoresheet.stage = this.matches.find(match => match.matchId == this.match).stage
+                this.scoresheet.stage = this.matches.find(match => match._id == this.match).stage
                 this.processErrors()
             }
         })

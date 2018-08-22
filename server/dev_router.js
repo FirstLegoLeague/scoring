@@ -34,7 +34,7 @@ const MATCHES = [
 let matchId = 0
 TEAMS.forEach(team => {
   MATCHES.forEach(match => {
-    TEAMS_MATCHES.push(Object.assign({ matchId, teams: [team.number] }, match))
+    TEAMS_MATCHES.push(Object.assign({ _id: matchId, teams: [team.number] }, match))
     matchId++
   })
 })
