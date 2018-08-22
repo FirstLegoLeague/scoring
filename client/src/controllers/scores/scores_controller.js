@@ -129,7 +129,7 @@ class ScoresController {
 		let self = this
 
 		let otherErrors = scores.filter(score =>
-			typeof score.teamNumber != "number" || typeof score.teamNumber != "number" ||
+			typeof score.teamNumber != "number" || typeof score.mathcId != "string" ||
 			(!this.loading && !this._teamNumberList.includes(score.teamNumber))
 		)
 		let badScores = duplicateErrors.concat(otherErrors)

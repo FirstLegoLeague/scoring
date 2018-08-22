@@ -51,6 +51,24 @@ function _validateScore (score) {
   })
 }
 
+function shouldPublish () {
+  return connectionPromise
+    .then(scoringCollection => scoringCollection.find().toArray())
+    .then(scores => scores.filter(score => {
+      return (typeof score.teamNumber !== 'number') || (typeof score.mathcId !== 'string') ||
+        scores.some(otherScore => score !== otherScore &&
+          otherScore.teamNumber === score.teamNumber && otherScore.matchId === score.matchId)
+    }))
+}
+
+function publishReloadIfShould () {
+  return shouldPublish().then(shouldReload => {
+    if (shouldPublish) {
+      publishMsg('scores:reload')
+    }
+  })
+}
+
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
@@ -63,7 +81,7 @@ router.post('/create', (req, res) => {
         res.status(201).send()
       })
   })
-    .then(() => publishMsg('scores:reload'))
+    .then(() => publishReloadIfShould())
     .catch(err => {
       if (err instanceof MissingFieldError) {
         req.logger.error('Invalid score, missing ' + err.error + '. ')
@@ -79,7 +97,7 @@ router.post('/:id/update', adminAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: req.body }))
     .then(() => res.status(204).send())
-    .then(() => publishMsg('scores:reload'))
+    .then(() => publishReloadIfShould())
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
@@ -90,7 +108,7 @@ router.delete('/all', adminAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.deleteMany({}))
     .then(() => res.status(204).send())
-    .then(() => publishMsg('scores:reload'))
+    .then(() => publishReloadIfShould())
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send('A problem occoured while trying to delete scores.')
@@ -101,7 +119,7 @@ router.delete('/:id/delete', adminAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.deleteOne({ _id: new ObjectID(req.params.id) }))
     .then(() => res.status(204).send())
-    .then(() => publishMsg('scores:reload'))
+    .then(() => publishReloadIfShould())
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)
