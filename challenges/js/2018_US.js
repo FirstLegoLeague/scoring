@@ -465,16 +465,16 @@
                     "id": "M14_1",
                     "title": "Meteoroids touching the Mat and in the Center Section:",
                     "options": [{
-                            "value": "2",
-                            "title": "2"
+                            "value": "0",
+                            "title": "0"
                         },
                         {
                             "value": "1",
                             "title": "1"
                         },
                         {
-                            "value": "0",
-                            "title": "0"
+                            "value": "2",
+                            "title": "2"
                         }
                     ],
                     "type": "enum"
@@ -483,16 +483,16 @@
                     "id": "M14_2",
                     "title": "Meteoroids touching the Mat and in Either Side Section:",
                     "options": [{
-                            "value": "2",
-                            "title": "2"
+                            "value": "0",
+                            "title": "0"
                         },
                         {
                             "value": "1",
                             "title": "1"
                         },
                         {
-                            "value": "0",
-                            "title": "0"
+                            "value": "2",
+                            "title": "2"
                         }
                     ],
                     "type": "enum"
