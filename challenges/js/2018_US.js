@@ -6,17 +6,20 @@
             "objectives": [{
                     "id": "M01_1",
                     "title": "Vehicle Payload rolled past first track connection",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M01_2",
                     "title": "Supply Payload rolled past first track connection",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M01_3",
                     "title": "Crew Payload rolled past first track connection",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M01_1, M01_2, M01_3) {
@@ -52,12 +55,14 @@
             "objectives": [{
                     "id": "M02_1",
                     "title": "Both Solar Panels are angled toward the same Field",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M02_2",
                     "title": "Your Solar Panel is angled toward the other team’s Field",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M02_1, M02_2) {
@@ -81,12 +86,14 @@
             "objectives": [{
                     "id": "M03_1",
                     "title": "2x4 Brick is ejected (due only to a Regolith Core Sample in the 3D Printer)",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M03_2",
                     "title": "2x4 Brick is completely in Northeast Planet Area",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M03_1, M03_2) {
@@ -110,12 +117,14 @@
             "objectives": [{
                     "id": "M04_1",
                     "title": "All weight-bearing features of crossing equipment crossed completely between towers",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M04_2",
                     "title": "All crossing equipment crossed from east to west, completely past the flattened Gate",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M04_1, M04_2) {
@@ -139,22 +148,26 @@
             "objectives": [{
                     "id": "M05_1",
                     "title": "All four Core Samples are no longer touching axle of Core Site Model",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M05_2",
                     "title": "Gas Core Sample is touching the Mat and completely in Lander’s Target Circle",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M05_3",
                     "title": "-OR- Gas Core Sample is completely in Base",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M05_4",
                     "title": "Water Core Sample is supported only by the Food Growth Chamber",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M05_1, M05_2, M05_3, M05_4) {
@@ -214,17 +227,20 @@
             "objectives": [{
                     "id": "M06_1",
                     "title": "Cone Module is completely in Base",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M06_2",
                     "title": "Tube Module is in west port of the Habitation Hub",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M06_3",
                     "title": "Dock Module is in east port of the Habitation Hub",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M06_1, M06_2, M06_3) {
@@ -273,7 +289,8 @@
                         "title": "Completely"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "none"
             }],
             "score": [function(M07) {
                 if (M07 === 'none') {
@@ -310,7 +327,8 @@
                         "title": "Orange"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "none"
             }],
             "score": [function(M08) {
                 if (M08 === 'none') {
@@ -333,7 +351,8 @@
             "objectives": [{
                 "id": "M09",
                 "title": "Strength Bar is lifted so that the tooth-strip's 4th hole is at least partly in view.",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M09) {
                 if (M09 === 'no') {
@@ -350,7 +369,8 @@
             "objectives": [{
                 "id": "M10",
                 "title": "Gray weight is dropped after green, but before tan (due only to moving the Push Bar.)",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M10) {
                 if (M10 === 'no') {
@@ -367,7 +387,8 @@
             "objectives": [{
                 "id": "M11",
                 "title": "Spacecraft stays up (due only to pressing/hitting the Strike Pad)",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M11) {
                 if (M11 === 'no') {
@@ -401,7 +422,8 @@
                         "title": "3"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "0"
             }],
             "score": [function(M12) {
                 if (M12 === '0') {
@@ -441,7 +463,8 @@
                         "title": "Orange"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "none"
             }],
             "score": [function(M13) {
                 if (M13 === 'none') {
@@ -477,7 +500,8 @@
                             "title": "2"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "0"
                 },
                 {
                     "id": "M14_2",
@@ -495,7 +519,8 @@
                             "title": "2"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "0"
                 }
             ],
             "score": [function(M14_1, M14_2) {
@@ -534,7 +559,8 @@
             "objectives": [{
                     "id": "M15_1",
                     "title": "Lander is intact and touching the Mat",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M15_2",
@@ -556,7 +582,8 @@
                             "title": "Target Circle"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "no"
                 }
             ],
             "score": [function(M15_1, M15_2) {
@@ -621,7 +648,8 @@
                         "title": "6"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "0"
             }],
             "score": [function(penalties) {
                 if (penalties === '0') {
