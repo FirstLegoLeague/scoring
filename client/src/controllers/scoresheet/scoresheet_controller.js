@@ -12,7 +12,7 @@ const DIFF_ANIMATION_CLASS = 'ng-hide-animate'
 
 class ScoresheetController {
 
-    constructor($scope, $document, $timeout, Configuration, Scoresheet, Scores, Tournament, Notifications, User, Messanger) {
+    constructor($scope, $document, $timeout, Configuration, Scoresheet, Scores, Tournament, Notifications, User, Messanger, Logger) {
         this.$scope = $scope
         this.$document = $document
         this.$timeout = $timeout
@@ -22,6 +22,7 @@ class ScoresheetController {
         this.Tournament = Tournament
         this.Notifications = Notifications
         this.Messanger = Messanger
+        this.Logger = Logger
         this.isAdmin = User.isAdmin()
         this.isRef = User.isRef()
         this.scoreDiff = 0
@@ -32,11 +33,14 @@ class ScoresheetController {
     $onInit() {
         this.$scope.$on('mission complete', event => {
             let missionId = event.targetScope.mission.data.id
-            let missionIndex = this.scoresheet.missions.findIndex(mission => mission.id === missionId) + 1
-            let nextMission = this.scoresheet.missions[missionIndex]
-            if (!this.defaulting || missionIndex === this.scoresheet.missions.length) {
+            let nextMissionIndex = this.scoresheet.missions.findIndex(mission => mission.id === missionId) + 1
+            let nextMission = this.scoresheet.missions[nextMissionIndex]
+            if (!this.defaulting || nextMissionIndex === this.scoresheet.missions.length) {
                 this.scrollToMission(nextMission)
                 this.defaulting = false
+            }
+            if(!this.scoresheet.teamNumber && nextMissionIndex === 1) {
+                this.Logger.info('Completed first mission without selecting a team')
             }
         })
 
@@ -227,6 +231,6 @@ class ScoresheetController {
 
 ScoresheetController.$$ngIsClass = true
 ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet',
-                                            'Scores', 'Tournament', 'Notifications', 'User', 'Messanger']
+                                            'Scores', 'Tournament', 'Notifications', 'User', 'Messanger', 'Logger']
 
 export default ScoresheetController

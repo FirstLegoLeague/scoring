@@ -77,14 +77,18 @@ class ScoresController {
 			})
 	}
 
+	any() {
+		return this._scores ? this._scores.length > 0 : 0
+	}
+
 	scores() {
 		let scores = this._scores
 
 		// Filter by search
 		if (this.search) {
-			scores = this._scores.filter(score => {
-				return Object.values(score).some(value => value.toString().includes(this.search))
-			})
+			scores = this._scores
+				.filter(score => [score.teamText, score.referee, score.tableText, score.matchText, score.score]
+					.some(value => (value || '').toString().includes(this.search)))
 		}
 
 		// Filter by showDuplicates
@@ -129,7 +133,7 @@ class ScoresController {
 		let self = this
 
 		let otherErrors = scores.filter(score =>
-			typeof score.teamNumber != "number" || typeof score.mathcId != "string" ||
+			typeof score.teamNumber !== 'number' || typeof score.matchId === 'undefined' ||
 			(!this.loading && !this._teamNumberList.includes(score.teamNumber))
 		)
 		let badScores = duplicateErrors.concat(otherErrors)

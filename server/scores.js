@@ -75,6 +75,7 @@ router.post('/create', (req, res) => {
   _validateScore(req.body).then(validatedScore => {
     return connectionPromise
       .then(scoringCollection => {
+        req.logger.info(`Saving score for team ${validatedScore.teamNumber} on ${validatedScore.stage} stage with ${validatedScore.score} pts.`)
         return scoringCollection.save(validatedScore)
       })
       .then(() => {

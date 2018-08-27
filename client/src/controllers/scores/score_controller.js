@@ -39,30 +39,33 @@ class ScoreController {
 
 	teamText () {
 		if(this.loading) {
-			return ''
+			this.data.teamText = ''
 		} else if (this.teamNumberError()) {
-			return 'Missing team!'
+			this.data.teamText = 'Missing team!'
 		} else {
-			return this.teams.find(team => team.number === this.data.teamNumber).displayText
+			this.data.teamText = this.teams.find(team => team.number === this.data.teamNumber).displayText
 		}
+		return this.data.teamText
 	}
 
 	matchText () {
 		if(this.loading) {
-			return ''
+			this.data.matchText = ''
 		} else if (this.matchError()) {
-			return 'Missing match'
+			this.data.matchText = 'Missing match'
 		} else {
-			return this.matches.find(match => match._id == this.data.matchId).displayText
+			this.data.matchText = this.matches.find(match => match._id == this.data.matchId).displayText
 		}
+		return this.data.matchText
 	}
 
 	tableText () {
 		if (this.data.tableId && this.tables) {
-			return this.tables.find(table => table.tableId === this.data.tableId).tableName
+			this.data.tableText = this.tables.find(table => table.tableId === this.data.tableId).tableName
 		} else {
-			return 'no table'
+			this.data.tableText = 'no table'
 		}
+		return this.data.tableText
 	}
 
 	matchError () {

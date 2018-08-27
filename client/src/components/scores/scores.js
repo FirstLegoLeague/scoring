@@ -2,11 +2,11 @@
 
 export default {
 	template: `
-<div class="top-bar secondary" ng-if="scores.scores().length">
+<div class="top-bar secondary" ng-if="scores.any()">
     <div class="top-bar-left">
         <ul class="menu">
             <div>
-                <input name="search" type="text" ng-model="scores.search" placeholder="search Scores" />
+                <input name="search" type="text" ng-model="scores.search" placeholder="Search Scores" />
             </div>
             <div>
                 <button class="button" ng-hide="scores.duplicateScores().length === 0" ng-click="scores.showDuplicates = !scores.showDuplicates">
@@ -43,7 +43,7 @@ export default {
             <score id="score-{{score._id}}" data="score" class="cell grid-y"></score>
         </div>
     </div>
-    <div id="empty-scores-list" ng-if="!scores.scores().length" class="grid-container">
+    <div id="empty-scores-list" ng-if="!scores.any()" class="grid-container">
         <div class="secondary callout">
             <h2>No scores. Please enter some using the scoresheet in order to see them here.</h2>
         </div>
