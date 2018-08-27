@@ -55,7 +55,7 @@ function shouldPublish () {
   return connectionPromise
     .then(scoringCollection => scoringCollection.find().toArray())
     .then(scores => scores.every(score => {
-      return (typeof score.teamNumber === 'number') && (typeof score.mathcId === 'string') &&
+      return (typeof score.teamNumber === 'number') && (typeof score.matchId === 'string') &&
         scores.every(otherScore => score === otherScore ||
           otherScore.teamNumber !== score.teamNumber || otherScore.matchId !== score.matchId)
     }))
