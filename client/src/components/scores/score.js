@@ -23,13 +23,18 @@ export default {
             {{ score.data.score || 0 }}
         </a>
     </div>
-    <div class="card-divider">
+    <div class="card-divider" ng-if="score.tables.length">
         <a editable-text="score.data.referee" buttons="no" blur="submit" onaftersave="score.save()">
             {{ score.data.referee || 'No one' }}
         </a>
         &#160;on table&#160;
         <a editable-select="score.data.tableId" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="table.tableId as table.tableName for table in score.tables">
             {{ score.tableText() }}.
+        </a>
+    </div>
+    <div class="card-divider" ng-if="!score.tables.length">
+        <a editable-text="score.data.referee" buttons="no" blur="submit" onaftersave="score.save()">
+            {{ score.data.referee || 'No one' }}
         </a>
     </div>
     <div class="card-section flex-child-shrink">

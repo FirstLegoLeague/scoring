@@ -14,6 +14,7 @@ class RefIdentityController {
 		let self = this
 		this.RefIdentity.init().then(identity => {
 			self.tables = identity.tables
+			self.tablesDisabled = identity.tablesDisabled
 			if(identity.initialized) {
 				Object.assign(self, { referee: identity.referee, table: identity.table })
 				self.showTopbarButton = true
@@ -29,7 +30,7 @@ class RefIdentityController {
 	}
 
 	allowSave () {
-		return this.referee && this.table
+		return this.referee && (this.tablesDisabled || this.table)
 	}
 
 	close () {
@@ -39,7 +40,7 @@ class RefIdentityController {
 	}
 
 	display () {
-		return this.showTopbarButton ? `${this.referee} (On ${this.table.tableName})` : ''
+		return this.showTopbarButton ? `${this.referee} ${this.tablesDisabled ? '' : `(On ${this.table.tableName})`}` : ''
 	}
 
 }

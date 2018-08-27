@@ -24,6 +24,9 @@ class RefIdentity {
 
 		return this.Tournament.tables().then(tables => {
 			self.tables = tables
+			if(tables.length === 0) {
+				self.tablesDisabled = true
+			}
 			let savedData = JSON.parse(this.$window.sessionStorage[STORAGE_KEY] || EMPTY_DATA)
 			if(savedData.tableId) {
 				savedData.table = self.tables.find(table => table.tableId === savedData.tableId)

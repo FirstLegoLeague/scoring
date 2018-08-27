@@ -14,7 +14,7 @@ export default {
 					<div class="cell">
 						<input type="text" placeholder="referee" ng-model="refIdentity.referee">
 					</div>
-					<div class="cell">
+					<div ng-if="!refIdentity.tablesDisabled" class="cell">
 						<select name="table" ng-model="refIdentity.table"
 							ng-options="table.tableName for table in refIdentity.tables track by table.tableId">
 							<option value="" disabled selected hidden>table</option>
