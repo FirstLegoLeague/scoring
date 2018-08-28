@@ -124,7 +124,7 @@ class Scoresheet {
 				stage: this.current.stage,
 				matchId: this.current.matchId,
 				referee: identity.referee || this.current.referee,
-				tableId: isFinit(identity.tableId) ? identity.tableId : this.current.tableId
+				tableId: isFinite(identity.tableId) ? identity.tableId : this.current.tableId
 			}
 
 			let action = this.current._id ? `/scores/${this.current._id}/update/` : '/scores/create'
