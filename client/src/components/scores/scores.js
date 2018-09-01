@@ -9,12 +9,12 @@ export default {
                 <input name="search" type="text" ng-model="scores.search" placeholder="Search Scores" />
             </div>
             <div>
-                <button class="button" ng-hide="scores.duplicateScores().length === 0" ng-click="scores.showDuplicates = !scores.showDuplicates">
+                <button class="button" ng-class="{ disabled: scores.duplicateScores().length === 0 }" ng-click="scores.showDuplicates = !scores.showDuplicates">
                     {{ scores.showDuplicates ? 'Show all scores' : 'Show only duplicates' }}
                 </button>
             </div>
             <div>
-                <button class="button" ng-hide="scores.errorScores().length === 0" ng-click="scores.showErrors = !scores.showErrors">
+                <button class="button"  ng-class="{ disabled: scores.errorScores().length === 0 }" ng-click="scores.showErrors = !scores.showErrors">
                     {{ scores.showErrors ? 'Show all scores' : 'Show only bad scores'}}
                 </button>
             </div>
