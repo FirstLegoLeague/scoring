@@ -121,6 +121,7 @@ class Scoresheet {
 				challenge: this.current.title,
 				signature: this.current.signature,
 				teamNumber: this.current.teamNumber,
+				round: this.current.round,
 				stage: this.current.stage,
 				matchId: this.current.matchId,
 				referee: identity.referee || this.current.referee,

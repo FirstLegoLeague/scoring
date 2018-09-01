@@ -77,7 +77,9 @@ class ScoresheetController {
         this.$scope.$watch(() => this.match, () => {
             if (this.match) {
                 this.scoresheet.matchId = this.match
-                this.scoresheet.stage = this.matches.find(match => match._id == this.match).stage
+                const match = this.matches.find(match => match._id == this.match)
+                this.scoresheet.stage = match.stage
+                this.scoresheet.round = match.round
                 this.processErrors()
             }
         })

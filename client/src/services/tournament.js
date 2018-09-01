@@ -56,6 +56,7 @@ class Tournament {
 						round = 1
 						stage = match.stage
 					}
+					match.round = round
 					match.displayText = `${match.stage} #${round}`
 					round++
 				})
