@@ -9,28 +9,28 @@
         <string id="no">                            No</string>
 
         <string id="M01-name">                      M01 Space Travel</string>
-        <string id="M01-desc">                      <![CDATA[*Send payload rockets rolling down the Space Travel Ramp and must be *Independent by the time they reach the first track connection.]]></string>
+        <string id="M01-desc">                      <![CDATA[*Start each Payload clearly rolling down the Space Travel Ramp. For each roll, the cart must * be Independent by the time it reaches the first track connection.]]></string>
         <string id="M01-scoring1">                   Vehicle Payload rolled past first track connection</string>
         <string id="M01-scoring2">                   Supply Payload rolled past first track connection</string>
         <string id="M01-scoring3">                   Crew Payload rolled past first track connection</string>
 
         <string id="M02-name">                      M02 Solar Panel Array</string>
-        <string id="M02-desc">                      <![CDATA[Angle Solar Panels toward you or away from you.]]></string>
+        <string id="M02-desc">                      <![CDATA[Solar Panels need to be Angled toward or away from you.]]></string>
         <string id="M02-scoring1">                   Both Solar Panels are angled toward the same Field</string>
         <string id="M02-scoring2">                   Your Solar Panel is angled toward the other team’s Field</string>
 
         <string id="M03-name">                      M03 3D Printing</string>
-        <string id="M03-desc">                      <![CDATA[Place a Regolith Core Sample in the 3D printer.]]></string>
+        <string id="M03-desc">                      <![CDATA[Eject the 2x4 Brick * by placing a Regolith Core Sample into the 3D Printer.]]></string>
         <string id="M03-scoring1">                  2x4 Brick is ejected (due only to a Regolith Core Sample in the 3D Printer)</string>
         <string id="M03-scoring2">                  2x4 Brick is completely in Northeast Planet Area</string>
 
         <string id="M04-name">                      M04 Crater Crossing</string>
-        <string id="M04-desc">                      <![CDATA[The Robot or an agent-craft that was sent out needs to cross the Craters Model completely, by driving directly over it.]]></string>
+        <string id="M04-desc">                      <![CDATA[The Robot or whatever agent-craft it sends out needs to cross the Craters Model completely, by driving directly over it. Not near it. Not around it.]]></string>
         <string id="M04-scoring1">                  All weight-bearing features of crossing equipment crossed completely between towers</string>
         <string id="M04-scoring2">                  All crossing equipment crossed from east to west, completely past the flattened Gate </string>
 
         <string id="M05-name">                      M05 Extraction</string>
-        <string id="M05-desc">                      <![CDATA[The Robot needs to get all the Core Samples out of the Core Site Model, and deliver them.]]></string>
+        <string id="M05-desc">                      <![CDATA[The Robot needs to get all the Core Samples out of the Core Site Model, then it has options for what to do with them as described here, and in Mission M03.]]></string>
         <string id="M05-scoring1">                  All four Core Samples are no longer touching axle of Core Site Model</string>
         <string id="M05-scoring2">                  Gas Core Sample is touching the Mat and completely in Lander’s Target Circle</string>
         <string id="M05-scoring3">                  -OR- Gas Core Sample is completely in Base</string>
@@ -38,20 +38,20 @@
         <string id="M05-error">                     Gas Core Sample location</string>
 
         <string id="M06-name">                      M06 Space Station Modules</string>
-        <string id="M06-desc">                      <![CDATA[Remove and insert Modules among the Habitation Hub’s port holes.  *Inserted Modules must not be touching anything except the Habitation Hub.]]></string>
+        <string id="M06-desc">                      <![CDATA[The Robot needs to remove and insert Modules among the Habitation Hub’s port holes. Inserted Modules must not be touching anything except the Habitation Hub.]]></string>
         <string id="M06-scoring1">                   Cone Module is completely in Base</string>
         <string id="M06-scoring2">                   Tube Module is in west port of the Habitation Hub</string>
         <string id="M06-scoring3">                   Dock Module is in east port of the Habitation Hub</string>
 
         <string id="M07-name">                      M07 Space Walk Emergency</string>
-        <string id="M07-desc">                      <![CDATA[Get Astronaut Gerhard’s body into the Airlock Chamber.]]></string>
+        <string id="M07-desc">                      <![CDATA[The Robot needs to get Gerhard’s body into the Airlock Chamber.]]></string>
         <string id="M07-scoring">                   Astronaut “Gerhard” is in the Habitation Hub’s Airlock Chamber:</string>
         <string id="M07-scoring1">                  No</string>
         <string id="M07-scoring2">                  Partly</string>
         <string id="M07-scoring3">                  Completely</string>
 
         <string id="M08-name">                      M08 Aerobic Exercise</string>
-        <string id="M08-desc">                      <![CDATA[Move one or both of the Exercise Machine’s Handle Assemblies to make the Pointer advance.  (If the Pointer is partly covering either of the gray or orange end borders, select that color.)]]></string>
+        <string id="M08-desc">                      <![CDATA[The Robot needs to repeatedly move one or both of the Exercise Machine’s Handle Assemblies to make the Pointer advance along its dial. (If the Pointer is partly covering either the gray or orange end borders, select that color.)]]></string>
         <string id="M08-scoring">                   Exercise pointer tip is in (due only to moving one or both Handle Assemblies):</string>
         <string id="M08-scoring1">                  None</string>
         <string id="M08-scoring2">                  Gray</string>
@@ -59,23 +59,23 @@
         <string id="M08-scoring4">                  Orange</string>
 
         <string id="M09-name">                      M09 Strength Exercise</string>
-        <string id="M09-desc">                      <![CDATA[Lift the Strength Bar to scoring height.]]></string>
+        <string id="M09-desc">                      <![CDATA[The Robot needs to lift the Strength Bar to scoring height.]]></string>
         <string id="M09-scoring">                   Strength Bar is lifted so that the tooth-strip's 4th hole is at least partly in view.</string>
 
         <string id="M10-name">                      M10 Food Production</string>
-        <string id="M10-desc">                      <![CDATA[Move the Push Bar at the right distance at the right speed, to get into the green scoring range.]]></string>
+        <string id="M10-desc">                      <![CDATA[Move the Push Bar the right distance at the right speed, to get into the green scoring range.]]></string>
         <string id="M10-scoring">                   Gray weight is dropped after green, but before tan (due only to moving the Push Bar.)</string>
 
         <string id="M11-name">                      M11 Escape Velocity</string>
-        <string id="M11-desc">                      <![CDATA[Impact the Strike Pad hard enough to keep the spacecraft from dropping back down.]]></string>
+        <string id="M11-desc">                      <![CDATA[The Robot needs to impact the Strike Pad hard enough to keep the spacecraft from dropping back down.]]></string>
         <string id="M11-scoring">                   Spacecraft stays up (due only to pressing/hitting the Strike Pad)</string>
 
         <string id="M12-name">                      M12 Satellite Orbits</string>
-        <string id="M12-desc">                      <![CDATA[Move one or more Satellites to the Outer Orbit.]]></string>
+        <string id="M12-desc">                      <![CDATA[The Robot needs to move one or more Satellites to the Outer Orbit.]]></string>
         <string id="M12-scoring">                   Satellites on or above the area between the two lines of Outer Orbit:</string>
 
         <string id="M13-name">                      M13 Observatory</string>
-        <string id="M13-desc">                      <![CDATA[Rotate the Observatory to a precise direction.  (If the Pointer is partly covering either of the gray or orange end borders, select that color.)]]></string>
+        <string id="M13-desc">                      <![CDATA[Rotate the Observatory to a precise direction. (If the Pointer is partly covering either the gray or orange end borders, select that color.)]]></string>
         <string id="M13-scoring">                   The Observatory pointer tip is in:</string>
         <string id="M13-scoring1">                  None</string>
         <string id="M13-scoring2">                  Gray</string>
@@ -98,7 +98,7 @@
         <string id="M15-scoring6">                  Target Circle </string>
 
         <string id="penalties-name">                Penalties</string>
-        <string id="penalties-desc">                <![CDATA[Penalties given]]></string>
+        <string id="penalties-desc">                <![CDATA[You’re allowed to hand-rescue your Robot, but that does cause this Penalty]]></string>
         <string id="penalties-scoring">             Number of Penalty Discs in the southeast triangle:</string>
 
     </strings>
@@ -193,12 +193,12 @@
             </indexes>
             <cases>
                 <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="no" /><index-ref value="no" /> <points amount="0"  /> </case>
-                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /> <points amount="0"  /> </case>
-                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /> <points amount="12"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /> <points amount="10"  /> </case>
                 <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /><index-ref value="no" /> <error message="M05-error" /> </case>
-                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /> <points amount="0"  /> </case>
-                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="yes" /> <points amount="0"  /> </case>
-                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /> <points amount="8"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="yes" /> <points amount="20"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /> <points amount="18"  /> </case>
                 <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /><index-ref value="yes" /> <error message="M05-error" /> </case>
                 <case> <index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /><index-ref value="no" /> <points amount="16"  /> </case>
                 <case> <index-ref value="yes" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /> <points amount="28"  /> </case>
