@@ -2,7 +2,7 @@
     "title": "INTO ORBIT",
     "missions": [{
             "title": "M01 Space Travel",
-            "description": "*Send payload rockets rolling down the Space Travel Ramp and must be *Independent by the time they reach the first track connection.",
+            "description": "*Start each Payload clearly rolling down the Space Travel Ramp. For each roll, the cart must * be Independent by the time it reaches the first track connection.",
             "objectives": [{
                     "id": "M01_1",
                     "title": "Vehicle Payload rolled past first track connection",
@@ -51,7 +51,7 @@
         },
         {
             "title": "M02 Solar Panel Array",
-            "description": "Angle Solar Panels toward you or away from you.",
+            "description": "Solar Panels need to be Angled toward or away from you.",
             "objectives": [{
                     "id": "M02_1",
                     "title": "Both Solar Panels are angled toward the same Field",
@@ -82,7 +82,7 @@
         },
         {
             "title": "M03 3D Printing",
-            "description": "Place a Regolith Core Sample in the 3D printer.",
+            "description": "Eject the 2x4 Brick * by placing a Regolith Core Sample into the 3D Printer.",
             "objectives": [{
                     "id": "M03_1",
                     "title": "2x4 Brick is ejected (due only to a Regolith Core Sample in the 3D Printer)",
@@ -113,7 +113,7 @@
         },
         {
             "title": "M04 Crater Crossing",
-            "description": "The Robot or an agent-craft that was sent out needs to cross the Craters Model completely, by driving directly over it.",
+            "description": "The Robot or whatever agent-craft it sends out needs to cross the Craters Model completely, by driving directly over it. Not near it. Not around it.",
             "objectives": [{
                     "id": "M04_1",
                     "title": "All weight-bearing features of crossing equipment crossed completely between towers",
@@ -144,7 +144,7 @@
         },
         {
             "title": "M05 Extraction",
-            "description": "The Robot needs to get all the Core Samples out of the Core Site Model, and deliver them.",
+            "description": "The Robot needs to get all the Core Samples out of the Core Site Model, then it has options for what to do with them as described here, and in Mission M03.",
             "objectives": [{
                     "id": "M05_1",
                     "title": "All four Core Samples are no longer touching axle of Core Site Model",
@@ -175,22 +175,22 @@
                     return 0
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'no' && M05_4 === 'no') {
-                    return 0
+                    return 12
                 }
                 if (M05_1 === 'no' && M05_2 === 'no' && M05_3 === 'yes' && M05_4 === 'no') {
-                    return 0
+                    return 10
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'no') {
                     return new Error("Error: Gas Core Sample location")
                 }
                 if (M05_1 === 'no' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'yes') {
-                    return 0
+                    return 8
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'no' && M05_4 === 'yes') {
-                    return 0
+                    return 20
                 }
                 if (M05_1 === 'no' && M05_2 === 'no' && M05_3 === 'yes' && M05_4 === 'yes') {
-                    return 0
+                    return 18
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'yes') {
                     return new Error("Error: Gas Core Sample location")
@@ -223,7 +223,7 @@
         },
         {
             "title": "M06 Space Station Modules",
-            "description": "Remove and insert Modules among the Habitation Hub’s port holes.  *Inserted Modules must not be touching anything except the Habitation Hub.",
+            "description": "The Robot needs to remove and insert Modules among the Habitation Hub’s port holes. Inserted Modules must not be touching anything except the Habitation Hub.",
             "objectives": [{
                     "id": "M06_1",
                     "title": "Cone Module is completely in Base",
@@ -272,7 +272,7 @@
         },
         {
             "title": "M07 Space Walk Emergency",
-            "description": "Get Astronaut Gerhard’s body into the Airlock Chamber.",
+            "description": "The Robot needs to get Gerhard’s body into the Airlock Chamber.",
             "objectives": [{
                 "id": "M07",
                 "title": "Astronaut “Gerhard” is in the Habitation Hub’s Airlock Chamber:",
@@ -306,7 +306,7 @@
         },
         {
             "title": "M08 Aerobic Exercise",
-            "description": "Move one or both of the Exercise Machine’s Handle Assemblies to make the Pointer advance.  (If the Pointer is partly covering either of the gray or orange end borders, select that color.)",
+            "description": "The Robot needs to repeatedly move one or both of the Exercise Machine’s Handle Assemblies to make the Pointer advance along its dial. (If the Pointer is partly covering either the gray or orange end borders, select that color.)",
             "objectives": [{
                 "id": "M08",
                 "title": "Exercise pointer tip is in (due only to moving one or both Handle Assemblies):",
@@ -347,7 +347,7 @@
         },
         {
             "title": "M09 Strength Exercise",
-            "description": "Lift the Strength Bar to scoring height.",
+            "description": "The Robot needs to lift the Strength Bar to scoring height.",
             "objectives": [{
                 "id": "M09",
                 "title": "Strength Bar is lifted so that the tooth-strip's 4th hole is at least partly in view.",
@@ -365,7 +365,7 @@
         },
         {
             "title": "M10 Food Production",
-            "description": "Move the Push Bar at the right distance at the right speed, to get into the green scoring range.",
+            "description": "Move the Push Bar the right distance at the right speed, to get into the green scoring range.",
             "objectives": [{
                 "id": "M10",
                 "title": "Gray weight is dropped after green, but before tan (due only to moving the Push Bar.)",
@@ -383,7 +383,7 @@
         },
         {
             "title": "M11 Escape Velocity",
-            "description": "Impact the Strike Pad hard enough to keep the spacecraft from dropping back down.",
+            "description": "The Robot needs to impact the Strike Pad hard enough to keep the spacecraft from dropping back down.",
             "objectives": [{
                 "id": "M11",
                 "title": "Spacecraft stays up (due only to pressing/hitting the Strike Pad)",
@@ -401,7 +401,7 @@
         },
         {
             "title": "M12 Satellite Orbits",
-            "description": "Move one or more Satellites to the Outer Orbit.",
+            "description": "The Robot needs to move one or more Satellites to the Outer Orbit.",
             "objectives": [{
                 "id": "M12",
                 "title": "Satellites on or above the area between the two lines of Outer Orbit:",
@@ -442,7 +442,7 @@
         },
         {
             "title": "M13 Observatory",
-            "description": "Rotate the Observatory to a precise direction.  (If the Pointer is partly covering either of the gray or orange end borders, select that color.)",
+            "description": "Rotate the Observatory to a precise direction. (If the Pointer is partly covering either the gray or orange end borders, select that color.)",
             "objectives": [{
                 "id": "M13",
                 "title": "The Observatory pointer tip is in:",
@@ -615,7 +615,7 @@
         },
         {
             "title": "Penalties",
-            "description": "Penalties given",
+            "description": "You’re allowed to hand-rescue your Robot, but that does cause this Penalty",
             "objectives": [{
                 "id": "penalties",
                 "title": "Number of Penalty Discs in the southeast triangle:",
