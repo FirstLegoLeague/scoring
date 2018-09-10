@@ -10,11 +10,16 @@ const NODE = process.env.DEV ? 'default' : 'protected'
 
 const mhubClient = new MClient(process.env.MHUB_URI)
 
+let connectionPromise = null
+
 mhubClient.on('error', msg => {
   logger.error('Unable to connect to mhub, other modules won\'t be notified changes \n ' + msg)
 })
 
-let connectionPromise = null
+mhubClient.on('close', () => {
+  connectionPromise = null
+  logger.warn('Disconnected from mhub. Retrying upon next publish')
+})
 
 function connect () {
   if (!connectionPromise) {
