@@ -50,8 +50,8 @@ export default {
     </div>
 </div>
 <div id="scores-deletion-modal" class="fast reveal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y">
-    <h4>Do you really want to delete <b>all</b> scores?</h4>
-    <div class="subheader">This operation is ireversable and dangerous!</div>
+    <h4><b>All</b> scores are about to be deleted</h4>
+    <div class="subheader">Warning: You can’t undo this action.</div>
     <div class="grid-x align-center button-group">
         <div class="button" ng-click="scores.closeDeletionDialog()">No, I think I'll pass...</div>
         <div class="alert button" ng-click="scores.deleteAll()">Yes, just do it!</div>
