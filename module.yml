@@ -4,7 +4,7 @@ display: "Scoring"
 type: node
 script: index.js
 require:
-  mongodbg
+  mongodb
 config:
   - name: Scoresheet
     fields:
