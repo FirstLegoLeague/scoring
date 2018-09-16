@@ -7,6 +7,7 @@ const CopyWebPackPlugin = require('copy-webpack-plugin')
 // eslint-disable-next-line node/exports-style
 module.exports = {
   entry: './src/main.js',
+  devtool: 'source-map',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
