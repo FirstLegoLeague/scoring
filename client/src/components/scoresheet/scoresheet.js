@@ -9,9 +9,9 @@ export default {
 			</div>
 			<div>
 				<form>
-					<input type="text" list="teams" placeholder="Select Team" blur="submit" ng-model="scoresheet.team">
+					<input type="text" list="teams" ng-focus="scoresheet.team = ''" ng-click="scoresheet.team = ''" placeholder="Select Team" blur="submit" ng-model="scoresheet.team">
 					<datalist id="teams">
-						<select>
+						<select >
 							<option type="text" ng-repeat="team in scoresheet.teams">
 								{{ team.displayText }}
 							</option>
