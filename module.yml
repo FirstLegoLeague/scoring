@@ -24,6 +24,7 @@ config:
         default: US english
         values:
           - US english
+          - ES Spanish
           - NL Dutch
           - IL Hebrew
       - name: requireRef
