@@ -1,5 +1,6 @@
 api: "1.0"
 name: "scoring"
+display: "Scoring"
 type: node
 script: index.js
 require:
