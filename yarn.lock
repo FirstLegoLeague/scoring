@@ -10,9 +10,9 @@
     express "^4.16.3"
     jsonwebtoken "^8.2.0"
 
-"@first-lego-league/ms-configuration@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-configuration/-/ms-configuration-1.2.0.tgz#6be5ed0331408d4c6ad7320687e7f02330e3c68c"
+"@first-lego-league/ms-configuration@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-configuration/-/ms-configuration-1.2.1.tgz#23173cd9030303ac36ad2ce86299fdf434c9619c"
   dependencies:
     bluebird "^3.5.1"
     mhub "^0.9.1"

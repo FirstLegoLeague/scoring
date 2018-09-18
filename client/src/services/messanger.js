@@ -7,11 +7,13 @@ const MESSAGE_TYPES = {
 }
 const IDENTITY_TOKEN_KEY = 'scoring-token'
 const DEFAULT_NODE = 'default'
+const RETRY_TIMEOUT = 10 * 1000 // 10 seconds
 
 class Messanger {
 
-  constructor (Configuration) {
+  constructor (Configuration, $timeout) {
     this.Configuration = Configuration
+    this.$timeout = $timeout
     this.open = false
     this.listeners = []
   }
@@ -35,16 +37,17 @@ class Messanger {
         }));
 
         self.open = true
+        console.log('Connected to mhub')
         resolve(self.ws)
-      }
-
-      this.ws.onerror = function (e) {
-        // TODO log
       }
 
       this.ws.onclose = function () {
         self.open = false
-        // TODO log
+        console.log('Disonnected from mhub')
+        self.$timeout(() => {
+          console.log('Retrying mhub connection')
+          self.init()
+        }, RETRY_TIMEOUT)
       }
 
       this.ws.onmessage = function (msg) {
@@ -93,6 +96,6 @@ class Messanger {
 }
 
 Messanger.$$ngIsClass = true
-Messanger.$inject = ['Configuration']
+Messanger.$inject = ['Configuration', '$timeout']
 
 export default Messanger
