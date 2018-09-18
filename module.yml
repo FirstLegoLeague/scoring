@@ -6,8 +6,7 @@ script: index.js
 require:
   mongodb
 config:
-  - name: Scoresheet
-    fields:
+  - fields:
       - name: year
         display: Challenge
         type: values
