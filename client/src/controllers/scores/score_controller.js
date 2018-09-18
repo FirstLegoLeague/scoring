@@ -52,7 +52,7 @@ class ScoreController {
 		if(this.loading) {
 			this.data.matchText = ''
 		} else if (this.matchError()) {
-			this.data.matchText = 'Missing match'
+			this.data.matchText = 'Missing round'
 		} else {
 			this.data.matchText = this.matches.find(match => match._id == this.data.matchId).displayText
 		}
