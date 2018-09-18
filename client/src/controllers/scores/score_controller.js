@@ -104,7 +104,7 @@ class ScoreController {
 			})
 	}
 
-	togglePublish() {
+	togglePublish () {
 		this.togglingPublish = true
 		this.Scores.update(this.data._id, { public: !this.data.public })
 			.then(() => {
@@ -113,27 +113,38 @@ class ScoreController {
 			})
 	}
 
+	updateMatch () {
+		return this.Tournament.teamsMatches(this.data.teamNumber)
+			.then(matches => {
+				this.matches = matches
+				this.data.matchId = matches.find(match => match.stage === this.data.stage && match.round === this.data.round)._id
+			})
+			.then(() => this.save())
+	}
+
 	open () {
 		this.$scope.$emit('open scoresheet', this.data)
 	}
 
-	save() {
+	save () {
 		this.loading = true
-
-		let updateData = {
+		const match = this.matches.find(match => match._id === this.data.matchId)
+		const updateData = {
 			score: this.data.score,
 			teamNumber: this.data.teamNumber,
-			stage: this.matches.find(match => match._id == this.data.matchId).stage,
-			matchId: this.data.matchId,
+			stage: match.stage,
+			round: match.round,
+			matchId: match._id,
 			tableId: this.data.tableId,
 			referee: this.data.referee
 		}
 
 		this.Scores.update(this.data._id, updateData)
 			.then(() => Object.assign(this.data, updateData))
-			.catch(() => this.Notifications.error('Unable to update score: Possible network error.'))
-			.then(() => this.Tournament.teamsMatches(this.data.teamNumber))
-			.then(matches => this.matches = matches)
+			.catch(err => {
+				console.error(err)
+				this.Notifications.error('Unable to update score: Possible network error.')
+			})
 			.then(() => setTimeout(() => this.loading = false, MIN_LOADING_TIME))
 	}
 }

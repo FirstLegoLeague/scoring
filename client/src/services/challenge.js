@@ -9,11 +9,6 @@ class Challenge {
 		this.Configuration = Configuration
 	}
 
-	list () {
-		let self = this
-		return this.$http.get('/challenges/all')
-	}
-
 	load (challenge) {
 		let self = this
 		let challengePromise = challenge ? Promise.resolve(challenge) : this.getConfiguratedChallenge()

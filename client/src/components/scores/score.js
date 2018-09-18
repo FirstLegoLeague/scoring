@@ -8,7 +8,7 @@ export default {
     </div>
     <div class="card-section">
         <h4>
-            <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="team.number as team.displayText for team in score.teams">
+            <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.updateMatch()" e-ng-options="team.number as team.displayText for team in score.teams">
                 <div ng-class="{'card-section alert' : score.teamNumberError()}">{{ score.teamText() }}</div>
             </a>
         </h4>
@@ -39,13 +39,13 @@ export default {
     </div>
     <div class="card-section flex-child-shrink">
         <div class="button-group">
-            <div class="button" tooltip title="Edit in scoresheet" ng-click="score.open()">
+            <div class="button" tooltip title="Edit in scoresheet" ng-click="score.open()" ng-disabled="loading">
                 <i class="fa fa-edit"></i>
             </div>
-            <div class="button" tooltip title="Publish/Unpublish" ng-click="score.togglePublish()">
+            <div class="button" tooltip title="Publish/Unpublish" ng-click="score.togglePublish()" ng-disabled="loading">
                 <i class="fa" ng-class="score.togglingPublish ? 'fa-circle-notch fa-spin' : (score.data.public ? 'fa-minus-circle' : 'fa-plus-circle')"></i>
             </div>
-            <div class="alert button" tooltip title="Delete" ng-click="score.openDeletionDialog()">
+            <div class="alert button" tooltip title="Delete" ng-click="score.openDeletionDialog()" ng-disabled="loading">
                 <i class="fa" ng-class="score.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i>
             </div>
         </div>
