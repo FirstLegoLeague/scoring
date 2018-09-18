@@ -1,6 +1,6 @@
 {
   "name": "scoring",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Main scoring service",
   "main": "index.js",
   "repository": "https://github.com/FirstLegoLeagueIL/scoring",

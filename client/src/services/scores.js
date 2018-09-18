@@ -20,11 +20,13 @@ class Scores {
 
 	delete (id) {
 		this.ignoreNextLoad = true
+    this._all = []
 		return this.$http.delete(`/scores/${id}/delete`)
 	}
 
 	deleteAll () {
 		this.ignoreNextLoad = true
+    this._all = []
 		return this.$http.delete(`/scores/all`)
 	}
 

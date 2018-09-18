@@ -1,5 +1,6 @@
 api: "1.0"
 name: "scoring"
+display: "Scoring"
 type: node
 script: index.js
 require:
@@ -10,38 +11,39 @@ config:
       - name: year
         display: Challenge
         type: values
-        default: 2018 Into Orbit
+        default: 2018 INTO ORBIT
         values:
-          - 2018 Into Orbit
-          - 2017 Hydrodynamics
+          - 2018 INTO ORBIT
+          - 2017 HYDRO DYNAMICS
           - 2016 Animal Allies
           - 2015 Trash Trek
           - 2014 World Class
       - name: language
         display: Language
         type: values
-        default: US english
+        default: US English
         values:
-          - US english
+          - US English
+          - ES Spanish
           - NL Dutch
           - IL Hebrew
       - name: requireRef
-        display: Require a Referee
+        display: Require a referee name
         type: boolean
         default: true
       - name: autoPublish
-        display: Auto-publish setting
+        display: Auto-publish team scores
         type: boolean
         default: true
       - name: requireTable
-        display: Require a Table
+        display: Require a table
         type: boolean
         default: true
       - name: requireSignature
-        display: Require a Signature
+        display: Require a team signature
         type: boolean
         default: true
       - name: displayZeroMissions
-        display: Display zero mission results
+        display: Show mission score if zero
         type: boolean
         default: false
