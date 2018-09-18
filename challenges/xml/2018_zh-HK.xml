@@ -3,7 +3,7 @@
 <fll:challenge
     xmlns:fll="http://fll-tools.com/applications/scoring/v1/challenge.xsd" year="2018" version="0" name="INTO ORBIT">
 
-    <strings language="en-US">
+    <strings language="zh-HK">
 
         <string id="yes">                           是</string>
         <string id="no">                            否</string>
