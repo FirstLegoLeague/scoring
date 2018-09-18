@@ -50,7 +50,7 @@ export default {
     </div>
 </div>
 <div id="scores-deletion-modal" class="fast reveal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y">
-    <h4><b>All</b> scores are about to be deleted</h4>
+    <h4><b>All</b> scoring data is about to be permanently deleted</h4>
     <div class="subheader">Warning: You can’t undo this action.</div>
     <div class="grid-x align-center button-group">
         <div class="button" ng-click="scores.closeDeletionDialog()">No, I think I'll pass...</div>
