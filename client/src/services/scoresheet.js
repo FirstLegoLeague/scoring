@@ -4,7 +4,7 @@ import angular from 'angular'
 
 const INCOMPLETE_MISSION_ERROR = 'Some missions are incomplete'
 const MISSING_TEAM_ERROR = 'Missing team'
-const MISSING_MATCH_ERROR = 'Missing match'
+const MISSING_ROUND_ERROR = 'Missing round'
 
 class Scoresheet {
 
@@ -35,7 +35,7 @@ class Scoresheet {
 		})
 		this.errors = [
 			{ error: MISSING_TEAM_ERROR },
-			{ error: MISSING_MATCH_ERROR },
+			{ error: MISSING_ROUND_ERROR },
 			{ mission: this.current.missions[0], error: INCOMPLETE_MISSION_ERROR }
 		]
 		return Promise.resolve(self.current)
@@ -91,9 +91,9 @@ class Scoresheet {
 			self.errors = self.errors.filter(error => error.error !== MISSING_TEAM_ERROR)
 		}
 
-		// Missing match errors
+		// Missing round errors
 		if (self.current.matchId) {
-			self.errors = self.errors.filter(error => error.error !== MISSING_MATCH_ERROR)
+			self.errors = self.errors.filter(error => error.error !== MISSING_ROUND_ERROR)
 		}
 	}
 
