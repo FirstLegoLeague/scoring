@@ -61,10 +61,12 @@ function shouldPublish () {
     }))
 }
 
-function publishReloadIfShould () {
+function publishReloadIfShould (logger) {
   return shouldPublish().then(shouldReload => {
     if (shouldReload) {
       publishMsg('scores:reload')
+    } else {
+      logger.info('Not publishing scores due to a scoring error')
     }
   })
 }
@@ -82,7 +84,7 @@ router.post('/create', (req, res) => {
         res.status(201).send()
       })
   })
-    .then(() => publishReloadIfShould())
+    .then(() => publishReloadIfShould(req.logger))
     .catch(err => {
       if (err instanceof MissingFieldError) {
         req.logger.error('Invalid score, missing ' + err.error + '. ')
