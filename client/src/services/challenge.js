@@ -16,10 +16,16 @@ class Challenge {
 		return challengePromise
 		.then(challenge => this.$http.get(`/challenge/${challenge}`))
 		.then(response => {
-            self.challenge = eval(`(${response.data})`) // We can't use JSON.parse because the file contains functions
-            self.challenge.objectives = self.objectives(self.challenge.missions)
-	        self.challenge.missions.forEach(mission => self.assignDependencies(mission, self.challenge.objectives))
-            return self.challenge
+            this.challenge = eval(`(${response.data})`) // We can't use JSON.parse because the file contains functions
+            this.challenge.objectives = this.objectives(this.challenge.missions)
+	        this.challenge.missions.forEach(mission => {
+	        	mission.i18n = key => this.I18n(key)
+	        	this.assignDependencies(mission, this.challenge.objectives)
+	        	mission.objectives.forEach(objective => {
+        			objective.i18n = key => this.I18n(key)
+        		})
+	        })
+            return this.challenge
 	    })
 	}
 
