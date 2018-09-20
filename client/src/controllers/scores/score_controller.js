@@ -60,7 +60,7 @@ class ScoreController {
 	}
 
 	tableText () {
-		if (this.data.tableId && this.tables) {
+		if (typeof this.data.tableId !== 'undefined' && this.tables) {
 			this.data.tableText = this.tables.find(table => table.tableId === this.data.tableId).tableName
 		} else {
 			this.data.tableText = 'no table'
@@ -69,16 +69,16 @@ class ScoreController {
 	}
 
 	matchError () {
-		if(this.loading)		return false
-		if(!this.data.matchId)	return true
-		if(!this.matches)		return false
+		if(this.loading)								return false
+		if(typeof this.data.matchId === 'undefined')	return true
+		if(!this.matches)								return false
 		return this.matches.every(match => match._id != this.data.matchId)
 	}
 
 	teamNumberError() {
-		if(this.loading)			return false
-		if(!this.data.teamNumber)	return true
-		if(!this.teams)			return false
+		if(this.loading)								return false
+		if(typeof this.data.matchId === 'undefined')	return true
+		if(!this.teams)									return false
 		return this.teams.every(team => team.number !== this.data.teamNumber)
 	}
 
