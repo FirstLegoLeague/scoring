@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/challenge.xsl"?>
+<fll:challenge
+    xmlns:fll="http://fll-tools.com/applications/scoring/v1/challenge.xsd" year="2018" version="0" name="INTO ORBIT">
+
+    <strings language="he-IL">
+
+        <string id="yes">                           כן</string>
+        <string id="no">                            לא</string>
+
+        <string id="M01-name">                      M01 נסיעה בחלל</string>
+        <string id="M01-desc">                      <![CDATA[התחילו לגלגל כל מטען בברור במורד הרציף לנסיעה בחלל בכל גלגול העגלה חייבת *להיות עצמאית בזמן בו היא מגיעה לחיבור המסילה הראשון*]]></string>
+        <string id="M01-scoring1">                   מטען רכב עבר את חיבור המסילה הראשון</string>
+        <string id="M01-scoring2">                   מטען אספקה עבר את חיבור המסילה הראשון</string>
+        <string id="M01-scoring3">                   מטען צוות עבר את חיבור המסילה הראשון</string>
+
+        <string id="M02-name">                      M02 מערך לוחות סולריים</string>
+        <string id="M02-desc">                      <![CDATA[הלוחות הסולאריים צריכים לנטות כלפיכם או מכם והלאה.]]></string>
+        <string id="M02-scoring1">                   שני הלוחות הסולאריים נוטים כלפי אותה זירה</string>
+        <string id="M02-scoring2">                   הלוח הסולארי שלכם נוטה לזירה של הקבוצה השנייה</string>
+
+        <string id="M03-name">                      M03 הדפסה בתלת מימד</string>
+        <string id="M03-desc">                      <![CDATA[גרמו לפליטה של לבנת ה-4X2 *על ידי הנחת דגימת ליבה של רגולית' במדפסת התלת מימד.]]></string>
+        <string id="M03-scoring1">                  2x4 לבנת ה-2X4 נפלטה (ע”י הנחת דגימת ליבה של רגולית’ במדפסת התלת מימד בלבד)</string>
+        <string id="M03-scoring2">                  2x4 לבנת ה-2X4 לגמרי באזור כוכב הלכת הצפון מזרחי</string>
+
+        <string id="M04-name">                      M04 חציית מכתשים</string>
+        <string id="M04-desc">                      <![CDATA[הרובוט או כל רכב אחר אותו הוא שולח צריך לחצות לגמרי את דגם המכתשים, ע"י נסיעה ישירה מעליו. לא לידו. לא מסביבו.]]></string>
+        <string id="M04-scoring1">                  כל החלקים התומכים במשקל של הציוד המשמש למעבר חצו לגמרי בין המגדלים </string>
+        <string id="M04-scoring2">                 כל הציוד המשמש למעבר חצה ממזרח למערב, לגמרי מעבר לשער המורד</string>
+
+        <string id="M05-name">                      M05 כריית משאבים</string>
+        <string id="M05-desc">                      <![CDATA[הרובוט צריך להשיג את כל דגימות הליבה מתוך דגם אתר הליבה, ואז יש לו מספר אפשרויות מה לעשות איתן, כמתואר כאן ובמשימה M03]]></string>
+        <string id="M05-scoring1">                  כל ארבע דגימות הליבה לא נוגעות יותר במוט שהחזיק אותן בתוך דגם אתר הליבה</string>
+        <string id="M05-scoring2">                  דגימת הליבה של הגז נוגעת בשטיח ולגמרי בתוך עיגול המטרה של רכב הנחיתה</string>
+        <string id="M05-scoring3">                  -או- דגימת הליבה של הגז לגמרי בתוך הבסיס</string>
+        <string id="M05-scoring4">                  דגימת הליבה של המים נתמכת ע"י תא גידול המזון בלבד</string>
+        <string id="M05-error">                     מיקום דגימת הליבה של הגז</string>
+
+        <string id="M06-name">                      M06 רכיבי תחנת החלל</string>
+        <string id="M06-desc">                      <![CDATA[הרובוט צריך להסיר ולחבר רכיבים בין השקעים של אתר הביות.לרכיבים שהוכנסו אסור לגעת בשום דבר מלבד אתר הביות.]]></string>
+        <string id="M06-scoring1">                   הרכיב החרוטי לגמרי בתוך הבסיס</string>
+        <string id="M06-scoring2">                   הרכיב הגלילי הוכנס לתוך השקע המערבי של אתר הביות</string>
+        <string id="M06-scoring3">                   רכיב העגינה הוכנס לתוך השקע המזרחי של אתר הביות</string>
+
+        <string id="M07-name">                      M07 הליכת חלל בחירום</string>
+        <string id="M07-desc">                      <![CDATA[הרובוט צריך להכניס את הגוף של גרהרד לתא האוויר.]]></string>
+        <string id="M07-scoring">                   האסטרונאוט "ג'רהרד" הוכנס לתוך תא האוויר של אתר הביות</string>
+        <string id="M07-scoring1">                  לא</string>
+        <string id="M07-scoring2">                  באופן חלקי</string>
+        <string id="M07-scoring3">                  לגמרי בתוך</string>
+
+        <string id="M08-name">                      M08 פעילות אירובית</string>
+        <string id="M08-desc">                      <![CDATA[הרובוט צריך להזיז שוב ושוב את אחת או שתי הידיות המורכבות על מכשיר הכושר כדי לגרום למחוג להתקדם. (אם המחוג מכסה באופן חלקי את הגבול האחרון של הצבע הכתום או האפור , בחרו בצבע הזה) ]]></string>
+        <string id="M08-scoring">                   קצה מחוג דגם הפעילות האירובית בתחום (ע"י הזזת אחת או שתי הידיות המורכבות עליו בלבד):</string>
+        <string id="M08-scoring1">                  כלום</string>
+        <string id="M08-scoring2">                  אפור</string>
+        <string id="M08-scoring3">                  לבן</string>
+        <string id="M08-scoring4">                  כתום</string>
+
+        <string id="M09-name">                      M09 תרגילי כוח</string>
+        <string id="M09-desc">                      <![CDATA[הרובוט צריך להרים את מוט הכוח לגובה ניקוד.]]></string>
+        <string id="M09-scoring">                   מוט הכוח מורם כך שהחור הרביעי בפס השיניים נחשף לפחות באופן חלקי</string>
+
+        <string id="M10-name">                      M10 ייצור מזון</string>
+        <string id="M10-desc">                      <![CDATA[הזיזו את ידית הדחיפה למרחק הנכון במהירות הנכונה כדי להגיע לתוך טווח הניקוד הירוק.]]></string>
+        <string id="M10-scoring">                   משקולת אפורה נפלה אחרי הצבע הירוק אך לפני הבז' (ע"י הזזת ידית הדחיפה בלבד)</string>
+
+        <string id="M11-name">                      M11 מהירות מילוט</string>
+        <string id="M11-desc">                      <![CDATA[הרובוט צריך להכות על משטח הפגיעה חזק מספיק כדי שהחללית לא תיפול חזרה.]]></string>
+        <string id="M11-scoring">                   החללית נשארת למעלה (ע"י לחיצה/חבטה במשטח הפגיעה בלבד)</string>
+
+        <string id="M12-name">                      M12 מסלולי לויין</string>
+        <string id="M12-desc">                      <![CDATA[הרובוט צריך להזיז לוויין אחד או יותר למסלול החיצוני.]]></string>
+        <string id="M12-scoring">                   לווינים על או מעל האזור בין שני הקווים של המסלול החיצוני:</string>
+
+        <string id="M13-name">                      M13 מצפה כוכבים</string>
+        <string id="M13-desc">                      <![CDATA[סובבו את מצפה הכוכבים לכיוון המדויק (אם המחוג מכסה באופן חלקי את הגבול האחרון של הצבע הכתום או האפור , בחרו בצבע הזה).]]></string>
+        <string id="M13-scoring">                   קצה מחוג מצפה הכוכבים בתחום:</string>
+        <string id="M13-scoring1">                  כלום</string>
+        <string id="M13-scoring2">                  אפור</string>
+        <string id="M13-scoring3">                  לבן</string>
+        <string id="M13-scoring4">                  כתום</string>
+
+        <string id="M14-name">                      M14 הטיית מטאורואיד</string>
+        <string id="M14-desc">                      <![CDATA[ממערב לקו החופשי, שלחו מטאורואיד עצמאי אחד או שניים ללוכד המטאורואידים.]]></string>
+        <string id="M14-scoring1">                  מטאורואידים נוגעים בשטיח ונמצאים בתחום המרכזי:</string>
+        <string id="M14-scoring2">                  מטאורואידים נוגעים בשטיח ונמצאים בתחום צדדי כלשהו:</string>
+        <string id="M14-error">                     צירוף בלתי אפשרי. יותר מדי מטאורואידים</string>
+
+        <string id="M15-name">                      M15 נחיתת רכב הנחיתה</string>
+        <string id="M15-desc">                      <![CDATA[הביאו את רכב הנחיתה לאחת המטרות שלו כשהוא שלם, או לפחות הביאו אותו לבסיס.]]></string>
+        <string id="M15-scoring1">                  רכב הנחיתה שלם ונוגע בשטיח</string>
+        <string id="M15-scoring2">                  רכב הנחיתה לגמרי בתוך:</string>
+        <string id="M15-scoring3">                  כלום</string>
+        <string id="M15-scoring4">                  בסיס</string>
+        <string id="M15-scoring5">                  באזור כוכב הלכת הצפון מזרחי</string>
+        <string id="M15-scoring6">                  בתוך עיגול המטרה</string>
+
+        <string id="penalties-name">                עונשין</string>
+        <string id="penalties-desc">                <![CDATA[אתם רשאים להציל את הרובוט שלכם בעזרת הידיים, אבל זה גורם לעונשין הזה.]]></string>
+        <string id="penalties-scoring">             דיסקיות עונשין במשולש הדרום מזרחי:</string>
+
+    </strings>
+
+    <!-- Do NOT edit below this line -->
+
+    <mission name="M01-name" description="M01-desc">
+        <objective-yesno id="M01-1" description="M01-scoring1" default="no" />
+        <objective-yesno id="M01-2" description="M01-scoring2" default="no" />
+        <objective-yesno id="M01-3" description="M01-scoring3" default="no" />
+        <score>
+            <indexes>
+                <index objective="M01-1" />
+                <index objective="M01-2" />
+                <index objective="M01-3" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /> <points amount="10"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /> <points amount="14"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /> <points amount="24"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /> <points amount="22"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /><index-ref value="yes" /> <points amount="32"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /><index-ref value="no" /> <points amount="36"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /><index-ref value="yes" /> <points amount="46"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M02-name" description="M02-desc">
+        <objective-yesno id="M02-1" description="M02-scoring1" default="no" />
+        <objective-yesno id="M02-2" description="M02-scoring2" default="no" />
+        <score>
+            <indexes>
+                <index objective="M02-1" />
+                <index objective="M02-2" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /> <points amount="18"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /> <points amount="22"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /> <points amount="40"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M03-name" description="M03-desc">
+        <objective-yesno id="M03-1" description="M03-scoring1" default="no" />
+        <objective-yesno id="M03-2" description="M03-scoring2" default="no" />
+        <score>
+            <indexes>
+                <index objective="M03-1" />
+                <index objective="M03-2" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /> <points amount="0"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /> <points amount="18"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /> <points amount="22"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M04-name" description="M04-desc">
+        <objective-yesno id="M04-1" description="M04-scoring1" default="no" />
+        <objective-yesno id="M04-2" description="M04-scoring2" default="no" />
+        <score>
+            <indexes>
+                <index objective="M04-1" />
+                <index objective="M04-2" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /> <points amount="0"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /> <points amount="20"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M05-name" description="M05-desc">
+        <objective-yesno id="M05-1" description="M05-scoring1" default="no" />
+        <objective-yesno id="M05-2" description="M05-scoring2" default="no" />
+        <objective-yesno id="M05-3" description="M05-scoring3" default="no" />
+        <objective-yesno id="M05-4" description="M05-scoring4" default="no" />
+        <score>
+            <indexes>
+                <index objective="M05-1" />
+                <index objective="M05-2" />
+                <index objective="M05-3" />
+                <index objective="M05-4" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="no" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /> <points amount="12"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /> <points amount="10"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /><index-ref value="no" /> <error message="M05-error" /> </case>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /> <points amount="8"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="yes" /> <points amount="20"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /> <points amount="18"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /><index-ref value="yes" /> <error message="M05-error" /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /><index-ref value="no" /> <points amount="16"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /> <points amount="28"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /><index-ref value="yes" /><index-ref value="no" /> <points amount="26"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /><index-ref value="yes" /><index-ref value="no" /> <error message="M05-error" /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /><index-ref value="no" /><index-ref value="yes" /> <points amount="24"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /><index-ref value="no" /><index-ref value="yes" /> <points amount="36"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /><index-ref value="yes" /><index-ref value="yes" /> <points amount="34"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="yes" /><index-ref value="yes" /><index-ref value="yes" /> <error message="M05-error" /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M06-name" description="M06-desc">
+        <objective-yesno id="M06-1" description="M06-scoring1" default="no" />
+        <objective-yesno id="M06-2" description="M06-scoring2" default="no" />
+        <objective-yesno id="M06-3" description="M06-scoring3" default="no" />
+        <score>
+            <indexes>
+                <index objective="M06-1" />
+                <index objective="M06-2" />
+                <index objective="M06-3" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /> <index-ref value="no" /> <index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /> <index-ref value="no" /> <index-ref value="yes" /> <points amount="14"  /> </case>
+                <case> <index-ref value="no" /> <index-ref value="yes" /> <index-ref value="no" /> <points amount="16"  /> </case>
+                <case> <index-ref value="no" /> <index-ref value="yes" /> <index-ref value="yes" /> <points amount="30"  /> </case>
+                <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="no" /> <points amount="16"  /> </case>
+                <case> <index-ref value="yes" /> <index-ref value="no" /> <index-ref value="yes" /> <points amount="30"  /> </case>
+                <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="no" /> <points amount="32"  /> </case>
+                <case> <index-ref value="yes" /> <index-ref value="yes" /> <index-ref value="yes" /> <points amount="46"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M07-name" description="M07-desc">
+        <objective-enum id="M07" description="M07-scoring" default="none" >
+            <option name="none" description="M07-scoring1" />
+            <option name="partially" description="M07-scoring2" />
+            <option name="completely" description="M07-scoring3" />
+		</objective-enum>
+        <score>
+            <indexes>
+                <index objective="M07" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="none" /> <points amount="0"  /> </case>
+                <case> <index-ref value="partially" /> <points amount="18"  /> </case>
+                <case> <index-ref value="completely" /> <points amount="22"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M08-name" description="M08-desc">
+        <objective-enum id="M08" description="M08-scoring" default="none">
+            <option name="none" description="M08-scoring1" />
+            <option name="gray" description="M08-scoring2" />
+            <option name="white" description="M08-scoring3" />
+            <option name="orange" description="M08-scoring4" />
+        </objective-enum>
+        <score>
+            <indexes>
+                <index objective="M08" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="none" /> <points amount="0"  /> </case>
+                <case> <index-ref value="gray" /> <points amount="18"  /> </case>
+                <case> <index-ref value="white" /> <points amount="20"  /> </case>
+                <case> <index-ref value="orange" /> <points amount="22"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M09-name" description="M09-desc">
+        <objective-yesno id="M09" description="M09-scoring" default="no" />
+        <score>
+            <indexes>
+                <index objective="M09" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="yes" /> <points amount="16"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M10-name" description="M10-desc">
+        <objective-yesno id="M10" description="M10-scoring" default="no" />
+        <score>
+            <indexes>
+                <index objective="M10" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="yes" /> <points amount="16"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M11-name" description="M11-desc">
+        <objective-yesno id="M11" description="M11-scoring" default="no" />
+        <score>
+            <indexes>
+                <index objective="M11" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="yes" /> <points amount="24"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M12-name" description="M12-desc">
+        <objective-enum id="M12" description="M12-scoring" default="0">
+            <option name="0" description="0" />
+            <option name="1" description="1" />
+            <option name="2" description="2" />
+            <option name="3" description="3" />
+        </objective-enum>
+        <score>
+            <indexes>
+                <index objective="M12" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="0" /> <points amount="0"  /> </case>
+                <case> <index-ref value="1" /> <points amount="8"  /> </case>
+                <case> <index-ref value="2" /> <points amount="16"  /> </case>
+                <case> <index-ref value="3" /> <points amount="24"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M13-name" description="M13-desc">
+        <objective-enum id="M13" description="M13-scoring" default="none">
+            <option name="none" description="M13-scoring1" />
+            <option name="gray" description="M13-scoring2" />
+            <option name="white" description="M13-scoring3" />
+            <option name="orange" description="M13-scoring4" />
+        </objective-enum>
+        <score>
+            <indexes>
+                <index objective="M13" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="none" /> <points amount="0"  /> </case>
+                <case> <index-ref value="gray" /> <points amount="16"  /> </case>
+                <case> <index-ref value="white" /> <points amount="18"  /> </case>
+                <case> <index-ref value="orange" /> <points amount="20"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M14-name" description="M14-desc">
+        <objective-enum id="M14-1" description="M14-scoring1" default="0">
+            <option name="0" description="0" />
+            <option name="1" description="1" />
+            <option name="2" description="2" />
+        </objective-enum>
+        <objective-enum id="M14-2" description="M14-scoring2" default="0">
+            <option name="0" description="0" />
+            <option name="1" description="1" />
+            <option name="2" description="2" />
+        </objective-enum>
+        <score>
+            <indexes>
+                <index objective="M14-1" />
+                <index objective="M14-2" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="0" /><index-ref value="0" /> <points amount="0"  /> </case>
+                <case> <index-ref value="0" /><index-ref value="1" /> <points amount="8"  /> </case>
+                <case> <index-ref value="0" /><index-ref value="2" /> <points amount="16"  /> </case>
+                <case> <index-ref value="1" /><index-ref value="0" /> <points amount="12"  /> </case>
+                <case> <index-ref value="1" /><index-ref value="1" /> <points amount="20"  /> </case>
+                <case> <index-ref value="1" /><index-ref value="2" /> <error message="M14-error"  /> </case>
+                <case> <index-ref value="2" /><index-ref value="0" /> <points amount="24"  /> </case>
+                <case> <index-ref value="2" /><index-ref value="1" /> <error message="M14-error"  /> </case>
+                <case> <index-ref value="2" /><index-ref value="2" /> <error message="M14-error"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="M15-name" description="M15-desc">
+        <objective-yesno id="M15-1" description="M15-scoring1" default="no" />
+        <objective-enum id="M15-2" description="M15-scoring2" default="no">
+            <option name="no" description="M15-scoring3" />
+            <option name="base" description="M15-scoring4" />
+            <option name="planet" description="M15-scoring5" />
+            <option name="circle" description="M15-scoring6" />
+        </objective-enum>
+        <score>
+            <indexes>
+                <index objective="M15-1" />
+                <index objective="M15-2" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="no" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="base" /> <points amount="16"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="circle" /> <points amount="0"  /> </case>
+                <case> <index-ref value="no" /><index-ref value="planet" /> <points amount="0"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="no" /> <points amount="0"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="base" /> <points amount="16"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="planet" /> <points amount="20"  /> </case>
+                <case> <index-ref value="yes" /><index-ref value="circle" /> <points amount="22"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+    <mission name="penalties-name" description="penalties-desc">
+        <objective-enum id="penalties" description="penalties-scoring" default="0">
+            <option name="0" description="0" />
+            <option name="1" description="1" />
+            <option name="2" description="2" />
+            <option name="3" description="3" />
+            <option name="4" description="4" />
+            <option name="5" description="5" />
+            <option name="6" description="6" />
+        </objective-enum>
+        <score>
+            <indexes>
+                <index objective="penalties" />
+            </indexes>
+            <cases>
+                <case> <index-ref value="0" /> <points amount="0"  /> </case>
+                <case> <index-ref value="1" /> <points amount="-3"  /> </case>
+                <case> <index-ref value="2" /> <points amount="-6"  /> </case>
+                <case> <index-ref value="3" /> <points amount="-9"  /> </case>
+                <case> <index-ref value="4" /> <points amount="-12"  /> </case>
+                <case> <index-ref value="5" /> <points amount="-15"  /> </case>
+                <case> <index-ref value="6" /> <points amount="-18"  /> </case>
+            </cases>
+        </score>
+    </mission>
+
+</fll:challenge>
