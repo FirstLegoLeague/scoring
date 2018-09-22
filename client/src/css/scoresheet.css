@@ -10,6 +10,7 @@ scoresheet .stamp {
   border-width: 2px !important;
   font-weight: bold;
   transform: rotate(-10deg);
+  direction: ltr !important;
 }
 
 #signature:not(.alert) .stamp {
@@ -81,4 +82,31 @@ mission h3 .button {
 #score-diff-animation.ng-hide-animate {
   top: 6rem;
   transition: top linear 0s;
+}
+
+/* rtl */
+
+scoresheet [dir="rtl"] .stamp {
+    float: right;
+    top: 1em;
+    left: 1em;
+    right: unset;
+    transform: rotate(10deg);
+}
+
+scoresheet [dir="rtl"] .small-offset-5 {
+    margin-left: unset;
+    margin-right: 41.66667%;
+}
+
+@media print, screen and (min-width: 64em) {
+  scoresheet [dir="rtl"] .large-offset-1 {
+    margin-left: unset;
+    margin-right: 8.33333%;
+  }
+}
+
+scoresheet [dir="rtl"] #score-diff-animation {
+  right: unset;
+  left: 1em;
 }
