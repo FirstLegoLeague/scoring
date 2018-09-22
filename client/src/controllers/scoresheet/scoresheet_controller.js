@@ -90,7 +90,7 @@ class ScoresheetController {
     })
 
     this.Configuration.load().then(config => {
-      if (config.requireSignature) {
+      this.direction = config.direction.split(' ').map(word => word.toLowerCase()[0]).join('')if (config.requireSignature) {
         this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
           if (this.scoresheet) {
             let signature = this.$scope.getSignature()

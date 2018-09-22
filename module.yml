@@ -22,10 +22,21 @@ config:
         type: values
         default: US English
         values:
-          - US English
           - ES Spanish
-          - NL Dutch
           - IL Hebrew
+<<<<<<< HEAD
+      - name: direction
+        display: Scoresheet direction
+        type: values
+        default: Left to right
+        values:
+          - Right to left
+          - Left to right
+=======
+          - NL Dutch
+          - US English
+          - ZH Chinese (Hong Kong)
+>>>>>>> c3d4aa546f3c01e3ff406cef20b125ee7b41cf72
       - name: requireRef
         display: Require a referee name
         type: boolean

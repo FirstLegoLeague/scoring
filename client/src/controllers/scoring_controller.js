@@ -2,8 +2,9 @@
 
 class ScoringController {
 
-  constructor ($scope, Configuration, Tournament, Notifications, User, Messanger) {
-  	this.$scope = $scope
+  constructor ($window, $scope, Configuration, Tournament, Notifications, User, Messanger) {
+  	this.$ = $window.$
+    this.$scope = $scope
     this.Configuration = Configuration
     this.Tournament = Tournament
   	this.Notifications = Notifications
@@ -14,6 +15,7 @@ class ScoringController {
   $onInit () {
     this._initConfiguration()
     this._initEvents()
+    this._initHamburgerTooltip()
   }
 
   _initConfiguration () {
@@ -44,17 +46,29 @@ class ScoringController {
         this.$scope.$broadcast('reload teams')
       })
     })
+  }
 
+  _initHamburgerTooltip () {
+    setTimeout(() => {
+      this.$hamburger = this.$('[data-hamburger]')
+      this.hamburgerTooltip = new Foundation.Tooltip(this.$hamburger, { tipText: this._hamburgerTooltipText() })
+    })
+  }
 
+  _hamburgerTooltipText () {
+    return this.showScoresScreen ? 'Close Scores list' : 'Open Scores list'
   }
 
   toggleScoresList () {
     this.showScoresScreen = !this.showScoresScreen
+
+    this.hamburgerTooltip._destroy()
+    this.hamburgerTooltip = new Foundation.Tooltip(this.$hamburger, { tipText: this._hamburgerTooltipText() })
   }
 
 }
 
 ScoringController.$$ngIsClass = true
-ScoringController.$inject = ['$scope', 'Configuration', 'Tournament', 'Notifications', 'User', 'Messanger']
+ScoringController.$inject = ['$window', '$scope', 'Configuration', 'Tournament', 'Notifications', 'User', 'Messanger']
 
 export default ScoringController
