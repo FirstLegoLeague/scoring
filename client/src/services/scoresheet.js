@@ -147,6 +147,8 @@ class Scoresheet {
 				teamNumber: scoresheet.teamNumber,
 				score: scoresheet.score,
 				title: scoresheet.challenge,
+        round: scoresheet.round,
+        stage: scoresheet.stage,
 				_id: scoresheet._id
 			})
 			return current
