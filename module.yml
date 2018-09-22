@@ -26,6 +26,13 @@ config:
           - ES Spanish
           - NL Dutch
           - IL Hebrew
+      - name: direction
+        display: Scoresheet direction
+        type: values
+        default: Left to right
+        values:
+          - Right to left
+          - Left to right
       - name: requireRef
         display: Require a referee name
         type: boolean
