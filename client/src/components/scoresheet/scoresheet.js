@@ -47,7 +47,7 @@ export default {
 		</ul>
 	</div>
 </div>
-<div class="top-bar-page" ng-class="{ loading: scoresheet.loading }">
+<div class="top-bar-page" ng-class="{ loading: scoresheet.loading }" dir="{{scoresheet.direction}}">
     <div class="dimmer">
         <div class="large loader"></div>
     </div>
