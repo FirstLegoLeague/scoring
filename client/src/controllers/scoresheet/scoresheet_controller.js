@@ -47,6 +47,7 @@ class ScoresheetController {
         this.$scope.$on('load', (event, scoresheet) => {
             this.Scoresheet.load(scoresheet).then(scoresheet => {
                 this.scoresheet = scoresheet
+                this.direction = scoresheet.direction
                 this.missions = scoresheet.missions
                 this.Tournament.teams().then(teams => {
                     this.team = teams.find(team => team.number === this.scoresheet.teamNumber).displayText
@@ -85,7 +86,6 @@ class ScoresheetController {
         })
 
         this.Configuration.load().then(config => {
-            this.direction = config.direction.split(' ').map(word => word.toLowerCase()[0]).join('')
             if (config.requireSignature) {
                 this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
                     if (this.scoresheet) {
@@ -148,6 +148,7 @@ class ScoresheetController {
     reset() {
         return this.Scoresheet.reset().then(scoresheet => {
             this.scoresheet = scoresheet
+            this.direction = scoresheet.direction
             this.missions = scoresheet.missions
             this.$scope.clearSignature()
             this.$scope.$apply()
