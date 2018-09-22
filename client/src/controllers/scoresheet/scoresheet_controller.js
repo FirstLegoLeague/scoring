@@ -47,7 +47,8 @@ class ScoresheetController {
     this.$scope.$on('load', (event, scoresheet) => {
       this.Scoresheet.load(scoresheet).then(scoresheet => {
         this.scoresheet = scoresheet
-        this.direction = scoresheet.directionthis.missions = scoresheet.missions
+        this.direction = scoresheet.direction
+        this.missions = scoresheet.missions
         this.Tournament.teams().then(teams => {
           this.team = teams.find(team => team.number === this.scoresheet.teamNumber).displayText
         })
@@ -152,7 +153,8 @@ class ScoresheetController {
   reset () {
     return this.Scoresheet.reset().then(scoresheet => {
       this.scoresheet = scoresheet
-      this.direction = scoresheet.directionthis.missions = scoresheet.missions
+      this.direction = scoresheet.direction
+      this.missions = scoresheet.missions
       this.$scope.clearSignature()
       this.$scope.$apply()
       this.scrollToMission(this.scoresheet.missions[0])
