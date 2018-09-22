@@ -49,12 +49,13 @@ class ScoresheetController {
         this.scoresheet = scoresheet
         this.direction = scoresheet.direction
         this.missions = scoresheet.missions
-        this.Tournament.teams().then(teams => {
+        this.Tournament.teams()
+          .then(teams => {
           this.team = teams.find(team => team.number === this.scoresheet.teamNumber).displayText
-        }).then(() => {
-          this.Tournament.teamsMatches(this.scoresheet.teamNumber).then(matches => {
-            this.match = matches.find(match => match.round === this.scoresheet.round && match.stage === this.scoresheet.stage)._id
-          })
+        })
+          .then(() => this.Tournament.teamsMatches(this.scoresheet.teamNumber))
+          .then(matches => {
+          this.match = matches.find(match => match.round === this.scoresheet.round && match.stage === this.scoresheet.stage)._id
         })
 
         this.signatureMissing = false
