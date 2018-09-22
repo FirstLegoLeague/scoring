@@ -22,18 +22,11 @@ config:
         type: values
         default: US English
         values:
-          - ES Spanish
-          - IL Hebrew
-          - NL Dutch
           - US English
+          - ES Spanish
+          - NL Dutch
           - ZH Chinese (Hong Kong)
-      - name: direction
-        display: Scoresheet direction
-        type: values
-        default: Left to right
-        values:
-          - Right to left
-          - Left to right
+          - IL Hebrew
       - name: requireRef
         display: Require a referee name
         type: boolean

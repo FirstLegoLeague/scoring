@@ -17,6 +17,7 @@ class Challenge {
 		.then(challenge => this.$http.get(`/challenge/${challenge}`))
 		.then(response => {
             this.challenge = eval(`(${response.data})`) // We can't use JSON.parse because the file contains functions
+            this.challenge.direction = this.direction()
             this.challenge.objectives = this.objectives(this.challenge.missions)
 	        this.challenge.missions.forEach(mission => {
 	        	mission.i18n = key => this.I18n(key)
@@ -47,6 +48,10 @@ class Challenge {
 
 	I18n (key) {
 		return this.challenge.strings[key]
+	}
+
+	direction () {
+		return this.challenge.rtl ? 'rtl' : 'ltr'
 	}
 
 	getConfiguratedChallenge () {
