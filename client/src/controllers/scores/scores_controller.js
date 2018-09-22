@@ -45,7 +45,7 @@ class ScoresController {
 			})
 		}
 	}
-	
+
 	loadTeams() {
 		return this.Tournament.teams().then(teams => {
 			this._teamNumberList = []
@@ -87,8 +87,8 @@ class ScoresController {
 		// Filter by search
 		if (this.search) {
 			scores = this._scores
-				.filter(score => [score.teamText, score.referee, score.tableText, score.matchText, score.score]
-					.some(value => (value || '').toString().includes(this.search)))
+				.filter(score => [score.teamText.toLowerCase(), score.referee.toLowerCase(), score.tableText.toLowerCase(), score.matchText.toLowerCase(), score.score]
+					.some(value => (value || '').toString().includes(this.search.toLowerCase())))
 		}
 
 		// Filter by showDuplicates
