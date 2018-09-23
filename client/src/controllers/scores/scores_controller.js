@@ -88,12 +88,7 @@ class ScoresController {
     if (this.search) {
       scores = this._scores
         .filter(score => [score.teamText, score.referee, score.tableText, score.matchText, score.score]
-          .map(element => {
-            if (element && typeof element === 'string') {
-              return element.toLowerCase()
-            }
-            return element
-          })
+          .map(field => (field && typeof field === 'string') ? field.toLowerCase() : field)
           .some(value => (value || '').toString().includes(this.search.toLowerCase())))
     }
 
