@@ -69,7 +69,7 @@ export default {
 					<div class="stamp hollow alert button" ng-click="scoresheet.scrollToMission(scoresheet.error().mission)">{{scoresheet.error().error}}</div>
 				</div>
 			</div>
-			<div class="cell small-2 small-offset-5">
+			<div class="cell small-12 flex-container align-center">
 				<div class="large button" ng-click="scoresheet.save()" ng-disabled="!scoresheet.complete()">Submit</div>
 			</div>
 		</div>
