@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
       node: process.env.DEV ? 'default' : 'protected',
       logout: `${process.env.MODULE_IDENTITY_PROVIDER_URL}/logout`,
       tournament: process.env.MODULE_TOURNAMENT_URL,
-      rankings: `${process.env.MODULE_RANKINGS_URL}/rankings.csv?hideNegatvies=false`
+      rankings: `${process.env.MODULE_RANKINGS_URL}/rankings.csv?hideNegatives=false`
     })
     res.json(config)
   }).catch(err => {
