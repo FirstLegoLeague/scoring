@@ -14,40 +14,31 @@ const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 
 const router = express.Router()
 
-class MissingFieldError extends Error {
-  constructor (err) {
-    super()
-    this.error = err
-    Error.captureStackTrace(this, MissingFieldError)
-  }
-}
+const SCORE_FIELDS = ['missions', 'score', 'challenge', 'signature', 'teamNumber',
+  'round', 'stage', 'matchId', 'referee', 'tableId']
 
-const ERROR = {
-  TEAM_NUMBER: 'team number ',
-  SCORE: 'score ',
-  MATCH: 'match ',
-  NONE: ''
+class InvalidScore extends Error {
+  constructor () {
+    super()
+    Error.captureStackTrace(this, InvalidScore)
+  }
 }
 
 const connectionPromise = MongoClient
   .connect(mongoUrl, { promiseLibrary: Promise, useNewUrlParser: true })
   .then(client => client.db().collection('scores'))
 
-function _validateScore (score) {
-  const validatedScore = score
-
-  const missingFieldError = new MissingFieldError(ERROR.NONE)
-
-  return Configuration.get('autoPublish').then(autoPublishSetting => {
-    validatedScore.public = autoPublishSetting
-
-    if (typeof validatedScore.teamNumber !== 'number') { missingFieldError.error += ERROR.TEAM_NUMBER }
-    if (validatedScore.score == null) { missingFieldError.error += ERROR.SCORE }
-    if (typeof validatedScore.teamNumber !== 'number') { missingFieldError.error += ERROR.MATCH }
-
-    if (missingFieldError.error !== ERROR.NONE) { throw missingFieldError }
-
-    return validatedScore
+function validateScore (rawScore) {
+  return Configuration.get('autoPublish').then(autoPublish => {
+    const score = SCORE_FIELDS.reduce((scoreObject, field) => {
+      if (rawScore.hasOwnProperty(field)) {
+        scoreObject[field] = rawScore[field]
+      } else {
+        throw new InvalidScore(`Missing field: ${field}`)
+      }
+      return scoreObject
+    }, { public: autoPublish })
+    return score
   })
 }
 
@@ -74,36 +65,38 @@ function publishReloadIfShould (logger) {
 const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
 
 router.post('/create', (req, res) => {
-  _validateScore(req.body).then(validatedScore => {
-    return connectionPromise
-      .then(scoringCollection => {
-        req.logger.info(`Saving score for team ${validatedScore.teamNumber} on ${validatedScore.stage} stage with ${validatedScore.score} pts.`)
-        return scoringCollection.save(validatedScore)
-      })
-      .then(() => {
-        res.status(201).send()
-      })
-  })
+  Promise.all([connectionPromise, validateScore(req.body)])
+    .then(([scoringCollection, score]) => {
+      req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
+      return scoringCollection.save(score)
+    })
+    .then(() => res.status(201).send())
     .then(() => publishReloadIfShould(req.logger))
     .catch(err => {
-      if (err instanceof MissingFieldError) {
-        req.logger.error('Invalid score, missing ' + err.error + '. ')
-        res.status(422).send('Invalid score, missing ' + err.error)
+      req.logger.error(err.message)
+      if (err instanceof InvalidScore) {
+        res.status(422).send(err.message)
       } else {
-        req.logger.error(err.message)
         res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
       }
     })
 })
 
 router.post('/:id/update', adminAction, (req, res) => {
-  connectionPromise
-    .then(scoringCollection => scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: req.body }))
+  Promise.all([connectionPromise, validateScore(req.body)])
+    .then(([scoringCollection, score]) => {
+      req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
+      return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: score })
+    })
     .then(() => res.status(204).send())
     .then(() => publishReloadIfShould(req.logger))
     .catch(err => {
       req.logger.error(err.message)
-      res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
+      if (err instanceof InvalidScore) {
+        res.status(422).send(err.message)
+      } else {
+        res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
+      }
     })
 })
 

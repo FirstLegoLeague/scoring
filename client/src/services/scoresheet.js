@@ -103,15 +103,10 @@ class Scoresheet {
 				missions: this.current.missions.map(mission => {
 					return {
 						id: mission.id,
-						title: mission.title,
-						description: mission.description,
 						score: mission.score,
 						objectives: mission.objectives.map(objective => {
 							return {
 								id: objective.id,
-								title: objective.title,
-								type: objective.type,
-								default: objective.default,
 								value: objective.value
 							}
 						})
@@ -147,8 +142,8 @@ class Scoresheet {
 				teamNumber: scoresheet.teamNumber,
 				score: scoresheet.score,
 				title: scoresheet.challenge,
-        round: scoresheet.round,
-        stage: scoresheet.stage,
+				round: scoresheet.round,
+				stage: scoresheet.stage,
 				_id: scoresheet._id
 			})
 			return current
