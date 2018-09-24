@@ -62,6 +62,7 @@ class ScoresheetController {
       })
     })
     this.$scope.$on('reload teams', () => this.loadTeams())
+    this.$scope.$on('proccess scoresheet errors', () => { this.processErrors() })
 
     this.$scope.$watch(() => this.team, () => {
       if (this.team) {

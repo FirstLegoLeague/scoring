@@ -4,9 +4,7 @@ export default {
 	template: `<div class="top-bar secondary">
 	<div class="top-bar-left">
 		<ul class="menu">
-			<div>
-				<ref-identity ng-if="scoresheet.isRef"></ref-identity>
-			</div>
+			<ref-identity class="menu"></ref-identity>
 			<div>
 				<form>
 					<input type="text" list="teams" ng-focus="scoresheet.team = ''" ng-click="scoresheet.team = ''" placeholder="Select Team" blur="submit" ng-model="scoresheet.team">

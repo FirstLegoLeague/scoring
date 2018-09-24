@@ -2,9 +2,18 @@
 
 export default {
 	template: `
-	<div class="hollow button" ng-click="refIdentity.open()" ng-show="refIdentity.showTopbarButton">
+	<div ng-if="refIdentity.isRef" class="hollow button" ng-click="refIdentity.open()" ng-show="refIdentity.showTopbarButton">
 		<i class="fa fa-user"></i>
 		{{refIdentity.display()}}
+	</div>
+	<div ng-if="!refIdentity.isRef">
+		<input type="text" placeholder="Referee name" ng-model="refIdentity.referee">
+	</div>
+	<div ng-if="!refIdentity.isRef && !refIdentity.tablesDisabled">
+		<select name="table" ng-model="refIdentity.table"
+			ng-options="table.tableName for table in refIdentity.tables track by table.tableId">
+			<option value="" disabled selected hidden>Choose table</option>
+		</select>
 	</div>
 	<div class="fast reveal" id="identity-modal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y" data-close-on-click="false">
 		<h1>Choose your codename</h1>

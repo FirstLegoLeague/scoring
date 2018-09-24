@@ -3,6 +3,8 @@
 import angular from 'angular'
 
 const INCOMPLETE_MISSION_ERROR = 'Some missions are incomplete'
+const MISSING_REF_ERROR = 'Missing referee'
+const MISSING_TABLE_ERROR = 'Missing table'
 const MISSING_TEAM_ERROR = 'Missing team'
 const MISSING_ROUND_ERROR = 'Missing round'
 
@@ -34,6 +36,8 @@ class Scoresheet {
 			mission.process = () => self.processMission(mission)
 		})
 		this.errors = [
+			{ error: MISSING_REF_ERROR },
+			{ error: MISSING_TABLE_ERROR },
 			{ error: MISSING_TEAM_ERROR },
 			{ error: MISSING_ROUND_ERROR },
 			{ mission: this.current.missions[0], error: INCOMPLETE_MISSION_ERROR }
@@ -76,7 +80,7 @@ class Scoresheet {
 
 	processErrors() {
 		let self = this
-		// Missinon errors
+		// Mission errors
 		self.errors = self.errors.filter(error => error.error !== INCOMPLETE_MISSION_ERROR)
 		self.current.missions.forEach(mission => {
 			if (!mission.complete) {
@@ -85,15 +89,17 @@ class Scoresheet {
 			}
 			return true
 		})
-
-		// Missing data errors
 		if (self.current.teamNumber) {
 			self.errors = self.errors.filter(error => error.error !== MISSING_TEAM_ERROR)
 		}
-
-		// Missing round errors
 		if (self.current.matchId) {
 			self.errors = self.errors.filter(error => error.error !== MISSING_ROUND_ERROR)
+		}
+		if (this.RefIdentity.referee) {
+			self.errors = self.errors.filter(error => error.error !== MISSING_REF_ERROR)
+		}
+		if (this.RefIdentity.tablesDisabled || this.RefIdentity.table) {
+			self.errors = self.errors.filter(error => error.error !== MISSING_TABLE_ERROR)
 		}
 	}
 
@@ -119,8 +125,8 @@ class Scoresheet {
 				round: this.current.round,
 				stage: this.current.stage,
 				matchId: this.current.matchId,
-				referee: identity.referee || this.current.referee,
-				tableId: isFinite(identity.tableId) ? identity.tableId : this.current.tableId
+				referee: identity.referee,
+				tableId: identity.tableId
 			}
 
 			let action = this.current._id ? `/scores/${this.current._id}/update/` : '/scores/create'
@@ -136,8 +142,6 @@ class Scoresheet {
 				})
 			})
 			Object.assign(current, {
-				referee: scoresheet.referee,
-				tableId: scoresheet.tableId,
 				signature: scoresheet.signature,
 				teamNumber: scoresheet.teamNumber,
 				score: scoresheet.score,
@@ -146,6 +150,8 @@ class Scoresheet {
 				stage: scoresheet.stage,
 				_id: scoresheet._id
 			})
+			this.RefIdentity.referee = current.referee
+			this.RefIdentity.tableId = current.tableId
 			return current
 		})
 	}
