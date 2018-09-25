@@ -3,7 +3,7 @@ extends: standard
 parserOptions:
   env:
     es6: true
-  sourceType: script
+  sourceType: module
 
 rules:
   arrow-parens:
@@ -30,13 +30,9 @@ rules:
     - parent
     newlines-between: always-and-inside-groups
 
-  node/exports-style:
-  - warn
-  - exports
-  node/no-unsupported-features: warn
-  node/shebang: warn
+  node/no-unsupported-features: none
 
   promise/catch-or-return: warn
   promise/no-callback-in-promise: warn
-  promise/no-native: warn
+  promise/no-native: none
   promise/no-return-wrap: warn

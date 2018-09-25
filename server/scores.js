@@ -18,8 +18,9 @@ const SCORE_FIELDS = ['missions', 'score', 'challenge', 'signature', 'teamNumber
   'round', 'stage', 'matchId', 'referee', 'tableId']
 
 class InvalidScore extends Error {
-  constructor () {
+  constructor (message) {
     super()
+    this.message = message
     Error.captureStackTrace(this, InvalidScore)
   }
 }

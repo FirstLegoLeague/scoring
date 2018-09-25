@@ -1,10 +1,6 @@
-'use strict'
-
 export default {
-	template: ``,
-	controller: function() { },
-	controllerAs: 'objective',
-	bindings: {
-		data: '=?'
-	}
+  template: ``,
+  controller: function () { },
+  controllerAs: 'objective',
+  bindings: { data: '=?' }
 }

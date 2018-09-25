@@ -1,5 +1,3 @@
-'use strict'
-
 function Config ($httpProvider) {
   $httpProvider.interceptors.push('AuthenticationInterceptor')
 }

@@ -1,33 +1,31 @@
-'use strict'
-
 const MODAL = '#identity-modal'
 
 class RefIdentityController {
-
-  constructor ($scope, RefIdentity, User, Modals) {
-    this.$scope = $scope
-    this.RefIdentity = RefIdentity
-    this.data = RefIdentity
-    this.Modals = Modals
+  constructor (RefIdentity, $scope, User, Modals) {
+    Object.assign(this, { data: RefIdentity, $scope, User, Modals })
     this.isRef = User.isRef()
     this.showTopbarButton = false
   }
 
   $onInit () {
-    this.RefIdentity.init().then(identity => {
-      if(identity.initialized) {
-        this.showTopbarButton = true
-      } else if(this.isRef) {
-        this.open()
-      }
+    this.data.init()
+      .then(() => {
+        if (this.isRef) {
+          if (this.data.isInitialized()) {
+            this.showTopbarButton = true
+          } else {
+            this.open()
+          }
+        }
 
-      this.$scope.$watch(() => this.data.referee, () => {
-        this.$scope.$emit('proccess scoresheet errors')
+        this.$scope.$watch(() => this.data.referee, () => {
+          this.$scope.$emit('proccess scoresheet')
+        })
+        this.$scope.$watch(() => this.data.table, () => {
+          this.$scope.$emit('proccess scoresheet')
+        })
       })
-      this.$scope.$watch(() => this.data.table, () => {
-        this.$scope.$emit('proccess scoresheet errors')
-      })
-    })
+      .catch(err => console.log(err))
   }
 
   open () {
@@ -41,17 +39,16 @@ class RefIdentityController {
 
   close () {
     this.showTopbarButton = true
-    this.RefIdentity.save({ referee: this.referee, table: this.table })
+    this.data.save()
     this.Modals.close(MODAL)
   }
 
   display () {
     return this.showTopbarButton ? `${this.data.referee} ${this.data.tablesDisabled ? '' : `(On ${this.data.table.tableName})`}` : ''
   }
-
 }
 
 RefIdentityController.$$ngIsClass = true
-RefIdentityController.$inject = ['$scope', 'RefIdentity', 'User', 'Modals']
+RefIdentityController.$inject = ['RefIdentity', '$scope', 'User', 'Modals']
 
 export default RefIdentityController

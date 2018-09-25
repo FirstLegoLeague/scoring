@@ -1,14 +1,12 @@
-'use strict'
-
 export default {
-	template: `
+  template: `
 <div class="card" ng-if="score.ready" ng-class="{ loading: score.loading }">
     <div class="dimmer">
         <div class="big loader"></div>
     </div>
     <div class="card-section">
         <h4>
-            <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.updateMatch()" e-ng-options="team.number as team.displayText for team in score.teams">
+            <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.updateMatch()" e-ng-options="team.number as team.displayText for team in score.Tournament.teams">
                 <div ng-class="{'card-section alert' : score.teamNumberError()}">{{ score.teamText() }}</div>
             </a>
         </h4>
@@ -23,18 +21,13 @@ export default {
             {{ score.data.score || 0 }}
         </a>
     </div>
-    <div class="card-divider" ng-if="score.tables.length">
+    <div class="card-divider" ng-if="!score.Tournament.tablesDisabled">
         <a editable-text="score.data.referee" buttons="no" blur="submit" onaftersave="score.save()">
             {{ score.data.referee || 'No one' }}
         </a>
         &#160;on table&#160;
-        <a editable-select="score.data.tableId" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="table.tableId as table.tableName for table in score.tables">
+        <a editable-select="score.data.tableId" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="table.tableId as table.tableName for table in score.Tournament.tables">
             {{ score.tableText() }}.
-        </a>
-    </div>
-    <div class="card-divider" ng-if="!score.tables.length">
-        <a editable-text="score.data.referee" buttons="no" blur="submit" onaftersave="score.save()">
-            {{ score.data.referee || 'No one' }}
         </a>
     </div>
     <div class="card-section flex-child-shrink">
@@ -62,8 +55,6 @@ export default {
         </button>
     </div>
 </div>`,
-	controller: 'ScoreController as score',
-	bindings: {
-		data: '=?'
-	}
+  controller: 'ScoreController as score',
+  bindings: { data: '=?' }
 }

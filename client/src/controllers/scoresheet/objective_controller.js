@@ -1,26 +1,22 @@
-'use strict'
-
 class ObjectiveController {
+  constructor ($scope) {
+    Object.assign(this, { $scope })
+  }
 
-	constructor ($scope) {
-		this.$scope = $scope
-	}
+  $onInit () {
+    this.$scope.$watch(() => this.data.value, () => {
+      this.data.complete = true
+      this.$scope.$emit('objective complete', this.data)
+    })
 
-	$onInit () {
-		this.$scope.$watch(() => this.data.value, () => {
-			this.data.complete = true
-			this.$scope.$emit('objective complete')
-		})
+    this.$scope.$on('set default', () => this.setDefault())
+  }
 
-		this.$scope.$on('set default', () => this.setDefault())
-	}
-
-	setDefault () {
-		if(!this.data.value) {
-			this.data.value = this.data.default
-		}
-	}
-
+  setDefault () {
+    if (!this.data.value) {
+      this.data.value = this.data.default
+    }
+  }
 }
 
 ObjectiveController.$$ngIsClass = true

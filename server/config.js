@@ -11,9 +11,9 @@ router.get('/', (req, res) => {
     Object.assign(config, {
       mhub: process.env.MHUB_URI,
       node: process.env.DEV ? 'default' : 'protected',
-      logout: `${process.env.MODULE_IDENTITY_PROVIDER_URL}/logout`,
-      tournament: process.env.MODULE_TOURNAMENT_URL,
-      rankings: `${process.env.MODULE_RANKINGS_URL}/rankings.csv?hideNegatives=false`
+      logoutUrl: `${process.env.MODULE_IDENTITY_PROVIDER_URL}/logout`,
+      tournamentUrl: process.env.MODULE_TOURNAMENT_URL,
+      rankingsUrl: `${process.env.MODULE_RANKINGS_URL}/rankings.csv?hideNegatives=false`
     })
     res.json(config)
   }).catch(err => {

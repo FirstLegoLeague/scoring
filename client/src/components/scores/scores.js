@@ -1,7 +1,5 @@
-'use strict'
-
 export default {
-	template: `
+  template: `
 <div class="top-bar secondary" ng-if="scores.any()">
     <div class="top-bar-left">
         <ul class="menu">
@@ -34,7 +32,7 @@ export default {
         </ul>
     </div>
 </div>
-<div class="top-bar-page" ng-class="{ loading: scores.loading }">
+<div class="top-bar-page" ng-class="{ loading: scores.any() && scores.loading }">
     <div class="dimmer">
         <div class="large loader"></div>
     </div>
@@ -60,5 +58,5 @@ export default {
         <span aria-hidden="true">&times;</span>
     </button>
 </div>`,
-	controller: 'ScoresController as scores'
+  controller: 'ScoresController as scores'
 }

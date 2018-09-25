@@ -1,25 +1,21 @@
-'use strict'
-
 class MissionController {
+  constructor ($scope) {
+    this.$scope = $scope
+    this.showDescription = false
+  }
 
-	constructor ($scope) {
-		this.$scope = $scope
-		this.showDescription = false
-	}
+  $onInit () {
+    this.$scope.$on('objective complete', () => {
+      this.data.process()
+      if (this.data.complete) {
+        this.$scope.$emit('mission complete')
+      }
+    })
+  }
 
-	$onInit () {
-		this.$scope.$on('objective complete', () => {
-			this.data.process()
-			if(this.data.complete) {
-				this.$scope.$emit('mission complete')
-			}
-		})
-	}
-
-	toggleDescription () {
-		this.showDescription = !this.showDescription
-	}
-
+  toggleDescription () {
+    this.showDescription = !this.showDescription
+  }
 }
 
 MissionController.$$ngIsClass = true

@@ -1,188 +1,106 @@
-'use strict'
-
-const AUTOSCROLL_SPEED = 0.05
-const SCORE_DIFF_SPEEFD = -0.05
-const SCORE_DIFF_ENDING_POSITION = -100
-const SCORE_DIFF_STARTING_POSITION = 100
-const MISSION_SCROLL_OFFSET = -150
-
-const MISSIONS_ELEMENTS = 'scoresheet > .top-bar-page > .grid-container'
-const DIFF_ANIMATION_ELEMENT = 'score-diff-animation'
-const DIFF_ANIMATION_CLASS = 'ng-hide-animate'
-
 class ScoresheetController {
-
-  constructor ($scope, $document, $timeout, Configuration, Scoresheet, Scores, Tournament, Notifications, User, Messanger, Logger) {
-    this.$scope = $scope
-    this.$document = $document
-    this.$timeout = $timeout
-    this.Configuration = Configuration
-    this.Scoresheet = Scoresheet
-    this.Scores = Scores
-    this.Tournament = Tournament
-    this.Notifications = Notifications
-    this.Messanger = Messanger
-    this.Logger = Logger
+  constructor (Scoresheet, $scope, Configuration, Tournament, User, Logger) {
+    Object.assign(this, { data: Scoresheet, $scope, Configuration, Tournament, User, Logger })
     this.isAdmin = User.isAdmin()
-    this.isRef = User.isRef()
-    this.scoreDiff = 0
-    this.showingScoreDiffAnimation = false
     this.loading = true
   }
 
   $onInit () {
     this.$scope.$on('mission complete', event => {
-      let missionId = event.targetScope.mission.data.id
-      let nextMissionIndex = this.scoresheet.missions.findIndex(mission => mission.id === missionId) + 1
-      let nextMission = this.scoresheet.missions[nextMissionIndex]
-      if (!this.defaulting || nextMissionIndex === this.scoresheet.missions.length) {
-        this.scrollToMission(nextMission)
+      this.data.process()
+
+      const missionId = event.targetScope.mission.data.id
+      const nextMissionIndex = this.data.current.missions.findIndex(mission => mission.id === missionId) + 1
+
+      if (!this.defaulting || nextMissionIndex === this.data.current.missions.length) {
+        const nextMission = this.data.current.missions[nextMissionIndex]
+        this.$scope.scrollToMission(nextMission)
         this.defaulting = false
       }
-      if (!this.scoresheet.teamNumber && nextMissionIndex === 1) {
+      if (!this.data.current.teamNumber && nextMissionIndex === 1) {
         this.Logger.info('Completed first mission without selecting a team')
       }
     })
 
     this.$scope.$on('load', (event, scoresheet) => {
-      this.Scoresheet.load(scoresheet).then(scoresheet => {
-        this.scoresheet = scoresheet
-        this.direction = scoresheet.direction
-        this.missions = scoresheet.missions
-        this.Tournament.teams()
-          .then(teams => {
-          this.team = teams.find(team => team.number === this.scoresheet.teamNumber).displayText
+      this.data.load(scoresheet)
+        .then(() => {
+          this.signatureMissing = false
+          this.team = this.Tournament.teams.find(team => team.number === this.data.current.teamNumber).displayText
         })
-          .then(() => this.Tournament.teamsMatches(this.scoresheet.teamNumber))
-          .then(matches => {
-          this.match = matches.find(match => match.round === this.scoresheet.round && match.stage === this.scoresheet.stage)._id
-        })
-
-        this.signatureMissing = false
-      })
+        .catch(err => console.log(err))
     })
-    this.$scope.$on('reload teams', () => this.loadTeams())
-    this.$scope.$on('proccess scoresheet errors', () => { this.processErrors() })
 
     this.$scope.$watch(() => this.team, () => {
       if (this.team) {
         this.loadingMatches = true
-        this.scoresheet.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
-        this.Tournament.teamsMatches(this.scoresheet.teamNumber).then(matches => {
-          this.matches = matches
-          this.Scores.all().then(scores => {
-            this.matches.forEach(match => {
-              match.complete = scores.some(score => score.teamNumber === this.scoresheet.teamNumber && score.matchId == match._id)
-              match.displayTextWithComplition = `${match.displayText} ${match.complete ? '✔' : ''}`
-            })
+        this.data.current.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
+        this.Tournament.loadTeamMatches(this.data.current.teamNumber)
+          .then(matches => {
+            this.matches = matches
+            if (this.data.current.stage && this.data.current.round && !this.match) {
+              this.match = this.matches.find(m => m.round === this.data.current.round && m.stage === this.data.current.stage)._id
+            }
             this.loadingMatches = false
-            this.processErrors()
+            this.data.process()
           })
-        })
+          .catch(err => console.log(err))
       }
     })
 
     this.$scope.$watch(() => this.match, () => {
       if (this.match) {
-        this.scoresheet.matchId = this.match
-        const match = this.matches.find(match => match._id == this.match)
-        this.scoresheet.stage = match.stage
-        this.scoresheet.round = match.round
-        this.processErrors()
+        this.data.current.matchId = this.match
+        const match = this.matches.find(m => m._id === this.match)
+        this.data.current.stage = match.stage
+        this.data.current.round = match.round
+        this.data.process()
       }
     })
 
-    this.Configuration.load().then(config => {
-      if (config.requireSignature) {
-        this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
-          if (this.scoresheet) {
-            let signature = this.$scope.getSignature()
-            this.scoresheet.signature = signature
-            this.signatureMissing = signature.isEmpty && !this.scoresheet._id
-          }
-        })
-      }
-    })
+    this.Configuration.load()
+      .then(config => {
+        if (config.requireSignature) {
+          this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
+            if (this.data.current) {
+              const signature = this.$scope.getSignature()
+              this.data.current.signature = signature
+              this.signatureMissing = signature.isEmpty && !this.data.current._id
+            }
+          })
+        }
+      })
+      .catch(err => console.log(err))
 
-    return this.Scoresheet.init()
-      .then(() => this.loadTeams())
+    return Promise.all([this.data.init(), this.Tournament.loadTeams()])
       .then(() => this.reset())
   }
 
-  loadTeams () {
-    return this.Tournament.teams()
-      .then(teams => {
-        this.teams = teams
-      })
-  }
-
   score () {
-    if (!this.scoresheet) {
-      return 0
-    }
-
-    let previousScore = this.scoresheet.score // This score is saved from the last calculation by the Scoresheet service
-    let newScore = this.Scoresheet.score() // This score is the newly calculated score
-    let scoreDiff = newScore - previousScore
-    if (scoreDiff > 0 && isFinite(scoreDiff)) {
-      this.showScoreDiffAnimation(scoreDiff)
-    }
-
-    if (this._match && this._match.complete) {
-      return `"${newScore.toString()}"`
-    }
-
-    return newScore
+    return this.data.current ? this.data.score() : 0
   }
 
   error () {
-    return this.Scoresheet.errors[0]
-  }
-
-  processErrors () {
-    if (this.scoresheet) {
-      this.Scoresheet.processErrors()
-    }
+    return this.data.errors[0]
   }
 
   complete () {
-    if (!this.scoresheet) return false
-    return this.missions
-      && (!this.errors || this.errors.length === 0)
-      && !this.signatureMissing && this.match
+    return this.data.current && this.data.current.missions &&
+      (!this.data.current.errors || this.data.current.errors.length === 0) &&
+      !this.signatureMissing
   }
 
   reset () {
-    return this.Scoresheet.reset().then(scoresheet => {
-      this.scoresheet = scoresheet
-      this.direction = scoresheet.direction
-      this.missions = scoresheet.missions
-      this.$scope.clearSignature()
-      this.$scope.$apply()
-      this.scrollToMission(this.scoresheet.missions[0])
-      this.team = null
-      this.match = null
-      this._matches = null
-      this.loading = false
-    })
-  }
-
-  save () {
-    this.Scoresheet.save().then(() => {
-      this.$scope.$emit('close scoresheet', {goToScores: Boolean(this.scoresheet._id)})
-      this.reset()
-      this.Notifications.success('Score saved successfully')
-    }).catch(err => {
-      this.reset()
-      if (err.status === 422) {
-        this.Notifications.error(`Cannot submit score, there are some missing fields.`)
-      } else {
-        let pendingScores = err.pendingRequestsCount
-        let scoresWord = pendingScores > 1 ? 'scores' : 'score'
-        this.Notifications.error(`Score submit failed. Don\'t worry, We\'re keeping
-                    an eye on your ${pendingScores} pending ${scoresWord}.`)
-      }
-    })
+    return this.data.reset()
+      .then(() => {
+        this.$scope.clearSignature()
+        this.$scope.$apply()
+        this.$scope.scrollToMission(this.data.current.missions[0])
+        this.team = null
+        this.match = null
+        this._matches = null
+        this.loading = false
+      })
   }
 
   setDefault () {
@@ -190,59 +108,17 @@ class ScoresheetController {
     this.$scope.$broadcast('set default')
   }
 
-  showScoreDiffAnimation (scoreDiff) {
-    this.showingScoreDiffAnimation = true
-    this.scoreDiff = scoreDiff
-
-    requestAnimationFrame(() => {
-      let animationElement = this.$document[0].getElementById(DIFF_ANIMATION_ELEMENT)
-      animationElement.classList.add(DIFF_ANIMATION_CLASS)
-      this.$timeout(() => {
-        animationElement.classList.remove(DIFF_ANIMATION_CLASS)
-        this.showingScoreDiffAnimation = false
+  save () {
+    this.data.save()
+      .then(() => {
+        this.$scope.$emit('close scoresheet', { goToScores: Boolean(this.data.current._id) })
+        this.reset()
       })
-    })
+      .catch(() => this.reset())
   }
-
-  scrollToMission (mission) {
-    let missionsElement = this.$document[0].querySelector(MISSIONS_ELEMENTS)
-    let startingPosition = missionsElement.scrollTop
-    let endingPosition = startingPosition
-
-    if (mission) {
-      let missionElement = this.$document[0].getElementById(mission.id)
-      endingPosition = Math.min(missionElement.offsetTop + MISSION_SCROLL_OFFSET,
-        missionsElement.scrollHeight - missionsElement.clientHeight)
-    } else {
-      endingPosition = missionsElement.scrollHeight - missionsElement.offsetHeight
-    }
-
-    let tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED
-    let scrolling = endingPosition
-
-    let lastScorllPosition = undefined
-
-    function scrollTick () {
-      if (scrolling !== endingPosition) {
-        return
-      }
-      if (missionsElement.scrollTop + tick < endingPosition && missionsElement.scrollTop !== lastScorllPosition) {
-        lastScorllPosition = missionsElement.scrollTop
-        missionsElement.scrollTop += tick
-        requestAnimationFrame(scrollTick)
-      } else {
-        missionsElement.scrollTop = endingPosition
-        scrolling = undefined
-      }
-    }
-
-    requestAnimationFrame(scrollTick)
-  }
-
 }
 
 ScoresheetController.$$ngIsClass = true
-ScoresheetController.$inject = ['$scope', '$document', '$timeout', 'Configuration', 'Scoresheet',
-  'Scores', 'Tournament', 'Notifications', 'User', 'Messanger', 'Logger']
+ScoresheetController.$inject = ['Scoresheet', '$scope', 'Configuration', 'Tournament', 'User', 'Logger']
 
 export default ScoresheetController

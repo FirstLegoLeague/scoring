@@ -1,59 +1,31 @@
-'use strict'
-
 class ScoresController {
-
   constructor ($scope, Configuration, Scores, Tournament, Messanger, Modals, User) {
-    this.$scope = $scope
-    this.Configuration = Configuration
-    this.Scores = Scores
-    this.Tournament = Tournament
-    this.Messanger = Messanger
-    this.Modals = Modals
+    Object.assign(this, { data: Scores, $scope, Configuration, Tournament, Messanger, Modals, User })
     this.search = ''
     this.user = User.username
     this.showDuplicates = false
     this.showErrors = false
     this.loading = true
-    this.match = null
   }
 
   $onInit () {
-    // If the reload event comes from within this client, reload and send the message to every other client
-    // Otherwise just reload
     this.$scope.$on('reload', () => this.load())
-    this.$scope.$on('alter', (event, callback) => {
-      this._scores = callback(this._scores)
-    })
-    this.$scope.$on('reload teams', () => this.loadTeams())
     this.Messanger.on('scores:reload', () => this.load())
 
-    this.loadTeams()
-    this.Configuration.load().then(config => {
-      this.rankingsLink = config.rankings
-    })
+    this.Configuration.load()
+      .then(config => {
+        this.rankingsLink = config.rankings
+        return this.load()
+      })
+      .catch(err => console.log(err))
   }
 
   load () {
-    if (this.Scores.ignoreNextLoad) {
-      this.Scores.ignoreNextLoad = false
-    } else {
-      this.loading = true
-      this.$scope.$broadcast('reset')
-      this.Scores.load().then(scores => {
-        this._scores = scores
-        this.loading = false
-      })
-    }
-  }
-
-  loadTeams () {
-    return this.Tournament.teams().then(teams => {
-      this._teamNumberList = []
-      for (var i = 0; i < teams.length; i++) {//Creates list of team numbers.
-        this._teamNumberList.push(teams[i].number)
-      }
-      return this.load()
-    })
+    this.loading = true
+    this.$scope.$broadcast('reset')
+    Promise.all([this.data.load(), this.Tournament.loadTeams(), this.Tournament.loadTables()])
+      .then(() => { this.loading = false })
+      .catch(err => console.log(err))
   }
 
   openDeletionDialog () {
@@ -67,26 +39,25 @@ class ScoresController {
   deleteAll () {
     this.closeDeletionDialog()
     this.deleting = true
-    this.Scores.deleteAll()
+    this.data.deleteAll()
       .then(() => {
-        this.$scope.$emit('alter', scores => [])
         this.deleting = false
       }).catch(() => {
-      this.Notifications.error('Unable to delete score: Possible network error.')
-      this.deleting = false
-    })
+        this.Notifications.error('Unable to delete score: Possible network error.')
+        this.deleting = false
+      })
   }
 
   any () {
-    return this._scores ? this._scores.length > 0 : 0
+    return this.data.scores ? this.data.scores.length > 0 : 0
   }
 
   scores () {
-    let scores = this._scores
+    let scores = this.data.scores
 
     // Filter by search
     if (this.search) {
-      scores = this._scores
+      scores = scores
         .filter(score => [score.teamText, score.referee, score.tableText, score.matchText, score.score]
           .map(field => (field && typeof field === 'string') ? field.toLowerCase() : field)
           .some(value => (value || '').toString().includes(this.search.toLowerCase())))
@@ -98,7 +69,7 @@ class ScoresController {
 
       if (scores.length === 0) {
         this.showDuplicates = false
-        scores = this._scores
+        scores = this.data.scores
       }
     }
 
@@ -108,7 +79,7 @@ class ScoresController {
 
       if (scores.length === 0) {
         this.showErrors = false
-        scores = this._scores
+        scores = this.data.scores
       }
     }
 
@@ -116,28 +87,27 @@ class ScoresController {
   }
 
   duplicateScores (scores) {
-    scores = scores || this._scores || []
+    scores = scores || this.data.scores || []
 
     return scores.filter(score => {
-      return this._scores.some(otherScore => {
-        return score !== otherScore
-          && otherScore.teamNumber === score.teamNumber && otherScore.matchId === score.matchId
+      return scores.some(otherScore => {
+        return score !== otherScore &&
+          otherScore.teamNumber === score.teamNumber &&
+          otherScore.matchId === score.matchId
       })
     })
   }
 
   errorScores (scores) {
-    scores = scores || this._scores || []
-    let duplicateErrors = this.duplicateScores(scores)
+    scores = scores || this.data.scores || []
+    const duplicateErrors = this.duplicateScores(scores)
 
-    let otherErrors = scores.filter(score =>
-      typeof score.teamNumber !== 'number' || typeof score.matchId === 'undefined' ||
-      (!this.loading && !this._teamNumberList.includes(score.teamNumber))
+    const otherErrors = scores.filter(score =>
+      typeof score.teamNumber === 'undefined' || typeof score.matchId === 'undefined' ||
+      (!this.loading && !this.Tournament.teams.some(team => team.number === score.teamNumber))
     )
-    let badScores = duplicateErrors.concat(otherErrors)
-    badScores = badScores.filter(function (value, index) { return badScores.indexOf(value) == index })
-
-    return badScores
+    return duplicateErrors.concat(otherErrors)
+      .filter((value, index, arr) => arr.indexOf(value) === index)
   }
 }
 
