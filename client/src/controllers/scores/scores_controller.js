@@ -116,11 +116,10 @@ class ScoresController {
   }
 
   duplicateScores (scores) {
-    let self = this
     scores = scores || this._scores || []
 
     return scores.filter(score => {
-      return self._scores.some(otherScore => {
+      return this._scores.some(otherScore => {
         return score !== otherScore
           && otherScore.teamNumber === score.teamNumber && otherScore.matchId === score.matchId
       })
@@ -130,8 +129,6 @@ class ScoresController {
   errorScores (scores) {
     scores = scores || this._scores || []
     let duplicateErrors = this.duplicateScores(scores)
-
-    let self = this
 
     let otherErrors = scores.filter(score =>
       typeof score.teamNumber !== 'number' || typeof score.matchId === 'undefined' ||

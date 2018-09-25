@@ -18,22 +18,20 @@ class Scoresheet {
 	}
 
 	init() {
-		let self = this
 		return Promise.all([this.Challenge.load(), this.RefIdentity.init()])
 			.then(([challenge]) => {
-				self._original = challenge
-				self._original.signature = undefined
+				this._original = challenge
+				this._original.signature = undefined
 			})
 	}
 
 	reset() {
-		let self = this
 		this.current = angular.copy(this._original) // Using a copy of the challenge as the current scoresheet
 		this.current.missions.forEach(mission => {
 			mission.id = mission.title.split(' ')[0]
 			mission.scoreFunction = mission.score[0]
 			mission.score = 0
-			mission.process = () => self.processMission(mission)
+			mission.process = () => this.processMission(mission)
 		})
 		this.errors = [
 			{ error: MISSING_REF_ERROR },
@@ -42,7 +40,7 @@ class Scoresheet {
 			{ error: MISSING_ROUND_ERROR },
 			{ mission: this.current.missions[0], error: INCOMPLETE_MISSION_ERROR }
 		]
-		return Promise.resolve(self.current)
+		return Promise.resolve(this.current)
 	}
 
 	score() {
@@ -79,27 +77,26 @@ class Scoresheet {
 	}
 
 	processErrors() {
-		let self = this
 		// Mission errors
-		self.errors = self.errors.filter(error => error.error !== INCOMPLETE_MISSION_ERROR)
-		self.current.missions.forEach(mission => {
+		this.errors = this.errors.filter(error => error.error !== INCOMPLETE_MISSION_ERROR)
+		this.current.missions.forEach(mission => {
 			if (!mission.complete) {
-				self.errors.push({ mission, error: INCOMPLETE_MISSION_ERROR })
+				this.errors.push({ mission, error: INCOMPLETE_MISSION_ERROR })
 				return false
 			}
 			return true
 		})
-		if (self.current.teamNumber) {
-			self.errors = self.errors.filter(error => error.error !== MISSING_TEAM_ERROR)
+		if (this.current.teamNumber) {
+			this.errors = this.errors.filter(error => error.error !== MISSING_TEAM_ERROR)
 		}
-		if (self.current.matchId) {
-			self.errors = self.errors.filter(error => error.error !== MISSING_ROUND_ERROR)
+		if (this.current.matchId) {
+			this.errors = this.errors.filter(error => error.error !== MISSING_ROUND_ERROR)
 		}
 		if (this.RefIdentity.referee) {
-			self.errors = self.errors.filter(error => error.error !== MISSING_REF_ERROR)
+			this.errors = this.errors.filter(error => error.error !== MISSING_REF_ERROR)
 		}
 		if (this.RefIdentity.tablesDisabled || this.RefIdentity.table) {
-			self.errors = self.errors.filter(error => error.error !== MISSING_TABLE_ERROR)
+			this.errors = this.errors.filter(error => error.error !== MISSING_TABLE_ERROR)
 		}
 	}
 

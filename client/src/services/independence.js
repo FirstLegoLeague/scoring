@@ -31,23 +31,21 @@ class Independence {
 	// Requests functions
 
 	retryPendingrequests() {
-		let self = this
-		this.loadRequests().forEach(action => self.requestPromise(action))
+		this.loadRequests().forEach(action => this.requestPromise(action))
 	}
 
 	requestPromise (action) {
-		let self = this
 		return this.$http[action.method.toLowerCase()](action.url, action.data)
 			.then(() => {
-				self.deleteRequest(action)
-				self.recalcStatus()
+				this.deleteRequest(action)
+				this.recalcStatus()
 			})
 			.catch(err => {
 				if(err.status < 500){
-					self.deleteRequest(action)
+					this.deleteRequest(action)
 				}
-				self.recalcStatus()
-				err.pendingRequestsCount = self.pendingRequestsCount()
+				this.recalcStatus()
+				err.pendingRequestsCount = this.pendingRequestsCount()
 				throw err
 			})
 	}

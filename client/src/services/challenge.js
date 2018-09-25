@@ -10,7 +10,6 @@ class Challenge {
 	}
 
 	load (challenge) {
-		let self = this
 		let challengePromise = challenge ? Promise.resolve(challenge) : this.getConfiguratedChallenge()
 
 		return challengePromise

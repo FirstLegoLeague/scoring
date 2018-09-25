@@ -7,13 +7,12 @@ class ObjectiveController {
 	}
 
 	$onInit () {
-		let self = this
-		this.$scope.$watch(() => self.data.value, () => {
-			self.data.complete = true
-			self.$scope.$emit('objective complete')
+		this.$scope.$watch(() => this.data.value, () => {
+			this.data.complete = true
+			this.$scope.$emit('objective complete')
 		})
 
-		this.$scope.$on('set default', () => self.setDefault())
+		this.$scope.$on('set default', () => this.setDefault())
 	}
 
 	setDefault () {

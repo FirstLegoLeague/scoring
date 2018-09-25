@@ -25,16 +25,15 @@ class Modals {
 	}
 
 	initializeModal (modal) {
-		let self = this
 		return new Promise((resolve, reject) => {
 			if(modal instanceof Foundation.Reveal) {
 				resolve(modal)
 			} else {
-				self.$timeout(() => {
-					if(!self.modals.hasOwnProperty(modal)) {
-						self.modals[modal] = new Foundation.Reveal(self.$(modal))
+				this.$timeout(() => {
+					if(!this.modals.hasOwnProperty(modal)) {
+						this.modals[modal] = new Foundation.Reveal(this.$(modal))
 					}
-					resolve(self.modals[modal])
+					resolve(this.modals[modal])
 				})
 			}
 		})

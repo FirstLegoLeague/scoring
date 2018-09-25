@@ -19,25 +19,21 @@ class ScoringController {
   }
 
   _initConfiguration () {
-    let self = this
-
     this.Configuration.load().then(config => {
-      self.logoutUrl = config.logout
+      this.logoutUrl = config.logout
     })
   }
 
   _initEvents () {
-    let self = this
-    
     this.$scope.$on('open scoresheet', (event, score) => {
-      self.$scope.$broadcast('load', score)
-      self.toggleScoresList()
+      this.$scope.$broadcast('load', score)
+      this.toggleScoresList()
     })
 
     this.$scope.$on('close scoresheet', (event, options) => {
-      self.$scope.$broadcast('reload')
+      this.$scope.$broadcast('reload')
       if(options.goToScores) {
-        self.toggleScoresList()
+        this.toggleScoresList()
       }
     })
 

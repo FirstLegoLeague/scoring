@@ -18,22 +18,20 @@ class RefIdentity {
 	}
 
 	load (data) {
-		let self = this
-
 		if(this.isInitialized()) {
 			return Promise.resolve(this)
 		}
 
 		return this.Tournament.tables().then(tables => {
-			self.tables = tables
+			this.tables = tables
 			if(tables.length === 0) {
-				self.tablesDisabled = true
+				this.tablesDisabled = true
 			}
 			let personalizedData = data || JSON.parse(this.$window.sessionStorage[STORAGE_KEY] || EMPTY_DATA)
 			if(personalizedData.tableId) {
-				personalizedData.table = self.tables.find(table => table.tableId === personalizedData.tableId)
+				personalizedData.table = this.tables.find(table => table.tableId === personalizedData.tableId)
 			}
-			Object.assign(self, personalizedData)
+			Object.assign(this, personalizedData)
 			return personalizedData
 		})
 	}

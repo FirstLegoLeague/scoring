@@ -19,46 +19,47 @@ class Messanger {
   }
 
   init () {
-    const self = this
+    const messanger = this
+    
     if (this.open) {
       return Promise.resolve(this.ws)
     }
 
     return this.Configuration.load().then(config => {
-      this.ws = new WebSocket(config.mhub)
-      this.node = config.node || DEFAULT_NODE
-      this.token = parseInt(Math.floor(0x100000*(Math.random())), 16)
-      return this
+      messanger.ws = new WebSocket(config.mhub)
+      messanger.node = config.node || DEFAULT_NODE
+      messanger.token = parseInt(Math.floor(0x100000*(Math.random())), 16)
+      return messanger
     }).then(() => new Promise((resolve, reject) => {
-      this.ws.onopen = function () {
-        self.ws.send(JSON.stringify({
+      messanger.ws.onopen = function () {
+        messanger.ws.send(JSON.stringify({
           type: MESSAGE_TYPES.SUBSCRIBE,
-          node: self.node
+          node: messanger.node
         }));
 
-        self.open = true
+        messanger.open = true
         console.log('Connected to mhub')
-        resolve(self.ws)
+        resolve(messanger.ws)
       }
 
-      this.ws.onclose = function () {
-        self.open = false
+      messanger.ws.onclose = function () {
+        messanger.open = false
         console.log('Disonnected from mhub')
-        self.$timeout(() => {
+        messanger.$timeout(() => {
           console.log('Retrying mhub connection')
-          self.init()
+          messanger.init()
         }, RETRY_TIMEOUT)
       }
 
-      this.ws.onmessage = function (msg) {
+      messanger.ws.onmessage = function (msg) {
         var data = JSON.parse(msg.data)
         var headers = data.headers
         var topic = data.topic
 
         msg.from = headers[IDENTITY_TOKEN_KEY]
-        msg.fromMe = (msg.from === self.token)
+        msg.fromMe = (msg.from === messanger.token)
 
-        self.listeners.filter(listener => {
+        messanger.listeners.filter(listener => {
           return (typeof(listener.topic) === 'string' && topic === listener.topic) ||
             (listener.topic instanceof RegExp && topic.matches(listener.topic))
         }).forEach(listener => listener.handler(data, msg))
