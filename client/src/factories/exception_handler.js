@@ -5,6 +5,7 @@ function ExceptionHandler($injector) {
 
     return function (exception, cause) {
     	logger = logger || $injector.get('Logger')
+    	console.error(exception)
     	logger.error(exception.message)
     };
 }

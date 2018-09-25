@@ -7,11 +7,11 @@ export default {
 		{{refIdentity.display()}}
 	</div>
 	<div ng-if="!refIdentity.isRef">
-		<input type="text" placeholder="Referee name" ng-model="refIdentity.referee">
+		<input type="text" placeholder="Referee name" ng-model="refIdentity.data.referee">
 	</div>
-	<div ng-if="!refIdentity.isRef && !refIdentity.tablesDisabled">
-		<select name="table" ng-model="refIdentity.table"
-			ng-options="table.tableName for table in refIdentity.tables track by table.tableId">
+	<div ng-if="!refIdentity.isRef && !refIdentity.data.tablesDisabled">
+		<select name="table" ng-model="refIdentity.data.table"
+			ng-options="table.tableName for table in refIdentity.data.tables track by table.tableId">
 			<option value="" disabled selected hidden>Choose table</option>
 		</select>
 	</div>
@@ -21,11 +21,11 @@ export default {
 			<div class="grid-container">
 				<div class="grid-x grid-padding-x">
 					<div class="cell">
-						<input type="text" placeholder="referee" ng-model="refIdentity.referee">
+						<input type="text" placeholder="Referee" ng-model="refIdentity.data.referee">
 					</div>
-					<div ng-if="!refIdentity.tablesDisabled" class="cell">
-						<select name="table" ng-model="refIdentity.table"
-							ng-options="table.tableName for table in refIdentity.tables track by table.tableId">
+					<div ng-if="!refIdentity.data.tablesDisabled" class="cell">
+						<select name="table" ng-model="refIdentity.data.table"
+							ng-options="table.tableName for table in refIdentity.data.tables track by table.tableId">
 							<option value="" disabled selected hidden>table</option>
 						</select>
 					</div>

@@ -19,8 +19,8 @@ class Scoresheet {
 
 	init() {
 		let self = this
-		return this.Challenge.load()
-			.then(challenge => {
+		return Promise.all([this.Challenge.load(), this.RefIdentity.init()])
+			.then(([challenge]) => {
 				self._original = challenge
 				self._original.signature = undefined
 			})
@@ -126,7 +126,7 @@ class Scoresheet {
 				stage: this.current.stage,
 				matchId: this.current.matchId,
 				referee: identity.referee,
-				tableId: identity.tableId
+				tableId: identity.table.tableId
 			}
 
 			let action = this.current._id ? `/scores/${this.current._id}/update/` : '/scores/create'
@@ -135,7 +135,9 @@ class Scoresheet {
 	}
 
 	load(scoresheet) {
-		return this.reset().then(current => {
+		return this.RefIdentity.load({ referee: scoresheet.referee, tableId: scoresheet.tableId })
+		.then(() => this.reset())
+		.then(current => {
 			scoresheet.missions.forEach(mission => {
 				mission.objectives.forEach(objective => {
 					current.objectives[objective.id].value = objective.value
@@ -150,8 +152,7 @@ class Scoresheet {
 				stage: scoresheet.stage,
 				_id: scoresheet._id
 			})
-			this.RefIdentity.referee = current.referee
-			this.RefIdentity.tableId = current.tableId
+			
 			return current
 		})
 	}

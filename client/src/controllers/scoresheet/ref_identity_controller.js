@@ -7,6 +7,7 @@ class RefIdentityController {
   constructor ($scope, RefIdentity, User, Modals) {
     this.$scope = $scope
     this.RefIdentity = RefIdentity
+    this.data = RefIdentity
     this.Modals = Modals
     this.isRef = User.isRef()
     this.showTopbarButton = false
@@ -14,21 +15,16 @@ class RefIdentityController {
 
   $onInit () {
     this.RefIdentity.init().then(identity => {
-      this.tables = identity.tables
-      this.tablesDisabled = identity.tablesDisabled
       if(identity.initialized) {
-        Object.assign(this, { referee: identity.referee, table: identity.table })
         this.showTopbarButton = true
       } else if(this.isRef) {
         this.open()
       }
 
-      this.$scope.$watch(() => this.referee, ref => {
-        this.RefIdentity.referee = ref
+      this.$scope.$watch(() => this.data.referee, () => {
         this.$scope.$emit('proccess scoresheet errors')
       })
-      this.$scope.$watch(() => this.table, table => {
-        this.RefIdentity.table = table
+      this.$scope.$watch(() => this.data.table, () => {
         this.$scope.$emit('proccess scoresheet errors')
       })
     })
@@ -40,7 +36,7 @@ class RefIdentityController {
   }
 
   allowSave () {
-    return this.referee && (this.tablesDisabled || this.table)
+    return this.data.referee && (this.data.tablesDisabled || this.data.table)
   }
 
   close () {
@@ -50,7 +46,7 @@ class RefIdentityController {
   }
 
   display () {
-    return this.showTopbarButton ? `${this.referee} ${this.tablesDisabled ? '' : `(On ${this.table.tableName})`}` : ''
+    return this.showTopbarButton ? `${this.data.referee} ${this.data.tablesDisabled ? '' : `(On ${this.data.table.tableName})`}` : ''
   }
 
 }

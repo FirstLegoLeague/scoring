@@ -11,27 +11,30 @@ class RefIdentity {
 	}
 
 	init () {
-		let self = this
-		return this.load().then(personalizedData => {
-			Object.assign(self, personalizedData)
-			self.initialized = personalizedData.referee || personalizedData.table
-			return self
+		return this.load().then(() => {
+			this.initialized = this.isInitialized()
+			return this
 		})
 	}
 
-	load () {
+	load (data) {
 		let self = this
+
+		if(this.isInitialized()) {
+			return Promise.resolve(this)
+		}
 
 		return this.Tournament.tables().then(tables => {
 			self.tables = tables
 			if(tables.length === 0) {
 				self.tablesDisabled = true
 			}
-			let savedData = JSON.parse(this.$window.sessionStorage[STORAGE_KEY] || EMPTY_DATA)
-			if(savedData.tableId) {
-				savedData.table = self.tables.find(table => table.tableId === savedData.tableId)
+			let personalizedData = data || JSON.parse(this.$window.sessionStorage[STORAGE_KEY] || EMPTY_DATA)
+			if(personalizedData.tableId) {
+				personalizedData.table = self.tables.find(table => table.tableId === personalizedData.tableId)
 			}
-			return savedData
+			Object.assign(self, personalizedData)
+			return personalizedData
 		})
 	}
 
@@ -41,6 +44,10 @@ class RefIdentity {
 			delete personalizedData.table
 		}
 		this.$window.sessionStorage[STORAGE_KEY] = JSON.stringify(personalizedData)
+	}
+
+	isInitialized () {
+		return this.referee || this.table
 	}
 
 }
