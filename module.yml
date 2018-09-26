@@ -24,9 +24,10 @@ config:
         values:
           - US English
           - ES Spanish
-          - NL Dutch
-          - ZH Chinese (Hong Kong)
           - IL Hebrew
+          - NL Dutch
+          - RU Russian
+          - ZH Chinese (Hong Kong)
       - name: requireRef
         display: Require a referee name
         type: boolean
