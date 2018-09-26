@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@first-lego-league/ms-auth": "1.3.0",
-    "@first-lego-league/ms-configuration": "1.2.1",
+    "@first-lego-league/ms-configuration": "1.3.0",
     "@first-lego-league/ms-correlation": "0.0.5",
     "@first-lego-league/ms-logger": "1.3.2",
     "@first-lego-league/user-interface": "1.3.0",
