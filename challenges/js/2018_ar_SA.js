@@ -6,17 +6,20 @@
             "objectives": [{
                     "id": "M01_1",
                     "title": "تدحرجت حمولة العربةالى ما بعد اتصال المسار الأول",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M01_2",
                     "title": "تدحرجت حمولة المؤونة الى ما بعد اتصال المسار الأول",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M01_3",
                     "title": "تدحرجت حمولة الطاقم الى ما بعد اتصال المسارالأول",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M01_1, M01_2, M01_3) {
@@ -52,12 +55,14 @@
             "objectives": [{
                     "id": "M02_1",
                     "title": "كلا اللوحتين الشمسيتين موجهتان نحو الحقل نفسه",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M02_2",
                     "title": "لوحتك الشمسية موجهة نحو حقل الفريق الآخر",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M02_1, M02_2) {
@@ -81,12 +86,14 @@
             "objectives": [{
                     "id": "M03_1",
                     "title": "الحجر ذي القياس 4*2 خارج الطابعة ثلاثية الأبعاد (فقط من خلال وضع عينة حجر أرضي في الطابعة ثلاثية الأبعاد )",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M03_2",
                     "title": "الحجر ذي القياس 4*2 موجود بشكل كامل في منطقة الشمال الشرقي للكوكب",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M03_1, M03_2) {
@@ -110,12 +117,14 @@
             "objectives": [{
                     "id": "M04_1",
                     "title": "على جميع ميزات حمل الوزن الخاصة بمعدات العبور أن تعبر كليا بين البرجين",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M04_2",
                     "title": "على جميع معدات العبور ان تعبر من الشرق الى الغرب وبشكل كلي عبر البوابة الملساء",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M04_1, M04_2) {
@@ -139,22 +148,26 @@
             "objectives": [{
                     "id": "M05_1",
                     "title": "جميع العينات الأساسية الأربع لم تعد ملامسة للمحور الذي كان يثبتها في نموذج الموقع الأساسي",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M05_2",
                     "title": "عينة الغاز الأساسية ملامسة لأرضية الملعب وموجودة بالكاملة في المنطقة المستهدفة",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M05_3",
                     "title": "أو  عينة الغاز الأساسية موجودة بشكل كلي في القاعدة",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M05_4",
                     "title": "عينة الماء الأساسية مدعومة فقط بحجرة نمو الغذاء",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M05_1, M05_2, M05_3, M05_4) {
@@ -214,17 +227,20 @@
             "objectives": [{
                     "id": "M06_1",
                     "title": "وحدة القمع موجودة كليا في القاعدة",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M06_2",
                     "title": "وحدة الأنبوب موجودة في الجانب الغربي من محطة محور السكن",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M06_3",
                     "title": "وحدة منصة القيادة موجودة في الجانب الشرقي من محطة محور السكن",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M06_1, M06_2, M06_3) {
@@ -273,7 +289,8 @@
                         "title": "كليا"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "none"
             }],
             "score": [function(M07) {
                 if (M07 === 'none') {
@@ -310,7 +327,8 @@
                         "title": "برتقالي"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "none"
             }],
             "score": [function(M08) {
                 if (M08 === 'none') {
@@ -333,7 +351,8 @@
             "objectives": [{
                 "id": "M09",
                 "title": "محور آلة تمرين القوة مرفوع بحيث يظهر الثقب الرابع للمحور العمودي على الأقل بشكل جزئي",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M09) {
                 if (M09 === 'no') {
@@ -350,7 +369,8 @@
             "objectives": [{
                 "id": "M10",
                 "title": "يتم اسقاط الوزن الرمادي بعد اللون الأخضر، ولكن قبل الأسمر (من خلال تحريك مقبض الدفع فقط )",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M10) {
                 if (M10 === 'no') {
@@ -367,7 +387,8 @@
             "objectives": [{
                 "id": "M11",
                 "title": "المركبة الفضائية في القمة (من خلال الضغط أو النقر على لوحة الإطلاق)",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M11) {
                 if (M11 === 'no') {
@@ -401,7 +422,8 @@
                         "title": "3"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "0"
             }],
             "score": [function(M12) {
                 if (M12 === '0') {
@@ -441,7 +463,8 @@
                         "title": "برتقالي"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "none"
             }],
             "score": [function(M13) {
                 if (M13 === 'none') {
@@ -477,7 +500,8 @@
                             "title": "2"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "0"
                 },
                 {
                     "id": "M14_2",
@@ -495,7 +519,8 @@
                             "title": "2"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "0"
                 }
             ],
             "score": [function(M14_1, M14_2) {
@@ -534,7 +559,8 @@
             "objectives": [{
                     "id": "M15_1",
                     "title": "المسبار سليم وملامس لأرضية الملعب",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M15_2",
@@ -556,7 +582,8 @@
                             "title": "الدائرة المستهدفة للمسبار"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "no"
                 }
             ],
             "score": [function(M15_1, M15_2) {
@@ -621,7 +648,8 @@
                         "title": "6"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "0"
             }],
             "score": [function(penalties) {
                 if (penalties === '0') {
@@ -729,5 +757,5 @@
         "penalties-desc": "يسمح لك بإنقاذ رجلك الآلي بيدك لكن هذا يتسبب لك بهذه العقوبة",
         "penalties-scoring": "عدد اقراص العقوبات الموجودة في الزاوية الجنوبية الشرقية"
     },
-    "rtl": false
+    "rtl": true
 }
