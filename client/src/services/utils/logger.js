@@ -12,6 +12,7 @@ class Logger {
   }
 
   log (message, level = 'debug') {
+    message = `client: ${message}`
     return this.$http.post(`/log/${level}`, { message })
   }
 }
