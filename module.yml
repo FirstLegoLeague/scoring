@@ -22,12 +22,13 @@ config:
         type: values
         default: US English
         values:
-          - US English
-          - ES Spanish
-          - IL Hebrew
-          - NL Dutch
-          - RU Russian
-          - ZH Chinese (Hong Kong)
+          - US    English
+          - ar_SA Arabic (Saudi Arabia)
+          - ES    Spanish
+          - IL    Hebrew
+          - NL    Dutch
+          - RU    Russian
+          - ZH    Chinese (Hong Kong)
       - name: requireRef
         display: Require a referee name
         type: boolean
