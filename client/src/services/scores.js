@@ -1,6 +1,12 @@
+const POSSIBLY_REQUIRED_FIELDS = {
+  requireRef: 'referee',
+  requireTable: 'tableId',
+  requireSignature: 'signature'
+}
+
 class Scores {
-  constructor ($http, Messanger, Independence, Notifications) {
-    Object.assign(this, { $http, Messanger, Independence, Notifications })
+  constructor ($http, Messanger, Configuration, Independence, Notifications) {
+    Object.assign(this, { $http, Messanger, Configuration, Independence, Notifications })
     this.scores = []
   }
 
@@ -17,7 +23,8 @@ class Scores {
   }
 
   create (score) {
-    return this.Independence.send('POST', '/scores/create', this._sanitizedScore(score))
+    return this.Configuration.load()
+      .then(config => this.Independence.send('POST', '/scores/create', this._sanitizedScore(score, config)))
   }
 
   delete (id) {
@@ -36,13 +43,14 @@ class Scores {
 
   update (id, attributes) {
     this.Messanger.ignoreNext('score:reload')
-    return this.Independence.send('POST', `/scores/${id}/update`, this._sanitizedScore(attributes))
+    return this.Configuration.load()
+      .then(config => this.Independence.send('POST', `/scores/${id}/update`, this._sanitizedScore(attributes, config)))
       .then(() => { Object.assign(this.scores.filter(score => score._id === id), attributes) })
       .catch(() => this.Notifications.error('Unable to delete score: Possible network error.'))
   }
 
-  _sanitizedScore (score) {
-    return {
+  _sanitizedScore (score, config) {
+    const sanitizedScore = {
       missions: score.missions.map(mission => {
         return {
           id: mission.id,
@@ -57,18 +65,23 @@ class Scores {
       }),
       score: score.score,
       challenge: score.title,
-      signature: score.signature,
       teamNumber: score.teamNumber,
       round: score.round,
       stage: score.stage,
-      matchId: score.matchId,
-      referee: score.referee,
-      tableId: score.tableId
+      matchId: score.matchId
     }
+
+    Object.entries(POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
+      if (config[configField]) {
+        sanitizedScore[field] = score[field]
+      }
+    })
+
+    return sanitizedScore
   }
 }
 
 Scores.$$ngIsClass = true
-Scores.$inject = ['$http', 'Messanger', 'Independence', 'Notifications']
+Scores.$inject = ['$http', 'Messanger', 'Configuration', 'Independence', 'Notifications']
 
 export default Scores
