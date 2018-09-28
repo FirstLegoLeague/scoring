@@ -27,6 +27,7 @@ config:
           - ES    Spanish
           - IL    Hebrew
           - NL    Dutch
+          - pt_BR Portuguese (Brazil)
           - RU    Russian
           - ZH    Chinese (Hong Kong)
       - name: requireRef
