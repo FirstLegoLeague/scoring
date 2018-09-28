@@ -25,16 +25,16 @@ class ScoresheetValidations {
           errors.push({ error: 'Missing table' })
         }
 
-        if (config.requireSignature && typeof scorehseet.signature.isEmpty) {
-          errors.push({ error: 'Missing signature' })
-        }
-
         if (typeof scorehseet.teamNumber === 'undefined') {
           errors.push({ error: 'Missing team' })
         }
 
         if (typeof scorehseet.matchId === 'undefined') {
           errors.push({ error: 'Missing round' })
+        }
+
+        if (config.requireSignature && scorehseet.signature.isEmpty) {
+          errors.push({ error: 'Missing signature' })
         }
 
         return errors

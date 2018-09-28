@@ -38,7 +38,7 @@ class Scores {
     this.Messanger.ignoreNext('score:reload')
     return this.Independence.send('DELETE', `/scores/all`)
       .then(() => { this.scores = [] })
-      .catch(() => this.Notifications.error('Unable to delete score: Possible network error.'))
+      .catch(() => this.Notifications.error('Unable to delete scores: Possible network error.'))
   }
 
   update (id, attributes) {
@@ -46,7 +46,7 @@ class Scores {
     return this.Configuration.load()
       .then(config => this.Independence.send('POST', `/scores/${id}/update`, this._sanitizedScore(attributes, config)))
       .then(() => { Object.assign(this.scores.filter(score => score._id === id), attributes) })
-      .catch(() => this.Notifications.error('Unable to delete score: Possible network error.'))
+      .catch(() => this.Notifications.error('Unable to change score: Possible network error.'))
   }
 
   _sanitizedScore (score, config) {

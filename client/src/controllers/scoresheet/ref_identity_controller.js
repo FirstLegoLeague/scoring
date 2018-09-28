@@ -44,7 +44,11 @@ class RefIdentityController {
   }
 
   display () {
-    return this.showTopbarButton ? `${this.data.referee} ${this.data.tablesDisabled ? '' : `(On ${this.data.table.tableName})`}` : ''
+    const showRef = this.Configuration.requireRef
+    const showTable = this.Configuration.requireTable && !this.data.tablesDisabled
+    const refPart = showRef ? this.data.referee : ''
+    const tablePart = showTable ? (showRef ? `(On ${this.data.table.tableName})` : `On ${this.data.table.tableName}`) : ''
+    return `${refPart} ${tablePart}`
   }
 }
 

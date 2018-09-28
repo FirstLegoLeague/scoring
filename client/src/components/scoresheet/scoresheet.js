@@ -57,10 +57,10 @@ export default {
           </div>
         </div>
         <div class="cell large-10 large-offset-1">
-          <div id="signature" class="callout" ng-class="{ alert: scoresheet.error(), success: !(scoresheet.error() || scoresheet.signatureMissing) }">
-            <signature-pad ng-if="scoresheet.Configuration.requireSignature" accept="getSignature" clear="clearSignature" height="128" width="300" ng-hide="scoresheet.data.current._id"></signature-pad>
-            <img ng-if="scoresheet.Configuration.requireSignature" ng-src="{{scoresheet.data.current.signature.dataUrl}}" ng-show="scoresheet.data.current._id" />
-            <div ng-if="scoresheet.Configuration.requireSignature" class="clear button" data-tooltip title="Reset signature" ng-hide="scoresheet.data.current._id" ng-disabled="scoresheet.data.current.signature.isEmpty" ng-click="scoresheet.$scope.clearSignature()">
+          <div id="signature" class="callout" ng-class="{ alert: scoresheet.error(), success: !scoresheet.error() }">
+            <signature-pad accept="getSignature" clear="clearSignature" height="128" width="300" ng-hide="scoresheet.data.current._id"></signature-pad>
+            <img ng-src="{{scoresheet.data.current.signature.dataUrl}}" ng-show="scoresheet.data.current._id" />
+            <div class="clear button" data-tooltip title="Reset signature" ng-hide="scoresheet.data.current._id" ng-disabled="scoresheet.data.current.signature.isEmpty" ng-click="scoresheet.$scope.clearSignature()">
               <i class="fa fa-undo"></i>
             </div>
             <div class="stamp hollow alert button" ng-click="scoresheet.scrollToMission(scoresheet.error().mission)">{{scoresheet.error().error}}</div>

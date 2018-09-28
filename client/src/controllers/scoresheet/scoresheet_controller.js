@@ -25,7 +25,6 @@ class ScoresheetController {
     this.$scope.$on('load', (event, scoresheet) => {
       this.data.load(scoresheet)
         .then(() => {
-          this.signatureMissing = false
           this.team = this.Tournament.teams.find(team => team.number === this.data.current.teamNumber).displayText
         })
         .catch(err => console.log(err))
@@ -61,11 +60,11 @@ class ScoresheetController {
     this.Configuration.load()
       .then(config => {
         if (config.requireSignature) {
-          this.$scope.$watch(() => this.$scope.getSignature().dataUrl, () => {
+          this.$scope.$watch(() => (this.$scope.getSignature ? this.$scope.getSignature().dataUrl : ''), () => {
             if (this.data.current) {
               const signature = this.$scope.getSignature()
               this.data.current.signature = signature
-              this.signatureMissing = signature.isEmpty && !this.data.current._id
+              this.data.process()
             }
           })
         }
@@ -86,14 +85,15 @@ class ScoresheetController {
 
   complete () {
     return this.data.current && this.data.current.missions &&
-      (!this.data.current.errors || this.data.current.errors.length === 0) &&
-      !this.signatureMissing
+      (!this.data.current.errors || this.data.current.errors.length === 0)
   }
 
   reset () {
     return this.data.reset()
       .then(() => {
-        this.$scope.clearSignature()
+        if (this.$scope.clearSignature) {
+          this.$scope.clearSignature()
+        }
         this.$scope.$apply()
         this.$scope.scrollToMission(this.data.current.missions[0])
         this.team = null
