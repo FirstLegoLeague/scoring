@@ -26,6 +26,7 @@ config:
           - ar_SA Arabic (Saudi Arabia)
           - ES    Spanish
           - IL    Hebrew
+          - ko_KR Korean (Korea)
           - NL    Dutch
           - pt_BR Portuguese (Brazil)
           - RU    Russian
