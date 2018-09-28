@@ -50,7 +50,8 @@ class Scoresheet {
     this.RefIdentity.init()
       .then(identity => {
         Object.assign(this.current, { referee: identity.referee, tableId: identity.table.tableId })
-        this.errors = this.ScoresheetValidations.validate(this.current)
+        return this.ScoresheetValidations.validate(this.current)
+          .then(errors => { this.errors = errors })
       })
       .catch(err => { console.log(err) })
   }
