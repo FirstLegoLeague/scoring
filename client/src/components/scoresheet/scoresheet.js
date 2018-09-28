@@ -3,7 +3,7 @@ export default {
   <div class="top-bar secondary">
     <div class="top-bar-left">
       <ul class="menu">
-        <ref-identity class="menu"></ref-identity>
+        <ref-identity ng-if="scoresheet.Configuration.requireRef || scoresheet.Configuration.requireTable" class="menu"></ref-identity>
         <div>
           <form>
             <input type="text" list="teams" ng-focus="scoresheet.team = ''" ng-click="scoresheet.team = ''" placeholder="Select Team" blur="submit" ng-model="scoresheet.team">
@@ -58,9 +58,9 @@ export default {
         </div>
         <div class="cell large-10 large-offset-1">
           <div id="signature" class="callout" ng-class="{ alert: scoresheet.error(), success: !(scoresheet.error() || scoresheet.signatureMissing) }">
-            <signature-pad accept="getSignature" clear="clearSignature" height="128" width="300" ng-hide="scoresheet.data.current._id"></signature-pad>
-            <img ng-src="{{scoresheet.data.current.signature.dataUrl}}" ng-show="scoresheet.data.current._id" />
-            <div class="clear button" data-tooltip title="Reset signature" ng-hide="scoresheet.data.current._id" ng-disabled="scoresheet.data.current.signature.isEmpty" ng-click="scoresheet.$scope.clearSignature()">
+            <signature-pad ng-if="scoresheet.Configuration.requireSignature" accept="getSignature" clear="clearSignature" height="128" width="300" ng-hide="scoresheet.data.current._id"></signature-pad>
+            <img ng-if="scoresheet.Configuration.requireSignature" ng-src="{{scoresheet.data.current.signature.dataUrl}}" ng-show="scoresheet.data.current._id" />
+            <div ng-if="scoresheet.Configuration.requireSignature" class="clear button" data-tooltip title="Reset signature" ng-hide="scoresheet.data.current._id" ng-disabled="scoresheet.data.current.signature.isEmpty" ng-click="scoresheet.$scope.clearSignature()">
               <i class="fa fa-undo"></i>
             </div>
             <div class="stamp hollow alert button" ng-click="scoresheet.scrollToMission(scoresheet.error().mission)">{{scoresheet.error().error}}</div>

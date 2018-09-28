@@ -4,10 +4,10 @@ export default {
     <i class="fa fa-user"></i>
     {{refIdentity.display()}}
   </div>
-  <div ng-if="!refIdentity.isRef">
+  <div ng-if="!refIdentity.isRef && refIdentity.Configuration.requireRef">
     <input type="text" placeholder="Referee name" ng-model="refIdentity.data.referee">
   </div>
-  <div ng-if="!refIdentity.isRef && !refIdentity.data.tablesDisabled">
+  <div ng-if="!refIdentity.isRef && !refIdentity.data.tablesDisabled && refIdentity.Configuration.requireTable">
     <select name="table" ng-model="refIdentity.data.table"
       ng-options="table.tableName for table in refIdentity.data.Tournament.tables track by table.tableId">
       <option value="" disabled selected hidden>Choose table</option>
@@ -18,10 +18,10 @@ export default {
     <form>
       <div class="grid-container">
         <div class="grid-x grid-padding-x">
-          <div class="cell">
+          <div class="cell" ng-if="refIdentity.Configuration.requireRef">
             <input type="text" placeholder="Referee" ng-model="refIdentity.data.referee">
           </div>
-          <div ng-if="!refIdentity.data.tablesDisabled" class="cell">
+          <div ng-if="!refIdentity.data.tablesDisabled && refIdentity.Configuration.requireTable" class="cell">
             <select name="table" ng-model="refIdentity.data.table"
               ng-options="table.tableName for table in refIdentity.data.Tournament.tables track by table.tableId">
               <option value="" disabled selected hidden>table</option>

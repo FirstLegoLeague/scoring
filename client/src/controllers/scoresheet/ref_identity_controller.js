@@ -1,14 +1,14 @@
 const MODAL = '#identity-modal'
 
 class RefIdentityController {
-  constructor (RefIdentity, $scope, User, Modals) {
-    Object.assign(this, { data: RefIdentity, $scope, User, Modals })
+  constructor (RefIdentity, $scope, Configuration, User, Modals) {
+    Object.assign(this, { data: RefIdentity, $scope, Configuration, User, Modals })
     this.isRef = User.isRef()
     this.showTopbarButton = false
   }
 
   $onInit () {
-    this.data.init()
+    Promise.all([this.data.init(), this.Configuration.load()])
       .then(() => {
         if (this.isRef) {
           if (this.data.isInitialized()) {
@@ -49,6 +49,6 @@ class RefIdentityController {
 }
 
 RefIdentityController.$$ngIsClass = true
-RefIdentityController.$inject = ['RefIdentity', '$scope', 'User', 'Modals']
+RefIdentityController.$inject = ['RefIdentity', '$scope', 'Configuration', 'User', 'Modals']
 
 export default RefIdentityController
