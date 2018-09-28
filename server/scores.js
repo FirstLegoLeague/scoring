@@ -14,8 +14,18 @@ const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 
 const router = express.Router()
 
-const SCORE_FIELDS = ['missions', 'score', 'challenge', 'signature', 'teamNumber',
-  'round', 'stage', 'matchId', 'referee', 'tableId']
+const SCORE_FIELDS = {
+  missions: Array,
+  score: Number,
+  challenge: String,
+  signature: Object,
+  teamNumber: Number,
+  round: Number,
+  stage: Number,
+  matchId: String,
+  referee: String,
+  tableId: String
+}
 
 class InvalidScore extends Error {
   constructor (message) {
@@ -31,7 +41,7 @@ const connectionPromise = MongoClient
 
 function validateScore (rawScore) {
   return Configuration.get('autoPublish').then(autoPublish => {
-    const score = SCORE_FIELDS.reduce((scoreObject, field) => {
+    const score = Object.keys(SCORE_FIELDS).reduce((scoreObject, field) => {
       if (rawScore.hasOwnProperty(field)) {
         scoreObject[field] = rawScore[field]
       } else {
@@ -41,6 +51,14 @@ function validateScore (rawScore) {
     }, { public: autoPublish })
     return score
   })
+}
+
+function scoreFromQuery (query) {
+  return Object.entries(query).reduce((result, [key, value]) => {
+    const Type = SCORE_FIELDS[key]
+    result[key] = Type ? Type(value) : value
+    return result
+  }, {})
 }
 
 function shouldPublish () {
@@ -135,7 +153,7 @@ router.get('/all', (req, res) => {
 
 router.get('/search', (req, res) => {
   connectionPromise
-    .then(scoringCollection => scoringCollection.findOne(req.query))
+    .then(scoringCollection => scoringCollection.find(scoreFromQuery(req.query)))
     .then(score => res.status(200).json(score))
     .catch(err => {
       req.logger.error(err.message)
