@@ -18,13 +18,16 @@ const SCORE_FIELDS = {
   missions: Array,
   score: Number,
   challenge: String,
-  signature: Object,
   teamNumber: Number,
   round: Number,
   stage: Number,
-  matchId: String,
-  referee: String,
-  tableId: String
+  matchId: String
+}
+
+const POSSIBLY_REQUIRED_FIELDS = {
+  requireRef: 'referee',
+  requireTable: 'tableId',
+  requireSignature: 'signature'
 }
 
 class InvalidScore extends Error {
@@ -40,15 +43,23 @@ const connectionPromise = MongoClient
   .then(client => client.db().collection('scores'))
 
 function validateScore (rawScore) {
-  return Configuration.get('autoPublish').then(autoPublish => {
-    const score = Object.keys(SCORE_FIELDS).reduce((scoreObject, field) => {
+  return Configuration.all().then(config => {
+    const requiredFields = Object.keys(SCORE_FIELDS)
+
+    Object.entries(POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
+      if (config[configField]) {
+        requiredFields.push(field)
+      }
+    })
+
+    const score = requiredFields.reduce((scoreObject, field) => {
       if (rawScore.hasOwnProperty(field)) {
         scoreObject[field] = rawScore[field]
       } else {
         throw new InvalidScore(`Missing field: ${field}`)
       }
       return scoreObject
-    }, { public: autoPublish })
+    }, { public: config.autoPublish })
     return score
   })
 }
