@@ -31,12 +31,12 @@ config:
           - pt_BR Portuguese (Brazil)
           - RU    Russian
           - ZH    Chinese (Hong Kong)
-      - name: requireRef
-        display: Require a referee name
-        type: boolean
-        default: true
       - name: autoPublish
         display: Auto-publish team scores
+        type: boolean
+        default: true
+      - name: requireRef
+        display: Require a referee name
         type: boolean
         default: true
       - name: requireTable
