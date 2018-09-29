@@ -13,9 +13,17 @@ router.get('/:challenge', (req, res) => {
     .then(challenge => {
       res.send(challenge)
     }).catch(err => {
-      const message = (err.code === 'ENOENT') ? `Could not find challenge ${req.params['challenge']}.` : `A problem occoured while trying to find challenge ${req.params['challenge']}.`
+      let status, message
+      if (err.code === 'ENOENT') {
+        message = `Could not find challenge ${req.params['challenge']}.`
+        status = 404
+      } else {
+        message = `A problem occoured while trying to find challenge ${req.params['challenge']}.`
+        status = 500
+      }
+
       req.logger.error(message)
-      res.status(404).send(message)
+      res.status(status).send(message)
     })
 })
 

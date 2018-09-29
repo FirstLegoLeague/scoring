@@ -1,3 +1,4 @@
+const ONLINE_TIMESPAN = 10 * 1000 // 10 seconds
 const TEMPORARY_TIMESPAN = 10 * 60 * 1000 // 10 minutes
 const TEMPORARY_REQUESTS_COUNT = 5
 const STATUS_CODES = {
@@ -16,7 +17,9 @@ class Connectivity {
     const pendingRequestsCount = this.Independence.pendingRequestsCount()
     if (pendingRequestsCount !== 0) {
       const timeSinceLastSuccessfulRequest = Date.now() - this.Independence.lastSuccessfulRequestTime
-      if (timeSinceLastSuccessfulRequest < TEMPORARY_TIMESPAN && pendingRequestsCount < TEMPORARY_REQUESTS_COUNT) {
+      if (timeSinceLastSuccessfulRequest < ONLINE_TIMESPAN) {
+        return STATUS_CODES.ONLINE
+      } else if (timeSinceLastSuccessfulRequest < TEMPORARY_TIMESPAN && pendingRequestsCount < TEMPORARY_REQUESTS_COUNT) {
         return STATUS_CODES.TEMPORARY_OFFLINE
       } else {
         return STATUS_CODES.PERMANENTLY_OFFLINE

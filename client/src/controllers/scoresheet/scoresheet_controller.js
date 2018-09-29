@@ -8,25 +8,15 @@ class ScoresheetController {
   $onInit () {
     this.$scope.$on('mission complete', event => {
       this.data.process()
-
       const missionId = event.targetScope.mission.data.id
-      const nextMissionIndex = this.data.current.missions.findIndex(mission => mission.id === missionId) + 1
-
-      if (!this.defaulting || nextMissionIndex === this.data.current.missions.length) {
-        const nextMission = this.data.current.missions[nextMissionIndex]
-        this.$scope.scrollToMission(nextMission)
-        this.defaulting = false
-      }
-      if (!this.data.current.teamNumber && nextMissionIndex === 1) {
+      if (!this.teamNumber() && missionId === this.missions()[0].id) {
         this.Logger.info('Completed first mission without selecting a team')
       }
     })
 
     this.$scope.$on('load', (event, scoresheet) => {
       this.data.load(scoresheet)
-        .then(() => {
-          this.team = this.Tournament.teams.find(team => team.number === this.data.current.teamNumber).displayText
-        })
+        .then(() => { this.team = this.Tournament.teams.find(team => team.number === this.teamNumber()).displayText })
         .catch(err => console.log(err))
     })
 
@@ -34,11 +24,11 @@ class ScoresheetController {
       if (this.team) {
         this.loadingMatches = true
         this.data.current.teamNumber = Number(this.team.match(/^#(\d+)/)[1])
-        this.Tournament.loadTeamMatches(this.data.current.teamNumber)
+        this.Tournament.loadTeamMatches(this.teamNumber())
           .then(matches => {
             this.matches = matches
-            if (this.data.current.stage && this.data.current.round && !this.match) {
-              this.match = this.matches.find(m => m.round === this.data.current.round && m.stage === this.data.current.stage)._id
+            if (this.stage() && this.round() && !this.match) {
+              this.match = this.matches.find(m => m.round === this.round() && m.stage === this.stage())._id
             }
             this.loadingMatches = false
             this.data.process()
@@ -75,6 +65,19 @@ class ScoresheetController {
       .then(() => this.reset())
   }
 
+  reset () {
+    return this.data.reset()
+      .then(() => {
+        if (this.$scope.clearSignature) {
+          this.$scope.clearSignature()
+        }
+        if (!this.loading) {
+          this.$scope.scrollToMission(this.data.current.missions[0])
+        }
+        Object.assign(this, { team: null, match: null, matches: null, loading: false })
+      })
+  }
+
   score () {
     return this.data.current ? this.data.score() : 0
   }
@@ -84,34 +87,59 @@ class ScoresheetController {
   }
 
   complete () {
-    return this.data.current && this.data.current.missions &&
+    return this.data.current && this.missions() &&
       (!this.data.current.errors || this.data.current.errors.length === 0)
   }
 
-  reset () {
-    return this.data.reset()
-      .then(() => {
-        if (this.$scope.clearSignature) {
-          this.$scope.clearSignature()
-        }
-        this.$scope.$apply()
-        this.$scope.scrollToMission(this.data.current.missions[0])
-        this.team = null
-        this.match = null
-        this._matches = null
-        this.loading = false
-      })
+  isEditing () {
+    return this.data.isEditing()
+  }
+
+  defaultEnabled () {
+    return this.data.current && this.data.current.defaultEnabled
+  }
+
+  direction () {
+    return this.data.current ? this.data.current.direction : undefined
+  }
+
+  teamNumber () {
+    return this.data.current ? this.data.current.teamNumber : undefined
+  }
+
+  stage () {
+    return this.data.current ? this.data.current.stage : undefined
+  }
+
+  round () {
+    return this.data.current ? this.data.current.round : undefined
+  }
+
+  missions () {
+    return this.data.current ? this.data.current.missions : undefined
+  }
+
+  signature () {
+    return this.data.current ? this.data.current.signature : undefined
+  }
+
+  showRefIdentity () {
+    return this.Configuration.requireRef || this.Configuration.requireTable
+  }
+
+  teams () {
+    return this.Tournament.teams || []
   }
 
   setDefault () {
-    this.defaulting = true
+    this.$scope.defaulting = true
     this.$scope.$broadcast('set default')
   }
 
   save () {
     this.data.save()
       .then(() => {
-        this.$scope.$emit('close scoresheet', { goToScores: Boolean(this.data.current._id) })
+        this.$scope.$emit('close scoresheet', { goToScores: this.isEditing() })
         this.reset()
       })
       .catch(() => this.reset())

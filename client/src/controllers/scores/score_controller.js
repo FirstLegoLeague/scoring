@@ -27,7 +27,7 @@ class ScoreController {
   // Views
 
   teamText () {
-    if (this.loading) {
+    if (this.loading || !this.ready) {
       this.data.teamText = ''
     } else if (this.teamNumberError()) {
       this.data.teamText = 'Missing team!'
@@ -38,7 +38,7 @@ class ScoreController {
   }
 
   matchText () {
-    if (this.loading) {
+    if (this.loading || !this.ready) {
       this.data.matchText = ''
     } else if (this.matchError()) {
       this.data.matchText = 'Missing round'
@@ -58,14 +58,14 @@ class ScoreController {
   }
 
   matchError () {
-    if (this.loading) return false
+    if (this.loading || !this.ready) return false
     if (typeof this.data.matchId === 'undefined') return true
     if (!this.matches) return false
     return this.matches.every(match => match._id !== this.data.matchId)
   }
 
   teamNumberError () {
-    if (this.loading) return false
+    if (this.loading || !this.ready) return false
     if (typeof this.data.matchId === 'undefined') return true
     if (!this.teams) return false
     return this.Tournament.teams.every(team => team.number !== this.data.teamNumber)

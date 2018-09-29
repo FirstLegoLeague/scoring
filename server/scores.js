@@ -67,7 +67,9 @@ function validateScore (rawScore) {
 function scoreFromQuery (query) {
   return Object.entries(query).reduce((result, [key, value]) => {
     const Type = SCORE_FIELDS[key]
-    result[key] = Type ? Type(value) : value
+    if (Type) {
+      result[key] = Type(value)
+    }
     return result
   }, {})
 }
@@ -113,10 +115,9 @@ router.post('/create', (req, res) => {
 })
 
 router.post('/:id/update', adminAction, (req, res) => {
-  Promise.all([connectionPromise, validateScore(req.body)])
-    .then(([scoringCollection, score]) => {
-      req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
-      return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: score })
+  connectionPromise
+    .then(scoringCollection => {
+      return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: scoreFromQuery(req.body) })
     })
     .then(() => res.status(204).send())
     .then(() => publishReloadIfShould(req.logger))

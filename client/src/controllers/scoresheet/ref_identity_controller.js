@@ -33,21 +33,32 @@ class RefIdentityController {
     this.Modals.open(MODAL)
   }
 
-  allowSave () {
-    return this.data.referee && (this.data.tablesDisabled || this.data.table)
-  }
-
   close () {
     this.showTopbarButton = true
     this.data.save()
     this.Modals.close(MODAL)
   }
 
+  allowSave () {
+    return (!this.showRef() || this.data.referee) &&
+      (!this.showTable() || this.data.table)
+  }
+
+  showRef () {
+    return this.Configuration.requireRef
+  }
+
+  showTable () {
+    return this.Configuration.requireTable && !this.data.tablesDisabled
+  }
+
+  tables () {
+    return this.data.Tournament.tables
+  }
+
   display () {
-    const showRef = this.Configuration.requireRef
-    const showTable = this.Configuration.requireTable && !this.data.tablesDisabled
-    const refPart = showRef ? this.data.referee : ''
-    const tablePart = showTable ? (showRef ? `(On ${this.data.table.tableName})` : `On ${this.data.table.tableName}`) : ''
+    const refPart = this.showRef() ? this.data.referee : ''
+    const tablePart = this.showTable() ? (this.showRef() ? `(On ${this.data.table.tableName})` : `On ${this.data.table.tableName}`) : ''
     return `${refPart} ${tablePart}`
   }
 }

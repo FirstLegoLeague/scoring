@@ -82,6 +82,12 @@ class Messanger {
     return this.init()
   }
 
+  one (topic, handler, ignoreSelfMessages) {
+    if (!this.listeners.some(listener => listener.topic === topic)) {
+      this.on(topic, handler, ignoreSelfMessages)
+    }
+  }
+
   send (topic, data) {
     return this.init()
       .then(ws => {

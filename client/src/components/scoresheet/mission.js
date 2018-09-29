@@ -1,5 +1,5 @@
 export default {
-  template: 
+  template:
   `<h3>
     {{mission.data.title}}
     <span class="clear button" ng-click="mission.toggleDescription()" tooltip title="Show Description">

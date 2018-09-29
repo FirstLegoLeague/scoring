@@ -11,6 +11,18 @@ class MissionsScroll {
 
   link (scope, element, attrs) {
     scope[attrs.on] = this.scrollToMission.bind(this)
+
+    scope.$on(attrs.missionCompleteEvent, event => {
+      const missions = scope.scoresheet.missions()
+      const missionId = event.targetScope.mission.data.id
+      const nextMissionIndex = missions.findIndex(mission => mission.id === missionId) + 1
+
+      if (!scope.defaulting || nextMissionIndex === missions.length) {
+        const nextMission = missions[nextMissionIndex]
+        this.scrollToMission(nextMission)
+        scope.defaulting = false
+      }
+    })
   }
 
   scrollToMission (mission) {

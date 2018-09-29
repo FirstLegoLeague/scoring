@@ -45,6 +45,10 @@ class Scoresheet {
     return this.current.score
   }
 
+  isEditing () {
+    return Boolean(this.current && this.current._id)
+  }
+
   process () {
     this.current.missions.forEach(mission => mission.process())
     this.RefIdentity.init()
@@ -57,7 +61,7 @@ class Scoresheet {
   }
 
   save () {
-    return (this.current._id ? this.Scores.update(this.current._id, this.current) : this.Scores.create(this.current))
+    return (this.isEditing() ? this.Scores.update(this.current._id, this.current) : this.Scores.create(this.current))
       .then(() => this.Notifications.success('Score saved successfully'))
       .catch(err => {
         if (err.status === 422) {

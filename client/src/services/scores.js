@@ -28,24 +28,23 @@ class Scores {
   }
 
   delete (id) {
-    this.Messanger.ignoreNext('score:reload')
+    this.Messanger.ignoreNext('scores:reload')
     return this.Independence.send('DELETE', `/scores/${id}/delete`)
       .then(() => { this.scores = this.scores.filter(score => score._id !== id) })
       .catch(() => this.Notifications.error('Unable to delete score: Possible network error.'))
   }
 
   deleteAll () {
-    this.Messanger.ignoreNext('score:reload')
+    this.Messanger.ignoreNext('scores:reload')
     return this.Independence.send('DELETE', `/scores/all`)
       .then(() => { this.scores = [] })
       .catch(() => this.Notifications.error('Unable to delete scores: Possible network error.'))
   }
 
   update (id, attributes) {
-    this.Messanger.ignoreNext('score:reload')
-    return this.Configuration.load()
-      .then(config => this.Independence.send('POST', `/scores/${id}/update`, this._sanitizedScore(attributes, config)))
-      .then(() => { Object.assign(this.scores.filter(score => score._id === id), attributes) })
+    this.Messanger.ignoreNext('scores:reload')
+    return this.Independence.send('POST', `/scores/${id}/update`, attributes)
+      .then(() => { Object.assign(this.scores.find(score => score._id === id), attributes) })
       .catch(() => this.Notifications.error('Unable to change score: Possible network error.'))
   }
 

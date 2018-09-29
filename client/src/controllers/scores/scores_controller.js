@@ -1,16 +1,18 @@
 class ScoresController {
   constructor ($scope, Configuration, Scores, Tournament, Messanger, Modals, User) {
     Object.assign(this, { data: Scores, $scope, Configuration, Tournament, Messanger, Modals, User })
-    this.search = ''
     this.user = User.username
-    this.showDuplicates = false
-    this.showErrors = false
+    this.filters = this.filters || {
+      search: '',
+      showDuplicates: false,
+      showErrors: false
+    }
     this.loading = true
   }
 
   $onInit () {
     this.$scope.$on('reload', () => this.load())
-    this.Messanger.on('scores:reload', () => this.load())
+    this.Messanger.one('scores:reload', () => this.load())
 
     this.Configuration.load()
       .then(config => {
@@ -56,7 +58,7 @@ class ScoresController {
     let scores = this.data.scores
 
     // Filter by search
-    if (this.search) {
+    if (this.filters.search) {
       scores = scores
         .filter(score => [score.teamText, score.referee, score.tableText, score.matchText, score.score]
           .map(field => (field && typeof field === 'string') ? field.toLowerCase() : field)
@@ -64,7 +66,7 @@ class ScoresController {
     }
 
     // Filter by showDuplicates
-    if (this.showDuplicates) {
+    if (this.filters.showDuplicates) {
       scores = this.duplicateScores(scores)
 
       if (scores.length === 0) {
@@ -74,7 +76,7 @@ class ScoresController {
     }
 
     // Filter by showErrors
-    if (this.showErrors) {
+    if (this.filters.showErrors) {
       scores = this.errorScores(scores)
 
       if (scores.length === 0) {
