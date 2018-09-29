@@ -7,7 +7,7 @@ export default {
     </a>
   </h4>
   <h6 class="subheader">
-    <a editable-select="score.data.matchId" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="match._id as match.displayText for match in score.matches">
+    <a editable-select="score.data.matchId" buttons="no" blur="submit" onaftersave="score.setMatch()" e-ng-options="match._id as match.displayText for match in score.matches">
       <div ng-class="{'card-section alert' : score.matchError()}">{{ score.matchText() }}</div>
     </a>
   </h6>

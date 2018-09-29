@@ -43,14 +43,15 @@ class ScoreController {
     } else if (this.matchError()) {
       this.data.matchText = 'Missing round'
     } else {
-      this.data.matchText = this.matches.find(match => match._id === this.data.matchId).displayText
+      this.data.matchText = this.matches.find(match => match.round === this.data.round && match.stage === this.data.stage).displayText
     }
     return this.data.matchText
   }
 
   tableText () {
     if (typeof this.data.tableId !== 'undefined') {
-      this.data.tableText = this.Tournament.tables.find(table => table.tableId === this.data.tableId).tableName
+      const table = this.Tournament.tables.find(t => t.tableId === this.data.tableId)
+      this.data.tableText = table ? table.tableName : 'no table'
     } else {
       this.data.tableText = 'no table'
     }
@@ -59,9 +60,9 @@ class ScoreController {
 
   matchError () {
     if (this.loading || !this.ready) return false
-    if (typeof this.data.matchId === 'undefined') return true
+    if (typeof this.data.round === 'undefined' && typeof this.data.stage === 'undefined') return true
     if (!this.matches) return false
-    return this.matches.every(match => match._id !== this.data.matchId)
+    return this.matches.every(match => match.round !== this.data.round || match.stage !== this.data.stage)
   }
 
   teamNumberError () {
@@ -104,13 +105,20 @@ class ScoreController {
       .then(() => this.save())
   }
 
+  setMatch () {
+    const match = this.matches.find(m => m._id === this.data.matchId)
+    this.data.stage = match.stage
+    this.data.round = match.round
+    return this.save()
+  }
+
   open () {
     this.$scope.$emit('open scoresheet', this.data)
   }
 
   save () {
     this.loading = true
-    const match = this.matches.find(m => m._id === this.data.matchId)
+    const match = this.matches.find(m => m.stage === this.data.stage && m.round === this.data.round)
     const updateData = {
       score: this.data.score,
       teamNumber: this.data.teamNumber,

@@ -20,7 +20,7 @@ const SCORE_FIELDS = {
   challenge: String,
   teamNumber: Number,
   round: Number,
-  stage: Number,
+  stage: String,
   matchId: String,
   referee: String,
   tableId: String
