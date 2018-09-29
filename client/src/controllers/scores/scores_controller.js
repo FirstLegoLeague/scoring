@@ -62,7 +62,7 @@ class ScoresController {
       scores = scores
         .filter(score => [score.teamText, score.referee, score.tableText, score.matchText, score.score]
           .map(field => (field && typeof field === 'string') ? field.toLowerCase() : field)
-          .some(value => (value || '').toString().includes(this.search.toLowerCase())))
+          .some(value => (value || '').toString().includes(this.filters.search.toLowerCase())))
     }
 
     // Filter by showDuplicates

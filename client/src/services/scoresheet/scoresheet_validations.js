@@ -18,11 +18,11 @@ class ScoresheetValidations {
           }
         })
 
-        if (this.isRef && config.requireRef && typeof scorehseet.referee === 'undefined') {
+        if (isRef && config.requireRef && typeof scorehseet.referee === 'undefined') {
           errors.push({ error: 'Missing referee' })
         }
 
-        if (this.isRef && config.requireTable && typeof scorehseet.tableId === 'undefined') {
+        if (isRef && config.requireTable && typeof scorehseet.tableId === 'undefined') {
           errors.push({ error: 'Missing table' })
         }
 

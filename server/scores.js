@@ -15,18 +15,22 @@ const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 const router = express.Router()
 
 const SCORE_FIELDS = {
-  missions: Array,
+  missions: 'as-is',
   score: Number,
   challenge: String,
   teamNumber: Number,
   round: Number,
   stage: Number,
-  matchId: String
+  matchId: String,
+  referee: String,
+  tableId: String
 }
 
 const POSSIBLY_REQUIRED_FIELDS = {
   requireSignature: 'signature'
 }
+
+const REQUIRED_FIELDS = ['missions', 'score', 'challenge', 'teamNumber', 'round', 'stage', 'matchId']
 
 class InvalidScore extends Error {
   constructor (message) {
@@ -42,18 +46,20 @@ const connectionPromise = MongoClient
 
 function validateScore (rawScore) {
   return Configuration.all().then(config => {
-    const requiredFields = Object.keys(SCORE_FIELDS)
+    const allowedFields = Object.keys(SCORE_FIELDS)
+    const requiredFields = Array.from(REQUIRED_FIELDS)
 
     Object.entries(POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
       if (config[configField]) {
+        allowedFields.push(field)
         requiredFields.push(field)
       }
     })
 
-    const score = requiredFields.reduce((scoreObject, field) => {
+    const score = allowedFields.reduce((scoreObject, field) => {
       if (rawScore.hasOwnProperty(field)) {
         scoreObject[field] = rawScore[field]
-      } else {
+      } else if (requiredFields.includes(field)) {
         throw new InvalidScore(`Missing field: ${field}`)
       }
       return scoreObject
@@ -66,7 +72,11 @@ function scoreFromQuery (query) {
   return Object.entries(query).reduce((result, [key, value]) => {
     const Type = SCORE_FIELDS[key]
     if (Type) {
-      result[key] = Type(value)
+      if (Type === 'as-is') {
+        result[key] = value
+      } else {
+        result[key] = Type(value)
+      }
     }
     return result
   }, {})
