@@ -53,7 +53,10 @@ class Scoresheet {
     this.current.missions.forEach(mission => mission.process())
     this.RefIdentity.init()
       .then(identity => {
-        Object.assign(this.current, { referee: identity.referee, tableId: identity.table.tableId })
+        Object.assign(this.current, { referee: identity.referee })
+        if (identity.table) {
+          Object.assign(this.current, { tableId: identity.table.tableId })
+        }
         return this.ScoresheetValidations.validate(this.current)
           .then(errors => { this.errors = errors })
       })

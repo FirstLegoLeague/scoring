@@ -25,8 +25,6 @@ const SCORE_FIELDS = {
 }
 
 const POSSIBLY_REQUIRED_FIELDS = {
-  requireRef: 'referee',
-  requireTable: 'tableId',
   requireSignature: 'signature'
 }
 

@@ -8,7 +8,7 @@ export default {
   <div ng-if="!refIdentity.isRef && refIdentity.showRef()">
     <input type="text" placeholder="Referee name" ng-model="refIdentity.data.referee">
   </div>
-  <div ng-if="!refIdentity.isRef && !refIdentity.showTable()">
+  <div ng-if="!refIdentity.isRef && refIdentity.showTable()">
     <select name="table" ng-model="refIdentity.data.table"
       ng-options="table.tableName for table in refIdentity.tables() track by table.tableId">
       <option value="" disabled selected hidden>Choose table</option>

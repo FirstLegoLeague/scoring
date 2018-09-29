@@ -1,11 +1,12 @@
 class ScoresheetValidations {
-  constructor (Configuration) {
-    Object.assign(this, { Configuration })
+  constructor (Configuration, User) {
+    Object.assign(this, { Configuration, User })
   }
 
   validate (scorehseet) {
     return this.Configuration.load()
       .then(config => {
+        const isRef = this.User.isRef()
         const errors = []
 
         // Mission errors
@@ -17,11 +18,11 @@ class ScoresheetValidations {
           }
         })
 
-        if (config.requireRef && typeof scorehseet.referee === 'undefined') {
+        if (this.isRef && config.requireRef && typeof scorehseet.referee === 'undefined') {
           errors.push({ error: 'Missing referee' })
         }
 
-        if (config.requireTable && typeof scorehseet.tableId === 'undefined') {
+        if (this.isRef && config.requireTable && typeof scorehseet.tableId === 'undefined') {
           errors.push({ error: 'Missing table' })
         }
 
@@ -43,6 +44,6 @@ class ScoresheetValidations {
 }
 
 ScoresheetValidations.$$ngIsClass = true
-ScoresheetValidations.$inject = ['Configuration']
+ScoresheetValidations.$inject = ['Configuration', 'User']
 
 export default ScoresheetValidations
