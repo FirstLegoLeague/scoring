@@ -5,8 +5,8 @@ const POSSIBLY_REQUIRED_FIELDS = {
 }
 
 class Scores {
-  constructor ($http, Messanger, Configuration, Independence, Notifications) {
-    Object.assign(this, { $http, Messanger, Configuration, Independence, Notifications })
+  constructor ($http, messanger, configuration, independence, notifications) {
+    Object.assign(this, { $http, messanger, configuration, independence, notifications })
     this.scores = []
   }
 
@@ -23,31 +23,31 @@ class Scores {
   }
 
   create (score) {
-    this.Messanger.ignoreNext('scores:reload')
-    return this.Configuration.load()
-      .then(config => this.Independence.send('POST', '/scores/create', this._sanitizedScore(score, config)))
-      .then(score => { this.scores.push(score) })
+    this.messanger.ignoreNext('scores:reload')
+    return this.configuration.load()
+      .then(config => this.independence.send('POST', '/scores/create', this._sanitizedScore(score, config)))
+      .then(scoreFromDB => { this.scores.push(scoreFromDB) })
   }
 
   delete (id) {
-    this.Messanger.ignoreNext('scores:reload')
-    return this.Independence.send('DELETE', `/scores/${id}/delete`)
+    this.messanger.ignoreNext('scores:reload')
+    return this.independence.send('DELETE', `/scores/${id}/delete`)
       .then(() => { this.scores = this.scores.filter(score => score._id !== id) })
-      .catch(() => this.Notifications.error('Unable to delete score: Possible network error.'))
+      .catch(() => this.notifications.error('Unable to delete score: Possible network error.'))
   }
 
   deleteAll () {
-    this.Messanger.ignoreNext('scores:reload')
-    return this.Independence.send('DELETE', `/scores/all`)
+    this.messanger.ignoreNext('scores:reload')
+    return this.independence.send('DELETE', `/scores/all`)
       .then(() => { this.scores = [] })
-      .catch(() => this.Notifications.error('Unable to delete scores: Possible network error.'))
+      .catch(() => this.notifications.error('Unable to delete scores: Possible network error.'))
   }
 
   update (id, attributes) {
-    this.Messanger.ignoreNext('scores:reload')
-    return this.Independence.send('POST', `/scores/${id}/update`, attributes)
+    this.messanger.ignoreNext('scores:reload')
+    return this.independence.send('POST', `/scores/${id}/update`, attributes)
       .then(() => { Object.assign(this.scores.find(score => score._id === id), attributes) })
-      .catch(() => this.Notifications.error('Unable to change score: Possible network error.'))
+      .catch(() => this.notifications.error('Unable to change score: Possible network error.'))
   }
 
   _sanitizedScore (score, config) {

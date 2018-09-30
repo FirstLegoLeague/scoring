@@ -1,8 +1,8 @@
 const MISSION_DEPENDENCIES_REGEX = /^function\s*\((.+)\)/
 
 class Challenge {
-  constructor ($http, Configuration) {
-    Object.assign(this, { $http, Configuration })
+  constructor ($http, configuration) {
+    Object.assign(this, { $http, configuration })
   }
 
   init () {
@@ -61,7 +61,7 @@ class Challenge {
   }
 
   _getConfiguratedChallenge () {
-    return this.Configuration.load().then(config => {
+    return this.configuration.load().then(config => {
       const year = config.year.split(' ')[0]
       const language = config.language.split(' ')[0]
       return `${year}_${language}`

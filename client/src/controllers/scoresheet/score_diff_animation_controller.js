@@ -2,8 +2,8 @@ const DIFF_ANIMATION_ELEMENT = 'score-diff-animation'
 const DIFF_ANIMATION_CLASS = 'ng-hide-animate'
 
 class ScoreDiffAnimationController {
-  constructor (Scoresheet, $window, $document, $scope, $timeout) {
-    Object.assign(this, { data: Scoresheet, $window, $document, $scope, $timeout })
+  constructor (scoresheet, $window, $document, $scope, $timeout) {
+    Object.assign(this, { data: scoresheet, $window, $document, $scope, $timeout })
     this.lastScore = 0
   }
 

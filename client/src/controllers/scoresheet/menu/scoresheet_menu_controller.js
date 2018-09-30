@@ -1,14 +1,14 @@
 class ScoresheetMenuController {
-  constructor (Scoresheet, Configuration) {
-    Object.assign(this, { data: Scoresheet, Configuration })
+  constructor (scoresheet, configuration) {
+    Object.assign(this, { data: scoresheet, configuration })
   }
 
   $onInit () {
-    return Promise.all([this.data.init(), this.Configuration.load()])
+    return Promise.all([this.data.init(), this.configuration.load()])
   }
 
   showRefIdentity () {
-    return this.Configuration.requireRef || this.Configuration.requireTable
+    return this.configuration.requireRef || this.configuration.requireTable
   }
 }
 

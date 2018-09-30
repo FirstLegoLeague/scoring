@@ -1,14 +1,14 @@
 const MODAL = '#identity-modal'
 
 class RefIdentityController {
-  constructor (RefIdentity, $scope, Configuration, User, Modals, Logger) {
-    Object.assign(this, { data: RefIdentity, $scope, Configuration, User, Modals, Logger })
-    this.isRef = User.isRef()
+  constructor (refIdentity, $scope, configuration, user, modals, logger) {
+    Object.assign(this, { data: refIdentity, $scope, configuration, modals, logger })
+    this.isRef = user.isRef()
     this.showTopbarButton = false
   }
 
   $onInit () {
-    Promise.all([this.data.init(), this.Configuration.load()])
+    Promise.all([this.data.init(), this.configuration.load()])
       .then(() => {
         if (this.isRef) {
           if (this.data.isInitialized()) {
@@ -25,18 +25,18 @@ class RefIdentityController {
           this.$scope.$emit('proccess scoresheet')
         })
       })
-      .catch(err => this.Logger.error(err))
+      .catch(err => this.logger.error(err))
   }
 
   open () {
     this.showTopbarButton = false
-    this.Modals.open(MODAL)
+    this.modals.open(MODAL)
   }
 
   close () {
     this.showTopbarButton = true
     this.data.save()
-    this.Modals.close(MODAL)
+    this.modals.close(MODAL)
   }
 
   allowSave () {
@@ -45,11 +45,11 @@ class RefIdentityController {
   }
 
   showRef () {
-    return this.Configuration.requireRef
+    return this.configuration.requireRef
   }
 
   showTable () {
-    return this.Configuration.requireTable && !this.data.tablesDisabled
+    return this.configuration.requireTable && !this.data.tablesDisabled
   }
 
   tables () {

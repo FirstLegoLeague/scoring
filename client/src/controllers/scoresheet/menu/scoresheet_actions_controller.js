@@ -1,7 +1,7 @@
 class ScoresheetActionsController {
-  constructor (Scoresheet, $scope, User) {
-    Object.assign(this, { data: Scoresheet, $scope, User })
-    this.isAdmin = User.isAdmin()
+  constructor (scoresheet, $scope, user) {
+    Object.assign(this, { data: scoresheet, $scope })
+    this.isAdmin = user.isAdmin()
   }
 
   score () {

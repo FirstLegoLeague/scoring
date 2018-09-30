@@ -1,8 +1,8 @@
 const STORAGE_KEY_PREFIX = 'independence_actions'
 
 class Independence {
-  constructor ($http, $window, Logger) {
-    Object.assign(this, { $http, $window, Logger })
+  constructor ($http, $window, logger) {
+    Object.assign(this, { $http, $window, logger })
     this.lastSuccessfulRequestTime = Date.now()
   }
 
@@ -10,7 +10,7 @@ class Independence {
     const action = { method, url, data }
     return this.retryPendingRequests()
       .catch(err => {
-        this.Logger.warn(`Failed to send pending requests: ${err}`)
+        this.logger.warn(`Failed to send pending requests: ${err}`)
       })
       .then(() => {
         this._saveRequest(action)

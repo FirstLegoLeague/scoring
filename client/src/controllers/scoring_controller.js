@@ -1,7 +1,7 @@
 class ScoringController {
-  constructor ($scope, Configuration, User, Logger) {
-    Object.assign(this, { $scope, Configuration, Logger })
-    this.isAdmin = User.isAdmin()
+  constructor ($scope, configuration, user, logger) {
+    Object.assign(this, { $scope, configuration, logger })
+    this.isAdmin = user.isAdmin()
   }
 
   $onInit () {
@@ -10,9 +10,9 @@ class ScoringController {
   }
 
   _initConfiguration () {
-    this.Configuration.load()
+    this.configuration.load()
       .then(config => { this.logoutUrl = config.logoutUrl })
-      .catch(err => this.Logger.error(err))
+      .catch(err => this.logger.error(err))
   }
 
   _initEvents () {

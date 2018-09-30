@@ -1,6 +1,6 @@
 class ScoresheetController {
-  constructor (Scoresheet, $scope, Configuration, Logger) {
-    Object.assign(this, { data: Scoresheet, $scope, Configuration, Logger })
+  constructor (scoresheet, $scope, logger) {
+    Object.assign(this, { data: scoresheet, $scope, logger })
   }
 
   $onInit () {
@@ -12,14 +12,14 @@ class ScoresheetController {
       this.data.process()
       const missionId = event.targetScope.mission.data.id
       if (!(this.data.current && this.data.current.teamNumber) && missionId === this.missions()[0].id) {
-        this.Logger.info('Completed first mission without selecting a team')
+        this.logger.info('Completed first mission without selecting a team')
       }
     })
 
     this.$scope.$on('load', (event, scoresheet) => {
       this.data.load(scoresheet)
         .then(() => this.$scope.$digest())
-        .catch(err => this.Logger.error(err))
+        .catch(err => this.logger.error(err))
     })
 
     return this.data.init()
@@ -60,6 +60,6 @@ class ScoresheetController {
 }
 
 ScoresheetController.$$ngIsClass = true
-ScoresheetController.$inject = ['Scoresheet', '$scope', 'Configuration', 'Logger']
+ScoresheetController.$inject = ['Scoresheet', '$scope', 'Logger']
 
 export default ScoresheetController

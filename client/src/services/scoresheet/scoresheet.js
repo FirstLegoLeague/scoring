@@ -1,14 +1,14 @@
 import angular from 'angular'
 
 class Scoresheet {
-  constructor (Challenge, Scores, ScoresheetValidations, RefIdentity, Notifications, Logger) {
-    Object.assign(this, { Challenge, Scores, ScoresheetValidations, RefIdentity, Notifications, Logger })
+  constructor (challenge, scores, scoresheetValidations, refIdentity, notifications, logger) {
+    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, notifications, logger })
     this.errors = []
     this.ready = false
   }
 
   init () {
-    this._initPromise = Promise.all([this.Challenge.init(), this.RefIdentity.init()])
+    this._initPromise = Promise.all([this.challenge.init(), this.refIdentity.init()])
       .then(([challenge]) => {
         this._original = challenge
         this._original.signature = undefined
@@ -59,7 +59,7 @@ class Scoresheet {
       return Promise.resolve()
     }
     this.current.missions.forEach(mission => mission.process())
-    return this.RefIdentity.init()
+    return this.refIdentity.init()
       .then(identity => {
         Object.assign(this.current, { referee: identity.referee })
         if (identity.table) {
@@ -68,19 +68,19 @@ class Scoresheet {
         return this.ScoresheetValidations.validate(this.current)
           .then(errors => { this.errors = errors })
       })
-      .catch(err => { this.Logger.error(err) })
+      .catch(err => { this.logger.error(err) })
   }
 
   save () {
-    return (this.isEditing() ? this.Scores.update(this.current._id, this.current) : this.Scores.create(this.current))
-      .then(() => this.Notifications.success('Score saved successfully'))
+    return (this.isEditing() ? this.scores.update(this.current._id, this.current) : this.scores.create(this.current))
+      .then(() => this.notifications.success('Score saved successfully'))
       .catch(err => {
         if (err.status === 422) {
-          this.Notifications.error(`Cannot submit score, there are some missing fields.`)
+          this.notifications.error(`Cannot submit score, there are some missing fields.`)
         } else {
           const pendingScores = err.pendingRequestsCount
           const scoresWord = pendingScores > 1 ? 'scores' : 'score'
-          this.Notifications.error(`Score submit failed. Don't worry, We're keeping
+          this.notifications.error(`Score submit failed. Don't worry, We're keeping
                       an eye on your ${pendingScores} pending ${scoresWord}.`)
         }
       })
@@ -88,7 +88,7 @@ class Scoresheet {
 
   load (score) {
     this.ready = false
-    return Promise.resolve(this.RefIdentity.set(score))
+    return Promise.resolve(this.refIdentity.set(score))
       .then(() => {
         Object.assign(this.current, {
           _id: score._id,

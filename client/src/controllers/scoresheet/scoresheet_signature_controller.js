@@ -1,6 +1,6 @@
 class ScoresheetSignatureController {
-  constructor (Scoresheet, $scope, Configuration, Logger) {
-    Object.assign(this, { data: Scoresheet, $scope, Configuration, Logger })
+  constructor (scoresheet, $scope, configuration, logger) {
+    Object.assign(this, { data: scoresheet, $scope, configuration, logger })
   }
 
   $onInit () {
@@ -9,7 +9,7 @@ class ScoresheetSignatureController {
       this.scrollToMission(this.data.current.missions[0])
     })
 
-    this.Configuration.load()
+    this.configuration.load()
       .then(config => {
         if (config.requireSignature) {
           this.$scope.$watch(() => (this.$scope.getSignature ? this.$scope.getSignature().dataUrl : ''), () => {
@@ -24,7 +24,7 @@ class ScoresheetSignatureController {
           })
         }
       })
-      .catch(err => this.Logger.error(err))
+      .catch(err => this.logger.error(err))
   }
 
   reset () {

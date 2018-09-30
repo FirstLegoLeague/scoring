@@ -2,13 +2,13 @@ const STORAGE_KEY = 'referee'
 const EMPTY_DATA = JSON.stringify({ referee: undefined, tableId: undefined })
 
 class RefIdentity {
-  constructor ($window, Tournament) {
-    Object.assign(this, { $window, Tournament })
+  constructor ($window, tournament) {
+    Object.assign(this, { $window, tournament })
   }
 
   init () {
     if (!this.isInitialized()) {
-      this._initPromise = this.Tournament.loadTables().then(tables => {
+      this._initPromise = this.tournament.loadTables().then(tables => {
         if (tables.length === 0) {
           this.tablesDisabled = true
         }
@@ -23,7 +23,7 @@ class RefIdentity {
 
   set (data) {
     if (data.tableId) {
-      data.table = this.Tournament.tables.find(table => table.tableId === data.tableId)
+      data.table = this.tournament.tables.find(table => table.tableId === data.tableId)
     }
     Object.assign(this, { referee: data.referee, table: data.table })
   }

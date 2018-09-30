@@ -8,15 +8,15 @@ const STATUS_CODES = {
 }
 
 class Connectivity {
-  constructor (Independence, Messanger) {
-    Object.assign(this, { Independence, Messanger })
+  constructor (independence, messanger) {
+    Object.assign(this, { independence, messanger })
     this.STATUS_CODES = STATUS_CODES
   }
 
   status () {
-    const pendingRequestsCount = this.Independence.pendingRequestsCount()
+    const pendingRequestsCount = this.independence.pendingRequestsCount()
     if (pendingRequestsCount !== 0) {
-      const timeSinceLastSuccessfulRequest = Date.now() - this.Independence.lastSuccessfulRequestTime
+      const timeSinceLastSuccessfulRequest = Date.now() - this.independence.lastSuccessfulRequestTime
       if (timeSinceLastSuccessfulRequest < ONLINE_TIMESPAN) {
         return STATUS_CODES.ONLINE
       } else if (timeSinceLastSuccessfulRequest < TEMPORARY_TIMESPAN && pendingRequestsCount < TEMPORARY_REQUESTS_COUNT) {
@@ -26,8 +26,8 @@ class Connectivity {
       }
     }
 
-    if (!this.Messanger.open) {
-      const timeSinceLastConnection = this.Messanger.timeSinceLastConnection()
+    if (!this.messanger.open) {
+      const timeSinceLastConnection = this.messanger.timeSinceLastConnection()
       if (timeSinceLastConnection < ONLINE_TIMESPAN) {
         return STATUS_CODES.ONLINE
       } else if (timeSinceLastConnection < TEMPORARY_TIMESPAN) {

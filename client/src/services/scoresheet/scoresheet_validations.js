@@ -1,12 +1,12 @@
 class ScoresheetValidations {
-  constructor (Configuration, User) {
-    Object.assign(this, { Configuration, User })
+  constructor (configuration, user) {
+    Object.assign(this, { configuration, user })
   }
 
   validate (scorehseet) {
-    return this.Configuration.load()
+    return this.configuration.load()
       .then(config => {
-        const isRef = this.User.isRef()
+        const isRef = this.user.isRef()
         const errors = []
 
         // Mission errors

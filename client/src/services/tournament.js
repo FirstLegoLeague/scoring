@@ -1,15 +1,15 @@
 class Tournament {
-  constructor ($http, Configuration, Scores, Messanger, User) {
-    Object.assign(this, { $http, Configuration, Scores, Messanger, User })
-    this.httpRequestConfig = { headers: { 'auth-token': User.authToken } }
+  constructor ($http, configuration, messanger, user) {
+    Object.assign(this, { $http, configuration, messanger })
+    this.httpRequestConfig = { headers: { 'auth-token': user.authToken } }
     this._teamsMathcesPromises = { }
     this.matches = { }
   }
 
   init () {
-    return this.Configuration.load().then(config => {
+    return this.configuration.load().then(config => {
       this.tournamentUrl = config.tournamentUrl
-      this.Messanger.on('teams:reload', () => this.teams(true))
+      this.messanger.on('teams:reload', () => this.teams(true))
       return this
     })
   }
@@ -69,6 +69,6 @@ class Tournament {
 }
 
 Tournament.$$ngIsClass = true
-Tournament.$inject = ['$http', 'Configuration', 'Scores', 'Messanger', 'User']
+Tournament.$inject = ['$http', 'Configuration', 'Messanger', 'User']
 
 export default Tournament

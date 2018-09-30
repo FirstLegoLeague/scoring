@@ -1,7 +1,7 @@
 class ScoresController {
-  constructor (Scores, $scope, Configuration, Tournament, Messanger, Modals, User, Logger) {
-    Object.assign(this, { data: Scores, $scope, Configuration, Tournament, Messanger, Modals, User, Logger })
-    this.user = User.username
+  constructor (scores, $scope, configuration, tournament, messanger, modals, user, logger) {
+    Object.assign(this, { data: scores, $scope, configuration, tournament, messanger, modals, logger })
+    this.user = user.username
     this.filters = this.filters || {
       search: '',
       showDuplicates: false,
@@ -12,30 +12,30 @@ class ScoresController {
 
   $onInit () {
     this.$scope.$on('reload', () => this.load())
-    this.Messanger.one('scores:reload', () => this.load())
+    this.messanger.one('scores:reload', () => this.load())
 
-    this.Configuration.load()
+    this.configuration.load()
       .then(config => {
         this.rankingsLink = config.rankings
         return this.load()
       })
-      .catch(err => this.Logger.error(err))
+      .catch(err => this.logger.error(err))
   }
 
   load () {
     this.loading = true
     this.$scope.$broadcast('reset')
-    Promise.all([this.data.load(), this.Tournament.loadTeams(), this.Tournament.loadTables()])
+    Promise.all([this.data.load(), this.tournament.loadTeams(), this.tournament.loadTables()])
       .then(() => { this.loading = false })
-      .catch(err => this.Logger.error(err))
+      .catch(err => this.logger.error(err))
   }
 
   openDeletionDialog () {
-    this.Modals.open('#scores-deletion-modal')
+    this.modals.open('#scores-deletion-modal')
   }
 
   closeDeletionDialog () {
-    this.Modals.close('#scores-deletion-modal')
+    this.modals.close('#scores-deletion-modal')
   }
 
   deleteAll () {
@@ -106,7 +106,7 @@ class ScoresController {
 
     const otherErrors = scores.filter(score =>
       typeof score.teamNumber === 'undefined' || typeof score.matchId === 'undefined' ||
-      (!this.loading && !this.Tournament.teams.some(team => team.number === score.teamNumber))
+      (!this.loading && !this.tournament.teams.some(team => team.number === score.teamNumber))
     )
     return duplicateErrors.concat(otherErrors)
       .filter((value, index, arr) => arr.indexOf(value) === index)

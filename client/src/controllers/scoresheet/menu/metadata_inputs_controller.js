@@ -1,6 +1,6 @@
 class MetadataInputsController {
-  constructor (Scoresheet, Scores, $scope, Tournament, Logger) {
-    Object.assign(this, { data: Scoresheet, Scores, $scope, Tournament, Logger })
+  constructor (scoresheet, scores, $scope, tournament, logger) {
+    Object.assign(this, { data: scoresheet, scores, $scope, tournament, logger })
     this.loading = true
   }
 
@@ -8,7 +8,7 @@ class MetadataInputsController {
     this.$scope.$watch(() => this.teamNumber(), () => {
       if (this.teamNumber()) {
         this.loadingMatches = true
-        Promise.all([this.Tournament.loadTeamMatches(this.teamNumber()), this.Scores.all()])
+        Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.all()])
           .then(([matches, scores]) => {
             matches.forEach(match => {
               match.complete = scores.some(score => score.teamNumber === this.teamNumber() && score.matchId === match._id)
@@ -21,7 +21,7 @@ class MetadataInputsController {
             this.loadingMatches = false
             return this.data.process()
           })
-          .catch(err => this.Logger.error(err))
+          .catch(err => this.logger.error(err))
       }
     })
 
@@ -33,7 +33,7 @@ class MetadataInputsController {
         this.data.current.stage = match.stage
         this.data.current.round = match.round
         return this.data.process()
-          .catch(err => this.Logger.error(err))
+          .catch(err => this.logger.error(err))
       }
     })
 
@@ -41,7 +41,7 @@ class MetadataInputsController {
       this.matches = []
     })
 
-    return this.Tournament.loadTeams()
+    return this.tournament.loadTeams()
   }
 
   teamNumber () {
@@ -61,7 +61,7 @@ class MetadataInputsController {
   }
 
   teams () {
-    return (this.Tournament.teams || [])
+    return (this.tournament.teams || [])
   }
 }
 
