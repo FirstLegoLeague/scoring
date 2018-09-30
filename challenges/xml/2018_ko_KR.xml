@@ -5,8 +5,8 @@
 
     <strings language="en-US">
 
-        <string id="yes">                           Yes</string>
-        <string id="no">                            No</string>
+        <string id="yes">                           예</string>
+        <string id="no">                            아니오</string>
 
         <string id="M01-name">                      M01 우주여행</string>
         <string id="M01-desc">                      <![CDATA[＊	각각의 페이로드 로켓을 명백히 우주여행 경사로로 굴려 내려 보냅니다. 각각의 출발과 이동을 할 때 * 수레는 첫번째 트렉 연결부위를 지날 때 독립적이어야 합니다.]]></string>
