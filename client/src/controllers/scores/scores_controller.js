@@ -1,5 +1,5 @@
 class ScoresController {
-  constructor ($scope, Configuration, Scores, Tournament, Messanger, Modals, User) {
+  constructor (Scores, $scope, Configuration, Tournament, Messanger, Modals, User) {
     Object.assign(this, { data: Scores, $scope, Configuration, Tournament, Messanger, Modals, User })
     this.user = User.username
     this.filters = this.filters || {
@@ -114,6 +114,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['$scope', 'Configuration', 'Scores', 'Tournament', 'Messanger', 'Modals', 'User']
+ScoresController.$inject = ['Scores', '$scope', 'Configuration', 'Tournament', 'Messanger', 'Modals', 'User']
 
 export default ScoresController

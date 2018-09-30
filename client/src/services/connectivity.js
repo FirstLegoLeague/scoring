@@ -27,7 +27,10 @@ class Connectivity {
     }
 
     if (!this.Messanger.open) {
-      if (this.Messanger.timeSinceLastConnection() < TEMPORARY_TIMESPAN) {
+      const timeSinceLastConnection = this.Messanger.timeSinceLastConnection()
+      if (timeSinceLastConnection < ONLINE_TIMESPAN) {
+        return STATUS_CODES.ONLINE
+      } else if (timeSinceLastConnection < TEMPORARY_TIMESPAN) {
         return STATUS_CODES.TEMPORARY_OFFLINE
       } else {
         return STATUS_CODES.PERMANENTLY_OFFLINE

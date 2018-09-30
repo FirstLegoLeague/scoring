@@ -1,6 +1,6 @@
 export default {
   template: `
-  <scoresheet-menu class="top-bar secondary" ng-if="scoresheet.data.ready"></scoresheet-menu>
+  <scoresheet-menu class="top-bar secondary"></scoresheet-menu>
 
   <div class="top-bar-page" ng-class="{ loading: !scoresheet.data.ready }" dir="{{scoresheet.direction()}}">
     <div class="dimmer">

@@ -89,11 +89,11 @@ class Scoresheet {
   load (score) {
     this.ready = false
     return Promise.resolve(this.RefIdentity.set(score))
-      .then(() => this.reset())
-      .then(current => {
-        Object.assign(current, {
+      .then(() => {
+        Object.assign(this.current, {
           _id: score._id,
           teamNumber: score.teamNumber,
+          matchId: score.matchId,
           stage: score.stage,
           round: score.round,
           title: score.challenge,
@@ -103,13 +103,13 @@ class Scoresheet {
 
         score.missions.forEach(mission => {
           mission.objectives.forEach(objective => {
-            current.objectives[objective.id].value = objective.value
+            this.current.objectives[objective.id].value = objective.value
           })
         })
 
         this.ready = true
 
-        return current
+        return this.process()
       })
   }
 }

@@ -1,7 +1,7 @@
 export default {
   template: `
     <div>
-      <select ng-model="metadataInputs.teamNumberString">
+      <select ng-model="metadataInputs.data.current.teamNumber" convert-to-number>
         <option value="" disabled selected hidden>Select Team</option>
         <option type="text" ng-repeat="team in metadataInputs.teams()" value="{{team.number}}">
           {{ team.displayText }}

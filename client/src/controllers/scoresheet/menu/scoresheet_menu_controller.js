@@ -1,10 +1,10 @@
 class ScoresheetMenuController {
-  constructor (Configuration) {
-    Object.assign(this, { Configuration })
+  constructor (Scoresheet, Configuration) {
+    Object.assign(this, { data: Scoresheet, Configuration })
   }
 
   $onInit () {
-    return this.Configuration.load()
+    return Promise.all([this.data.init(), this.Configuration.load()])
   }
 
   showRefIdentity () {
@@ -13,6 +13,6 @@ class ScoresheetMenuController {
 }
 
 ScoresheetMenuController.$$ngIsClass = true
-ScoresheetMenuController.$inject = ['Configuration']
+ScoresheetMenuController.$inject = ['Scoresheet', 'Configuration']
 
 export default ScoresheetMenuController

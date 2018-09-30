@@ -18,6 +18,7 @@ class ScoresheetController {
 
     this.$scope.$on('load', (event, scoresheet) => {
       this.data.load(scoresheet)
+        .then(() => this.$scope.$apply())
         .catch(err => console.log(err))
     })
 

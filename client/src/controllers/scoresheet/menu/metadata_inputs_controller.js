@@ -5,10 +5,6 @@ class MetadataInputsController {
   }
 
   $onInit () {
-    this.$scope.$watch(() => this.teamNumberString, () => {
-      this.data.current.teamNumber = Number(this.teamNumberString)
-    })
-
     this.$scope.$watch(() => this.teamNumber(), () => {
       if (this.teamNumber()) {
         this.loadingMatches = true
@@ -27,7 +23,9 @@ class MetadataInputsController {
 
     this.$scope.$watch(() => this.data.current.matchId, () => {
       if (this.data.current.matchId) {
-        const match = this.matches.find(m => m._id === this.data.current.matchId)
+        const match = this.matches.find(m => m._id === this.data.current.matchId) ||
+          this.matches.find(m => m.stage === this.data.current.stage && m.round === this.data.current.round)
+        this.data.current.matchId = match.matchId
         this.data.current.stage = match.stage
         this.data.current.round = match.round
         this.data.process()

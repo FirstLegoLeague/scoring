@@ -21,22 +21,15 @@ class ScoresheetSignatureController {
         }
       })
       .catch(err => console.log(err))
-
-    return this.data.init()
-      .then(() => this.reset())
-      .then(() => this.data.process())
   }
 
   reset () {
-    return this.data.reset()
-      .then(() => {
-        if (this.$scope.clearSignature) {
-          this.$scope.clearSignature()
-        }
-        if (this.$scope.scrollToMission) {
-          this.$scope.scrollToMission(this.data.current.missions[0])
-        }
-      })
+    if (this.$scope.clearSignature) {
+      this.$scope.clearSignature()
+    }
+    if (this.$scope.scrollToMission) {
+      this.$scope.scrollToMission(this.data.current.missions[0])
+    }
   }
 
   error () {
