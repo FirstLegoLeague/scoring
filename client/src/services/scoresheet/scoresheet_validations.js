@@ -26,15 +26,15 @@ class ScoresheetValidations {
           errors.push({ error: 'Missing table' })
         }
 
-        if (typeof scorehseet.teamNumber === 'undefined') {
+        if (typeof scorehseet.teamNumber === 'undefined' || scorehseet.teamNumber === null) {
           errors.push({ error: 'Missing team' })
         }
 
-        if (typeof scorehseet.matchId === 'undefined') {
+        if (typeof scorehseet.matchId === 'undefined' || scorehseet.matchId === null) {
           errors.push({ error: 'Missing round' })
         }
 
-        if (config.requireSignature && scorehseet.signature.isEmpty) {
+        if (config.requireSignature && (!scorehseet.signature || scorehseet.signature.isEmpty)) {
           errors.push({ error: 'Missing signature' })
         }
 

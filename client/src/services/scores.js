@@ -23,8 +23,10 @@ class Scores {
   }
 
   create (score) {
+    this.Messanger.ignoreNext('scores:reload')
     return this.Configuration.load()
       .then(config => this.Independence.send('POST', '/scores/create', this._sanitizedScore(score, config)))
+      .then(score => { this.scores.push(score) })
   }
 
   delete (id) {

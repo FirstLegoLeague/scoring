@@ -4,37 +4,42 @@ class Scoresheet {
   constructor (Challenge, Scores, ScoresheetValidations, RefIdentity, Notifications) {
     Object.assign(this, { Challenge, Scores, ScoresheetValidations, RefIdentity, Notifications })
     this.errors = []
+    this.ready = false
   }
 
   init () {
-    return Promise.all([this.Challenge.init(), this.RefIdentity.init()])
+    this._initPromise = Promise.all([this.Challenge.init(), this.RefIdentity.init()])
       .then(([challenge]) => {
         this._original = challenge
         this._original.signature = undefined
       })
+    return this._initPromise
   }
 
   reset () {
-    // Using a copy of the challenge as the current scoresheet
-    this.current = angular.copy(this._original)
-    this.current.missions.forEach(mission => {
-      mission.score = 0
-      mission.process = () => {
-        const values = mission.dependencies.map(dependency => dependency.value)
-        if (values.includes(undefined)) {
-          Object.assign(mission, { complete: false, error: undefined, score: 0 })
-          return undefined
-        } else {
-          const result = mission.scoreFunction(values)
-          if (result instanceof Error) {
-            Object.assign(mission, { complete: false, error: result, score: 0 })
+    return this._initPromise.then(() => {
+      // Using a copy of the challenge as the current scoresheet
+      this.current = angular.copy(this._original)
+      this.current.missions.forEach(mission => {
+        mission.score = 0
+        mission.process = () => {
+          const values = mission.dependencies.map(dependency => dependency.value)
+          if (values.includes(undefined)) {
+            Object.assign(mission, { complete: false, error: undefined, score: 0 })
+            return undefined
           } else {
-            Object.assign(mission, { complete: true, error: undefined, score: result })
+            const result = mission.scoreFunction(values)
+            if (result instanceof Error) {
+              Object.assign(mission, { complete: false, error: result, score: 0 })
+            } else {
+              Object.assign(mission, { complete: true, error: undefined, score: result })
+            }
           }
         }
-      }
+      })
+      this.ready = true
+      return this.current
     })
-    return Promise.resolve(this.current)
   }
 
   score () {
@@ -50,8 +55,11 @@ class Scoresheet {
   }
 
   process () {
+    if (!this.current) {
+      return Promise.resolve()
+    }
     this.current.missions.forEach(mission => mission.process())
-    this.RefIdentity.init()
+    return this.RefIdentity.init()
       .then(identity => {
         Object.assign(this.current, { referee: identity.referee })
         if (identity.table) {
@@ -79,6 +87,7 @@ class Scoresheet {
   }
 
   load (score) {
+    this.ready = false
     return Promise.resolve(this.RefIdentity.set(score))
       .then(() => this.reset())
       .then(current => {
@@ -97,6 +106,8 @@ class Scoresheet {
             current.objectives[objective.id].value = objective.value
           })
         })
+
+        this.ready = true
 
         return current
       })

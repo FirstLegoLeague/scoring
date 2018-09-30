@@ -10,7 +10,8 @@
     "angular-animate": "^1.7.0",
     "angular-cookies": "^1.7.1",
     "angular-signature": "^1.0.3",
-    "angular-xeditable": "^0.8.1"
+    "angular-xeditable": "^0.8.1",
+    "signature_pad": "^3.0.0-beta.3"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.5.2",

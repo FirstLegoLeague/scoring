@@ -8,6 +8,7 @@ import scoresheet from './scoresheet/scoresheet'
 import mission from './scoresheet/mission'
 import objective from './scoresheet/objective'
 import scoreDiffAnimation from './scoresheet/score_diff_animation'
+import scoresheetSignature from './scoresheet/scoresheet_signature'
 
 import scoresheetMenu from './scoresheet/menu/scoresheet_menu'
 import scoresheetActions from './scoresheet/menu/scoresheet_actions'
@@ -29,17 +30,13 @@ import scoresFilters from './scores/menu/scores_filters'
 import scoresActions from './scores/menu/scores_actions'
 
 import score from './scores/score'
-import scoreMetadata from './scores/score/score_metadata'
-import scorePoints from './scores/score/score_points'
-import scoreRefIdentity from './scores/score/score_ref_identity'
-import scoreActions from './scores/score/score_actions'
-import deleteScoreModal from './scores/score/delete_score_modal'
 
 export default {
   scoresheet,
   mission,
   objective,
   scoreDiffAnimation,
+  scoresheetSignature,
 
   scoresheetMenu,
   scoresheetActions,
@@ -56,13 +53,7 @@ export default {
   scoresActions,
   deleteAllScoresModal,
   noScoresMessage,
-
   score,
-  scoreMetadata,
-  scorePoints,
-  scoreRefIdentity,
-  scoreActions,
-  deleteScoreModal,
 
   status
 }

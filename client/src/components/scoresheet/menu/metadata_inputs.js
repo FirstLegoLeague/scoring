@@ -1,27 +1,20 @@
 export default {
   template: `
     <div>
-      <form>
-        <input type="text" list="teams" ng-focus="$ctrl.scoresheet.team = ''" ng-click="$ctrl.scoresheet.team = ''" placeholder="Select Team" blur="submit" ng-model="$ctrl.scoresheet.team">
-        <datalist id="teams">
-          <select >
-            <option type="text" ng-repeat="team in $ctrl.scoresheet.teams()">
-              {{ team.displayText }}
-            </option>
-          </select>
-        </datalist>
-      </form>
+      <select ng-model="metadataInputs.teamNumberString">
+        <option value="" disabled selected hidden>Select Team</option>
+        <option type="text" ng-repeat="team in metadataInputs.teams()" value="{{team.number}}">
+          {{ team.displayText }}
+        </option>
+      </select>
     </div>
     <div>
-      <select ng-if="$ctrl.scoresheet.team" ng-model="$ctrl.scoresheet.match" ng-class="{'disabled': $ctrl.scoresheet.loadingMatches}">
-        <option value="" disabled selected hidden>{{$ctrl.scoresheet.loadingMatches ? 'Loading...' : 'Select Round'}}</option>
-        <option type="text" ng-repeat="match in $ctrl.scoresheet.matches" value="{{match._id}}">
+      <select ng-if="metadataInputs.data.current.teamNumber" ng-model="metadataInputs.data.current.matchId" ng-class="{'disabled': metadataInputs.loadingMatches}">
+        <option value="" disabled selected hidden>{{metadataInputs.loadingMatches ? 'Loading...' : 'Select Round'}}</option>
+        <option type="text" ng-repeat="match in metadataInputs.matches" value="{{match._id}}">
           {{match.displayTextWithCompletion}}
         </option>
       </select>
     </div>`,
-  controller: function () { },
-  bindings: {
-    scoresheet: '=?'
-  }
+  controller: 'MetadataInputsController as metadataInputs'
 }
