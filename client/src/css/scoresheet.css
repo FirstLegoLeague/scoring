@@ -13,6 +13,10 @@ scoresheet .stamp {
   direction: ltr !important;
 }
 
+scoresheet-menu select {
+    width: 10em;
+}
+
 #signature:not(.alert) .stamp {
   display: none;
 }

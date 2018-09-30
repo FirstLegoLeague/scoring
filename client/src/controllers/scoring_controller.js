@@ -1,6 +1,6 @@
 class ScoringController {
-  constructor ($scope, Configuration, User) {
-    Object.assign(this, { $scope, Configuration })
+  constructor ($scope, Configuration, User, Logger) {
+    Object.assign(this, { $scope, Configuration, Logger })
     this.isAdmin = User.isAdmin()
   }
 
@@ -12,7 +12,7 @@ class ScoringController {
   _initConfiguration () {
     this.Configuration.load()
       .then(config => { this.logoutUrl = config.logoutUrl })
-      .catch(err => console.log(err))
+      .catch(err => this.Logger.error(err))
   }
 
   _initEvents () {
@@ -35,6 +35,6 @@ class ScoringController {
 }
 
 ScoringController.$$ngIsClass = true
-ScoringController.$inject = ['$scope', 'Configuration', 'User']
+ScoringController.$inject = ['$scope', 'Configuration', 'User', 'Logger']
 
 export default ScoringController

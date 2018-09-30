@@ -45,22 +45,18 @@ class Tournament {
   loadTeamMatches (teamNumber, force) {
     if (!this._teamsMathcesPromises[teamNumber] || force) {
       this._teamsMathcesPromises[teamNumber] = this.init()
-        .then(() =>
-          Promise.all([this.$http.get(`${this.tournamentUrl}/team/${teamNumber}/matches`, this.httpRequestConfig),
-            this.Scores.all()]))
-        .then(([matchesResponse, scores]) => {
+        .then(() => this.$http.get(`${this.tournamentUrl}/team/${teamNumber}/matches`, this.httpRequestConfig))
+        .then(matchesResponse => {
           const matches = matchesResponse.data
-          let stage = matches[0].stage
-          let round = 1
+          let stage = null
+          let round = 0
           matches.forEach(match => {
             if (match.stage !== stage) {
-              round = 1
               stage = match.stage
+              round = 1
             }
             match.round = round
-            match.complete = scores.some(score => score.teamNumber === teamNumber && score.matchId === match._id)
             match.displayText = `${match.stage} #${round}`
-            match.displayTextWithCompletion = `${match.displayText} ${match.complete ? '✔' : ''}`
             round++
           })
           this.matches[teamNumber] = matches

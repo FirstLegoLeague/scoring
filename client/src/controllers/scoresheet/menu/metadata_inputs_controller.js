@@ -1,6 +1,6 @@
 class MetadataInputsController {
-  constructor (Scoresheet, $scope, Tournament) {
-    Object.assign(this, { data: Scoresheet, $scope, Tournament })
+  constructor (Scoresheet, Scores, $scope, Tournament, Logger) {
+    Object.assign(this, { data: Scoresheet, Scores, $scope, Tournament, Logger })
     this.loading = true
   }
 
@@ -8,16 +8,20 @@ class MetadataInputsController {
     this.$scope.$watch(() => this.teamNumber(), () => {
       if (this.teamNumber()) {
         this.loadingMatches = true
-        this.Tournament.loadTeamMatches(this.teamNumber())
-          .then(matches => {
+        Promise.all([this.Tournament.loadTeamMatches(this.teamNumber()), this.Scores.all()])
+          .then(([matches, scores]) => {
+            matches.forEach(match => {
+              match.complete = scores.some(score => score.teamNumber === this.teamNumber() && score.matchId === match._id)
+              match.displayTextWithCompletion = `${match.displayText} ${match.complete ? '✔' : ''}`
+            })
             this.matches = matches
             if (this.stage() && this.round() && !this.match) {
               this.matchId = this.matches.find(m => m.round === this.round() && m.stage === this.stage())._id
             }
             this.loadingMatches = false
-            this.data.process()
+            return this.data.process()
           })
-          .catch(err => console.log(err))
+          .catch(err => this.Logger.error(err))
       }
     })
 
@@ -25,11 +29,16 @@ class MetadataInputsController {
       if (this.data.current.matchId) {
         const match = this.matches.find(m => m._id === this.data.current.matchId) ||
           this.matches.find(m => m.stage === this.data.current.stage && m.round === this.data.current.round)
-        this.data.current.matchId = match.matchId
+        this.data.current.matchId = match._id
         this.data.current.stage = match.stage
         this.data.current.round = match.round
-        this.data.process()
+        return this.data.process()
+          .catch(err => this.Logger.error(err))
       }
+    })
+
+    this.$scope.$on('reset', () => {
+      this.matches = []
     })
 
     return this.Tournament.loadTeams()
@@ -37,6 +46,10 @@ class MetadataInputsController {
 
   teamNumber () {
     return this.data.current ? this.data.current.teamNumber : undefined
+  }
+
+  getMatches () {
+    return this.matches
   }
 
   stage () {
@@ -53,6 +66,6 @@ class MetadataInputsController {
 }
 
 MetadataInputsController.$$ngIsClass = true
-MetadataInputsController.$inject = ['Scoresheet', '$scope', 'Tournament']
+MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'Logger']
 
 export default MetadataInputsController

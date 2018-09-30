@@ -1,6 +1,6 @@
 class ScoresheetSignatureController {
-  constructor (Scoresheet, $scope, Configuration) {
-    Object.assign(this, { data: Scoresheet, $scope, Configuration })
+  constructor (Scoresheet, $scope, Configuration, Logger) {
+    Object.assign(this, { data: Scoresheet, $scope, Configuration, Logger })
   }
 
   $onInit () {
@@ -15,12 +15,16 @@ class ScoresheetSignatureController {
           this.$scope.$watch(() => (this.$scope.getSignature ? this.$scope.getSignature().dataUrl : ''), () => {
             if (this.data.current) {
               this.data.current.signature = this.$scope.getSignature()
+              // Bug in the signature package: isEmpty is false when dataUrl is undefined
+              if (!this.data.current.signature.dataUrl) {
+                this.data.current.signature.isEmpty = true
+              }
               this.data.process()
             }
           })
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => this.Logger.error(err))
   }
 
   reset () {
@@ -50,6 +54,6 @@ class ScoresheetSignatureController {
 }
 
 ScoresheetSignatureController.$$ngIsClass = true
-ScoresheetSignatureController.$inject = ['Scoresheet', '$scope', 'Configuration']
+ScoresheetSignatureController.$inject = ['Scoresheet', '$scope', 'Configuration', 'Logger']
 
 export default ScoresheetSignatureController

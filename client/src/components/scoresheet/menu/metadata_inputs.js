@@ -9,11 +9,11 @@ export default {
       </select>
     </div>
     <div>
-      <select ng-if="metadataInputs.data.current.teamNumber" ng-model="metadataInputs.data.current.matchId" ng-class="{'disabled': metadataInputs.loadingMatches}">
+      <select ng-if="metadataInputs.data.current.teamNumber"
+        ng-model="metadataInputs.data.current.matchId"
+        ng-class="{'disabled': metadataInputs.loadingMatches}"
+        ng-options="match._id as match.displayTextWithCompletion for match in metadataInputs.getMatches() track by match._id">
         <option value="" disabled selected hidden>{{metadataInputs.loadingMatches ? 'Loading...' : 'Select Round'}}</option>
-        <option type="text" ng-repeat="match in metadataInputs.matches" value="{{match._id}}">
-          {{match.displayTextWithCompletion}}
-        </option>
       </select>
     </div>`,
   controller: 'MetadataInputsController as metadataInputs'

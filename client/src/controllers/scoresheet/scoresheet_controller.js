@@ -18,8 +18,8 @@ class ScoresheetController {
 
     this.$scope.$on('load', (event, scoresheet) => {
       this.data.load(scoresheet)
-        .then(() => this.$scope.$apply())
-        .catch(err => console.log(err))
+        .then(() => this.$scope.$digest())
+        .catch(err => this.Logger.error(err))
     })
 
     return this.data.init()
@@ -28,8 +28,8 @@ class ScoresheetController {
   }
 
   reset () {
+    this.$scope.$broadcast('reset')
     return this.data.reset()
-      .then(() => this.$scope.$broadcast('reset'))
   }
 
   error () {

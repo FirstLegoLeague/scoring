@@ -1,11 +1,20 @@
-const LEVELS = ['debug', 'info', 'warn', 'error', 'fatal']
+const LEVELS = {
+  debug: 'log',
+  info: 'log',
+  warn: 'warn',
+  error: 'error',
+  fatal: 'error'
+}
 
 class Logger {
   constructor ($http) {
     Object.assign(this, { $http })
 
-    LEVELS.forEach(level => {
-      this[level] = message => this.log(message, level)
+    Object.entries(LEVELS).forEach(([level, consoleMethod]) => {
+      this[level] = message => {
+        console[consoleMethod](message)
+        this.log(message, level)
+      }
     })
 
     this.$http = $http

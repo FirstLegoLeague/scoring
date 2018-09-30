@@ -1,6 +1,6 @@
 class ScoresController {
-  constructor (Scores, $scope, Configuration, Tournament, Messanger, Modals, User) {
-    Object.assign(this, { data: Scores, $scope, Configuration, Tournament, Messanger, Modals, User })
+  constructor (Scores, $scope, Configuration, Tournament, Messanger, Modals, User, Logger) {
+    Object.assign(this, { data: Scores, $scope, Configuration, Tournament, Messanger, Modals, User, Logger })
     this.user = User.username
     this.filters = this.filters || {
       search: '',
@@ -19,7 +19,7 @@ class ScoresController {
         this.rankingsLink = config.rankings
         return this.load()
       })
-      .catch(err => console.log(err))
+      .catch(err => this.Logger.error(err))
   }
 
   load () {
@@ -27,7 +27,7 @@ class ScoresController {
     this.$scope.$broadcast('reset')
     Promise.all([this.data.load(), this.Tournament.loadTeams(), this.Tournament.loadTables()])
       .then(() => { this.loading = false })
-      .catch(err => console.log(err))
+      .catch(err => this.Logger.error(err))
   }
 
   openDeletionDialog () {
@@ -70,7 +70,7 @@ class ScoresController {
       scores = this.duplicateScores(scores)
 
       if (scores.length === 0) {
-        this.showDuplicates = false
+        this.filters.showDuplicates = false
         scores = this.data.scores
       }
     }
@@ -80,7 +80,7 @@ class ScoresController {
       scores = this.errorScores(scores)
 
       if (scores.length === 0) {
-        this.showErrors = false
+        this.filters.showErrors = false
         scores = this.data.scores
       }
     }
@@ -114,6 +114,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['Scores', '$scope', 'Configuration', 'Tournament', 'Messanger', 'Modals', 'User']
+ScoresController.$inject = ['Scores', '$scope', 'Configuration', 'Tournament', 'Messanger', 'Modals', 'User', 'Logger']
 
 export default ScoresController
