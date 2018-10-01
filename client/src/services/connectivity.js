@@ -17,23 +17,23 @@ class Connectivity {
     const pendingRequestsCount = this.independence.pendingRequestsCount()
     if (pendingRequestsCount !== 0) {
       const timeSinceLastSuccessfulRequest = Date.now() - this.independence.lastSuccessfulRequestTime
-      if (timeSinceLastSuccessfulRequest < ONLINE_TIMESPAN) {
-        return STATUS_CODES.ONLINE
-      } else if (timeSinceLastSuccessfulRequest < TEMPORARY_TIMESPAN && pendingRequestsCount < TEMPORARY_REQUESTS_COUNT) {
-        return STATUS_CODES.TEMPORARY_OFFLINE
-      } else {
-        return STATUS_CODES.PERMANENTLY_OFFLINE
+      if (timeSinceLastSuccessfulRequest > ONLINE_TIMESPAN) {
+        if (timeSinceLastSuccessfulRequest < TEMPORARY_TIMESPAN && pendingRequestsCount < TEMPORARY_REQUESTS_COUNT) {
+          return STATUS_CODES.TEMPORARY_OFFLINE
+        } else {
+          return STATUS_CODES.PERMANENTLY_OFFLINE
+        }
       }
     }
 
     if (!this.messanger.open) {
       const timeSinceLastConnection = this.messanger.timeSinceLastConnection()
-      if (timeSinceLastConnection < ONLINE_TIMESPAN) {
-        return STATUS_CODES.ONLINE
-      } else if (timeSinceLastConnection < TEMPORARY_TIMESPAN) {
-        return STATUS_CODES.TEMPORARY_OFFLINE
-      } else {
-        return STATUS_CODES.PERMANENTLY_OFFLINE
+      if (timeSinceLastConnection > ONLINE_TIMESPAN) {
+        if (timeSinceLastConnection < TEMPORARY_TIMESPAN) {
+          return STATUS_CODES.TEMPORARY_OFFLINE
+        } else {
+          return STATUS_CODES.PERMANENTLY_OFFLINE
+        }
       }
     }
 
