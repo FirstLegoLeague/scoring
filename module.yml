@@ -24,13 +24,14 @@ config:
         values:
           - US    English
           - ar_SA Arabic (Saudi Arabia)
-          - ES    Spanish
-          - IL    Hebrew
+          - es_ES Spanish (Spain)
+          - es_LA Spanish (Latin America)
+          - he_IL Hebrew (Israel)
           - ko_KR Korean (Korea)
           - NL    Dutch
           - pt_BR Portuguese (Brazil)
-          - RU    Russian
-          - ZH    Chinese (Hong Kong)
+          - ru_RU Russian (Russia)
+          - zh_HK Chinese (Hong Kong)
       - name: autoPublish
         display: Auto-publish team scores
         type: boolean
