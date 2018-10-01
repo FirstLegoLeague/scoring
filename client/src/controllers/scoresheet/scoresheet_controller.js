@@ -1,6 +1,7 @@
 class ScoresheetController {
   constructor (Scoresheet, $scope, Configuration, Logger) {
     Object.assign(this, { data: Scoresheet, $scope, Configuration, Logger })
+    this.saving = false
   }
 
   $onInit () {
@@ -37,7 +38,7 @@ class ScoresheetController {
 
   complete () {
     return this.data.current && this.missions() &&
-      (!this.data.current.errors || this.data.current.errors.length === 0)
+      (!this.data.current.errors || this.data.current.errors.length === 0) && !this.saving
   }
 
   direction () {
@@ -49,10 +50,12 @@ class ScoresheetController {
   }
 
   save () {
+    this.saving = true
     this.data.save()
       .then(() => {
         this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
         this.reset()
+        this.saving = false
       })
       .catch(() => this.reset())
   }
