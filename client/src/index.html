@@ -29,7 +29,7 @@
       </div>
 
       <div class="top-bar-page">
-        <scores ng-show="scoring.showScoresScreen"></scores>
+        <scores ng-if="scoring.isAdmin" ng-show="scoring.showScoresScreen"></scores>
         <scoresheet id="scoresheet" ng-hide="scoring.showScoresScreen"></scoresheet>
       </div>
   </body>

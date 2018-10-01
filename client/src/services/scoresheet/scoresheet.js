@@ -65,7 +65,7 @@ class Scoresheet {
         if (identity.table) {
           Object.assign(this.current, { tableId: identity.table.tableId })
         }
-        return this.ScoresheetValidations.validate(this.current)
+        return this.scoresheetValidations.validate(this.current)
           .then(errors => { this.errors = errors })
       })
       .catch(err => { this.logger.error(err) })

@@ -8,7 +8,7 @@ export default {
   </div>
 
   <div id="scores-list" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5">
-    <div ng-repeat="score in scores.scores()" class="cell grid-x">
+    <div ng-repeat="score in scores.data.scores" class="cell grid-x" ng-show="scores.shouldShowScore(score)">
       <score id="score-{{score._id}}" data="score" class="cell grid-y"></score>
     </div>
   </div>

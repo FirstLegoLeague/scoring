@@ -17,7 +17,7 @@ class Messanger {
 
   init () {
     if (!this.open && !this.connecting) {
-      this._initPromise = this.Configuration.load().then(config => {
+      this._initPromise = this.configuration.load().then(config => {
         this.connecting = true
         this.ws = new this.$window.WebSocket(config.mhub)
         this.node = config.node || DEFAULT_NODE

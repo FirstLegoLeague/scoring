@@ -14,6 +14,8 @@ class ScoresController {
     this.$scope.$on('reload', () => this.load())
     this.messanger.one('scores:reload', () => this.load())
 
+    this.$scope.$watch(() => this.data.scores, () => this._calculateFilters(), true)
+
     this.configuration.load()
       .then(config => {
         this.rankingsLink = config.rankings
@@ -51,65 +53,48 @@ class ScoresController {
   }
 
   any () {
-    return this.data.scores ? this.data.scores.length > 0 : 0
+    return Boolean(this.data.scores && this.data.scores.length)
   }
 
-  scores () {
-    let scores = this.data.scores
-
+  shouldShowScore (score) {
     // Filter by search
-    if (this.filters.search) {
-      scores = scores
-        .filter(score => [score.teamText, score.referee, score.tableText, score.matchText, score.score]
-          .map(field => (field && typeof field === 'string') ? field.toLowerCase() : field)
-          .some(value => (value || '').toString().includes(this.filters.search.toLowerCase())))
+    if (this.filters.search && !([score.teamText, score.referee, score.tableText, score.matchText, score.score]
+      .map(field => (field && typeof field === 'string') ? field.toLowerCase() : field)
+      .some(value => (value || '').toString().includes(this.filters.search.toLowerCase())))) {
+      return false
     }
 
     // Filter by showDuplicates
-    if (this.filters.showDuplicates) {
-      scores = this.duplicateScores(scores)
-
-      if (scores.length === 0) {
-        this.filters.showDuplicates = false
-        scores = this.data.scores
-      }
+    if (this.filters.showDuplicates && !this.duplicateScores.includes(score)) {
+      return false
     }
 
     // Filter by showErrors
-    if (this.filters.showErrors) {
-      scores = this.errorScores(scores)
-
-      if (scores.length === 0) {
-        this.filters.showErrors = false
-        scores = this.data.scores
-      }
+    if (this.filters.showErrors && !this.errorScores.includes(score)) {
+      return false
     }
 
-    return scores
+    return true
   }
 
-  duplicateScores (scores) {
-    scores = scores || this.data.scores || []
-
-    return scores.filter(score => {
-      return scores.some(otherScore => {
+  _calculateFilters () {
+    this.duplicateScores = this.data.scores.filter(score => {
+      return this.data.scores.some(otherScore => {
         return score !== otherScore &&
           otherScore.teamNumber === score.teamNumber &&
           otherScore.matchId === score.matchId
       })
     })
-  }
 
-  errorScores (scores) {
-    scores = scores || this.data.scores || []
-    const duplicateErrors = this.duplicateScores(scores)
-
-    const otherErrors = scores.filter(score =>
+    const missingFieldScores = this.data.scores.filter(score =>
       typeof score.teamNumber === 'undefined' || typeof score.matchId === 'undefined' ||
-      (!this.loading && !this.tournament.teams.some(team => team.number === score.teamNumber))
-    )
-    return duplicateErrors.concat(otherErrors)
+      (!this.loading && !this.tournament.teams.some(team => team.number === score.teamNumber)))
+
+    this.errorScores = this.duplicateScores.concat(missingFieldScores)
       .filter((value, index, arr) => arr.indexOf(value) === index)
+
+    this.filters.showDuplicates = this.filters.showDuplicates && this.duplicateScores.length > 0
+    this.filters.showErrors = this.filters.showErrors && this.errorScores.length > 0
   }
 }
 

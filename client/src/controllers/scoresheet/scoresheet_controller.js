@@ -32,10 +32,6 @@ class ScoresheetController {
     return this.data.reset()
   }
 
-  error () {
-    return this.data.errors[0]
-  }
-
   complete () {
     return this.data.current && this.missions() &&
       (!this.data.current.errors || this.data.current.errors.length === 0)

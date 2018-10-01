@@ -53,7 +53,7 @@ class RefIdentityController {
   }
 
   tables () {
-    return this.data.Tournament.tables
+    return this.data.tournament.tables
   }
 
   display () {
