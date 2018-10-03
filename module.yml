@@ -25,11 +25,12 @@ config:
           - US    English
           - ar_SA Arabic (Saudi Arabia)
           - ES    Spanish
-          - IL    Hebrew
+          - fi_FI Finnish (Finland)
+          - IL    Hebrew (Israel)
           - ko_KR Korean (Korea)
-          - NL    Dutch
+          - NL    Dutch (Netherlands)
           - pt_BR Portuguese (Brazil)
-          - RU    Russian
+          - RU    Russian (Russia)
           - ZH    Chinese (Hong Kong)
       - name: autoPublish
         display: Auto-publish team scores

@@ -1,23 +1,23 @@
 {
     "title": "INTO ORBIT",
     "missions": [{
-            "title": "M01 우주여행",
-            "description": "＊\t각각의 페이로드 로켓을 명백히 우주여행 경사로로 굴려 내려 보냅니다. 각각의 출발과 이동을 할 때 * 수레는 첫번째 트렉 연결부위를 지날 때 독립적이어야 합니다.",
+            "title": "M01 VIAJE ESPACIAL",
+            "description": "Iniciad cada Carga Útil para que ruede claramente a lo largo de la Rampa de Viaje Espacial. Para cada envío, el carro debe ser independiente en el momento que alcance la primera conexión de pista.",
             "objectives": [{
                     "id": "M01_1",
-                    "title": "탐사차량 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
+                    "title": "La Carga de Vehículo rebasó la primera conexión de pista",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M01_2",
-                    "title": "물자 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
+                    "title": "La Carga de Suministros rebasó la primera conexión de pista",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M01_3",
-                    "title": "승무원 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
+                    "title": "La Carga de Tripulación rebasó la primera conexión de pista",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -50,17 +50,17 @@
             }]
         },
         {
-            "title": "M02 태양전지판 배열",
-            "description": "태양전지판이 여러분쪽 또는 여러분과 멀어지는 쪽으로 기울어져야 합니다.",
+            "title": "M02 SISTEMA DE PANELES SOLARES",
+            "description": "Los Paneles Solares se tienen que inclinar en un sentido u otro, dependiendo de las condiciones y la estrategia.",
             "objectives": [{
                     "id": "M02_1",
-                    "title": "두개의 태양전지판이 같은 경기장쪽으로 기울어 졌습니다.",
+                    "title": "Ambos Paneles Solares están inclinados hacia el mismo Terreno de Juego",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M02_2",
-                    "title": "여러분의 태양전지판이 상대팀쪽으로 기울어 졌습니다.",
+                    "title": "Vuestro Panel Solar está inclinado hacia el Terreno de Juego del otro equipo",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -81,17 +81,17 @@
             }]
         },
         {
-            "title": "M03 3D 프린팅",
-            "description": "* 레골리스 코어 샘플을 3D프린터에 넣어 2x4 브릭을 방출시킵니다.",
+            "title": "M03 IMPRESIÓN 3D",
+            "description": "Expulsad el Ladrillo 2x4 depositando una Muestra Básica de Regolito dentro de la impresora 3D.",
             "objectives": [{
                     "id": "M03_1",
-                    "title": "2x4 브릭이 방출되었습니다.(3D프린터에 레골리스 코어샘플을 넣는 것에 의해서만)",
+                    "title": "El Ladrillo 2x4 está expulsado",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M03_2",
-                    "title": "2x4 브릭이 북동쪽 행성구역안에 완전히 들어가 있습니다.",
+                    "title": "El Ladrillo 2x4 está completamente dentro de la Zona del Planeta del Nordeste",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -112,17 +112,17 @@
             }]
         },
         {
-            "title": "M04 크레이터 건너기",
-            "description": "로봇 또는 로봇으로 부터 내보내진 이동체가 크레이터 모형을 완전히 가로질러 그 위로 달려 넘어갑니다. 근처로 가거나 둘러서 가서는 안됩니다.",
+            "title": "M04 ATRAVESANDO CRÁTERES",
+            "description": "El Robot o cualquier nave que este envíe tiene que cruzar completamente el Modelo de Cráteres circulando directamente sobre él. Sin pasar cerca. Sin rodearlo.",
             "objectives": [{
                     "id": "M04_1",
-                    "title": "크레이터를 건너는 장비의 무게를 지탱하는 모든 부분이 *완전히 두개의 타워 사이로 지나가야 합니다.",
+                    "title": "Todos los elementos que soportan el peso del equipamiento cruzaron completamente entre las torres",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M04_2",
-                    "title": "모든 크레이터를 건너는 장비는 동쪽에서 서쪽으로, 그리고 평평하게 눕혀진 게이트 위를 완전히 지나가야 합니다.",
+                    "title": "Todo el equipamiento cruzó de este a oeste rebasando completamente la valla bajada",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -143,29 +143,29 @@
             }]
         },
         {
-            "title": "M05 추출",
-            "description": "여러분의 로봇은 모든 코어 샘플 모형을 코어 기지 모형으로부터 가져와야 합니다. 그리고 나서 여기에 설명된 것과 임무 M03에서 수행할 옵션들을 선택해 수행할 수 있습니다.",
+            "title": "M05 EXTRACCIÓN",
+            "description": "El Robot tiene que expulsar todas las Muestras Básicas del Modelo de Instalación Central.",
             "objectives": [{
                     "id": "M05_1",
-                    "title": "4개의 모든 코어샘플들이 코어기지 모형에서 축과 완전히 분리되었습니다.",
+                    "title": "Las cuatro Muestras Básicas no están tocando el eje del Modelo de Instalación Central",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M05_2",
-                    "title": "가스 코어샘플이 매트에 닿아 있고 착륙 목표 지점 원 안쪽에 완전히 들어가 있습니다.",
+                    "title": "La Muestra Básica de Gas está tocando el tapete y completamente dentro del Círculo de Aterrizaje del Módulo",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M05_3",
-                    "title": "-또는- 가스 코어샘플이 완전히 베이스 안쪽에 있습니다.",
+                    "title": "La Muestra Básica de Gas está completamente dentro de la Base",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M05_4",
-                    "title": "워터 코어 샘플이 식량 증식 챔버 에 의해서만 지지되도록 올려져 있습니다.",
+                    "title": "La Muestra Básica de Agua está únicamente aguantada por la Cámara de Crecimiento de Vegetales",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -181,7 +181,7 @@
                     return 10
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'no') {
-                    return new Error("가스 코어 샘플 위치")
+                    return new Error("Verificad posición de la Muestra Básica de Gas")
                 }
                 if (M05_1 === 'no' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'yes') {
                     return 8
@@ -193,7 +193,7 @@
                     return 18
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'yes') {
-                    return new Error("가스 코어 샘플 위치")
+                    return new Error("Verificad posición de la Muestra Básica de Gas")
                 }
                 if (M05_1 === 'yes' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'no') {
                     return 16
@@ -205,7 +205,7 @@
                     return 26
                 }
                 if (M05_1 === 'yes' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'no') {
-                    return new Error("가스 코어 샘플 위치")
+                    return new Error("Verificad posición de la Muestra Básica de Gas")
                 }
                 if (M05_1 === 'yes' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'yes') {
                     return 24
@@ -217,28 +217,28 @@
                     return 34
                 }
                 if (M05_1 === 'yes' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'yes') {
-                    return new Error("가스 코어 샘플 위치")
+                    return new Error("Verificad posición de la Muestra Básica de Gas")
                 }
             }]
         },
         {
-            "title": "M06 우주 스테이션 모듈",
-            "description": "로봇은 거주구역 중심부의 포트 구멍에 모듈을 삽입하거나 제거해야 합니다. 삽입된 모듈은 거주구역 중심부 이외의 것에 닿아 있어서는 안됩니다.",
+            "title": "M06 MÓDULOS DE LA ESTACIÓN ESPACIAL",
+            "description": "El Robot tiene que retirar e insertar Módulos Habitables entre las escotillas del Núcleo de la Estación. Los Módulos insertados NO deben tocar nada excepto el Núcleo de la Estación.",
             "objectives": [{
                     "id": "M06_1",
-                    "title": "원뿔형 모듈이 완전히 베이스 안에 있습니다.",
+                    "title": "El Módulo Cónico está completamente dentro de la Base",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M06_2",
-                    "title": "튜브 모듈이 거주구역 중심부 서쪽 포트안에 있습니다.",
+                    "title": "El Módulo Tubular está insertado en la escotilla oeste del Núcleo de la Estación",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M06_3",
-                    "title": "도크 모듈이 거주구역 중심부 동쪽 포트안에 있습니다.",
+                    "title": "El Módulo de Atraque en la escotilla está insertadodel Núcleo de la Estación",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -271,22 +271,22 @@
             }]
         },
         {
-            "title": "M07 우주유영",
-            "description": "로봇은 \"Gerhard\"의 몸을 가져다가 에어락 챔버에 넣어야 합니다.",
+            "title": "M07 PASEO ESPACIAL DE EMERGENCIA",
+            "description": "El Robot tiene que llevar el cuerpo de Gherard dentro de la Cámara Hermética.",
             "objectives": [{
                 "id": "M07",
-                "title": "우주비행사 \"Gerhard\"가 거주구역 중심부의 에어락 챔버에 있습니다:",
+                "title": "El astrounauta Gherhard está insertado dentro de la Cámara Hermética del Núcleo de la Estación:",
                 "options": [{
                         "value": "none",
-                        "title": "아니오"
+                        "title": "No"
                     },
                     {
                         "value": "partially",
-                        "title": "부분적으로"
+                        "title": "Parcialmente"
                     },
                     {
                         "value": "completely",
-                        "title": "완전히"
+                        "title": "Completamente"
                     }
                 ],
                 "type": "enum",
@@ -305,26 +305,26 @@
             }]
         },
         {
-            "title": "M08 유산소운동",
-            "description": "로봇은 운동 기계의 손잡이 조립체 중 1개 또는 두개 모두를 지속적으로 움직여 포인터가 올라가도록 해야 합니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)",
+            "title": "M08 EJERCICIO AERÓBICO",
+            "description": "Avanzad el Puntero a lo largo del Dial de la Máquina de Ejercicio moviendo una o ambas empuñaduras. Si el Puntero está cubriendo parcialmente un extremo de color gris o naranja, seleccionad dicho color.",
             "objectives": [{
                 "id": "M08",
-                "title": "포인터의 끝이 색에 도달했습니다.(손잡이 조립체를 움직이는 것에 의해서만):",
+                "title": "El Puntero de Ejercicio está en:",
                 "options": [{
                         "value": "none",
-                        "title": "없음"
+                        "title": "Ninguno"
                     },
                     {
                         "value": "gray",
-                        "title": "회색"
+                        "title": "Gris"
                     },
                     {
                         "value": "white",
-                        "title": "흰색"
+                        "title": "Blanco"
                     },
                     {
                         "value": "orange",
-                        "title": "오렌지색"
+                        "title": "Naranja"
                     }
                 ],
                 "type": "enum",
@@ -346,11 +346,11 @@
             }]
         },
         {
-            "title": "M09 근력운동",
-            "description": "로봇은 득점할 수 있는 높이까지 힘막대를 들어올려야 합니다.",
+            "title": "M09 EJERCICIO DE ESFUERZO",
+            "description": "El Robot tiene que levantar la Barra de Esfuerzo hasta una altura que puntúe.",
             "objectives": [{
                 "id": "M09",
-                "title": "톱니가 있는 부분의 4번째 구멍이 일부라도 보이도록 힘막대가 들어올려져 있습니다.",
+                "title": "La Barra de Esfuerzo está levantada de modo que el cuarto agujero de la barra dentada es parcialmente visible",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -364,11 +364,11 @@
             }]
         },
         {
-            "title": "M10 식량생산",
-            "description": "밀대를 적당한 거리만큼 적당한 속도로 밀어 초록색이 나오도록 합니다.",
+            "title": "M10 PRODUCCIÓN DE VEGETALES",
+            "description": "Moved la Barra de Empuje la distancia correcta a la velocidad adecuada para situarla en el rango de puntuación verde.",
             "objectives": [{
                 "id": "M10",
-                "title": "회색의 무게추가 초록색이 나온 뒤 황갈색이 나오기 전에 내려와 있습니다. (밀대를 미는 것에만 의해)",
+                "title": "El peso gris está caído después del verde pero antes del beis",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -382,11 +382,11 @@
             }]
         },
         {
-            "title": "M11 탈출 속도",
-            "description": "로봇은 충격판을 충분한 힘으로 때려서 우주선이 돌라간 후 다시 떨어지지 않도록 합니다.",
+            "title": "M11 - VELOCIDAD DE ESCAPE",
+            "description": "Conseguid que la nave alcance la velocidad y la altura necesarias para que se mantenga arriba, presionando/golpeando el Panel de Impacto.",
             "objectives": [{
                 "id": "M11",
-                "title": "우주선이 위에 머물어 있습니다.(충격판을 치거나 누르는것에만 의해)",
+                "title": "La Nave Espacial se mantiene arriba",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -400,11 +400,11 @@
             }]
         },
         {
-            "title": "M12 위성괴도",
-            "description": "로봇은 1개 이상의 인공위성을 바깥쪽 괘도 위에 올려놓아야 합니다.",
+            "title": "M12 ÓRBITAS DE SATÉLITES",
+            "description": "Moved cualquier parte de un Satélite sobre o por encima del área que hay entre las dos líneas de la Órbita Externa.",
             "objectives": [{
                 "id": "M12",
-                "title": "바깥 궤도의 두 선 사이에 올라 있거나 걸쳐 있는 인공위성들",
+                "title": "Satélites sobre o por encima del área entre las 2 líneas de la Órbita Externa:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -441,26 +441,26 @@
             }]
         },
         {
-            "title": "M13 관측소",
-            "description": "관측소 모형을 정확한 방향으로 회전시킵니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)",
+            "title": "M13 OBSERVATORIO",
+            "description": "Rotad el Observatorio apuntando a una dirección precisa. Si el Puntero está cubriendo parcialmente un extremo de color gris o naranja, seleccionad dicho color.",
             "objectives": [{
                 "id": "M13",
-                "title": "관측소 포인터의 끝이 다음색에 있습니다.:",
+                "title": "El Puntero del Observatorio está en:",
                 "options": [{
                         "value": "none",
-                        "title": "없음"
+                        "title": "Ninguno"
                     },
                     {
                         "value": "gray",
-                        "title": "회색"
+                        "title": "Gris"
                     },
                     {
                         "value": "white",
-                        "title": "흰색"
+                        "title": "Blanco"
                     },
                     {
                         "value": "orange",
-                        "title": "오렌지색"
+                        "title": "Naranja"
                     }
                 ],
                 "type": "enum",
@@ -482,11 +482,11 @@
             }]
         },
         {
-            "title": "M14 소행성의 방향 전환",
-            "description": "프리라인의 서쪽에서 소행성 모형 한 개 또는 두개 모두를 독립적으로 소행성 포획기로 보냅니다.",
+            "title": "M14 DESVIO DE METEOROIDES",
+            "description": "Lanzad Meteoroides por encima de la Línea Libre para que toquen el tapete en el Receptor de Meteoroides.Los Meteoroides deben ser golpeados/liberados mientras\r\nestán clara y completamente al oeste de la Línea Libre. Mientras estén entre el golpeo/lanzamiento y la posición de puntuación, el Meteoroide debe ser claramente Independiente.",
             "objectives": [{
                     "id": "M14_1",
-                    "title": "매트에 닿아있고 소행성 포획기의 가운데 들어간 소행성:",
+                    "title": "Meteoroides tocando el Tapete en la Sección Central:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -505,7 +505,7 @@
                 },
                 {
                     "id": "M14_2",
-                    "title": "매트에 닿아있고 소행성 포획기의 좌우에 들어간 소행성:",
+                    "title": "Meteoroides tocando el Tapete en cualquier Sección Lateral:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -540,46 +540,46 @@
                     return 20
                 }
                 if (M14_1 === '1' && M14_2 === '2') {
-                    return new Error("불가능한 조합.  너무 많은 소행성수")
+                    return new Error("Combinación imposible, demasiados Meteoroides")
                 }
                 if (M14_1 === '2' && M14_2 === '0') {
                     return 24
                 }
                 if (M14_1 === '2' && M14_2 === '1') {
-                    return new Error("불가능한 조합.  너무 많은 소행성수")
+                    return new Error("Combinación imposible, demasiados Meteoroides")
                 }
                 if (M14_1 === '2' && M14_2 === '2') {
-                    return new Error("불가능한 조합.  너무 많은 소행성수")
+                    return new Error("Combinación imposible, demasiados Meteoroides")
                 }
             }]
         },
         {
-            "title": "M15 착륙선 착륙",
-            "description": "착륙선을 착륙 목표지점중 한곳으로 손상없이 옮기거나 베이스로 가져 옵니다.",
+            "title": "M15 ATERRIZAJE DEL MÓDULO",
+            "description": "Moved el Módulo de Aterrizaje para que esté intacto, tocando el Tapete y completamente dentro de la Zona Circular del Módulo o, al menos, dentro de la Base.",
             "objectives": [{
                     "id": "M15_1",
-                    "title": "착륙선이 손상없이 결합되어 있고 매트에 닿아있습니다:",
+                    "title": "El Módulo de Aterrizaje está  intacto y tocando el Tapete",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M15_2",
-                    "title": "착륙선이 완전히 안에 있습니다.:",
+                    "title": "El Módulo de Aterrizaje está completamente dentro de:",
                     "options": [{
                             "value": "no",
-                            "title": "없음"
+                            "title": "Ninguno"
                         },
                         {
                             "value": "base",
-                            "title": "베이스"
+                            "title": "Base"
                         },
                         {
                             "value": "planet",
-                            "title": "북동쪽 행성 구역"
+                            "title": "Zona del Planeta del Nordeste"
                         },
                         {
                             "value": "circle",
-                            "title": "목표 지점 원"
+                            "title": "Zona Circular del Módulo"
                         }
                     ],
                     "type": "enum",
@@ -614,11 +614,11 @@
             }]
         },
         {
-            "title": "페널티",
-            "description": "여러분의 로봇을 손으로 구출 할 수 있지만, 그렇게 하면 페널티를 받게됩니다.",
+            "title": "PENALIZACIONES POR INTERRUPCIÓN",
+            "description": "Si interrumpís el Robot, el árbitro pondrá un Disco de Penalización en el triángulo del sudeste como un indicador de Interrupción permanente.",
             "objectives": [{
                 "id": "penalties",
-                "title": "남동쪽 삼각형 안의 페널티 디스크 수:",
+                "title": "Discos del Penalización dentro del triángulo del Sudeste:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -677,85 +677,85 @@
         }
     ],
     "strings": {
-        "yes": "예",
-        "no": "아니오",
-        "M01-name": "M01 우주여행",
-        "M01-desc": "＊\t각각의 페이로드 로켓을 명백히 우주여행 경사로로 굴려 내려 보냅니다. 각각의 출발과 이동을 할 때 * 수레는 첫번째 트렉 연결부위를 지날 때 독립적이어야 합니다.",
-        "M01-scoring1": "탐사차량 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
-        "M01-scoring2": "물자 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
-        "M01-scoring3": "승무원 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
-        "M02-name": "M02 태양전지판 배열",
-        "M02-desc": "태양전지판이 여러분쪽 또는 여러분과 멀어지는 쪽으로 기울어져야 합니다.",
-        "M02-scoring1": "두개의 태양전지판이 같은 경기장쪽으로 기울어 졌습니다.",
-        "M02-scoring2": "여러분의 태양전지판이 상대팀쪽으로 기울어 졌습니다.",
-        "M03-name": "M03 3D 프린팅",
-        "M03-desc": "* 레골리스 코어 샘플을 3D프린터에 넣어 2x4 브릭을 방출시킵니다.",
-        "M03-scoring1": "2x4 브릭이 방출되었습니다.(3D프린터에 레골리스 코어샘플을 넣는 것에 의해서만)",
-        "M03-scoring2": "2x4 브릭이 북동쪽 행성구역안에 완전히 들어가 있습니다.",
-        "M04-name": "M04 크레이터 건너기",
-        "M04-desc": "로봇 또는 로봇으로 부터 내보내진 이동체가 크레이터 모형을 완전히 가로질러 그 위로 달려 넘어갑니다. 근처로 가거나 둘러서 가서는 안됩니다.",
-        "M04-scoring1": "크레이터를 건너는 장비의 무게를 지탱하는 모든 부분이 *완전히 두개의 타워 사이로 지나가야 합니다.",
-        "M04-scoring2": "모든 크레이터를 건너는 장비는 동쪽에서 서쪽으로, 그리고 평평하게 눕혀진 게이트 위를 완전히 지나가야 합니다.",
-        "M05-name": "M05 추출",
-        "M05-desc": "여러분의 로봇은 모든 코어 샘플 모형을 코어 기지 모형으로부터 가져와야 합니다. 그리고 나서 여기에 설명된 것과 임무 M03에서 수행할 옵션들을 선택해 수행할 수 있습니다.",
-        "M05-scoring1": "4개의 모든 코어샘플들이 코어기지 모형에서 축과 완전히 분리되었습니다.",
-        "M05-scoring2": "가스 코어샘플이 매트에 닿아 있고 착륙 목표 지점 원 안쪽에 완전히 들어가 있습니다.",
-        "M05-scoring3": "-또는- 가스 코어샘플이 완전히 베이스 안쪽에 있습니다.",
-        "M05-scoring4": "워터 코어 샘플이 식량 증식 챔버 에 의해서만 지지되도록 올려져 있습니다.",
-        "M05-error": "가스 코어 샘플 위치",
-        "M06-name": "M06 우주 스테이션 모듈",
-        "M06-desc": "로봇은 거주구역 중심부의 포트 구멍에 모듈을 삽입하거나 제거해야 합니다. 삽입된 모듈은 거주구역 중심부 이외의 것에 닿아 있어서는 안됩니다.",
-        "M06-scoring1": "원뿔형 모듈이 완전히 베이스 안에 있습니다.",
-        "M06-scoring2": "튜브 모듈이 거주구역 중심부 서쪽 포트안에 있습니다.",
-        "M06-scoring3": "도크 모듈이 거주구역 중심부 동쪽 포트안에 있습니다.",
-        "M07-name": "M07 우주유영",
-        "M07-desc": "로봇은 \"Gerhard\"의 몸을 가져다가 에어락 챔버에 넣어야 합니다.",
-        "M07-scoring": "우주비행사 \"Gerhard\"가 거주구역 중심부의 에어락 챔버에 있습니다:",
-        "M07-scoring1": "아니오",
-        "M07-scoring2": "부분적으로",
-        "M07-scoring3": "완전히",
-        "M08-name": "M08 유산소운동",
-        "M08-desc": "로봇은 운동 기계의 손잡이 조립체 중 1개 또는 두개 모두를 지속적으로 움직여 포인터가 올라가도록 해야 합니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)",
-        "M08-scoring": "포인터의 끝이 색에 도달했습니다.(손잡이 조립체를 움직이는 것에 의해서만):",
-        "M08-scoring1": "없음",
-        "M08-scoring2": "회색",
-        "M08-scoring3": "흰색",
-        "M08-scoring4": "오렌지색",
-        "M09-name": "M09 근력운동",
-        "M09-desc": "로봇은 득점할 수 있는 높이까지 힘막대를 들어올려야 합니다.",
-        "M09-scoring": "톱니가 있는 부분의 4번째 구멍이 일부라도 보이도록 힘막대가 들어올려져 있습니다.",
-        "M10-name": "M10 식량생산",
-        "M10-desc": "밀대를 적당한 거리만큼 적당한 속도로 밀어 초록색이 나오도록 합니다.",
-        "M10-scoring": "회색의 무게추가 초록색이 나온 뒤 황갈색이 나오기 전에 내려와 있습니다. (밀대를 미는 것에만 의해)",
-        "M11-name": "M11 탈출 속도",
-        "M11-desc": "로봇은 충격판을 충분한 힘으로 때려서 우주선이 돌라간 후 다시 떨어지지 않도록 합니다.",
-        "M11-scoring": "우주선이 위에 머물어 있습니다.(충격판을 치거나 누르는것에만 의해)",
-        "M12-name": "M12 위성괴도",
-        "M12-desc": "로봇은 1개 이상의 인공위성을 바깥쪽 괘도 위에 올려놓아야 합니다.",
-        "M12-scoring": "바깥 궤도의 두 선 사이에 올라 있거나 걸쳐 있는 인공위성들",
-        "M13-name": "M13 관측소",
-        "M13-desc": "관측소 모형을 정확한 방향으로 회전시킵니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)",
-        "M13-scoring": "관측소 포인터의 끝이 다음색에 있습니다.:",
-        "M13-scoring1": "없음",
-        "M13-scoring2": "회색",
-        "M13-scoring3": "흰색",
-        "M13-scoring4": "오렌지색",
-        "M14-name": "M14 소행성의 방향 전환",
-        "M14-desc": "프리라인의 서쪽에서 소행성 모형 한 개 또는 두개 모두를 독립적으로 소행성 포획기로 보냅니다.",
-        "M14-scoring1": "매트에 닿아있고 소행성 포획기의 가운데 들어간 소행성:",
-        "M14-scoring2": "매트에 닿아있고 소행성 포획기의 좌우에 들어간 소행성:",
-        "M14-error": "불가능한 조합.  너무 많은 소행성수",
-        "M15-name": "M15 착륙선 착륙",
-        "M15-desc": "착륙선을 착륙 목표지점중 한곳으로 손상없이 옮기거나 베이스로 가져 옵니다.",
-        "M15-scoring1": "착륙선이 손상없이 결합되어 있고 매트에 닿아있습니다:",
-        "M15-scoring2": "착륙선이 완전히 안에 있습니다.:",
-        "M15-scoring3": "없음",
-        "M15-scoring4": "베이스",
-        "M15-scoring5": "북동쪽 행성 구역",
-        "M15-scoring6": "목표 지점 원",
-        "penalties-name": "페널티",
-        "penalties-desc": "여러분의 로봇을 손으로 구출 할 수 있지만, 그렇게 하면 페널티를 받게됩니다.",
-        "penalties-scoring": "남동쪽 삼각형 안의 페널티 디스크 수:"
+        "yes": "Si",
+        "no": "No",
+        "M01-name": "M01 VIAJE ESPACIAL",
+        "M01-desc": "Iniciad cada Carga Útil para que ruede claramente a lo largo de la Rampa de Viaje Espacial. Para cada envío, el carro debe ser independiente en el momento que alcance la primera conexión de pista.",
+        "M01-scoring1": "La Carga de Vehículo rebasó la primera conexión de pista",
+        "M01-scoring2": "La Carga de Suministros rebasó la primera conexión de pista",
+        "M01-scoring3": "La Carga de Tripulación rebasó la primera conexión de pista",
+        "M02-name": "M02 SISTEMA DE PANELES SOLARES",
+        "M02-desc": "Los Paneles Solares se tienen que inclinar en un sentido u otro, dependiendo de las condiciones y la estrategia.",
+        "M02-scoring1": "Ambos Paneles Solares están inclinados hacia el mismo Terreno de Juego",
+        "M02-scoring2": "Vuestro Panel Solar está inclinado hacia el Terreno de Juego del otro equipo",
+        "M03-name": "M03 IMPRESIÓN 3D",
+        "M03-desc": "Expulsad el Ladrillo 2x4 depositando una Muestra Básica de Regolito dentro de la impresora 3D.",
+        "M03-scoring1": "El Ladrillo 2x4 está expulsado",
+        "M03-scoring2": "El Ladrillo 2x4 está completamente dentro de la Zona del Planeta del Nordeste",
+        "M04-name": "M04 ATRAVESANDO CRÁTERES",
+        "M04-desc": "El Robot o cualquier nave que este envíe tiene que cruzar completamente el Modelo de Cráteres circulando directamente sobre él. Sin pasar cerca. Sin rodearlo.",
+        "M04-scoring1": "Todos los elementos que soportan el peso del equipamiento cruzaron completamente entre las torres",
+        "M04-scoring2": "Todo el equipamiento cruzó de este a oeste rebasando completamente la valla bajada",
+        "M05-name": "M05 EXTRACCIÓN",
+        "M05-desc": "El Robot tiene que expulsar todas las Muestras Básicas del Modelo de Instalación Central.",
+        "M05-scoring1": "Las cuatro Muestras Básicas no están tocando el eje del Modelo de Instalación Central",
+        "M05-scoring2": "La Muestra Básica de Gas está tocando el tapete y completamente dentro del Círculo de Aterrizaje del Módulo",
+        "M05-scoring3": "La Muestra Básica de Gas está completamente dentro de la Base",
+        "M05-scoring4": "La Muestra Básica de Agua está únicamente aguantada por la Cámara de Crecimiento de Vegetales",
+        "M05-error": "Verificad posición de la Muestra Básica de Gas",
+        "M06-name": "M06 MÓDULOS DE LA ESTACIÓN ESPACIAL",
+        "M06-desc": "El Robot tiene que retirar e insertar Módulos Habitables entre las escotillas del Núcleo de la Estación. Los Módulos insertados NO deben tocar nada excepto el Núcleo de la Estación.",
+        "M06-scoring1": "El Módulo Cónico está completamente dentro de la Base",
+        "M06-scoring2": "El Módulo Tubular está insertado en la escotilla oeste del Núcleo de la Estación",
+        "M06-scoring3": "El Módulo de Atraque en la escotilla está insertadodel Núcleo de la Estación",
+        "M07-name": "M07 PASEO ESPACIAL DE EMERGENCIA",
+        "M07-desc": "El Robot tiene que llevar el cuerpo de Gherard dentro de la Cámara Hermética.",
+        "M07-scoring": "El astrounauta Gherhard está insertado dentro de la Cámara Hermética del Núcleo de la Estación:",
+        "M07-scoring1": "No",
+        "M07-scoring2": "Parcialmente",
+        "M07-scoring3": "Completamente",
+        "M08-name": "M08 EJERCICIO AERÓBICO",
+        "M08-desc": "Avanzad el Puntero a lo largo del Dial de la Máquina de Ejercicio moviendo una o ambas empuñaduras. Si el Puntero está cubriendo parcialmente un extremo de color gris o naranja, seleccionad dicho color.",
+        "M08-scoring": "El Puntero de Ejercicio está en:",
+        "M08-scoring1": "Ninguno",
+        "M08-scoring2": "Gris",
+        "M08-scoring3": "Blanco",
+        "M08-scoring4": "Naranja",
+        "M09-name": "M09 EJERCICIO DE ESFUERZO",
+        "M09-desc": "El Robot tiene que levantar la Barra de Esfuerzo hasta una altura que puntúe.",
+        "M09-scoring": "La Barra de Esfuerzo está levantada de modo que el cuarto agujero de la barra dentada es parcialmente visible",
+        "M10-name": "M10 PRODUCCIÓN DE VEGETALES",
+        "M10-desc": "Moved la Barra de Empuje la distancia correcta a la velocidad adecuada para situarla en el rango de puntuación verde.",
+        "M10-scoring": "El peso gris está caído después del verde pero antes del beis",
+        "M11-name": "M11 - VELOCIDAD DE ESCAPE",
+        "M11-desc": "Conseguid que la nave alcance la velocidad y la altura necesarias para que se mantenga arriba, presionando/golpeando el Panel de Impacto.",
+        "M11-scoring": "La Nave Espacial se mantiene arriba",
+        "M12-name": "M12 ÓRBITAS DE SATÉLITES",
+        "M12-desc": "Moved cualquier parte de un Satélite sobre o por encima del área que hay entre las dos líneas de la Órbita Externa.",
+        "M12-scoring": "Satélites sobre o por encima del área entre las 2 líneas de la Órbita Externa:",
+        "M13-name": "M13 OBSERVATORIO",
+        "M13-desc": "Rotad el Observatorio apuntando a una dirección precisa. Si el Puntero está cubriendo parcialmente un extremo de color gris o naranja, seleccionad dicho color.",
+        "M13-scoring": "El Puntero del Observatorio está en:",
+        "M13-scoring1": "Ninguno",
+        "M13-scoring2": "Gris",
+        "M13-scoring3": "Blanco",
+        "M13-scoring4": "Naranja",
+        "M14-name": "M14 DESVIO DE METEOROIDES",
+        "M14-desc": "Lanzad Meteoroides por encima de la Línea Libre para que toquen el tapete en el Receptor de Meteoroides.Los Meteoroides deben ser golpeados/liberados mientras\r\nestán clara y completamente al oeste de la Línea Libre. Mientras estén entre el golpeo/lanzamiento y la posición de puntuación, el Meteoroide debe ser claramente Independiente.",
+        "M14-scoring1": "Meteoroides tocando el Tapete en la Sección Central:",
+        "M14-scoring2": "Meteoroides tocando el Tapete en cualquier Sección Lateral:",
+        "M14-error": "Combinación imposible, demasiados Meteoroides",
+        "M15-name": "M15 ATERRIZAJE DEL MÓDULO",
+        "M15-desc": "Moved el Módulo de Aterrizaje para que esté intacto, tocando el Tapete y completamente dentro de la Zona Circular del Módulo o, al menos, dentro de la Base.",
+        "M15-scoring1": "El Módulo de Aterrizaje está  intacto y tocando el Tapete",
+        "M15-scoring2": "El Módulo de Aterrizaje está completamente dentro de:",
+        "M15-scoring3": "Ninguno",
+        "M15-scoring4": "Base",
+        "M15-scoring5": "Zona del Planeta del Nordeste",
+        "M15-scoring6": "Zona Circular del Módulo",
+        "penalties-name": "PENALIZACIONES POR INTERRUPCIÓN",
+        "penalties-desc": "Si interrumpís el Robot, el árbitro pondrá un Disco de Penalización en el triángulo del sudeste como un indicador de Interrupción permanente.",
+        "penalties-scoring": "Discos del Penalización dentro del triángulo del Sudeste:"
     },
     "rtl": false
 }

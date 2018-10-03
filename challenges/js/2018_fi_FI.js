@@ -1,23 +1,23 @@
 {
     "title": "INTO ORBIT",
     "missions": [{
-            "title": "M01 우주여행",
-            "description": "＊\t각각의 페이로드 로켓을 명백히 우주여행 경사로로 굴려 내려 보냅니다. 각각의 출발과 이동을 할 때 * 수레는 첫번째 트렉 연결부위를 지날 때 독립적이어야 합니다.",
+            "title": "M01 Avaruusmatka",
+            "description": "*Kukin l�hetetty kuljetusalus on selv�sti rullaannut alas\r\nramppia pitkin. Kuljetusalusten tulee * kulkea itsen�isesti ylitt�ess��n radan ensimm�ist� jatkosta.",
             "objectives": [{
                     "id": "M01_1",
-                    "title": "탐사차량 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
+                    "title": "Kuuauto- alus rullasi itsen�isesti 1. jatkoksen yli",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M01_2",
-                    "title": "물자 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
+                    "title": "Tarvike-alus rullasi itsen�isesti 1. jatkoksen yli",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M01_3",
-                    "title": "승무원 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
+                    "title": "Miehist�-alus rullasi itsen�isesti 1. jatkoksen yli",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -50,17 +50,17 @@
             }]
         },
         {
-            "title": "M02 태양전지판 배열",
-            "description": "태양전지판이 여러분쪽 또는 여러분과 멀어지는 쪽으로 기울어져야 합니다.",
+            "title": "M02 Aurinkopanelien suuntaaminen",
+            "description": "Paneelit tulee k��nt�� jommankumman joukkueen suuntaan.",
             "objectives": [{
                     "id": "M02_1",
-                    "title": "두개의 태양전지판이 같은 경기장쪽으로 기울어 졌습니다.",
+                    "title": "Both Aurinkopanelit on k��nnetty samaan suuntaan",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M02_2",
-                    "title": "여러분의 태양전지판이 상대팀쪽으로 기울어 졌습니다.",
+                    "title": "Your Aurinkopaneli on k��nnetty toisen joukkueen suuntaan",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -81,17 +81,17 @@
             }]
         },
         {
-            "title": "M03 3D 프린팅",
-            "description": "* 레골리스 코어 샘플을 3D프린터에 넣어 2x4 브릭을 방출시킵니다.",
+            "title": "M03 3D Tulostus",
+            "description": "2x4 palikka tulee saada ulos * asettamalla maaper�n�yte 3D tulostimeen.",
             "objectives": [{
                     "id": "M03_1",
-                    "title": "2x4 브릭이 방출되었습니다.(3D프린터에 레골리스 코어샘플을 넣는 것에 의해서만)",
+                    "title": "2x4 palikka on saatu ulos asettamalla maaper�n�yte 3D tulostimeen",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M03_2",
-                    "title": "2x4 브릭이 북동쪽 행성구역안에 완전히 들어가 있습니다.",
+                    "title": "2x4 palikka on kokonaan koillisen planeetan alueella",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -112,17 +112,17 @@
             }]
         },
         {
-            "title": "M04 크레이터 건너기",
-            "description": "로봇 또는 로봇으로 부터 내보내진 이동체가 크레이터 모형을 완전히 가로질러 그 위로 달려 넘어갑니다. 근처로 가거나 둘러서 가서는 안됩니다.",
+            "title": "M04 Kraaterin ylitys",
+            "description": "Robotti tai sen l�hett�m� tutkimusalus ylitt�� kraateri-mallin kokonaan kulkemalla suoraan sen yli. Ei l�helt�, ei kiert�en.",
             "objectives": [{
                     "id": "M04_1",
-                    "title": "크레이터를 건너는 장비의 무게를 지탱하는 모든 부분이 *완전히 두개의 타워 사이로 지나가야 합니다.",
+                    "title": "Kaikki laitteen kantavat rakenteet kulkivat tornien v�list�",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M04_2",
-                    "title": "모든 크레이터를 건너는 장비는 동쪽에서 서쪽으로, 그리고 평평하게 눕혀진 게이트 위를 완전히 지나가야 합니다.",
+                    "title": "Ylitys suoritettiin kulkien id�st� l�nteen, kokonaan ohi alas painetun portin",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -143,29 +143,29 @@
             }]
         },
         {
-            "title": "M05 추출",
-            "description": "여러분의 로봇은 모든 코어 샘플 모형을 코어 기지 모형으로부터 가져와야 합니다. 그리고 나서 여기에 설명된 것과 임무 M03에서 수행할 옵션들을 선택해 수행할 수 있습니다.",
+            "title": "M05 Luonnonvarojen hy�dynt�minen",
+            "description": "Robotin tulee tyhjent�� n�ytteet koepora-mallista. Pisteit� saa my�s n�ytteiden viemisest� oikeille paikoille, Huom. teht�v� M03.",
             "objectives": [{
                     "id": "M05_1",
-                    "title": "4개의 모든 코어샘플들이 코어기지 모형에서 축과 완전히 분리되었습니다.",
+                    "title": "Yksik��n nelj�st� n�ytteest� ei en�� kosketa koepora-mallin akselia",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M05_2",
-                    "title": "가스 코어샘플이 매트에 닿아 있고 착륙 목표 지점 원 안쪽에 완전히 들어가 있습니다.",
+                    "title": "Kaasun�yte koskettaa alustaa ja on kokonaan laskeutujan maalialueen sis�ll� (valk)",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M05_3",
-                    "title": "-또는- 가스 코어샘플이 완전히 베이스 안쪽에 있습니다.",
+                    "title": "-TAI- Kaasun�yte on kokonaan kotipes�ss�",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M05_4",
-                    "title": "워터 코어 샘플이 식량 증식 챔버 에 의해서만 지지되도록 올려져 있습니다.",
+                    "title": "Vesin�yte koskettaa vain ruoankasvatuskammiota (sin)",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -181,7 +181,7 @@
                     return 10
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'no') {
-                    return new Error("가스 코어 샘플 위치")
+                    return new Error("Kaasun�ytteen paikka")
                 }
                 if (M05_1 === 'no' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'yes') {
                     return 8
@@ -193,7 +193,7 @@
                     return 18
                 }
                 if (M05_1 === 'no' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'yes') {
-                    return new Error("가스 코어 샘플 위치")
+                    return new Error("Kaasun�ytteen paikka")
                 }
                 if (M05_1 === 'yes' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'no') {
                     return 16
@@ -205,7 +205,7 @@
                     return 26
                 }
                 if (M05_1 === 'yes' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'no') {
-                    return new Error("가스 코어 샘플 위치")
+                    return new Error("Kaasun�ytteen paikka")
                 }
                 if (M05_1 === 'yes' && M05_2 === 'no' && M05_3 === 'no' && M05_4 === 'yes') {
                     return 24
@@ -217,28 +217,28 @@
                     return 34
                 }
                 if (M05_1 === 'yes' && M05_2 === 'yes' && M05_3 === 'yes' && M05_4 === 'yes') {
-                    return new Error("가스 코어 샘플 위치")
+                    return new Error("Kaasun�ytteen paikka")
                 }
             }]
         },
         {
-            "title": "M06 우주 스테이션 모듈",
-            "description": "로봇은 거주구역 중심부의 포트 구멍에 모듈을 삽입하거나 제거해야 합니다. 삽입된 모듈은 거주구역 중심부 이외의 것에 닿아 있어서는 안됩니다.",
+            "title": "M06 Avaruusaseman moduulit",
+            "description": "Robotin tulee irroittaa ja kytke� moduuleja aseman asuinyksik�n portteihin. Kytketyt modulit eiv�t kosketa mit��n muuta kuin asuinyksikk��.",
             "objectives": [{
                     "id": "M06_1",
-                    "title": "원뿔형 모듈이 완전히 베이스 안에 있습니다.",
+                    "title": "Kartiomoduuli on kokonaan kotipes�ss�",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M06_2",
-                    "title": "튜브 모듈이 거주구역 중심부 서쪽 포트안에 있습니다.",
+                    "title": "Lieri�moduuli on kytketty asuinyksik�n l�nnen puoleiseen porttiin",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M06_3",
-                    "title": "도크 모듈이 거주구역 중심부 동쪽 포트안에 있습니다.",
+                    "title": "Telakointimoduuli on siirretty asuinyksik�n id�n puoleiseen porttiin",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -271,22 +271,22 @@
             }]
         },
         {
-            "title": "M07 우주유영",
-            "description": "로봇은 \"Gerhard\"의 몸을 가져다가 에어락 챔버에 넣어야 합니다.",
+            "title": "M07 H�t�tapaus avaruusk�velyll�",
+            "description": "Robotin tulee auttaa Gerhard avaruusaseman ilmalukon sis�lle.",
             "objectives": [{
                 "id": "M07",
-                "title": "우주비행사 \"Gerhard\"가 거주구역 중심부의 에어락 챔버에 있습니다:",
+                "title": "Astronautti Gerhard on asuinyksik�n ilmalukon kammiossa:",
                 "options": [{
                         "value": "none",
-                        "title": "아니오"
+                        "title": "Ei"
                     },
                     {
                         "value": "partially",
-                        "title": "부분적으로"
+                        "title": "Osittain"
                     },
                     {
                         "value": "completely",
-                        "title": "완전히"
+                        "title": "Kokonaan"
                     }
                 ],
                 "type": "enum",
@@ -305,26 +305,26 @@
             }]
         },
         {
-            "title": "M08 유산소운동",
-            "description": "로봇은 운동 기계의 손잡이 조립체 중 1개 또는 두개 모두를 지속적으로 움직여 포인터가 올라가도록 해야 합니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)",
+            "title": "M08 Aerobinen harjoitus",
+            "description": "Robotin tulee yht� tai molempia kuntoilulaitteen oranssia kahvaa liikuttamalla siirt�� kuntomittarin osoitinta. (Osoitin osittain harmaan tai oranssin rajalla tulkitaan joukkueen eduksi.)",
             "objectives": [{
                 "id": "M08",
-                "title": "포인터의 끝이 색에 도달했습니다.(손잡이 조립체를 움직이는 것에 의해서만):",
+                "title": "Osoittimen k�rki on siirtynyt (vain laitteen kahvoja k�ytt�m�ll�):",
                 "options": [{
                         "value": "none",
-                        "title": "없음"
+                        "title": "Ei tulosta"
                     },
                     {
                         "value": "gray",
-                        "title": "회색"
+                        "title": "Harmaalle"
                     },
                     {
                         "value": "white",
-                        "title": "흰색"
+                        "title": "Valkoiselle"
                     },
                     {
                         "value": "orange",
-                        "title": "오렌지색"
+                        "title": "Oranssille"
                     }
                 ],
                 "type": "enum",
@@ -346,11 +346,11 @@
             }]
         },
         {
-            "title": "M09 근력운동",
-            "description": "로봇은 득점할 수 있는 높이까지 힘막대를 들어올려야 합니다.",
+            "title": "M09 Voimaharjoittelu",
+            "description": "Robotin tulee nostaa painonnostotanko yl�s.",
             "objectives": [{
                 "id": "M09",
-                "title": "톱니가 있는 부분의 4번째 구멍이 일부라도 보이도록 힘막대가 들어올려져 있습니다.",
+                "title": "Tanko on nostettu niin yl�s, ett� hammastangon nelj�n rei�n ryhm�n alinkin reik� on v�hint��n osittain n�kyviss�.",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -364,11 +364,11 @@
             }]
         },
         {
-            "title": "M10 식량생산",
-            "description": "밀대를 적당한 거리만큼 적당한 속도로 밀어 초록색이 나오도록 합니다.",
+            "title": "M10 Ruoan tuottaminen",
+            "description": "Robotti py�r�ytt�� laitteen kasvualustat haluttuun asentoon oranssia ty�nnint� liikuttamalla.",
             "objectives": [{
                 "id": "M10",
-                "title": "회색의 무게추가 초록색이 나온 뒤 황갈색이 나오기 전에 내려와 있습니다. (밀대를 미는 것에만 의해)",
+                "title": "Harmaa punnus on kokonaan alhaalla ja vihre� kasvatusalusta on py�r�ytetty p��limm�iseksi (vain ty�nnint� liikuttamalla.)",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -382,11 +382,11 @@
             }]
         },
         {
-            "title": "M11 탈출 속도",
-            "description": "로봇은 충격판을 충분한 힘으로 때려서 우주선이 돌라간 후 다시 떨어지지 않도록 합니다.",
+            "title": "M11 L�ht�kiihdytys",
+            "description": "Robotti saattaa raketin matkaan sellaisella voimalla ettei se putoa takaisin alas.",
             "objectives": [{
                 "id": "M11",
-                "title": "우주선이 위에 머물어 있습니다.(충격판을 치거나 누르는것에만 의해)",
+                "title": "Avaruusalus on saatu yl�s(vain painamalla/iskem�ll� laukaisulevy�)",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -400,11 +400,11 @@
             }]
         },
         {
-            "title": "M12 위성괴도",
-            "description": "로봇은 1개 이상의 인공위성을 바깥쪽 괘도 위에 올려놓아야 합니다.",
+            "title": "M12 Satelliitit kiertoradalle",
+            "description": "Robotin tulee kuljettaa yksi tai useampia satelliitteja uloimmalle kiertoradalle.",
             "objectives": [{
                 "id": "M12",
-                "title": "바깥 궤도의 두 선 사이에 올라 있거나 걸쳐 있는 인공위성들",
+                "title": "Satelliitteja osin tai kokonaan uloimman kiertoradan alueella:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -441,26 +441,26 @@
             }]
         },
         {
-            "title": "M13 관측소",
-            "description": "관측소 모형을 정확한 방향으로 회전시킵니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)",
+            "title": "M13 Observatorio",
+            "description": "Observatorion k��nt�minen oikeaan suuntaan. (Osoitin osittain harmaan tai oranssin rajalla tulkitaan joukkueen eduksi.)",
             "objectives": [{
                 "id": "M13",
-                "title": "관측소 포인터의 끝이 다음색에 있습니다.:",
+                "title": "Osoittimen k�rki osoittaa:",
                 "options": [{
                         "value": "none",
-                        "title": "없음"
+                        "title": "Ei tulosta"
                     },
                     {
                         "value": "gray",
-                        "title": "회색"
+                        "title": "Harmaa"
                     },
                     {
                         "value": "white",
-                        "title": "흰색"
+                        "title": "Valkoinen"
                     },
                     {
                         "value": "orange",
-                        "title": "오렌지색"
+                        "title": "Oranssi"
                     }
                 ],
                 "type": "enum",
@@ -482,11 +482,11 @@
             }]
         },
         {
-            "title": "M14 소행성의 방향 전환",
-            "description": "프리라인의 서쪽에서 소행성 모형 한 개 또는 두개 모두를 독립적으로 소행성 포획기로 보냅니다.",
+            "title": "M14 Meteoriitin poikkeuttaminen radaltaan",
+            "description": "1-2 meteoriittia l�hetet��n Vapaa-linjan l�nsi-puolelta kulkemaan itsen�isesti meteoriitti-pyydykseen.",
             "objectives": [{
                     "id": "M14_1",
-                    "title": "매트에 닿아있고 소행성 포획기의 가운데 들어간 소행성:",
+                    "title": "Meteoriitteja koskettaa alustaa pyydyksen keski-lokerossa:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -505,7 +505,7 @@
                 },
                 {
                     "id": "M14_2",
-                    "title": "매트에 닿아있고 소행성 포획기의 좌우에 들어간 소행성:",
+                    "title": "Meteoriitteja koskettaa alustaa pyydyksen sivu-lokeroissa:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -540,46 +540,46 @@
                     return 20
                 }
                 if (M14_1 === '1' && M14_2 === '2') {
-                    return new Error("불가능한 조합.  너무 많은 소행성수")
+                    return new Error("Mahdoton tulos. Liian monta Meteoriittia")
                 }
                 if (M14_1 === '2' && M14_2 === '0') {
                     return 24
                 }
                 if (M14_1 === '2' && M14_2 === '1') {
-                    return new Error("불가능한 조합.  너무 많은 소행성수")
+                    return new Error("Mahdoton tulos. Liian monta Meteoriittia")
                 }
                 if (M14_1 === '2' && M14_2 === '2') {
-                    return new Error("불가능한 조합.  너무 많은 소행성수")
+                    return new Error("Mahdoton tulos. Liian monta Meteoriittia")
                 }
             }]
         },
         {
-            "title": "M15 착륙선 착륙",
-            "description": "착륙선을 착륙 목표지점중 한곳으로 손상없이 옮기거나 베이스로 가져 옵니다.",
+            "title": "M15 Turvallinen laskeutuminen",
+            "description": "Laskeutuja tulee avustaa maalialueelleen, tai tuoda turvallisesti kotipes��n.",
             "objectives": [{
                     "id": "M15_1",
-                    "title": "착륙선이 손상없이 결합되어 있고 매트에 닿아있습니다:",
+                    "title": "Laskeutuja on ehj� ja koskettaa alustaa",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M15_2",
-                    "title": "착륙선이 완전히 안에 있습니다.:",
+                    "title": "Laskeutuja on kokonaan (sis�ll�):",
                     "options": [{
                             "value": "no",
-                            "title": "없음"
+                            "title": "Ei tulosta"
                         },
                         {
                             "value": "base",
-                            "title": "베이스"
+                            "title": "Kotipes�ss�"
                         },
                         {
                             "value": "planet",
-                            "title": "북동쪽 행성 구역"
+                            "title": "Koillisen planeetan alueella"
                         },
                         {
                             "value": "circle",
-                            "title": "목표 지점 원"
+                            "title": "Maalialueellaan"
                         }
                     ],
                     "type": "enum",
@@ -614,11 +614,11 @@
             }]
         },
         {
-            "title": "페널티",
-            "description": "여러분의 로봇을 손으로 구출 할 수 있지만, 그렇게 하면 페널티를 받게됩니다.",
+            "title": "Rangaistukset",
+            "description": "Teill� on lupa pelastaa robotti, mutta siit� seuraa rangaistus",
             "objectives": [{
                 "id": "penalties",
-                "title": "남동쪽 삼각형 안의 페널티 디스크 수:",
+                "title": "Rangaistuksia kertyi er�n aikana kpl:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -677,85 +677,85 @@
         }
     ],
     "strings": {
-        "yes": "예",
-        "no": "아니오",
-        "M01-name": "M01 우주여행",
-        "M01-desc": "＊\t각각의 페이로드 로켓을 명백히 우주여행 경사로로 굴려 내려 보냅니다. 각각의 출발과 이동을 할 때 * 수레는 첫번째 트렉 연결부위를 지날 때 독립적이어야 합니다.",
-        "M01-scoring1": "탐사차량 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
-        "M01-scoring2": "물자 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
-        "M01-scoring3": "승무원 페이로드가 첫번째 트랙 연결부위를 지나갔습니다",
-        "M02-name": "M02 태양전지판 배열",
-        "M02-desc": "태양전지판이 여러분쪽 또는 여러분과 멀어지는 쪽으로 기울어져야 합니다.",
-        "M02-scoring1": "두개의 태양전지판이 같은 경기장쪽으로 기울어 졌습니다.",
-        "M02-scoring2": "여러분의 태양전지판이 상대팀쪽으로 기울어 졌습니다.",
-        "M03-name": "M03 3D 프린팅",
-        "M03-desc": "* 레골리스 코어 샘플을 3D프린터에 넣어 2x4 브릭을 방출시킵니다.",
-        "M03-scoring1": "2x4 브릭이 방출되었습니다.(3D프린터에 레골리스 코어샘플을 넣는 것에 의해서만)",
-        "M03-scoring2": "2x4 브릭이 북동쪽 행성구역안에 완전히 들어가 있습니다.",
-        "M04-name": "M04 크레이터 건너기",
-        "M04-desc": "로봇 또는 로봇으로 부터 내보내진 이동체가 크레이터 모형을 완전히 가로질러 그 위로 달려 넘어갑니다. 근처로 가거나 둘러서 가서는 안됩니다.",
-        "M04-scoring1": "크레이터를 건너는 장비의 무게를 지탱하는 모든 부분이 *완전히 두개의 타워 사이로 지나가야 합니다.",
-        "M04-scoring2": "모든 크레이터를 건너는 장비는 동쪽에서 서쪽으로, 그리고 평평하게 눕혀진 게이트 위를 완전히 지나가야 합니다.",
-        "M05-name": "M05 추출",
-        "M05-desc": "여러분의 로봇은 모든 코어 샘플 모형을 코어 기지 모형으로부터 가져와야 합니다. 그리고 나서 여기에 설명된 것과 임무 M03에서 수행할 옵션들을 선택해 수행할 수 있습니다.",
-        "M05-scoring1": "4개의 모든 코어샘플들이 코어기지 모형에서 축과 완전히 분리되었습니다.",
-        "M05-scoring2": "가스 코어샘플이 매트에 닿아 있고 착륙 목표 지점 원 안쪽에 완전히 들어가 있습니다.",
-        "M05-scoring3": "-또는- 가스 코어샘플이 완전히 베이스 안쪽에 있습니다.",
-        "M05-scoring4": "워터 코어 샘플이 식량 증식 챔버 에 의해서만 지지되도록 올려져 있습니다.",
-        "M05-error": "가스 코어 샘플 위치",
-        "M06-name": "M06 우주 스테이션 모듈",
-        "M06-desc": "로봇은 거주구역 중심부의 포트 구멍에 모듈을 삽입하거나 제거해야 합니다. 삽입된 모듈은 거주구역 중심부 이외의 것에 닿아 있어서는 안됩니다.",
-        "M06-scoring1": "원뿔형 모듈이 완전히 베이스 안에 있습니다.",
-        "M06-scoring2": "튜브 모듈이 거주구역 중심부 서쪽 포트안에 있습니다.",
-        "M06-scoring3": "도크 모듈이 거주구역 중심부 동쪽 포트안에 있습니다.",
-        "M07-name": "M07 우주유영",
-        "M07-desc": "로봇은 \"Gerhard\"의 몸을 가져다가 에어락 챔버에 넣어야 합니다.",
-        "M07-scoring": "우주비행사 \"Gerhard\"가 거주구역 중심부의 에어락 챔버에 있습니다:",
-        "M07-scoring1": "아니오",
-        "M07-scoring2": "부분적으로",
-        "M07-scoring3": "완전히",
-        "M08-name": "M08 유산소운동",
-        "M08-desc": "로봇은 운동 기계의 손잡이 조립체 중 1개 또는 두개 모두를 지속적으로 움직여 포인터가 올라가도록 해야 합니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)",
-        "M08-scoring": "포인터의 끝이 색에 도달했습니다.(손잡이 조립체를 움직이는 것에 의해서만):",
-        "M08-scoring1": "없음",
-        "M08-scoring2": "회색",
-        "M08-scoring3": "흰색",
-        "M08-scoring4": "오렌지색",
-        "M09-name": "M09 근력운동",
-        "M09-desc": "로봇은 득점할 수 있는 높이까지 힘막대를 들어올려야 합니다.",
-        "M09-scoring": "톱니가 있는 부분의 4번째 구멍이 일부라도 보이도록 힘막대가 들어올려져 있습니다.",
-        "M10-name": "M10 식량생산",
-        "M10-desc": "밀대를 적당한 거리만큼 적당한 속도로 밀어 초록색이 나오도록 합니다.",
-        "M10-scoring": "회색의 무게추가 초록색이 나온 뒤 황갈색이 나오기 전에 내려와 있습니다. (밀대를 미는 것에만 의해)",
-        "M11-name": "M11 탈출 속도",
-        "M11-desc": "로봇은 충격판을 충분한 힘으로 때려서 우주선이 돌라간 후 다시 떨어지지 않도록 합니다.",
-        "M11-scoring": "우주선이 위에 머물어 있습니다.(충격판을 치거나 누르는것에만 의해)",
-        "M12-name": "M12 위성괴도",
-        "M12-desc": "로봇은 1개 이상의 인공위성을 바깥쪽 괘도 위에 올려놓아야 합니다.",
-        "M12-scoring": "바깥 궤도의 두 선 사이에 올라 있거나 걸쳐 있는 인공위성들",
-        "M13-name": "M13 관측소",
-        "M13-desc": "관측소 모형을 정확한 방향으로 회전시킵니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)",
-        "M13-scoring": "관측소 포인터의 끝이 다음색에 있습니다.:",
-        "M13-scoring1": "없음",
-        "M13-scoring2": "회색",
-        "M13-scoring3": "흰색",
-        "M13-scoring4": "오렌지색",
-        "M14-name": "M14 소행성의 방향 전환",
-        "M14-desc": "프리라인의 서쪽에서 소행성 모형 한 개 또는 두개 모두를 독립적으로 소행성 포획기로 보냅니다.",
-        "M14-scoring1": "매트에 닿아있고 소행성 포획기의 가운데 들어간 소행성:",
-        "M14-scoring2": "매트에 닿아있고 소행성 포획기의 좌우에 들어간 소행성:",
-        "M14-error": "불가능한 조합.  너무 많은 소행성수",
-        "M15-name": "M15 착륙선 착륙",
-        "M15-desc": "착륙선을 착륙 목표지점중 한곳으로 손상없이 옮기거나 베이스로 가져 옵니다.",
-        "M15-scoring1": "착륙선이 손상없이 결합되어 있고 매트에 닿아있습니다:",
-        "M15-scoring2": "착륙선이 완전히 안에 있습니다.:",
-        "M15-scoring3": "없음",
-        "M15-scoring4": "베이스",
-        "M15-scoring5": "북동쪽 행성 구역",
-        "M15-scoring6": "목표 지점 원",
-        "penalties-name": "페널티",
-        "penalties-desc": "여러분의 로봇을 손으로 구출 할 수 있지만, 그렇게 하면 페널티를 받게됩니다.",
-        "penalties-scoring": "남동쪽 삼각형 안의 페널티 디스크 수:"
+        "yes": "Kyll�",
+        "no": "Ei",
+        "M01-name": "M01 Avaruusmatka",
+        "M01-desc": "*Kukin l�hetetty kuljetusalus on selv�sti rullaannut alas\r\nramppia pitkin. Kuljetusalusten tulee * kulkea itsen�isesti ylitt�ess��n radan ensimm�ist� jatkosta.",
+        "M01-scoring1": "Kuuauto- alus rullasi itsen�isesti 1. jatkoksen yli",
+        "M01-scoring2": "Tarvike-alus rullasi itsen�isesti 1. jatkoksen yli",
+        "M01-scoring3": "Miehist�-alus rullasi itsen�isesti 1. jatkoksen yli",
+        "M02-name": "M02 Aurinkopanelien suuntaaminen",
+        "M02-desc": "Paneelit tulee k��nt�� jommankumman joukkueen suuntaan.",
+        "M02-scoring1": "Both Aurinkopanelit on k��nnetty samaan suuntaan",
+        "M02-scoring2": "Your Aurinkopaneli on k��nnetty toisen joukkueen suuntaan",
+        "M03-name": "M03 3D Tulostus",
+        "M03-desc": "2x4 palikka tulee saada ulos * asettamalla maaper�n�yte 3D tulostimeen.",
+        "M03-scoring1": "2x4 palikka on saatu ulos asettamalla maaper�n�yte 3D tulostimeen",
+        "M03-scoring2": "2x4 palikka on kokonaan koillisen planeetan alueella",
+        "M04-name": "M04 Kraaterin ylitys",
+        "M04-desc": "Robotti tai sen l�hett�m� tutkimusalus ylitt�� kraateri-mallin kokonaan kulkemalla suoraan sen yli. Ei l�helt�, ei kiert�en.",
+        "M04-scoring1": "Kaikki laitteen kantavat rakenteet kulkivat tornien v�list�",
+        "M04-scoring2": "Ylitys suoritettiin kulkien id�st� l�nteen, kokonaan ohi alas painetun portin",
+        "M05-name": "M05 Luonnonvarojen hy�dynt�minen",
+        "M05-desc": "Robotin tulee tyhjent�� n�ytteet koepora-mallista. Pisteit� saa my�s n�ytteiden viemisest� oikeille paikoille, Huom. teht�v� M03.",
+        "M05-scoring1": "Yksik��n nelj�st� n�ytteest� ei en�� kosketa koepora-mallin akselia",
+        "M05-scoring2": "Kaasun�yte koskettaa alustaa ja on kokonaan laskeutujan maalialueen sis�ll� (valk)",
+        "M05-scoring3": "-TAI- Kaasun�yte on kokonaan kotipes�ss�",
+        "M05-scoring4": "Vesin�yte koskettaa vain ruoankasvatuskammiota (sin)",
+        "M05-error": "Kaasun�ytteen paikka",
+        "M06-name": "M06 Avaruusaseman moduulit",
+        "M06-desc": "Robotin tulee irroittaa ja kytke� moduuleja aseman asuinyksik�n portteihin. Kytketyt modulit eiv�t kosketa mit��n muuta kuin asuinyksikk��.",
+        "M06-scoring1": "Kartiomoduuli on kokonaan kotipes�ss�",
+        "M06-scoring2": "Lieri�moduuli on kytketty asuinyksik�n l�nnen puoleiseen porttiin",
+        "M06-scoring3": "Telakointimoduuli on siirretty asuinyksik�n id�n puoleiseen porttiin",
+        "M07-name": "M07 H�t�tapaus avaruusk�velyll�",
+        "M07-desc": "Robotin tulee auttaa Gerhard avaruusaseman ilmalukon sis�lle.",
+        "M07-scoring": "Astronautti Gerhard on asuinyksik�n ilmalukon kammiossa:",
+        "M07-scoring1": "Ei",
+        "M07-scoring2": "Osittain",
+        "M07-scoring3": "Kokonaan",
+        "M08-name": "M08 Aerobinen harjoitus",
+        "M08-desc": "Robotin tulee yht� tai molempia kuntoilulaitteen oranssia kahvaa liikuttamalla siirt�� kuntomittarin osoitinta. (Osoitin osittain harmaan tai oranssin rajalla tulkitaan joukkueen eduksi.)",
+        "M08-scoring": "Osoittimen k�rki on siirtynyt (vain laitteen kahvoja k�ytt�m�ll�):",
+        "M08-scoring1": "Ei tulosta",
+        "M08-scoring2": "Harmaalle",
+        "M08-scoring3": "Valkoiselle",
+        "M08-scoring4": "Oranssille",
+        "M09-name": "M09 Voimaharjoittelu",
+        "M09-desc": "Robotin tulee nostaa painonnostotanko yl�s.",
+        "M09-scoring": "Tanko on nostettu niin yl�s, ett� hammastangon nelj�n rei�n ryhm�n alinkin reik� on v�hint��n osittain n�kyviss�.",
+        "M10-name": "M10 Ruoan tuottaminen",
+        "M10-desc": "Robotti py�r�ytt�� laitteen kasvualustat haluttuun asentoon oranssia ty�nnint� liikuttamalla.",
+        "M10-scoring": "Harmaa punnus on kokonaan alhaalla ja vihre� kasvatusalusta on py�r�ytetty p��limm�iseksi (vain ty�nnint� liikuttamalla.)",
+        "M11-name": "M11 L�ht�kiihdytys",
+        "M11-desc": "Robotti saattaa raketin matkaan sellaisella voimalla ettei se putoa takaisin alas.",
+        "M11-scoring": "Avaruusalus on saatu yl�s(vain painamalla/iskem�ll� laukaisulevy�)",
+        "M12-name": "M12 Satelliitit kiertoradalle",
+        "M12-desc": "Robotin tulee kuljettaa yksi tai useampia satelliitteja uloimmalle kiertoradalle.",
+        "M12-scoring": "Satelliitteja osin tai kokonaan uloimman kiertoradan alueella:",
+        "M13-name": "M13 Observatorio",
+        "M13-desc": "Observatorion k��nt�minen oikeaan suuntaan. (Osoitin osittain harmaan tai oranssin rajalla tulkitaan joukkueen eduksi.)",
+        "M13-scoring": "Osoittimen k�rki osoittaa:",
+        "M13-scoring1": "Ei tulosta",
+        "M13-scoring2": "Harmaa",
+        "M13-scoring3": "Valkoinen",
+        "M13-scoring4": "Oranssi",
+        "M14-name": "M14 Meteoriitin poikkeuttaminen radaltaan",
+        "M14-desc": "1-2 meteoriittia l�hetet��n Vapaa-linjan l�nsi-puolelta kulkemaan itsen�isesti meteoriitti-pyydykseen.",
+        "M14-scoring1": "Meteoriitteja koskettaa alustaa pyydyksen keski-lokerossa:",
+        "M14-scoring2": "Meteoriitteja koskettaa alustaa pyydyksen sivu-lokeroissa:",
+        "M14-error": "Mahdoton tulos. Liian monta Meteoriittia",
+        "M15-name": "M15 Turvallinen laskeutuminen",
+        "M15-desc": "Laskeutuja tulee avustaa maalialueelleen, tai tuoda turvallisesti kotipes��n.",
+        "M15-scoring1": "Laskeutuja on ehj� ja koskettaa alustaa",
+        "M15-scoring2": "Laskeutuja on kokonaan (sis�ll�):",
+        "M15-scoring3": "Ei tulosta",
+        "M15-scoring4": "Kotipes�ss�",
+        "M15-scoring5": "Koillisen planeetan alueella",
+        "M15-scoring6": "Maalialueellaan",
+        "penalties-name": "Rangaistukset",
+        "penalties-desc": "Teill� on lupa pelastaa robotti, mutta siit� seuraa rangaistus",
+        "penalties-scoring": "Rangaistuksia kertyi er�n aikana kpl:"
     },
     "rtl": false
 }

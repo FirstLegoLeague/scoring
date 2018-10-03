@@ -3,103 +3,104 @@
 <fll:challenge
     xmlns:fll="http://fll-tools.com/applications/scoring/v1/challenge.xsd" year="2018" version="0" name="INTO ORBIT">
 
-    <strings language="en-US">
+    <strings language="es-ES">
 
-        <string id="yes">                           예</string>
-        <string id="no">                            아니오</string>
+        <string id="yes">                           Si</string>
+        <string id="no">                            No</string>
 
-        <string id="M01-name">                      M01 우주여행</string>
-        <string id="M01-desc">                      <![CDATA[＊	각각의 페이로드 로켓을 명백히 우주여행 경사로로 굴려 내려 보냅니다. 각각의 출발과 이동을 할 때 * 수레는 첫번째 트렉 연결부위를 지날 때 독립적이어야 합니다.]]></string>
-        <string id="M01-scoring1">                   탐사차량 페이로드가 첫번째 트랙 연결부위를 지나갔습니다</string>
-        <string id="M01-scoring2">                   물자 페이로드가 첫번째 트랙 연결부위를 지나갔습니다</string>
-        <string id="M01-scoring3">                   승무원 페이로드가 첫번째 트랙 연결부위를 지나갔습니다</string>
+        <string id="M01-name">                      M01 VIAJE ESPACIAL</string>
+        <string id="M01-desc">                      <![CDATA[Iniciad cada Carga Útil para que ruede claramente a lo largo de la Rampa de Viaje Espacial. Para cada envío, el carro debe ser independiente en el momento que alcance la primera conexión de pista.]]></string>
+        <string id="M01-scoring1">                  La Carga de Vehículo rebasó la primera conexión de pista</string>
+        <string id="M01-scoring2">                  La Carga de Suministros rebasó la primera conexión de pista</string>
+        <string id="M01-scoring3">                  La Carga de Tripulación rebasó la primera conexión de pista</string>
 
-        <string id="M02-name">                      M02 태양전지판 배열</string>
-        <string id="M02-desc">                      <![CDATA[태양전지판이 여러분쪽 또는 여러분과 멀어지는 쪽으로 기울어져야 합니다.]]></string>
-        <string id="M02-scoring1">                   두개의 태양전지판이 같은 경기장쪽으로 기울어 졌습니다.</string>
-        <string id="M02-scoring2">                   여러분의 태양전지판이 상대팀쪽으로 기울어 졌습니다.</string>
+        <string id="M02-name">                      M02 SISTEMA DE PANELES SOLARES</string>
+        <string id="M02-desc">                      <![CDATA[Los Paneles Solares se tienen que inclinar en un sentido u otro, dependiendo de las condiciones y la estrategia.]]></string>
+        <string id="M02-scoring1">                  Ambos Paneles Solares están inclinados hacia el mismo Terreno de Juego</string>
+        <string id="M02-scoring2">                  Vuestro Panel Solar está inclinado hacia el Terreno de Juego del otro equipo</string>
 
-        <string id="M03-name">                      M03 3D 프린팅</string>
-        <string id="M03-desc">                      <![CDATA[* 레골리스 코어 샘플을 3D프린터에 넣어 2x4 브릭을 방출시킵니다.]]></string>
-        <string id="M03-scoring1">                  2x4 브릭이 방출되었습니다.(3D프린터에 레골리스 코어샘플을 넣는 것에 의해서만)</string>
-        <string id="M03-scoring2">                  2x4 브릭이 북동쪽 행성구역안에 완전히 들어가 있습니다.</string>
+        <string id="M03-name">                      M03 IMPRESIÓN 3D</string>
+        <string id="M03-desc">                      <![CDATA[Expulsad el Ladrillo 2x4 depositando una Muestra Básica de Regolito dentro de la impresora 3D.]]></string>
+        <string id="M03-scoring1">                  El Ladrillo 2x4 está expulsado</string>
+        <string id="M03-scoring2">                  El Ladrillo 2x4 está completamente dentro de la Zona del Planeta del Nordeste</string>
 
-        <string id="M04-name">                      M04 크레이터 건너기</string>
-        <string id="M04-desc">                      <![CDATA[로봇 또는 로봇으로 부터 내보내진 이동체가 크레이터 모형을 완전히 가로질러 그 위로 달려 넘어갑니다. 근처로 가거나 둘러서 가서는 안됩니다.]]></string>
-        <string id="M04-scoring1">                  크레이터를 건너는 장비의 무게를 지탱하는 모든 부분이 *완전히 두개의 타워 사이로 지나가야 합니다.</string>
-        <string id="M04-scoring2">                  모든 크레이터를 건너는 장비는 동쪽에서 서쪽으로, 그리고 평평하게 눕혀진 게이트 위를 완전히 지나가야 합니다.</string>
+        <string id="M04-name">                      M04 ATRAVESANDO CRÁTERES</string>
+        <string id="M04-desc">                      <![CDATA[El Robot o cualquier nave que este envíe tiene que cruzar completamente el Modelo de Cráteres circulando directamente sobre él. Sin pasar cerca. Sin rodearlo.]]></string>
+        <string id="M04-scoring1">                  Todos los elementos que soportan el peso del equipamiento cruzaron completamente entre las torres</string>
+        <string id="M04-scoring2">                  Todo el equipamiento cruzó de este a oeste rebasando completamente la valla bajada</string>
 
-        <string id="M05-name">                      M05 추출</string>
-        <string id="M05-desc">                      <![CDATA[여러분의 로봇은 모든 코어 샘플 모형을 코어 기지 모형으로부터 가져와야 합니다. 그리고 나서 여기에 설명된 것과 임무 M03에서 수행할 옵션들을 선택해 수행할 수 있습니다.]]></string>
-        <string id="M05-scoring1">                  4개의 모든 코어샘플들이 코어기지 모형에서 축과 완전히 분리되었습니다.</string>
-        <string id="M05-scoring2">                  가스 코어샘플이 매트에 닿아 있고 착륙 목표 지점 원 안쪽에 완전히 들어가 있습니다. </string>
-        <string id="M05-scoring3">                  -또는- 가스 코어샘플이 완전히 베이스 안쪽에 있습니다.</string>
-        <string id="M05-scoring4">                  워터 코어 샘플이 식량 증식 챔버 에 의해서만 지지되도록 올려져 있습니다.</string>
-        <string id="M05-error">                     가스 코어 샘플 위치</string>
+        <string id="M05-name">                      M05 EXTRACCIÓN</string>
+        <string id="M05-desc">                      <![CDATA[El Robot tiene que expulsar todas las Muestras Básicas del Modelo de Instalación Central.]]></string>
+        <string id="M05-scoring1">                  Las cuatro Muestras Básicas no están tocando el eje del Modelo de Instalación Central</string>
+        <string id="M05-scoring2">                  La Muestra Básica de Gas está tocando el tapete y completamente dentro del Círculo de Aterrizaje del Módulo</string>
+        <string id="M05-scoring3">                  La Muestra Básica de Gas está completamente dentro de la Base</string>
+        <string id="M05-scoring4">                  La Muestra Básica de Agua está únicamente aguantada por la Cámara de Crecimiento de Vegetales</string>
+        <string id="M05-error">                     Verificad posición de la Muestra Básica de Gas</string>
 
-        <string id="M06-name">                      M06 우주 스테이션 모듈</string>
-        <string id="M06-desc">                      <![CDATA[로봇은 거주구역 중심부의 포트 구멍에 모듈을 삽입하거나 제거해야 합니다. 삽입된 모듈은 거주구역 중심부 이외의 것에 닿아 있어서는 안됩니다.]]></string>
-        <string id="M06-scoring1">                   원뿔형 모듈이 완전히 베이스 안에 있습니다.</string>
-        <string id="M06-scoring2">                   튜브 모듈이 거주구역 중심부 서쪽 포트안에 있습니다.</string>
-        <string id="M06-scoring3">                   도크 모듈이 거주구역 중심부 동쪽 포트안에 있습니다.</string>
+        <string id="M06-name">                      M06 MÓDULOS DE LA ESTACIÓN ESPACIAL</string>
+        <string id="M06-desc">                      <![CDATA[El Robot tiene que retirar e insertar Módulos Habitables entre las escotillas del Núcleo de la Estación. Los Módulos insertados NO deben tocar nada excepto el Núcleo de la Estación.]]></string>
+        <string id="M06-scoring1">                   El Módulo Cónico está completamente dentro de la Base</string>
+        <string id="M06-scoring2">                   El Módulo Tubular está insertado en la escotilla oeste del Núcleo de la Estación</string>
+        <string id="M06-scoring3">                   El Módulo de Atraque en la escotilla está insertadodel Núcleo de la Estación</string>
 
-        <string id="M07-name">                      M07 우주유영</string>
-        <string id="M07-desc">                      <![CDATA[로봇은 "Gerhard"의 몸을 가져다가 에어락 챔버에 넣어야 합니다.]]></string>
-        <string id="M07-scoring">                   우주비행사 "Gerhard"가 거주구역 중심부의 에어락 챔버에 있습니다:</string>
-        <string id="M07-scoring1">                  아니오</string>
-        <string id="M07-scoring2">                  부분적으로</string>
-        <string id="M07-scoring3">                  완전히</string>
+        <string id="M07-name">                      M07 PASEO ESPACIAL DE EMERGENCIA</string>
+        <string id="M07-desc">                      <![CDATA[El Robot tiene que llevar el cuerpo de Gherard dentro de la Cámara Hermética.]]></string>
+        <string id="M07-scoring">                   El astrounauta Gherhard está insertado dentro de la Cámara Hermética del Núcleo de la Estación:</string>
+        <string id="M07-scoring1">                  No</string>
+        <string id="M07-scoring2">                  Parcialmente</string>
+        <string id="M07-scoring3">                  Completamente</string>
 
-        <string id="M08-name">                      M08 유산소운동</string>
-        <string id="M08-desc">                      <![CDATA[로봇은 운동 기계의 손잡이 조립체 중 1개 또는 두개 모두를 지속적으로 움직여 포인터가 올라가도록 해야 합니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)]]></string>
-        <string id="M08-scoring">                   포인터의 끝이 색에 도달했습니다.(손잡이 조립체를 움직이는 것에 의해서만):</string>
-        <string id="M08-scoring1">                  없음</string>
-        <string id="M08-scoring2">                  회색</string>
-        <string id="M08-scoring3">                  흰색</string>
-        <string id="M08-scoring4">                  오렌지색</string>
+        <string id="M08-name">                      M08 EJERCICIO AERÓBICO</string>
+        <string id="M08-desc">                      <![CDATA[Avanzad el Puntero a lo largo del Dial de la Máquina de Ejercicio moviendo una o ambas empuñaduras. Si el Puntero está cubriendo parcialmente un extremo de color gris o naranja, seleccionad dicho color.]]></string>
+        <string id="M08-scoring">                   El Puntero de Ejercicio está en:</string>
+        <string id="M08-scoring1">                  Ninguno</string>
+        <string id="M08-scoring2">                  Gris</string>
+        <string id="M08-scoring3">                  Blanco</string>
+        <string id="M08-scoring4">                  Naranja</string>
 
-        <string id="M09-name">                      M09 근력운동</string>
-        <string id="M09-desc">                      <![CDATA[로봇은 득점할 수 있는 높이까지 힘막대를 들어올려야 합니다.]]></string>
-        <string id="M09-scoring">                   톱니가 있는 부분의 4번째 구멍이 일부라도 보이도록 힘막대가 들어올려져 있습니다.</string>
+        <string id="M09-name">                      M09 EJERCICIO DE ESFUERZO</string>
+        <string id="M09-desc">                      <![CDATA[El Robot tiene que levantar la Barra de Esfuerzo hasta una altura que puntúe.]]></string>
+        <string id="M09-scoring">                   La Barra de Esfuerzo está levantada de modo que el cuarto agujero de la barra dentada es parcialmente visible</string>
 
-        <string id="M10-name">                      M10 식량생산</string>
-        <string id="M10-desc">                      <![CDATA[밀대를 적당한 거리만큼 적당한 속도로 밀어 초록색이 나오도록 합니다.]]></string>
-        <string id="M10-scoring">                   회색의 무게추가 초록색이 나온 뒤 황갈색이 나오기 전에 내려와 있습니다. (밀대를 미는 것에만 의해)</string>
+        <string id="M10-name">                      M10 PRODUCCIÓN DE VEGETALES</string>
+        <string id="M10-desc">                      <![CDATA[Moved la Barra de Empuje la distancia correcta a la velocidad adecuada para situarla en el rango de puntuación verde.]]></string>
+        <string id="M10-scoring">                   El peso gris está caído después del verde pero antes del beis</string>
 
-        <string id="M11-name">                      M11 탈출 속도</string>
-        <string id="M11-desc">                      <![CDATA[로봇은 충격판을 충분한 힘으로 때려서 우주선이 돌라간 후 다시 떨어지지 않도록 합니다.]]></string>
-        <string id="M11-scoring">                   우주선이 위에 머물어 있습니다.(충격판을 치거나 누르는것에만 의해)</string>
+        <string id="M11-name">                      M11 - VELOCIDAD DE ESCAPE</string>
+        <string id="M11-desc">                      <![CDATA[Conseguid que la nave alcance la velocidad y la altura necesarias para que se mantenga arriba, presionando/golpeando el Panel de Impacto.]]></string>
+        <string id="M11-scoring">                   La Nave Espacial se mantiene arriba</string>
 
-        <string id="M12-name">                      M12 위성괴도</string>
-        <string id="M12-desc">                      <![CDATA[로봇은 1개 이상의 인공위성을 바깥쪽 괘도 위에 올려놓아야 합니다.]]></string>
-        <string id="M12-scoring">                   바깥 궤도의 두 선 사이에 올라 있거나 걸쳐 있는 인공위성들</string>
+        <string id="M12-name">                      M12 ÓRBITAS DE SATÉLITES</string>
+        <string id="M12-desc">                      <![CDATA[Moved cualquier parte de un Satélite sobre o por encima del área que hay entre las dos líneas de la Órbita Externa.]]></string>
+        <string id="M12-scoring">                   Satélites sobre o por encima del área entre las 2 líneas de la Órbita Externa:</string>
 
-        <string id="M13-name">                      M13 관측소</string>
-        <string id="M13-desc">                      <![CDATA[관측소 모형을 정확한 방향으로 회전시킵니다. (만일 포인터가 회색이나 오렌지색의 경계선에 부분적으로 도달했다면 그 색을 선택하십시오.)]]></string>
-        <string id="M13-scoring">                   관측소 포인터의 끝이 다음색에 있습니다.:</string>
-        <string id="M13-scoring1">                  없음</string>
-        <string id="M13-scoring2">                  회색</string>
-        <string id="M13-scoring3">                  흰색</string>
-        <string id="M13-scoring4">                  오렌지색</string>
+        <string id="M13-name">                      M13 OBSERVATORIO</string>
+        <string id="M13-desc">                      <![CDATA[Rotad el Observatorio apuntando a una dirección precisa. Si el Puntero está cubriendo parcialmente un extremo de color gris o naranja, seleccionad dicho color.]]></string>
+        <string id="M13-scoring">                   El Puntero del Observatorio está en:</string>
+        <string id="M13-scoring1">                  Ninguno</string>
+        <string id="M13-scoring2">                  Gris</string>
+        <string id="M13-scoring3">                  Blanco</string>
+        <string id="M13-scoring4">                  Naranja</string>
 
-        <string id="M14-name">                      M14 소행성의 방향 전환</string>
-        <string id="M14-desc">                      <![CDATA[프리라인의 서쪽에서 소행성 모형 한 개 또는 두개 모두를 독립적으로 소행성 포획기로 보냅니다.]]></string>
-        <string id="M14-scoring1">                  매트에 닿아있고 소행성 포획기의 가운데 들어간 소행성:</string>
-        <string id="M14-scoring2">                  매트에 닿아있고 소행성 포획기의 좌우에 들어간 소행성:</string>
-        <string id="M14-error">                     불가능한 조합.  너무 많은 소행성수</string>
+        <string id="M14-name">                      M14 DESVIO DE METEOROIDES</string>
+        <string id="M14-desc">                      <![CDATA[Lanzad Meteoroides por encima de la Línea Libre para que toquen el tapete en el Receptor de Meteoroides.Los Meteoroides deben ser golpeados/liberados mientras
+están clara y completamente al oeste de la Línea Libre. Mientras estén entre el golpeo/lanzamiento y la posición de puntuación, el Meteoroide debe ser claramente Independiente.]]></string>
+        <string id="M14-scoring1">                  Meteoroides tocando el Tapete en la Sección Central:</string>
+        <string id="M14-scoring2">                  Meteoroides tocando el Tapete en cualquier Sección Lateral:</string>
+        <string id="M14-error">                     Combinación imposible, demasiados Meteoroides</string>
 
-        <string id="M15-name">                      M15 착륙선 착륙</string>
-        <string id="M15-desc">                      <![CDATA[착륙선을 착륙 목표지점중 한곳으로 손상없이 옮기거나 베이스로 가져 옵니다.]]></string>
-        <string id="M15-scoring1">                  착륙선이 손상없이 결합되어 있고 매트에 닿아있습니다:</string>
-        <string id="M15-scoring2">                  착륙선이 완전히 안에 있습니다.:</string>
-        <string id="M15-scoring3">                  없음 </string>
-        <string id="M15-scoring4">                  베이스 </string>
-        <string id="M15-scoring5">                  북동쪽 행성 구역 </string>
-        <string id="M15-scoring6">                  목표 지점 원 </string>
+        <string id="M15-name">                      M15 ATERRIZAJE DEL MÓDULO</string>
+        <string id="M15-desc">                      <![CDATA[Moved el Módulo de Aterrizaje para que esté intacto, tocando el Tapete y completamente dentro de la Zona Circular del Módulo o, al menos, dentro de la Base.]]></string>
+        <string id="M15-scoring1">                  El Módulo de Aterrizaje está  intacto y tocando el Tapete</string>
+        <string id="M15-scoring2">                  El Módulo de Aterrizaje está completamente dentro de:</string>
+        <string id="M15-scoring3">                  Ninguno </string>
+        <string id="M15-scoring4">                  Base </string>
+        <string id="M15-scoring5">                  Zona del Planeta del Nordeste</string>
+        <string id="M15-scoring6">                  Zona Circular del Módulo</string>
 
-        <string id="penalties-name">                페널티</string>
-        <string id="penalties-desc">                <![CDATA[ 여러분의 로봇을 손으로 구출 할 수 있지만, 그렇게 하면 페널티를 받게됩니다.]]></string>
-        <string id="penalties-scoring">             남동쪽 삼각형 안의 페널티 디스크 수:</string>
+        <string id="penalties-name">                PENALIZACIONES POR INTERRUPCIÓN</string>
+        <string id="penalties-desc">                <![CDATA[Si interrumpís el Robot, el árbitro pondrá un Disco de Penalización en el triángulo del sudeste como un indicador de Interrupción permanente.]]></string>
+        <string id="penalties-scoring">             Discos del Penalización dentro del triángulo del Sudeste:</string>
 
     </strings>
 
