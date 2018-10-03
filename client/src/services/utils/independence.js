@@ -3,7 +3,6 @@ const STORAGE_KEY_PREFIX = 'independence_actions'
 class Independence {
   constructor ($http, $window, logger) {
     Object.assign(this, { $http, $window, logger })
-    this.lastSuccessfulRequestTime = Date.now()
   }
 
   send (method, url, data) {

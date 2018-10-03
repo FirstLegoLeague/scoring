@@ -8,7 +8,7 @@ class MetadataInputsController {
     this.$scope.$watch(() => this.teamNumber(), () => {
       if (this.teamNumber()) {
         this.loadingMatches = true
-        Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.all()])
+        Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
           .then(([matches, scores]) => {
             matches.forEach(match => {
               match.complete = scores.some(score => score.teamNumber === this.teamNumber() && score.matchId === match._id)

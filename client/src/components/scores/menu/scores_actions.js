@@ -1,6 +1,10 @@
 export default {
   template: `
   <div>
+    <div class="hollow button">{{scores.data.scores.length}} scores</div>
+  </div>
+  
+  <div>
     <div class="alert button" ng-if="scores.user === 'admin'" ng-click="scores.openDeletionDialog()">
       <i class="fa" ng-class="scores.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i>
       Delete all scores

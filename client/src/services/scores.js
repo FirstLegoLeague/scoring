@@ -5,19 +5,22 @@ const POSSIBLY_REQUIRED_FIELDS = {
 }
 
 class Scores {
-  constructor ($http, messanger, configuration, independence, notifications) {
-    Object.assign(this, { $http, messanger, configuration, independence, notifications })
+  constructor ($http, tournament, messanger, configuration, independence, notifications) {
+    Object.assign(this, { $http, tournament, messanger, configuration, independence, notifications })
     this.scores = []
   }
 
-  all () {
-    return (this.scores.length === 0) ? this.load() : Promise.resolve(this.scores)
+  init () {
+    if (!this._initPromise) {
+      this._initPromise = this.load()
+    }
+    return this._initPromise
   }
 
   load () {
     return this.$http.get('/scores/all')
       .then(response => response.data).then(scores => {
-        this.scores = scores
+        this.scores = scores.map(attrs => this.score(attrs))
         return this.scores
       })
   }
@@ -26,7 +29,7 @@ class Scores {
     this.messanger.ignoreNext('scores:reload')
     return this.configuration.load()
       .then(config => this.independence.send('POST', '/scores/create', this._sanitizedScore(score, config)))
-      .then(scoreFromDB => { this.scores.push(scoreFromDB) })
+      .then(scoreFromDB => { this.scores.push(this.score(scoreFromDB)) })
   }
 
   delete (id) {
@@ -80,9 +83,54 @@ class Scores {
 
     return sanitizedScore
   }
+
+  score (attrs) {
+    const score = attrs
+
+    score.init = () => {
+      if (!score._initPromise) {
+        score._initPromise = score.load()
+      }
+      return score._initPromise
+    }
+
+    score.load = () => {
+      return Promise.all([this.tournament.loadTeamMatches(score.teamNumber), this.tournament.loadTeams(), this.tournament.loadTables()])
+        .then(([matches, teams, tables]) => {
+          score.matches = matches
+          score.match = matches.find(match => match.round === score.round && match.stage === score.stage)
+          score.team = teams.find(team => team.number === score.teamNumber)
+          score.table = matches.find(table => table.tableId === score.tableId)
+
+          score.matchError = Boolean(!score.match)
+          score.teamError = Boolean(!score.team)
+          score.noTable = Boolean(!score.table)
+
+          score.teamText = score.teamError ? 'Missing team' : score.team.displayText
+          score.matchText = score.matchError ? 'Missing round' : score.match.displayText
+          score.tableText = score.noTable ? 'No table' : score.table.tableName
+
+          score.ready = true
+        })
+    }
+
+    score.updateMatch = () => {
+      return this.tournament.loadTeamMatches(score.teamNumber)
+        .then(matches => {
+          score.matches = matches
+          score.matchId = matches.find(match => match.stage === score.stage && match.round === score.round)._id
+        })
+        .then(() => this.save())
+    }
+
+    score.teamText = score.matchText = score.tableText = 'Loading...'
+    score.teamError = score.matchError = score.ready = false
+
+    return score
+  }
 }
 
 Scores.$$ngIsClass = true
-Scores.$inject = ['$http', 'Messanger', 'Configuration', 'Independence', 'Notifications']
+Scores.$inject = ['$http', 'Tournament', 'Messanger', 'Configuration', 'Independence', 'Notifications']
 
 export default Scores

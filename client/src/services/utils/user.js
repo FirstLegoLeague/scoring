@@ -1,7 +1,7 @@
 const USERNAME_COOKIE_KEY = 'username'
 const AUTH_TOKEN_COOKIE_KEY = 'auth-token'
 const ADMINS = ['admin', 'scorekeeper', 'development']
-const REFS = ['referee'] //, 'development']
+const REFS = ['referee', 'development']
 
 class User {
   constructor ($cookies) {

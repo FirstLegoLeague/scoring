@@ -17,29 +17,27 @@ class Scoresheet {
   }
 
   reset () {
-    return this._initPromise.then(() => {
-      // Using a copy of the challenge as the current scoresheet
-      this.current = angular.copy(this._original)
-      this.current.missions.forEach(mission => {
-        mission.score = 0
-        mission.process = () => {
-          const values = mission.dependencies.map(dependency => dependency.value)
-          if (values.includes(undefined)) {
-            Object.assign(mission, { complete: false, error: undefined, score: 0 })
-            return undefined
+    // Using a copy of the challenge as the current scoresheet
+    this.current = angular.copy(this._original)
+    this.current.missions.forEach(mission => {
+      mission.score = 0
+      mission.process = () => {
+        const values = mission.dependencies.map(dependency => dependency.value)
+        if (values.includes(undefined)) {
+          Object.assign(mission, { complete: false, error: undefined, score: 0 })
+          return undefined
+        } else {
+          const result = mission.scoreFunction(values)
+          if (result instanceof Error) {
+            Object.assign(mission, { complete: false, error: result, score: 0 })
           } else {
-            const result = mission.scoreFunction(values)
-            if (result instanceof Error) {
-              Object.assign(mission, { complete: false, error: result, score: 0 })
-            } else {
-              Object.assign(mission, { complete: true, error: undefined, score: result })
-            }
+            Object.assign(mission, { complete: true, error: undefined, score: result })
           }
         }
-      })
-      this.ready = true
-      return this.current
+      }
     })
+    this.ready = true
+    return Promise.resolve(this.current)
   }
 
   score () {
@@ -72,6 +70,7 @@ class Scoresheet {
   }
 
   save () {
+    this.ready = false
     return (this.isEditing() ? this.scores.update(this.current._id, this.current) : this.scores.create(this.current))
       .then(() => this.notifications.success('Score saved successfully'))
       .catch(err => {

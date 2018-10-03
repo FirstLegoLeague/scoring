@@ -15,12 +15,14 @@ class Connectivity {
 
   status () {
     const pendingRequestsCount = this.independence.pendingRequestsCount()
-    if (pendingRequestsCount !== 0) {
-      const timeSinceLastSuccessfulRequest = Date.now() - this.independence.lastSuccessfulRequestTime
+    if (pendingRequestsCount > 1) {
+      const timeSinceLastSuccessfulRequest = this.independence.lastSuccessfulRequestTime ? (Date.now() - this.independence.lastSuccessfulRequestTime) : 0
       if (timeSinceLastSuccessfulRequest > ONLINE_TIMESPAN) {
         if (timeSinceLastSuccessfulRequest < TEMPORARY_TIMESPAN && pendingRequestsCount < TEMPORARY_REQUESTS_COUNT) {
+          console.log('independence TEMPORARY_OFFLINE')
           return STATUS_CODES.TEMPORARY_OFFLINE
         } else {
+          console.log('independence PERMANENTLY_OFFLINE')
           return STATUS_CODES.PERMANENTLY_OFFLINE
         }
       }
@@ -30,8 +32,10 @@ class Connectivity {
       const timeSinceLastConnection = this.messanger.timeSinceLastConnection()
       if (timeSinceLastConnection > ONLINE_TIMESPAN) {
         if (timeSinceLastConnection < TEMPORARY_TIMESPAN) {
+          console.log('messanger TEMPORARY_OFFLINE')
           return STATUS_CODES.TEMPORARY_OFFLINE
         } else {
+          console.log('messanger PERMANENTLY_OFFLINE')
           return STATUS_CODES.PERMANENTLY_OFFLINE
         }
       }

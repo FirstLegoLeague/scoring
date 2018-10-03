@@ -1,6 +1,6 @@
 class ScoresController {
-  constructor (scores, $scope, configuration, tournament, messanger, modals, user, logger) {
-    Object.assign(this, { data: scores, $scope, configuration, tournament, messanger, modals, logger })
+  constructor (scores, $scope, $timeout, configuration, tournament, messanger, modals, user, logger) {
+    Object.assign(this, { data: scores, $scope, $timeout, configuration, tournament, messanger, modals, logger })
     this.user = user.username
     this.filters = this.filters || {
       search: '',
@@ -11,8 +11,8 @@ class ScoresController {
   }
 
   $onInit () {
-    this.$scope.$on('reload', () => this.load())
-    this.messanger.one('scores:reload', () => this.load())
+    this.$scope.$on('reload', () => this.load(true))
+    this.messanger.one('scores:reload', () => this.load(true))
 
     this.$scope.$watch(() => this.data.scores, () => this._calculateFilters(), true)
 
@@ -24,11 +24,11 @@ class ScoresController {
       .catch(err => this.logger.error(err))
   }
 
-  load () {
+  load (forceScoresReload) {
     this.loading = true
     this.$scope.$broadcast('reset')
-    Promise.all([this.data.load(), this.tournament.loadTeams(), this.tournament.loadTables()])
-      .then(() => { this.loading = false })
+    Promise.all([(forceScoresReload ? this.data.load() : this.data.init()), this.tournament.loadTeams(), this.tournament.loadTables()])
+      .then(() => { this.$timeout(() => { this.loading = false }) })
       .catch(err => this.logger.error(err))
   }
 
@@ -57,6 +57,10 @@ class ScoresController {
   }
 
   shouldShowScore (score) {
+    if (this.loading) {
+      return false
+    }
+
     // Filter by search
     if (this.filters.search && !([score.teamText, score.referee, score.tableText, score.matchText, score.score]
       .map(field => (field && typeof field === 'string') ? field.toLowerCase() : field)
@@ -99,6 +103,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['Scores', '$scope', 'Configuration', 'Tournament', 'Messanger', 'Modals', 'User', 'Logger']
+ScoresController.$inject = ['Scores', '$scope', '$timeout', 'Configuration', 'Tournament', 'Messanger', 'Modals', 'User', 'Logger']
 
 export default ScoresController
