@@ -76,7 +76,6 @@ class Scoresheet {
     return (this.isEditing() ? this.Scores.update(this.current._id, this.current) : this.Scores.create(this.current))
       .then(() => {
         this.Notifications.success('Score saved successfully')
-        this.ready = true
       })
       .catch(err => {
         if (err.status === 422) {
