@@ -1,3 +1,7 @@
 #scores-list {
   margin-top: 1rem;
 }
+
+score .button:not(:hover) .hover-text {
+	display: none;
+}

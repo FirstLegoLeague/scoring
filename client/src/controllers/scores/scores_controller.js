@@ -21,6 +21,7 @@ class ScoresController {
         this.rankingsLink = config.rankings
         return this.load()
       })
+      .then(() => this.$scope.$emit('reinit foundation'))
       .catch(err => this.logger.error(err))
   }
 

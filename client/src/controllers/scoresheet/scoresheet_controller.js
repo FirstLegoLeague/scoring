@@ -25,6 +25,7 @@ class ScoresheetController {
     return this.data.init()
       .then(() => this.reset())
       .then(() => this.data.process())
+      .then(() => this.$scope.$emit('reinit foundation'))
   }
 
   reset () {
