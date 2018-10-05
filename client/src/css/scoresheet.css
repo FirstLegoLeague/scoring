@@ -21,14 +21,23 @@ scoresheet-menu select {
   display: none;
 }
 
+.submit-btn {
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+
 @media only screen and (max-width: 640px) {
 
 	#default-scoresheet {
-		display: none;	
+		display: none;
 	}
 
 	#reset-scoresheet {
-		display: none;	
+		display: none;
 	}
 
 }
@@ -41,7 +50,7 @@ scoresheet-menu select {
 
   ref-identity .button i {
     font-size: 1rem;
-    margin: 0; 
+    margin: 0;
   }
 
 }
