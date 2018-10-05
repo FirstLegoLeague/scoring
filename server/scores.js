@@ -173,8 +173,10 @@ router.get('/all', (req, res) => {
 
 router.get('/search', (req, res) => {
   connectionPromise
-    .then(scoringCollection => scoringCollection.find(scoreFromQuery(req.query)))
-    .then(score => res.status(200).json(score))
+    .then(scoringCollection => scoringCollection.find(scoreFromQuery(req.query)).toArray())
+    .then(score => {
+      res.status(200).json(score)
+    })
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send(err)
