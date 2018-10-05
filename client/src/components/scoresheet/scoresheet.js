@@ -23,7 +23,7 @@ export default {
         </div>
 
         <div class="cell small-12 flex-container align-center">
-          <div class="large button" ng-click="scoresheet.save()" ng-disabled="!scoresheet.complete()">Submit</div>
+          <div class="large button submit-btn" ng-click="scoresheet.save()" ng-disabled="!scoresheet.complete()">Submit</div>
         </div>
         
       </div>
