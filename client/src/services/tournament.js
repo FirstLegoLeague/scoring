@@ -21,7 +21,7 @@ class Tournament {
         .then(response => response.data.map(team => Object.assign(team, { displayText: `#${team.number} ${team.name}` })))
         .then(teams => {
           this.teams = teams
-            .sort((team1, team2) => team2.number - team1.number)
+            .sort((team1, team2) => team1.number - team2.number)
           return teams
         })
     }
