@@ -35,7 +35,7 @@ class ScoresheetController {
 
   complete () {
     return this.data.current && this.missions() &&
-      (!this.data.current.errors || this.data.current.errors.length === 0)
+      (!this.data.errors || this.data.errors.length === 0)
   }
 
   direction () {

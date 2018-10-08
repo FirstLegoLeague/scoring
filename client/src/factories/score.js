@@ -15,7 +15,7 @@ function Score (tournament) {
           score.matches = matches
           score.match = matches.find(match => match.round === score.round && match.stage === score.stage)
           score.team = teams.find(team => team.number === score.teamNumber)
-          score.table = matches.find(table => table.tableId === score.tableId)
+          score.table = tables.find(table => table.tableId === score.tableId)
 
           score.matchError = Boolean(!score.match)
           score.teamError = Boolean(!score.team)
@@ -53,7 +53,7 @@ function Score (tournament) {
 
       Object.entries(Score.POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
         if (config[configField]) {
-          sanitizedScore[field] = score[field]
+          sanitizedScore[field.name] = field.type ? score[field] : field.type(score[field.name])
         }
       })
 
@@ -76,9 +76,9 @@ function Score (tournament) {
 }
 
 Score.POSSIBLY_REQUIRED_FIELDS = {
-  requireRef: 'referee',
-  requireTable: 'tableId',
-  requireSignature: 'signature'
+  requireRef: { name: 'referee', type: String },
+  requireTable: { name: 'tableId', type: Number },
+  requireSignature: { name: 'signature' }
 }
 
 Score.$inject = ['Tournament']

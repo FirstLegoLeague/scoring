@@ -82,27 +82,18 @@ function scoreFromQuery (query) {
   }, {})
 }
 
-function shouldPublish () {
+function publicScores () {
   return connectionPromise
     .then(scoringCollection => scoringCollection.find().toArray())
-    .then(scores => scores.every(score => {
-      return (typeof score.teamNumber === 'number') && (typeof score.matchId === 'string') &&
+    .then(scores => scores.filter(score => {
+      return score.public && (typeof score.teamNumber === 'number') && (typeof score.matchId === 'string') &&
         scores.every(otherScore => score === otherScore ||
           otherScore.teamNumber !== score.teamNumber || otherScore.matchId !== score.matchId)
     }))
 }
 
-function publishReloadIfShould (logger) {
-  return shouldPublish().then(shouldReload => {
-    if (shouldReload) {
-      publishMsg('scores:reload')
-    } else {
-      logger.info('Not publishing scores due to a scoring error')
-    }
-  })
-}
-
-const adminAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
+const adminOrScorekeeperAction = authroizationMiddlware(['admin', 'scorekeeper', 'development'])
+const adminAction = authroizationMiddlware(['admin', 'development'])
 
 router.post('/create', (req, res) => {
   Promise.all([connectionPromise, validateScore(req.body)])
@@ -111,7 +102,7 @@ router.post('/create', (req, res) => {
       return scoringCollection.insert(score)
     })
     .then(dbResult => res.status(201).send(dbResult.ops[0]))
-    .then(() => publishReloadIfShould(req.logger))
+    .then(() => publishMsg('scores:reload'))
     .catch(err => {
       req.logger.error(err.message)
       if (err instanceof InvalidScore) {
@@ -122,13 +113,13 @@ router.post('/create', (req, res) => {
     })
 })
 
-router.post('/:id/update', adminAction, (req, res) => {
+router.post('/:id/update', adminOrScorekeeperAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => {
       return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: scoreFromQuery(req.body) })
     })
     .then(() => res.status(204).send())
-    .then(() => publishReloadIfShould(req.logger))
+    .then(() => publishMsg('scores:reload'))
     .catch(err => {
       req.logger.error(err.message)
       if (err instanceof InvalidScore) {
@@ -143,18 +134,18 @@ router.delete('/all', adminAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.deleteMany({}))
     .then(() => res.status(204).send())
-    .then(() => publishReloadIfShould(req.logger))
+    .then(() => publishMsg('scores:reload'))
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send('A problem occoured while trying to delete scores.')
     })
 })
 
-router.delete('/:id/delete', adminAction, (req, res) => {
+router.delete('/:id/delete', adminOrScorekeeperAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.deleteOne({ _id: new ObjectID(req.params.id) }))
     .then(() => res.status(204).send())
-    .then(() => publishReloadIfShould(req.logger))
+    .then(() => publishMsg('scores:reload'))
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)
@@ -164,6 +155,15 @@ router.delete('/:id/delete', adminAction, (req, res) => {
 router.get('/all', (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.find().toArray())
+    .then(scores => res.status(200).send(scores))
+    .catch(err => {
+      req.logger.error(err.message)
+      res.status(500).send('A problem occoured while trying to get scores.')
+    })
+})
+
+router.get('/public', (req, res) => {
+  publicScores()
     .then(scores => res.status(200).send(scores))
     .catch(err => {
       req.logger.error(err.message)
