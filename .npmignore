@@ -1,0 +1,10 @@
+node_modules/**
+
+client/node_modules/**
+client/src/**
+
+challenges/html/**
+challenges/pdf/**
+challenges/xml/**
+challenges/xsd/**
+challenges/xsl/**
