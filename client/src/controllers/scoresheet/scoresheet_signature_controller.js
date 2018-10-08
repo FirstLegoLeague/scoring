@@ -13,8 +13,9 @@ class ScoresheetSignatureController {
       .then(config => {
         if (config.requireSignature) {
           this.$scope.$watch(() => (this.$scope.getSignature ? this.$scope.getSignature().dataUrl : ''), () => {
-            if (this.data.current) {
-              this.data.current.signature = this.$scope.getSignature()
+            const newSignature = this.$scope.getSignature()
+            if (this.data.current && !newSignature.isEmpty && newSignature.dataUrl) {
+              this.data.current.signature = newSignature
               // Bug in the signature package: isEmpty is false when dataUrl is undefined
               if (!this.data.current.signature.dataUrl) {
                 this.data.current.signature.isEmpty = true

@@ -16,7 +16,7 @@ class MetadataInputsController {
             })
             this.matches = matches
             if (this.stage() && this.round() && !this.match) {
-              this.matchId = this.matches.find(m => m.round === this.round() && m.stage === this.stage())._id
+              this.setMatch()
             }
             this.loadingMatches = false
             return this.data.process()
@@ -27,29 +27,31 @@ class MetadataInputsController {
 
     this.$scope.$watch(() => this.data.current.matchId, () => {
       if (this.data.current.matchId) {
-        const match = this.matches.find(m => m._id === this.data.current.matchId) ||
-          this.matches.find(m => m.stage === this.data.current.stage && m.round === this.data.current.round)
-        this.data.current.matchId = match._id
-        this.data.current.stage = match.stage
-        this.data.current.round = match.round
-        return this.data.process()
-          .catch(err => this.logger.error(err))
+        if (this.matches) {
+          this.setMatch()
+          return this.data.process()
+            .catch(err => this.logger.error(err))
+        } else {
+          this.data.current.matchId = undefined
+        }
       }
     })
 
-    this.$scope.$on('reset', () => {
-      this.matches = []
-    })
+    this.$scope.$on('reset', () => { this.matches = [] })
 
     return this.tournament.loadTeams()
   }
 
-  teamNumber () {
-    return this.data.current ? this.data.current.teamNumber : undefined
+  setMatch () {
+    const match = this.matches.find(m => m._id === this.data.current.matchId) ||
+      this.matches.find(m => m.stage === this.stage() && m.round === this.round())
+    this.data.current.matchId = match._id
+    this.data.current.stage = match.stage
+    this.data.current.round = match.round
   }
 
-  getMatches () {
-    return this.matches
+  teamNumber () {
+    return this.data.current ? this.data.current.teamNumber : undefined
   }
 
   stage () {

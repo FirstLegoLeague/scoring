@@ -12,7 +12,7 @@ export default {
       <select ng-if="metadataInputs.data.current.teamNumber"
         ng-model="metadataInputs.data.current.matchId"
         ng-class="{'disabled': metadataInputs.loadingMatches}"
-        ng-options="match._id as match.displayTextWithCompletion for match in metadataInputs.getMatches() track by match._id">
+        ng-options="match._id as match.displayTextWithCompletion for match in metadataInputs.matches">
         <option value="" disabled selected hidden>{{metadataInputs.loadingMatches ? 'Loading...' : 'Select Round'}}</option>
       </select>
     </div>`,

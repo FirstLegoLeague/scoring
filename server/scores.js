@@ -108,9 +108,9 @@ router.post('/create', (req, res) => {
   Promise.all([connectionPromise, validateScore(req.body)])
     .then(([scoringCollection, score]) => {
       req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
-      return scoringCollection.save(score)
+      return scoringCollection.insert(score)
     })
-    .then(() => res.status(201).send())
+    .then(dbResult => res.status(201).send(dbResult.ops[0]))
     .then(() => publishReloadIfShould(req.logger))
     .catch(err => {
       req.logger.error(err.message)
