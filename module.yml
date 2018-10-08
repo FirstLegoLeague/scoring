@@ -32,7 +32,7 @@ config:
           - nl_NL Dutch (Netherlands)
           - pt_BR Portuguese (Brazil)
           - ru_RU Russian (Russia)
-          - zh_ZH Chinese (Hong Kong)
+          - zh_HK Chinese (Hong Kong)
       - name: autoPublish
         display: Auto-publish team scores
         type: boolean

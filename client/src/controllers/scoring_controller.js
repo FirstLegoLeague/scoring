@@ -1,6 +1,6 @@
 class ScoringController {
-  constructor ($scope, configuration, user, logger) {
-    Object.assign(this, { $scope, configuration, logger })
+  constructor ($window, $document, $scope, configuration, user, logger) {
+    Object.assign(this, { $window, $document, $scope, configuration, logger })
     this.isAdmin = user.isAdmin()
   }
 
@@ -27,6 +27,13 @@ class ScoringController {
         this.showScoresScreen = true
       }
     })
+
+    this.$scope.$on('reinit foundation', () => {
+      // Doing this in so-called "animation" in order to bypass the synchronized way the blocks the performance of the page
+      setTimeout(() => {
+        this.$window.$('[data-tooltip]:not(.has-tip)').foundation()
+      })
+    })
   }
 
   toggleScoresList () {
@@ -35,6 +42,6 @@ class ScoringController {
 }
 
 ScoringController.$$ngIsClass = true
-ScoringController.$inject = ['$scope', 'Configuration', 'User', 'Logger']
+ScoringController.$inject = ['$window', '$document', '$scope', 'Configuration', 'User', 'Logger']
 
 export default ScoringController

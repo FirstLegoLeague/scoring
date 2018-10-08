@@ -2,7 +2,7 @@ export default {
   template:
   `<h3>
     {{mission.data.title}}
-    <span class="clear button" ng-click="mission.toggleDescription()" tooltip title="Show Description">
+    <span class="clear button" ng-click="mission.toggleDescription()" data-tooltip title="Show Description">
       <i class="fa fa-question"></i>
     </span>
   </h3>
