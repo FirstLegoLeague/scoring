@@ -87,7 +87,8 @@ class ScoresController {
       return this.data.scores.some(otherScore => {
         return score !== otherScore &&
           otherScore.teamNumber === score.teamNumber &&
-          otherScore.matchId === score.matchId
+          otherScore.stage === score.stage &&
+          otherScore.round === score.round
       })
     })
 

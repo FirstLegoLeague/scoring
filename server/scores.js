@@ -88,7 +88,7 @@ function publicScores () {
     .then(scores => scores.filter(score => {
       return score.public && (typeof score.teamNumber === 'number') && (typeof score.matchId === 'string') &&
         scores.every(otherScore => score === otherScore ||
-          otherScore.teamNumber !== score.teamNumber || otherScore.matchId !== score.matchId)
+          otherScore.teamNumber !== score.teamNumber || otherScore.stage !== score.stage || otherScore.round !== score.round)
     }))
 }
 
