@@ -1,5 +1,5 @@
 {
-  "name": "scoring",
+  "name": "@first-lego-league/scoring",
   "version": "2.1.2",
   "description": "Main scoring service",
   "main": "index.js",
