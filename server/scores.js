@@ -23,7 +23,8 @@ const SCORE_FIELDS = {
   stage: String,
   matchId: String,
   referee: String,
-  tableId: String
+  tableId: String,
+  public: Boolean
 }
 
 const POSSIBLY_REQUIRED_FIELDS = {
