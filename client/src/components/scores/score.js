@@ -46,7 +46,7 @@ export default {
       </div>
       <div class="button" ng-click="score.togglePublish()" ng-disabled="loading">
         <i class="fa" ng-class="score.togglingPublish ? 'fa-circle-notch fa-spin' : (score.data.public ? 'fa-minus-circle' : 'fa-plus-circle')"></i>
-        <span class="hover-text">{{(score.data.public ? 'unpublish' : 'publish')}}</span>
+        <span class="hover-text">{{(score.data.public ? 'Unpublish' : 'Publish')}}</span>
       </div>
       <div class="alert button" ng-click="score.openDeletionDialog()" ng-disabled="loading">
         <i class="fa" ng-class="score.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i>
