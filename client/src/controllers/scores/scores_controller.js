@@ -1,56 +1,29 @@
 class ScoresController {
-  constructor (scores, $scope, $timeout, configuration, tournament, messanger, modals, user, logger) {
-    Object.assign(this, { data: scores, $scope, $timeout, configuration, tournament, messanger, modals, logger })
-    this.user = user.username
-    this.filters = this.filters || {
+  constructor (scores, $scope, tournament, messanger, logger) {
+    Object.assign(this, { data: scores, $scope, tournament, messanger, logger })
+    this.filters = {
       search: '',
       showDuplicates: false,
       showErrors: false
     }
-    this.loading = true
   }
 
   $onInit () {
     this.$scope.$on('reload', () => this.load(true))
     this.messanger.one('scores:reload', () => this.load(true))
-
     this.$scope.$watch(() => this.data.scores, () => this._calculateFilters(), true)
 
-    this.configuration.load()
-      .then(config => {
-        this.rankingsLink = config.rankings
-        return this.load()
-      })
+    this.load()
       .then(() => this.$scope.$emit('reinit foundation'))
       .catch(err => this.logger.error(err))
   }
 
   load (forceScoresReload) {
-    this.loading = true
+    this.ready = false
     this.$scope.$broadcast('reset')
-    Promise.all([(forceScoresReload ? this.data.load() : this.data.init()), this.tournament.loadTeams(), this.tournament.loadTables()])
-      .then(() => { this.$timeout(() => { this.loading = false }) })
+    return Promise.all([(forceScoresReload ? this.data.load() : this.data.init()), this.tournament.loadTeams(), this.tournament.loadTables()])
+      .then(() => { this.ready = true })
       .catch(err => this.logger.error(err))
-  }
-
-  openDeletionDialog () {
-    this.modals.open('#scores-deletion-modal')
-  }
-
-  closeDeletionDialog () {
-    this.modals.close('#scores-deletion-modal')
-  }
-
-  deleteAll () {
-    this.closeDeletionDialog()
-    this.deleting = true
-    this.data.deleteAll()
-      .then(() => {
-        this.deleting = false
-      }).catch(() => {
-        this.Notifications.error('Unable to delete score: Possible network error.')
-        this.deleting = false
-      })
   }
 
   any () {
@@ -58,7 +31,7 @@ class ScoresController {
   }
 
   shouldShowScore (score) {
-    if (this.loading) {
+    if (!this.ready) {
       return false
     }
 
@@ -94,17 +67,19 @@ class ScoresController {
 
     const missingFieldScores = this.data.scores.filter(score =>
       typeof score.teamNumber === 'undefined' || typeof score.matchId === 'undefined' ||
-      (!this.loading && !this.tournament.teams.some(team => team.number === score.teamNumber)))
+      (this.ready && !this.tournament.teams.some(team => team.number === score.teamNumber)))
 
     this.errorScores = this.duplicateScores.concat(missingFieldScores)
       .filter((value, index, arr) => arr.indexOf(value) === index)
 
-    this.filters.showDuplicates = this.filters.showDuplicates && this.duplicateScores.length > 0
-    this.filters.showErrors = this.filters.showErrors && this.errorScores.length > 0
+    this.filters.disableDuplicates = this.duplicateScores.length <= 0
+    this.filters.disableErrors = this.errorScores.length <= 0
+    this.filters.showDuplicates = this.filters.showDuplicates && !this.filters.disableDuplicates
+    this.filters.showErrors = this.filters.showErrors && !this.filters.disableErrors
   }
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['Scores', '$scope', '$timeout', 'Configuration', 'Tournament', 'Messanger', 'Modals', 'User', 'Logger']
+ScoresController.$inject = ['Scores', '$scope', 'Tournament', 'Messanger', 'Logger']
 
 export default ScoresController

@@ -1,10 +1,10 @@
 export default {
   template: `
-<scores-menu class="top-bar secondary" ng-if="scores.any() && !scores.loading" filters="scores.filters"></scores-menu>
+<scores-menu class="top-bar secondary" ng-if="scores.any() && scores.ready" filters="scores.filters"></scores-menu>
 
-<div class="top-bar secondary" ng-if="scores.loading"></div>
+<div class="top-bar secondary" ng-if="!scores.ready"></div>
 
-<div class="top-bar-page" ng-class="{ loading: scores.loading }">
+<div class="top-bar-page" ng-class="{ loading: !scores.ready }">
   <div class="dimmer">
     <div class="large loader"></div>
   </div>
@@ -15,7 +15,7 @@ export default {
     </div>
   </div>
 
-  <no-scores-message ng-if="!scores.any() && !scores.loading" id="empty-scores-list" class="grid-container"></no-scores-message>
+  <no-scores-message ng-if="!scores.any() && scores.ready" id="empty-scores-list" class="grid-container"></no-scores-message>
 </div>
 
 <delete-all-scores-modal></delete-all-scores-modal>`,

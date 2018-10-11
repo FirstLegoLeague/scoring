@@ -17,6 +17,7 @@ export default {
   
   <div class="fast reveal" id="identity-modal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y" data-close-on-click="false">
     <h1>Choose your codename</h1>
+    <h5 class="subheader">This will appear on the scoresheets you submit</h5>
     <form>
       <div class="grid-container">
         <div class="grid-x grid-padding-x">

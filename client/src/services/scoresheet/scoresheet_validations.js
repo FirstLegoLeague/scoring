@@ -38,7 +38,6 @@ class ScoresheetValidations {
           errors.push({ error: 'Missing signature' })
         }
 
-        console.log(errors)
         return errors
       })
   }

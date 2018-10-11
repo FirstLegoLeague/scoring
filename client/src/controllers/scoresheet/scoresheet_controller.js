@@ -51,6 +51,7 @@ class ScoresheetController {
       .then(() => {
         this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
         this.reset()
+        this.$scope.$apply()
       })
       .catch(() => this.reset())
   }
