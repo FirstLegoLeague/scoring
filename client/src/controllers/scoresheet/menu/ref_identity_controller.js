@@ -5,6 +5,7 @@ class RefIdentityController {
     Object.assign(this, { data: refIdentity, $scope, configuration, modals, logger })
     this.isRef = user.isRef()
     this.showTopbarButton = false
+    this.title = 'Choose your codename'
   }
 
   $onInit () {
@@ -17,6 +18,8 @@ class RefIdentityController {
             this.open()
           }
         }
+
+        this.title = this.configuration.requireRef ? 'Choose your codename' : 'Choose a table'
 
         this.$scope.$watch(() => this.data.referee, () => {
           this.$scope.$emit('proccess scoresheet')
