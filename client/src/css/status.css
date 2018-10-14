@@ -17,15 +17,3 @@
 #status.permanently-offline {
   color: crimson;
 }
-
-@media only screen and (max-width: 810px) {
-
-  #status {
-    font-size: 0;
-  }
-
-  #status i {
-    margin: 0; 
-  }
-
-}
