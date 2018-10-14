@@ -60,9 +60,10 @@ class RefIdentityController {
   }
 
   display () {
-    const refPart = this.showRef() ? this.data.referee : ''
-    const tablePart = this.showTable() ? (this.showRef() ? `(On ${this.data.table.tableName})` : `On ${this.data.table.tableName}`) : ''
-    return `${refPart} ${tablePart}`
+    throw new Error('1234567890')
+    // const refPart = this.showRef() ? this.data.referee : ''
+    // const tablePart = this.showTable() && this.data.table ? (this.showRef() ? `(On ${this.data.table.tableName})` : `On ${this.data.table.tableName}`) : ''
+    // return `${refPart} ${tablePart}`
   }
 }
 
