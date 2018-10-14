@@ -26,11 +26,14 @@ class Independence {
   _requestPromise (action) {
     return this.$http[action.method.toLowerCase()](action.url, action.data)
       .then(response => {
+        if (response.status <= 0) {
+          throw response
+        }
         this._deleteRequest(action)
         return response
       })
       .catch(err => {
-        if (err.status < 500) {
+        if (err.status > 0 && err.status < 500) {
           this._deleteRequest(action)
         }
         err.pendingRequestsCount = this.pendingRequestsCount()
