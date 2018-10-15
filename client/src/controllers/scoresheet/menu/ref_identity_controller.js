@@ -5,6 +5,7 @@ class RefIdentityController {
     Object.assign(this, { data: refIdentity, $scope, configuration, modals, logger })
     this.isRef = user.isRef()
     this.showTopbarButton = false
+    this.title = 'Choose your codename'
   }
 
   $onInit () {
@@ -17,6 +18,8 @@ class RefIdentityController {
             this.open()
           }
         }
+
+        this.title = this.configuration.requireRef ? 'Choose your codename' : 'Choose a table'
 
         this.$scope.$watch(() => this.data.referee, () => {
           this.$scope.$emit('proccess scoresheet')
@@ -58,7 +61,7 @@ class RefIdentityController {
 
   display () {
     const refPart = this.showRef() ? this.data.referee : ''
-    const tablePart = this.showTable() ? (this.showRef() ? `(On ${this.data.table.tableName})` : `On ${this.data.table.tableName}`) : ''
+    const tablePart = this.showTable() && this.data.table ? (this.showRef() ? `(On ${this.data.table.tableName})` : `On ${this.data.table.tableName}`) : ''
     return `${refPart} ${tablePart}`
   }
 }

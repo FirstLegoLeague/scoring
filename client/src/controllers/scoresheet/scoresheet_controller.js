@@ -1,6 +1,6 @@
 class ScoresheetController {
-  constructor (scoresheet, $scope, logger) {
-    Object.assign(this, { data: scoresheet, $scope, logger })
+  constructor (scoresheet, $scope, $timeout, logger) {
+    Object.assign(this, { data: scoresheet, $scope, $timeout, logger })
   }
 
   $onInit () {
@@ -49,14 +49,16 @@ class ScoresheetController {
   save () {
     this.data.save()
       .then(() => {
-        this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
-        this.reset()
+        this.$timeout(() => {
+          this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
+          this.reset()
+        })
       })
       .catch(() => this.reset())
   }
 }
 
 ScoresheetController.$$ngIsClass = true
-ScoresheetController.$inject = ['Scoresheet', '$scope', 'Logger']
+ScoresheetController.$inject = ['Scoresheet', '$scope', '$timeout', 'Logger']
 
 export default ScoresheetController

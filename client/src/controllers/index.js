@@ -13,6 +13,7 @@ import ScoresheetActionsController from './scoresheet/menu/scoresheet_actions_co
 import RefIdentityController from './scoresheet/menu/ref_identity_controller'
 
 import ScoresController from './scores/scores_controller'
+import ScoresActionsController from './scores/menu/scores_actions_controller'
 import ScoreController from './scores/score_controller'
 
 // eslint-disable-next-line node/exports-style
@@ -32,5 +33,6 @@ export default {
   ScoresheetActionsController,
 
   ScoresController,
+  ScoresActionsController,
   ScoreController
 }

@@ -22,7 +22,6 @@ import numberObjective from './scoresheet/objective_types/number_objective'
 /* Scores view */
 
 import scores from './scores/scores'
-import deleteAllScoresModal from './scores/delete_all_scores_modal'
 import noScoresMessage from './scores/no_scores_message'
 
 import scoresMenu from './scores/menu/scores_menu'
@@ -51,7 +50,6 @@ export default {
   scoresMenu,
   scoresFilters,
   scoresActions,
-  deleteAllScoresModal,
   noScoresMessage,
   score,
 

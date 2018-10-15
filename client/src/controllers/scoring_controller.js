@@ -17,15 +17,15 @@ class ScoringController {
 
   _initEvents () {
     this.$scope.$on('open scoresheet', (event, score) => {
-      this.$scope.$broadcast('load', score)
       this.showScoresScreen = false
+      this.$scope.$broadcast('load', score)
     })
 
     this.$scope.$on('close scoresheet', (event, options) => {
-      this.$scope.$broadcast('reload')
       if (options.goToScores) {
         this.showScoresScreen = true
       }
+      this.$scope.$broadcast('reload')
     })
 
     this.$scope.$on('reinit foundation', () => {
@@ -34,6 +34,10 @@ class ScoringController {
         this.$window.$('[data-tooltip]:not(.has-tip)').foundation()
       })
     })
+  }
+
+  bla () {
+    return this.showScoresScreen
   }
 
   toggleScoresList () {
