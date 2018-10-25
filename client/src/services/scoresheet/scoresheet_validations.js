@@ -3,7 +3,7 @@ class ScoresheetValidations {
     Object.assign(this, { configuration, user })
   }
 
-  validate (scorehseet) {
+  validate (scorehseet, { requireMatch }) {
     return this.configuration.load()
       .then(config => {
         const isRef = this.user.isRef()
@@ -30,7 +30,7 @@ class ScoresheetValidations {
           errors.push({ error: 'Missing team' })
         }
 
-        if (typeof scorehseet.matchId === 'undefined' || scorehseet.matchId === null) {
+        if (requireMatch && (typeof scorehseet.matchId === 'undefined' || scorehseet.matchId === null)) {
           errors.push({ error: 'Missing round' })
         }
 
