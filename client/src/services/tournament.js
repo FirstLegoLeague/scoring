@@ -46,6 +46,10 @@ class Tournament {
     if (!this._teamsMathcesPromises[teamNumber] || force) {
       this._teamsMathcesPromises[teamNumber] = this.init()
         .then(() => this.$http.get(`${this.tournamentUrl}/team/${teamNumber}/matches`, this.httpRequestConfig))
+        .catch(err => {
+          this._teamsMathcesPromises[teamNumber] = undefined
+          throw err
+        })
         .then(matchesResponse => {
           const matches = matchesResponse.data
           let stage = null
