@@ -22,6 +22,10 @@ class Scores {
       })
   }
 
+  all () {
+    return this.scores
+  }
+
   create (score) {
     this.messanger.ignoreNext('scores:reload')
     return this.configuration.load()

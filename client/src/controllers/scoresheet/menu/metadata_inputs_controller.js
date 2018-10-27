@@ -9,7 +9,8 @@ class MetadataInputsController {
       if (this.teamNumber()) {
         this.loadingMatches = true
         Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
-          .then(([matches, scores]) => {
+          .then(([matches]) => {
+            const scores = this.scores.all()
             this.data.dontRequireMatch = false
             matches.forEach(match => {
               match.complete = scores.some(score => score.teamNumber === this.teamNumber() && score.matchId === match._id)
