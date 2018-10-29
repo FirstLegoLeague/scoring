@@ -13,7 +13,7 @@ scoresheet .stamp {
   direction: ltr !important;
 }
 
-scoresheet-menu select {
+scoresheet-menu select:not(.disabled) {
     width: 10em;
 }
 

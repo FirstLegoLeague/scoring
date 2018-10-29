@@ -53,7 +53,7 @@ function Score (tournament) {
 
       Object.entries(Score.POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
         if (config[configField]) {
-          sanitizedScore[field.name] = field.type ? field.type(score[field.name]) : score[field.name]
+          sanitizedScore[field.name] = field.type && score[field.name] !== undefined ? field.type(score[field.name]) : score[field.name]
         }
       })
 

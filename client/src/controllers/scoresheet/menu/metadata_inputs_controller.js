@@ -9,7 +9,9 @@ class MetadataInputsController {
       if (this.teamNumber()) {
         this.loadingMatches = true
         Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
-          .then(([matches, scores]) => {
+          .then(([matches]) => {
+            const scores = this.scores.all()
+            this.data.dontRequireMatch = false
             matches.forEach(match => {
               match.complete = scores.some(score => score.teamNumber === this.teamNumber() && score.matchId === match._id)
               match.displayTextWithCompletion = `${match.displayText} ${match.complete ? '✔' : ''}`
@@ -21,7 +23,12 @@ class MetadataInputsController {
             this.loadingMatches = false
             return this.data.process()
           })
-          .catch(err => this.logger.error(err))
+          .catch(err => {
+            this.logger.error(err)
+            this.loadingMatches = false
+            this.data.dontRequireMatch = true
+            return this.data.process()
+          })
       }
     })
 
@@ -29,7 +36,7 @@ class MetadataInputsController {
       if (this.data.current.matchId) {
         if (this.matches) {
           this.setMatch()
-          return this.data.process()
+          return this.data.process({ cantLoadMatches: this.cantLoadMatches })
             .catch(err => this.logger.error(err))
         } else {
           this.data.current.matchId = undefined

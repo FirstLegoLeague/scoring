@@ -6,7 +6,10 @@ class Scores {
 
   init () {
     if (!this._initPromise) {
-      this._initPromise = this.load()
+      this._initPromise = this.load().catch(err => {
+        this._initPromise = undefined
+        throw err
+      })
     }
     return this._initPromise
   }
@@ -17,6 +20,10 @@ class Scores {
         this.scores = scores.map(attrs => this.score(attrs))
         return this.scores
       })
+  }
+
+  all () {
+    return this.scores
   }
 
   create (score) {

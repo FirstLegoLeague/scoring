@@ -36,10 +36,6 @@ class ScoringController {
     })
   }
 
-  bla () {
-    return this.showScoresScreen
-  }
-
   toggleScoresList () {
     this.showScoresScreen = !this.showScoresScreen
   }

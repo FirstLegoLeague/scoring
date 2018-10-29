@@ -63,7 +63,7 @@ class Scoresheet {
         if (identity.table) {
           Object.assign(this.current, { tableId: identity.table.tableId })
         }
-        return this.scoresheetValidations.validate(this.current)
+        return this.scoresheetValidations.validate(this.current, { requireMatch: !this.dontRequireMatch })
           .then(errors => { this.errors = errors })
       })
       .catch(err => { this.logger.error(err) })
@@ -71,6 +71,11 @@ class Scoresheet {
 
   save () {
     this.ready = false
+    if (this.dontRequireMatch) {
+      this.current.round = 0
+      this.current.stage = ''
+      this.current.matchId = 0
+    }
     return (this.isEditing() ? this.scores.update(this.current._id, this.current) : this.scores.create(this.current))
       .then(() => this.notifications.success('Score saved successfully'))
       .catch(err => {
