@@ -1,6 +1,6 @@
 class Tournament {
-  constructor ($http, configuration, messanger, user) {
-    Object.assign(this, { $http, configuration, messanger })
+  constructor (independence, configuration, messanger, user) {
+    Object.assign(this, { independence, configuration, messanger })
     this.httpRequestConfig = { headers: { 'auth-token': user.authToken } }
     this._teamsMathcesPromises = { }
     this.matches = { }
@@ -17,7 +17,7 @@ class Tournament {
   loadTeams (force) {
     if (!this._teamsPromise || force) {
       this._teamsPromise = this.init()
-        .then(() => this.$http.get(`${this.tournamentUrl}/team/all`, this.httpRequestConfig))
+        .then(() => this.independence.send('GET', `${this.tournamentUrl}/team/all`, this.httpRequestConfig))
         .then(response => response.data.map(team => Object.assign(team, { displayText: `#${team.number} ${team.name}` })))
         .then(teams => {
           this.teams = teams
@@ -32,7 +32,7 @@ class Tournament {
   loadTables (force) {
     if (!this._tablesPromise || force) {
       this._tablesPromise = this.init()
-        .then(() => this.$http.get(`${this.tournamentUrl}/table/all`, this.httpRequestConfig))
+        .then(() => this.independence.send('GET', `${this.tournamentUrl}/table/all`, this.httpRequestConfig))
         .then(response => response.data)
         .then(tables => {
           this.tables = tables
@@ -45,7 +45,7 @@ class Tournament {
   loadTeamMatches (teamNumber, force) {
     if (!this._teamsMathcesPromises[teamNumber] || force) {
       this._teamsMathcesPromises[teamNumber] = this.init()
-        .then(() => this.$http.get(`${this.tournamentUrl}/team/${teamNumber}/matches`, this.httpRequestConfig))
+        .then(() => this.independence.send('GET', `${this.tournamentUrl}/team/${teamNumber}/matches`, this.httpRequestConfig))
         .catch(err => {
           this._teamsMathcesPromises[teamNumber] = undefined
           throw err
@@ -70,9 +70,10 @@ class Tournament {
 
     return this._teamsMathcesPromises[teamNumber]
   }
+
 }
 
 Tournament.$$ngIsClass = true
-Tournament.$inject = ['$http', 'Configuration', 'Messanger', 'User']
+Tournament.$inject = ['Independence', 'Configuration', 'Messanger', 'User']
 
 export default Tournament
