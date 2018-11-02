@@ -66,7 +66,7 @@ class ScoresController {
     })
 
     const missingFieldScores = this.data.scores.filter(score =>
-      typeof score.teamNumber === 'undefined' || typeof score.matchId === 'undefined' ||
+      typeof score.teamNumber === 'undefined' || typeof score.matchId === 'undefined' || score.matchId === 0 ||
       (this.ready && !this.tournament.teams.some(team => team.number === score.teamNumber)))
 
     this.errorScores = this.duplicateScores.concat(missingFieldScores)
