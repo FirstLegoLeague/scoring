@@ -10,7 +10,7 @@ class ScoresController {
 
   $onInit () {
     this.$scope.$on('reload', () => this.load(true))
-    this.messanger.one('scores:reload', () => this.load(true))
+    this.messanger.on('scores:reload', () => this.load(true))
     this.$scope.$watch(() => this.data.scores, () => this._calculateFilters(), true)
 
     this.load()
