@@ -38,7 +38,7 @@ class Independence {
         if (err.status > 0 && err.status < 500) {
           this._deleteRequest(action)
         }
-        err.pendingRequestsCount = this.pendingRequestsCount()
+        err.pendingRequestsCount = this.pendingRequestsCount(pendingRequest => pendingRequest.method === action.method && pendingRequest.url === action.url)
         throw err
       })
   }
@@ -67,8 +67,11 @@ class Independence {
       .map(key => JSON.parse(this.$window.localStorage[key]))
   }
 
-  pendingRequestsCount () {
-    return this._pendingRequests().length
+  pendingRequestsCount (filter) {
+    if (!filter) {
+      filter = () => true
+    }
+    return this._pendingRequests().filter(filter).length
   }
 }
 

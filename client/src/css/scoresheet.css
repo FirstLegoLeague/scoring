@@ -1,3 +1,7 @@
+objective {
+  flex-wrap: nowrap !important;
+}
+
 objective .button-group input{
   display: none;
 }
