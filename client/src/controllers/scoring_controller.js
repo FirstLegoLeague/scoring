@@ -1,7 +1,8 @@
 class ScoringController {
-  constructor ($window, $document, $scope, configuration, user, logger) {
-    Object.assign(this, { $window, $document, $scope, configuration, logger })
+  constructor ($window, $document, $location, $scope, configuration, user, logger) {
+    Object.assign(this, { $window, $document, $location, $scope, configuration, logger })
     this.isAdmin = user.isAdmin()
+    this.showScoresScreen = this.$location.search()[ScoringController.showScoresScreen] === true
   }
 
   $onInit () {
@@ -38,10 +39,16 @@ class ScoringController {
 
   toggleScoresList () {
     this.showScoresScreen = !this.showScoresScreen
+    this.$location.search(ScoringController.showScoresScreen, this.showScoresScreen)
+  }
+
+  title () {
+    return this.showScoresScreen ? 'scores' : 'scoresheet'
   }
 }
 
+ScoringController.showScoresScreen = 'showScores'
 ScoringController.$$ngIsClass = true
-ScoringController.$inject = ['$window', '$document', '$scope', 'Configuration', 'User', 'Logger']
+ScoringController.$inject = ['$window', '$document', '$location', '$scope', 'Configuration', 'User', 'Logger']
 
 export default ScoringController
