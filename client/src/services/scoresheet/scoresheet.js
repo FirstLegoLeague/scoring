@@ -6,14 +6,23 @@ class Scoresheet {
     this._onProcessListeners = []
     this.errors = []
     this.ready = false
+    this.faulty = false
   }
 
   init () {
-    this._initPromise = Promise.all([this.challenge.init(), this.refIdentity.init()])
-      .then(([challenge]) => {
-        this._original = challenge
-        this._original.signature = undefined
-      })
+    if (!this._initPromise) {
+      this._initPromise = Promise.all([this.challenge.init(), this.refIdentity.init()])
+        .then(([challenge]) => {
+          this._original = challenge
+          this._original.signature = undefined
+        })
+        .catch(err => {
+          this.notifications.error(err.data)
+          this.ready = true
+          this.faulty = true
+          throw err
+        })
+    }
     return this._initPromise
   }
 
