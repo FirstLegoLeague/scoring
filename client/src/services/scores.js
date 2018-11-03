@@ -1,6 +1,6 @@
 class Scores {
-  constructor ($http, score, tournament, messanger, configuration, independence, notifications) {
-    Object.assign(this, { $http, score, tournament, messanger, configuration, independence, notifications })
+  constructor (independence, score, tournament, messanger, configuration, notifications) {
+    Object.assign(this, { independence, score, tournament, messanger, configuration, notifications })
     this.scores = []
   }
 
@@ -56,6 +56,6 @@ class Scores {
 }
 
 Scores.$$ngIsClass = true
-Scores.$inject = ['$http', 'Score', 'Tournament', 'Messanger', 'Configuration', 'Independence', 'Notifications']
+Scores.$inject = ['Independence', 'Score', 'Tournament', 'Messanger', 'Configuration', 'Notifications']
 
 export default Scores
