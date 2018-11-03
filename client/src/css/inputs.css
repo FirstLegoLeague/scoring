@@ -1,3 +1,16 @@
+.top-bar .button-group {
+	display: flex !important;
+}
+
+.button-group {
+	justify-content: center;
+}
+
+.button-group .button {
+	margin-right: 1px !important;
+	margin-bottom: 1px !important;
+}
+
 .editable-hide {
   display: none !important;
 }

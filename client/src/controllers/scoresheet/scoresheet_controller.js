@@ -4,7 +4,8 @@ class ScoresheetController {
   }
 
   $onInit () {
-    this.$scope.$on('reset scoresheet', () => this.reset())
+    this.$scope.$on('reset scoresheet', () => this.reset(false))
+    this.$scope.$on('cancel scoresheet', () => this.reset(true))
 
     this.$scope.$on('set scoresheet default', () => this.$scope.$broadcast('set objective default'))
 
@@ -28,9 +29,9 @@ class ScoresheetController {
       .then(() => this.$scope.$emit('reinit foundation'))
   }
 
-  reset () {
-    this.$scope.$broadcast('reset')
-    return this.data.reset()
+  reset (forceMetadataIfEditing) {
+    this.$scope.$broadcast('reset', { forceMetadataIfEditing })
+    return this.data.reset(forceMetadataIfEditing)
   }
 
   complete () {

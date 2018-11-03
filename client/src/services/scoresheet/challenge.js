@@ -1,14 +1,14 @@
 const MISSION_DEPENDENCIES_REGEX = /^function\s*\((.+)\)/
 
 class Challenge {
-  constructor ($http, configuration) {
-    Object.assign(this, { $http, configuration })
+  constructor (independence, configuration) {
+    Object.assign(this, { independence, configuration })
   }
 
   init () {
     if (!this._initPromise) {
       this._initPromise = this._getConfiguratedChallenge()
-        .then(challengeName => this.$http.get(`/challenge/${challengeName}`))
+        .then(challengeName => this.independence.send('GET', `/challenge/${challengeName}`))
         .then(response => {
           // We can't use JSON.parse because the file contains functions
           // eslint-disable-next-line no-eval
@@ -70,6 +70,6 @@ class Challenge {
 }
 
 Challenge.$$ngIsClass = true
-Challenge.$inject = ['$http', 'Configuration']
+Challenge.$inject = ['Independence', 'Configuration']
 
 export default Challenge

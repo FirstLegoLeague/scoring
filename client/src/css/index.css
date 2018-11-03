@@ -5,3 +5,7 @@
 @import './signature.css';
 @import './status.css';
 @import './title.css';
+
+.button:not(:hover) .hover-text {
+	display: none;
+}

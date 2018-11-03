@@ -16,9 +16,20 @@ class Scoresheet {
     return this._initPromise
   }
 
-  reset () {
+  reset (forceMetadataIfEditing = true) {
     // Using a copy of the challenge as the current scoresheet
-    this.current = angular.copy(this._original)
+    if (!forceMetadataIfEditing && this.isEditing()) {
+      const metadata = {
+        _id: this.current._id,
+        matchId: this.current.matchId,
+        round: this.current.round,
+        stage: this.current.stage,
+        teamNumber: this.current.teamNumber
+      }
+      this.current = Object.assign(angular.copy(this._original), metadata)
+    } else {
+      this.current = angular.copy(this._original)
+    }
     this.current.missions.forEach(mission => {
       mission.score = 0
       mission.process = () => {
