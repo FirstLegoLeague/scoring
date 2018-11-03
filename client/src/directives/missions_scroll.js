@@ -23,13 +23,15 @@ class MissionsScroll {
         scope.defaulting = false
       }
     })
+
+    scope.$on(attrs.scoresheetCompleteEvent, event => {
+      this.scrollToEnd()
+    })
   }
 
   scrollToMission (mission) {
-    const missionsElement = this.$document[0].querySelector(MISSIONS_ELEMENTS)
-    const startingPosition = missionsElement.scrollTop
-    let endingPosition = startingPosition
-
+    const missionsElement = this.missionsElement()
+    let endingPosition = 0
     if (mission) {
       const missionElement = this.$document[0].getElementById(mission.id)
       endingPosition = Math.min(missionElement.offsetTop + MISSION_SCROLL_OFFSET,
@@ -37,6 +39,18 @@ class MissionsScroll {
     } else {
       endingPosition = missionsElement.scrollHeight - missionsElement.offsetHeight
     }
+
+    this.scrollTo(endingPosition)
+  }
+
+  scrollToEnd () {
+    const missionsElement = this.missionsElement()
+    this.scrollTo(missionsElement.scrollHeight - missionsElement.clientHeight)
+  }
+
+  scrollTo (endingPosition) {
+    const missionsElement = this.missionsElement()
+    const startingPosition = missionsElement.scrollTop
 
     const tick = (endingPosition - startingPosition) * AUTOSCROLL_SPEED
     let scrolling = endingPosition
@@ -59,6 +73,14 @@ class MissionsScroll {
 
     this.$window.requestAnimationFrame(scrollTick)
   }
+
+  missionsElement () {
+    if (!this._missionsElement) {
+      this._missionsElement = this.$document[0].querySelector(MISSIONS_ELEMENTS)
+    }
+    return this._missionsElement
+  }
+
 }
 
 MissionsScroll.$$ngIsClass = true

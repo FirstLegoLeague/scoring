@@ -9,7 +9,9 @@ export default {
 
     <score-diff-animation></score-diff-animation>
 
-    <div id="missions" missions-scroll on="scrollToMission" mission-complete-event="mission complete" class="grid-container full" ng-if="scoresheet.data.ready">
+    <div id="missions" class="grid-container full" ng-if="scoresheet.data.ready"
+      missions-scroll on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete">
+
       <div class="grid-x grid-padding-x grid-padding-y">
 
         <div class="cell large-10 large-offset-1">
@@ -27,6 +29,7 @@ export default {
         </div>
         
       </div>
+
     </div>
 
   </div>`,

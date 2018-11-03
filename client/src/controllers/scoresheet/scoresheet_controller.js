@@ -1,6 +1,7 @@
 class ScoresheetController {
   constructor (scoresheet, $scope, $timeout, logger) {
     Object.assign(this, { data: scoresheet, $scope, $timeout, logger })
+    this._previouslyComplete = false
   }
 
   $onInit () {
@@ -11,16 +12,26 @@ class ScoresheetController {
 
     this.$scope.$on('mission complete', event => {
       this.data.process()
-      const missionId = event.targetScope.mission.data.id
-      if (!(this.data.current && this.data.current.teamNumber) && missionId === this.missions()[0].id) {
-        this.logger.info('Completed first mission without selecting a team')
-      }
+        .then(() => {
+          const missionId = event.targetScope.mission.data.id
+          if (!(this.data.current && this.data.current.teamNumber) && missionId === this.missions()[0].id) {
+            this.logger.info('Completed first mission without selecting a team')
+          }
+        })
+        .catch(err => { console.log(err) })
     })
 
     this.$scope.$on('load', (event, scoresheet) => {
       this.data.load(scoresheet)
         .then(() => this.$scope.$digest())
         .catch(err => this.logger.error(err))
+    })
+
+    this.data.onProcess(() => {
+      if (!this._previouslyComplete && this.complete()) {
+        this._previouslyComplete = true
+        this.$scope.$broadcast('scoresheet complete')
+      }
     })
 
     return this.data.init()

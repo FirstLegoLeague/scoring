@@ -3,6 +3,7 @@ import angular from 'angular'
 class Scoresheet {
   constructor (challenge, scores, scoresheetValidations, refIdentity, notifications, logger) {
     Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, notifications, logger })
+    this._onProcessListeners = []
     this.errors = []
     this.ready = false
   }
@@ -77,6 +78,7 @@ class Scoresheet {
         return this.scoresheetValidations.validate(this.current, { requireMatch: !this.dontRequireMatch })
           .then(errors => { this.errors = errors })
       })
+      .then(() => this._onProcessListeners.map(listener => listener()))
       .catch(err => { this.logger.error(err) })
   }
 
@@ -126,6 +128,10 @@ class Scoresheet {
 
         return this.process()
       })
+  }
+
+  onProcess (callback) {
+    this._onProcessListeners.push(callback)
   }
 }
 
