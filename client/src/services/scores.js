@@ -15,7 +15,7 @@ class Scores {
   }
 
   load () {
-    return this.$http.get('/scores/all')
+    return this.independence.send('GET', '/scores/all')
       .then(response => response.data).then(scores => {
         this.scores = scores.map(attrs => this.score(attrs))
         return this.scores
