@@ -3,22 +3,43 @@ import angular from 'angular'
 class Scoresheet {
   constructor (challenge, scores, scoresheetValidations, refIdentity, notifications, logger) {
     Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, notifications, logger })
+    this._onProcessListeners = []
     this.errors = []
     this.ready = false
+    this.faulty = false
   }
 
   init () {
-    this._initPromise = Promise.all([this.challenge.init(), this.refIdentity.init()])
-      .then(([challenge]) => {
-        this._original = challenge
-        this._original.signature = undefined
-      })
+    if (!this._initPromise) {
+      this._initPromise = Promise.all([this.challenge.init(), this.refIdentity.init()])
+        .then(([challenge]) => {
+          this._original = challenge
+          this._original.signature = undefined
+        })
+        .catch(err => {
+          this.notifications.error(err.data)
+          this.ready = true
+          this.faulty = true
+          throw err
+        })
+    }
     return this._initPromise
   }
 
-  reset () {
+  reset (forceMetadataIfEditing = true) {
     // Using a copy of the challenge as the current scoresheet
-    this.current = angular.copy(this._original)
+    if (!forceMetadataIfEditing && this.isEditing()) {
+      const metadata = {
+        _id: this.current._id,
+        matchId: this.current.matchId,
+        round: this.current.round,
+        stage: this.current.stage,
+        teamNumber: this.current.teamNumber
+      }
+      this.current = Object.assign(angular.copy(this._original), metadata)
+    } else {
+      this.current = angular.copy(this._original)
+    }
     this.current.missions.forEach(mission => {
       mission.score = 0
       mission.process = () => {
@@ -66,6 +87,7 @@ class Scoresheet {
         return this.scoresheetValidations.validate(this.current, { requireMatch: !this.dontRequireMatch })
           .then(errors => { this.errors = errors })
       })
+      .then(() => this._onProcessListeners.map(listener => listener()))
       .catch(err => { this.logger.error(err) })
   }
 
@@ -115,6 +137,10 @@ class Scoresheet {
 
         return this.process()
       })
+  }
+
+  onProcess (callback) {
+    this._onProcessListeners.push(callback)
   }
 }
 

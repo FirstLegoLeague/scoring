@@ -12,8 +12,12 @@ class ScoresheetActionsController {
     return this.$scope.$emit('reset scoresheet')
   }
 
+  cancel () {
+    return this.$scope.$emit('cancel scoresheet')
+  }
+
   defaultEnabled () {
-    return this.data.current && this.data.current.defaultEnabled
+    return this.isAdmin && this.data.current && this.data.current.defaultEnabled
   }
 
   setDefault () {

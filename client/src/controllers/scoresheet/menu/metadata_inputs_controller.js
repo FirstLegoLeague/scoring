@@ -21,7 +21,11 @@ class MetadataInputsController {
       }
     })
 
-    this.$scope.$on('reset', () => { this.matches = [] })
+    this.$scope.$on('reset', ({ forceMetadataIfEditing }) => {
+      if (forceMetadataIfEditing || !this.data.isEditing()) {
+        this.matches = []
+      }
+    })
 
     return this.tournament.loadTeams()
   }

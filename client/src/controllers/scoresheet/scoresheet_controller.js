@@ -1,19 +1,24 @@
 class ScoresheetController {
   constructor (scoresheet, $scope, $timeout, logger) {
     Object.assign(this, { data: scoresheet, $scope, $timeout, logger })
+    this._previouslyComplete = false
   }
 
   $onInit () {
-    this.$scope.$on('reset scoresheet', () => this.reset())
+    this.$scope.$on('reset scoresheet', () => this.reset(false))
+    this.$scope.$on('cancel scoresheet', () => this.reset(true))
 
     this.$scope.$on('set scoresheet default', () => this.$scope.$broadcast('set objective default'))
 
     this.$scope.$on('mission complete', event => {
       this.data.process()
-      const missionId = event.targetScope.mission.data.id
-      if (!(this.data.current && this.data.current.teamNumber) && missionId === this.missions()[0].id) {
-        this.logger.info('Completed first mission without selecting a team')
-      }
+        .then(() => {
+          const missionId = event.targetScope.mission.data.id
+          if (!(this.data.current && this.data.current.teamNumber) && missionId === this.missions()[0].id) {
+            this.logger.info('Completed first mission without selecting a team')
+          }
+        })
+        .catch(err => { console.log(err) })
     })
 
     this.$scope.$on('load', (event, scoresheet) => {
@@ -22,15 +27,22 @@ class ScoresheetController {
         .catch(err => this.logger.error(err))
     })
 
+    this.data.onProcess(() => {
+      if (!this._previouslyComplete && this.complete()) {
+        this._previouslyComplete = true
+        this.$scope.$broadcast('scoresheet complete')
+      }
+    })
+
     return this.data.init()
       .then(() => this.reset())
       .then(() => this.data.process())
       .then(() => this.$scope.$emit('reinit foundation'))
   }
 
-  reset () {
-    this.$scope.$broadcast('reset')
-    return this.data.reset()
+  reset (forceMetadataIfEditing) {
+    this.$scope.$broadcast('reset', { forceMetadataIfEditing })
+    return this.data.reset(forceMetadataIfEditing)
   }
 
   complete () {

@@ -9,7 +9,9 @@ export default {
 
     <score-diff-animation></score-diff-animation>
 
-    <div id="missions" missions-scroll on="scrollToMission" mission-complete-event="mission complete" class="grid-container full" ng-if="scoresheet.data.ready">
+    <div id="missions" class="grid-container full" ng-if="scoresheet.data.ready && !scoresheet.data.faulty"
+      missions-scroll on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete">
+
       <div class="grid-x grid-padding-x grid-padding-y">
 
         <div class="cell large-10 large-offset-1">
@@ -26,6 +28,13 @@ export default {
           <div class="large button submit-btn" ng-click="scoresheet.save()" ng-disabled="!scoresheet.complete()">Submit</div>
         </div>
         
+      </div>
+
+    </div>
+
+    <div ng-if="scoresheet.data.faulty">
+      <div class="secondary callout">
+        <h2>Could not load scoresheet. Please change the challenge settings.</h2>
       </div>
     </div>
 
