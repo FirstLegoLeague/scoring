@@ -1,0 +1,29 @@
+# Test against the latest version of this Node.js version
+environment:
+  nodejs_version: "8.11.3"
+
+# Install scripts. (runs after repo cloning)
+install:
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version
+  # install modules
+  - yarn install-all
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - yarn --version
+  # run tests
+  # - yarn lint
+  # - yarn test
+
+deploy_script:
+  - ps: |
+      npm version patch && yarn publish
+    on:
+      branch: master
+
+
+# Don't actually build.
+build: off
