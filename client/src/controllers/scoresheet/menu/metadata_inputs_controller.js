@@ -8,6 +8,7 @@ class MetadataInputsController {
     this.$scope.$watch(() => this.teamNumber(), () => this.loadMatchOptions())
 
     this.messanger.on('scores:reload', () => this.loadMatchOptions())
+    this.$scope.$on('toggle scores screen', () => this.loadMatchOptions())
 
     this.$scope.$watch(() => this.data.current.matchId, () => {
       if (this.data.current.matchId) {
