@@ -40,6 +40,7 @@ class ScoringController {
   toggleScoresList () {
     this.showScoresScreen = !this.showScoresScreen
     this.$location.search(ScoringController.showScoresScreen, this.showScoresScreen)
+    this.$scope.$broadcast('toggle scores screen')
   }
 
   title () {
