@@ -27,6 +27,7 @@ config:
           - es_ES Spanish (Spain)
           - es_LA Spanish (Latin America)
           - fi_FI Finnish (Finland)
+          - fr_CA French (Canada)
           - he_IL Hebrew (Israel)
           - ko_KR Korean (Korea)
           - nl_NL Dutch (Netherlands)
