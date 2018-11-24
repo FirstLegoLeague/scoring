@@ -53,4 +53,4 @@ Verify that the new package is available in npm at [@first-lego-league/scoring](
 
 ## Adding new version to the `launcher`
 
-To include your update in the `launcher` build, update the `scoring` version in `launcher/dev-scripts/config-get.js`.
+Please see the [Launcher README](https://github.com/FirstLegoLeague/Launcher/blob/readme-update/README.md#module-updates) for instructions on how to include your update in the `launcher` build.
