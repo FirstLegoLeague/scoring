@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/scoring",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Main scoring service",
   "main": "index.js",
   "repository": "https://github.com/FirstLegoLeagueIL/scoring",
