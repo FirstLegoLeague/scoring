@@ -2,7 +2,7 @@ class ScoringController {
   constructor ($window, $document, $location, $scope, configuration, user, logger) {
     Object.assign(this, { $window, $document, $location, $scope, configuration, logger })
     this.isAdmin = user.isAdmin()
-    this.showScoresScreen = this.$location.search()[ScoringController.showScoresScreen] === true
+    this.showScoresScreen = this.$location.search()[ScoringController.showScoresScreenParameter] === true
   }
 
   $onInit () {
@@ -18,15 +18,19 @@ class ScoringController {
 
   _initEvents () {
     this.$scope.$on('open scoresheet', (event, score) => {
-      this.showScoresScreen = false
+      this.toggleScoresList()
       this.$scope.$broadcast('load', score)
     })
 
     this.$scope.$on('close scoresheet', (event, options) => {
       if (options.goToScores) {
-        this.showScoresScreen = true
+        this.toggleScoresList()
       }
       this.$scope.$broadcast('reload')
+    })
+
+    this.$scope.$on('cancel scoresheet', () => {
+      this.toggleScoresList()
     })
 
     this.$scope.$on('reinit foundation', () => {
@@ -39,7 +43,7 @@ class ScoringController {
 
   toggleScoresList () {
     this.showScoresScreen = !this.showScoresScreen
-    this.$location.search(ScoringController.showScoresScreen, this.showScoresScreen)
+    this.$location.search(ScoringController.showScoresScreenParameter, this.showScoresScreen)
     this.$scope.$broadcast('toggle scores screen')
   }
 
@@ -48,7 +52,7 @@ class ScoringController {
   }
 }
 
-ScoringController.showScoresScreen = 'showScores'
+ScoringController.showScoresScreenParameter = 'showScores'
 ScoringController.$$ngIsClass = true
 ScoringController.$inject = ['$window', '$document', '$location', '$scope', 'Configuration', 'User', 'Logger']
 
