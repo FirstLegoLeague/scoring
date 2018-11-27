@@ -52,7 +52,7 @@
 
         <string id="M08-name">                      M08 EXERCICES D’AÉROBIE</string>
         <string id="M08-desc">                      <![CDATA[Le robot doit déplacer à plusieurs reprises une ou les deux poignées de la machine d’exercice physique pour faire tourner l’aiguille. (Si l'aiguille couvre partiellement les bords gris ou orange, sélectionnez cette couleur.)]]></string>
-        <string id="M08-scoring">                   L’extrémité de l’aiguille est dans (due au mouvement d'une ou des deux poignées de la machine d’exercice physique):</string>
+        <string id="M08-scoring">                   L’extrémité de l’aiguille est sur (dû au mouvement d'une ou des deux poignées de la machine d’exercice physique):</string>
         <string id="M08-scoring1">                  Aucun</string>
         <string id="M08-scoring2">                  Gris</string>
         <string id="M08-scoring3">                  Blanc</string>
@@ -64,7 +64,7 @@
 
         <string id="M10-name">                      M10 PRODUCTION ALIMENTAIRE</string>
         <string id="M10-desc">                      <![CDATA[Pousser la barre à la bonne distance et avec la bonne force pour dévoiler la partie verte.]]></string>
-        <string id="M10-scoring">                   Le poids gris est tombé après le vert, mais avant le brun (du uniquement au mouvement de la barre)</string>
+        <string id="M10-scoring">                   Le poids gris est tombé après le vert, mais avant le brun (dû uniquement au mouvement de la barre)</string>
 
         <string id="M11-name">                      M11 VITESSE DE LIBÉRATION</string>
         <string id="M11-desc">                      <![CDATA[Le robot doit taper avec suffisamment de force la plateforme de lancement pour que le vaisseau spatial reste accroché en haut du Modèle.]]></string>
@@ -89,7 +89,7 @@
         <string id="M14-error">                     Combinaison impossible. Il n'y a que deux météoroïdes</string>
 
         <string id="M15-name">                      M15 L’ATTERRISSEUR</string>
-        <string id="M15-desc">                      <![CDATA[Gposez l’atterrisseur intact à l’une de ses cibles ou, le cas échéant, à la base.]]></string>
+        <string id="M15-desc">                      <![CDATA[Déposez l’atterrisseur intact à l’une de ses cibles ou, le cas échéant, à la base.]]></string>
         <string id="M15-scoring1">                  L’atterrisseur est intact et en contact du tapis</string>
         <string id="M15-scoring2">                  L’atterrisseur est complètement dans:</string>
         <string id="M15-scoring3">                  Aucun</string>

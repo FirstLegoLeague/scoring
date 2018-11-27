@@ -309,7 +309,7 @@
             "description": "Le robot doit déplacer à plusieurs reprises une ou les deux poignées de la machine d’exercice physique pour faire tourner l’aiguille. (Si l'aiguille couvre partiellement les bords gris ou orange, sélectionnez cette couleur.)",
             "objectives": [{
                 "id": "M08",
-                "title": "L’extrémité de l’aiguille est dans (due au mouvement d'une ou des deux poignées de la machine d’exercice physique):",
+                "title": "L’extrémité de l’aiguille est sur (dû au mouvement d'une ou des deux poignées de la machine d’exercice physique:",
                 "options": [{
                         "value": "none",
                         "title": "Aucun"
@@ -368,7 +368,7 @@
             "description": "Pousser la barre à la bonne distance et avec la bonne force pour dévoiler la partie verte.",
             "objectives": [{
                 "id": "M10",
-                "title": "Le poids gris est tombé après le vert, mais avant le brun (du uniquement au mouvement de la barre)",
+                "title": "Le poids gris est tombé après le vert, mais avant le brun (dû uniquement au mouvement de la barre)",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -555,7 +555,7 @@
         },
         {
             "title": "M15 L’ATTERRISSEUR",
-            "description": "Gposez l’atterrisseur intact à l’une de ses cibles ou, le cas échéant, à la base.",
+            "description": "Déposez l’atterrisseur intact à l’une de ses cibles ou, le cas échéant, à la base.",
             "objectives": [{
                     "id": "M15_1",
                     "title": "L’atterrisseur est intact et en contact du tapis",
