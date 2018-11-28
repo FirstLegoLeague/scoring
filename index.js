@@ -6,6 +6,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const projectVersion = require('project-version')
 
 const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
@@ -17,6 +18,7 @@ const port = process.env.PORT || DEFAULTS.PORT
 
 const app = express()
 const logger = new Logger()
+logger.info (`-------------------- scoring version ${projectVersion} startup --------------------`)
 
 app.use(cookieParser())
 app.use(bodyParser.json())
