@@ -8,7 +8,7 @@ export default {
       Delete all scores
     </div>
 
-    <a class="button" ng-href="{{scoresActions.rankingsUrl}}"><i class="fa fa-download"></i> Download rankings</a>
+    <a class="button" data-tooltip title="Export scores of current stage" ng-href="{{scoresActions.rankingsUrl}}"><i class="fa fa-download"></i> Export scores</a>
   </div>
 
 <div id="scores-deletion-modal" class="fast reveal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y">
