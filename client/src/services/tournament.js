@@ -1,3 +1,5 @@
+const MATCHES_FOR_ALL_TABLES = 2
+
 class Tournament {
   constructor (independence, configuration, messanger, user) {
     Object.assign(this, { independence, configuration, messanger })
@@ -71,6 +73,15 @@ class Tournament {
     return this._teamsMathcesPromises[teamNumber]
   }
 
+  loadNextTeamForTable (tableId) {
+    return this.init()
+      .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/${MATCHES_FOR_ALL_TABLES}`))
+      .then(response => {
+        return response.data.reduce((team, match) => {
+          return team || match.matchTeams.find(matchTeam => matchTeam.tableId === tableId).team
+        }, null)
+      })
+  }
 }
 
 Tournament.$$ngIsClass = true

@@ -67,5 +67,25 @@ router.get(`/rankings.csv`, (req, res) => {
   })))
 })
 
+router.get('/match/upcoming/:count', (req, res) => {
+  res.json([{
+    matchTeams: [{
+      teamNumber: 2212,
+      tableId: 1
+    }, {
+      teamNumber: 173,
+      tableId: 2
+    }]
+  }, {
+    matchTeams: [{
+      teamNumber: 8846,
+      tableId: 3
+    }, {
+      teamNumber: 15,
+      tableId: 4
+    }]
+  }])
+})
+
 // eslint-disable-next-line node/exports-style
 module.exports = router
