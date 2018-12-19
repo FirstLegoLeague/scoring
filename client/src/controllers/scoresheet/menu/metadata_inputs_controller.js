@@ -6,7 +6,6 @@ class MetadataInputsController {
 
   $onInit () {
     this.$scope.$watch(() => this.teamNumber(), () => this.autosetSelectedMetadata())
-
     this.messanger.on('scores:reload', () => this.autosetSelectedMetadata())
     this.$scope.$on('toggle scores screen', () => this.autosetSelectedMetadata())
     this.refIdentity.on('saved', () => this.autosetSelectedMetadata())
@@ -49,6 +48,37 @@ class MetadataInputsController {
     return (this.tournament.teams || [])
   }
 
+  autosetSelectedMetadata () {
+    if (this.refIdentity.table && !this.match) {
+      this.autoselecting = true
+      return this.tournament.loadNextMatchForTable(this.refIdentity.table.tableId)
+        .then(({ teamNumber, matchId }) => {
+          if (teamNumber !== null) {
+            this.data.current.teamNumber = teamNumber
+            return this.loadMatchOptions()
+              .then(() => {
+                this.data.current.matchId = matchId
+                this.autoselecting = false
+              })
+          } else {
+            if (this.teamNumber()) {
+              return this.loadMatchOptions()
+                .then(() => {
+                  const firstIncompleteMatch = this.matches.find(match => !match.complete)
+                  this.data.current.matchId = firstIncompleteMatch ? firstIncompleteMatch._id : undefined
+                  this.autoselecting = false
+                })
+            } else {
+              this.autoselecting = false
+            }
+          }
+        })
+    } else {
+      // Cannot set metadata. No big deal, just continue without autosetting
+      return Promise.resolve()
+    }
+  }
+
   loadMatchOptions () {
     if (this.teamNumber()) {
       this.loadingMatches = true
@@ -75,30 +105,6 @@ class MetadataInputsController {
           return this.data.process()
         })
     } else {
-      return Promise.resolve()
-    }
-  }
-
-  autosetSelectedMetadata () {
-    if (this.refIdentity.table && !this.match) {
-      this.autoselecting = true
-      return this.tournament.loadNextMatchForTable(this.refIdentity.table.tableId)
-        .then(({ teamNumber, matchId }) => {
-          if (teamNumber !== null) {
-            this.data.current.teamNumber = teamNumber
-            return this.loadMatchOptions()
-              .then(() => {
-                this.data.current.matchId = matchId
-                this.autoselecting = false
-              })
-          } else if (this.teamNumber()) {
-            const firstIncompleteMatch = this.matches.find(match => !match.complete)
-            this.data.current.matchId = firstIncompleteMatch ? firstIncompleteMatch.matchId : undefined
-            this.autoselecting = false
-          }
-        })
-    } else {
-      // Cannot set metadata. No big deal, just continue without autosetting
       return Promise.resolve()
     }
   }
