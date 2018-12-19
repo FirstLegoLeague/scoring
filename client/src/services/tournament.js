@@ -73,13 +73,21 @@ class Tournament {
     return this._teamsMathcesPromises[teamNumber]
   }
 
-  loadNextTeamForTable (tableId) {
+  loadNextMatchForTable (tableId) {
     return this.init()
       .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/${MATCHES_FOR_ALL_TABLES}`))
       .then(response => {
-        return response.data.reduce((team, match) => {
-          return team || match.matchTeams.find(matchTeam => matchTeam.tableId === tableId).team
-        }, null)
+        const tableMatch = response.data
+          .find(match => match.matchTeams.some(matchTeam => matchTeam.tableId === tableId && matchTeam.teamNumber !== null))
+
+        if (!tableMatch) {
+          return { teamNumber: null, matchId: null }
+        }
+
+        return {
+          teamNumber: tableMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
+          matchId: tableMatch._id
+        }
       })
   }
 }

@@ -20,24 +20,9 @@ const TEAMS = [
   { number: 956, name: 'ElectroWreckers' },
   { number: 981, name: 'The Green slime club' },
   { number: 2212, name: 'The Spikes' },
+  { number: 2468, name: 'Even us' },
   { number: 8846, name: 'Syntax error' }
 ]
-
-const TEAMS_MATCHES = []
-const MATCHES = [
-  { stage: 'pracitce' },
-  { stage: 'scoring' },
-  { stage: 'scoring' },
-  { stage: 'scoring' }
-]
-
-let matchId = 0
-TEAMS.forEach(team => {
-  MATCHES.forEach(match => {
-    TEAMS_MATCHES.push(Object.assign({ _id: String(matchId), teams: [team.number] }, match))
-    matchId++
-  })
-})
 
 const TABLES = [
   { tableId: 1, tableName: 'Rick' },
@@ -45,6 +30,20 @@ const TABLES = [
   { tableId: 3, tableName: 'Forty Two' },
   { tableId: 4, tableName: 'Beware of the Leopard' }
 ]
+
+const STAGES = ['practice', 'scoring', 'scoring', 'scoring']
+const MATCHES = []
+
+STAGES.forEach((stage, stageIndex) => {
+  for (let teamIndex = 0; teamIndex < TEAMS.length; teamIndex += 2) {
+    MATCHES.push({
+      _id: String(stageIndex * STAGES.length + teamIndex),
+      stage,
+      matchTeams: [TEAMS[(stageIndex + teamIndex) % TEAMS.length], TEAMS[(stageIndex + teamIndex + 1) % TEAMS.length]]
+        .map((team, matchTeamIndex) => ({ teamNumber: team.number, tableId: TABLES[(stageIndex + teamIndex + matchTeamIndex) % TABLES.length].tableId }))
+    })
+  }
+})
 
 router.get('/team/all', (req, res) => {
   res.json(TEAMS)
@@ -55,7 +54,7 @@ router.get('/table/all', (req, res) => {
 })
 
 router.get(`/team/:teamNumber/matches`, (req, res) => {
-  res.json(TEAMS_MATCHES.filter(teamMatch => teamMatch.teams[0] === parseInt(req.params.teamNumber)))
+  res.json(MATCHES.filter(match => match.matchTeams.some(matchTeam => matchTeam.teamNumber === parseInt(req.params.teamNumber))))
 })
 
 router.get(`/rankings.csv`, (req, res) => {
@@ -68,23 +67,7 @@ router.get(`/rankings.csv`, (req, res) => {
 })
 
 router.get('/match/upcoming/:count', (req, res) => {
-  res.json([{
-    matchTeams: [{
-      teamNumber: 2212,
-      tableId: 1
-    }, {
-      teamNumber: 173,
-      tableId: 2
-    }]
-  }, {
-    matchTeams: [{
-      teamNumber: 8846,
-      tableId: 3
-    }, {
-      teamNumber: 15,
-      tableId: 4
-    }]
-  }])
+  res.json(MATCHES.slice(0, req.params.count))
 })
 
 // eslint-disable-next-line node/exports-style

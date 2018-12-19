@@ -1,8 +1,11 @@
+import EventEmitter from 'event-emitter-es6'
+
 const STORAGE_KEY = 'referee'
 const EMPTY_DATA = JSON.stringify({ referee: undefined, tableId: undefined })
 
-class RefIdentity {
+class RefIdentity extends EventEmitter {
   constructor ($window, tournament) {
+    super()
     Object.assign(this, { $window, tournament })
   }
 
@@ -35,6 +38,7 @@ class RefIdentity {
       delete data.table
     }
     this.$window.sessionStorage[STORAGE_KEY] = JSON.stringify(data)
+    this.emit('saved')
   }
 
   isInitialized () {
