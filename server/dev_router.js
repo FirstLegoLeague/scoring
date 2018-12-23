@@ -66,8 +66,8 @@ router.get(`/rankings.csv`, (req, res) => {
   })))
 })
 
-router.get('/match/upcoming/:count', (req, res) => {
-  res.json(MATCHES.slice(0, req.params.count))
+router.get('/match/upcoming/table/:tableId', (req, res) => {
+  res.json(MATCHES.find(match => match.matchTeams.some(matchTeam => matchTeam.tableId === req.params.tableId)))
 })
 
 // eslint-disable-next-line node/exports-style

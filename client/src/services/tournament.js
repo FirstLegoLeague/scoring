@@ -1,5 +1,3 @@
-const MATCHES_FOR_ALL_TABLES = 2
-
 class Tournament {
   constructor (independence, configuration, messanger, user) {
     Object.assign(this, { independence, configuration, messanger })
@@ -75,18 +73,16 @@ class Tournament {
 
   loadNextMatchForTable (tableId) {
     return this.init()
-      .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/${MATCHES_FOR_ALL_TABLES}`))
+      .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/table/${tableId}`))
       .then(response => {
         const tableMatch = response.data
-          .find(match => match.matchTeams.some(matchTeam => matchTeam.tableId === tableId && matchTeam.teamNumber !== null))
-
-        if (!tableMatch) {
+        if (tableMatch !== null) {
+          return {
+            teamNumber: tableMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
+            matchId: tableMatch._id
+          }
+        } else {
           return { teamNumber: null, matchId: null }
-        }
-
-        return {
-          teamNumber: tableMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
-          matchId: tableMatch._id
         }
       })
   }
