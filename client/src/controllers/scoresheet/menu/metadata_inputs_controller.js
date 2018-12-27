@@ -1,18 +1,23 @@
 class MetadataInputsController {
-  constructor (scoresheet, scores, $scope, tournament, messanger, logger) {
-    Object.assign(this, { data: scoresheet, scores, $scope, tournament, messanger, logger })
+  constructor (scoresheet, scores, $scope, tournament, refIdentity, messanger, logger) {
+    Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, messanger, logger })
     this.loading = true
   }
 
   $onInit () {
-    this.$scope.$watch(() => this.teamNumber(), () => this.loadMatchOptions())
-
-    this.messanger.on('scores:reload', () => this.loadMatchOptions())
-    this.$scope.$on('toggle scores screen', () => this.loadMatchOptions())
+    this.$scope.$watch(() => this.teamNumber(), () => this.autosetSelectedMetadata())
+    this.messanger.on('scores:reload', () => this.autosetSelectedMetadata())
+    this.$scope.$on('toggle scores screen', () => this.autosetSelectedMetadata())
+    this.refIdentity.on('saved', () => {
+      if (this.teamNumber()) {
+        this.data.current.teamNumber = undefined
+      }
+      this.autosetSelectedMetadata()
+    })
 
     this.$scope.$watch(() => this.data.current.matchId, () => {
       if (this.data.current.matchId) {
-        if (this.matches) {
+        if (this.matches.length) {
           this.setMatch()
           return this.data.process({ cantLoadMatches: this.cantLoadMatches })
             .catch(err => this.logger.error(err))
@@ -25,10 +30,13 @@ class MetadataInputsController {
     this.$scope.$on('reset', ({ forceMetadataIfEditing }) => {
       if (forceMetadataIfEditing || !this.data.isEditing()) {
         this.matches = []
+        this.autosetSelectedMetadata()
       }
     })
 
     return this.tournament.loadTeams()
+      .then(() => this.refIdentity.init())
+      .then(() => this.autosetSelectedMetadata())
   }
 
   teamNumber () {
@@ -47,10 +55,41 @@ class MetadataInputsController {
     return (this.tournament.teams || [])
   }
 
+  autosetSelectedMetadata () {
+    if (this.refIdentity.table && !this.match) {
+      this.autoselecting = true
+      return this.tournament.loadNextMatchForTable(this.refIdentity.table.tableId)
+        .then(({ teamNumber, matchId }) => {
+          if (teamNumber !== null) {
+            this.data.current.teamNumber = teamNumber
+            return this.loadMatchOptions()
+              .then(() => {
+                this.data.current.matchId = matchId
+                this.autoselecting = false
+              })
+          } else {
+            if (this.teamNumber()) {
+              return this.loadMatchOptions()
+                .then(() => {
+                  const firstIncompleteMatch = this.matches.find(match => !match.complete)
+                  this.data.current.matchId = firstIncompleteMatch ? firstIncompleteMatch._id : undefined
+                  this.autoselecting = false
+                })
+            } else {
+              this.autoselecting = false
+            }
+          }
+        })
+    } else {
+      // Cannot set metadata. No big deal, just continue without autosetting
+      return Promise.resolve()
+    }
+  }
+
   loadMatchOptions () {
     if (this.teamNumber()) {
       this.loadingMatches = true
-      Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
+      return Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
         .then(([matches]) => {
           const scores = this.scores.all()
           this.data.dontRequireMatch = false
@@ -59,6 +98,7 @@ class MetadataInputsController {
             match.displayTextWithCompletion = `${match.displayText} ${match.complete ? '✔' : ''}`
           })
           this.matches = matches
+
           if (this.stage() && this.round() && !this.match) {
             this.setMatch()
           }
@@ -71,6 +111,8 @@ class MetadataInputsController {
           this.data.dontRequireMatch = true
           return this.data.process()
         })
+    } else {
+      return Promise.resolve()
     }
   }
 
@@ -84,6 +126,6 @@ class MetadataInputsController {
 }
 
 MetadataInputsController.$$ngIsClass = true
-MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'Messanger', 'Logger']
+MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'RefIdentity', 'Messanger', 'Logger']
 
 export default MetadataInputsController

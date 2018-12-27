@@ -64,7 +64,7 @@ function Score (tournament) {
       return tournament.loadTeamMatches(score.teamNumber)
         .then(matches => {
           score.matches = matches
-          score.matchId = matches.find(match => match.stage === score.stage && match.round === score.round)._id
+          score.matchId = matches.find(match => match.stage === score.stage && match.round === score.round).matchId
         })
     }
 

@@ -16,6 +16,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
+    "event-emitter-es6": "^1.1.5",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",

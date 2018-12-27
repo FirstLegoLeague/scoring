@@ -71,6 +71,21 @@ class Tournament {
     return this._teamsMathcesPromises[teamNumber]
   }
 
+  loadNextMatchForTable (tableId) {
+    return this.init()
+      .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/table/${tableId}`))
+      .then(response => {
+        const tableMatch = response.data
+        return {
+          teamNumber: tableMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
+          matchId: tableMatch._id
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        return { teamNumber: null, matchId: null }
+      })
+  }
 }
 
 Tournament.$$ngIsClass = true

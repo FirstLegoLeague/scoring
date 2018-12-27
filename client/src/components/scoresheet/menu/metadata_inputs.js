@@ -1,6 +1,6 @@
 export default {
   template: `
-    <div>
+    <div ng-if="!metadataInputs.autoselecting">
       <select ng-model="metadataInputs.data.current.teamNumber" convert-to-number>
         <option value="" disabled selected hidden>Select Team</option>
         <option type="text" ng-repeat="team in metadataInputs.teams()" value="{{team.number}}">
@@ -8,7 +8,7 @@ export default {
         </option>
       </select>
     </div>
-    <div>
+    <div ng-if="!metadataInputs.autoselecting">
       <select ng-if="metadataInputs.data.current.teamNumber"
         ng-model="metadataInputs.data.current.matchId"
         ng-class="{'disabled': (metadataInputs.loadingMatches || metadataInputs.data.dontRequireMatch)}"
