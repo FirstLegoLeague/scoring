@@ -8,7 +8,12 @@ class MetadataInputsController {
     this.$scope.$watch(() => this.teamNumber(), () => this.autosetSelectedMetadata())
     this.messanger.on('scores:reload', () => this.autosetSelectedMetadata())
     this.$scope.$on('toggle scores screen', () => this.autosetSelectedMetadata())
-    this.refIdentity.on('saved', () => this.autosetSelectedMetadata())
+    this.refIdentity.on('saved', () => {
+      if (this.teamNumber()) {
+        this.data.current.teamNumber = undefined
+      }
+      this.autosetSelectedMetadata()
+    })
 
     this.$scope.$watch(() => this.data.current.matchId, () => {
       if (this.data.current.matchId) {
@@ -30,6 +35,8 @@ class MetadataInputsController {
     })
 
     return this.tournament.loadTeams()
+      .then(() => this.refIdentity.init())
+      .then(() => this.autosetSelectedMetadata())
   }
 
   teamNumber () {

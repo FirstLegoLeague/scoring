@@ -76,14 +76,14 @@ class Tournament {
       .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/table/${tableId}`))
       .then(response => {
         const tableMatch = response.data
-        if (tableMatch !== null) {
-          return {
-            teamNumber: tableMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
-            matchId: tableMatch._id
-          }
-        } else {
-          return { teamNumber: null, matchId: null }
+        return {
+          teamNumber: tableMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
+          matchId: tableMatch._id
         }
+      })
+      .catch(err => {
+        console.log(err)
+        return { teamNumber: null, matchId: null }
       })
   }
 }
