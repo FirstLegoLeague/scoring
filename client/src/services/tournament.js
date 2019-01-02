@@ -71,11 +71,12 @@ class Tournament {
     return this._teamsMathcesPromises[teamNumber]
   }
 
-  loadNextMatchForTable (tableId) {
+  loadNextMatchForTable (tableId, lastMatchId) {
     return this.init()
-      .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/table/${tableId}`))
+      .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/table/${tableId}/2`))
       .then(response => {
-        const tableMatch = response.data
+        const tableMatches = response.data
+        const tableMatch = (tableMatches[0]._id === lastMatchId) ? tableMatches[1] : tableMatches[0]
         return {
           teamNumber: tableMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
           matchId: tableMatch._id

@@ -66,11 +66,13 @@ router.get(`/rankings.csv`, (req, res) => {
   })))
 })
 
-router.get('/match/upcoming/table/:tableId', (req, res) => {
+router.get('/match/upcoming/table/:tableId/:count', (req, res) => {
   if (Number(req.params.tableId) === 1) {
     res.sendStatus(404)
   } else {
-    res.json(MATCHES.find(match => match.matchTeams.some(matchTeam => matchTeam.tableId === Number(req.params.tableId))))
+    res.json(MATCHES
+      .filter(match => match.matchTeams.some(matchTeam => matchTeam.tableId === Number(req.params.tableId)))
+      .slice(0, req.params.count))
   }
 })
 

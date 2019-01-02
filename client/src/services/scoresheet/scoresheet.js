@@ -98,6 +98,7 @@ class Scoresheet {
       this.current.stage = ''
       this.current.matchId = 0
     }
+    this.lastMatchId = this.current.matchId
     return (this.isEditing() ? this.scores.update(this.current._id, this.current) : this.scores.create(this.current))
       .then(() => this.notifications.success('Score saved successfully'))
       .catch(err => {
