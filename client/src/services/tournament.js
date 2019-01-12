@@ -1,3 +1,5 @@
+const EMPTY_NEXT_MATCH = { teamNumber: null, matchId: null }
+
 class Tournament {
   constructor (independence, configuration, messanger, user) {
     Object.assign(this, { independence, configuration, messanger })
@@ -76,15 +78,19 @@ class Tournament {
       .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/table/${tableId}/2`))
       .then(response => {
         const tableMatches = response.data
-        const tableMatch = (tableMatches[0]._id === lastMatchId) ? tableMatches[1] : tableMatches[0]
-        return {
-          teamNumber: tableMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
-          matchId: tableMatch._id
+        const nextMatch = tableMatches.find(match => tableMatches[0]._id !== lastMatchId)
+        if (nextMatch) {
+          return {
+            teamNumber: nextMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
+            matchId: nextMatch._id
+          }
+        } else {
+          return EMPTY_NEXT_MATCH
         }
       })
       .catch(err => {
         console.log(err)
-        return { teamNumber: null, matchId: null }
+        return EMPTY_NEXT_MATCH
       })
   }
 }
