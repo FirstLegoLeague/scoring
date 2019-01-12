@@ -1,5 +1,3 @@
-const EMPTY_NEXT_MATCH = { teamNumber: null, matchId: null }
-
 class Tournament {
   constructor (independence, configuration, messanger, user) {
     Object.assign(this, { independence, configuration, messanger })
