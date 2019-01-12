@@ -73,12 +73,12 @@ class Tournament {
     return this._teamsMathcesPromises[teamNumber]
   }
 
-  loadNextMatchForTable (tableId, lastMatchId) {
+  loadNextMatchForTable (tableId, filter) {
     return this.init()
       .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/table/${tableId}/2`))
       .then(response => {
         const tableMatches = response.data
-        const nextMatch = tableMatches.find(match => tableMatches[0]._id !== lastMatchId)
+        const nextMatch = tableMatches.find(filter)
         if (nextMatch) {
           return {
             teamNumber: nextMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
