@@ -58,9 +58,12 @@ class MetadataInputsController {
   autosetSelectedMetadata () {
     if (this.refIdentity.table && !this.match) {
       this.autoselecting = true
-      return this.tournament.loadNextMatchForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
-        .then(({ teamNumber, matchId }) => {
-          if (this.teamNumber()) {
+      return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
+        .then(teamNumber => {
+          if (teamNumber !== null) {
+            if (this.data.current.teamNumber !== null) {
+              this.data.current.teamNumber = teamNumber
+            }
             return this.loadMatchOptions()
               .then(() => {
                 const firstIncompleteMatch = this.matches.find(match => !match.complete)
@@ -68,16 +71,7 @@ class MetadataInputsController {
                 this.autoselecting = false
               })
           } else {
-            if (teamNumber !== null) {
-              this.data.current.teamNumber = teamNumber
-              return this.loadMatchOptions()
-                .then(() => {
-                  this.data.current.matchId = matchId
-                  this.autoselecting = false
-                })
-            } else {
-              this.autoselecting = false
-            }
+            this.autoselecting = false
           }
         })
     } else {

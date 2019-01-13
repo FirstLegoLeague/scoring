@@ -1,5 +1,3 @@
-const EMPTY_NEXT_MATCH = { teamNumber: null, matchId: null }
-
 class Tournament {
   constructor (independence, configuration, messanger, user) {
     Object.assign(this, { independence, configuration, messanger })
@@ -73,24 +71,21 @@ class Tournament {
     return this._teamsMathcesPromises[teamNumber]
   }
 
-  loadNextMatchForTable (tableId, lastMatchId) {
+  loadNextTeamForTable (tableId, lastMatchId) {
     return this.init()
       .then(() => this.independence.send('GET', `${this.tournamentUrl}/match/upcoming/table/${tableId}/2`))
       .then(response => {
         const tableMatches = response.data
-        const nextMatch = tableMatches.find(match => tableMatches[0]._id !== lastMatchId)
+        const nextMatch = tableMatches.find(match => match._id !== lastMatchId)
         if (nextMatch) {
-          return {
-            teamNumber: nextMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber,
-            matchId: nextMatch._id
-          }
+          return nextMatch.matchTeams.find(matchTeam => matchTeam.tableId === tableId).teamNumber
         } else {
-          return EMPTY_NEXT_MATCH
+          return null
         }
       })
       .catch(err => {
         console.log(err)
-        return EMPTY_NEXT_MATCH
+        return null
       })
   }
 }
