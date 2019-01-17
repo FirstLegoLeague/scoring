@@ -34,7 +34,7 @@ export default {
 
     <div ng-if="scoresheet.data.faulty">
       <div class="secondary callout">
-        <h2>Could not load scoresheet. Please change the challenge settings.</h2>
+        <h2>Unable to load scoresheet. Please check the Launcher scoring settings</h2>
       </div>
     </div>
 
