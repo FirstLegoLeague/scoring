@@ -60,10 +60,11 @@ class MetadataInputsController {
       this.autoselecting = true
       return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
         .then(teamNumber => {
-          if (teamNumber !== null) {
-            if (this.data.current.teamNumber !== null) {
-              this.data.current.teamNumber = teamNumber
-            }
+          if (!this.teamNumber() && teamNumber) {
+            this.data.current.teamNumber = teamNumber
+          }
+
+          if (this.teamNumber()) {
             return this.loadMatchOptions()
               .then(() => {
                 const firstIncompleteMatch = this.matches.find(match => !match.complete)
