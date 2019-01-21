@@ -50,7 +50,7 @@ class Scores {
   update (id, attributes) {
     this.messanger.ignoreNext('scores:reload')
     return this.independence.send('POST', `/scores/${id}/update`, attributes)
-      .then(() => { Object.assign(this.scores.find(score => score._id === id), attributes) })
+      .then(() => { Object.assign(this.scores.find(score => score._id === id), attributes, { lastUpdate: new Date() }) })
       .catch(() => this.notifications.error('Unable to change score: Possible network error.'))
   }
 }

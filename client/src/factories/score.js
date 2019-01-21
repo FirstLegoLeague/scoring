@@ -21,9 +21,12 @@ function Score (tournament) {
           score.teamError = Boolean(!score.team)
           score.noTable = Boolean(!score.table)
 
+          score.lastUpdate = new Date(score.lastUpdate)
+
           score.teamText = score.teamError ? 'Missing team' : score.team.displayText
           score.matchText = score.matchError ? 'Missing round' : score.match.displayText
           score.tableText = score.noTable ? 'No table' : score.table.tableName
+          score.dateText = `${score.lastUpdate.getHours()}:${score.lastUpdate.getMinutes()}`
 
           score.ready = true
         })
