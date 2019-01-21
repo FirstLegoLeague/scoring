@@ -118,7 +118,7 @@ router.post('/create', (req, res) => {
 router.post('/:id/update', adminOrScorekeeperAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => {
-      const updatedScore = Object.assign(, { lastUpdate: new Date() })
+      const updatedScore = Object.assign(req.body, { lastUpdate: new Date() })
       return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: updatedScore })
     })
     .then(() => res.status(204).send())
