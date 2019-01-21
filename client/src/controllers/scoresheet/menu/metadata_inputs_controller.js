@@ -63,12 +63,10 @@ class MetadataInputsController {
             .then(() => {
               const firstIncompleteMatch = this.matches.find(match => !match.complete)
               this.data.current.matchId = firstIncompleteMatch ? firstIncompleteMatch._id : undefined
-              this.autoselecting = false
             })
-        } else {
-          this.autoselecting = false
         }
       })
+      .then(() => { this.autoselecting = false })
   }
 
   autoselectTeam () {
