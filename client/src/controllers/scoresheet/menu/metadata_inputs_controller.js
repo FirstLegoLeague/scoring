@@ -34,7 +34,7 @@ class MetadataInputsController {
       }
     })
 
-    return [this.tournament.loadTeams(), this.configuration.init()]
+    return this.tournament.loadTeams()
       .then(() => this.refIdentity.init())
       .then(() => this.autosetSelectedMetadata())
   }

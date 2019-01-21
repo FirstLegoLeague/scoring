@@ -25,7 +25,8 @@ const SCORE_FIELDS = {
   referee: String,
   tableId: Number,
   public: Boolean,
-  lastUpdate: Date
+  lastUpdate: Date,
+  creation: Date
 }
 
 const POSSIBLY_REQUIRED_FIELDS = {
@@ -100,6 +101,7 @@ const adminAction = authroizationMiddlware(['admin', 'development'])
 router.post('/create', (req, res) => {
   Promise.all([connectionPromise, validateScore(req.body)])
     .then(([scoringCollection, score]) => {
+      score.creation = score.lastUpdate
       req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
       return scoringCollection.insert(score)
     })
@@ -118,7 +120,7 @@ router.post('/create', (req, res) => {
 router.post('/:id/update', adminOrScorekeeperAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => {
-      const updatedScore = Object.assign(req.body, { lastUpdate: new Date() })
+      const updatedScore = Object.assign(scoreFromQuery(req.body), { lastUpdate: new Date() })
       return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: updatedScore })
     })
     .then(() => res.status(204).send())
