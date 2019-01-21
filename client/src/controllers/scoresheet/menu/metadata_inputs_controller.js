@@ -34,7 +34,7 @@ class MetadataInputsController {
       }
     })
 
-    return this.tournament.loadTeams()
+    return [this.tournament.loadTeams(), this.configuration.init()]
       .then(() => this.refIdentity.init())
       .then(() => this.autosetSelectedMetadata())
   }
@@ -56,23 +56,28 @@ class MetadataInputsController {
   }
 
   autosetSelectedMetadata () {
+    return this.autoselectTeam()
+      .then(() => {
+        if (this.teamNumber()) {
+          return this.loadMatchOptions()
+            .then(() => {
+              const firstIncompleteMatch = this.matches.find(match => !match.complete)
+              this.data.current.matchId = firstIncompleteMatch ? firstIncompleteMatch._id : undefined
+              this.autoselecting = false
+            })
+        } else {
+          this.autoselecting = false
+        }
+      })
+  }
+
+  autoselectTeam () {
     if (this.refIdentity.table && !this.match) {
       this.autoselecting = true
       return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
         .then(teamNumber => {
           if (!this.teamNumber() && teamNumber) {
             this.data.current.teamNumber = teamNumber
-          }
-
-          if (this.teamNumber()) {
-            return this.loadMatchOptions()
-              .then(() => {
-                const firstIncompleteMatch = this.matches.find(match => !match.complete)
-                this.data.current.matchId = firstIncompleteMatch ? firstIncompleteMatch._id : undefined
-                this.autoselecting = false
-              })
-          } else {
-            this.autoselecting = false
           }
         })
     } else {
