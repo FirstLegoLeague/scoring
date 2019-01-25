@@ -75,12 +75,12 @@ class MissionsScroll {
   }
 
   missionsElement () {
-    if (!this._missionsElement) {
+    // If there is not missions element cached or the cached element is detached, reload it
+    if (!this._missionsElement || !this._missionsElement.parent) {
       this._missionsElement = this.$document[0].querySelector(MISSIONS_ELEMENTS)
     }
     return this._missionsElement
   }
-
 }
 
 MissionsScroll.$$ngIsClass = true

@@ -24,7 +24,9 @@ const SCORE_FIELDS = {
   matchId: String,
   referee: String,
   tableId: Number,
-  public: Boolean
+  public: Boolean,
+  lastUpdate: Date,
+  creation: Date
 }
 
 const POSSIBLY_REQUIRED_FIELDS = {
@@ -64,7 +66,7 @@ function validateScore (rawScore) {
         throw new InvalidScore(`Missing field: ${field}`)
       }
       return scoreObject
-    }, { public: config.autoPublish })
+    }, { public: config.autoPublish, lastUpdate: new Date() })
     return score
   })
 }
@@ -99,6 +101,7 @@ const adminAction = authroizationMiddlware(['admin', 'development'])
 router.post('/create', (req, res) => {
   Promise.all([connectionPromise, validateScore(req.body)])
     .then(([scoringCollection, score]) => {
+      score.creation = score.lastUpdate
       req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
       return scoringCollection.insert(score)
     })
@@ -117,7 +120,8 @@ router.post('/create', (req, res) => {
 router.post('/:id/update', adminOrScorekeeperAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => {
-      return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: scoreFromQuery(req.body) })
+      const updatedScore = Object.assign(scoreFromQuery(req.body), { lastUpdate: new Date() })
+      return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: updatedScore })
     })
     .then(() => res.status(204).send())
     .then(() => publishMsg('scores:reload'))
