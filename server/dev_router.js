@@ -25,10 +25,10 @@ const TEAMS = [
 ]
 
 const TABLES = [
+  { tableId: 0, tableName: 'Zero' },
   { tableId: 1, tableName: 'Rick' },
   { tableId: 2, tableName: 'Morty' },
-  { tableId: 3, tableName: 'Forty Two' },
-  { tableId: 4, tableName: 'Beware of the Leopard' }
+  { tableId: 3, tableName: 'Forty Two' }
 ]
 
 const STAGES = ['practice', 'scoring', 'scoring', 'scoring']
