@@ -25,6 +25,7 @@ const SCORE_FIELDS = {
   referee: String,
   tableId: Number,
   public: Boolean,
+  noShow: Boolean,
   lastUpdate: Date,
   creation: Date
 }
@@ -62,11 +63,11 @@ function validateScore (rawScore) {
     const score = allowedFields.reduce((scoreObject, field) => {
       if (rawScore.hasOwnProperty(field)) {
         scoreObject[field] = rawScore[field]
-      } else if (requiredFields.includes(field)) {
+      } else if (requiredFields.includes(field) && !rawScore.noShow) {
         throw new InvalidScore(`Missing field: ${field}`)
       }
       return scoreObject
-    }, { public: config.autoPublish, lastUpdate: new Date() })
+    }, { public: config.autoPublish, noShow: false, lastUpdate: new Date() })
     return score
   })
 }

@@ -61,6 +61,11 @@ class Scoresheet {
     return Promise.resolve(this.current)
   }
 
+  markNoShow () {
+    this.current.noShow = true
+    return this.save()
+  }
+
   score () {
     if (!this.current) {
       return 0
@@ -125,6 +130,7 @@ class Scoresheet {
           round: score.round,
           title: score.challenge,
           score: score.score,
+          noShow: score.noShow,
           signature: score.signature
         })
 

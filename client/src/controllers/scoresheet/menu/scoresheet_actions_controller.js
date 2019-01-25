@@ -1,11 +1,20 @@
 class ScoresheetActionsController {
-  constructor (scoresheet, $scope, user) {
-    Object.assign(this, { data: scoresheet, $scope })
+  constructor (scoresheet, $scope, $timeout, user) {
+    Object.assign(this, { data: scoresheet, $scope, $timeout })
     this.isAdmin = user.isAdmin()
   }
 
   score () {
     return this.data.score()
+  }
+
+  markNoShow () {
+    this.data.markNoShow()
+      .then(() => {
+        this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
+        this.reset()
+      })
+      .catch(() => this.reset())
   }
 
   reset () {
@@ -26,6 +35,6 @@ class ScoresheetActionsController {
 }
 
 ScoresheetActionsController.$$ngIsClass = true
-ScoresheetActionsController.$inject = ['Scoresheet', '$scope', 'User']
+ScoresheetActionsController.$inject = ['Scoresheet', '$scope', '$timeout', 'User']
 
 export default ScoresheetActionsController
