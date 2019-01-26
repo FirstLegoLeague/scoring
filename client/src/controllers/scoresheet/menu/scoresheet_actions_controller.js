@@ -1,6 +1,6 @@
 class ScoresheetActionsController {
-  constructor (scoresheet, $scope, $timeout, user) {
-    Object.assign(this, { data: scoresheet, $scope, $timeout })
+  constructor (scoresheet, $scope, user) {
+    Object.assign(this, { data: scoresheet, $scope })
     this.isAdmin = user.isAdmin()
   }
 
@@ -35,6 +35,6 @@ class ScoresheetActionsController {
 }
 
 ScoresheetActionsController.$$ngIsClass = true
-ScoresheetActionsController.$inject = ['Scoresheet', '$scope', '$timeout', 'User']
+ScoresheetActionsController.$inject = ['Scoresheet', '$scope', 'User']
 
 export default ScoresheetActionsController

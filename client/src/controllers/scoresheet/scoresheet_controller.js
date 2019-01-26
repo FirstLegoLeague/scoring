@@ -27,8 +27,6 @@ class ScoresheetController {
         .catch(err => this.logger.error(err))
     })
 
-    this.$scope.$on('save scoresheet', () => this.save())
-
     this.data.onProcess(() => {
       if (!this._previouslyComplete && this.complete()) {
         this._previouslyComplete = true
