@@ -9,7 +9,7 @@ export default {
       </div>
       <div id="team-didnt-show" class="button" ng-click="scoresheetActions.markNoShow()">
         <i class="fa fa-ban"></i>
-        <span class="hover-text">Team didn't show</span>
+        <span class="hover-text">No Show</span>
       </div>
       <div id="reset-scoresheet" class="button" ng-click="scoresheetActions.reset()">
         <i class="fa fa-undo"></i>
