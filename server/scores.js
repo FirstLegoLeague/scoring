@@ -54,7 +54,7 @@ function validateScore (rawScore) {
     const requiredFields = Array.from(REQUIRED_FIELDS)
 
     Object.entries(POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
-      if (config[configField]) {
+      if (config[configField] && !rawScore.noShow) {
         allowedFields.push(field)
         requiredFields.push(field)
       }
@@ -63,7 +63,7 @@ function validateScore (rawScore) {
     const score = allowedFields.reduce((scoreObject, field) => {
       if (rawScore.hasOwnProperty(field)) {
         scoreObject[field] = rawScore[field]
-      } else if (requiredFields.includes(field) && !rawScore.noShow) {
+      } else if (requiredFields.includes(field)) {
         throw new InvalidScore(`Missing field: ${field}`)
       }
       return scoreObject
