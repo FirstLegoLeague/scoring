@@ -10,9 +10,22 @@
 1. Resetting when editing shouldn't reset metadata
 1. Finish this readme.md
 
+## Install and build
+
+`yarn install-all` will fetch the modules imported in the server and client.
+
+`yarn build` builds the client.
+
 ## Publishing to NPM
 
-When you are ready to publish to npm, run the command `yarn publish` from the repo root directory. You will be asked to enter a new version to publish. Following that the script will run the build and packing stages (`prepack`).
+When you are ready to publish to npm, run the following commands from the repo root directory.
+```
+yarn install-all
+yarn build
+yarn version
+npm publish --access=public
+```
+You will be prompted to enter a new version to publish. Following that the script will run the build and packing stages (`prepack`).
 
 You must be a member of the `npm` `first-lego-league` organization to publish the package.
 
