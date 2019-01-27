@@ -8,6 +8,15 @@ class ScoresheetActionsController {
     return this.data.score()
   }
 
+  markNoShow () {
+    this.data.markNoShow()
+      .then(() => {
+        this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
+        this.reset()
+      })
+      .catch(() => this.reset())
+  }
+
   reset () {
     return this.$scope.$emit('reset scoresheet')
   }

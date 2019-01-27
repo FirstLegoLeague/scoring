@@ -25,7 +25,7 @@ class RefIdentity extends EventEmitter {
   }
 
   set (data) {
-    if (data.tableId) {
+    if (typeof data.tableId === 'number') {
       data.table = this.tournament.tables.find(table => table.tableId === data.tableId)
     }
     Object.assign(this, { referee: data.referee, table: data.table })

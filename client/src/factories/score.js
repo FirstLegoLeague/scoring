@@ -24,6 +24,7 @@ function Score (tournament) {
           score.creation = new Date(score.creation)
           score.lastUpdate = new Date(score.lastUpdate)
 
+          score.scoreText = score.noShow ? 'No Show' : (score.score || 0)
           score.teamText = score.teamError ? 'Missing team' : score.team.displayText
           score.matchText = score.matchError ? 'Missing round' : score.match.displayText
           score.tableText = score.noTable ? 'No table' : score.table.tableName
@@ -56,6 +57,7 @@ function Score (tournament) {
         teamNumber: score.teamNumber,
         round: score.round,
         stage: score.stage,
+        noShow: score.noShow,
         matchId: score.matchId
       }
 

@@ -8,6 +8,6 @@ export default {
     </ul>
   </div>
 
-  <scoresheet-actions ng-if="scoresheetMenu.data.ready"></scoresheet-actions>`,
+  <scoresheet-actions ng-show="scoresheetMenu.data.ready"></scoresheet-actions>`,
   controller: 'ScoresheetMenuController as scoresheetMenu'
 }

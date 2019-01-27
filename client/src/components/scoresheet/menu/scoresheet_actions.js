@@ -7,6 +7,10 @@ export default {
         <i class="fa fa-arrow-down"></i>
         <span class="hover-text">Set default values</span>
       </div>
+      <div id="team-didnt-show" class="button" ng-click="scoresheetActions.markNoShow()">
+        <i class="fa fa-ban"></i>
+        <span class="hover-text">No Show</span>
+      </div>
       <div id="reset-scoresheet" class="button" ng-click="scoresheetActions.reset()">
         <i class="fa fa-undo"></i>
         <span class="hover-text">Reset scoresheet</span>

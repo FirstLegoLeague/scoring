@@ -23,7 +23,7 @@ export default {
 
   <div class="stat text-center">
     <a editable-number="score.data.score" buttons="no" blur="submit" onaftersave="score.save()">
-      {{ score.data.score || 0 }}
+      {{ score.data.scoreText }}
     </a>
   </div>
 
