@@ -1,13 +1,16 @@
 class ScoreController {
   constructor ($scope, $timeout, scores, tournament, modals) {
     Object.assign(this, { $scope, $timeout, scores, tournament, modals })
-    this.ready = false
   }
 
   $onInit () {
-    this.$scope.$on('reset', () => {
-      this.ready = false
-      this.data.load()
+    this.$scope.$on('reset', (event, id) => {
+      if (id === undefined) {
+        return this.data.load()
+      } else if (id === this.data._id) {
+        return this.data.reloadFromServer()
+          .then(() => this.data.load())
+      }
     })
 
     this.data.init()
@@ -38,6 +41,16 @@ class ScoreController {
       })
   }
 
+  toggleNoShow () {
+    this.togglingNoShow = true
+    const newNoShow = !this.data.noShow
+    return this.scores.update(this.data._id, { noShow: newNoShow, score: newNoShow ? 0 : this.data.score })
+      .then(() => this.data.load())
+      .then(() => {
+        this.$timeout(() => { this.togglingNoShow = false })
+      })
+  }
+
   updateMatch () {
     return this.data.updateMatch()
       .then(() => this.save())
@@ -55,7 +68,6 @@ class ScoreController {
   }
 
   save () {
-    this.data.ready = false
     const match = this.data.matches.find(m => m.stage === this.data.stage && m.round === this.data.round)
     const updateData = {
       score: this.data.score,
@@ -64,7 +76,8 @@ class ScoreController {
       round: match.round,
       matchId: match._id,
       tableId: this.data.tableId,
-      referee: this.data.referee
+      referee: this.data.referee,
+      noShow: this.data.noShow && this.score === 0
     }
 
     return this.scores.update(this.data._id, updateData)

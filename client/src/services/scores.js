@@ -53,6 +53,13 @@ class Scores {
       .then(() => { Object.assign(this.scores.find(score => score._id === id), attributes, { lastUpdate: new Date() }) })
       .catch(() => this.notifications.error('Unable to change score: Possible network error.'))
   }
+
+  loadNewScore (id) {
+    return this.independence.send('GET', `/scores/${id}`)
+      .then(response => response.data)
+      .then(attrs => { this.scores.push(this.score(attrs)) })
+      .catch(() => this.notifications.error('Failed to load new score: Possible network error.'))
+  }
 }
 
 Scores.$$ngIsClass = true

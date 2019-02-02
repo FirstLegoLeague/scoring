@@ -8,30 +8,26 @@ class Independence {
   }
 
   send (method, url, data) {
-    const action = { method, url, data }
-    return this.retryPendingRequests()
-      .catch(err => {
-        this.logger.warn(`Failed to send pending requests: ${err}`)
-      })
-      .then(() => {
-        this._saveRequest(action)
-        return this._requestPromise(action)
-      })
+    const action = { method, url, data, waiting: false }
+    this._saveRequest(action)
+    return this._requestPromise(action)
   }
 
   // Requests functions
 
   retryPendingRequests () {
-    return Promise.all(this._pendingRequests().map(action => this._requestPromise(action)))
+    return Promise.all(this._pendingRequests().filter(action => !action.waiting).map(action => this._requestPromise(action)))
   }
 
   _requestPromise (action) {
+    action.waiting = true
     return this.$http[action.method.toLowerCase()](action.url, action.data)
       .then(response => {
         if (response.status <= 0) {
           throw response
         }
         this._deleteRequest(action)
+        action.waiting = false
         return response
       })
       .catch(err => {
@@ -39,6 +35,7 @@ class Independence {
           this._deleteRequest(action)
         }
         err.pendingRequestsCount = this.pendingRequestsCount(pendingRequest => pendingRequest.method === action.method && pendingRequest.url === action.url)
+        action.waiting = false
         throw err
       })
   }

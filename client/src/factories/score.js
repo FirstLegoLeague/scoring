@@ -1,4 +1,4 @@
-function Score (tournament) {
+function Score (tournament, $http) {
   return function (attrs) {
     const score = attrs
 
@@ -34,6 +34,15 @@ function Score (tournament) {
             score.dateText += ' (updated)'
           }
 
+          score.ready = true
+        })
+    }
+
+    score.reloadFromServer = () => {
+      score.ready = false
+      return $http.get(`/scores/${score._id}`)
+        .then(({ data }) => {
+          Object.assign(score, data)
           score.ready = true
         })
     }
@@ -91,6 +100,6 @@ Score.POSSIBLY_REQUIRED_FIELDS = {
   requireSignature: { name: 'signature' }
 }
 
-Score.$inject = ['Tournament']
+Score.$inject = ['Tournament', '$http']
 
 export default Score
