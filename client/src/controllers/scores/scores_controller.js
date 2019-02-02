@@ -10,7 +10,7 @@ class ScoresController {
 
   $onInit () {
     this.$scope.$on('reload', () => this.load(true))
-    this.messanger.on('scores:reload', () => this.load(true))
+    this.messanger.on('scores:reload', ({ data }) => data.id ? this.reloadSingleScore(data.id) : this.load(true))
     this.$scope.$watch(() => this.data.scores, () => this._calculateFilters(), true)
 
     this.load()
@@ -24,6 +24,14 @@ class ScoresController {
     return Promise.all([(forceScoresReload ? this.data.load() : this.data.init()), this.tournament.loadTeams(), this.tournament.loadTables()])
       .then(() => { this.ready = true })
       .catch(err => this.logger.error(err))
+  }
+
+  reloadSingleScore (id) {
+    if (this.any() && this.data.scores.some(score => score._id === id)) {
+      this.$scope.$broadcast('reset', id)
+    } else {
+      this.data.loadNewScore(id)
+    }
   }
 
   any () {
