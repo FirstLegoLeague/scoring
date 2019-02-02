@@ -20,8 +20,6 @@ class Independence {
   }
 
   _requestPromise (action) {
-    console.log(action.url)
-    console.log(this._pendingRequests())
     action.waiting = true
     return this.$http[action.method.toLowerCase()](action.url, action.data)
       .then(response => {
