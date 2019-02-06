@@ -36,6 +36,7 @@ class ScoreController {
   togglePublish () {
     this.togglingPublish = true
     return this.scores.update(this.data._id, { public: !this.data.public })
+      .then(() => this.data.load())
       .then(() => {
         this.$timeout(() => { this.togglingPublish = false })
       })
