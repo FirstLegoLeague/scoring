@@ -10,6 +10,11 @@ class ScoreController {
       } else if (id === this.data._id) {
         return this.data.reloadFromServer()
           .then(() => this.data.load())
+          .catch(error => {
+            if (error.status === 404) {
+              this.$scope.$emit('remove score', id)
+            }
+          })
       }
     })
 

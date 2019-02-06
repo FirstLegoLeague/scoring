@@ -12,6 +12,9 @@ class ScoresController {
     this.$scope.$on('reload', () => this.load(true))
     this.messanger.on('scores:reload', ({ data }) => data.id ? this.reloadSingleScore(data.id) : this.load(true))
     this.$scope.$watch(() => this.data.scores, () => this._calculateFilters(), true)
+    this.$scope.$on('remove score', (event, id) => {
+      this.data.scores.splice(this.data.scores.findIndex(score => score._id === id), 1)
+    })
 
     this.load()
       .then(() => this.$scope.$emit('reinit foundation'))
