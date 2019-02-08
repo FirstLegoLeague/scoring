@@ -1,3 +1,12 @@
+function getPaddedNumber (number, digits = 2, padding = '0') {
+  const string = String(number)
+  if (string.length >= digits) {
+    return string
+  } else {
+    return new Array(digits - string.length + 1).join(padding) + string
+  }
+}
+
 function Score (tournament, $http) {
   return function (attrs) {
     const score = attrs
@@ -28,10 +37,10 @@ function Score (tournament, $http) {
           score.teamText = score.teamError ? 'Missing team' : score.team.displayText
           score.matchText = score.matchError ? 'Missing round' : score.match.displayText
           score.tableText = score.noTable ? 'No table' : score.table.tableName
-          score.dateText = `${score.creation.getHours()}:${score.creation.getMinutes()}`
+          score.dateText = `${getPaddedNumber(score.creation.getHours())}:${getPaddedNumber(score.creation.getMinutes())}`
 
           if (score.creation.getTime() !== score.lastUpdate.getTime()) {
-            score.dateText += ' (updated)'
+            score.dateText += ` (${getPaddedNumber(score.lastUpdate.getHours())}:${getPaddedNumber(score.lastUpdate.getMinutes())})`
           }
 
           score.ready = true
@@ -42,6 +51,9 @@ function Score (tournament, $http) {
       score.ready = false
       return $http.get(`/scores/${score._id}`)
         .then(({ data }) => {
+          if (!data) {
+            throw { status: 404 }
+          }
           Object.assign(score, data)
           score.ready = true
         })

@@ -10,6 +10,11 @@ class ScoreController {
       } else if (id === this.data._id) {
         return this.data.reloadFromServer()
           .then(() => this.data.load())
+          .catch(error => {
+            if (error.status === 404) {
+              this.$scope.$emit('remove score', id)
+            }
+          })
       }
     })
 
@@ -36,6 +41,7 @@ class ScoreController {
   togglePublish () {
     this.togglingPublish = true
     return this.scores.update(this.data._id, { public: !this.data.public })
+      .then(() => this.data.load())
       .then(() => {
         this.$timeout(() => { this.togglingPublish = false })
       })
