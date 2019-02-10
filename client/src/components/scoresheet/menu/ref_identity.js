@@ -6,10 +6,11 @@ export default {
   </div>
 
   <div ng-if="!refIdentity.isRef && refIdentity.showRef()">
-    <input type="text" placeholder="Referee name" ng-model="refIdentity.data.referee">
+    <input type="text" placeholder="Referee name" ng-model-options="{ debounce: 500 }"
+      ng-model="refIdentity.data.referee" ng-change="refIdentity.data.save()">
   </div>
   <div ng-if="!refIdentity.isRef && refIdentity.showTable()">
-    <select name="table" ng-model="refIdentity.data.table"
+    <select name="table" ng-model="refIdentity.data.table" ng-change="refIdentity.data.save()"
       ng-options="table.tableName for table in refIdentity.tables() track by table.tableId">
       <option value="" disabled selected hidden>Choose table</option>
     </select>
