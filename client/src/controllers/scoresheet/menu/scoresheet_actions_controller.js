@@ -29,6 +29,10 @@ class ScoresheetActionsController {
     return this.isAdmin && this.data.current && this.data.current.defaultEnabled
   }
 
+  noShowDisabled () {
+    return !this.data.current || !this.data.current.teamNumber || !this.data.current.matchId
+  }
+
   setDefault () {
     this.$scope.$emit('set scoresheet default')
   }

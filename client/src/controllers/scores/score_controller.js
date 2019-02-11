@@ -88,7 +88,6 @@ class ScoreController {
 
     return this.scores.update(this.data._id, updateData)
       .then(() => this.data.load())
-      .then(() => this.$scope.$apply())
   }
 }
 

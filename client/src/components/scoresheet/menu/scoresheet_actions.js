@@ -7,7 +7,7 @@ export default {
         <i class="fa fa-arrow-down"></i>
         <span class="hover-text">Set default values</span>
       </div>
-      <div id="team-didnt-show" class="button" ng-click="scoresheetActions.markNoShow()">
+      <div id="team-didnt-show" class="button" ng-class="{'disabled': scoresheetActions.noShowDisabled()}" ng-click="scoresheetActions.markNoShow()">
         <i class="fa fa-ban"></i>
         <span class="hover-text">No Show</span>
       </div>
