@@ -28,6 +28,7 @@ class Independence {
         }
         this._deleteRequest(action)
         action.waiting = false
+        this.retryPendingRequests()
         return response
       })
       .catch(err => {
@@ -48,7 +49,7 @@ class Independence {
 
   _deleteRequest (action) {
     this.lastSuccessfulRequestTime = Date.now()
-    delete this.$window.localStorage[this._key(action)]
+    this.$window.localStorage.removeItem(this._key(action))
   }
 
   _key (action) {
