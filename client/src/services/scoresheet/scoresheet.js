@@ -140,6 +140,8 @@ class Scoresheet {
           })
         })
 
+        this.allowSignatureEditing = !this.isEditing() || !this.current.signature || this.current.signature.isEmpty
+
         this.ready = true
 
         return this.process()
