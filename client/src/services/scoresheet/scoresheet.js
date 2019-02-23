@@ -15,6 +15,7 @@ class Scoresheet {
         .then(([challenge]) => {
           this._original = challenge
           this._original.signature = undefined
+          this.allowSignatureEditing = true
         })
         .catch(err => {
           this.notifications.error(err.data)
