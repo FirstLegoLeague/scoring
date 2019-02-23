@@ -41,10 +41,6 @@ class ScoresheetSignatureController {
     return this.data.errors[0]
   }
 
-  isEditing () {
-    return this.data.isEditing()
-  }
-
   signature () {
     return (this.data.current && this.data.current.signature) ? this.data.current.signature : ({ isEmpty: true, dataUrl: '' })
   }

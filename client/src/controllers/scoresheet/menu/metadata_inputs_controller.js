@@ -5,7 +5,6 @@ class MetadataInputsController {
   }
 
   $onInit () {
-    this.$scope.$watch(() => this.refIdentity.table, () => this.data.current.teamNumber = undefined)
     this.$scope.$watch(() => this.teamNumber(), () => this.autosetSelectedMetadata())
     this.$scope.$on('toggle scores screen', () => this.autosetSelectedMetadata())
     this.refIdentity.on('saved', () => {
