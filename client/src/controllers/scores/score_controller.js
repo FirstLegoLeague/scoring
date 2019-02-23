@@ -49,8 +49,7 @@ class ScoreController {
 
   toggleNoShow () {
     this.togglingNoShow = true
-    const newNoShow = !this.data.noShow
-    return this.scores.update(this.data._id, { noShow: newNoShow, score: newNoShow ? 0 : this.data.score })
+    return this.scores.update(this.data._id, { noShow: !this.data.noShow })
       .then(() => this.data.load())
       .then(() => {
         this.$timeout(() => { this.togglingNoShow = false })
