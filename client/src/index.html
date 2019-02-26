@@ -6,18 +6,9 @@
   </head>
   <body ng-controller="ScoringController as scoring">
     <div class="top-bar">
-        <div class="top-bar-left">
-          <ul class="menu">
-            <li>
-              <button ng-if="scoring.isAdmin" class="hamburger--vortex" ng-class="{'is-active': scoring.showScoresScreen}" data-hamburger type="button" ng-click="scoring.toggleScoresList()">
-              <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-              </span>
-            </button>
-            </li>
-          <li id="page-title" class="flex-child-grow menu-text">
-            {{scoring.title()}}
-          </li>
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li id="page-title" class="menu-text">{{scoring.title()}}</li>
         </ul>
       </div>
       <div class="top-bar-right">
@@ -30,9 +21,9 @@
 
       <div class="top-bar-page">
         <!-- Removing the scores completely for performance -->
-        <scores ng-if="scoring.showScoresScreen"></scores>
+        <scores ng-if="!scoring.showScoresheet"></scores>
         <!-- Keeping the scoresheet even when it's not visible for updates -->
-        <scoresheet id="scoresheet" ng-hide="scoring.showScoresScreen"></scoresheet>
+        <scoresheet id="scoresheet" ng-show="scoring.showScoresheet"></scoresheet>
       </div>
   </body>
 </html>

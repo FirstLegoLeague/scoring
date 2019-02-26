@@ -15,9 +15,9 @@ export default {
         <i class="fa fa-undo"></i>
         <span class="hover-text">Reset scoresheet</span>
       </div>
-      <div id="cancel-scoresheet" class="button" ng-if="scoresheetActions.data.isEditing()" ng-click="scoresheetActions.cancel()">
+      <div id="cancel-scoresheet" class="button" ng-if="scoresheetActions.isAdmin" ng-click="scoresheetActions.cancel()">
         <i class="fa fa-times"></i>
-        <span class="hover-text">Cancel editing</span>
+        <span class="hover-text">Cancel</span>
       </div>
     </div>
   </div>`,
