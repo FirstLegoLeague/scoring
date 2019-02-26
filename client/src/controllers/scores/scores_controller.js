@@ -1,6 +1,6 @@
 class ScoresController {
-  constructor (scores, $scope, tournament, messanger, logger) {
-    Object.assign(this, { data: scores, $scope, tournament, messanger, logger })
+  constructor (scores, rankings, $scope, tournament, messanger, logger) {
+    Object.assign(this, { data: scores, rankings, $scope, tournament, messanger, logger })
     this.filters = {
       search: '',
       showDuplicates: false,
@@ -11,10 +11,13 @@ class ScoresController {
   $onInit () {
     this.$scope.$on('reload', () => this.load(true))
     this.messanger.on('scores:reload', ({ data }) => data.id ? this.reloadSingleScore(data.id) : this.load(true))
+    this.messanger.on('rankings:reload', () => this.loadRankings())
     this.$scope.$watch(() => this.data.scores, () => this._calculateFilters(), true)
     this.$scope.$on('remove score', (event, id) => {
       this.data.scores.splice(this.data.scores.findIndex(score => score._id === id), 1)
     })
+
+    this.loadRankings()
 
     this.load()
       .then(() => this.$scope.$emit('reinit foundation'))
@@ -26,6 +29,13 @@ class ScoresController {
     this.$scope.$broadcast('reset')
     return Promise.all([(forceScoresReload ? this.data.load() : this.data.init()), this.tournament.loadTeams(), this.tournament.loadTables()])
       .then(() => { this.ready = true })
+      .catch(err => this.logger.error(err))
+  }
+
+  loadRankings () {
+    this.rankingsReady = false
+    return this.rankings.load()
+      .then(() => { this.rankingsReady = true })
       .catch(err => this.logger.error(err))
   }
 
@@ -91,6 +101,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['Scores', '$scope', 'Tournament', 'Messanger', 'Logger']
+ScoresController.$inject = ['Scores', 'Rankings', '$scope', 'Tournament', 'Messanger', 'Logger']
 
 export default ScoresController

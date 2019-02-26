@@ -22,12 +22,15 @@ import numberObjective from './scoresheet/objective_types/number_objective'
 /* Scores view */
 
 import scores from './scores/scores'
+
+import scoresTilesContent from './scores/tiles/content'
+import scoresTilesMenu from './scores/tiles/menu'
+import scoresTableContent from './scores/table/content'
+import scoresTableMenu from './scores/table/menu'
+
+import scoresMenu from './scores/scores_menu'
 import noScoresMessage from './scores/no_scores_message'
-
-import scoresMenu from './scores/menu/scores_menu'
-import scoresFilters from './scores/menu/scores_filters'
-import scoresActions from './scores/menu/scores_actions'
-
+import scoresActions from './scores/scores_actions'
 import score from './scores/score'
 
 export default {
@@ -47,10 +50,14 @@ export default {
   numberObjective,
 
   scores,
+  scoresTilesContent,
+  scoresTilesMenu,
+  scoresTableContent,
+  scoresTableMenu,
+
   scoresMenu,
-  scoresFilters,
-  scoresActions,
   noScoresMessage,
+  scoresActions,
   score,
 
   status
