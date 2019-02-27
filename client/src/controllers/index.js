@@ -14,7 +14,13 @@ import RefIdentityController from './scoresheet/menu/ref_identity_controller'
 
 import ScoresController from './scores/scores_controller'
 import ScoresActionsController from './scores/menu/scores_actions_controller'
-import ScoreController from './scores/score_controller'
+import ScoreActionsController from './scores/score_actions_controller'
+
+import ScoreTileController from './scores/tiles/score_tile_controller'
+
+import EmptySlotController from './scores/table/slot_types/empty_slot_controller'
+import SingleScoreSlotController from './scores/table/slot_types/single_score_slot_controller'
+import ConflictSlotController from './scores/table/slot_types/conflict_slot_controller'
 
 // eslint-disable-next-line node/exports-style
 export default {
@@ -34,5 +40,11 @@ export default {
 
   ScoresController,
   ScoresActionsController,
-  ScoreController
+  ScoreActionsController,
+
+  ScoreTileController,
+  EmptySlotController,
+  SingleScoreSlotController,
+  ConflictSlotController
+
 }

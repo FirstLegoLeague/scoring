@@ -32,6 +32,7 @@ const TABLES = [
 ]
 
 const STAGES = ['practice', 'scoring', 'scoring', 'scoring']
+const CURRENT_STAGE_INDEX = [1]
 const MATCHES = []
 
 STAGES.forEach((stage, stageIndex) => {
@@ -64,6 +65,20 @@ router.get(`/rankings.csv`, (req, res) => {
     const highest = Math.max(scores[0], scores[1], scores[2])
     return [index + 1, team.number, highest].concat(scores)
   })))
+})
+
+router.get(`/rankings.json`, (req, res) => {
+  const currentStage = req.query.stage || STAGES[CURRENT_STAGE_INDEX]
+  const rounds = STAGES.filter(stage => stage === currentStage).length
+  res.json(TEAMS.map((team, index) => ({ team, rank: index + 1, scores: Array(rounds) })))
+})
+
+router.get('/settings/tournamentStage', (req, res) => {
+  res.json(STAGES[CURRENT_STAGE_INDEX])
+})
+
+router.get('/settings/stages', (req, res) => {
+  res.json(STAGES.filter((stage, index1) => !STAGES.some((stage2, index2) => stage === stage2 && index2 < index1)))
 })
 
 router.get('/match/upcoming/table/:tableId/:count', (req, res) => {

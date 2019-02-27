@@ -20,7 +20,6 @@ export default {
   controller: function () { },
   controllerAs: 'scoreTilesMenu',
   bindings: {
-    filters: '=?',
-    tableView: '=?'
+    filters: '=?'
   }
 }

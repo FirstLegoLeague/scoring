@@ -13,11 +13,19 @@ class ScoresController {
     this.messanger.on('scores:reload', ({ data }) => data.id ? this.reloadSingleScore(data.id) : this.load(true))
     this.messanger.on('rankings:reload', () => this.loadRankings())
     this.$scope.$watch(() => this.data.scores, () => this._calculateFilters(), true)
+    this.$scope.$watch(() => this.tableView, () => {
+      if (this.tableView && !this.rankingsReady) {
+        this.initRankings()
+      }
+    })
+    this.$scope.$watch(() => this.currentStage, () => {
+      if (this.currentStage) {
+        this.loadRankings()
+      }
+    })
     this.$scope.$on('remove score', (event, id) => {
       this.data.scores.splice(this.data.scores.findIndex(score => score._id === id), 1)
     })
-
-    this.loadRankings()
 
     this.load()
       .then(() => this.$scope.$emit('reinit foundation'))
@@ -32,9 +40,17 @@ class ScoresController {
       .catch(err => this.logger.error(err))
   }
 
+  initRankings () {
+    return Promise.all([this.tournament.loadAvailableStages(), this.tournament.loadCurrentStage()])
+      .then(([stages, currentStage]) => {
+        Object.assign(this, { stages, currentStage })
+      })
+      .catch(err => this.logger.error(err))
+  }
+
   loadRankings () {
     this.rankingsReady = false
-    return this.rankings.load()
+    return this.rankings.load(this.currentStage)
       .then(() => { this.rankingsReady = true })
       .catch(err => this.logger.error(err))
   }

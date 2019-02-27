@@ -15,6 +15,7 @@ import ScoresheetValidations from './scoresheet/scoresheet_validations'
 import Connectivity from './connectivity'
 import Scores from './scores'
 import Tournament from './tournament'
+import Rankings from './rankings'
 
 export default {
   Configuration,
@@ -33,5 +34,6 @@ export default {
 
   Connectivity,
   Scores,
-  Tournament
+  Tournament,
+  Rankings
 }

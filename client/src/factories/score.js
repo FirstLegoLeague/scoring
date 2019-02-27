@@ -52,7 +52,8 @@ function Score (tournament, $http) {
       return $http.get(`/scores/${score._id}`)
         .then(({ data }) => {
           if (!data) {
-            throw { status: 404 }
+            const error = { status: 404 }
+            throw error
           }
           Object.assign(score, data)
           score.ready = true

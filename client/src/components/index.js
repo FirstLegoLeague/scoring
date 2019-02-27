@@ -25,13 +25,19 @@ import scores from './scores/scores'
 
 import scoresTilesContent from './scores/tiles/content'
 import scoresTilesMenu from './scores/tiles/menu'
+import scoreTile from './scores/tiles/tile'
+
 import scoresTableContent from './scores/table/content'
 import scoresTableMenu from './scores/table/menu'
+import tableSlot from './scores/table/slot'
 
-import scoresMenu from './scores/scores_menu'
+import emptySlot from './scores/table/slot_types/empty_slot'
+import singleScoreSlot from './scores/table/slot_types/single_score_slot'
+import conflictSlot from './scores/table/slot_types/conflict_slot'
+
 import noScoresMessage from './scores/no_scores_message'
-import scoresActions from './scores/scores_actions'
-import score from './scores/score'
+import scoresActions from './scores/menu/scores_actions'
+import scoreActions from './scores/score_actions'
 
 export default {
   scoresheet,
@@ -50,15 +56,21 @@ export default {
   numberObjective,
 
   scores,
-  scoresTilesContent,
-  scoresTilesMenu,
-  scoresTableContent,
-  scoresTableMenu,
-
-  scoresMenu,
   noScoresMessage,
   scoresActions,
-  score,
+  scoreActions,
+
+  scoresTilesContent,
+  scoresTilesMenu,
+  scoreTile,
+
+  scoresTableContent,
+  scoresTableMenu,
+  tableSlot,
+
+  emptySlot,
+  singleScoreSlot,
+  conflictSlot,
 
   status
 }

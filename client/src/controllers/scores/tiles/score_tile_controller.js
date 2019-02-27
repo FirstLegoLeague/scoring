@@ -1,4 +1,4 @@
-class ScoreController {
+class ScoreTileController {
   constructor ($scope, $timeout, scores, tournament, modals) {
     Object.assign(this, { $scope, $timeout, scores, tournament, modals })
   }
@@ -21,41 +21,6 @@ class ScoreController {
     this.data.init()
   }
 
-  // Actions
-
-  openDeletionDialog () {
-    this.modals.open(`#score-${this.data._id} .deletion-modal`)
-  }
-
-  closeDeletionDialog () {
-    this.modals.close(`#score-${this.data._id} .deletion-modal`)
-  }
-
-  delete () {
-    this.closeDeletionDialog()
-    this.deleting = true
-    return this.scores.delete(this.data._id)
-      .then(() => this.$scope.$parent.$apply())
-  }
-
-  togglePublish () {
-    this.togglingPublish = true
-    return this.scores.update(this.data._id, { public: !this.data.public })
-      .then(() => this.data.load())
-      .then(() => {
-        this.$timeout(() => { this.togglingPublish = false })
-      })
-  }
-
-  toggleNoShow () {
-    this.togglingNoShow = true
-    return this.scores.update(this.data._id, { noShow: !this.data.noShow })
-      .then(() => this.data.load())
-      .then(() => {
-        this.$timeout(() => { this.togglingNoShow = false })
-      })
-  }
-
   updateMatch () {
     return this.data.updateMatch()
       .then(() => this.save())
@@ -66,10 +31,6 @@ class ScoreController {
     this.data.stage = match.stage
     this.data.round = match.round
     return this.save()
-  }
-
-  open () {
-    this.$scope.$emit('open scoresheet', this.data)
   }
 
   save () {
@@ -90,7 +51,7 @@ class ScoreController {
   }
 }
 
-ScoreController.$$ngIsClass = true
-ScoreController.$inject = ['$scope', '$timeout', 'Scores', 'Tournament', 'Modals']
+ScoreTileController.$$ngIsClass = true
+ScoreTileController.$inject = ['$scope', '$timeout', 'Scores', 'Tournament', 'Modals']
 
-export default ScoreController
+export default ScoreTileController

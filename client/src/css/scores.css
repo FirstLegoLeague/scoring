@@ -1,3 +1,32 @@
-#scores-list {
+scores-tiles-content {
   margin-top: 1rem;
+}
+
+.ranks-header {
+  font-weight: bold;
+  color: white;
+}
+
+.ranks-header h5 {
+    margin: 0;
+}
+
+.ranks {
+    overflow-y: scroll;
+    height: calc(100vh - 8.8rem);
+}
+
+.rank .team {
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.rank .card .card-section {
+  padding: 0.5rem;
+}
+
+.rank .card .button-group {
+  margin: 0;
 }

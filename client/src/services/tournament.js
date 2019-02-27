@@ -10,6 +10,9 @@ class Tournament {
     return this.configuration.load().then(config => {
       this.tournamentUrl = config.tournamentUrl
       this.messanger.on('teams:reload', () => this.teams(true))
+      this.messanger.on('tournamentStage:reload', ({ data }) => {
+        this._currentStagePromise = Promise.resolve(data)
+      })
       return this
     })
   }
@@ -22,7 +25,7 @@ class Tournament {
         .then(teams => {
           this.teams = teams
             .sort((team1, team2) => team1.number - team2.number)
-          return teams
+          return this.teams
         })
     }
 
@@ -87,6 +90,32 @@ class Tournament {
         console.log(err)
         return null
       })
+  }
+
+  loadAvailableStages () {
+    if (!this._availableStagesPromise) {
+      this._availableStagesPromise = this.init()
+        .then(() => this.independence.send('GET', `${this.tournamentUrl}/settings/stages`))
+        .then(response => response.data)
+        .catch(err => {
+          console.log(err)
+          return null
+        })
+    }
+    return this._availableStagesPromise
+  }
+
+  loadCurrentStage () {
+    if (!this._currentStagePromise) {
+      this._currentStagePromise = this.init()
+        .then(() => this.independence.send('GET', `${this.tournamentUrl}/settings/tournamentStage`))
+        .then(response => response.data)
+        .catch(err => {
+          console.log(err)
+          return null
+        })
+    }
+    return this._currentStagePromise
   }
 }
 

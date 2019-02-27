@@ -8,7 +8,7 @@ class ScoresActionsController {
 
   $onInit () {
     this.configuration.load().then(config => {
-      this.rankingsUrl = config.rankingsUrl
+      this.rankingsUrl = `${config.rankingsUrl}/rankings.csv?hideNegatives=false`
     })
       .catch(err => this.logger.error(err))
   }
