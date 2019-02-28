@@ -2,7 +2,7 @@ scores-tiles-content {
   margin-top: 1rem;
 }
 
-score-tile h4, score-tile h6 {
+score-tile h6 {
   margin: 0 !important;
   line-height: 1.2em !important;
 }
@@ -83,7 +83,11 @@ conflict-slot .conflict-message {
 }
 
 empty-slot .card {
-    background: rgba(0,0,0,0.5);
-    border: none;
+  background: rgba(0,0,0,0.5);
+  border: none;
+}
+
+empty-slot .stat {
+  color: lightgray;
 }
 

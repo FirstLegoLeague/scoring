@@ -3,11 +3,11 @@ export default {
 <div id="score-tile-{{score._id}}" class="card" ng-class="{ loading: !score.data.ready }">
   <div class="card-section">
     <div>
-      <h4>
+      <h6>
         <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.updateMatch()" e-ng-options="team.number as team.displayText for team in score.tournament.teams">
           <div ng-class="{'card-section alert' : score.data.teamNumberError}">{{ score.data.teamText }}</div>
         </a>
-      </h4>
+      </h6>
       <h6 class="align-justify align-middle grid-x subheader">
         <a editable-select="score.data.matchId" buttons="no" blur="submit" onaftersave="score.setMatch()" e-ng-options="match._id as match.displayText for match in score.data.matches">
           <div ng-class="{'card-section alert' : score.data.matchError}">{{ score.data.matchText }}</div>
