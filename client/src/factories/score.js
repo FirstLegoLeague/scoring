@@ -18,19 +18,21 @@ function Score (tournament, $http) {
         get: () => score._teamNumber,
         set: teamNumber => {
           score._teamNumber = teamNumber
-          tournament.loadTeamMatches(score.teamNumber)
-            .then(matches => {
-              score.matches = matches
-              if (score.round && score.stage) {
-                score.match = matches.find(match => match.round === score.round && match.stage === score.stage)
-                score.matchId = score.match._id
-              } else if (score.matchId) {
-                score.match = score.matches.find(m => m._id === score.matchId)
-                score.stage = score.match.stage
-                score.round = score.match.round
-              }
-            })
-            .catch(error => console.error(error))
+          if (score.teamNumber && (score.matchId || (score.stage && score.round))) {
+            tournament.loadTeamMatches(score.teamNumber)
+              .then(matches => {
+                score.matches = matches
+                if (score.round && score.stage) {
+                  score.match = matches.find(match => match.round === score.round && match.stage === score.stage)
+                  score.matchId = score.match._id
+                } else if (score.matchId) {
+                  score.match = score.matches.find(m => m._id === score.matchId)
+                  score.stage = score.match.stage
+                  score.round = score.match.round
+                }
+              })
+              .catch(error => console.error(error))
+          }
         }
       },
       matchId: {

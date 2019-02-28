@@ -13,14 +13,28 @@ class TableController {
         this.load()
       }
     })
+
+    // move mode
+
+    this.$scope.$on('enter move mode', (event, data) => {
+      if (event.targetScope !== this.$scope) {
+        this.$scope.$broadcast('enter move mode', data)
+      }
+    })
+
+    this.$scope.$on('exit move mode', (event, data) => {
+      if (event.targetScope !== this.$scope) {
+        this.$scope.$broadcast('exit move mode', data)
+      }
+    })
   }
 
   load () {
     this.rankingsReady = false
-    return this.rankings.load(this.currentStage)
+    return this.rankings.loadRankingsForStage(this.currentStage)
       .then(() => {
-        if (this.rankings.ranks.length > 0) {
-          const scoresCount = this.rankings.ranks[0].scores.length
+        if (this.rankings.rankings[this.currentStage].length > 0) {
+          const scoresCount = this.rankings.rankings[this.currentStage][0].scores.length
           const scoreCellWidth = Math.min(Math.floor(TOTAL_CELLS_COUNT / (scoresCount + 1)), MAX_SCORE_CELL_WIDTH)
           const teamCellWidth = Math.min(TOTAL_CELLS_COUNT - scoresCount * scoreCellWidth, MAX_TEAM_CELL_WIDTH)
           const margin = Math.floor((TOTAL_CELLS_COUNT - scoresCount * scoreCellWidth - teamCellWidth) / 2)

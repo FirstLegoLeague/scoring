@@ -83,12 +83,22 @@ conflict-slot .conflict-message {
   right: 0.5rem;
 }
 
-empty-slot .card {
-  background: rgba(0,0,0,0.5);
+empty-slot .card:not(.move-mode) {
+  background: rgba(0,0,0,0.2);;
   border: none;
 }
 
-empty-slot .stat {
-  color: lightgray;
+empty-slot .card:not(.move-mode) .stat {
+  color: #a7a7a7;
+}
+
+empty-slot .card.move-mode {
+  cursor: pointer;
+}
+
+empty-slot .card.move-mode .stat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 

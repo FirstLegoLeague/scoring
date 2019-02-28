@@ -4,26 +4,24 @@ class SingleScoreSlotController {
   }
 
   $onInit () {
-    this.$scope.$on('reset', (event, id) => {
-      if (id === undefined) {
-        return this.data.load()
-      } else if (id === this.data._id) {
-        return this.data.reloadFromServer()
-          .then(() => this.data.load())
-          .catch(error => {
-            if (error.status === 404) {
-              this.$scope.$emit('remove score', id)
-            }
-          })
-      }
+    this.score = this.data[0]
+    this.score.init()
+
+    this.$scope.$on('enter move mode', (event, { id }) => {
+      this.dimmed = (id !== this.score._id)
     })
 
-    this.data.init()
+    this.$scope.$on('exit move mode', (event, { status }) => {
+      if (status === 'success' && !this.dimmed) {
+        this.data = []
+      }
+      this.dimmed = false
+    })
   }
 
   save () {
-    return this.scores.update(this.data)
-      .then(() => this.data.load())
+    return this.scores.update(this.score)
+      .then(() => this.score.load())
   }
 }
 

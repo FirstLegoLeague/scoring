@@ -36,7 +36,7 @@ export default {
   </div>
 
   <div class="card-section flex-child-shrink">
-    <score-actions data="score.data" type="'tile'"></score-actions>
+    <score-actions data="score.data" hide="{ move: true }"></score-actions>
   </div>
 
   <div class="dimmer">

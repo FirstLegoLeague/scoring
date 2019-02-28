@@ -27,7 +27,7 @@ export default {
     <scores-tiles ng-hide="scores.tableView" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5"
       scores="scores.data.scores" should-show-score="scores.shouldShowScore(score)"></scores-tiles>
 
-    <scores-table ng-show="scores.tableView" class="grid-y"
+    <scores-table ng-show="scores.tableView" class="grid-y" ng-class="{ loading: !scores.rankingsReady }"
       current-stage="scores.currentStage"></scores-table>
   </div>
 

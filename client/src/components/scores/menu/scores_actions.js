@@ -1,7 +1,7 @@
 export default {
   template: `
   <div class="button-group">
-    <div class="hollow button">{{scoresActions.data.scores.length}} scores</div>
+    <div class="hollow button">{{scoresActions.scores.scores.length}} scores</div>
 
     <div class="alert button" ng-if="scoresActions.user === 'admin'" ng-click="scoresActions.openDeletionDialog()">
       <i class="fa" ng-class="scoresActions.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i>

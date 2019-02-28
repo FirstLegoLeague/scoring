@@ -1,6 +1,10 @@
 export default {
   template: `
 <div class="button-group">
+  <div class="secondary button" ng-if="!scoreActions.hide || !scoreActions.hide.move" ng-click="scoreActions.toggleMoveMode()" ng-disabled="loading">
+    <i class="fa" ng-class="scoreActions.moveMode ? 'fa-times' : 'fa-share-square'"></i>
+    <span class="hover-text">Move</span>
+  </div>
   <div class="secondary button" ng-if="!scoreActions.hide || !scoreActions.hide.open" ng-click="scoreActions.open()" ng-disabled="loading">
     <i class="fa fa-edit"></i>
     <span class="hover-text">Open</span>

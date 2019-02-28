@@ -95,9 +95,9 @@ class Tournament extends EventEmitter {
       })
   }
 
-  loadAvailableStages () {
-    if (!this._availableStagesPromise) {
-      this._availableStagesPromise = this.init()
+  loadStages () {
+    if (!this._stagesPromise) {
+      this._stagesPromise = this.init()
         .then(() => this.independence.send('GET', `${this.tournamentUrl}/settings/stages`))
         .then(response => response.data)
         .catch(err => {
@@ -105,7 +105,7 @@ class Tournament extends EventEmitter {
           return null
         })
     }
-    return this._availableStagesPromise
+    return this._stagesPromise
   }
 
   loadCurrentStage () {

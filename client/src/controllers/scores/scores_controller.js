@@ -1,6 +1,6 @@
 class ScoresController {
-  constructor (scores, rankings, $scope, tournament, logger) {
-    Object.assign(this, { data: scores, rankings, $scope, tournament, logger })
+  constructor (scores, $scope, tournament, logger) {
+    Object.assign(this, { data: scores, $scope, tournament, logger })
     this.filters = {
       search: '',
       showDuplicates: false,
@@ -14,7 +14,23 @@ class ScoresController {
       .then(() => this.$scope.$emit('reinit foundation'))
       .catch(err => this.logger.error(err))
 
+    this.$scope.$watch(() => this.tableView, () => {
+      if (this.tableView && !this.rankingsReady) {
+        this.loadRankingsMetadata()
+      }
+    })
+
     this.data.on('scores updates', () => this._calculateFilters())
+  }
+
+  loadRankingsMetadata () {
+    this.rankingsReady = false
+    Promise.all([this.tournament.loadCurrentStage(), this.tournament.loadStages()])
+      .then(([currentStage, stages]) => {
+        Object.assign(this, { currentStage, stages })
+        this.rankingsReady = true
+      })
+      .catch(error => this.logger.error(error))
   }
 
   load () {
@@ -78,6 +94,6 @@ class ScoresController {
 }
 
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['Scores', 'Rankings', '$scope', 'Tournament', 'Logger']
+ScoresController.$inject = ['Scores', '$scope', 'Tournament', 'Logger']
 
 export default ScoresController

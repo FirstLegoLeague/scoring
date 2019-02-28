@@ -1,9 +1,9 @@
 export default {
   template: `
-<div class="card grid-y">
- <div class="card-section flex-child-grow stat text-center">No score yet</div>
+<div class="card grid-y" ng-class="{ 'move-mode': slot.moveMode }">
+ <div class="card-section flex-child-grow stat text-center" ng-if="!slot.moveMode">No score yet</div>
 
- <div class="card-section flex-child-shrink button-group">
+ <div class="card-section flex-child-shrink button-group" ng-if="!slot.moveMode">
   <div class="button" ng-click="scoresActions.newScoresheet()">
     <i class="fas fa-file"></i>
     <span class="hover-text">Create</span>
@@ -14,9 +14,15 @@ export default {
     <span class="hover-text">No show</span>
   </div>
  </div>
-</div>`,
+ <div class="move-mode-message flex-child-grow stat text-center " ng-if="slot.moveMode"
+    ng-click="slot.moveScoreHere()">
+    Move here
+  </div>
+</div>
+`,
   controller: 'EmptySlotController as slot',
   bindings: {
+    data: '=?',
     position: '=?'
   }
 }
