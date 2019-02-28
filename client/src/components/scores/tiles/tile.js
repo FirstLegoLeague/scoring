@@ -1,6 +1,6 @@
 export default {
   template: `
-<div class="card" ng-class="{ loading: !score.data.ready }">
+<div id="score-tile-{{score._id}}" class="card" ng-class="{ loading: !score.data.ready }">
   <div class="card-section">
     <div>
       <h4>
@@ -36,7 +36,7 @@ export default {
   </div>
 
   <div class="card-section flex-child-shrink">
-    <score-actions data="score.data"></score-actions>
+    <score-actions data="score.data" type="'tile'"></score-actions>
   </div>
 
   <div class="dimmer">

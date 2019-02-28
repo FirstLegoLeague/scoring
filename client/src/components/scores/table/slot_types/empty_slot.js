@@ -1,7 +1,5 @@
 export default {
-  template: `
-Empty slot
-`,
+  template: `<div class="card"></div>`,
   controller: 'EmptySlotController as slot',
   bindings: {
     position: '=?'

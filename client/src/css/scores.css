@@ -38,9 +38,6 @@ score-tile h4, score-tile h6 {
 
 .rank .team {
   font-weight: bold;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow-x: hidden;
 }
 
 scores .card .card-section, scores .card .card-divider {
@@ -51,12 +48,17 @@ scores .card .card-section:first-child {
   padding-bottom: 0;
 }
 
-score-actions .button-group {
+scores .button-group {
   margin: 0;
+}
+
+scores .button-group .button {
+  font-size: 0.8rem;
 }
 
 conflict-slot {
   display: flex;
+  position: relative;
 }
 
 conflict-slot .card-section.score-deatils {
@@ -77,5 +79,11 @@ conflict-slot .conflict-message {
   position: absolute;
   color: darkred;
   font-weight: bold;
-  right: 1.5rem;
+  right: 0.5rem;
 }
+
+empty-slot .card {
+    background: rgba(0,0,0,0.5);
+    border: none;
+}
+

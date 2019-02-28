@@ -1,6 +1,6 @@
 class ConflictScoreController {
-  constructor ($scope, $timeout, scores, tournament, modals) {
-    Object.assign(this, { $scope, $timeout, scores, tournament, modals })
+  constructor ($scope, $timeout, scores, modals) {
+    Object.assign(this, { $scope, $timeout, scores, modals })
   }
 
   $onInit () {
@@ -22,18 +22,18 @@ class ConflictScoreController {
   }
 
   openDeletionDialog () {
-    this.modals.open(`#score-${this.data._id} .deletion-modal`)
+    this.modals.open(`#conflict-score-${this.data._id} .deletion-modal`)
   }
 
   closeDeletionDialog () {
-    this.modals.close(`#score-${this.data._id} .deletion-modal`)
+    this.modals.close(`#conflict-score-${this.data._id} .deletion-modal`)
   }
 
   delete () {
     this.closeDeletionDialog()
     this.deleting = true
     return this.scores.delete(this.data._id)
-      .then(() => this.$scope.$parent.$apply())
+      .then(() => this.$scope.$emit('remove score', this.data._id))
   }
 
   togglePublish () {
@@ -47,6 +47,6 @@ class ConflictScoreController {
 }
 
 ConflictScoreController.$$ngIsClass = true
-ConflictScoreController.$inject = ['$scope', '$timeout', 'Scores', 'Tournament', 'Modals']
+ConflictScoreController.$inject = ['$scope', '$timeout', 'Scores', 'Modals']
 
 export default ConflictScoreController

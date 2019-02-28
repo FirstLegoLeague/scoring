@@ -1,6 +1,6 @@
 export default {
   template: `
-<div class="card">
+<div id="score-slot-{{slot.data._id}}" class="card">
   <div class="card-section">
     <div class="grid-x">
       <div class="cell small-4">
@@ -29,7 +29,7 @@ export default {
     </div>
   </div>
   <div class="card-section flex-child-shrink">
-    <score-actions data="slot.data"></score-actions>
+    <score-actions data="slot.data" type="'slot'"></score-actions>
   </div>
 </div>`,
   controller: 'SingleScoreSlotController as slot',

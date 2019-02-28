@@ -6,18 +6,18 @@ class ScoreActionsController {
   // Actions
 
   openDeletionDialog () {
-    this.modals.open(`#score-${this.data._id} .deletion-modal`)
+    this.modals.open(`#score-${this.type}-${this.data._id} .deletion-modal`)
   }
 
   closeDeletionDialog () {
-    this.modals.close(`#score-${this.data._id} .deletion-modal`)
+    this.modals.close(`#score-${this.type}-${this.data._id} .deletion-modal`)
   }
 
   delete () {
     this.closeDeletionDialog()
     this.deleting = true
     return this.scores.delete(this.data._id)
-      .then(() => this.$scope.$parent.$apply())
+      .then(() => this.$scope.$emit('remove score', this.data._id))
   }
 
   togglePublish () {

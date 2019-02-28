@@ -14,7 +14,7 @@ export default {
     <div class="cell grid-y" ng-class="scoreTableContent.teamCellWidthClass">
       <div class="card">
         <div class="card-section">
-          <div class="team" title="{{rank.team.displayText}}">{{rank.team.displayText}}</div>
+          <div class="team">{{rank.team.displayText}}</div>
           <div class="rank">Rank: #{{rank.rank}}</div>
         </div>
       </div>

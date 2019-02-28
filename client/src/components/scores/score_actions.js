@@ -32,6 +32,7 @@ export default {
 </div>`,
   controller: 'ScoreActionsController as scoreActions',
   bindings: {
-    data: '=?'
+    data: '=?',
+    type: '=?'
   }
 }
