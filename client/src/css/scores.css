@@ -27,6 +27,10 @@ scores-tiles-content {
   padding: 0.5rem;
 }
 
+.rank .card .card-section:first-child {
+    padding-bottom: 0;
+}
+
 .rank .card .button-group {
   margin: 0;
 }

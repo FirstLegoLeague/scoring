@@ -40,7 +40,7 @@ export default {
   </div>
 
   <div class="card-section flex-child-shrink">
-    <score-actions data="data"></score-actions>
+    <score-actions data="score.data"></score-actions>
   </div>
 
 </div>`,
