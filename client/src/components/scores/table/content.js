@@ -20,7 +20,7 @@ export default {
       </div>
     </div>
     <div ng-repeat="slotScores in rank.scores" class="cell grid-y" ng-class="scoreTableContent.scoreCellWidthClass">
-      <table-slot class="card" data="slotScores" position="{ round: $index+1, team: rank.team, stage: scoreTableContent.stage }"></table-slot>
+      <table-slot data="slotScores" position="{ round: $index+1, team: rank.team, stage: scoreTableContent.stage }"></table-slot>
     </div>
     <div class="cell" ng-class="scoreTableContent.marginClass" ng-if="scoreTableContent.marginClass"></div>
   </div>

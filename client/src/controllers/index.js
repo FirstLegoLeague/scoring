@@ -21,6 +21,7 @@ import ScoreTileController from './scores/tiles/score_tile_controller'
 import EmptySlotController from './scores/table/slot_types/empty_slot_controller'
 import SingleScoreSlotController from './scores/table/slot_types/single_score_slot_controller'
 import ConflictSlotController from './scores/table/slot_types/conflict_slot_controller'
+import ConflictScoreController from './scores/table/slot_types/conflict_slot/conflict_score_controller'
 
 // eslint-disable-next-line node/exports-style
 export default {
@@ -43,8 +44,10 @@ export default {
   ScoreActionsController,
 
   ScoreTileController,
+
   EmptySlotController,
   SingleScoreSlotController,
-  ConflictSlotController
+  ConflictSlotController,
+  ConflictScoreController
 
 }

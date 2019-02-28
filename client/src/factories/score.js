@@ -33,7 +33,7 @@ function Score (tournament, $http) {
           score.creation = new Date(score.creation)
           score.lastUpdate = new Date(score.lastUpdate)
 
-          score.scoreText = score.noShow ? 'No Show' : (score.score || 0)
+          score.scoreText = score.score || 0
           score.teamText = score.teamError ? 'Missing team' : score.team.displayText
           score.matchText = score.matchError ? 'Missing round' : score.match.displayText
           score.tableText = score.noTable ? 'No table' : score.table.tableName

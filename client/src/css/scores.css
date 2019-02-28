@@ -2,18 +2,38 @@ scores-tiles-content {
   margin-top: 1rem;
 }
 
+score-tile h4, score-tile h6 {
+  margin: 0 !important;
+  line-height: 1.2em !important;
+}
+
 .ranks-header {
   font-weight: bold;
   color: white;
 }
 
 .ranks-header h5 {
-    margin: 0;
+  margin: 0;
 }
 
 .ranks {
-    overflow-y: scroll;
-    height: calc(100vh - 8.8rem);
+  overflow-y: scroll;
+  height: calc(100vh - 8.8rem);
+}
+.rank > .cell:first-child, scores-tiles-content > .cell {
+  padding: 0 0.5rem 0 0.5rem !important;
+}
+
+.rank > .cell {
+  padding: 0 0.5rem 0 0 !important;
+}
+
+.rank .card, score-tile .card {
+  margin-bottom: 0.5rem !important;
+}
+
+.rank .card {
+  height: 6.8em;
 }
 
 .rank .team {
@@ -23,14 +43,39 @@ scores-tiles-content {
   overflow-x: hidden;
 }
 
-.rank .card .card-section {
+scores .card .card-section, scores .card .card-divider {
   padding: 0.5rem;
 }
 
-.rank .card .card-section:first-child {
-    padding-bottom: 0;
+scores .card .card-section:first-child {
+  padding-bottom: 0;
 }
 
-.rank .card .button-group {
+score-actions .button-group {
   margin: 0;
+}
+
+conflict-slot {
+  display: flex;
+}
+
+conflict-slot .card-section.score-deatils {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
+
+conflict-slot .right-score {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.5rem) calc(50% - 1rem), 100% calc(50% + 1rem), calc(100% - 0.5rem) 100%, 0 100%);
+}
+
+conflict-slot .left-score {
+  clip-path: polygon(0.5rem 0, 100% 0, 100% 100%, 0% 100%, 0.5rem calc(50% + 1rem), 0% calc(50% - 1rem));
+}
+
+conflict-slot .conflict-message {
+  position: absolute;
+  color: darkred;
+  font-weight: bold;
+  right: 1.5rem;
 }

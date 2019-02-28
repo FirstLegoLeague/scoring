@@ -1,10 +1,6 @@
 export default {
   template: `
 <div class="card" ng-class="{ loading: !score.data.ready }">
-  <div class="dimmer">
-    <div class="big loader"></div>
-  </div>
-
   <div class="card-section">
     <div>
       <h4>
@@ -43,6 +39,9 @@ export default {
     <score-actions data="score.data"></score-actions>
   </div>
 
+  <div class="dimmer">
+    <div class="big loader"></div>
+  </div>
 </div>`,
   controller: 'ScoreTileController as score',
   bindings: { data: '=?' }

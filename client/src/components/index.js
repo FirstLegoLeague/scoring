@@ -35,6 +35,8 @@ import emptySlot from './scores/table/slot_types/empty_slot'
 import singleScoreSlot from './scores/table/slot_types/single_score_slot'
 import conflictSlot from './scores/table/slot_types/conflict_slot'
 
+import conflictScore from './scores/table/slot_types/conflict_slot/conflict_score'
+
 import noScoresMessage from './scores/no_scores_message'
 import scoresActions from './scores/menu/scores_actions'
 import scoreActions from './scores/score_actions'
@@ -71,6 +73,7 @@ export default {
   emptySlot,
   singleScoreSlot,
   conflictSlot,
+  conflictScore,
 
   status
 }

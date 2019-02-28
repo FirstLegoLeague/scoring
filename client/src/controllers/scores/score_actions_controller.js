@@ -1,6 +1,6 @@
 class ScoreActionsController {
-  constructor ($scope, $timeout, scores, tournament, modals) {
-    Object.assign(this, { $scope, $timeout, scores, tournament, modals })
+  constructor ($scope, $timeout, scores, modals) {
+    Object.assign(this, { $scope, $timeout, scores, modals })
   }
 
   // Actions
@@ -44,6 +44,6 @@ class ScoreActionsController {
 }
 
 ScoreActionsController.$$ngIsClass = true
-ScoreActionsController.$inject = ['$scope', '$timeout', 'Scores', 'Tournament', 'Modals']
+ScoreActionsController.$inject = ['$scope', '$timeout', 'Scores', 'Modals']
 
 export default ScoreActionsController

@@ -1,6 +1,6 @@
 class ScoreTileController {
-  constructor ($scope, $timeout, scores, tournament, modals) {
-    Object.assign(this, { $scope, $timeout, scores, tournament, modals })
+  constructor ($scope, scores) {
+    Object.assign(this, { $scope, scores })
   }
 
   $onInit () {
@@ -52,6 +52,6 @@ class ScoreTileController {
 }
 
 ScoreTileController.$$ngIsClass = true
-ScoreTileController.$inject = ['$scope', '$timeout', 'Scores', 'Tournament', 'Modals']
+ScoreTileController.$inject = ['$scope', 'Scores']
 
 export default ScoreTileController
