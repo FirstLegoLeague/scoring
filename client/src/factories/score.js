@@ -8,8 +8,47 @@ function getPaddedNumber (number, digits = 2, padding = '0') {
 }
 
 function Score (tournament, $http) {
-  return function (attrs) {
-    const score = attrs
+  return function (attrs = {}) {
+    const score = { }
+
+    /* Properties */
+
+    Object.defineProperties(score, {
+      teamNumber: {
+        get: () => score._teamNumber,
+        set: teamNumber => {
+          score._teamNumber = teamNumber
+          tournament.loadTeamMatches(score.teamNumber)
+            .then(matches => {
+              score.matches = matches
+              if (score.round && score.stage) {
+                score.match = matches.find(match => match.round === score.round && match.stage === score.stage)
+                score.matchId = score.match._id
+              } else if (score.matchId) {
+                score.match = score.matches.find(m => m._id === score.matchId)
+                score.stage = score.match.stage
+                score.round = score.match.round
+              }
+            })
+            .catch(error => console.error(error))
+        }
+      },
+      matchId: {
+        get: () => score._matchId,
+        set: matchId => {
+          score._matchId = matchId
+          if (score.matches) {
+            score.match = score.matches.find(m => m._id === score.matchId)
+            score.stage = score.match.stage
+            score.round = score.match.round
+          }
+        }
+      }
+    })
+
+    Object.assign(score, attrs)
+    score.teamText = score.matchText = score.tableText = 'Loading...'
+    score.teamError = score.matchError = score.ready = false
 
     score.init = () => {
       if (!score._initPromise) {
@@ -47,19 +86,6 @@ function Score (tournament, $http) {
         })
     }
 
-    score.reloadFromServer = () => {
-      score.ready = false
-      return $http.get(`/scores/${score._id}`)
-        .then(({ data }) => {
-          if (!data) {
-            const error = { status: 404 }
-            throw error
-          }
-          Object.assign(score, data)
-          score.ready = true
-        })
-    }
-
     score.sanitize = config => {
       const sanitizedScore = {
         missions: score.missions.map(mission => {
@@ -80,6 +106,7 @@ function Score (tournament, $http) {
         round: score.round,
         stage: score.stage,
         noShow: score.noShow,
+        public: score.public,
         matchId: score.matchId
       }
 
@@ -91,17 +118,6 @@ function Score (tournament, $http) {
 
       return sanitizedScore
     }
-
-    score.updateMatch = () => {
-      return tournament.loadTeamMatches(score.teamNumber)
-        .then(matches => {
-          score.matches = matches
-          score.matchId = matches.find(match => match.stage === score.stage && match.round === score.round).matchId
-        })
-    }
-
-    score.teamText = score.matchText = score.tableText = 'Loading...'
-    score.teamError = score.matchError = score.ready = false
 
     return score
   }

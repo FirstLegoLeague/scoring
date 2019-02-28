@@ -7,13 +7,8 @@ export default {
         <i class="fas" ng-class="scores.tableView ? 'fa-th' : 'fa-list'"></i>
       </a>
       
-      <scores-tiles-menu class="menu" ng-hide="scores.tableView"
-        filters="scores.filters">
-      </scores-tiles-menu>
-
-      <scores-table-menu class="menu" ng-show="scores.tableView"
-        current-stage="scores.currentStage" stages="scores.stages">
-      </scores-table-menu>
+      <scores-sizes size="scores.size"></scores-sizes>
+      <scores-filters filters="scores.filters"></scores-filters>
     </div>
   </div>
 
@@ -21,23 +16,22 @@ export default {
     <scores-actions class="menu"></scores-actions>
   </div>
 </div>
-
 <div class="top-bar secondary" ng-if="!scores.ready"></div>
 
-<div class="top-bar-page" ng-class="{ loading: !scores.ready || (scores.tableView && !scores.rankingsReady) }">
+<div class="top-bar-page" ng-class="{ loading: !scores.ready }">
   <div class="dimmer">
     <div class="large loader"></div>
   </div>
 
   <div id="scores-list" ng-if="scores.any()">
-    <scores-tiles-content ng-hide="scores.tableView" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5"
-      scores="scores.data.scores" should-show-score="scores.shouldShowScore(score)"></scores-tiles-content>
+    <scores-tiles ng-hide="scores.tableView" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5"
+      scores="scores.data.scores" should-show-score="scores.shouldShowScore(score)"></scores-tiles>
 
-    <scores-table-content ng-show="scores.tableView" class="grid-y"
-      ranks="scores.rankings.ranks" stage="scores.currentStage"></scores-table-content>
+    <scores-table ng-show="scores.tableView" class="grid-y"
+      current-stage="scores.currentStage"></scores-table>
   </div>
 
-  <no-scores-message ng-if="!scores.any() && scores.ready" id="empty-scores-list" class="grid-container"></no-scores-message>
+  <no-scores-message id="empty-scores-list" ng-if="!scores.any() && scores.ready" class="grid-container"></no-scores-message>
 </div>
 
 <delete-all-scores-modal></delete-all-scores-modal>`,

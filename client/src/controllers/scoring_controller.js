@@ -1,7 +1,10 @@
 class ScoringController {
-  constructor ($window, $document, $location, $scope, configuration, user, logger) {
-    Object.assign(this, { $window, $document, $location, $scope, configuration, logger })
-    this.showScoresheet = this.$location.search()[ScoringController.showScoresheetParameter] === true || !user.isAdmin()
+  constructor ($window, $location, $scope, configuration, user, logger) {
+    Object.assign(this, { $window, $location, $scope, configuration, logger })
+    this.page = this.$location.search()[ScoringController.pageParameter]
+    if (!this.page) {
+      this.page = user.isAdmin() ? 'scores' : 'scoresheet'
+    }
   }
 
   $onInit () {
@@ -17,19 +20,19 @@ class ScoringController {
 
   _initEvents () {
     this.$scope.$on('open scoresheet', (event, score) => {
-      this.toggleScoresList()
+      this.togglePage()
       this.$scope.$broadcast('load', score)
     })
 
     this.$scope.$on('close scoresheet', (event, options) => {
       if (options.goToScores) {
-        this.toggleScoresList()
+        this.togglePage()
       }
       this.$scope.$broadcast('reload')
     })
 
     this.$scope.$on('toggle view', () => {
-      this.toggleScoresList()
+      this.togglePage()
     })
 
     this.$scope.$on('reinit foundation', () => {
@@ -40,19 +43,15 @@ class ScoringController {
     })
   }
 
-  toggleScoresList () {
-    this.showScoresheet = !this.showScoresheet
-    this.$location.search(ScoringController.showScoresheetParameter, this.showScoresheet)
-    this.$scope.$broadcast('toggle scores screen')
-  }
-
-  title () {
-    return this.showScoresheet ? 'scoresheet' : 'scores'
+  togglePage () {
+    this.page = this.page === 'scores' ? 'scoresheet' : 'scores'
+    this.$location.search(ScoringController.pageParameter, this.page)
+    this.$scope.$broadcast(`showing ${this.page}`)
   }
 }
 
-ScoringController.showScoresheetParameter = 'showScoresheet'
+ScoringController.pageParameter = 'page'
 ScoringController.$$ngIsClass = true
-ScoringController.$inject = ['$window', '$document', '$location', '$scope', 'Configuration', 'User', 'Logger']
+ScoringController.$inject = ['$window', '$location', '$scope', 'Configuration', 'User', 'Logger']
 
 export default ScoringController

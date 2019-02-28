@@ -23,12 +23,10 @@ import numberObjective from './scoresheet/objective_types/number_objective'
 
 import scores from './scores/scores'
 
-import scoresTilesContent from './scores/tiles/content'
-import scoresTilesMenu from './scores/tiles/menu'
+import scoresTiles from './scores/tiles/tiles'
 import scoreTile from './scores/tiles/tile'
 
-import scoresTableContent from './scores/table/content'
-import scoresTableMenu from './scores/table/menu'
+import scoresTable from './scores/table/table'
 import tableSlot from './scores/table/slot'
 
 import emptySlot from './scores/table/slot_types/empty_slot'
@@ -37,8 +35,10 @@ import conflictSlot from './scores/table/slot_types/conflict_slot'
 
 import conflictScore from './scores/table/slot_types/conflict_slot/conflict_score'
 
-import noScoresMessage from './scores/no_scores_message'
 import scoresActions from './scores/menu/scores_actions'
+import scoreSizes from './scores/menu/scores_sizes'
+
+import noScoresMessage from './scores/no_scores_message'
 import scoreActions from './scores/score_actions'
 
 export default {
@@ -60,14 +60,13 @@ export default {
   scores,
   noScoresMessage,
   scoresActions,
+  scoreSizes,
   scoreActions,
 
-  scoresTilesContent,
-  scoresTilesMenu,
+  scoresTiles,
   scoreTile,
 
-  scoresTableContent,
-  scoresTableMenu,
+  scoresTable,
   tableSlot,
 
   emptySlot,

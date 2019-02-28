@@ -1,12 +1,12 @@
 class MetadataInputsController {
-  constructor (scoresheet, scores, $scope, tournament, refIdentity, messanger, logger) {
-    Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, messanger, logger })
+  constructor (scoresheet, scores, $scope, tournament, refIdentity, logger) {
+    Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, logger })
     this.loading = true
   }
 
   $onInit () {
     this.$scope.$watch(() => this.teamNumber(), () => this.autosetSelectedMetadata())
-    this.$scope.$on('toggle scores screen', () => this.autosetSelectedMetadata())
+    this.$scope.$on('showing scoresheet', () => this.autosetSelectedMetadata())
     this.refIdentity.on('saved', () => {
       if (this.teamNumber()) {
         this.data.current.teamNumber = undefined
@@ -88,7 +88,7 @@ class MetadataInputsController {
       this.loadingMatches = true
       return Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
         .then(([matches]) => {
-          const scores = this.scores.all()
+          const scores = this.scores.scores
           this.data.dontRequireMatch = false
           matches.forEach(match => {
             match.complete = scores.some(score => score.teamNumber === this.teamNumber() && score.matchId === match._id)
@@ -123,6 +123,6 @@ class MetadataInputsController {
 }
 
 MetadataInputsController.$$ngIsClass = true
-MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'RefIdentity', 'Messanger', 'Logger']
+MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'RefIdentity', 'Logger']
 
 export default MetadataInputsController

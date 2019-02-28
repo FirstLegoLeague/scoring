@@ -1,16 +1,20 @@
 class ScoreActionsController {
-  constructor ($scope, $timeout, scores, modals) {
-    Object.assign(this, { $scope, $timeout, scores, modals })
+  constructor ($scope, $element, $timeout, scores, modals) {
+    Object.assign(this, { $scope, $element, $timeout, scores, modals })
   }
 
   // Actions
 
+  move (position) {
+
+  }
+
   openDeletionDialog () {
-    this.modals.open(`#score-${this.type}-${this.data._id} .deletion-modal`)
+    this.modals.open(this.$element.find('.deletion-modal'))
   }
 
   closeDeletionDialog () {
-    this.modals.close(`#score-${this.type}-${this.data._id} .deletion-modal`)
+    this.modals.close(this.$element.find('.deletion-modal'))
   }
 
   delete () {
@@ -22,7 +26,8 @@ class ScoreActionsController {
 
   togglePublish () {
     this.togglingPublish = true
-    return this.scores.update(this.data._id, { public: !this.data.public })
+    this.data.public = !this.data.public
+    return this.scores.update(this.data)
       .then(() => this.data.load())
       .then(() => {
         this.$timeout(() => { this.togglingPublish = false })
@@ -31,7 +36,8 @@ class ScoreActionsController {
 
   toggleNoShow () {
     this.togglingNoShow = true
-    return this.scores.update(this.data._id, { noShow: !this.data.noShow })
+    this.data.noShow = !this.data.noShow
+    return this.scores.update(this.data)
       .then(() => this.data.load())
       .then(() => {
         this.$timeout(() => { this.togglingNoShow = false })
@@ -44,6 +50,6 @@ class ScoreActionsController {
 }
 
 ScoreActionsController.$$ngIsClass = true
-ScoreActionsController.$inject = ['$scope', '$timeout', 'Scores', 'Modals']
+ScoreActionsController.$inject = ['$scope', '$element', '$timeout', 'Scores', 'Modals']
 
 export default ScoreActionsController

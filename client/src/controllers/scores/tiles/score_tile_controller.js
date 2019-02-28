@@ -1,57 +1,21 @@
 class ScoreTileController {
-  constructor ($scope, scores) {
-    Object.assign(this, { $scope, scores })
+  constructor ($scope, scores, tournament) {
+    Object.assign(this, { $scope, scores, tournament })
   }
 
   $onInit () {
-    this.$scope.$on('reset', (event, id) => {
-      if (id === undefined) {
-        return this.data.load()
-      } else if (id === this.data._id) {
-        return this.data.reloadFromServer()
-          .then(() => this.data.load())
-          .catch(error => {
-            if (error.status === 404) {
-              this.$scope.$emit('remove score', id)
-            }
-          })
-      }
-    })
-
-    this.data.init()
-  }
-
-  updateMatch () {
-    return this.data.updateMatch()
-      .then(() => this.save())
-  }
-
-  setMatch () {
-    const match = this.data.matches.find(m => m._id === this.data.matchId)
-    this.data.stage = match.stage
-    this.data.round = match.round
-    return this.save()
+    Promise.all([this.data.init(), this.tournament.init()])
+      .then(() => { this.ready = true })
+      .catch(error => console.log(error))
   }
 
   save () {
-    const match = this.data.matches.find(m => m.stage === this.data.stage && m.round === this.data.round)
-    const updateData = {
-      score: this.data.score,
-      teamNumber: this.data.teamNumber,
-      stage: match.stage,
-      round: match.round,
-      matchId: match._id,
-      tableId: this.data.tableId,
-      referee: this.data.referee,
-      noShow: this.data.noShow && this.score === 0
-    }
-
-    return this.scores.update(this.data._id, updateData)
+    return this.scores.update(this.data)
       .then(() => this.data.load())
   }
 }
 
 ScoreTileController.$$ngIsClass = true
-ScoreTileController.$inject = ['$scope', 'Scores']
+ScoreTileController.$inject = ['$scope', 'Scores', 'Tournament']
 
 export default ScoreTileController

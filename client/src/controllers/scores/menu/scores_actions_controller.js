@@ -1,6 +1,6 @@
 class ScoresActionsController {
-  constructor (scores, $scope, configuration, modals, user, logger) {
-    Object.assign(this, { data: scores, $scope, configuration, modals, logger })
+  constructor (scores, score, $scope, configuration, modals, user, logger) {
+    Object.assign(this, { scores, score, $scope, configuration, modals, logger })
     this.user = user.username
     this.isAdmin = user.isAdmin()
     this.rankingsUrl = '#'
@@ -14,7 +14,7 @@ class ScoresActionsController {
   }
 
   newScoresheet () {
-    this.$scope.$emit('toggle view')
+    this.$scope.$emit('open scoresheet', this.score())
   }
 
   openDeletionDialog () {
@@ -28,17 +28,13 @@ class ScoresActionsController {
   deleteAll () {
     this.closeDeletionDialog()
     this.deleting = true
-    this.data.deleteAll()
-      .then(() => {
-        this.deleting = false
-      }).catch(() => {
-        this.Notifications.error('Unable to delete score: Possible network error.')
-        this.deleting = false
-      })
+    return this.scores.deleteAll()
+      .catch(() => { this.Notifications.error('Unable to delete score: Possible network error.') })
+      .then(() => { this.deleting = false })
   }
 }
 
 ScoresActionsController.$$ngIsClass = true
-ScoresActionsController.$inject = ['Scores', '$scope', 'Configuration', 'Modals', 'User', 'Logger']
+ScoresActionsController.$inject = ['Scores', 'Score', '$scope', 'Configuration', 'Modals', 'User', 'Logger']
 
 export default ScoresActionsController

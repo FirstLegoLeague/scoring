@@ -109,7 +109,7 @@ router.post('/create', (req, res) => {
     .then(dbResult => {
       const score = dbResult.ops[0]
       res.status(201).send(score)
-      return publishMsg('scores:reload', { id: score._id })
+      return publishMsg('scores:reload', { id: score._id, action: 'add' })
     })
     .catch(err => {
       req.logger.error(err.message)
@@ -128,7 +128,7 @@ router.post('/:id/update', adminOrScorekeeperAction, (req, res) => {
       return scoringCollection.update({ _id: new ObjectID(req.params.id) }, { $set: updatedScore })
     })
     .then(() => res.status(204).send())
-    .then(() => publishMsg('scores:reload', { id: new ObjectID(req.params.id) }))
+    .then(() => publishMsg('scores:reload', { id: new ObjectID(req.params.id), action: 'update' }))
     .catch(err => {
       req.logger.error(err.message)
       if (err instanceof InvalidScore) {
@@ -143,7 +143,7 @@ router.delete('/all', adminAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.deleteMany({}))
     .then(() => res.status(204).send())
-    .then(() => publishMsg('scores:reload'))
+    .then(() => publishMsg('scores:reload', { action: 'delete all' }))
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send('A problem occoured while trying to delete scores.')
@@ -154,7 +154,7 @@ router.delete('/:id/delete', adminOrScorekeeperAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.deleteOne({ _id: new ObjectID(req.params.id) }))
     .then(() => res.status(204).send())
-    .then(() => publishMsg('scores:reload', { id: new ObjectID(req.params.id) }))
+    .then(() => publishMsg('scores:reload', { id: new ObjectID(req.params.id), action: 'remove' }))
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)

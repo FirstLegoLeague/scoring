@@ -1,5 +1,8 @@
-class Tournament {
+import EventEmitter from 'event-emitter-es6'
+
+class Tournament extends EventEmitter {
   constructor (independence, configuration, messanger, user) {
+    super()
     Object.assign(this, { independence, configuration, messanger })
     this.httpRequestConfig = { headers: { 'auth-token': user.authToken } }
     this._teamsMathcesPromises = { }
@@ -9,7 +12,7 @@ class Tournament {
   init () {
     return this.configuration.load().then(config => {
       this.tournamentUrl = config.tournamentUrl
-      this.messanger.on('teams:reload', () => this.teams(true))
+      this.messanger.on('teams:reload', () => this.loadTeams(true))
       this.messanger.on('tournamentStage:reload', ({ data }) => {
         this._currentStagePromise = Promise.resolve(data)
       })
