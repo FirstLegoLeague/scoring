@@ -7,7 +7,12 @@ function getPaddedNumber (number, digits = 2, padding = '0') {
   }
 }
 
-function Score (tournament, $http) {
+function Score (tournament, challenge) {
+  const DEFAULT_FILEDS = { score: 0 }
+  challenge.init()
+    .then(() => Object.assign(DEFAULT_FILEDS, challenge.challenge))
+    .catch(error => console.error(error))
+
   return function (attrs = {}) {
     const score = { }
 
@@ -48,7 +53,7 @@ function Score (tournament, $http) {
       }
     })
 
-    Object.assign(score, attrs)
+    Object.assign(score, attrs, DEFAULT_FILEDS)
     score.teamText = score.matchText = score.tableText = 'Loading...'
     score.teamError = score.matchError = score.ready = false
 
@@ -90,7 +95,7 @@ function Score (tournament, $http) {
 
     score.sanitize = config => {
       const sanitizedScore = {
-        missions: score.missions.map(mission => {
+        missions: (score.missions || challenge.challenge.missions).map(mission => {
           return {
             id: mission.id,
             score: mission.score,
@@ -103,13 +108,13 @@ function Score (tournament, $http) {
           }
         }),
         score: score.score,
-        challenge: score.title,
+        challenge: score.title || challenge.challenge.title,
         teamNumber: score.teamNumber,
+        matchId: score.matchId,
         round: score.round,
         stage: score.stage,
-        noShow: score.noShow,
-        public: score.public,
-        matchId: score.matchId
+        noShow: !!score.noShow,
+        public: !!score.public
       }
 
       Object.entries(Score.POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
@@ -131,6 +136,6 @@ Score.POSSIBLY_REQUIRED_FIELDS = {
   requireSignature: { name: 'signature' }
 }
 
-Score.$inject = ['Tournament', '$http']
+Score.$inject = ['Tournament', 'Challenge']
 
 export default Score

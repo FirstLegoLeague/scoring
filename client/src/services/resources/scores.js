@@ -33,7 +33,10 @@ class Scores extends EventEmitter {
     return this.configuration.load()
       .then(config => this.independence.send('POST', '/scores/create', this.score(attributes).sanitize(config)))
       .then(response => this._localyAddScore(response.data))
-      .then(id => this.emit('scores updated', { id, action: 'add' }))
+      .then(id => {
+        this.emit('scores updated', { id, action: 'add' })
+        return this.scores.find(score => score._id === id)
+      })
   }
 
   update (attributes) {
@@ -41,7 +44,10 @@ class Scores extends EventEmitter {
     return this.configuration.load()
       .then(config => this.independence.send('POST', `/scores/${attributes._id}/update`, this.score(attributes).sanitize(config)))
       .then(() => this._localyUpdateScore(attributes))
-      .then(() => this.emit('scores updated', { id: attributes._id, action: 'update' }))
+      .then(() => {
+        this.emit('scores updated', { id: attributes._id, action: 'update' })
+        return this.scores.find(score => score._id === attributes._id)
+      })
   }
 
   delete (id) {

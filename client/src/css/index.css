@@ -9,3 +9,16 @@
 .button:not(:hover) .hover-text {
 	display: none;
 }
+
+.top-bar {
+    height: 2.5rem !important;
+}
+
+.top-bar+.top-bar-page {
+    height: calc(100% - 2.5rem) !important;
+}
+
+.button {
+    font-size: 0.8rem !important;
+    padding: 0.5rem !important;
+}

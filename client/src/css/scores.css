@@ -18,7 +18,7 @@ score-tile h6 {
 
 .ranks {
   overflow-y: scroll;
-  height: calc(100vh - 8.8rem);
+  height: calc(100vh - 6.8rem);
 }
 .rank > .cell:first-child, scores-tiles > .cell {
   padding: 0 0.5rem 0 0.5rem !important;

@@ -1,6 +1,6 @@
 class EmptySlotController {
-  constructor ($scope, scores) {
-    Object.assign(this, { $scope, scores })
+  constructor ($scope, scores, tournament) {
+    Object.assign(this, { $scope, scores, tournament })
   }
 
   $onInit () {
@@ -13,6 +13,26 @@ class EmptySlotController {
       this.moveMode = false
       this._id = undefined
     })
+
+    this.tournament.loadTeamMatches(this.position.teamNumber)
+      .then(matches => {
+        this.matchId = matches.find(match => match.round === this.position.round && match.stage === this.position.stage)._id
+      })
+      .catch(error => console.error(error))
+  }
+
+  open () {
+    this.$scope.$emit('open scoresheet', this.scores.score(this.fullPosition()))
+  }
+
+  noShow () {
+    this.scores.create(Object.assign({ noShow: true }, this.fullPosition()))
+      .then(score => this.data.push(score))
+      .catch(error => console.log(error))
+  }
+
+  fullPosition () {
+    return Object.assign({ matchId: this.matchId }, this.position)
   }
 
   moveScoreHere () {
@@ -28,6 +48,6 @@ class EmptySlotController {
 }
 
 EmptySlotController.$$ngIsClass = true
-EmptySlotController.$inject = ['$scope', 'Scores']
+EmptySlotController.$inject = ['$scope', 'Scores', 'Tournament']
 
 export default EmptySlotController
