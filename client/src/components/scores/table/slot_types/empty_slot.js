@@ -1,6 +1,6 @@
 export default {
   template: `
-<div class="card grid-y" ng-class="{ 'move-mode': slot.moveMode }">
+<div class="card grid-y extra-content" ng-class="{ 'move-mode': slot.moveMode }">
  <div class="card-section flex-child-grow stat text-center" ng-if="!slot.moveMode">No score yet</div>
 
  <div class="card-section flex-child-shrink button-group" ng-if="!slot.moveMode">

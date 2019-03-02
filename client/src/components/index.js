@@ -36,7 +36,8 @@ import conflictSlot from './scores/table/slot_types/conflict_slot'
 import conflictScore from './scores/table/slot_types/conflict_slot/conflict_score'
 
 import scoresActions from './scores/menu/scores_actions'
-import scoreSizes from './scores/menu/scores_sizes'
+import scoresSizes from './scores/menu/scores_sizes'
+import scoresFilters from './scores/menu/scores_filters'
 
 import noScoresMessage from './scores/no_scores_message'
 import scoreActions from './scores/score_actions'
@@ -60,7 +61,8 @@ export default {
   scores,
   noScoresMessage,
   scoresActions,
-  scoreSizes,
+  scoresSizes,
+  scoresFilters,
   scoreActions,
 
   scoresTiles,

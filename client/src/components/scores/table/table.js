@@ -4,19 +4,20 @@ export default {
   <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
   <div class="cell" ng-class="table.teamCellWidthClass"></div>
   <div ng-repeat="header in table.roundHeaders" class="cell text-center" ng-class="table.scoreCellWidthClass">
-    <h5>{{header}}</h5>
+    <h5><span class="extra-content">round&nbsp;</span>{{header}}</h5>
   </div>
   <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
 </div>
-<div class="ranks">  
+<div class="ranks">
   <div ng-repeat="rank in table.rankings.rankings[table.currentStage]" class="rank grid-x grid-padding-x">
     <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
     <div class="cell grid-y" ng-class="table.teamCellWidthClass">
       <div class="card">
-        <div class="card-section">
+        <div class="card-section extra-content">
           <div class="team">{{rank.team.displayText}}</div>
           <div class="rank">Rank: #{{rank.rank}}</div>
         </div>
+        <div class="summery">#{{rank.rank}} <b>{{rank.team.displayText}}</b></div>
       </div>
     </div>
     <div ng-repeat="slotScores in rank.scores" class="cell grid-y" ng-class="table.scoreCellWidthClass">
@@ -30,6 +31,7 @@ export default {
 </div>`,
   controller: 'TableController as table',
   bindings: {
-    currentStage: '=?'
+    currentStage: '=?',
+    size: '=?'
   }
 }

@@ -14,11 +14,25 @@
     height: 2.5rem !important;
 }
 
-.top-bar+.top-bar-page {
+.top-bar .top-bar-left +.top-bar-right {
+	margin-left: 1rem;
+}
+
+.top-bar +.top-bar-page {
     height: calc(100% - 2.5rem) !important;
 }
 
 .button {
     font-size: 0.8rem !important;
     padding: 0.5rem !important;
+}
+
+.menu {
+	align-items: center;
+}
+
+.menu select, .menu input {
+	padding-top: 0;
+    padding-bottom: 0;
+    height: 1.8em;
 }

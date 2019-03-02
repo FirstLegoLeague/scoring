@@ -20,20 +20,16 @@ score-tile h6 {
   overflow-y: scroll;
   height: calc(100vh - 6.8rem);
 }
-.rank > .cell:first-child, scores-tiles > .cell {
+.rank > .cell:first-child, .ranks-header > .cell:first-child, scores-tiles > .cell {
   padding: 0 0.5rem 0 0.5rem !important;
 }
 
-.rank > .cell {
+.rank > .cell, .ranks-header > .cell {
   padding: 0 0.5rem 0 0 !important;
 }
 
 .rank .card, score-tile .card {
   margin-bottom: 0.5rem !important;
-}
-
-.rank .card {
-  height: 6em;
 }
 
 .rank .team {
@@ -50,11 +46,6 @@ scores .card .card-section:first-child {
 
 scores .button-group {
   margin: 0;
-}
-
-scores .button-group .button {
-  font-size: 0.8rem;
-  padding: 0.5rem;
 }
 
 conflict-slot {
@@ -102,3 +93,10 @@ empty-slot .card.move-mode .stat {
   align-items: center;
 }
 
+#scores-list.small .extra-content {
+  display: none;
+}
+
+#scores-list.big .summery {
+  display: none;
+}

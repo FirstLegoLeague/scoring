@@ -23,7 +23,7 @@ export default {
     </a>
   </div>
 
-  <div class="card-divider">
+  <div class="card-divider extra-content">
     <a editable-text="score.data.referee" buttons="no" blur="submit" onaftersave="score.save()">
       {{ score.data.referee || 'No one' }}
     </a>
@@ -35,7 +35,7 @@ export default {
     </span>
   </div>
 
-  <div class="card-section flex-child-shrink">
+  <div class="card-section flex-child-shrink extra-content">
     <score-actions data="score.data" hide="{ move: true }"></score-actions>
   </div>
 

@@ -17,8 +17,9 @@ class MetadataInputsController {
     this.$scope.$watch(() => this.data.current.matchId, () => {
       if (this.data.current.matchId) {
         if (this.matches.length) {
-          this.setMatch()
-          return this.data.process({ cantLoadMatches: this.cantLoadMatches })
+          return (this.matches ? Promise.resolve() : this.loadMatchOptions())
+            .then(() => this.setMatch())
+            .then(() => this.data.process({ cantLoadMatches: this.cantLoadMatches }))
             .catch(err => this.logger.error(err))
         } else {
           this.data.current.matchId = undefined

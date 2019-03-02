@@ -1,6 +1,7 @@
 const TOTAL_CELLS_COUNT = 12
 const MAX_SCORE_CELL_WIDTH = 5
-const MAX_TEAM_CELL_WIDTH = 3
+const MAX_TEAM_CELL_BIG_WIDTH = 3
+const MAX_TEAM_CELL_SMALL_WIDTH = 12
 
 class TableController {
   constructor (rankings, $scope, tournament, logger) {
@@ -12,6 +13,10 @@ class TableController {
       if (this.currentStage) {
         this.load()
       }
+    })
+
+    this.$scope.$watch(() => this.size, () => {
+      this._setCurrentCellSizes()
     })
 
     // move mode
@@ -34,18 +39,36 @@ class TableController {
     return this.rankings.loadRankingsForStage(this.currentStage)
       .then(() => {
         if (this.rankings.rankings[this.currentStage].length > 0) {
-          const scoresCount = this.rankings.rankings[this.currentStage][0].scores.length
-          const scoreCellWidth = Math.min(Math.floor(TOTAL_CELLS_COUNT / (scoresCount + 1)), MAX_SCORE_CELL_WIDTH)
-          const teamCellWidth = Math.min(TOTAL_CELLS_COUNT - scoresCount * scoreCellWidth, MAX_TEAM_CELL_WIDTH)
-          const margin = Math.floor((TOTAL_CELLS_COUNT - scoresCount * scoreCellWidth - teamCellWidth) / 2)
-          this.scoreCellWidthClass = `small-${scoreCellWidth}`
-          this.teamCellWidthClass = `small-${teamCellWidth}`
-          this.marginClass = margin > 0 ? `small-${margin}` : undefined
-          this.roundHeaders = Array.apply(null, { length: scoresCount }).map((x, i) => `round ${i + 1}`)
+          const roundsCount = this.rankings.rankings[this.currentStage][0].scores.length
+
+          const scoreCellSmallWidth = Math.min(Math.floor((TOTAL_CELLS_COUNT / 2) / (roundsCount + 1)), MAX_SCORE_CELL_WIDTH)
+          const teamCellSmallWidth = Math.min(TOTAL_CELLS_COUNT - roundsCount * scoreCellSmallWidth, MAX_TEAM_CELL_SMALL_WIDTH)
+          const smallMargin = Math.floor((TOTAL_CELLS_COUNT - roundsCount * scoreCellSmallWidth - teamCellSmallWidth) / 2)
+          this.scoreCellSmallWidthClass = `small-${scoreCellSmallWidth}`
+          this.teamCellSmallWidthClass = `small-${teamCellSmallWidth}`
+          this.marginSmallClass = smallMargin > 0 ? `small-${smallMargin}` : undefined
+
+          const scoreCellBigWidth = Math.min(Math.floor(TOTAL_CELLS_COUNT / (roundsCount + 1)), MAX_SCORE_CELL_WIDTH)
+          const teamCellBigWidth = Math.min(TOTAL_CELLS_COUNT - roundsCount * scoreCellBigWidth, MAX_TEAM_CELL_BIG_WIDTH)
+          const bigMargin = Math.floor((TOTAL_CELLS_COUNT - roundsCount * scoreCellBigWidth - teamCellBigWidth) / 2)
+          this.scoreCellBigWidthClass = `small-${scoreCellBigWidth}`
+          this.teamCellBigWidthClass = `small-${teamCellBigWidth}`
+          this.marginBigClass = bigMargin > 0 ? `small-${bigMargin}` : undefined
+
+          this.roundHeaders = Array.apply(null, { length: roundsCount }).map((x, i) => `${i + 1}`)
+
+          this._setCurrentCellSizes()
         }
         this.rankingsReady = true
       })
       .catch(err => this.logger.error(err))
+  }
+
+  _setCurrentCellSizes () {
+    const small = (this.size === 'small')
+    this.marginClass = small ? this.marginSmallClass : this.marginBigClass
+    this.scoreCellWidthClass = small ? this.scoreCellSmallWidthClass : this.scoreCellBigWidthClass
+    this.teamCellWidthClass = small ? this.teamCellSmallWidthClass : this.teamCellBigWidthClass
   }
 }
 
