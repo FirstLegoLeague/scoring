@@ -1,11 +1,29 @@
 class ScoresController {
   constructor (scores, $scope, tournament, logger) {
     Object.assign(this, { data: scores, $scope, tournament, logger })
+    this.sortFields = [
+      { field: 'teamNumber', text: 'team' },
+      { field: 'matchText', text: 'match' },
+      { field: 'score', text: 'score' },
+      { field: 'creation', text: 'creation' }
+    ]
+
+    this.sortOptions = this.sortFields.reduce((options, { field, text }) => {
+      return options.concat(['up', 'down'].map(direction => ({
+        value: `${field}_${direction}`,
+        text: `<i class="fa fa-angle-${direction}"></i> ${text}`
+      })))
+    }, [])
+
+    this.textsHash = this.sortOptions
+      .reduce((hash, { value, text }) => Object.assign(hash, { [value]: text }), {})
+
     this.filters = {
       search: '',
       showDuplicates: false,
       showErrors: false
     }
+    this.sort = 'creation_down'
     this.size = 'big'
   }
 
@@ -20,7 +38,13 @@ class ScoresController {
       }
     })
 
-    this.data.on('scores updates', () => this._calculateFilters())
+    this.$scope.$watch(() => this.sort, () => {
+      this._calculateOrder()
+    })
+    this.data.on('scores updates', () => {
+      this._calculateFilters()
+      this._calculateOrder()
+    })
   }
 
   loadRankingsMetadata () {
@@ -36,7 +60,11 @@ class ScoresController {
   load () {
     this.ready = false
     return Promise.all([this.data.init(), this.tournament.loadTeams(), this.tournament.loadTables()])
-      .then(() => { this.ready = true })
+      .then(() => {
+        this._calculateFilters()
+        this._calculateOrder()
+        this.ready = true
+      })
       .catch(err => this.logger.error(err))
   }
 
@@ -90,6 +118,13 @@ class ScoresController {
     this.filters.disableErrors = this.errorScores.length <= 0
     this.filters.showDuplicates = this.filters.showDuplicates && !this.filters.disableDuplicates
     this.filters.showErrors = this.filters.showErrors && !this.filters.disableErrors
+  }
+
+  _calculateOrder () {
+    const [field, direction] = this.sort.split('_')
+    const directionCoefficiant = direction === 'up' ? 1 : -1
+    this.sortedScores = this.data.scores
+      .sort((score1, score2) => (score1[field] - score2[field]) * directionCoefficiant)
   }
 }
 

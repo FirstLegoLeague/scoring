@@ -8,10 +8,24 @@ export default {
       </a>
       
       <scores-sizes class="button-group" size="scores.size"></scores-sizes>
-      <scores-filters class="flex-child-grow" filters="scores.filters"></scores-filters>
+      <scores-filters class="flex-child-grow menu" filters="scores.filters"></scores-filters>
 
-      <div class="menu" ng-if="scores.tableView">
+      <div class="menu" ng-show="scores.tableView">
         <select ng-model="scores.currentStage" ng-options="stage for stage in scores.stages"></select>
+      </div>
+      <div id="sort-dropdown" class="dropdown menu" data-dropdown-menu ng-hide="scores.tableView">
+        <li>
+          <div class="clear button"><i class="fa fa-caret-down"></i>&nbsp;Sort (<span ng-bind-html="scores.textsHash[scores.sort]"></span>)</div>
+          <ul class="menu">
+            <li ng-repeat="option in scores.sortOptions">
+              <div class="clear button"
+                ng-class="{ secondary: scores.sort !== option.value }"
+                ng-click="scores.sort = option.value"
+                ng-bind-html="option.text">
+              </div>
+            </li>
+          </ul>
+        </li>
       </div>
     </div>
   </div>
@@ -29,7 +43,7 @@ export default {
 
   <div id="scores-list" ng-if="scores.any()" ng-class="scores.size">
     <scores-tiles ng-hide="scores.tableView" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5"
-      scores="scores.data.scores" should-show-score="scores.shouldShowScore(score)"></scores-tiles>
+      scores="scores.sortedScores" should-show-score="scores.shouldShowScore(score)"></scores-tiles>
 
     <scores-table ng-show="scores.tableView" class="grid-y" ng-class="{ loading: !scores.rankingsReady }"
       current-stage="scores.currentStage" size="scores.size"></scores-table>

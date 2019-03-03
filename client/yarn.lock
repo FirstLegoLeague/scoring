@@ -260,6 +260,11 @@ angular-cookies@^1.7.1:
   resolved "https://registry.yarnpkg.com/angular-cookies/-/angular-cookies-1.7.4.tgz#f234ba50bfc03b18fe5bc15390002d45c5ce3e78"
   integrity sha512-NIEjCFkLD6YLQPBhycyszDJ0EFlXYxhmwRRgOnuAuHfch3Uz65Lp7LcHwg4tFJQs28jNK9j0CDbGKx87wQbatg==
 
+angular-sanitize@^1.7.7:
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/angular-sanitize/-/angular-sanitize-1.7.7.tgz#5852592ea885d48db1f2718a3ec7b6e3330950d6"
+  integrity sha512-DZ0kidLOOrq/mbqwKbeT2aSlT2Kdy25tZh5KcWOrRXx26imbhQfwbuncMYMFh7uPqfWySAI534+XhjnmhJ626Q==
+
 angular-signature@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/angular-signature/-/angular-signature-1.0.3.tgz#21182fc715d39489e2147f6da4a7e96a497fe1c6"

@@ -1,3 +1,13 @@
+
+#sort-dropdown ul {
+  width: 100%;
+  min-width: 100%;
+}
+
+#sort-dropdown li:nth-child(2n) {
+  background: #e0e0e0;
+}
+
 scores-tiles {
   margin-top: 1rem;
 }
@@ -99,4 +109,8 @@ empty-slot .card.move-mode .stat {
 
 #scores-list.big .summery {
   display: none;
+}
+
+#scores-list.small .rank .card {
+    margin-bottom: 0 !important;
 }

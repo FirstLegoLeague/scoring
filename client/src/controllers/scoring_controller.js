@@ -38,7 +38,7 @@ class ScoringController {
     this.$scope.$on('reinit foundation', () => {
       // Doing this in so-called "animation" in order to bypass the synchronized way that blocks the performance of the page
       setTimeout(() => {
-        this.$window.$('[data-tooltip]:not(.has-tip)').foundation()
+        this.$window.$('[data-tooltip]:not(.has-tip), [data-dropdown-menu]').foundation()
       })
     })
   }

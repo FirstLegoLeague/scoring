@@ -53,7 +53,7 @@ function Score (tournament, challenge) {
       }
     })
 
-    Object.assign(score, attrs, DEFAULT_FILEDS)
+    Object.assign(score, DEFAULT_FILEDS, attrs)
     score.teamText = score.matchText = score.tableText = 'Loading...'
     score.teamError = score.matchError = score.ready = false
 

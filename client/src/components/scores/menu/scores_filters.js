@@ -1,8 +1,9 @@
 export default {
-  template: ``,
+  template: `
+`,
   controller: function () { },
   controllerAs: 'filters',
   bindings: {
-    size: '=?'
+    data: '=?'
   }
 }

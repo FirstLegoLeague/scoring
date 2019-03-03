@@ -39,7 +39,7 @@ class EmptySlotController {
     const score = this.scores.scores.find(s => s._id === this._id)
     score.stage = this.position.stage
     score.round = this.position.round
-    score.teamNumber = this.position.team.number
+    score.teamNumber = this.position.teamNumber
     return this.scores.update(score)
       .then(() => score.load())
       .then(() => this.data.push(score))
