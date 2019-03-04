@@ -15,7 +15,7 @@ export default {
       <div class="card">
         <div class="card-section extra-content">
           <div class="team">{{rank.team.displayText}}</div>
-          <div class="rank">Rank: #{{rank.rank}}</div>
+          <div class="rank">Rank: #{{rank.rank}} with score {{rank.highest.score}}</div>
         </div>
         <div class="card-section extra-content">
           <div class="button-group">

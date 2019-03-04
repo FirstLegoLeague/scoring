@@ -44,6 +44,7 @@ class Rankings extends EventEmitter {
             arr[score.round - 1].push(score)
             return arr
           }, Array.apply(null, { length: rank.scores.length }).map(() => ([])))
+        rank.highest = rank.scores.reduce((highestScore, score) => (highestScore && (highestScore.score > score.score)) ? highestScore : score)
 
         rank.team = this.tournament.teams.find(team => team.number === rank.team.number)
       })
