@@ -10,12 +10,16 @@ class Rankings extends EventEmitter {
   init () {
     this.messanger.on('rankings:reload', () => {
       this.tournament.getCurrentStage()
-        .then(stage => this.loadRankingsForStage(stage))
+        .then(stage => {
+          this.loadRankingsForStage(stage)
+          this.emit('rankings updated')
+        })
         .catch(error => console.error(error))
-      this.emit('rankings updated')
     })
-    this.scores.on('scores updated', () => {
+    this.scores.on('scores updated', ({ id, score, action }) => {
+      this.messanger.ignoreNext('rankings:reload')
       this._calc()
+      this.emit('rankings updated', { id, score, action })
     })
   }
 
@@ -25,7 +29,7 @@ class Rankings extends EventEmitter {
         .then(() => this.independence.send('GET', `${this.configuration.rankingsUrl}/rankings.json?stage=${stage}`))
         .then(response => {
           this.rankings[stage] = response.data
-          this._calc(stage)
+          this._calc()
         })
     }
     return this._rankingsPromises[stage]
@@ -44,7 +48,6 @@ class Rankings extends EventEmitter {
         rank.team = this.tournament.teams.find(team => team.number === rank.team.number)
       })
     })
-    this.emit('rankings updated')
   }
 }
 

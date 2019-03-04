@@ -112,5 +112,10 @@ empty-slot .card.move-mode .stat {
 }
 
 #scores-list.small .rank .card {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#scores-list.big .rank > :first-child > .card {
+  border-radius: 3rem 0 0 3rem;
+  padding-left: 3rem;
 }

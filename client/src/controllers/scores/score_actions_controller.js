@@ -28,7 +28,6 @@ class ScoreActionsController {
     this.closeDeletionDialog()
     this.deleting = true
     return this.scores.delete(this.data._id)
-      .then(() => this.$scope.$emit('remove score', this.data._id))
   }
 
   togglePublish () {

@@ -34,8 +34,9 @@ class Scores extends EventEmitter {
       .then(config => this.independence.send('POST', '/scores/create', this.score(attributes).sanitize(config)))
       .then(response => this._localyAddScore(response.data))
       .then(id => {
-        this.emit('scores updated', { id, action: 'add' })
-        return this.scores.find(score => score._id === id)
+        const score = this.scores.find(s => s._id === id)
+        this.emit('scores updated', { id, score, action: 'add' })
+        return score
       })
   }
 
@@ -45,16 +46,18 @@ class Scores extends EventEmitter {
       .then(config => this.independence.send('POST', `/scores/${attributes._id}/update`, this.score(attributes).sanitize(config)))
       .then(() => this._localyUpdateScore(attributes))
       .then(() => {
-        this.emit('scores updated', { id: attributes._id, action: 'update' })
-        return this.scores.find(score => score._id === attributes._id)
+        const score = this.scores.find(s => s._id === attributes._id)
+        this.emit('scores updated', { id: score._id, score, action: 'update' })
+        return score
       })
   }
 
   delete (id) {
     this._ignoreNextMessage()
+    const score = this.scores.find(s => s._id === id)
     return this.independence.send('DELETE', `/scores/${id}/delete`)
-      .then(() => { this.scores = this.scores.filter(score => score._id !== id) })
-      .then(() => this.emit('scores updated', { id, action: 'remove' }))
+      .then(() => { this.scores = this.scores.filter(s => s._id !== id) })
+      .then(() => this.emit('scores updated', { id, score, action: 'remove' }))
   }
 
   deleteAll () {

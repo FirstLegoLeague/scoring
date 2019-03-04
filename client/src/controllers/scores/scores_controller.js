@@ -41,7 +41,7 @@ class ScoresController {
     this.$scope.$watch(() => this.sort, () => {
       this._calculateOrder()
     })
-    this.data.on('scores updates', () => {
+    this.data.on('scores updated', () => {
       this._calculateFilters()
       this._calculateOrder()
     })
