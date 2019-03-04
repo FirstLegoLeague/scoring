@@ -115,7 +115,6 @@ class TableController {
   }
 
   _enrichRank (rank) {
-    rank.allScores = rank.scores.reduce((arr, roundScores) => arr.concat(roundScores), [])
     rank.allScoresUnpublished = rank.allScores.every(score => !score.public)
     rank.allScoresNoShow = rank.allScores.every(score => score.noShow)
   }

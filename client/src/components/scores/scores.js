@@ -8,7 +8,7 @@ export default {
       </a>
       
       <scores-sizes class="button-group" size="scores.size"></scores-sizes>
-      <scores-filters class="flex-child-grow menu" filters="scores.filters"></scores-filters>
+      <scores-filters class="flex-child-grow menu" data="scores.filters"></scores-filters>
 
       <div class="menu" ng-show="scores.tableView">
         <select ng-model="scores.currentStage" ng-options="stage for stage in scores.stages"></select>

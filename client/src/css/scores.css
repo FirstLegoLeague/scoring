@@ -119,3 +119,8 @@ empty-slot .card.move-mode .stat {
   border-radius: 3rem 0 0 3rem;
   padding-left: 3rem;
 }
+
+.teams-dropdown ul {
+  max-height: 10rem;
+  overflow-y: scroll;
+}

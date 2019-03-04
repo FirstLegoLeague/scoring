@@ -38,13 +38,16 @@ class Rankings extends EventEmitter {
   _calc () {
     Object.entries(this.rankings).forEach(([stage, rankings]) => {
       rankings.forEach(rank => {
-        rank.scores = this.scores.scores
+        rank.allScores = this.scores.scores
           .filter(score => score.teamNumber === rank.team.number && score.stage === stage)
+        rank.scores = rank.allScores
           .reduce((arr, score) => {
             arr[score.round - 1].push(score)
             return arr
           }, Array.apply(null, { length: rank.scores.length }).map(() => ([])))
-        rank.highest = rank.scores.reduce((highestScore, score) => (highestScore && (highestScore.score > score.score)) ? highestScore : score)
+        if (rank.allScores.length > 0) {
+          rank.highest = rank.allScores.reduce((highestScore, score) => (highestScore && (highestScore.score > score.score)) ? highestScore : score)
+        }
 
         rank.team = this.tournament.teams.find(team => team.number === rank.team.number)
       })

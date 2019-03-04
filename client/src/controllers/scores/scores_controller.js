@@ -1,3 +1,7 @@
+const SHOW_ALL = 0
+const SHOW_PUBLIC = 1
+const SHOW_UNPUBLIC = 2
+
 class ScoresController {
   constructor (scores, $scope, tournament, logger) {
     Object.assign(this, { data: scores, $scope, tournament, logger })
@@ -20,8 +24,10 @@ class ScoresController {
 
     this.filters = {
       search: '',
+      teams: [],
       showDuplicates: false,
-      showErrors: false
+      showErrors: false,
+      showPublic: SHOW_ALL
     }
     this.sort = 'creation_down'
     this.size = 'big'
@@ -89,8 +95,25 @@ class ScoresController {
       return false
     }
 
+    // Filter by showNoShow
+    if (this.filters.showNoShow && !this.noShowScores.includes(score)) {
+      return false
+    }
+
     // Filter by showErrors
     if (this.filters.showErrors && !this.errorScores.includes(score)) {
+      return false
+    }
+
+    // Filter by teams
+    if (this.filters.teams.length > 0 && !this.filters.teams.includes(score.teamNumber)) {
+      return false
+    }
+
+    // Filter by publication
+    if (this.filters.showPublic === SHOW_PUBLIC && !score.public) {
+      return false
+    } else if (this.filters.showPublic === SHOW_UNPUBLIC && score.public) {
       return false
     }
 
@@ -111,13 +134,21 @@ class ScoresController {
       typeof score.teamNumber === 'undefined' || typeof score.matchId === 'undefined' || score.matchId === 0 ||
       (this.ready && !this.tournament.teams.some(team => team.number === score.teamNumber)))
 
+    this.noShowScores = this.data.scores.filter(score => score.noShow)
+
     this.errorScores = this.duplicateScores.concat(missingFieldScores)
       .filter((value, index, arr) => arr.indexOf(value) === index)
 
-    this.filters.disableDuplicates = this.duplicateScores.length <= 0
-    this.filters.disableErrors = this.errorScores.length <= 0
+    this.filters.dissableAll = this.data.scores.length === 0
+    this.filters.disableDuplicates = this.duplicateScores.length === 0
+    this.filters.disableErrors = this.errorScores.length === 0
+    this.filters.disableNoShow = this.noShowScores.length === 0
     this.filters.showDuplicates = this.filters.showDuplicates && !this.filters.disableDuplicates
     this.filters.showErrors = this.filters.showErrors && !this.filters.disableErrors
+
+    this.filters.showDuplicates = this.filters.showDuplicates && !this.filters.disableDuplicates
+    this.filters.showErrors = this.filters.showErrors && !this.filters.disableErrors
+    this.filters.showNoShow = this.filters.showNoShow && !this.filters.disableNoShow
   }
 
   _calculateOrder () {
