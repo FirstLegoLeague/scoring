@@ -31,7 +31,7 @@ export default {
       <span class="hover-text">Only no-show</span>
     </div>
   </div>
-  <div class="teams-dropdown dropdown menu" data-dropdown-menu ng-if="filters.tournament.teams">
+  <div class="filter-dropdown dropdown menu" data-dropdown-menu ng-if="filters.tournament.teams">
     <li>
       <div class="clear button">
         <i class="fa fa-caret-down"></i>&nbsp;Teams&nbsp;
@@ -56,11 +56,10 @@ export default {
 
     $scope.filters.toggleTeam = team => {
       if ($scope.filters.data.teams.includes(team.number)) {
-        $scope.filters.data.teams = $scope.filters.teams.filter(teamNumber => teamNumber !== team.number)
+        $scope.filters.data.teams = $scope.filters.data.teams.filter(teamNumber => teamNumber !== team.number)
       } else {
         $scope.filters.data.teams.push(team.number)
       }
-      console.log($scope.filters.data.teams)
     }
   }],
   controllerAs: 'filters',
