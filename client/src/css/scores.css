@@ -115,7 +115,7 @@ empty-slot .card.move-mode .stat {
   margin-bottom: 0 !important;
 }
 
-#scores-list.big .rank > :first-child > .card {
+#scores-list.big .rank > .team-cell > .card {
   border-radius: 3rem 0 0 3rem;
   padding-left: 3rem;
 }

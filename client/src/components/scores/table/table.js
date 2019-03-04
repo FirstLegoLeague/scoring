@@ -11,7 +11,7 @@ export default {
 <div class="ranks">
   <div ng-repeat="rank in table.rankings.rankings[table.currentStage]" class="rank grid-x grid-padding-x">
     <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
-    <div class="cell grid-y" ng-class="table.teamCellWidthClass">
+    <div class="cell grid-y team-cell" ng-class="table.teamCellWidthClass">
       <div class="card">
         <div class="card-section extra-content">
           <div class="team">{{rank.team.displayText}}</div>
