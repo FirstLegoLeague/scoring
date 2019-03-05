@@ -8,11 +8,12 @@ export default {
       </a>
       
       <scores-sizes class="button-group" size="scores.size"></scores-sizes>
-      <scores-filters class="flex-child-grow menu" data="scores.filters"></scores-filters>
 
       <div class="menu" ng-show="scores.tableView">
         <select ng-model="scores.currentStage" ng-options="stage for stage in scores.stages"></select>
       </div>
+
+      <scores-filters class="flex-child-grow menu" data="scores.filters" ng-hide="scores.tableView"></scores-filters>
       <div id="sort-dropdown" class="dropdown menu" data-dropdown-menu ng-hide="scores.tableView">
         <li>
           <div class="clear button"><i class="fa fa-caret-down"></i>&nbsp;Sort (<span ng-bind-html="scores.textsHash[scores.sort]"></span>)</div>

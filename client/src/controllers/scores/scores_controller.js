@@ -15,7 +15,7 @@ class ScoresController {
     this.sortOptions = this.sortFields.reduce((options, { field, text }) => {
       return options.concat(['up', 'down'].map(direction => ({
         value: `${field}_${direction}`,
-        text: `<i class="fa fa-angle-${direction}"></i> ${text}`
+        text: `<i class="fa fa-sort-amount-${direction}"></i> ${text}`
       })))
     }, [])
 
@@ -25,6 +25,9 @@ class ScoresController {
     this.filters = {
       search: '',
       teams: [],
+      rounds: [],
+      referees: [],
+      tables: [],
       showDuplicates: false,
       showErrors: false,
       showPublic: SHOW_ALL
@@ -107,6 +110,21 @@ class ScoresController {
 
     // Filter by teams
     if (this.filters.teams.length > 0 && !this.filters.teams.includes(score.teamNumber)) {
+      return false
+    }
+
+    // Filter by rounds
+    if (this.filters.rounds.length > 0 && !this.filters.rounds.some(round => round.stage === score.stage && round.round === score.round)) {
+      return false
+    }
+
+    // Filter by referees
+    if (this.filters.referees.length > 0 && this.filters.referees.includes(score.referee)) {
+      return false
+    }
+
+    // Filter by tables
+    if (this.filters.tables.length > 0 && !this.filters.tables.some(table => table.tableId === score.tableId)) {
       return false
     }
 

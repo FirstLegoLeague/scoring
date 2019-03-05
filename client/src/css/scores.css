@@ -122,5 +122,5 @@ empty-slot .card.move-mode .stat {
 
 .filter-dropdown ul {
   max-height: 10rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
