@@ -21,11 +21,18 @@ class EmptySlotController {
       .catch(error => console.error(error))
   }
 
-  open () {
+  createInScoresheet () {
     this.$scope.$emit('open scoresheet', this.scores.score(this.fullPosition()))
   }
 
-  noShow () {
+  createHere () {
+    const score = this.scores.score(this.fullPosition())
+    score.fakeSignature()
+    score.fillDefaults()
+    this.scores.create(score)
+  }
+
+  createWithNoShow () {
     this.scores.create(Object.assign({ noShow: true }, this.fullPosition()))
       .then(score => this.data.push(score))
       .catch(error => console.log(error))

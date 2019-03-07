@@ -4,12 +4,17 @@ export default {
  <div class="card-section flex-child-grow stat text-center" ng-if="!slot.moveMode">No score yet</div>
 
  <div class="card-section flex-child-shrink button-group" ng-if="!slot.moveMode">
-  <div class="button" ng-click="slot.open()">
+  <div class="button" ng-click="slot.createInScoresheet()">
     <i class="fas fa-file"></i>
-    <span class="hover-text">Create</span>
+    <span class="hover-text">Create in scoresheet</span>
   </div>
 
-  <div class="secondary button" ng-click="slot.noShow()">
+  <div class="secondary button" ng-click="slot.createHere()">
+    <i class="far fa-file"></i>
+    <span class="hover-text">Create here</span>
+  </div>
+
+  <div class="secondary button" ng-click="slot.createWithNoShow()">
     <i class="fas fa-ban"></i>
     <span class="hover-text">No show</span>
   </div>
