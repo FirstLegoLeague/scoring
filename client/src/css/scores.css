@@ -112,8 +112,18 @@ empty-slot .card.move-mode .stat {
   display: none;
 }
 
+#scores-list.small .rank > .cell:first-child, #scores-list.small .ranks-header > .cell:first-child {
+  padding: 0 0.1rem 0 0.5rem !important;
+}
+
+#scores-list.small .rank > .cell, #scores-list.small .ranks-header > .cell {
+  padding: 0 0.1rem !important;
+}
+
 #scores-list.small .rank .card {
-  margin-bottom: 0 !important;
+  padding: 0.1rem 0.5rem;
+  margin: 0 !important;
+  border: 0;
 }
 
 #scores-list.big .rank > .team-cell > .card {
