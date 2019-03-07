@@ -14,8 +14,12 @@ import RefIdentityController from './scoresheet/menu/ref_identity_controller'
 
 import ScoresController from './scores/scores_controller'
 import ScoresActionsController from './scores/menu/scores_actions_controller'
+import ScoresSortController from './scores/menu/scores_sort_controller'
+import ScoresStageController from './scores/menu/scores_stage_controller'
+import ScoresFiltersController from './scores/menu/scores_filters_controller'
 import ScoreActionsController from './scores/score_actions_controller'
 
+import ScoresTilesController from './scores/tiles/scores_tiles_controller'
 import ScoreTileController from './scores/tiles/score_tile_controller'
 
 import SlotController from './scores/table/slot_controller'
@@ -44,8 +48,12 @@ export default {
 
   ScoresController,
   ScoresActionsController,
+  ScoresSortController,
+  ScoresStageController,
+  ScoresFiltersController,
   ScoreActionsController,
 
+  ScoresTilesController,
   ScoreTileController,
 
   TableController,

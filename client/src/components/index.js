@@ -38,6 +38,10 @@ import conflictScore from './scores/table/slot_types/conflict_slot/conflict_scor
 import scoresActions from './scores/menu/scores_actions'
 import scoresSizes from './scores/menu/scores_sizes'
 import scoresFilters from './scores/menu/scores_filters'
+import scoresSort from './scores/menu/scores_sort'
+import scoresStage from './scores/menu/scores_stage'
+
+import collectionFilter from './scores/menu/filters/collection_filter'
 
 import noScoresMessage from './scores/no_scores_message'
 import scoreActions from './scores/score_actions'
@@ -64,6 +68,10 @@ export default {
   scoresSizes,
   scoresFilters,
   scoreActions,
+  scoresSort,
+  scoresStage,
+
+  collectionFilter,
 
   scoresTiles,
   scoreTile,
