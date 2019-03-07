@@ -82,6 +82,7 @@ conflict-slot .conflict-message {
   color: darkred;
   font-weight: bold;
   right: 0.5rem;
+  cursor: pointer;
 }
 
 empty-slot .card:not(.move-mode) {

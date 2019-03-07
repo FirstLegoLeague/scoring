@@ -1,22 +1,32 @@
 class ScoresController {
-  constructor (scores, $scope, tournament, logger) {
-    Object.assign(this, { data: scores, $scope, tournament, logger })
+  constructor (scores, $scope, $location, tournament, logger) {
+    Object.assign(this, { data: scores, $scope, $location, tournament, logger })
     this.filters = {
-      search: '',
       teams: [],
       rounds: [],
       referees: [],
       tables: [],
       showDuplicates: false,
+      showNoShow: false,
       showErrors: false,
       showPublic: 0
     }
     this.sort = 'creation_down'
     this.size = 'big'
+    this.tableView = this.$location.search()[ScoresController.pageParameter] === 'tiles'
   }
 
   $onInit () {
     this.ready = false
+
+    this.$scope.$on('open scores with filters', (event, filters) => {
+      this.tableView = false
+    })
+
+    this.$scope.$watch(() => this.tableView, () => {
+      this.$location.search(ScoresController.pageParameter, this.tableView ? 'tiles' : 'table')
+    })
+
     return Promise.all([this.data.init(), this.tournament.loadTeams(), this.tournament.loadTables()])
       .then(() => {
         this.$scope.$emit('reinit foundation')
@@ -30,7 +40,8 @@ class ScoresController {
   }
 }
 
+ScoresController.pageParameter = 'scoresPage'
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['Scores', '$scope', 'Tournament', 'Logger']
+ScoresController.$inject = ['Scores', '$scope', '$location', 'Tournament', 'Logger']
 
 export default ScoresController

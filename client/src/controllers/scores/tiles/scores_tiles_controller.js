@@ -11,6 +11,11 @@ class ScoresTilesController {
       this._calculateOrder()
     })
 
+    this.$scope.$on('open scores with filters', (event, filters) => {
+      this._calculateFilters()
+      this._calculateOrder()
+    })
+
     this.scores.on('scores updated', () => {
       this._calculateFilters()
       this._calculateOrder()
@@ -19,13 +24,6 @@ class ScoresTilesController {
 
   shouldShowScore (score) {
     if (!this.ready) {
-      return false
-    }
-
-    // Filter by search
-    if (this.filters.search && !([score.teamText, score.referee, score.tableText, score.matchText, score.score]
-      .map(field => (field && typeof field === 'string') ? field.toLowerCase() : field)
-      .some(value => (value || '').toString().includes(this.filters.search.toLowerCase())))) {
       return false
     }
 

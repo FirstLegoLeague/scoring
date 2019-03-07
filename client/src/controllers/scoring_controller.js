@@ -35,6 +35,13 @@ class ScoringController {
       this.togglePage()
     })
 
+    this.$scope.$on('open scores with filters', (event, filters) => {
+      if (event.targetScope !== this.$scope) {
+        this.page = 'scores'
+        this.$scope.$broadcast('open scores with filters', filters)
+      }
+    })
+
     this.$scope.$on('reinit foundation', () => {
       // Doing this in so-called "animation" in order to bypass the synchronized way that blocks the performance of the page
       setTimeout(() => {

@@ -31,6 +31,7 @@ export default {
       <span class="hover-text">Only no-show</span>
     </div>
   </div>
+  
   <collection-filter class="menu" title="'Teams'" data="filters.data.teams"
     options="filters.tournament.teams" display="filters.teamText(option)">
   </collection-filter>

@@ -4,6 +4,22 @@ class ScoresFiltersController {
   }
 
   $onInit () {
+    this.$scope.$on('open scores with filters', (event, filters) => {
+      Object.assign(this.data, {
+        teams: this.tournament.teams
+          .filter(team => filters.teams.includes(team.number)),
+        rounds: this.rounds
+          .filter(round1 => filters.rounds.some(round2 => round1.round === round2.round && round1.stage === round2.stage)),
+        referees: this.referees
+          .filter(team => filters.teams.includes(team.numbers)),
+        tables: this.tournament.tables
+          .filter(table => filters.tables.includes(table)),
+        showDuplicates: filters.showDuplicates,
+        showErrors: filters.showErrors,
+        showPublic: filters.showPublic
+      })
+    })
+
     this.scores.on('scores updated', () => this._loadOptions())
     this.tournament.loadTeams()
     this.tournament.loadTables()
