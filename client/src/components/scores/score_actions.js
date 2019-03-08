@@ -10,15 +10,15 @@ export default {
     <span class="hover-text">Open</span>
   </div>
   <div class="button" ng-if="!scoreActions.hide || !scoreActions.hide.publish" ng-click="scoreActions.togglePublish()" ng-class="{ 'secondary': scoreActions.data.public }" ng-disabled="loading">
-    <i class="fa" ng-class="scoreActions.togglingPublish ? 'fa-circle-notch fa-spin' : (scoreActions.data.public ? 'fa-minus-circle' : 'fa-plus-circle')"></i>
+    <i class="fa" ng-class="scoreActions.data.public ? 'fa-minus-circle' : 'fa-plus-circle'"></i>
     <span class="hover-text">{{(scoreActions.data.public ? 'Unpublish' : 'Publish')}}</span>
   </div>
   <div class="button" ng-if="!scoreActions.hide || !scoreActions.hide.noShow" ng-click="scoreActions.toggleNoShow()" ng-class="{ 'secondary': !scoreActions.data.noShow }" ng-disabled="loading">
-    <i class="fa" ng-class="scoreActions.togglingNoShow ? 'fa-circle-notch fa-spin' : 'fa-ban'"></i>
+    <i class="fa fa-ban"></i>
     <span class="hover-text">{{(scoreActions.data.noShow ? 'Show' : 'No Show')}}</span>
   </div>
   <div class="alert button" ng-if="!scoreActions.hide || !scoreActions.hide.delete" ng-click="scoreActions.openDeletionDialog()" ng-disabled="loading">
-    <i class="fa" ng-class="scoreActions.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i>
+    <i class="fa fa-trash-alt"></i>
     <span class="hover-text">Delete</span>
   </div>
 </div>

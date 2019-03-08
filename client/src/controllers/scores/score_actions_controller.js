@@ -1,6 +1,6 @@
 class ScoreActionsController {
-  constructor ($scope, $element, $timeout, scores, modals) {
-    Object.assign(this, { $scope, $element, $timeout, scores, modals })
+  constructor ($scope, $element, $timeout, scores, modals, notifications, logger) {
+    Object.assign(this, { $scope, $element, $timeout, scores, modals, notifications, logger })
   }
 
   $onInit () {
@@ -26,25 +26,26 @@ class ScoreActionsController {
 
   delete () {
     this.closeDeletionDialog()
-    this.deleting = true
     return this.scores.delete(this.data._id)
+      .catch(error => {
+        this.logger.error(error)
+        this.notifications.error('Failed deleting score')
+      })
   }
 
   togglePublish () {
-    this.togglingPublish = true
-    this.data.public = !this.data.public
-    return this.save()
-      .then(() => {
-        this.$timeout(() => { this.togglingPublish = false })
+    return this.save({ public: !this.data.public })
+      .catch(error => {
+        this.logger.error(error)
+        this.notifications.error('Failed toggling publication')
       })
   }
 
   toggleNoShow () {
-    this.togglingNoShow = true
-    this.data.noShow = !this.data.noShow
-    return this.save()
-      .then(() => {
-        this.$timeout(() => { this.togglingNoShow = false })
+    return this.save({ noShow: !this.data.noShow })
+      .catch(error => {
+        this.logger.error(error)
+        this.notifications.error('Failed toggling No-Show')
       })
   }
 
@@ -52,9 +53,8 @@ class ScoreActionsController {
     this.$scope.$emit('open scoresheet', this.data)
   }
 
-  save () {
-    return this.scores.update(this.data)
-      .then(() => this.data.load())
+  save (updated_attr = {}) {
+    return this.scores.update(Object.assign({}, this.data, updated_attr))
   }
 
   _deletionModal () {
@@ -73,6 +73,6 @@ class ScoreActionsController {
 }
 
 ScoreActionsController.$$ngIsClass = true
-ScoreActionsController.$inject = ['$scope', '$element', '$timeout', 'Scores', 'Modals']
+ScoreActionsController.$inject = ['$scope', '$element', '$timeout', 'Scores', 'Modals', 'Notifications', 'Logger']
 
 export default ScoreActionsController

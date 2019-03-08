@@ -5,7 +5,6 @@ class ScoreTileController {
 
   $onInit () {
     Promise.all([this.data.init(), this.tournament.init()])
-      .then(() => { this.ready = true })
       .catch(error => console.log(error))
   }
 

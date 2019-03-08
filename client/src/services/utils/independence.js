@@ -1,8 +1,8 @@
 const STORAGE_KEY_PREFIX = 'independence_actions'
 
 class Independence {
-  constructor ($http, $window, logger) {
-    Object.assign(this, { $http, $window, logger })
+  constructor ($http, $window) {
+    Object.assign(this, { $http, $window })
     this.lastSuccessfulRequestTime = Date.now()
     this.retryPendingRequests()
   }
@@ -74,6 +74,6 @@ class Independence {
 }
 
 Independence.$$ngIsClass = true
-Independence.$inject = ['$http', '$window', 'Logger']
+Independence.$inject = ['$http', '$window']
 
 export default Independence

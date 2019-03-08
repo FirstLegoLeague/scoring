@@ -1,6 +1,6 @@
 export default {
   template: `
-<div id="score-slot-{{slot.score._id}}" class="card" ng-class="{ 'dimmed disabled': slot.dimmed }">
+<div id="score-slot-{{slot.score._id}}" class="card" ng-class="{ 'dimmed disabled': slot.dimmed, loading: !slot.score.ready }">
   <div class="card-section extra-content">
     <div class="grid-x">
       <div class="cell small-4">
@@ -32,6 +32,10 @@ export default {
     <score-actions data="slot.score"></score-actions>
   </div>
   <div class="summery">{{slot.score.scoreText}}</div>
+
+  <div class="dimmer">
+    <div class="loader"></div>
+  </div>
 </div>`,
   controller: 'SingleScoreSlotController as slot',
   bindings: {

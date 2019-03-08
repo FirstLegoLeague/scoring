@@ -1,6 +1,6 @@
 class ScoresheetSignatureController {
-  constructor (scoresheet, $scope, configuration, logger) {
-    Object.assign(this, { data: scoresheet, $scope, configuration, logger })
+  constructor (scoresheet, $scope, configuration) {
+    Object.assign(this, { data: scoresheet, $scope, configuration })
   }
 
   $onInit () {
@@ -25,7 +25,7 @@ class ScoresheetSignatureController {
           })
         }
       })
-      .catch(err => this.logger.error(err))
+      .catch(err => console.error(err))
   }
 
   reset () {
@@ -51,6 +51,6 @@ class ScoresheetSignatureController {
 }
 
 ScoresheetSignatureController.$$ngIsClass = true
-ScoresheetSignatureController.$inject = ['Scoresheet', '$scope', 'Configuration', 'Logger']
+ScoresheetSignatureController.$inject = ['Scoresheet', '$scope', 'Configuration']
 
 export default ScoresheetSignatureController

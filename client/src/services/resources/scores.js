@@ -42,13 +42,17 @@ class Scores extends EventEmitter {
 
   update (attributes) {
     this._ignoreNextMessage()
+    const score = this.scores.find(s => s._id === attributes._id)
+    score.ready = false
     return this.configuration.load()
       .then(config => this.independence.send('POST', `/scores/${attributes._id}/update`, this.score(attributes).sanitize(config)))
       .then(() => this._localyUpdateScore(attributes))
       .then(() => {
-        const score = this.scores.find(s => s._id === attributes._id)
         this.emit('scores updated', { id: score._id, score, action: 'update' })
         return score
+      }).catch(err => {
+        score.ready = true
+        throw err
       })
   }
 
@@ -124,6 +128,6 @@ class Scores extends EventEmitter {
 }
 
 Scores.$$ngIsClass = true
-Scores.$inject = ['Independence', 'Score', 'Tournament', 'Messanger', 'Configuration', 'Notifications']
+Scores.$inject = ['Independence', 'Score', 'Tournament', 'Messanger', 'Configuration']
 
 export default Scores

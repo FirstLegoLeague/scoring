@@ -1,6 +1,6 @@
 class ScoringController {
-  constructor ($window, $location, $scope, configuration, user, logger) {
-    Object.assign(this, { $window, $location, $scope, configuration, logger })
+  constructor ($window, $location, $scope, configuration, user) {
+    Object.assign(this, { $window, $location, $scope, configuration })
     this.page = this.$location.search()[ScoringController.pageParameter]
     if (!this.page) {
       this.page = user.isAdmin() ? 'scores' : 'scoresheet'
@@ -15,7 +15,7 @@ class ScoringController {
   _initConfiguration () {
     this.configuration.load()
       .then(config => { this.logoutUrl = config.logoutUrl })
-      .catch(err => this.logger.error(err))
+      .catch(err => console.error(err))
   }
 
   _initEvents () {
@@ -59,6 +59,6 @@ class ScoringController {
 
 ScoringController.pageParameter = 'page'
 ScoringController.$$ngIsClass = true
-ScoringController.$inject = ['$window', '$location', '$scope', 'Configuration', 'User', 'Logger']
+ScoringController.$inject = ['$window', '$location', '$scope', 'Configuration', 'User']
 
 export default ScoringController

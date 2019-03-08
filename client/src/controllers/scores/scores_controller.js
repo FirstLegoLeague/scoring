@@ -1,6 +1,6 @@
 class ScoresController {
-  constructor (scores, $scope, $location, tournament, logger) {
-    Object.assign(this, { data: scores, $scope, $location, tournament, logger })
+  constructor (scores, $scope, $location, tournament) {
+    Object.assign(this, { data: scores, $scope, $location, tournament })
     this.filters = {
       teams: [],
       rounds: [],
@@ -32,7 +32,7 @@ class ScoresController {
         this.$scope.$emit('reinit foundation')
         this.ready = true
       })
-      .catch(err => this.logger.error(err))
+      .catch(err => console.error(err))
   }
 
   any () {
@@ -42,6 +42,6 @@ class ScoresController {
 
 ScoresController.pageParameter = 'scoresPage'
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['Scores', '$scope', '$location', 'Tournament', 'Logger']
+ScoresController.$inject = ['Scores', '$scope', '$location', 'Tournament']
 
 export default ScoresController

@@ -4,8 +4,8 @@ const MAX_TEAM_CELL_BIG_WIDTH = 3
 const MAX_TEAM_CELL_SMALL_WIDTH = 12
 
 class TableController {
-  constructor (rankings, scores, $scope, tournament, logger) {
-    Object.assign(this, { rankings, scores, $scope, tournament, logger })
+  constructor (rankings, scores, $scope, tournament) {
+    Object.assign(this, { rankings, scores, $scope, tournament })
   }
 
   $onInit () {
@@ -73,7 +73,7 @@ class TableController {
         }
         this.ready = true
       })
-      .catch(err => this.logger.error(err))
+      .catch(err => console.error(err))
   }
 
   deleteRankScores (rank) {
@@ -121,6 +121,6 @@ class TableController {
 }
 
 TableController.$$ngIsClass = true
-TableController.$inject = ['Rankings', 'Scores', '$scope', 'Tournament', 'Logger']
+TableController.$inject = ['Rankings', 'Scores', '$scope', 'Tournament']
 
 export default TableController

@@ -1,6 +1,6 @@
 class MetadataInputsController {
-  constructor (scoresheet, scores, $scope, tournament, refIdentity, logger) {
-    Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, logger })
+  constructor (scoresheet, scores, $scope, tournament, refIdentity) {
+    Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity })
     this.loading = true
   }
 
@@ -20,7 +20,7 @@ class MetadataInputsController {
           return (this.matches ? Promise.resolve() : this.loadMatchOptions())
             .then(() => this.setMatch())
             .then(() => this.data.process({ cantLoadMatches: this.cantLoadMatches }))
-            .catch(err => this.logger.error(err))
+            .catch(err => console.error(err))
         } else {
           this.data.current.matchId = undefined
         }
@@ -104,7 +104,7 @@ class MetadataInputsController {
           return this.data.process()
         })
         .catch(err => {
-          this.logger.error(err)
+          console.error(err)
           this.loadingMatches = false
           this.data.dontRequireMatch = true
           return this.data.process()
@@ -124,6 +124,6 @@ class MetadataInputsController {
 }
 
 MetadataInputsController.$$ngIsClass = true
-MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'RefIdentity', 'Logger']
+MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'RefIdentity']
 
 export default MetadataInputsController

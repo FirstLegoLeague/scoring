@@ -1,6 +1,6 @@
 class ScoresStageController {
-  constructor (tournament, logger) {
-    Object.assign(this, { tournament, logger })
+  constructor (tournament) {
+    Object.assign(this, { tournament })
   }
 
   $onInit () {
@@ -10,11 +10,11 @@ class ScoresStageController {
         Object.assign(this, { data, options })
         this.ready = true
       })
-      .catch(error => this.logger.error(error))
+      .catch(error => console.error(error))
   }
 }
 
 ScoresStageController.$$ngIsClass = true
-ScoresStageController.$inject = ['Tournament', 'Logger']
+ScoresStageController.$inject = ['Tournament']
 
 export default ScoresStageController

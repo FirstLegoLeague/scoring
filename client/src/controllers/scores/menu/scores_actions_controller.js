@@ -1,6 +1,6 @@
 class ScoresActionsController {
-  constructor (scores, score, $scope, configuration, modals, user, logger) {
-    Object.assign(this, { scores, score, $scope, configuration, modals, logger })
+  constructor (scores, score, $scope, configuration, modals, user) {
+    Object.assign(this, { scores, score, $scope, configuration, modals })
     this.user = user.username
     this.isAdmin = user.isAdmin()
     this.rankingsUrl = '#'
@@ -10,7 +10,7 @@ class ScoresActionsController {
     this.configuration.load().then(config => {
       this.rankingsUrl = `${config.rankingsUrl}/rankings.csv?hideNegatives=false`
     })
-      .catch(err => this.logger.error(err))
+      .catch(err => console.error(err))
   }
 
   newScoresheet () {
@@ -29,12 +29,11 @@ class ScoresActionsController {
     this.closeDeletionDialog()
     this.deleting = true
     return this.scores.deleteAll()
-      .catch(() => { this.Notifications.error('Unable to delete score: Possible network error.') })
       .then(() => { this.deleting = false })
   }
 }
 
 ScoresActionsController.$$ngIsClass = true
-ScoresActionsController.$inject = ['Scores', 'Score', '$scope', 'Configuration', 'Modals', 'User', 'Logger']
+ScoresActionsController.$inject = ['Scores', 'Score', '$scope', 'Configuration', 'Modals', 'User']
 
 export default ScoresActionsController

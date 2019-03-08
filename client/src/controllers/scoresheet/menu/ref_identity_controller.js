@@ -1,8 +1,8 @@
 const MODAL = '#identity-modal'
 
 class RefIdentityController {
-  constructor (refIdentity, $scope, configuration, user, modals, logger) {
-    Object.assign(this, { data: refIdentity, $scope, configuration, modals, logger })
+  constructor (refIdentity, $scope, configuration, user, modals) {
+    Object.assign(this, { data: refIdentity, $scope, configuration, modals })
     this.isRef = user.isRef()
     this.showTopbarButton = false
     this.title = 'Choose your codename'
@@ -28,7 +28,7 @@ class RefIdentityController {
           this.$scope.$emit('proccess scoresheet')
         })
       })
-      .catch(err => this.logger.error(err))
+      .catch(err => console.error(err))
   }
 
   open () {
@@ -67,6 +67,6 @@ class RefIdentityController {
 }
 
 RefIdentityController.$$ngIsClass = true
-RefIdentityController.$inject = ['RefIdentity', '$scope', 'Configuration', 'User', 'Modals', 'Logger']
+RefIdentityController.$inject = ['RefIdentity', '$scope', 'Configuration', 'User', 'Modals']
 
 export default RefIdentityController

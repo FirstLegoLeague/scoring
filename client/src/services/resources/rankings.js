@@ -56,6 +56,6 @@ class Rankings extends EventEmitter {
 }
 
 Rankings.$$ngIsClass = true
-Rankings.$inject = ['Independence', 'Scores', 'Tournament', 'Messanger', 'Configuration', 'Notifications']
+Rankings.$inject = ['Independence', 'Scores', 'Tournament', 'Messanger', 'Configuration']
 
 export default Rankings
