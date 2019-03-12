@@ -1,23 +1,23 @@
 export default {
   template: `
 <div class="button-group">
-  <div class="secondary button" ng-if="!scoreActions.hide || !scoreActions.hide.move" ng-click="scoreActions.toggleMoveMode()" ng-disabled="loading">
+  <div class="secondary button move" ng-if="!scoreActions.hide || !scoreActions.hide.move" ng-click="scoreActions.toggleMoveMode()" ng-disabled="loading">
     <i class="fa" ng-class="scoreActions.moveMode ? 'fa-times' : 'fa-share-square'"></i>
     <span class="hover-text">Move</span>
   </div>
-  <div class="secondary button" ng-if="!scoreActions.hide || !scoreActions.hide.open" ng-click="scoreActions.open()" ng-disabled="loading">
+  <div class="secondary button open" ng-if="!scoreActions.hide || !scoreActions.hide.open" ng-click="scoreActions.open()" ng-disabled="loading">
     <i class="fa fa-edit"></i>
     <span class="hover-text">Open</span>
   </div>
-  <div class="button" ng-if="!scoreActions.hide || !scoreActions.hide.publish" ng-click="scoreActions.togglePublish()" ng-class="{ 'secondary': scoreActions.data.public }" ng-disabled="loading">
+  <div class="button public" ng-if="!scoreActions.hide || !scoreActions.hide.publish" ng-click="scoreActions.togglePublish()" ng-class="{ 'secondary': scoreActions.data.public }" ng-disabled="loading">
     <i class="fa" ng-class="scoreActions.data.public ? 'fa-minus-circle' : 'fa-plus-circle'"></i>
     <span class="hover-text">{{(scoreActions.data.public ? 'Unpublish' : 'Publish')}}</span>
   </div>
-  <div class="button" ng-if="!scoreActions.hide || !scoreActions.hide.noShow" ng-click="scoreActions.toggleNoShow()" ng-class="{ 'secondary': !scoreActions.data.noShow }" ng-disabled="loading">
+  <div class="button no-show" ng-if="!scoreActions.hide || !scoreActions.hide.noShow" ng-click="scoreActions.toggleNoShow()" ng-class="{ 'secondary': !scoreActions.data.noShow }" ng-disabled="loading">
     <i class="fa fa-ban"></i>
     <span class="hover-text">{{(scoreActions.data.noShow ? 'Show' : 'No Show')}}</span>
   </div>
-  <div class="alert button" ng-if="!scoreActions.hide || !scoreActions.hide.delete" ng-click="scoreActions.openDeletionDialog()" ng-disabled="loading">
+  <div class="alert button delete-scre" ng-if="!scoreActions.hide || !scoreActions.hide.delete" ng-click="scoreActions.openDeletionDialog()" ng-disabled="loading">
     <i class="fa fa-trash-alt"></i>
     <span class="hover-text">Delete</span>
   </div>

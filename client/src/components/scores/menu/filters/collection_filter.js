@@ -1,6 +1,6 @@
 export default {
   template: `
-<div class="filter-dropdown dropdown menu" data-dropdown-menu ng-if="filter.options">
+<div class="filter-dropdown dropdown menu" data-dropdown-menu ng-if="filter.options && filter.options.length">
   <li class="button-group">
     <div class="button">
       <i class="fa fa-caret-down"></i>&nbsp;{{filter.title}}&nbsp;
