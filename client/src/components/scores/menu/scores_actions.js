@@ -5,10 +5,18 @@ export default {
 
     <div class="alert button" ng-if="scoresActions.user === 'admin'" ng-click="scoresActions.openDeletionDialog()">
       <i class="fa" ng-class="scoresActions.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i>
-      Delete all scores
+      <span class="hover-text">Delete all scores</span>
     </div>
 
-    <a class="button" data-tooltip title="Export scores of current stage" ng-href="{{scoresActions.rankingsUrl}}"><i class="fa fa-download"></i> Export scores</a>
+    <a class="button" data-tooltip title="Export scores of current stage" ng-href="{{scoresActions.rankingsUrl}}">
+      <i class="fa fa-download"></i>
+      <span class="hover-text">Export scores</span>
+    </a>
+
+    <div class="button" ng-click="scoresActions.newScoresheet()">
+      <i class="fas fa-file"></i>
+      <span class="hover-text">New score</span>
+    </div>
   </div>
 
 <div id="scores-deletion-modal" class="fast reveal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y">

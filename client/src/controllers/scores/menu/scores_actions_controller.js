@@ -1,7 +1,8 @@
 class ScoresActionsController {
-  constructor (scores, configuration, modals, user, logger) {
-    Object.assign(this, { data: scores, configuration, modals, logger })
+  constructor (scores, $scope, configuration, modals, user, logger) {
+    Object.assign(this, { data: scores, $scope, configuration, modals, logger })
     this.user = user.username
+    this.isAdmin = user.isAdmin()
     this.rankingsUrl = '#'
   }
 
@@ -10,6 +11,10 @@ class ScoresActionsController {
       this.rankingsUrl = config.rankingsUrl
     })
       .catch(err => this.logger.error(err))
+  }
+
+  newScoresheet () {
+    this.$scope.$emit('toggle view')
   }
 
   openDeletionDialog () {
@@ -34,6 +39,6 @@ class ScoresActionsController {
 }
 
 ScoresActionsController.$$ngIsClass = true
-ScoresActionsController.$inject = ['Scores', 'Configuration', 'Modals', 'User', 'Logger']
+ScoresActionsController.$inject = ['Scores', '$scope', 'Configuration', 'Modals', 'User', 'Logger']
 
 export default ScoresActionsController

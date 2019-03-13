@@ -22,7 +22,8 @@ class ScoresheetActionsController {
   }
 
   cancel () {
-    return this.$scope.$emit('cancel scoresheet')
+    this.reset()
+    return this.$scope.$emit('toggle view')
   }
 
   defaultEnabled () {
