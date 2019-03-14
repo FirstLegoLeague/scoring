@@ -47,7 +47,7 @@ export default {
 </div>`,
   controller: 'TableController as table',
   bindings: {
-    currentStage: '=?',
-    size: '=?'
+    currentStage: '<',
+    size: '<'
   }
 }

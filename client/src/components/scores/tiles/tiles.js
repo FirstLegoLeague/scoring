@@ -5,8 +5,8 @@ export default {
 </div>`,
   controller: 'ScoresTilesController as tiles',
   bindings: {
-    filters: '=?',
-    sort: '=?',
-    ready: '=?'
+    filters: '<',
+    sort: '<',
+    ready: '<'
   }
 }

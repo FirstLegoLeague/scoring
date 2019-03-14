@@ -23,8 +23,8 @@ export default {
   controllerAs: 'filter',
   bindings: {
     data: '=?',
-    options: '=?',
-    title: '=?',
+    options: '<',
+    title: '@',
     display: '&'
   }
 }

@@ -32,16 +32,16 @@ export default {
     </div>
   </div>
   
-  <collection-filter class="menu" title="'Teams'" data="filters.data.teams"
+  <collection-filter class="menu" title="Teams" data="filters.data.teams"
     options="filters.tournament.teams" display="filters.teamText(option)">
   </collection-filter>
-  <collection-filter class="menu" title="'Rounds'" data="filters.data.rounds"
+  <collection-filter class="menu" title="Rounds" data="filters.data.rounds"
     options="filters.rounds" display="filters.roundText(option)">
   </collection-filter>
-  <collection-filter class="menu" title="'Referees'" data="filters.data.referees"
+  <collection-filter class="menu" title="Referees" data="filters.data.referees"
     options="filters.referees" display="filters.refereeText(option)">
   </collection-filter>
-  <collection-filter class="menu" title="'Tables'" data="filters.data.tables"
+  <collection-filter class="menu" title="Tables" data="filters.data.tables"
     options="filters.tournament.tables" display="filters.tableText(option)">
   </collection-filter>
 </div>

@@ -37,6 +37,6 @@ export default {
   controller: 'ScoreActionsController as scoreActions',
   bindings: {
     data: '=?',
-    hide: '=?'
+    hide: '<'
   }
 }
