@@ -10,7 +10,7 @@ class MetadataInputsController {
       if (this.teamNumber()) {
         this.loadMatchOptions()
           .then(() => this.autoselectMatch())
-          .catch(err => this.logger.error(err))
+          .catch(error => this.logger.error(error))
       }
     })
 
@@ -79,9 +79,9 @@ class MetadataInputsController {
         this.calculateMatchCompletion()
         this.data.dontRequireMatch = false
       })
-      .catch(err => {
+      .catch(error => {
         this.data.dontRequireMatch = true
-        this.logger.error(err)
+        this.logger.error(error)
       })
       .then(() => {
         this.loadingMatches = false

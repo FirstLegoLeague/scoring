@@ -1,9 +1,9 @@
 import EventEmitter from 'event-emitter-es6'
 
 class Tournament extends EventEmitter {
-  constructor (independence, configuration, messanger, user) {
+  constructor (independence, configuration, messanger, user, logger) {
     super()
-    Object.assign(this, { independence, configuration, messanger })
+    Object.assign(this, { independence, configuration, messanger, logger })
     this.httpRequestConfig = { headers: { 'auth-token': user.authToken } }
     this._teamsMathcesPromises = { }
     this.matches = { }
@@ -89,10 +89,7 @@ class Tournament extends EventEmitter {
           return null
         }
       })
-      .catch(err => {
-        console.log(err)
-        return null
-      })
+      .catch(error => this.logger.error(error))
   }
 
   loadStages () {
@@ -100,10 +97,7 @@ class Tournament extends EventEmitter {
       this._stagesPromise = this.init()
         .then(() => this.independence.send('GET', `${this.tournamentUrl}/settings/stages`))
         .then(response => response.data)
-        .catch(err => {
-          console.log(err)
-          return null
-        })
+        .catch(error => this.logger.error(error))
     }
     return this._stagesPromise
   }
@@ -113,16 +107,13 @@ class Tournament extends EventEmitter {
       this._currentStagePromise = this.init()
         .then(() => this.independence.send('GET', `${this.tournamentUrl}/settings/tournamentStage`))
         .then(response => response.data)
-        .catch(err => {
-          console.log(err)
-          return null
-        })
+        .catch(error => this.logger.error(error))
     }
     return this._currentStagePromise
   }
 }
 
 Tournament.$$ngIsClass = true
-Tournament.$inject = ['Independence', 'Configuration', 'Messanger', 'User']
+Tournament.$inject = ['Independence', 'Configuration', 'Messanger', 'User', 'Logger']
 
 export default Tournament

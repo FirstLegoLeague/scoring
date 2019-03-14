@@ -1,8 +1,8 @@
 import angular from 'angular'
 
 class Scoresheet {
-  constructor (challenge, scores, scoresheetValidations, refIdentity) {
-    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity })
+  constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
+    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, logger })
     this._onProcessListeners = []
     this.errors = []
     this.ready = false
@@ -93,7 +93,7 @@ class Scoresheet {
           .then(errors => { this.errors = errors })
       })
       .then(() => this._onProcessListeners.map(listener => listener()))
-      .catch(err => { console.error(err) })
+      .catch(error => this.logger.error(error))
   }
 
   save () {
@@ -143,6 +143,6 @@ class Scoresheet {
 }
 
 Scoresheet.$$ngIsClass = true
-Scoresheet.$inject = ['Challenge', 'Scores', 'ScoresheetValidations', 'RefIdentity']
+Scoresheet.$inject = ['Challenge', 'Scores', 'ScoresheetValidations', 'RefIdentity', 'Logger']
 
 export default Scoresheet

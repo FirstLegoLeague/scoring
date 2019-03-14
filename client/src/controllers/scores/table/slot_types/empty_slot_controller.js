@@ -1,6 +1,6 @@
 class EmptySlotController {
-  constructor ($scope, scores, tournament) {
-    Object.assign(this, { $scope, scores, tournament })
+  constructor ($scope, scores, tournament, logger) {
+    Object.assign(this, { $scope, scores, tournament, logger })
   }
 
   $onInit () {
@@ -18,7 +18,7 @@ class EmptySlotController {
       .then(matches => {
         this.matchId = matches.find(match => match.round === this.position.round && match.stage === this.position.stage)._id
       })
-      .catch(error => console.error(error))
+      .catch(error => this.logger.error(error))
   }
 
   createInScoresheet () {
@@ -35,7 +35,7 @@ class EmptySlotController {
   createWithNoShow () {
     this.scores.create(Object.assign({ noShow: true }, this.position))
       .then(score => this.data.push(score))
-      .catch(error => console.log(error))
+      .catch(error => this.logger.error(error))
   }
 
   moveScoreHere () {
@@ -51,6 +51,6 @@ class EmptySlotController {
 }
 
 EmptySlotController.$$ngIsClass = true
-EmptySlotController.$inject = ['$scope', 'Scores', 'Tournament']
+EmptySlotController.$inject = ['$scope', 'Scores', 'Tournament', 'Logger']
 
 export default EmptySlotController

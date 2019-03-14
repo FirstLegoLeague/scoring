@@ -23,9 +23,7 @@ class Logger {
   log (message, level = 'debug') {
     message = `client: ${message}`
     return this.$http.post(`/log/${level}`, { message })
-      .catch(err => {
-        console.warn('Cannot log to server.')
-      })
+      .catch(error => console.warn(`Cannot log to server: ${error}`))
   }
 }
 

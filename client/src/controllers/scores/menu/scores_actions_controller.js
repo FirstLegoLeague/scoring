@@ -1,6 +1,6 @@
 class ScoresActionsController {
-  constructor (scores, score, $scope, configuration, modals, user) {
-    Object.assign(this, { scores, score, $scope, configuration, modals })
+  constructor (scores, score, $scope, configuration, modals, user, logger) {
+    Object.assign(this, { scores, score, $scope, configuration, modals, logger })
     this.user = user.username
     this.isAdmin = user.isAdmin()
     this.rankingsUrl = '#'
@@ -10,7 +10,7 @@ class ScoresActionsController {
     this.configuration.load().then(config => {
       this.rankingsUrl = `${config.rankingsUrl}/rankings.csv?hideNegatives=false`
     })
-      .catch(err => console.error(err))
+      .catch(error => this.logger.error(error))
   }
 
   newScoresheet () {
@@ -34,6 +34,6 @@ class ScoresActionsController {
 }
 
 ScoresActionsController.$$ngIsClass = true
-ScoresActionsController.$inject = ['Scores', 'Score', '$scope', 'Configuration', 'Modals', 'User']
+ScoresActionsController.$inject = ['Scores', 'Score', '$scope', 'Configuration', 'Modals', 'User', 'Logger']
 
 export default ScoresActionsController

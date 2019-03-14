@@ -15,16 +15,16 @@ class ScoresheetController {
         .then(() => {
           const missionId = event.targetScope.mission.data.id
           if (!(this.data.current && this.data.current.teamNumber) && missionId === this.missions()[0].id) {
-            console.log('Completed first mission without selecting a team')
+            this.logger.info('Completed first mission without selecting a team.')
           }
         })
-        .catch(err => { console.error(err) })
+        .catch(error => this.logger.error(error))
     })
 
     this.$scope.$on('load', (event, scoresheet) => {
       this.data.load(scoresheet)
         .then(() => this.$scope.$digest())
-        .catch(err => console.error(err))
+        .catch(error => this.logger.error(error))
     })
 
     this.data.onProcess(() => {

@@ -1,9 +1,9 @@
 import EventEmitter from 'event-emitter-es6'
 
 class Rankings extends EventEmitter {
-  constructor (independence, scores, tournament, messanger, configuration) {
+  constructor (independence, scores, tournament, messanger, configuration, logger) {
     super()
-    Object.assign(this, { independence, scores, tournament, messanger, configuration, rankings: {} })
+    Object.assign(this, { independence, scores, tournament, messanger, configuration, rankings: {}, logger })
     this._rankingsPromises = { }
   }
 
@@ -14,7 +14,7 @@ class Rankings extends EventEmitter {
           this.loadRankingsForStage(stage)
           this.emit('rankings updated')
         })
-        .catch(error => console.error(error))
+        .catch(error => this.logger.error(error))
     })
     this.scores.on('scores updated', ({ id, score, action }) => {
       this.messanger.ignoreNext('rankings:reload')
@@ -56,6 +56,6 @@ class Rankings extends EventEmitter {
 }
 
 Rankings.$$ngIsClass = true
-Rankings.$inject = ['Independence', 'Scores', 'Tournament', 'Messanger', 'Configuration']
+Rankings.$inject = ['Independence', 'Scores', 'Tournament', 'Messanger', 'Configuration', 'Logger']
 
 export default Rankings

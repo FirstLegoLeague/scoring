@@ -7,11 +7,11 @@ function getPaddedNumber (number, digits = 2, padding = '0') {
   }
 }
 
-function Score (tournament, challenge) {
+function Score (tournament, challenge, logger) {
   const DEFAULT_FILEDS = { score: 0 }
   challenge.init()
     .then(() => Object.assign(DEFAULT_FILEDS, challenge.challenge))
-    .catch(error => console.error(error))
+    .catch(error => logger.error(error))
 
   return function (attrs = {}) {
     const score = { }
@@ -36,7 +36,7 @@ function Score (tournament, challenge) {
                   score.round = score.match.round
                 }
               })
-              .catch(error => console.error(error))
+              .catch(error => logger.error(error))
           }
         }
       },
@@ -153,6 +153,6 @@ Score.POSSIBLY_REQUIRED_FIELDS = {
   requireSignature: { name: 'signature' }
 }
 
-Score.$inject = ['Tournament', 'Challenge']
+Score.$inject = ['Tournament', 'Challenge', 'Logger']
 
 export default Score

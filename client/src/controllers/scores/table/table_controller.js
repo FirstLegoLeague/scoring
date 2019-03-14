@@ -4,8 +4,8 @@ const MAX_TEAM_CELL_BIG_WIDTH = 3
 const MAX_TEAM_CELL_SMALL_WIDTH = 12
 
 class TableController {
-  constructor (rankings, scores, $scope, tournament) {
-    Object.assign(this, { rankings, scores, $scope, tournament })
+  constructor (rankings, scores, $scope, tournament, logger) {
+    Object.assign(this, { rankings, scores, $scope, tournament, logger })
   }
 
   $onInit () {
@@ -75,7 +75,7 @@ class TableController {
         }
         this.ready = true
       })
-      .catch(err => console.error(err))
+      .catch(err => this.logger.error(err))
   }
 
   deleteRankScores (rank) {
@@ -84,7 +84,7 @@ class TableController {
         rank.scores = rank.scores.map(() => ([]))
         this._enrichRank(rank)
       })
-      .catch(error => console.error(error))
+      .catch(error => this.logger.error(error))
   }
 
   toggleAllRankScoresPublic (rank) {
@@ -93,7 +93,7 @@ class TableController {
       return this.scores.update(score)
     }))
       .then(() => this._enrichRank(rank))
-      .catch(error => console.error(error))
+      .catch(error => this.logger.error(error))
   }
 
   toggleAllRankScoresNoShow (rank) {
@@ -102,7 +102,7 @@ class TableController {
       return this.scores.update(score)
     }))
       .then(() => this._enrichRank(rank))
-      .catch(error => console.error(error))
+      .catch(error => this.logger.error(error))
   }
 
   _setCurrentCellSizes () {
@@ -125,6 +125,6 @@ class TableController {
 }
 
 TableController.$$ngIsClass = true
-TableController.$inject = ['Rankings', 'Scores', '$scope', 'Tournament']
+TableController.$inject = ['Rankings', 'Scores', '$scope', 'Tournament', 'Logger']
 
 export default TableController

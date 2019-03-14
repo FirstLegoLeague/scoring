@@ -1,6 +1,6 @@
 class ScoresFiltersController {
-  constructor (tournament, scores, $scope) {
-    Object.assign(this, { tournament, scores, $scope })
+  constructor (tournament, scores, $scope, logger) {
+    Object.assign(this, { tournament, scores, $scope, logger })
   }
 
   $onInit () {
@@ -23,7 +23,9 @@ class ScoresFiltersController {
     this.scores.on('scores updated', () => this._loadOptions())
     this.tournament.loadTeams()
     this.tournament.loadTables()
-    this.scores.init().then(() => this._loadOptions()).catch(error => console.error(error))
+    return this.scores.init()
+      .then(() => this._loadOptions())
+      .catch(error => this.logger.error(error))
   }
 
   teamText (team) {
@@ -60,6 +62,6 @@ class ScoresFiltersController {
 }
 
 ScoresFiltersController.$$ngIsClass = true
-ScoresFiltersController.$inject = ['Tournament', 'Scores', '$scope']
+ScoresFiltersController.$inject = ['Tournament', 'Scores', '$scope', 'Logger']
 
 export default ScoresFiltersController

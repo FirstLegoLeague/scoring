@@ -1,11 +1,11 @@
 class ScoreTileController {
-  constructor ($scope, scores, tournament) {
-    Object.assign(this, { $scope, scores, tournament })
+  constructor ($scope, scores, tournament, logger) {
+    Object.assign(this, { $scope, scores, tournament, logger })
   }
 
   $onInit () {
     Promise.all([this.data.init(), this.tournament.init()])
-      .catch(error => console.log(error))
+      .catch(error => this.logger.error(error))
   }
 
   save () {
@@ -15,6 +15,6 @@ class ScoreTileController {
 }
 
 ScoreTileController.$$ngIsClass = true
-ScoreTileController.$inject = ['$scope', 'Scores', 'Tournament']
+ScoreTileController.$inject = ['$scope', 'Scores', 'Tournament', 'Logger']
 
 export default ScoreTileController
