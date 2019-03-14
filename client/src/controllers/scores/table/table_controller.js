@@ -111,7 +111,9 @@ class TableController {
   }
 
   _enrichRankings () {
-    this.rankings.rankings[this.currentStage].forEach(this._enrichRank)
+    if (this.rankings.rankings[this.currentStage]) {
+      this.rankings.rankings[this.currentStage].forEach(this._enrichRank)
+    }
   }
 
   _enrichRank (rank) {

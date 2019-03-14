@@ -83,7 +83,9 @@ class ScoresTilesController {
     })
 
     const missingFieldScores = this.scores.scores.filter(score =>
-      typeof score.teamNumber === 'undefined' || typeof score.matchId === 'undefined' || score.matchId === 0 ||
+      typeof score.teamNumber === 'undefined' ||
+      typeof score.matchId === 'undefined' || score.matchId === 0 ||
+      typeof score.stage === 'undefined' || typeof score.round === 'undefined' ||
       (this.ready && !this.tournament.teams.some(team => team.number === score.teamNumber)))
 
     this.noShowScores = this.scores.scores.filter(score => score.noShow)

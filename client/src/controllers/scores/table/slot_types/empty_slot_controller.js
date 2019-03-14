@@ -22,24 +22,20 @@ class EmptySlotController {
   }
 
   createInScoresheet () {
-    this.$scope.$emit('open scoresheet', this.scores.score(this.fullPosition()))
+    this.$scope.$emit('open scoresheet', this.scores.score(this.position))
   }
 
   createHere () {
-    const score = this.scores.score(this.fullPosition())
+    const score = this.scores.score(this.position)
     score.fakeSignature()
     score.fillDefaults()
     this.scores.create(score)
   }
 
   createWithNoShow () {
-    this.scores.create(Object.assign({ noShow: true }, this.fullPosition()))
+    this.scores.create(Object.assign({ noShow: true }, this.position))
       .then(score => this.data.push(score))
       .catch(error => console.log(error))
-  }
-
-  fullPosition () {
-    return Object.assign({ matchId: this.matchId }, this.position)
   }
 
   moveScoreHere () {
