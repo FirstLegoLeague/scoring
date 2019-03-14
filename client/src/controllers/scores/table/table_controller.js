@@ -20,11 +20,13 @@ class TableController {
     })
 
     this.rankings.on('rankings updated', ({ score }) => {
-      if (score) {
-        const rank = this.rankings.rankings[this.currentStage].find(r => r.team.number === score.teamNumber)
-        this._enrichRank(rank)
-      } else {
-        this._enrichRankings()
+      if(this.rankings.rankings[this.currentStage]) {
+        if (score) {
+          const rank = this.rankings.rankings[this.currentStage].find(r => r.team.number === score.teamNumber)
+          this._enrichRank(rank)
+        } else {
+          this._enrichRankings()
+        }
       }
     })
 

@@ -76,17 +76,17 @@ function Score (tournament, challenge) {
           score.teamError = Boolean(!score.team)
           score.noTable = Boolean(!score.table)
 
-          score.creation = new Date(score.creation)
-          score.lastUpdate = new Date(score.lastUpdate)
+          score.creationTime = new Date(score.creation)
+          score.lastUpdateTime = new Date(score.lastUpdate)
 
           score.scoreText = score.score || 0
           score.teamText = score.teamError ? 'Missing team' : score.team.displayText
           score.matchText = score.matchError ? 'Missing round' : score.match.displayText
           score.tableText = score.noTable ? 'No table' : score.table.tableName
-          score.dateText = `${getPaddedNumber(score.creation.getHours())}:${getPaddedNumber(score.creation.getMinutes())}`
+          score.dateText = `${getPaddedNumber(score.creationTime.getHours())}:${getPaddedNumber(score.creationTime.getMinutes())}`
 
-          if (score.creation.getTime() !== score.lastUpdate.getTime()) {
-            score.dateText += ` (${getPaddedNumber(score.lastUpdate.getHours())}:${getPaddedNumber(score.lastUpdate.getMinutes())})`
+          if (score.creationTime.getTime() !== score.lastUpdateTime.getTime()) {
+            score.dateText += ` (${getPaddedNumber(score.lastUpdateTime.getHours())}:${getPaddedNumber(score.lastUpdateTime.getMinutes())})`
           }
 
           score.ready = true

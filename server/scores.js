@@ -34,7 +34,7 @@ const POSSIBLY_REQUIRED_FIELDS = {
   requireSignature: 'signature'
 }
 
-const REQUIRED_FIELDS = ['missions', 'score', 'challenge', 'teamNumber', 'round', 'stage', 'matchId']
+const REQUIRED_FIELDS = ['missions', 'score', 'challenge', 'teamNumber', 'round', 'stage']
 
 class InvalidScore extends Error {
   constructor (message) {

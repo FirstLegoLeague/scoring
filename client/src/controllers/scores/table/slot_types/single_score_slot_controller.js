@@ -1,6 +1,6 @@
 class SingleScoreSlotController {
-  constructor ($scope, scores) {
-    Object.assign(this, { $scope, scores })
+  constructor ($scope, scores, tournament) {
+    Object.assign(this, { $scope, scores, tournament })
   }
 
   $onInit () {
@@ -17,6 +17,8 @@ class SingleScoreSlotController {
       }
       this.dimmed = false
     })
+
+    return this.tournament.loadTables()
   }
 
   save () {
@@ -26,6 +28,6 @@ class SingleScoreSlotController {
 }
 
 SingleScoreSlotController.$$ngIsClass = true
-SingleScoreSlotController.$inject = ['$scope', 'Scores']
+SingleScoreSlotController.$inject = ['$scope', 'Scores', 'Tournament']
 
 export default SingleScoreSlotController
