@@ -1,6 +1,6 @@
 export default {
   template: `
-<div class="top-bar secondary" ng-if="scores.any() && scores.ready">
+<div class="top-bar secondary" ng-if="scores.ready">
   <div class="top-bar-left">
     <div class="menu">
       <a class="clear button" ng-click="scores.tableView = !scores.tableView">
@@ -19,6 +19,7 @@ export default {
     <scores-actions class="menu"></scores-actions>
   </div>
 </div>
+
 <div class="top-bar secondary" ng-if="!scores.ready"></div>
 
 <div class="top-bar-page" ng-class="{ loading: !scores.ready }">

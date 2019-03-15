@@ -4,8 +4,13 @@ class ScoreTileController {
   }
 
   $onInit () {
-    Promise.all([this.data.init(), this.tournament.init()])
-      .catch(error => this.logger.error(error))
+    this.$scope.$watch(() => this.inview, () => {
+      if (this.inview && !this.init) {
+        this.init = true
+        Promise.all([this.data.init(), this.tournament.init()])
+          .catch(error => this.logger.error(error))
+      }
+    })
   }
 
   save () {

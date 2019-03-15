@@ -1,6 +1,6 @@
 export default {
   template: `
-<div id="score-tile-{{score._id}}" class="card" ng-class="{ loading: !score.data.ready }">
+<div id="score-tile-{{score._id}}" class="card" ng-class="{ loading: !score.data.ready }" in-view="score.inview = $inview">
   <div class="card-section">
     <div>
       <h6>
@@ -40,7 +40,7 @@ export default {
   </div>
 
   <div class="dimmer">
-    <div class="big loader"></div>
+    <div class="loader"></div>
   </div>
 </div>`,
   controller: 'ScoreTileController as score',

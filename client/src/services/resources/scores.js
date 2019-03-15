@@ -30,9 +30,10 @@ class Scores extends EventEmitter {
 
   create (attributes) {
     this._ignoreNextMessage()
+    const unsavedScore = this.score(attributes)
     return this.configuration.load()
-      .then(config => this.independence.send('POST', '/scores/create', this.score(attributes).sanitize(config)))
-      .then(response => this._localyAddScore(response.data))
+      .then(config => this.independence.send('POST', '/scores/create', unsavedScore.sanitize(config)))
+      .then(response => this._localyAddScore(Object.assign(unsavedScore, { id: response.data.id })))
       .then(id => {
         const score = this.scores.find(s => s._id === id)
         this.emit('scores updated', { id, score, action: 'add' })
@@ -98,7 +99,7 @@ class Scores extends EventEmitter {
   _loadNewScore (id) {
     return this.independence.send('GET', `/scores/${id}`)
       .then(response => response.data)
-      .then(this._localyAddScore)
+      .then(() => this._localyAddScore())
   }
 
   _ignoreNextMessage () {

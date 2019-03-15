@@ -260,6 +260,11 @@ angular-cookies@^1.7.1:
   resolved "https://registry.yarnpkg.com/angular-cookies/-/angular-cookies-1.7.4.tgz#f234ba50bfc03b18fe5bc15390002d45c5ce3e78"
   integrity sha512-NIEjCFkLD6YLQPBhycyszDJ0EFlXYxhmwRRgOnuAuHfch3Uz65Lp7LcHwg4tFJQs28jNK9j0CDbGKx87wQbatg==
 
+angular-inview@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/angular-inview/-/angular-inview-3.1.0.tgz#d1180feea704f5b0e6e6df40c585d990c135d1c8"
+  integrity sha512-J839sctiOgSYkYVh+ZmpkslOFMF9eb632jGRe3z70qkSOV5sAOuw3HkcFA8aZdZfpX841GZRQB1Nhjmh4fyspg==
+
 angular-sanitize@^1.7.7:
   version "1.7.7"
   resolved "https://registry.yarnpkg.com/angular-sanitize/-/angular-sanitize-1.7.7.tgz#5852592ea885d48db1f2718a3ec7b6e3330950d6"

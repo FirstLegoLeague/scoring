@@ -24,7 +24,11 @@ class MetadataInputsController {
       this.autoselectMetadata()
     })
 
-    this.scores.on('scores updated', () => this.calculateMatchCompletion())
+    this.scores.on('scores updated', () => {
+      if (this.matches) {
+        this.calculateMatchCompletion()
+      }
+    })
     this.refIdentity.on('saved', () => this.autoselectMetadata())
 
     return Promise.all([this.tournament.loadTeams(), this.refIdentity.init()])

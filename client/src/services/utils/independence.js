@@ -8,7 +8,7 @@ class Independence {
   }
 
   send (method, url, data) {
-    const action = { method, url, data, waiting: false }
+    const action = { method, url, data, pending: false }
     this._saveRequest(action)
     return this._requestPromise(action)
   }
@@ -16,18 +16,18 @@ class Independence {
   // Requests functions
 
   retryPendingRequests () {
-    return Promise.all(this._pendingRequests().filter(action => !action.waiting).map(action => this._requestPromise(action)))
+    return Promise.all(this._pendingRequests().filter(action => !action.pending).map(action => this._requestPromise(action)))
   }
 
   _requestPromise (action) {
-    action.waiting = true
+    action.pending = true
+    this._saveRequest(action)
     return this.$http[action.method.toLowerCase()](action.url, action.data)
       .then(response => {
         if (response.status <= 0) {
           throw response
         }
         this._deleteRequest(action)
-        action.waiting = false
         this.retryPendingRequests()
         return response
       })
@@ -36,7 +36,8 @@ class Independence {
           this._deleteRequest(action)
         }
         err.pendingRequestsCount = this.pendingRequestsCount(pendingRequest => pendingRequest.method === action.method && pendingRequest.url === action.url)
-        action.waiting = false
+        action.pending = false
+        this._saveRequest(action)
         throw err
       })
   }
