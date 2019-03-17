@@ -1,7 +1,7 @@
 export default {
   template: `
 <div id="score-tile-{{score._id}}" class="card" ng-class="{ loading: !score.data.ready }" in-view="score.inview = $inview">
-  <div class="card-section">
+  <div class="card-section" ng-if="score.inview">
     <div>
       <h6>
         <a editable-select="score.data.teamNumber" buttons="no" blur="submit" onaftersave="score.save()" e-ng-options="team.number as team.displayText for team in score.tournament.teams">
@@ -17,13 +17,13 @@ export default {
     </div>
   </div>
 
-  <div class="stat text-center">
+  <div class="stat text-center" ng-if="score.inview">
     <a editable-number="score.data.score" buttons="no" blur="submit" onaftersave="score.save()">
       {{ score.data.scoreText }}
     </a>
   </div>
 
-  <div class="card-divider extra-content">
+  <div class="card-divider extra-content" ng-if="score.inview">
     <a editable-text="score.data.referee" buttons="no" blur="submit" onaftersave="score.save()">
       {{ score.data.referee || 'No one' }}
     </a>
@@ -35,7 +35,7 @@ export default {
     </span>
   </div>
 
-  <div class="card-section flex-child-shrink extra-content">
+  <div class="card-section flex-child-shrink extra-content" ng-if="score.inview">
     <score-actions data="score.data" hide="{ move: true }"></score-actions>
   </div>
 

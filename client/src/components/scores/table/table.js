@@ -14,8 +14,8 @@ export default {
     <div class="cell grid-y team-cell" ng-class="table.teamCellWidthClass">
       <div class="card">
         <div class="card-section extra-content">
-          <div class="team">{{rank.team.displayText}}</div>
-          <div class="rank">Rank: #{{rank.rank}} with {{rank.highest ? ('score ' + rank.highest.score) : 'no scores'}}</div>
+          <div class="team">{{::rank.team.displayText}}</div>
+          <div class="rank">Rank: #{{::rank.rank}} with {{rank.highest ? ('score ' + rank.highest.score) : 'no scores'}}</div>
         </div>
         <div class="card-section extra-content">
           <div class="button-group">

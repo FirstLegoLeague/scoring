@@ -28,10 +28,10 @@ export default {
   </div>
 
   <div id="scores-list" ng-if="scores.any()" ng-class="scores.size">
-    <scores-tiles ng-hide="scores.tableView" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5"
+    <scores-tiles ng-if="!scores.tableView" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5"
       filters="scores.filters" sort="scores.sort" ready="scores.ready"></scores-tiles>
 
-    <scores-table ng-show="scores.tableView" class="grid-y"
+    <scores-table ng-if="scores.tableView" class="grid-y" ng-if="false"
       current-stage="scores.currentStage" size="scores.size"></scores-table>
   </div>
 

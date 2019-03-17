@@ -136,6 +136,10 @@ empty-slot .card.move-mode .stat {
   overflow-y: auto;
 }
 
+scores-tiles score-tile.cell .card {
+  min-height: 10rem;
+}
+
 table-slot *:only-child {
   width: 100%;
 }
