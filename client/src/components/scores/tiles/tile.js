@@ -39,7 +39,7 @@ export default {
     <score-actions data="score.data" hide="{ move: true }"></score-actions>
   </div>
 
-  <div class="dimmer">
+  <div class="dimmer" ng-if="score.inview">
     <div class="loader"></div>
   </div>
 </div>`,

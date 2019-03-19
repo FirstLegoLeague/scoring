@@ -22,7 +22,7 @@ export default {
 
 <div class="top-bar secondary" ng-if="!scores.ready"></div>
 
-<div class="top-bar-page" ng-class="{ loading: !scores.ready }">
+<div class="top-bar-page" in-view-container ng-class="{ loading: !scores.ready }">
   <div class="dimmer">
     <div class="large loader"></div>
   </div>
