@@ -1,19 +1,12 @@
 class ScoreActionsController {
-  constructor ($scope, $element, $timeout, scores, modals, notifications, logger) {
-    Object.assign(this, { $scope, $element, $timeout, scores, modals, notifications, logger })
-  }
-
-  $onInit () {
-    this.$scope.$on('exit move mode', () => {
-      this.moveMode = false
-    })
+  constructor ($scope, $element, $timeout, scores, modals, notifications, logger, scoreMove) {
+    Object.assign(this, { $scope, $element, $timeout, scores, modals, notifications, logger, scoreMove })
   }
 
   // Actions
 
   toggleMoveMode () {
-    this.moveMode = !this.moveMode
-    this.$scope.$emit(`${this.moveMode ? 'enter' : 'exit'} move mode`, { id: this.data._id, status: null })
+    this.scoreMove.toggle(this.data._id)
   }
 
   openDeletionDialog () {
@@ -73,6 +66,6 @@ class ScoreActionsController {
 }
 
 ScoreActionsController.$$ngIsClass = true
-ScoreActionsController.$inject = ['$scope', '$element', '$timeout', 'Scores', 'Modals', 'Notifications', 'Logger']
+ScoreActionsController.$inject = ['$scope', '$element', '$timeout', 'Scores', 'Modals', 'Notifications', 'Logger', 'ScoreMove']
 
 export default ScoreActionsController

@@ -1,6 +1,7 @@
 export default {
   template: `
-<div id="score-slot-{{slot.score._id}}" class="card" ng-class="{ 'dimmed disabled': slot.dimmed, loading: !slot.score.ready }">
+<div id="score-slot-{{slot.score._id}}" class="card"
+  ng-class="{ loading: !slot.score.ready, 'disabled dimmed': slot.movingScore && slot.movingScore !== slot.score._id }">
   <div class="card-section extra-content">
     <div class="grid-x">
       <div class="cell small-4">
@@ -39,6 +40,7 @@ export default {
 </div>`,
   controller: 'SingleScoreSlotController as slot',
   bindings: {
-    data: '=?'
+    data: '=?',
+    movingScore: '<'
   }
 }

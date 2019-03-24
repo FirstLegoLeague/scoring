@@ -7,17 +7,6 @@ class SingleScoreSlotController {
     this.score = this.data[0]
     this.score.init()
 
-    this.$scope.$on('enter move mode', (event, { id }) => {
-      this.dimmed = (id !== this.score._id)
-    })
-
-    this.$scope.$on('exit move mode', (event, { status }) => {
-      if (status === 'success' && !this.dimmed) {
-        this.data = []
-      }
-      this.dimmed = false
-    })
-
     return this.tournament.loadTables()
   }
 

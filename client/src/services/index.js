@@ -12,6 +12,8 @@ import RefIdentity from './scoresheet/ref_identity'
 import Scoresheet from './scoresheet/scoresheet'
 import ScoresheetValidations from './scoresheet/scoresheet_validations'
 
+import ScoreMove from './scores/score_move'
+
 import Connectivity from './connectivity'
 
 import Scores from './resources/scores'
@@ -32,6 +34,8 @@ export default {
   RefIdentity,
   Scoresheet,
   ScoresheetValidations,
+
+  ScoreMove,
 
   Connectivity,
 
