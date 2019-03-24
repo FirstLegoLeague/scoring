@@ -76,18 +76,23 @@ function Score (tournament, challenge, logger) {
           score.teamError = Boolean(!score.team)
           score.noTable = Boolean(!score.table)
 
-          score.creationTime = new Date(score.creation)
-          score.lastUpdateTime = new Date(score.lastUpdate)
+          if (score.creation !== undefined) {
+            score.creationTime = new Date(score.creation)
+            score.dateText = `${getPaddedNumber(score.creationTime.getHours())}:${getPaddedNumber(score.creationTime.getMinutes())}`
+          }
+          if (score.lastUpdate !== undefined) {
+            score.lastUpdateTime = new Date(score.lastUpdate)
+
+            if (score.creationTime.getTime() !== score.lastUpdateTime.getTime()) {
+              score.dateText += ` (${getPaddedNumber(score.lastUpdateTime.getHours())}:${getPaddedNumber(score.lastUpdateTime.getMinutes())})`
+            }
+          }
 
           score.scoreText = score.score || 0
           score.teamText = score.teamError ? 'Missing team' : score.team.displayText
           score.matchText = score.matchError ? 'Missing round' : score.match.displayText
-          score.tableText = score.noTable ? 'No table' : score.table.tableName
-          score.dateText = `${getPaddedNumber(score.creationTime.getHours())}:${getPaddedNumber(score.creationTime.getMinutes())}`
-
-          if (score.creationTime.getTime() !== score.lastUpdateTime.getTime()) {
-            score.dateText += ` (${getPaddedNumber(score.lastUpdateTime.getHours())}:${getPaddedNumber(score.lastUpdateTime.getMinutes())})`
-          }
+          score.refereeText = score.referee || 'Ref ?'
+          score.tableText = score.noTable ? 'Table ?' : score.table.tableName
 
           score.ready = true
         })

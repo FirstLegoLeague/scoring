@@ -1,10 +1,17 @@
+const RETRY_TIME = 5 * 1000 // 5 seconds
 const STORAGE_KEY_PREFIX = 'independence_actions'
 
 class Independence {
-  constructor ($http, $window) {
-    Object.assign(this, { $http, $window })
+  constructor ($http, $window, $interval) {
+    Object.assign(this, { $http, $window, $interval })
     this.lastSuccessfulRequestTime = Date.now()
     this.retryPendingRequests()
+
+    this.$interval(() => {
+      if (this._pendingRequests().length > 0) {
+        this.retryPendingRequests()
+      }
+    }, RETRY_TIME)
   }
 
   send (method, url, data) {
@@ -34,10 +41,11 @@ class Independence {
       .catch(err => {
         if (err.status > 0 && err.status < 500) {
           this._deleteRequest(action)
+        } else {
+          action.pending = false
+          this._saveRequest(action)
         }
         err.pendingRequestsCount = this.pendingRequestsCount(pendingRequest => pendingRequest.method === action.method && pendingRequest.url === action.url)
-        action.pending = false
-        this._saveRequest(action)
         throw err
       })
   }
@@ -75,6 +83,6 @@ class Independence {
 }
 
 Independence.$$ngIsClass = true
-Independence.$inject = ['$http', '$window']
+Independence.$inject = ['$http', '$window', '$interval']
 
 export default Independence

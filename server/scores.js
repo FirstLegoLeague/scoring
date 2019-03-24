@@ -153,7 +153,7 @@ router.delete('/:id/delete', adminOrScorekeeperAction, (req, res) => {
   connectionPromise
     .then(scoringCollection => scoringCollection.deleteOne({ _id: new ObjectID(req.params.id) }))
     .then(() => res.status(204).send())
-    .then(() => publishMsg('scores:reload', { id: new ObjectID(req.params.id), action: 'remove' }))
+    .then(() => publishMsg('scores:reload', { id: new ObjectID(req.params.id), action: 'delete' }))
     .catch(err => {
       req.logger.error(err.message)
       res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)

@@ -10,7 +10,6 @@ class Scores extends EventEmitter {
     if (!this._initPromise) {
       this.messanger.on('scores:reload', ({ data }) => {
         this._handleAction(data)
-        this._initPromise = undefined
       })
       this._initPromise = this.load().catch(err => {
         this._initPromise = undefined
@@ -33,7 +32,7 @@ class Scores extends EventEmitter {
     const unsavedScore = this.score(attributes)
     return this.configuration.load()
       .then(config => this.independence.send('POST', '/scores/create', unsavedScore.sanitize(config)))
-      .then(response => this._localyAddScore(Object.assign(unsavedScore, { id: response.data.id })))
+      .then(response => this._localyAddScore(Object.assign(unsavedScore, { _id: response.data.id, creation: Date.now() })))
       .then(id => {
         const score = this.scores.find(s => s._id === id)
         this.emit('scores updated', { id, score, action: 'add' })
@@ -47,7 +46,7 @@ class Scores extends EventEmitter {
     score.ready = false
     return this.configuration.load()
       .then(config => this.independence.send('POST', `/scores/${attributes._id}/update`, this.score(attributes).sanitize(config)))
-      .then(() => this._localyUpdateScore(attributes))
+      .then(() => this._localyUpdateScore(Object.assign(attributes, { lastUpdate: Date.now() })))
       .then(() => {
         this.emit('scores updated', { id: score._id, score, action: 'update' })
         return score
@@ -62,7 +61,7 @@ class Scores extends EventEmitter {
     const score = this.scores.find(s => s._id === id)
     return this.independence.send('DELETE', `/scores/${id}/delete`)
       .then(() => { this.scores = this.scores.filter(s => s._id !== id) })
-      .then(() => this.emit('scores updated', { id, score, action: 'remove' }))
+      .then(() => this.emit('scores updated', { id, score, action: 'delete' }))
   }
 
   deleteAll () {
@@ -99,7 +98,7 @@ class Scores extends EventEmitter {
   _loadNewScore (id) {
     return this.independence.send('GET', `/scores/${id}`)
       .then(response => response.data)
-      .then(() => this._localyAddScore())
+      .then(score => this._localyAddScore(score))
   }
 
   _ignoreNextMessage () {

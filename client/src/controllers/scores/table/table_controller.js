@@ -20,7 +20,7 @@ class TableController {
     })
 
     this.rankings.on('rankings updated', ({ score }) => {
-      if(this.rankings.rankings[this.currentStage]) {
+      if (this.rankings.rankings[this.currentStage]) {
         if (score) {
           const rank = this.rankings.rankings[this.currentStage].find(r => r.team.number === score.teamNumber)
           this._enrichRank(rank)
@@ -97,9 +97,17 @@ class TableController {
   }
 
   toggleAllRankScoresNoShow (rank) {
-    Promise.all(rank.allScores.map(score => {
-      score.noShow = !rank.allScoresNoShow
-      return this.scores.update(score)
+    Promise.all(rank.scores.map((roundScores, round) => {
+      if (roundScores.length > 0) {
+        return Promise.all(roundScores.map(score => {
+          score.noShow = !rank.allScoresNoShow
+          return this.scores.update(score)
+        }))
+      } else {
+        return this.scores.create({ noShow: true, teamNumber: rank.team.number, stage: this.currentStage, round: (round + 1) })
+          .then(score => roundScores.push(score))
+          .catch(error => this.logger.error(error))
+      }
     }))
       .then(() => this._enrichRank(rank))
       .catch(error => this.logger.error(error))

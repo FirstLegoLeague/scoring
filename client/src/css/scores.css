@@ -17,18 +17,16 @@ score-tile h6 {
   line-height: 1.2em !important;
 }
 
-.ranks-header {
-  font-weight: bold;
-  color: white;
-}
-
 .ranks-header h5 {
   margin: 0;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
 }
 
 .ranks {
   overflow-y: scroll;
-  height: calc(100vh - 6.8rem);
+  height: calc(100vh - 7.04rem);
 }
 .rank > .cell:first-child, .ranks-header > .cell:first-child, scores-tiles > .cell {
   padding: 0 0.5rem 0 0.5rem !important;
@@ -136,12 +134,34 @@ empty-slot .card.move-mode .stat {
   overflow-y: auto;
 }
 
-scores-tiles score-tile.cell .card {
+#scores-list.big scores-tiles score-tile.cell .card {
   min-height: 10rem;
+}
+
+#scores-list.small scores-tiles score-tile.cell .card {
+  min-height: 5rem;
 }
 
 table-slot *:only-child {
   width: 100%;
+}
+
+single-score .card.dimmed {
+  transition: opacity 0.5s;
+}
+
+empty-slot .card {
+  position: relative;
+  transition: background, border 0.5s;
+}
+
+empty-slot .card.move-mode .move-mode-message {
+  transition: opacity .5s;
+}
+
+empty-slot .card:not(.move-mode) .move-mode-message {
+  opacity: 0;
+  position: absolute;
 }
 
 @media only screen and (max-width: 950px) {

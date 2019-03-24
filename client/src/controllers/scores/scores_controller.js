@@ -11,9 +11,9 @@ class ScoresController {
       showErrors: false,
       showPublic: 0
     }
-    this.sort = 'creation_down'
+    this.sort = 'creationTime_down'
     this.size = 'big'
-    this.tableView = this.$location.search()[ScoresController.pageParameter] === 'tiles'
+    this.tableView = this.$location.search()[ScoresController.pageParameter] === 'table'
   }
 
   $onInit () {
@@ -24,7 +24,7 @@ class ScoresController {
     })
 
     this.$scope.$watch(() => this.tableView, () => {
-      this.$location.search(ScoresController.pageParameter, this.tableView ? 'tiles' : 'table')
+      this.$location.search(ScoresController.pageParameter, this.tableView ? 'table' : 'tiles')
     })
 
     return Promise.all([this.data.init(), this.tournament.loadTeams(), this.tournament.loadTables()])

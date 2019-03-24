@@ -14,6 +14,8 @@ class ConflictSlotController {
       }
       this.dimmed = false
     })
+
+    this.data.map(score => score.init())
   }
 
   openConflictedScoresList () {

@@ -19,7 +19,7 @@ export default {
     <span class="hover-text">No show</span>
   </div>
  </div>
- <div class="move-mode-message flex-child-grow stat text-center" ng-if="slot.moveMode"
+ <div class="move-mode-message flex-child-grow stat text-center"
     ng-click="slot.moveScoreHere()">
     <i class="fa fa-share-square"></i>Move here
   </div>

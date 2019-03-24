@@ -2,9 +2,8 @@ class ScoresSortController {
   constructor () {
     const sortFields = [
       { field: 'teamNumber', text: 'team' },
-      { field: 'matchText', text: 'match' },
       { field: 'score', text: 'score' },
-      { field: 'creation', text: 'creation' }
+      { field: 'creationTime', text: 'creation' }
     ]
 
     this.options = sortFields.reduce((options, { field, text }) => {

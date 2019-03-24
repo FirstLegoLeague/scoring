@@ -12,8 +12,11 @@ export default {
       </div>
       <div class="cell small-8 grid-x">
         <div class="cell small-12">
+          <small>{{ slot.score.dateText }}</small>
+        </div>
+        <div class="cell small-12">
           <a editable-text="slot.score.referee" buttons="no" blur="submit" onaftersave="slot.save()">
-            {{ slot.score.referee || 'No one' }}
+            {{ slot.score.refereeText }}
           </a>
           <span ng-if="!slot.tournament.tablesDisabled">
             &#160;on table&#160;
@@ -21,9 +24,6 @@ export default {
               {{ slot.score.tableText }}.
             </a>
           </span>
-        </div>
-        <div class="cell small-12">
-          <small>{{ slot.score.dateText }}</small>
         </div>
       </div>
     </div>

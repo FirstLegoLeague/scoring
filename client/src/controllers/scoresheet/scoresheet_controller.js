@@ -61,7 +61,7 @@ class ScoresheetController {
   save () {
     this.data.save()
       .then(() => {
-        this.notifications.success(`Score saved for team ${this.data.current.teamNumber} with ${this.data.current.score}.`)
+        this.notifications.success(`Score saved for team ${this.data.current.teamNumber} with ${this.data.current.score} pts.`)
         this.logger.info(`Score saved - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
         this.$timeout(() => {
           this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })

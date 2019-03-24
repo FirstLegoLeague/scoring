@@ -59,7 +59,7 @@ class ScoresTilesController {
 
     // Filter by teams
     if (this.filters.teams.length > 0) {
-      this.visibleScores = this.visibleScores.filter(score => this.filters.teams.some(team => team.number === score.teamNumbe))
+      this.visibleScores = this.visibleScores.filter(score => this.filters.teams.some(team => team.number === score.teamNumber))
     }
 
     // Filter by rounds
