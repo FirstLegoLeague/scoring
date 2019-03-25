@@ -17,15 +17,16 @@ export default {
     </div>
   </div>
 
-  <div class="stat text-center" ng-if="score.inview">
+  <div class="stat flex-container align-middle align-spaced" ng-if="score.inview">
     <a editable-number="score.data.score" buttons="no" blur="submit" onaftersave="score.save()">
       {{ score.data.scoreText }}
     </a>
+    <score-actions class="summery" data="score.data" hide="{ move: true }"></score-actions>
   </div>
 
   <div class="card-divider extra-content" ng-if="score.inview">
     <a editable-text="score.data.referee" buttons="no" blur="submit" onaftersave="score.save()">
-      {{ score.data.referee || 'No one' }}
+      {{ score.data.refereeText }}
     </a>
     <span ng-if="!score.tournament.tablesDisabled">
       &#160;on table&#160;

@@ -1,3 +1,4 @@
+/* global HTMLElement */
 // Wraps the JQuery interface of Foundation in order to seperate it from angular.
 
 class Modals {
@@ -28,10 +29,11 @@ class Modals {
         resolve(modalSymbol)
       } else {
         this.$timeout(() => {
-          if (!this.modals.hasOwnProperty(modalSymbol)) {
-            this.modals[modalSymbol] = new this.$window.Foundation.Reveal(this.$window.$(modalSymbol))
+          const key = (modalSymbol instanceof HTMLElement) ? modalSymbol.id : modalSymbol
+          if (!this.modals.hasOwnProperty(key)) {
+            this.modals[key] = new this.$window.Foundation.Reveal(this.$window.$(modalSymbol))
           }
-          resolve(this.modals[modalSymbol])
+          resolve(this.modals[key])
         })
       }
     })

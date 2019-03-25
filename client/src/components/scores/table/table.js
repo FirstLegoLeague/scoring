@@ -9,7 +9,7 @@ export default {
   <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
 </div>
 <div class="ranks">
-  <div ng-repeat="rank in table.rankings.rankings[table.currentStage]" class="rank grid-x grid-padding-x">
+  <div ng-repeat="rank in table.currentRanks" class="rank grid-x grid-padding-x">
     <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
     <div class="cell grid-y team-cell" ng-class="table.teamCellWidthClass">
       <div class="card">

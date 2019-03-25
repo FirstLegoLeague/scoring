@@ -2,7 +2,7 @@ class MetadataInputsController {
   constructor (scoresheet, scores, $scope, tournament, refIdentity, logger) {
     Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, logger })
     this.loading = true
-    this.autoselect = true
+    this.data.autoselect = true
   }
 
   $onInit () {
@@ -18,9 +18,9 @@ class MetadataInputsController {
     this.$scope.$watch(() => this.data.current.stage, () => this.syncMatchFields())
     this.$scope.$watch(() => this.data.current.round, () => this.syncMatchFields())
 
-    this.$scope.$on('load', () => { this.autoselect = false })
+    this.$scope.$on('load', () => { this.data.autoselect = false })
     this.$scope.$on('reset', () => {
-      this.autoselect = true
+      this.data.autoselect = true
       this.autoselectMetadata()
     })
 
@@ -52,7 +52,7 @@ class MetadataInputsController {
   }
 
   autoselectMetadata () {
-    if (!this.autoselect) return
+    if (!this.data.autoselect) return
     this.autoselecting = true
     return this.autoselectTeam()
       .then(() => {
@@ -64,7 +64,7 @@ class MetadataInputsController {
   }
 
   autoselectTeam () {
-    if (!this.autoselect) return Promise.resolve()
+    if (!this.data.autoselect) return Promise.resolve()
     if (!this.refIdentity.table) return Promise.resolve()
     return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
       .then(teamNumber => {
@@ -94,7 +94,7 @@ class MetadataInputsController {
   }
 
   autoselectMatch () {
-    if (!this.autoselect) return Promise.resolve()
+    if (!this.data.autoselect) return Promise.resolve()
     if (!this.data.current.matchId ||
       this.matches.every(match => this.data.current.stage !== match.stage || this.data.current.round !== match.round)) {
       const firstIncompleteMatch = this.matches.find(match => !match.complete)
