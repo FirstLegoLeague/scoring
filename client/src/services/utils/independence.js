@@ -1,14 +1,21 @@
+const RETRY_TIME = 5 * 1000 // 5 seconds
 const STORAGE_KEY_PREFIX = 'independence_actions'
 
 class Independence {
-  constructor ($http, $window, logger) {
-    Object.assign(this, { $http, $window, logger })
+  constructor ($http, $window, $interval) {
+    Object.assign(this, { $http, $window, $interval })
     this.lastSuccessfulRequestTime = Date.now()
     this.retryPendingRequests()
+
+    this.$interval(() => {
+      if (this._pendingRequests().length > 0) {
+        this.retryPendingRequests()
+      }
+    }, RETRY_TIME)
   }
 
   send (method, url, data) {
-    const action = { method, url, data, waiting: false }
+    const action = { method, url, data, pending: false }
     this._saveRequest(action)
     return this._requestPromise(action)
   }
@@ -16,27 +23,29 @@ class Independence {
   // Requests functions
 
   retryPendingRequests () {
-    return Promise.all(this._pendingRequests().filter(action => !action.waiting).map(action => this._requestPromise(action)))
+    return Promise.all(this._pendingRequests().filter(action => !action.pending).map(action => this._requestPromise(action)))
   }
 
   _requestPromise (action) {
-    action.waiting = true
+    action.pending = true
+    this._saveRequest(action)
     return this.$http[action.method.toLowerCase()](action.url, action.data)
       .then(response => {
         if (response.status <= 0) {
           throw response
         }
         this._deleteRequest(action)
-        action.waiting = false
         this.retryPendingRequests()
         return response
       })
       .catch(err => {
         if (err.status > 0 && err.status < 500) {
           this._deleteRequest(action)
+        } else {
+          action.pending = false
+          this._saveRequest(action)
         }
         err.pendingRequestsCount = this.pendingRequestsCount(pendingRequest => pendingRequest.method === action.method && pendingRequest.url === action.url)
-        action.waiting = false
         throw err
       })
   }
@@ -74,6 +83,6 @@ class Independence {
 }
 
 Independence.$$ngIsClass = true
-Independence.$inject = ['$http', '$window', 'Logger']
+Independence.$inject = ['$http', '$window', '$interval']
 
 export default Independence

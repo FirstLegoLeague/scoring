@@ -1,12 +1,13 @@
 import angular from 'angular'
 
 class Scoresheet {
-  constructor (challenge, scores, scoresheetValidations, refIdentity, notifications, logger) {
-    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, notifications, logger })
+  constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
+    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, logger })
     this._onProcessListeners = []
     this.errors = []
     this.ready = false
     this.faulty = false
+    this.autoselect = true
   }
 
   init () {
@@ -18,7 +19,6 @@ class Scoresheet {
           this.allowSignatureEditing = true
         })
         .catch(err => {
-          this.notifications.error(err.data)
           this.ready = true
           this.faulty = true
           throw err
@@ -94,7 +94,7 @@ class Scoresheet {
           .then(errors => { this.errors = errors })
       })
       .then(() => this._onProcessListeners.map(listener => listener()))
-      .catch(err => { this.logger.error(err) })
+      .catch(error => this.logger.error(error))
   }
 
   save () {
@@ -105,22 +105,12 @@ class Scoresheet {
       this.current.matchId = 0
     }
     this.lastMatchId = this.current.matchId
-    return (this.isEditing() ? this.scores.update(this.current._id, this.current) : this.scores.create(this.current))
-      .then(() => this.notifications.success('Score saved successfully'))
-      .catch(err => {
-        if (err.status === 422) {
-          this.notifications.error(`Cannot submit score, there are some missing fields.`)
-        } else {
-          const pendingScores = err.pendingRequestsCount
-          const scoresWord = pendingScores > 1 ? 'scores' : 'score'
-          this.notifications.error(`Score submit failed. Don't worry, We're keeping
-                      an eye on your ${pendingScores} pending ${scoresWord}.`)
-        }
-      })
+    return (this.isEditing() ? this.scores.update(this.current) : this.scores.create(this.current))
   }
 
   load (score) {
     this.ready = false
+    this.autoselect = false
     return Promise.resolve(this.refIdentity.set(score))
       .then(() => {
         Object.assign(this.current, {
@@ -155,6 +145,6 @@ class Scoresheet {
 }
 
 Scoresheet.$$ngIsClass = true
-Scoresheet.$inject = ['Challenge', 'Scores', 'ScoresheetValidations', 'RefIdentity', 'Notifications', 'Logger']
+Scoresheet.$inject = ['Challenge', 'Scores', 'ScoresheetValidations', 'RefIdentity', 'Logger']
 
 export default Scoresheet

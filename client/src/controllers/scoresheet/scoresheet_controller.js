@@ -1,6 +1,6 @@
 class ScoresheetController {
-  constructor (scoresheet, $scope, $timeout, logger) {
-    Object.assign(this, { data: scoresheet, $scope, $timeout, logger })
+  constructor (scoresheet, $scope, $timeout, notifications, logger) {
+    Object.assign(this, { data: scoresheet, $scope, $timeout, notifications, logger })
     this._previouslyComplete = false
   }
 
@@ -15,16 +15,16 @@ class ScoresheetController {
         .then(() => {
           const missionId = event.targetScope.mission.data.id
           if (!(this.data.current && this.data.current.teamNumber) && missionId === this.missions()[0].id) {
-            this.logger.info('Completed first mission without selecting a team')
+            this.logger.info('Completed first mission without selecting a team.')
           }
         })
-        .catch(err => { console.log(err) })
+        .catch(error => this.logger.error(error))
     })
 
     this.$scope.$on('load', (event, scoresheet) => {
       this.data.load(scoresheet)
         .then(() => this.$scope.$digest())
-        .catch(err => this.logger.error(err))
+        .catch(error => this.logger.error(error))
     })
 
     this.data.onProcess(() => {
@@ -61,16 +61,22 @@ class ScoresheetController {
   save () {
     this.data.save()
       .then(() => {
+        this.notifications.success(`Score saved for team ${this.data.current.teamNumber} with ${this.data.current.score} pts.`)
+        this.logger.info(`Score saved - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
         this.$timeout(() => {
           this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
           this.reset()
         })
       })
-      .catch(() => this.reset())
+      .catch(() => {
+        this.notifications.success(`Failed saving score. Will retry later.`)
+        this.logger.info(`Failed saving score - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
+        this.reset()
+      })
   }
 }
 
 ScoresheetController.$$ngIsClass = true
-ScoresheetController.$inject = ['Scoresheet', '$scope', '$timeout', 'Logger']
+ScoresheetController.$inject = ['Scoresheet', '$scope', '$timeout', 'Notifications', 'Logger']
 
 export default ScoresheetController

@@ -1,14 +1,14 @@
 export default {
   template: `
   <div class="button-group">
-    <div class="hollow button">{{scoresActions.data.scores.length}} scores</div>
+    <div class="hollow button">{{scoresActions.scores.scores.length}} scores</div>
 
     <div class="alert button" ng-if="scoresActions.user === 'admin'" ng-click="scoresActions.openDeletionDialog()">
       <i class="fa" ng-class="scoresActions.deleting ? 'fa-circle-notch fa-spin' : 'fa-trash-alt'"></i>
       <span class="hover-text">Delete all scores</span>
     </div>
 
-    <a class="button" data-tooltip title="Export scores of current stage" ng-href="{{scoresActions.rankingsUrl}}">
+    <a class="secondary button" data-tooltip title="Export scores of current stage" ng-href="{{scoresActions.rankingsUrl}}">
       <i class="fa fa-download"></i>
       <span class="hover-text">Export scores</span>
     </a>

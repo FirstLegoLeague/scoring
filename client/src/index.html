@@ -8,22 +8,22 @@
     <div class="top-bar">
       <div class="top-bar-left">
         <ul class="menu">
-          <li id="page-title" class="menu-text">{{scoring.title()}}</li>
+          <li id="page-title" class="menu-text">{{scoring.page}}</li>
         </ul>
       </div>
       <div class="top-bar-right">
         <ul class="menu">
           <li class="menu-text"><status></status></li>
-          <li><a class="button" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+          <li class="grid-y align-center"><a class="secondary button" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
         </ul>
       </div>
       </div>
 
       <div class="top-bar-page">
         <!-- Removing the scores completely for performance -->
-        <scores ng-if="!scoring.showScoresheet"></scores>
+        <scores ng-if="scoring.page === 'scores'"></scores>
         <!-- Keeping the scoresheet even when it's not visible for updates -->
-        <scoresheet id="scoresheet" ng-show="scoring.showScoresheet"></scoresheet>
+        <scoresheet id="scoresheet" ng-show="scoring.page === 'scoresheet'"></scoresheet>
       </div>
   </body>
 </html>

@@ -159,6 +159,11 @@ ajv@^6.1.0:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+angular-inview@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/angular-inview/-/angular-inview-3.1.0.tgz#d1180feea704f5b0e6e6df40c585d990c135d1c8"
+  integrity sha512-J839sctiOgSYkYVh+ZmpkslOFMF9eb632jGRe3z70qkSOV5sAOuw3HkcFA8aZdZfpX841GZRQB1Nhjmh4fyspg==
+
 ansi-align@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-2.0.0.tgz#c36aeccba563b89ceb556f3690f0b1d9e3547f7f"

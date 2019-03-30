@@ -7,8 +7,8 @@ const DEFAULT_NODE = 'default'
 const RETRY_TIMEOUT = 10 * 1000 // 10 seconds
 
 class Messanger {
-  constructor (configuration, logger, $window, $timeout) {
-    Object.assign(this, { configuration, logger, $window, $timeout })
+  constructor (configuration, $window, $timeout, logger) {
+    Object.assign(this, { configuration, $window, $timeout, logger })
     this.open = false
     this.connecting = false
     this.listeners = []
@@ -35,7 +35,7 @@ class Messanger {
         this.ws.send(JSON.stringify({ type: MESSAGE_TYPES.SUBSCRIBE, node: this.node }))
         this.open = true
         this.connecting = false
-        this.logger.debug('Connected to mhub')
+        this.logger.info('Connected to mhub')
         resolve(this.ws)
       }
 
@@ -44,7 +44,7 @@ class Messanger {
         this.disconnectionTime = Date.now()
         this.logger.warn('Disonnected from mhub')
         this.$timeout(() => {
-          this.logger.debug('Retrying mhub connection')
+          this.logger.warn('Retrying mhub connection')
           this.init()
         }, RETRY_TIMEOUT)
       }
@@ -105,6 +105,6 @@ class Messanger {
 }
 
 Messanger.$$ngIsClass = true
-Messanger.$inject = ['Configuration', 'Logger', '$window', '$timeout']
+Messanger.$inject = ['Configuration', '$window', '$timeout', 'Logger']
 
 export default Messanger

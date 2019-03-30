@@ -7,9 +7,55 @@ function getPaddedNumber (number, digits = 2, padding = '0') {
   }
 }
 
-function Score (tournament, $http) {
-  return function (attrs) {
-    const score = attrs
+function Score (tournament, challenge, logger) {
+  const DEFAULT_FILEDS = { score: 0 }
+  challenge.init()
+    .then(() => Object.assign(DEFAULT_FILEDS, challenge.challenge))
+    .catch(error => logger.error(error))
+
+  return function (attrs = {}) {
+    const score = { }
+
+    /* Properties */
+
+    Object.defineProperties(score, {
+      teamNumber: {
+        get: () => score._teamNumber,
+        set: teamNumber => {
+          score._teamNumber = teamNumber
+          if (score.teamNumber && (score.matchId || (score.stage && score.round))) {
+            tournament.loadTeamMatches(score.teamNumber)
+              .then(matches => {
+                score.matches = matches
+                if (score.round && score.stage) {
+                  score.match = matches.find(match => match.round === score.round && match.stage === score.stage)
+                  score.matchId = score.match._id
+                } else if (score.matchId) {
+                  score.match = score.matches.find(m => m._id === score.matchId)
+                  score.stage = score.match.stage
+                  score.round = score.match.round
+                }
+              })
+              .catch(error => logger.error(error))
+          }
+        }
+      },
+      matchId: {
+        get: () => score._matchId,
+        set: matchId => {
+          score._matchId = matchId
+          if (score.matches) {
+            score.match = score.matches.find(m => m._id === score.matchId)
+            score.stage = score.match.stage
+            score.round = score.match.round
+          }
+        }
+      }
+    })
+
+    Object.assign(score, DEFAULT_FILEDS, attrs)
+    score.teamText = score.matchText = score.tableText = 'Loading...'
+    score.teamError = score.matchError = score.ready = false
 
     score.init = () => {
       if (!score._initPromise) {
@@ -30,38 +76,31 @@ function Score (tournament, $http) {
           score.teamError = Boolean(!score.team)
           score.noTable = Boolean(!score.table)
 
-          score.creation = new Date(score.creation)
-          score.lastUpdate = new Date(score.lastUpdate)
+          if (score.creation !== undefined) {
+            score.creationTime = new Date(score.creation)
+            score.dateText = `${getPaddedNumber(score.creationTime.getHours())}:${getPaddedNumber(score.creationTime.getMinutes())}`
+          }
+          if (score.lastUpdate !== undefined) {
+            score.lastUpdateTime = new Date(score.lastUpdate)
 
-          score.scoreText = score.noShow ? 'No Show' : (score.score || 0)
+            if (score.creationTime.getTime() !== score.lastUpdateTime.getTime()) {
+              score.dateText += ` (${getPaddedNumber(score.lastUpdateTime.getHours())}:${getPaddedNumber(score.lastUpdateTime.getMinutes())})`
+            }
+          }
+
+          score.scoreText = score.score || 0
           score.teamText = score.teamError ? 'Missing team' : score.team.displayText
           score.matchText = score.matchError ? 'Missing round' : score.match.displayText
-          score.tableText = score.noTable ? 'No table' : score.table.tableName
-          score.dateText = `${getPaddedNumber(score.creation.getHours())}:${getPaddedNumber(score.creation.getMinutes())}`
+          score.refereeText = score.referee || 'Ref ?'
+          score.tableText = score.noTable ? 'Table ?' : score.table.tableName
 
-          if (score.creation.getTime() !== score.lastUpdate.getTime()) {
-            score.dateText += ` (${getPaddedNumber(score.lastUpdate.getHours())}:${getPaddedNumber(score.lastUpdate.getMinutes())})`
-          }
-
-          score.ready = true
-        })
-    }
-
-    score.reloadFromServer = () => {
-      score.ready = false
-      return $http.get(`/scores/${score._id}`)
-        .then(({ data }) => {
-          if (!data) {
-            throw { status: 404 }
-          }
-          Object.assign(score, data)
           score.ready = true
         })
     }
 
     score.sanitize = config => {
       const sanitizedScore = {
-        missions: score.missions.map(mission => {
+        missions: (score.missions || challenge.challenge.missions).map(mission => {
           return {
             id: mission.id,
             score: mission.score,
@@ -74,12 +113,13 @@ function Score (tournament, $http) {
           }
         }),
         score: score.score,
-        challenge: score.title,
+        challenge: score.title || challenge.challenge.title,
         teamNumber: score.teamNumber,
+        matchId: score.matchId,
         round: score.round,
         stage: score.stage,
-        noShow: score.noShow,
-        matchId: score.matchId
+        noShow: !!score.noShow,
+        public: !!score.public
       }
 
       Object.entries(Score.POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
@@ -91,16 +131,22 @@ function Score (tournament, $http) {
       return sanitizedScore
     }
 
-    score.updateMatch = () => {
-      return tournament.loadTeamMatches(score.teamNumber)
-        .then(matches => {
-          score.matches = matches
-          score.matchId = matches.find(match => match.stage === score.stage && match.round === score.round).matchId
-        })
+    score.fakeSignature = () => {
+      score.signature = {
+        isEmpty: false,
+        dataUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACACAYAAACx1FRUAAAEXklEQVR4Xu3UMU0FQBRE0aEioaDCAiVGSOixhRo80IILEgRQERT83+7NWQVvzmzmZh4BAgQOEbg55E5nEiBAYAbLJyBA4BgBg3VMVQ4lQMBg+QMECBwjYLCOqcqhBAgYLH+AAIFjBK4ZrJdtr9vetn0ck8yhBAjkBC4N1t22n2232762PeUEBCJA4BiBS4P1H+R728O2923PxyRzKAECOYFrBut+2+O2z22/OQGBCBA4RuCawTomjEMJEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoC/wBXA4IgXIiU60AAAAASUVORK5CYII='
+      }
     }
 
-    score.teamText = score.matchText = score.tableText = 'Loading...'
-    score.teamError = score.matchError = score.ready = false
+    score.fillDefaults = () => {
+      score.missions.forEach(mission => {
+        mission.objectives.forEach(objective => {
+          if (objective.default !== undefined) {
+            objective.value = objective.default
+          }
+        })
+      })
+    }
 
     return score
   }
@@ -112,6 +158,6 @@ Score.POSSIBLY_REQUIRED_FIELDS = {
   requireSignature: { name: 'signature' }
 }
 
-Score.$inject = ['Tournament', '$http']
+Score.$inject = ['Tournament', 'Challenge', 'Logger']
 
 export default Score

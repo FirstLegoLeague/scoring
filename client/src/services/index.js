@@ -12,9 +12,13 @@ import RefIdentity from './scoresheet/ref_identity'
 import Scoresheet from './scoresheet/scoresheet'
 import ScoresheetValidations from './scoresheet/scoresheet_validations'
 
+import ScoreMove from './scores/score_move'
+
 import Connectivity from './connectivity'
-import Scores from './scores'
-import Tournament from './tournament'
+
+import Scores from './resources/scores'
+import Tournament from './resources/tournament'
+import Rankings from './resources/rankings'
 
 export default {
   Configuration,
@@ -31,7 +35,11 @@ export default {
   Scoresheet,
   ScoresheetValidations,
 
+  ScoreMove,
+
   Connectivity,
+
   Scores,
-  Tournament
+  Tournament,
+  Rankings
 }

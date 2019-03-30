@@ -1,41 +1,37 @@
 class MetadataInputsController {
-  constructor (scoresheet, scores, $scope, tournament, refIdentity, messanger, logger) {
-    Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, messanger, logger })
+  constructor (scoresheet, scores, $scope, tournament, refIdentity, logger) {
+    Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, logger })
     this.loading = true
   }
 
   $onInit () {
-    this.$scope.$watch(() => this.teamNumber(), () => this.autosetSelectedMetadata())
-    this.$scope.$on('toggle scores screen', () => this.autosetSelectedMetadata())
-    this.refIdentity.on('saved', () => {
+    this.$scope.$watch(() => this.teamNumber(), () => {
       if (this.teamNumber()) {
-        this.data.current.teamNumber = undefined
-      }
-      this.autosetSelectedMetadata()
-    })
-
-    this.$scope.$watch(() => this.data.current.matchId, () => {
-      if (this.data.current.matchId) {
-        if (this.matches.length) {
-          this.setMatch()
-          return this.data.process({ cantLoadMatches: this.cantLoadMatches })
-            .catch(err => this.logger.error(err))
-        } else {
-          this.data.current.matchId = undefined
-        }
+        this.loadMatchOptions()
+          .then(() => this.autoselectMatch())
+          .catch(error => this.logger.error(error))
       }
     })
 
-    this.$scope.$on('reset', ({ forceMetadataIfEditing }) => {
-      if (forceMetadataIfEditing || !this.data.isEditing()) {
-        this.matches = []
-        this.autosetSelectedMetadata()
-      }
+    this.$scope.$watch(() => this.data.current.matchId, () => this.syncMatchFields())
+    this.$scope.$watch(() => this.data.current.stage, () => this.syncMatchFields())
+    this.$scope.$watch(() => this.data.current.round, () => this.syncMatchFields())
+
+    this.$scope.$on('load', () => { this.data.autoselect = false })
+    this.$scope.$on('reset', () => {
+      this.data.autoselect = true
+      this.autoselectMetadata()
     })
 
-    return this.tournament.loadTeams()
-      .then(() => this.refIdentity.init())
-      .then(() => this.autosetSelectedMetadata())
+    this.scores.on('scores updated', () => {
+      if (this.matches) {
+        this.calculateMatchCompletion()
+      }
+    })
+    this.refIdentity.on('saved', () => this.autoselectMetadata())
+
+    return Promise.all([this.tournament.loadTeams(), this.refIdentity.init()])
+      .then(() => this.autoselectMetadata())
   }
 
   teamNumber () {
@@ -54,68 +50,79 @@ class MetadataInputsController {
     return (this.tournament.teams || [])
   }
 
-  autosetSelectedMetadata () {
+  autoselectMetadata () {
+    if (!this.data.autoselect) {
+      return this.loadMatchOptions()
+        .then(() => this.syncMatchFields())
+        .then(() => this.data.process())
+    }
+    this.autoselecting = true
     return this.autoselectTeam()
       .then(() => {
         if (this.teamNumber()) {
-          return this.loadMatchOptions()
-            .then(() => {
-              const firstIncompleteMatch = this.matches.find(match => !match.complete)
-              this.data.current.matchId = firstIncompleteMatch ? firstIncompleteMatch._id : undefined
-            })
+          return this.loadMatchOptions().then(() => this.autoselectMatch())
         }
       })
       .then(() => { this.autoselecting = false })
   }
 
   autoselectTeam () {
-    if (this.refIdentity.table && !this.match) {
-      this.autoselecting = true
-      return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
-        .then(teamNumber => {
-          if (!this.teamNumber() && teamNumber) {
-            this.data.current.teamNumber = teamNumber
-          }
-        })
-    } else {
-      // Cannot set metadata. No big deal, just continue without autosetting
-      return Promise.resolve()
-    }
+    if (!this.data.autoselect) return Promise.resolve()
+    if (!this.refIdentity.table) return Promise.resolve()
+    return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
+      .then(teamNumber => {
+        if (!this.teamNumber() && teamNumber) {
+          this.data.current.teamNumber = teamNumber
+        }
+      })
   }
 
   loadMatchOptions () {
-    if (this.teamNumber()) {
-      this.loadingMatches = true
-      return Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
-        .then(([matches]) => {
-          const scores = this.scores.all()
-          this.data.dontRequireMatch = false
-          matches.forEach(match => {
-            match.complete = scores.some(score => score.teamNumber === this.teamNumber() && score.matchId === match._id)
-            match.displayTextWithCompletion = `${match.displayText} ${match.complete ? '✔' : ''}`
-          })
-          this.matches = matches
+    this.loadingMatches = true
 
-          if (this.stage() && this.round() && !this.match) {
-            this.setMatch()
-          }
-          this.loadingMatches = false
-          return this.data.process()
-        })
-        .catch(err => {
-          this.logger.error(err)
-          this.loadingMatches = false
-          this.data.dontRequireMatch = true
-          return this.data.process()
-        })
-    } else {
-      return Promise.resolve()
+    return Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
+      .then(([matches]) => {
+        this.matches = matches
+        this.calculateMatchCompletion()
+        this.data.dontRequireMatch = false
+      })
+      .catch(error => {
+        this.data.dontRequireMatch = true
+        this.logger.error(error)
+      })
+      .then(() => {
+        this.loadingMatches = false
+        return this.data.process()
+      })
+  }
+
+  autoselectMatch () {
+    if (!this.data.autoselect) return Promise.resolve()
+    if (!this.data.current.matchId ||
+      this.matches.every(match => this.data.current.stage !== match.stage || this.data.current.round !== match.round)) {
+      const firstIncompleteMatch = this.matches.find(match => !match.complete)
+      if (firstIncompleteMatch) {
+        this.data.current.matchId = firstIncompleteMatch._id
+      }
     }
   }
 
-  setMatch () {
+  calculateMatchCompletion () {
+    this.matches.forEach(match => {
+      match.complete = this.scores.scores.some(score => score.teamNumber === this.teamNumber() &&
+        (score.matchId === match._id || (score.stage === match.stage && score.round === match.round)))
+      match.displayTextWithCompletion = `${match.displayText} ${match.complete ? '✔' : ''}`
+      return match
+    })
+  }
+
+  syncMatchFields () {
+    if (!this.matches) return Promise.resolve()
     const match = this.matches.find(m => m._id === this.data.current.matchId) ||
       this.matches.find(m => m.stage === this.stage() && m.round === this.round())
+
+    if (!match) return Promise.resolve()
+
     this.data.current.matchId = match._id
     this.data.current.stage = match.stage
     this.data.current.round = match.round
@@ -123,6 +130,6 @@ class MetadataInputsController {
 }
 
 MetadataInputsController.$$ngIsClass = true
-MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'RefIdentity', 'Messanger', 'Logger']
+MetadataInputsController.$inject = ['Scoresheet', 'Scores', '$scope', 'Tournament', 'RefIdentity', 'Logger']
 
 export default MetadataInputsController

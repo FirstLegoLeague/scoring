@@ -14,7 +14,21 @@ import RefIdentityController from './scoresheet/menu/ref_identity_controller'
 
 import ScoresController from './scores/scores_controller'
 import ScoresActionsController from './scores/menu/scores_actions_controller'
-import ScoreController from './scores/score_controller'
+import ScoresSortController from './scores/menu/scores_sort_controller'
+import ScoresStageController from './scores/menu/scores_stage_controller'
+import ScoresFiltersController from './scores/menu/scores_filters_controller'
+import ScoreActionsController from './scores/score_actions_controller'
+
+import ScoresTilesController from './scores/tiles/scores_tiles_controller'
+import ScoreTileController from './scores/tiles/score_tile_controller'
+
+import SlotController from './scores/table/slot_controller'
+import TableController from './scores/table/table_controller'
+
+import EmptySlotController from './scores/table/slot_types/empty_slot_controller'
+import SingleScoreSlotController from './scores/table/slot_types/single_score_slot_controller'
+import ConflictSlotController from './scores/table/slot_types/conflict_slot_controller'
+import ConflictScoreController from './scores/table/slot_types/conflict_slot/conflict_score_controller'
 
 // eslint-disable-next-line node/exports-style
 export default {
@@ -34,5 +48,19 @@ export default {
 
   ScoresController,
   ScoresActionsController,
-  ScoreController
+  ScoresSortController,
+  ScoresStageController,
+  ScoresFiltersController,
+  ScoreActionsController,
+
+  ScoresTilesController,
+  ScoreTileController,
+
+  TableController,
+  SlotController,
+  EmptySlotController,
+  SingleScoreSlotController,
+  ConflictSlotController,
+  ConflictScoreController
+
 }

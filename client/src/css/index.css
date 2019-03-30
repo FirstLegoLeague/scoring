@@ -1,6 +1,6 @@
 @import './background.css';
 @import './inputs.css';
-@import './scores.css';
+@import './scores/index.css';
 @import './scoresheet.css';
 @import './signature.css';
 @import './status.css';
@@ -8,4 +8,24 @@
 
 .button:not(:hover) .hover-text {
 	display: none;
+}
+
+.top-bar {
+    height: 2.5rem !important;
+}
+
+.top-bar .top-bar-left +.top-bar-right {
+	margin-left: 1rem;
+}
+
+.top-bar +.top-bar-page {
+    height: calc(100% - 2.5rem) !important;
+}
+
+.menu {
+	align-items: center;
+}
+
+[data-dropdown-menu]:not([data-t]) {
+    display: none;
 }

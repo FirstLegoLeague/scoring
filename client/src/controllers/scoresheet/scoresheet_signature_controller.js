@@ -25,7 +25,7 @@ class ScoresheetSignatureController {
           })
         }
       })
-      .catch(err => this.logger.error(err))
+      .catch(error => this.logger.error(error))
   }
 
   reset () {

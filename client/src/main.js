@@ -2,6 +2,8 @@ import angular from 'angular'
 import 'angular-animate'
 import 'angular-cookies'
 import 'angular-xeditable'
+import 'angular-sanitize'
+import 'angular-inview'
 
 import '@first-lego-league/user-interface/current/assets/js/app.js'
 import '@first-lego-league/user-interface/current/assets/css/app.css'
@@ -19,7 +21,7 @@ import controllers from './controllers'
 
 global['SignaturePad'] = SignaturePad
 
-const main = angular.module('scoring', ['ngAnimate', 'ngCookies', 'signature', 'xeditable'])
+const main = angular.module('scoring', ['ngSanitize', 'ngAnimate', 'ngCookies', 'signature', 'xeditable', 'angular-inview'])
   .config(config)
 
 Object.entries(services).forEach(([serviceName, service]) => {

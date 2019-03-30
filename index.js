@@ -18,7 +18,7 @@ const port = process.env.PORT || DEFAULTS.PORT
 
 const app = express()
 const logger = new Logger()
-logger.info (`-------------------- scoring version ${projectVersion} startup --------------------`)
+logger.info(`-------------------- scoring version ${projectVersion} startup --------------------`)
 
 app.use(cookieParser())
 app.use(bodyParser.json())

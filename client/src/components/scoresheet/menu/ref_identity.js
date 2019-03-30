@@ -16,7 +16,7 @@ export default {
     </select>
   </div>
   
-  <div class="fast reveal" id="identity-modal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y" data-close-on-click="false">
+  <div id="identity-modal" class="fast reveal" data-reveal data-animation-in="hinge-in-from-middle-y" data-animation-out="hinge-out-from-middle-y" data-close-on-click="false">
     <h1>{{refIdentity.title}}</h1>
     <h5 class="subheader">This will appear on the scoresheets you submit</h5>
     <form>

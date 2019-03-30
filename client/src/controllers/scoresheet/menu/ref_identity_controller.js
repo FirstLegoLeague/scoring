@@ -28,7 +28,7 @@ class RefIdentityController {
           this.$scope.$emit('proccess scoresheet')
         })
       })
-      .catch(err => this.logger.error(err))
+      .catch(error => this.logger.error(error))
   }
 
   open () {

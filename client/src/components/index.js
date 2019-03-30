@@ -22,13 +22,29 @@ import numberObjective from './scoresheet/objective_types/number_objective'
 /* Scores view */
 
 import scores from './scores/scores'
-import noScoresMessage from './scores/no_scores_message'
 
-import scoresMenu from './scores/menu/scores_menu'
-import scoresFilters from './scores/menu/scores_filters'
+import scoresTiles from './scores/tiles/tiles'
+import scoreTile from './scores/tiles/tile'
+
+import scoresTable from './scores/table/table'
+import tableSlot from './scores/table/slot'
+
+import emptySlot from './scores/table/slot_types/empty_slot'
+import singleScoreSlot from './scores/table/slot_types/single_score_slot'
+import conflictSlot from './scores/table/slot_types/conflict_slot'
+
+import conflictScore from './scores/table/slot_types/conflict_slot/conflict_score'
+
 import scoresActions from './scores/menu/scores_actions'
+import scoresSizes from './scores/menu/scores_sizes'
+import scoresFilters from './scores/menu/scores_filters'
+import scoresSort from './scores/menu/scores_sort'
+import scoresStage from './scores/menu/scores_stage'
 
-import score from './scores/score'
+import collectionFilter from './scores/menu/filters/collection_filter'
+
+import noScoresMessage from './scores/no_scores_message'
+import scoreActions from './scores/score_actions'
 
 export default {
   scoresheet,
@@ -47,11 +63,26 @@ export default {
   numberObjective,
 
   scores,
-  scoresMenu,
-  scoresFilters,
-  scoresActions,
   noScoresMessage,
-  score,
+  scoresActions,
+  scoresSizes,
+  scoresFilters,
+  scoreActions,
+  scoresSort,
+  scoresStage,
+
+  collectionFilter,
+
+  scoresTiles,
+  scoreTile,
+
+  scoresTable,
+  tableSlot,
+
+  emptySlot,
+  singleScoreSlot,
+  conflictSlot,
+  conflictScore,
 
   status
 }

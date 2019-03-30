@@ -1,0 +1,145 @@
+.ranks-header h5 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.rank .summery .highest {
+  float: right;
+  width: 10%;
+  margin: 0;
+  font-size: 1.1rem !important;
+}
+
+.rank .summery {
+  font-size: 1.4rem;
+}
+
+.rank .cell:not(.team-cell) .summery {
+  text-align: center;
+}
+
+.ranks {
+  overflow-y: scroll;
+  height: calc(100vh - 7.04rem);
+}
+.rank > .cell:first-child, .ranks-header > .cell:first-child, scores-tiles > .cell {
+  padding: 0 0.5rem 0 0.5rem !important;
+}
+
+.rank > .cell, .ranks-header > .cell {
+  padding: 0 0.5rem 0 0 !important;
+}
+
+.rank .card, score-tile .card {
+  margin-bottom: 0.5rem !important;
+}
+
+.rank .team {
+  font-weight: bold;
+}
+
+.moving-score {
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem;
+  background: #ffe5b6;
+}
+
+conflict-slot {
+  display: flex;
+  position: relative;
+}
+
+conflict-slot .card-section.score-deatils {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
+
+conflict-slot .right-score {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.5rem) calc(50% - 1rem), 100% calc(50% + 1rem), calc(100% - 0.5rem) 100%, 0 100%);
+}
+
+conflict-slot .left-score {
+  clip-path: polygon(0.5rem 0, 100% 0, 100% 100%, 0% 100%, 0.5rem calc(50% + 1rem), 0% calc(50% - 1rem));
+}
+
+conflict-slot .conflict-message {
+  position: absolute;
+  color: darkred;
+  font-weight: bold;
+  right: 0.5rem;
+  cursor: pointer;
+}
+
+empty-slot .card:not(.move-mode) {
+  background: rgba(0,0,0,0.2);;
+  border: none;
+}
+
+empty-slot .card:not(.move-mode) .stat {
+  color: #a7a7a7;
+}
+
+empty-slot .card.move-mode {
+  cursor: pointer;
+}
+
+empty-slot .card.move-mode .stat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.small .rank {
+  margin-bottom: 0.2rem;
+}
+
+#scores-list.small .rank > .cell:first-child, #scores-list.small .ranks-header > .cell:first-child {
+  padding: 0 0.1rem 0 0.5rem !important;
+}
+
+#scores-list.small .rank > .cell, #scores-list.small .ranks-header > .cell {
+  padding: 0 0.1rem !important;
+}
+
+#scores-list.small .rank .card {
+  padding: 0.1rem 0.5rem;
+  margin: 0 !important;
+  border: 0;
+}
+
+#scores-list.big .rank > .team-cell > .card {
+  border-radius: 3rem 0 0 3rem;
+  padding-left: 3rem;
+}
+
+table-slot *:only-child {
+  width: 100%;
+}
+
+single-score .card.dimmed {
+  transition: opacity 0.5s;
+}
+
+empty-slot .card {
+  position: relative;
+  transition: background, border 0.5s;
+}
+
+empty-slot .card.move-mode .move-mode-message {
+  transition: opacity .5s;
+}
+
+empty-slot .card:not(.move-mode) .move-mode-message {
+  opacity: 0;
+  position: absolute;
+}
+
+@media only screen and (max-width: 950px) {
+
+  .rank .no-show, .rank .public {
+    display: none;
+  }
+
+}
