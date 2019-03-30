@@ -27,7 +27,7 @@ export default {
     <div class="large loader"></div>
   </div>
 
-  <div id="scores-list" ng-if="scores.any()" ng-class="scores.size">
+  <div id="scores-list" ng-if="scores.any() || scores.tableView" ng-class="scores.size">
     <scores-tiles ng-if="!scores.tableView" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5"
       filters="scores.filters" sort="scores.sort" ready="scores.ready"></scores-tiles>
 
@@ -35,7 +35,7 @@ export default {
       current-stage="scores.currentStage" size="scores.size"></scores-table>
   </div>
 
-  <no-scores-message id="empty-scores-list" ng-if="!scores.any() && scores.ready" class="grid-container"></no-scores-message>
+  <no-scores-message id="empty-scores-list" ng-if="!scores.any() && !scores.tableView && scores.ready" class="grid-container"></no-scores-message>
 </div>
 
 <delete-all-scores-modal></delete-all-scores-modal>`,

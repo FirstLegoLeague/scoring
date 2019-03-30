@@ -18,3 +18,14 @@
 .has-tip {
   cursor: pointer !important;
 }
+
+.button {
+    font-size: 0.8rem !important;
+    padding: 0.5rem !important;
+}
+
+.menu select, .menu input {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 1.8em;
+}

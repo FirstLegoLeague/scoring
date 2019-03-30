@@ -4,20 +4,20 @@ export default {
   <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
   <div class="cell" ng-class="table.teamCellWidthClass"></div>
   <div ng-repeat="header in table.roundHeaders" class="cell text-center" ng-class="table.scoreCellWidthClass">
-    <h5><span class="extra-content">round&nbsp;</span>{{header}}</h5>
+    <h5><span class="big-only-content">round&nbsp;</span>{{header}}</h5>
   </div>
   <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
 </div>
 <div class="ranks">
-  <div ng-repeat="rank in table.currentRanks" class="rank grid-x grid-padding-x">
+  <div ng-repeat="rank in table.rankings.rankings[table.currentStage] track by rank.team.number" class="rank grid-x grid-padding-x">
     <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>
     <div class="cell grid-y team-cell" ng-class="table.teamCellWidthClass">
       <div class="card">
-        <div class="card-section extra-content">
+        <div class="card-section big-only-content">
           <div class="team">{{::rank.team.displayText}}</div>
           <div class="rank">Rank: #{{::rank.rank}} with {{rank.highest ? ('score ' + rank.highest.score) : 'no scores'}}</div>
         </div>
-        <div class="card-section extra-content">
+        <div class="card-section big-only-content">
           <div class="button-group">
             <div class="button" ng-class="{ disabled: rank.allScores.length === 0, secondary: rank.allScores.length === 0 || !rank.allScoresUnpublished }" ng-click="table.toggleAllRankScoresPublic(rank)">
               <i class="fa" ng-class="rank.allScoresUnpublished ? 'fa-plus-circle' : 'fa-minus-circle'"></i>
@@ -33,10 +33,10 @@ export default {
             </div>
           </div>
         </div>
-        <div class="summery">#{{rank.rank}} <b>{{rank.team.displayText}}</b></div>
+        <div class="small-only-content">#{{::rank.rank}} <b>{{::rank.team.displayText}}</b> <span ng-if="rank.highest" class="hollow button highest">{{rank.highest.score}}</span></div>
       </div>
     </div>
-    <div ng-repeat="slotScores in rank.scores" class="cell grid-y" ng-class="table.scoreCellWidthClass">
+    <div ng-repeat="slotScores in rank.scores track by $index" class="cell grid-y" ng-class="table.scoreCellWidthClass">
       <table-slot class="flex-container flex-child-grow" data="slotScores" position="{ round: $index+1, teamNumber: rank.team.number, stage: table.currentStage }"></table-slot>
     </div>
     <div class="cell" ng-class="table.marginClass" ng-if="table.marginClass"></div>

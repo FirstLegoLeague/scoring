@@ -8,7 +8,7 @@ export default {
     <conflict-slot class="flex-container flex-child-grow" ng-switch-default=""
       data="slot.data" moving-score="slot.scoreMove.id" ng-if="slot.inview"></conflict-slot>
 
-    <div class="card" ng-if="!slot.inview"></div>
+    <div class="big-only-content card" ng-if="!slot.inview"></div>
   </div>`,
   controller: 'SlotController as slot',
   bindings: {

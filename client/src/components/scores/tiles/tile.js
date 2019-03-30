@@ -21,10 +21,10 @@ export default {
     <a editable-number="score.data.score" buttons="no" blur="submit" onaftersave="score.save()">
       {{ score.data.scoreText }}
     </a>
-    <score-actions class="summery" data="score.data" hide="{ move: true }"></score-actions>
+    <score-actions class="small-only-content" data="score.data" hide="{ move: true }"></score-actions>
   </div>
 
-  <div class="card-divider extra-content" ng-if="score.inview">
+  <div class="card-divider big-only-content" ng-if="score.inview">
     <a editable-text="score.data.referee" buttons="no" blur="submit" onaftersave="score.save()">
       {{ score.data.refereeText }}
     </a>
@@ -36,7 +36,7 @@ export default {
     </span>
   </div>
 
-  <div class="card-section flex-child-shrink extra-content" ng-if="score.inview">
+  <div class="card-section flex-child-shrink big-only-content" ng-if="score.inview">
     <score-actions data="score.data" hide="{ move: true }"></score-actions>
   </div>
 

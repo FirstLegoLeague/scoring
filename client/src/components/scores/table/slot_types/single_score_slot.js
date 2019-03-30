@@ -1,8 +1,10 @@
 export default {
   template: `
 <div id="score-slot-{{slot.score._id}}" class="card"
-  ng-class="{ loading: !slot.score.ready, 'disabled dimmed': slot.movingScore && slot.movingScore !== slot.score._id }">
-  <div class="card-section extra-content">
+  ng-class="{ loading: !slot.score.ready,
+              'disabled dimmed': slot.movingScore && slot.movingScore !== slot.score._id,
+              'moving-score': slot.movingScore && slot.movingScore === slot.score._id }">
+  <div class="card-section big-only-content">
     <div class="grid-x">
       <div class="cell small-4">
         <div class="stat text-center">
@@ -29,12 +31,12 @@ export default {
       </div>
     </div>
   </div>
-  <div class="card-section flex-child-shrink extra-content">
+  <div class="card-section flex-child-shrink big-only-content">
     <score-actions data="slot.score"></score-actions>
   </div>
-  <div class="summery">{{slot.score.scoreText}}</div>
+  <div class="small-only-content">{{slot.score.scoreText}}</div>
 
-  <div class="dimmer">
+  <div class="dimmer big-only-content">
     <div class="loader"></div>
   </div>
 </div>`,

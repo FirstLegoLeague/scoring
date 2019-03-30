@@ -1,13 +1,11 @@
-/* global angular */
-
 const TOTAL_CELLS_COUNT = 12
 const MAX_SCORE_CELL_WIDTH = 5
 const MAX_TEAM_CELL_BIG_WIDTH = 3
 const MAX_TEAM_CELL_SMALL_WIDTH = 12
 
 class TableController {
-  constructor (rankings, scores, $scope, tournament, logger) {
-    Object.assign(this, { rankings, scores, $scope, tournament, logger })
+  constructor (rankings, scores, $timeout, $scope, $element, tournament, logger) {
+    Object.assign(this, { rankings, scores, $timeout, $scope, $element, tournament, logger })
   }
 
   $onInit () {
@@ -75,8 +73,6 @@ class TableController {
           this._setCurrentCellSizes()
           this._enrichRankings()
         }
-        this.currentRanks = Array(this.rankings.rankings[this.currentStage].length).fill(0)
-          .map((item, index) => this.rankings.rankings[this.currentStage][index])
         this.ready = true
       })
       .catch(err => this.logger.error(err))
@@ -125,11 +121,7 @@ class TableController {
   }
 
   _enrichRankings () {
-    if (this.rankings.rankings[this.currentStage]) {
-      this.rankings.rankings[this.currentStage].forEach(this._enrichRank)
-      this.currentRanks = Array(this.rankings.rankings[this.currentStage].length).fill(0)
-        .map((item, index) => this.rankings.rankings[this.currentStage][index])
-    }
+    this.rankings.rankings[this.currentStage].forEach(this._enrichRank)
   }
 
   _enrichRank (rank) {
@@ -139,6 +131,6 @@ class TableController {
 }
 
 TableController.$$ngIsClass = true
-TableController.$inject = ['Rankings', 'Scores', '$scope', 'Tournament', 'Logger']
+TableController.$inject = ['Rankings', 'Scores', '$timeout', '$scope', '$element', 'Tournament', 'Logger']
 
 export default TableController

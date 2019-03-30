@@ -2,7 +2,6 @@ class MetadataInputsController {
   constructor (scoresheet, scores, $scope, tournament, refIdentity, logger) {
     Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, logger })
     this.loading = true
-    this.data.autoselect = true
   }
 
   $onInit () {
@@ -52,7 +51,11 @@ class MetadataInputsController {
   }
 
   autoselectMetadata () {
-    if (!this.data.autoselect) return
+    if (!this.data.autoselect) {
+      return this.loadMatchOptions()
+        .then(() => this.syncMatchFields())
+        .then(() => this.data.process())
+    }
     this.autoselecting = true
     return this.autoselectTeam()
       .then(() => {

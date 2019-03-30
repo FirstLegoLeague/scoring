@@ -32,8 +32,11 @@ export default {
     </div>
   </div>
   
-  <collection-filter class="menu" title="Teams" data="filters.data.teams"
-    options="filters.tournament.teams" display="filters.teamText(option)">
+  <collection-filter class="menu" title="Teams(numbers)" data="filters.data.teams"
+    options="filters.teamsByNumber" display="filters.teamText(option)">
+  </collection-filter>
+  <collection-filter class="menu" title="Teams(names)" data="filters.data.teams"
+    options="filters.teamsByName" display="filters.teamText(option)">
   </collection-filter>
   <collection-filter class="menu" title="Rounds" data="filters.data.rounds"
     options="filters.rounds" display="filters.roundText(option)">

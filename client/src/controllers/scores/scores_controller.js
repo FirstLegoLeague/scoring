@@ -1,6 +1,8 @@
+/* global Event */
+
 class ScoresController {
-  constructor (scores, $scope, $location, tournament, logger) {
-    Object.assign(this, { data: scores, $scope, $location, tournament, logger })
+  constructor (scores, $timeout, $scope, $element, $location, tournament, logger) {
+    Object.assign(this, { data: scores, $timeout, $scope, $element, $location, tournament, logger })
     this.filters = {
       teams: [],
       rounds: [],
@@ -23,6 +25,13 @@ class ScoresController {
       this.tableView = false
     })
 
+    this.$scope.$watch(() => this.size, () => {
+      this.$timeout(() => {
+        this.$element.parent('[in-view-container]')[0]
+          .dispatchEvent(new Event('scroll'))
+      })
+    })
+
     this.$scope.$watch(() => this.tableView, () => {
       this.$location.search(ScoresController.pageParameter, this.tableView ? 'table' : 'tiles')
     })
@@ -42,6 +51,6 @@ class ScoresController {
 
 ScoresController.pageParameter = 'scoresPage'
 ScoresController.$$ngIsClass = true
-ScoresController.$inject = ['Scores', '$scope', '$location', 'Tournament', 'Logger']
+ScoresController.$inject = ['Scores', '$timeout', '$scope', '$element', '$location', 'Tournament', 'Logger']
 
 export default ScoresController

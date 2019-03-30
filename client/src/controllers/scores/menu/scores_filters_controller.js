@@ -21,9 +21,8 @@ class ScoresFiltersController {
     })
 
     this.scores.on('scores updated', () => this._loadOptions())
-    this.tournament.loadTeams()
     this.tournament.loadTables()
-    return this.scores.init()
+    return Promise.all([this.scores.init(), this.tournament.loadTeams()])
       .then(() => this._loadOptions())
       .catch(error => this.logger.error(error))
   }
@@ -45,6 +44,9 @@ class ScoresFiltersController {
   }
 
   _loadOptions () {
+    this.teamsByNumber = Array.from(this.tournament.teams)
+    this.teamsByName = Array.from(this.tournament.teams).sort((team1, team2) => team1.name > team2.name ? 1 : -1)
+
     this.rounds = this.scores.scores.reduce((rounds, score) => {
       if (rounds.every(round => round.stage !== score.stage || round.round !== score.round)) {
         rounds.push({ stage: score.stage, round: score.round, displayText: `${score.stage} #${score.round}` })

@@ -30,7 +30,6 @@ class EmptySlotController {
 
   moveScoreHere () {
     this.scoreMove.move(this.position)
-      .then(score => this.data.push(score))
       .catch(error => this.logger.error(error))
   }
 }

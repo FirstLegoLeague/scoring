@@ -1,14 +1,22 @@
+/* global Event */
+
 const SHOW_PUBLIC = 1
 const SHOW_UNPUBLIC = 2
 
 class ScoresTilesController {
-  constructor (scores, $scope, $timeout, tournament, logger) {
-    Object.assign(this, { scores, $scope, $timeout, tournament, logger })
+  constructor (scores, $scope, $timeout, $element, tournament, logger) {
+    Object.assign(this, { scores, $scope, $timeout, $element, tournament, logger })
   }
 
   $onInit () {
     this.$scope.$watch(() => this.sort, () => this._calculateVisibleScores())
-    this.$scope.$watch(() => this.filters, () => this._calculateVisibleScores(), true)
+    this.$scope.$watch(() => this.filters, () => {
+      this._calculateVisibleScores()
+      this.$timeout(() => {
+        this.$element.parent('[in-view-container]')[0]
+          .dispatchEvent(new Event('scroll'))
+      })
+    }, true)
     this.$scope.$on('open scores with filters', () => this._calculateVisibleScores())
     this.scores.on('scores updated', () => this._calculateVisibleScores())
 
@@ -94,6 +102,6 @@ class ScoresTilesController {
 }
 
 ScoresTilesController.$$ngIsClass = true
-ScoresTilesController.$inject = ['Scores', '$scope', '$timeout', 'Tournament', 'Logger']
+ScoresTilesController.$inject = ['Scores', '$scope', '$timeout', '$element', 'Tournament', 'Logger']
 
 export default ScoresTilesController

@@ -7,6 +7,7 @@ class Scoresheet {
     this.errors = []
     this.ready = false
     this.faulty = false
+    this.autoselect = true
   }
 
   init () {
@@ -109,6 +110,7 @@ class Scoresheet {
 
   load (score) {
     this.ready = false
+    this.autoselect = false
     return Promise.resolve(this.refIdentity.set(score))
       .then(() => {
         Object.assign(this.current, {

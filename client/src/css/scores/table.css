@@ -1,27 +1,23 @@
-
-#sort-dropdown ul {
-  width: 100%;
-  min-width: 100%;
-}
-
-#sort-dropdown li:nth-child(2n) {
-  background: #e0e0e0;
-}
-
-scores-tiles {
-  margin-top: 1rem;
-}
-
-score-tile h6 {
-  margin: 0 !important;
-  line-height: 1.2em !important;
-}
-
 .ranks-header h5 {
   margin: 0;
   font-weight: bold;
   font-size: 1.5rem;
   color: white;
+}
+
+.rank .summery .highest {
+  float: right;
+  width: 10%;
+  margin: 0;
+  font-size: 1.1rem !important;
+}
+
+.rank .summery {
+  font-size: 1.4rem;
+}
+
+.rank .cell:not(.team-cell) .summery {
+  text-align: center;
 }
 
 .ranks {
@@ -44,16 +40,9 @@ score-tile h6 {
   font-weight: bold;
 }
 
-scores .card .card-section, scores .card .card-divider {
-  padding: 0.5rem;
-}
-
-scores .card .card-section:first-child {
-  padding-bottom: 0;
-}
-
-scores .button-group {
-  margin: 0;
+.moving-score {
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem;
+  background: #ffe5b6;
 }
 
 conflict-slot {
@@ -102,12 +91,8 @@ empty-slot .card.move-mode .stat {
   align-items: center;
 }
 
-#scores-list.small .extra-content {
-  display: none;
-}
-
-#scores-list.big .summery {
-  display: none;
+.small .rank {
+  margin-bottom: 0.2rem;
 }
 
 #scores-list.small .rank > .cell:first-child, #scores-list.small .ranks-header > .cell:first-child {
@@ -127,19 +112,6 @@ empty-slot .card.move-mode .stat {
 #scores-list.big .rank > .team-cell > .card {
   border-radius: 3rem 0 0 3rem;
   padding-left: 3rem;
-}
-
-.filter-dropdown ul {
-  max-height: 10rem;
-  overflow-y: auto;
-}
-
-#scores-list.big scores-tiles score-tile.cell .card {
-  min-height: 10rem;
-}
-
-#scores-list.small scores-tiles score-tile.cell .card {
-  min-height: 5rem;
 }
 
 table-slot *:only-child {

@@ -1,6 +1,6 @@
 @import './background.css';
 @import './inputs.css';
-@import './scores.css';
+@import './scores/index.css';
 @import './scoresheet.css';
 @import './signature.css';
 @import './status.css';
@@ -22,19 +22,8 @@
     height: calc(100% - 2.5rem) !important;
 }
 
-.button {
-    font-size: 0.8rem !important;
-    padding: 0.5rem !important;
-}
-
 .menu {
 	align-items: center;
-}
-
-.menu select, .menu input {
-	padding-top: 0;
-    padding-bottom: 0;
-    height: 1.8em;
 }
 
 [data-dropdown-menu]:not([data-t]) {
