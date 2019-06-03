@@ -37,15 +37,12 @@ apis.forEach(api => {
 
 if (process.env.DEV) {
   app.use('', require('./server/dev_router'))
-}
-
-if (process.env.DEV) {
   app.use(authenticationDevMiddleware())
 } else {
   app.use(authenticationMiddleware)
 }
 
-app.use(express.static(path.resolve(__dirname, 'client/dist')))
+app.use(express.static(path.resolve(__dirname, 'dist')))
 
 app.listen(port, () => {
   logger.info(`Scoring service listening on port ${port}`)
