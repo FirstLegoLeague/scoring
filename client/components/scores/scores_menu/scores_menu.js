@@ -1,4 +1,6 @@
+import template from './scores_menu.html'
+
 export default {
-  templateUrl: '',
-  controller: function () { }
+  template,
+  controller: 'scoresMenuController as scoresMenu'
 }
