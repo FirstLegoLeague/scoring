@@ -1,4 +1,6 @@
+import template from './main_page.html'
+
 export default {
-  template: '<div></div>',
-  controller: function () { }
+  template,
+  controller: 'mainPageController as mainPage'
 }
