@@ -1,5 +1,3 @@
-'use strict'
-
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 
@@ -13,6 +11,17 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['import-directory'],
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
       {
         test: /\.css$/,
         use: [
@@ -38,6 +47,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './client/index.html',
       filename: './index.html'
+      // favicon: './node_modules/@first-lego-league/user-interface/current/assets/images/first-favicon.ico'
     })
   ]
 }

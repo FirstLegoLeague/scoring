@@ -6,17 +6,17 @@ import 'angular-sanitize'
 import 'angular-inview'
 import 'angular-signature'
 
-import '@first-lego-league/user-interface/current/semantic.js'
-import '@first-lego-league/user-interface/current/semantic.css'
+// import '@first-lego-league/user-interface/current/semantic.js'
+// import '@first-lego-league/user-interface/current/semantic.css'
 
 import SignaturePad from 'signature_pad/dist/signature_pad.min'
 
 import config from './config'
-import factories from './factories'
-import directives from './directives'
-import services from './services'
-import components from './components'
-import controllers from './controllers'
+import factories from './factories/**'
+import directives from './directives/**'
+import services from './services/**'
+import components from './components/**'
+import controllers from './controllers/**'
 
 global['SignaturePad'] = SignaturePad
 
