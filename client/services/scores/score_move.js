@@ -36,6 +36,6 @@ class ScoreMove extends EventEmitter {
 }
 
 ScoreMove.$$ngIsClass = true
-ScoreMove.$inject = ['Scores']
+ScoreMove.$inject = ['scores']
 
 export default ScoreMove

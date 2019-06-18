@@ -42,6 +42,6 @@ class Connectivity {
 }
 
 Connectivity.$$ngIsClass = true
-Connectivity.$inject = ['Independence', 'Messanger']
+Connectivity.$inject = ['independence', 'messanger']
 
 export default Connectivity

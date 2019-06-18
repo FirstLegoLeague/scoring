@@ -44,6 +44,6 @@ class ScoresheetValidations {
 }
 
 ScoresheetValidations.$$ngIsClass = true
-ScoresheetValidations.$inject = ['Configuration', 'User']
+ScoresheetValidations.$inject = ['configuration', 'user']
 
 export default ScoresheetValidations

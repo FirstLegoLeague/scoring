@@ -114,6 +114,6 @@ class Tournament extends EventEmitter {
 }
 
 Tournament.$$ngIsClass = true
-Tournament.$inject = ['Independence', 'Configuration', 'Messanger', 'User', 'Logger']
+Tournament.$inject = ['independence', 'configuration', 'messanger', 'user', 'logger']
 
 export default Tournament

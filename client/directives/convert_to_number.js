@@ -1,6 +1,7 @@
 class ConvertToNumber {
   constructor () {
     this.require = 'ngModel'
+    this.restrict = 'A'
   }
 
   link (scope, element, attrs, ngModel) {

@@ -1,5 +1,5 @@
 function Config ($httpProvider) {
-  $httpProvider.interceptors.push('AuthenticationInterceptor')
+  $httpProvider.interceptors.push('authenticationInterceptor')
 }
 
 Config.$inject = ['$httpProvider']

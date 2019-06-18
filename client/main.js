@@ -1,13 +1,13 @@
 import angular from 'angular'
+import 'angular-sanitize'
 import 'angular-animate'
 import 'angular-cookies'
-import 'angular-xeditable'
-import 'angular-sanitize'
-import 'angular-inview'
 import 'angular-signature'
+import 'angular-xeditable'
+import 'angular-inview'
 
-// import '@first-lego-league/user-interface/current/semantic.js'
-// import '@first-lego-league/user-interface/current/semantic.css'
+import '@first-lego-league/user-interface/current/semantic.js'
+import '@first-lego-league/user-interface/current/semantic.css'
 
 import SignaturePad from 'signature_pad/dist/signature_pad.min'
 
@@ -16,29 +16,37 @@ import factories from './factories/**'
 import directives from './directives/**'
 import services from './services/**'
 import components from './components/**'
-import controllers from './controllers/**'
 
 global['SignaturePad'] = SignaturePad
 
 const main = angular.module('scoring', ['ngSanitize', 'ngAnimate', 'ngCookies', 'signature', 'xeditable', 'angular-inview'])
   .config(config)
 
+console.debug('--- services ---')
 Object.entries(services).forEach(([serviceName, service]) => {
-  main.service(serviceName, service)
+  console.debug(serviceName)
+  main.service(serviceName, service.default)
 })
 
+console.debug('--- factories ---')
 Object.entries(factories).forEach(([factoryName, factory]) => {
-  main.factory(factoryName, factory)
+  console.debug(factoryName)
+  main.factory(factoryName, factory.default)
 })
 
+console.debug('--- directives ---')
 Object.entries(directives).forEach(([directiveName, directive]) => {
-  main.directive(directiveName, directive)
+  console.debug(directiveName)
+  main.directive(directiveName, directive.default)
 })
 
-Object.entries(controllers).forEach(([controllerName, controller]) => {
-  main.controller(controllerName, controller)
-})
-
+console.debug('--- components ---')
 Object.entries(components).forEach(([componentName, component]) => {
-  main.component(componentName, component)
+  if (componentName.endsWith('Controller')) {
+    console.debug(`controller: ${componentName}`)
+    main.controller(componentName, component.default)
+  } else {
+    console.debug(componentName)
+    main.component(componentName, component.default)
+  }
 })

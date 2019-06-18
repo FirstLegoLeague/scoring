@@ -158,6 +158,6 @@ Score.POSSIBLY_REQUIRED_FIELDS = {
   requireSignature: { name: 'signature' }
 }
 
-Score.$inject = ['Tournament', 'Challenge', 'Logger']
+Score.$inject = ['tournament', 'challenge', 'logger']
 
 export default Score

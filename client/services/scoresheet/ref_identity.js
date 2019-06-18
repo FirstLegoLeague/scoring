@@ -47,6 +47,6 @@ class RefIdentity extends EventEmitter {
 }
 
 RefIdentity.$$ngIsClass = true
-RefIdentity.$inject = ['$window', 'Tournament']
+RefIdentity.$inject = ['$window', 'tournament']
 
 export default RefIdentity

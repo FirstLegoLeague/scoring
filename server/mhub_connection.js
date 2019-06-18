@@ -1,6 +1,3 @@
-'use strict'
-/* eslint node/no-unsupported-features: 0 */
-
 const { MClient } = require('mhub')
 const logger = require('@first-lego-league/ms-logger').Logger()
 const { getCorrelationId } = require('@first-lego-league/ms-correlation')

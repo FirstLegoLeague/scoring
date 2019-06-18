@@ -1,0 +1,12 @@
+scores-menu {
+	flex-grow: 1;
+}
+
+scores-menu .item.ng-hide {
+    opacity: 0;
+    transition-delay: 0s !important;
+}
+
+scores-menu .item {
+    transition: linear 0.5s opacity 0.5s !important;
+}

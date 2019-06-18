@@ -105,6 +105,6 @@ class Messanger {
 }
 
 Messanger.$$ngIsClass = true
-Messanger.$inject = ['Configuration', '$window', '$timeout', 'Logger']
+Messanger.$inject = ['configuration', '$window', '$timeout', 'logger']
 
 export default Messanger

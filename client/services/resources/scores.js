@@ -128,6 +128,6 @@ class Scores extends EventEmitter {
 }
 
 Scores.$$ngIsClass = true
-Scores.$inject = ['Independence', 'Score', 'Tournament', 'Messanger', 'Configuration']
+Scores.$inject = ['independence', 'score', 'tournament', 'messanger', 'configuration']
 
 export default Scores

@@ -46,8 +46,8 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       template: './client/index.html',
-      filename: './index.html'
-      // favicon: './node_modules/@first-lego-league/user-interface/current/assets/images/first-favicon.ico'
+      filename: './index.html',
+      favicon: './node_modules/@first-lego-league/user-interface/current/assets/images/first-favicon.ico'
     })
   ]
 }

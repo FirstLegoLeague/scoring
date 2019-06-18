@@ -70,6 +70,6 @@ class Challenge {
 }
 
 Challenge.$$ngIsClass = true
-Challenge.$inject = ['Independence', 'Configuration']
+Challenge.$inject = ['independence', 'configuration']
 
 export default Challenge
