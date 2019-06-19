@@ -2,9 +2,9 @@ const ONLINE_TIMESPAN = 5 * 1000 // 5 seconds
 const TEMPORARY_TIMESPAN = 10 * 60 * 1000 // 10 minutes
 const TEMPORARY_REQUESTS_COUNT = 5
 const STATUS_CODES = {
-  ONLINE: 0,
-  TEMPORARY_OFFLINE: 1,
-  PERMANENTLY_OFFLINE: 2
+  ONLINE: 'online',
+  TEMPORARY_OFFLINE: 'temporary-offline',
+  PERMANENTLY_OFFLINE: 'permanently-offline'
 }
 
 class Connectivity {

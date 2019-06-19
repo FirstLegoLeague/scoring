@@ -1,1 +1,32 @@
-<h1>TILES</h1>
+<div class="ui padded grid">
+	<div class="row">
+	<div class="ten wide column">
+		<sm-dropdown class="filters fluid multiple search selection" default-text="'Filter results...'"
+			model="tilesPage.filters" items="tilesPage.filterOptions"
+			on-add="tilesPage.updateScores()" on-remove="tilesPage.updateScores()"
+			settings="{ ignoreCase: true, fullTextSearch: 'exact', clearable: true }">
+		</sm-dropdown>
+	</div>
+	<div class="column">
+		<sm-button sm-dropdown-clear="'.filters'">Clear</sm-button>
+	</div>
+	<div class="two wide column">
+	</div>
+	<div class="right floated column">
+		<div class="ui right floated menu">
+			<div class="ui icon link item">
+				<i class="ui download icon"></i>
+				<div class="hover text">Export stage</div>
+			</div>
+			<div class="ui icon link item">
+				<i class="ui red trash icon"></i>
+				<div class="hover text">Delete all</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+<div class="ui centered cards">
+	<tile class="ui card" ng-repeat="score in tilesPage.scores track by score._id" data="score"></tile>
+</div>

@@ -1,8 +1,8 @@
-<scores-menu ng-if="mainMenu.user === 'scores'" class="menu"></scores-menu>
+<scores-menu ng-if="mainMenu.page === 'scores'" class="menu"></scores-menu>
 <scoresheet-menu ng-if="mainMenu.page === 'scoresheet'" class="menu"></scoresheet-menu>
 <div class="right menu">
-	<div class="link icon item" href="/logout">
+	<a class="link icon item" href="/logout">
 		<i class="link sign out icon"></i>
 		<div class="hover text">Logout</div>
-	</div>
+	</a>
 </div>

@@ -1,3 +1,6 @@
+import '@first-lego-league/user-interface/current/semantic.js'
+import '@first-lego-league/user-interface/current/semantic.css'
+
 import angular from 'angular'
 import 'angular-sanitize'
 import 'angular-animate'
@@ -6,8 +9,7 @@ import 'angular-signature'
 import 'angular-xeditable'
 import 'angular-inview'
 
-import '@first-lego-league/user-interface/current/semantic.js'
-import '@first-lego-league/user-interface/current/semantic.css'
+import 'semantic-ui-angular-jquery/angular-semantic-ui.min.js'
 
 import SignaturePad from 'signature_pad/dist/signature_pad.min'
 
@@ -19,7 +21,7 @@ import components from './components/**'
 
 global['SignaturePad'] = SignaturePad
 
-const main = angular.module('scoring', ['ngSanitize', 'ngAnimate', 'ngCookies', 'signature', 'xeditable', 'angular-inview'])
+const main = angular.module('scoring', ['semantic-ui', 'ngSanitize', 'ngAnimate', 'ngCookies', 'signature', 'xeditable', 'angular-inview'])
   .config(config)
 
 console.debug('--- services ---')

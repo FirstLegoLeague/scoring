@@ -15,18 +15,21 @@ function generateComponent ({ componentPath }, { inject }) {
     .then(() => Promise.all([
       fs.writeFile(path.join(dirPath, `${componentName}.html`), '', () => { }),
       fs.writeFile(path.join(dirPath, `${componentName}.js`), getComponentFileContent(componentName), () => { }),
-      fs.writeFile(path.join(dirPath, `${componentName}_controller.js`), getControllerFileContent(componentName, inject), () => { })
+      fs.writeFile(path.join(dirPath, `${componentName}_controller.js`), getControllerFileContent(componentName, inject), () => { }),
+      fs.writeFile(path.join(dirPath, `${componentName}.css`), '', () => { })
     ]))
 }
 
 function getComponentFileContent (componentName) {
   const camelCaseComponentName = changeCase.camelCase(componentName)
   return `import template from './${componentName}.html'
+import './${componentName}.css'
 
 export default {
   template,
   controller: '${camelCaseComponentName}Controller as ${camelCaseComponentName}'
-}`
+}
+`
 }
 
 function getControllerFileContent (componentName, injections = []) {

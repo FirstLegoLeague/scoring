@@ -1,3 +1,5 @@
+import Promise from 'bluebird'
+
 function getPaddedNumber (number, digits = 2, padding = '0') {
   const string = String(number)
   if (string.length >= digits) {

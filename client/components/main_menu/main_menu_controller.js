@@ -5,7 +5,6 @@ class MainMenuController {
     this._resetPage()
     this.$scope.$on('$locationChangeSuccess', () => {
       this._resetPage()
-      this.$scope.$broadcast(`set page ${this.page}`)
     })
   }
 
@@ -18,6 +17,7 @@ class MainMenuController {
     if (!this.page) {
       this.setPage(this.user.isAdmin() ? 'scores' : 'scoresheet')
     }
+    this.$scope.$broadcast(`set page ${this.page}`)
   }
 }
 

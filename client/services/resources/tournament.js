@@ -1,4 +1,5 @@
 import EventEmitter from 'event-emitter-es6'
+import Promise from 'bluebird'
 
 class Tournament extends EventEmitter {
   constructor (independence, configuration, messanger, user, logger) {
