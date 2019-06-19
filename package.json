@@ -13,7 +13,8 @@
     "start": "set DEV=true&& set SECRET=321LEGO&& start mongod&& start mhub-server&& set MODULE_RANKINGS_URL=http://localhost:3000&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set MHUB_URI=ws://localhost:13900&& node ./index.js",
     "build": "webpack -p",
     "watch": "webpack --watch",
-    "prepack": "yarn run build"
+    "prepack": "yarn run build",
+    "generate": "node ./dev-scripts/generate.js"
   },
   "dependencies": {
     "@first-lego-league/ms-auth": "1.3.1",
@@ -44,6 +45,8 @@
     "angular-xeditable": "^0.9.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-import-directory": "^1.1.0",
+    "caporal": "^1.2.0",
+    "change-case": "^3.1.0",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
     "eslint": "^4.19.1",
@@ -58,6 +61,7 @@
     "grunt": "^1.0.3",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "mkdirp": "^0.5.1",
     "signature_pad": "^3.0.0-beta.3",
     "style-loader": "^0.23.1",
     "webpack": "^4.32.2",
