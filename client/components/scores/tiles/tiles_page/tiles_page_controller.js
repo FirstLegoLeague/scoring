@@ -35,14 +35,20 @@ function applyFilter (filter, score) {
 }
 
 class TilesPageController {
-  constructor ($scope, scores) {
-    Object.assign(this, { $scope, data: scores })
-    this.filters = []
+  constructor ($scope, $location, scores) {
+    Object.assign(this, { $scope, $location, data: scores })
     this.filterOptions = []
+    this.filters = []
     this.scores = []
   }
 
   $onInit () {
+    this._loadFitlersFromLocation()
+
+    this.$scope.$on('$locationChangeSuccess', () => {
+      this._loadFitlersFromLocation()
+    })
+
     this.data.on('scores updated', () => this.update())
 
     return this.data.init()
@@ -52,14 +58,25 @@ class TilesPageController {
 
   update () {
     if (this.data.scores.length) {
-      this.updateScores()
+      this.filtersUpdated()
       this._calculateFilterOptions()
     }
   }
 
-  updateScores () {
+  filtersUpdated () {
+    this.$location.search('filters', this.filters)
+
     this.scores = (this.data.scores || [])
       .filter(score => this.filters.every(filter => applyFilter(filter, score)))
+  }
+
+  _loadFitlersFromLocation () {
+    const filters = this.$location.search().filters || this.filters || []
+    if (filters instanceof Array) {
+      this.fitlers = filters
+    } else {
+      this.filters = [filters]
+    }
   }
 
   _calculateFilterOptions () {
@@ -82,6 +99,6 @@ class TilesPageController {
 }
 
 TilesPageController.$$ngIsClass = true
-TilesPageController.$inject = ['$scope', 'scores']
+TilesPageController.$inject = ['$scope', '$location', 'scores']
 
 export default TilesPageController

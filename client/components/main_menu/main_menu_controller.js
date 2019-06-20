@@ -1,7 +1,9 @@
 class MainMenuController {
   constructor ($location, $scope, user) {
     Object.assign(this, { $location, $scope, user })
+  }
 
+  $onInit () {
     this._resetPage()
     this.$scope.$on('$locationChangeSuccess', () => {
       this._resetPage()

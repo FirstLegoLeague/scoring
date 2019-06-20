@@ -1,0 +1,8 @@
+tiles-page > .grid {
+	height: 100%;
+}
+
+#tiles {
+    height: calc(100% - 5rem);
+    overflow-y: auto;
+}

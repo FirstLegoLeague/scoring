@@ -1,32 +1,38 @@
 <div class="ui padded grid">
 	<div class="row">
-	<div class="ten wide column">
-		<sm-dropdown class="filters fluid multiple search selection" default-text="'Filter results...'"
-			model="tilesPage.filters" items="tilesPage.filterOptions"
-			on-add="tilesPage.updateScores()" on-remove="tilesPage.updateScores()"
-			settings="{ ignoreCase: true, fullTextSearch: 'exact', clearable: true }">
-		</sm-dropdown>
-	</div>
-	<div class="column">
-		<sm-button sm-dropdown-clear="'.filters'">Clear</sm-button>
-	</div>
-	<div class="two wide column">
-	</div>
-	<div class="right floated column">
-		<div class="ui right floated menu">
-			<div class="ui icon link item">
-				<i class="ui download icon"></i>
-				<div class="hover text">Export stage</div>
+		<div class="nine wide column">
+				<div class="ui fluid action input">
+					<sm-dropdown class="filters fluid multiple search selection" default-text="'Filter results...'"
+						model="tilesPage.filters" items="tilesPage.filterOptions" label="item" value="item"
+						on-add="tilesPage.filtersUpdated()" on-remove="tilesPage.filtersUpdated()"
+						settings="{ fullTextSearch: 'exact' }">
+					</sm-dropdown>
+				<div class="ui icon button" sm-dropdown-clear="'.filters.selection'" ng-class="{disabled: tilesPage.filters.length === 0}">
+					<i class="undo icon"></i>
+					<div class="hover text">Clear filters</div>
+				</div>
 			</div>
-			<div class="ui icon link item">
-				<i class="ui red trash icon"></i>
-				<div class="hover text">Delete all</div>
+		</div>
+		<div class="three wide column">
+		</div>
+		<div class="four wide column">
+			<div class="ui right floated menu">
+				<div class="ui icon link item">
+					<i class="ui download icon"></i>
+					<div class="hover text">Export stage</div>
+				</div>
+				<div class="ui icon link item">
+					<i class="ui red trash icon"></i>
+					<div class="hover text">Delete all</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<div id="tiles" class="row">
+		<div class="sixteen wide column">
+			<div class="ui centered cards">
+				<tile class="ui card" ng-repeat="score in tilesPage.scores track by score._id" data="score"></tile>
+			</div>
+		</div>
 	</div>
-</div>
-
-<div class="ui centered cards">
-	<tile class="ui card" ng-repeat="score in tilesPage.scores track by score._id" data="score"></tile>
 </div>

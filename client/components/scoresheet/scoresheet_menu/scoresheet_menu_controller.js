@@ -1,7 +1,9 @@
 class ScoresheetMenuController {
   constructor ($location, $scope, user) {
     Object.assign(this, { $location, $scope, user })
+  }
 
+  $onInit () {
     this._resetPage()
     this.$scope.$on('set page scoresheet', () => {
       this._resetPage()

@@ -1,7 +1,9 @@
 class ScoresPageController {
   constructor ($location, $scope) {
     Object.assign(this, { $location, $scope })
+  }
 
+  $onInit () {
     this._resetPage()
     this.$scope.$on('$locationChangeSuccess', () => {
       this._resetPage()

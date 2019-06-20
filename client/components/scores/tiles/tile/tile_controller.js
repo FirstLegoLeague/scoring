@@ -11,6 +11,11 @@ class TileController {
       .then(() => { this.ready = true })
   }
 
+  update (attrs) {
+    Object.assign(this.data, attrs)
+    return this.save()
+  }
+
   save () {
     return this.scores.update(this.data)
       .then(() => this.data.load())
