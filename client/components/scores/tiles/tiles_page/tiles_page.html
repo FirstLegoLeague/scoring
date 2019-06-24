@@ -1,12 +1,12 @@
 <div class="ui padded grid">
-	<div class="row">
+	<div class="row" id="tiles-header">
 		<div class="nine wide column">
-				<div class="ui fluid action input">
-					<sm-dropdown class="filters fluid multiple search selection" default-text="'Filter results...'"
-						model="tilesPage.filters" items="tilesPage.filterOptions" label="item" value="item"
-						on-add="tilesPage.filtersUpdated()" on-remove="tilesPage.filtersUpdated()"
-						settings="{ fullTextSearch: 'exact' }">
-					</sm-dropdown>
+			<div class="ui fluid action input">
+				<sm-dropdown class="filters fluid multiple search selection" default-text="'Filter results...'"
+					model="tilesPage.filters" items="tilesPage.filterOptions" label="item" value="item"
+					on-add="tilesPage.filtersUpdated()" on-remove="tilesPage.filtersUpdated()"
+					settings="{ fullTextSearch: 'exact' }">
+				</sm-dropdown>
 				<div class="ui icon button" sm-dropdown-clear="'.filters.selection'" ng-class="{disabled: tilesPage.filters.length === 0}">
 					<i class="undo icon"></i>
 					<div class="hover text">Clear filters</div>

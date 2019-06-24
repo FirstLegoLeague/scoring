@@ -15,6 +15,14 @@ const FILTERS = {
   unpublic: { field: 'public', value: false },
   valid: { field: 'valie', value: true },
   invalid: { field: 'valie', value: false },
+  duplicate: (score, scoresArray) => {
+    const matchingScoresCount = scoresArray.filter(otherScore => {
+      return score.stage === otherScore.stage &&
+             score.round === otherScore.round &&
+             score.teamNumber === otherScore.teamNumber
+    })
+    return matchingScoresCount > 1
+  },
   'No show': { field: 'noShow', value: true },
   show: { field: 'noShow', value: false },
   team: 'teamText',
@@ -25,10 +33,12 @@ const FILTERS = {
   score: 'score'
 }
 
-function applyFilter (filter, score) {
+function applyFilter (filter, score, scoresArray) {
   const [filterKey, value] = filter.split(': ')
   if (FILTERS[filterKey].constructor === String) {
     return score[FILTERS[filterKey]] === value.toString()
+  } else if (FILTERS[filterKey] instanceof Function) {
+    return FILTERS[filterKey](score, scoresArray)
   } else {
     return score[FILTERS[filterKey].field] === FILTERS[filterKey].value
   }
@@ -67,7 +77,7 @@ class TilesPageController {
     this.$location.search('filters', this.filters)
 
     this.scores = (this.data.scores || [])
-      .filter(score => this.filters.every(filter => applyFilter(filter, score)))
+      .filter((score, index, scoresArray) => this.filters.every(filter => applyFilter(filter, score, scoresArray)))
   }
 
   _loadFitlersFromLocation () {
