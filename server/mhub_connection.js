@@ -6,7 +6,7 @@ const logger = require('@first-lego-league/ms-logger').Logger()
 const { getCorrelationId } = require('@first-lego-league/ms-correlation')
 
 const MHUB_CLIENT_ID = 'cl-scoring'
-const NODE = process.env.DEV ? 'default' : 'protected'
+const NODE = process.env.NODE_ENV === 'development' ? 'default' : 'protected'
 
 const mhubClient = new MClient(process.env.MHUB_URI)
 
@@ -25,7 +25,7 @@ function connect () {
   if (!connectionPromise) {
     connectionPromise = mhubClient.connect()
       .then(() => logger.info('Connected to mhub'))
-    if (!process.env.DEV) {
+    if (process.env.NODE_ENV !== 'development') {
       connectionPromise = connectionPromise
         .then(() => mhubClient.login('protected-client', process.env.PROTECTED_MHUB_PASSWORD))
     }

@@ -4,3 +4,5 @@ client/dist/**
 .idea/*
 *.sublime*
 yarn-error.log
+module-config.json
+data/*
