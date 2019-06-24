@@ -12,14 +12,14 @@ const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
 const { Logger, loggerMiddleware } = require('@first-lego-league/ms-logger')
 
-const logger = new Logger()
-logger.info(`-------------------- scoring version ${projectVersion} startup --------------------`)
-
 const DEFAULTS = require('./defaults')
 
 const port = process.env.PORT || DEFAULTS.PORT
 
 const app = express()
+
+const logger = new Logger()
+logger.info(`-------------------- scoring version ${projectVersion} startup --------------------`)
 
 app.use(cookieParser())
 app.use(bodyParser.json())
