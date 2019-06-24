@@ -12,7 +12,7 @@ const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
 const { Logger, loggerMiddleware } = require('@first-lego-league/ms-logger')
 
-const DEFAULTS = require('./defaults')
+const DEFAULTS = require('./server/defaults')
 
 const port = process.env.PORT || DEFAULTS.PORT
 
@@ -33,11 +33,11 @@ const apis = ['/scores', '/challenge', '/config']
 
 apis.forEach(api => {
   // eslint-disable-next-line import/no-dynamic-require
-  app.use(api, require(`.${api}`))
+  app.use(api, require(`./server${api}`))
 })
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(require('./dev_router'))
+  app.use(require('./server/dev_router'))
   app.use(authenticationDevMiddleware())
 } else {
   app.use(authenticationMiddleware)

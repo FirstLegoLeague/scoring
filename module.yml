@@ -2,7 +2,7 @@ api: "1.0"
 name: "scoring"
 display: "Scoring"
 type: node
-script: server/index.js
+script: index.js
 require:
   mongodb
 config:

@@ -25,10 +25,7 @@ function connect () {
   if (!connectionPromise) {
     connectionPromise = mhubClient.connect()
       .then(() => logger.info('Connected to mhub'))
-    if (process.env.NODE_ENV !== 'development') {
-      connectionPromise = connectionPromise
-        .then(() => mhubClient.login('protected-client', process.env.PROTECTED_MHUB_PASSWORD))
-    }
+      .then(() => mhubClient.login('protected-client', process.env.PROTECTED_MHUB_PASSWORD))
   }
   return connectionPromise
 }
