@@ -14,6 +14,7 @@ const DEFAULTS = require('./server/defaults')
 const port = process.env.PORT || DEFAULTS.PORT
 
 const app = express()
+
 const logger = new Logger()
 logger.info(`-------------------- scoring version ${projectVersion} startup --------------------`)
 
@@ -32,8 +33,8 @@ apis.forEach(api => {
   app.use(api, require(`./server${api}`))
 })
 
-if (process.env.DEV) {
-  app.use('', require('./server/dev_router'))
+if (process.env.NODE_ENV === 'development') {
+  app.use(require('./server/dev_router'))
   app.use(authenticationDevMiddleware())
 } else {
   app.use(authenticationMiddleware)
