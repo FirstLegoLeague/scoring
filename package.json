@@ -7,7 +7,7 @@
   "author": "Idan Stark <idanstark42@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "set DEV=true&& set SECRET=321LEGO&& start mongod&& start mhub-server&& set MODULE_RANKINGS_URL=http://localhost:3000&& set MODULE_TOURNAMENT_URL=http://localhost:3000&& set MHUB_URI=ws://localhost:13900&& node ./index.js",
+    "start": "devl -s rankings=http://localhost:3000 -s tournament=http://localhost:3000",
     "install-all": "yarn install && cd client && yarn install && cd ../",
     "upgrade": "yarn upgrade && cd client && yarn upgrade && cd ../",
     "build": "cd client && yarn run build && cd ../",
@@ -30,6 +30,7 @@
     "project-version": "^1.2.0"
   },
   "devDependencies": {
+    "@first-lego-league/dev-launcher": "^0.1.2",
     "angular-inview": "^3.1.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",

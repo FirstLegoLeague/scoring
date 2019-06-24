@@ -13,9 +13,9 @@ class MetadataInputsController {
       }
     })
 
-    this.$scope.$watch(() => this.data.current.matchId, () => this.syncMatchFields())
-    this.$scope.$watch(() => this.data.current.stage, () => this.syncMatchFields())
-    this.$scope.$watch(() => this.data.current.round, () => this.syncMatchFields())
+    this.$scope.$watch(() => this.data.current ? this.data.current.matchId : false, () => this.syncMatchFields())
+    this.$scope.$watch(() => this.data.current ? this.data.current.stage : false, () => this.syncMatchFields())
+    this.$scope.$watch(() => this.data.current ? this.data.current.round : false, () => this.syncMatchFields())
 
     this.$scope.$on('load', () => { this.data.autoselect = false })
     this.$scope.$on('reset', () => {
