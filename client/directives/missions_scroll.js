@@ -4,8 +4,8 @@ const MISSION_SCROLL_OFFSET = -150
 const MISSIONS_ELEMENTS = '#missions'
 
 class MissionsScroll {
-  constructor ($window, $document) {
-    Object.assign(this, { $window, $document })
+  constructor ($window, $document, scoresheet) {
+    Object.assign(this, { $window, $document, scoresheet })
     this.restrict = 'A'
   }
 
@@ -13,14 +13,14 @@ class MissionsScroll {
     scope[attrs.on] = this.scrollToMission.bind(this)
 
     scope.$on(attrs.missionCompleteEvent, event => {
-      const missions = scope.scoresheet.missions()
+      const missions = this.scoresheet.current.missions
       const missionId = event.targetScope.mission.data.id
       const nextMissionIndex = missions.findIndex(mission => mission.id === missionId) + 1
 
-      if (!scope.defaulting || nextMissionIndex === missions.length) {
+      if (!scope.scrollDisabled || nextMissionIndex === missions.length) {
         const nextMission = missions[nextMissionIndex]
         this.scrollToMission(nextMission)
-        scope.defaulting = false
+        scope.scrollDisabled = false
       }
     })
 
@@ -84,6 +84,6 @@ class MissionsScroll {
 }
 
 MissionsScroll.$$ngIsClass = true
-MissionsScroll.$inject = ['$window', '$document']
+MissionsScroll.$inject = ['$window', '$document', 'scoresheet']
 
 export default MissionsScroll

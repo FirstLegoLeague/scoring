@@ -1,0 +1,7 @@
+<div class="ui buttons">
+	<div class="ui button" ng-repeat="option in enumObjective.data.options"
+		ng-class="{primary: enumObjective.data.value === option.value}"
+		ng-click="enumObjective.data.value = option.value">
+		{{option.title}}
+	</div>
+</div>

@@ -3,7 +3,7 @@ const logger = require('@first-lego-league/ms-logger').Logger()
 const { getCorrelationId } = require('@first-lego-league/ms-correlation')
 
 const MHUB_CLIENT_ID = 'cl-scoring'
-const NODE = process.env.NODE_ENV === 'development' ? 'default' : 'protected'
+const NODE = 'protected'
 
 const mhubClient = new MClient(process.env.MHUB_URI)
 

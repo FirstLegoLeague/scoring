@@ -1,1 +1,8 @@
-<h1>SCORESHEET</h1>
+<div id="missions">
+	<div class="ui grid container">
+		<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
+		on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete">
+			<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="row" data="mission"></mission>
+		</div>
+	</div>
+</div>

@@ -3,8 +3,8 @@ const MESSAGE_TYPES = {
   PUBLISH: 'publish'
 }
 const CLIENT_ID_KEY = 'client-id'
-const DEFAULT_NODE = 'default'
 const RETRY_TIMEOUT = 10 * 1000 // 10 seconds
+const NODE = 'protected'
 
 class Messanger {
   constructor (configuration, $window, $timeout, logger) {
@@ -20,7 +20,7 @@ class Messanger {
       this._initPromise = this.configuration.load().then(config => {
         this.connecting = true
         this.ws = new this.$window.WebSocket(config.mhub)
-        this.node = config.node || DEFAULT_NODE
+        this.node = NODE
         this.clientId = parseInt(Math.floor(0x100000 * (Math.random())), 16)
         return this
       }).then(() => this._initWebsocket())

@@ -1,9 +1,11 @@
+import EventEmitter from 'event-emitter-es6'
+import Promise from 'bluebird'
 import angular from 'angular'
 
-class Scoresheet {
+class Scoresheet extends EventEmitter {
   constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
+    super()
     Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, logger })
-    this._onProcessListeners = []
     this.errors = []
     this.ready = false
     this.faulty = false
@@ -18,6 +20,8 @@ class Scoresheet {
           this._original.signature = undefined
           this.allowSignatureEditing = true
         })
+        .then(() => this.reset())
+        .then(() => this.process())
         .catch(err => {
           this.ready = true
           this.faulty = true
@@ -93,7 +97,7 @@ class Scoresheet {
         return this.scoresheetValidations.validate(this.current, { requireMatch: !this.dontRequireMatch })
           .then(errors => { this.errors = errors })
       })
-      .then(() => this._onProcessListeners.map(listener => listener()))
+      .then(() => this.emit('proccessed'))
       .catch(error => this.logger.error(error))
   }
 
@@ -137,10 +141,6 @@ class Scoresheet {
 
         return this.process()
       })
-  }
-
-  onProcess (callback) {
-    this._onProcessListeners.push(callback)
   }
 }
 
