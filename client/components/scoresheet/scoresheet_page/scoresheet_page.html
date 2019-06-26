@@ -2,7 +2,11 @@
 	<div class="ui grid container">
 		<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
 		on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete">
-			<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="row" data="mission"></mission>
+			<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
+			<scoresheet-signature class="column"></scoresheet-signature>
 		</div>
 	</div>
+</div>
+<div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready }">
+	<div class="ui massive loader"></div>
 </div>

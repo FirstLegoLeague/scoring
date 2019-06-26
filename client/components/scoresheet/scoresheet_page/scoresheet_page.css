@@ -2,3 +2,7 @@
 	height: 100%;
 	overflow-y: auto;
 }
+
+.signature.segment {
+    margin: 0 auto;
+}

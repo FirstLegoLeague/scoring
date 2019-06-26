@@ -1,16 +1,14 @@
-<div class="column">
-	<div class="ui segment">
-		<span class="ui header">{{mission.data.title}}</span>
-		<i class="primary help link icon" sm-transition="slide down" sm-transition-other="#{{mission.data.id}} .ui.info.message"></i>
-		<div class="ui info message transition hidden">
-			<i class="close icon" sm-transition="slide down" sm-transition-other="#{{mission.data.id}} .ui.info.message"></i>
-			{{mission.data.description}}
-		</div>
+<div class="ui segment" ng-class="{ success: mission.data.complete, error: mission.data.error }">
+	<div class="ui red right ribbon label" ng-show="mission.data.error">{{mission.data.error}}</div>
+	<div class="ui green right ribbon label" ng-show="mission.data.complete">{{mission.data.score}}</div>
 
-		<div class="ui grid container">
-			<div class="ui padded one column grid">
-				<objective ng-repeat="objective in mission.data.objectives" data="objective" class="row"></objective>
-			</div>
-		</div>
+	<span class="ui header">{{mission.data.title}}</span>
+	<i class="primary help link icon" sm-transition="slide down" sm-transition-other="#{{mission.data.id}} .ui.info.message"></i>
+	<div class="ui info message transition hidden">
+		<i class="close icon" sm-transition="slide down" sm-transition-other="#{{mission.data.id}} .ui.info.message"></i>
+		{{mission.data.description}}
+	</div>
+	<div class="ui relaxed divided list">
+		<objective ng-repeat="objective in mission.data.objectives" data="objective" class="item"></objective>
 	</div>
 </div>

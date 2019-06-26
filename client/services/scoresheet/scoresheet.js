@@ -17,7 +17,7 @@ class Scoresheet extends EventEmitter {
       this._initPromise = Promise.all([this.challenge.init(), this.refIdentity.init()])
         .then(([challenge]) => {
           this._original = challenge
-          this._original.signature = undefined
+          this._original.signature = { dataUrl: '', isEmpty: true }
           this.allowSignatureEditing = true
         })
         .then(() => this.reset())
