@@ -1,10 +1,10 @@
 <div class="ui right floated menu">
 	<div class="ui icon link item" ng-click="scoresheetActions.setDefault()" ng-if="scoresheetActions.defaultEnabled()">
-		<i class="ui arrow down icon"></i>
+		<i class="ui green arrow down icon"></i>
 		<div class="hover text">Set default values</div>
 	</div>
 	<div class="ui icon link item" ng-click="scoresheetActions.markNoShow()" ng-class="{'disabled': scoresheetActions.noShowDisabled()}">
-		<i class="ui ban icon"></i>
+		<i class="ui orange ban icon"></i>
 		<div class="hover text">No Show</div>
 	</div>
 	<div class="ui icon link item" ng-click="scoresheetActions.reset()">
@@ -12,7 +12,7 @@
 		<div class="hover text">Reset scoresheet</div>
 	</div>
 	<div class="ui icon link item" ng-if="scoresheetActions.isAdmin" ng-click="scoresheetActions.cancel()">
-		<i class="ui times icon"></i>
+		<i class="ui red times icon"></i>
 		<div class="hover text">Cancel</div>
 	</div>
 </div>

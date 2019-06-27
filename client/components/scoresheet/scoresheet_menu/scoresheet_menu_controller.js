@@ -1,6 +1,8 @@
+import Promise from 'bluebird'
+
 class ScoresheetMenuController {
-  constructor (refIdentity, $location, $document, $scope, user) {
-    Object.assign(this, { refIdentity, $location, $document, $scope, user })
+  constructor (configuration, refIdentity, $location, $document, $scope, user) {
+    Object.assign(this, { configuration, refIdentity, $location, $document, $scope, user })
 
     this.backLink = $document[0].referrer
     if (this.backLink === '') {
@@ -14,11 +16,43 @@ class ScoresheetMenuController {
       this._resetPage()
     })
 
-    return this.refIdentity.init()
+    return Promise.all([this.refIdentity.init(), this.configuration.load()])
+      .then(() => {
+        if (!this.refIdentity.isInitialized()) {
+          this.forceRefIdentityEntry = true
+          this.refIdentityModalVisible = true
+        }
+      })
   }
 
   setPage (page) {
     this.$location.path(page)
+  }
+
+  showRefIdentityModal () {
+    this.refIdentityModalVisible = true
+  }
+
+  saveRefIdentity () {
+    this.modalRefereeError = false
+    this.modalTableError = false
+
+    if (this.configuration.requireRef && !this.refIdentity.referee) {
+      this.modalRefereeError = true
+    }
+    if (this.configuration.requireTable && !this.refIdentity.table) {
+      this.modalTableError = true
+    }
+
+    if (!this.modalRefereeError && !this.modalTableError) {
+      this.forceRefIdentityEntry = false
+      this.refIdentityModalVisible = false
+      this.refIdentity.save()
+    }
+  }
+
+  cancelRefIdentity () {
+    this.refIdentityModalVisible = false
   }
 
   _resetPage () {
@@ -30,6 +64,6 @@ class ScoresheetMenuController {
 }
 
 ScoresheetMenuController.$$ngIsClass = true
-ScoresheetMenuController.$inject = ['refIdentity', '$location', '$document', '$scope', 'user']
+ScoresheetMenuController.$inject = ['configuration', 'refIdentity', '$location', '$document', '$scope', 'user']
 
 export default ScoresheetMenuController
