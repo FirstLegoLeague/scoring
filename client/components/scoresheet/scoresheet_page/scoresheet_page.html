@@ -1,12 +1,22 @@
-<div id="missions">
-	<div class="ui grid container">
-		<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
-		on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete">
-			<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
-			<scoresheet-signature class="column"></scoresheet-signature>
+<div class="ui padded grid">
+	<div class="row" id="scoresheet-header">
+		<metadata-inputs class="twelve wide column"></metadata-inputs>
+		<scoresheet-actions class="four wide column"></scoresheet-actions>
+	</div>
+	<div id="missions" class="row">
+		<div class="ui grid container">
+			<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
+			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete">
+				<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
+				<scoresheet-signature class="column"></scoresheet-signature>
+				<div class="center aligned column">
+					<div class="ui large primary button" ng-click="scoresheetPage.save()">Done</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
 <div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready }">
 	<div class="ui massive loader"></div>
 </div>

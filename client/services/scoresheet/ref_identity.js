@@ -4,9 +4,9 @@ const STORAGE_KEY = 'referee'
 const EMPTY_DATA = JSON.stringify({ referee: undefined, tableId: undefined })
 
 class RefIdentity extends EventEmitter {
-  constructor ($window, tournament) {
+  constructor ($window, $rootScope, tournament) {
     super()
-    Object.assign(this, { $window, tournament })
+    Object.assign(this, { $window, $rootScope, tournament })
   }
 
   init () {
@@ -20,6 +20,16 @@ class RefIdentity extends EventEmitter {
         return this
       })
     }
+
+    this.$rootScope.$watch(() => this.referee, () => {
+      this.emit('referee changed')
+    })
+
+    this.$rootScope.$watch(() => (this.table ? this.table.tableId : undefined), (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        this.emit('table changed')
+      }
+    })
 
     return this._initPromise
   }
@@ -47,6 +57,6 @@ class RefIdentity extends EventEmitter {
 }
 
 RefIdentity.$$ngIsClass = true
-RefIdentity.$inject = ['$window', 'tournament']
+RefIdentity.$inject = ['$window', '$rootScope', 'tournament']
 
 export default RefIdentity

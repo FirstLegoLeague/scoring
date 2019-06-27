@@ -1,0 +1,8 @@
+#matches-column {
+	display: flex;
+}
+
+#matches {
+	display: flex;
+	align-items: center;
+}

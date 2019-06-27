@@ -2,6 +2,8 @@ import EventEmitter from 'event-emitter-es6'
 import Promise from 'bluebird'
 import angular from 'angular'
 
+import debounce from '../../lib/debounce'
+
 class Scoresheet extends EventEmitter {
   constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
     super()
@@ -28,6 +30,10 @@ class Scoresheet extends EventEmitter {
           throw err
         })
     }
+
+    this.refIdentity.on('referee changed', debounce(() => this.process()))
+    this.refIdentity.on('table changed', debounce(() => this.process()))
+
     return this._initPromise
   }
 
@@ -141,6 +147,18 @@ class Scoresheet extends EventEmitter {
 
         return this.process()
       })
+  }
+
+  syncMatchFields () {
+    if (!this.matches) return Promise.resolve()
+    const match = this.matches.find(m => m._id === this.data.current.matchId) ||
+      this.matches.find(m => m.stage === this.stage() && m.round === this.round())
+
+    if (!match) return Promise.resolve()
+
+    this.data.current.matchId = match._id
+    this.data.current.stage = match.stage
+    this.data.current.round = match.round
   }
 }
 

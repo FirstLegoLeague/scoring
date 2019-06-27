@@ -1,4 +1,13 @@
-<a class="link icon item" href="#!/scores/tiles" ng-if="scoresheetMenu.user.isAdmin()">
+<a class="link item" href="{{scoresheetMenu.backLink}}" ng-if="scoresheetMenu.user.isAdmin()">
 	<i class="reply icon"></i>
 	<span class="hover text">Back to scores</span>
 </a>
+
+<div class="input item" ng-if="scoresheetMenu.user.isAdmin()">
+	<div class="ui transparent icon input">
+		<i class="user icon"></i>
+		<input type="text" placeholder="Enter referee" ng-model="scoresheetMenu.refIdentity.referee"/>
+	</div>
+</div>
+
+<sm-dropdown class="item" model="scoresheetMenu.refIdentity.table" items="scoresheetMenu.refIdentity.tournament.tables" label="item.tableName" default-text="'Select table'"></sm-dropdown>

@@ -1,6 +1,11 @@
 class ScoresheetMenuController {
-  constructor ($location, $scope, user) {
-    Object.assign(this, { $location, $scope, user })
+  constructor (refIdentity, $location, $document, $scope, user) {
+    Object.assign(this, { refIdentity, $location, $document, $scope, user })
+
+    this.backLink = $document[0].referrer
+    if (this.backLink === '') {
+      this.backLink = '#!/scores/tiles'
+    }
   }
 
   $onInit () {
@@ -8,6 +13,8 @@ class ScoresheetMenuController {
     this.$scope.$on('set page scoresheet', () => {
       this._resetPage()
     })
+
+    return this.refIdentity.init()
   }
 
   setPage (page) {
@@ -23,6 +30,6 @@ class ScoresheetMenuController {
 }
 
 ScoresheetMenuController.$$ngIsClass = true
-ScoresheetMenuController.$inject = ['$location', '$scope', 'user']
+ScoresheetMenuController.$inject = ['refIdentity', '$location', '$document', '$scope', 'user']
 
 export default ScoresheetMenuController

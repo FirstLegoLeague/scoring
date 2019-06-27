@@ -1,5 +1,5 @@
 <div id="signature" class="ui segment" ng-class="scoresheetSignature.error() ? 'error' : 'success'">
-    <div class="ui red right ribbon link label" ng-click="scoresheetSignature.scrollToMission(scoresheetSignature.error().mission)">{{scoresheetSignature.error().error}}</div>
+    <div class="ui red right ribbon link label" ng-show="scoresheetSignature.error()" ng-click="scoresheetSignature.scrollToMission(scoresheetSignature.error().mission)">{{scoresheetSignature.error().error}}</div>
     <signature-pad class="ui compact segment" accept="getSignature" clear="clearSignature" height="128" width="300" ng-show="scoresheetSignature.data.allowSignatureEditing"></signature-pad>
     <img ng-src="{{scoresheetSignature.signature().dataUrl}}" ng-hide="scoresheetSignature.data.allowSignatureEditing" />
     <i class="ui undo link icon" ng-show="scoresheetSignature.data.allowSignatureEditing" ng-class="{ disabled: scoresheetSignature.signature().isEmpty }" ng-click="scoresheetSignature.$scope.clearSignature()"></i>
