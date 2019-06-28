@@ -1,4 +1,5 @@
 import template from './tile.html'
+import './tile.css'
 
 export default {
   template,
