@@ -20,6 +20,10 @@ class TileController {
     return this.scores.update(this.data)
       .then(() => this.data.load())
   }
+
+  delete () {
+    return this.scores.delete(this.data._id)
+  }
 }
 
 TileController.$$ngIsClass = true

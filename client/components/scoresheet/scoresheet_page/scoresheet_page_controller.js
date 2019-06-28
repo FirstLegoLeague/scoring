@@ -29,6 +29,14 @@ class ScoresheetPageController {
     return this.data.reset(forceMetadataIfEditing)
   }
 
+  matchId () {
+    return this.data.current ? this.data.current.matchId : undefined
+  }
+
+  teamNumber () {
+    return this.data.current ? this.data.current.teamNumber : undefined
+  }
+
   save () {
     this.data.save()
       .then(() => {

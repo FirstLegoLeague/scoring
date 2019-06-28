@@ -2,7 +2,7 @@
 	<div class="row" id="scoresheet-header">
 		<metadata-inputs class="ten wide column"></metadata-inputs>
 		<div class="center aligned two wide column">
-			<div class="ui horizontal statistic">
+			<div class="ui horizontal statistic" ng-if="scoresheetPage.teamNumber() && scoresheetPage.matchId()">
 				<div class="value">
 					{{scoresheetPage.data.score()}}
 				</div>
