@@ -26,19 +26,19 @@ app.use(correlationMiddleware)
 app.use(loggerMiddleware)
 app.use(cors())
 
-const apis = ['/scores', '/challenge', '/config']
-
-apis.forEach(api => {
-  // eslint-disable-next-line import/no-dynamic-require
-  app.use(api, require(`./server${api}`))
-})
-
 if (process.env.NODE_ENV === 'development') {
   app.use(require('./server/dev_router'))
   app.use(authenticationDevMiddleware())
 } else {
   app.use(authenticationMiddleware)
 }
+
+const apis = ['/scores', '/challenge', '/config']
+
+apis.forEach(api => {
+  // eslint-disable-next-line import/no-dynamic-require
+  app.use(api, require(`./server${api}`))
+})
 
 app.use(express.static(path.resolve(__dirname, 'dist')))
 

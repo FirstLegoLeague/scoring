@@ -1,6 +1,6 @@
 class ScoresheetActionsController {
-  constructor (scoresheet, $scope, user) {
-    Object.assign(this, { data: scoresheet, $scope })
+  constructor (scoresheet, $scope, $location, user) {
+    Object.assign(this, { data: scoresheet, $location, $scope })
     this.isAdmin = user.isAdmin()
   }
 
@@ -23,7 +23,7 @@ class ScoresheetActionsController {
 
   cancel () {
     this.reset()
-    // Go back to scores
+    this.$location.path('/scores/tiles')
   }
 
   setDefault () {
@@ -40,6 +40,6 @@ class ScoresheetActionsController {
 }
 
 ScoresheetActionsController.$$ngIsClass = true
-ScoresheetActionsController.$inject = ['scoresheet', '$scope', 'user']
+ScoresheetActionsController.$inject = ['scoresheet', '$scope', '$location', 'user']
 
 export default ScoresheetActionsController

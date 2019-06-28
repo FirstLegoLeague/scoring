@@ -1,3 +1,18 @@
+const EMPTY_SIGNATURE = {
+  isEmpty: true,
+  dataUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjgAAADcCAQAAADXNhPAAAACIklEQVR4' +
+           '2u3UIQEAAAzDsM+/6UsYG0okFDQHMBIJAMMBDAfAcADDATAcwHAAwwEwHMBwAAwHMBzAcAAMBzAcAM' +
+           'MBDAcwHADDAQwHwHAAwwEMB8BwAMMBMBzAcADDATAcwHAADAcwHADDAQwHMBwAwwEMB8BwAMMBDAfA' +
+           'cADDATAcwHAAwwEwHMBwAAwHMBzAcAAMBzAcAMMBDAcwHADDAQwHwHAAwwEwHMBwAMMBMBzAcAAMBz' +
+           'AcwHAADAcwHADDAQwHMBwAwwEMB8BwAMMBDAfAcADDATAcwHAAwwEwHMBwAAwHMBzAcCQADAcwHADD' +
+           'AQwHwHAAwwEMB8BwAMMBMBzAcADDATAcwHAADAcwHMBwAAwHMBwAwwEMBzAcAMMBDAfAcADDAQwHwH' +
+           'AAwwEwHMBwAAwHMBzAcAAMBzAcAMMBDAcwHADDAQwHwHAAwwEMB8BwAMMBMBzAcADDATAcwHAADAcw' +
+           'HMBwAAwHMBwAwwEMB8BwAMMBDAfAcADDATAcwHAAwwEwHMBwAAwHMBzAcAAMBzAcAMMBDAcwHADDAQ' +
+           'wHwHAAwwEMB8BwAMMBMBzAcADDkQAwHMBwAAwHMBwAwwEMBzAcAMMBDAfAcADDAQwHwHAAwwEwHMBw' +
+           'AMMBMBzAcAAMBzAcwHAADAcwHADDAQwHMBwAwwEMB8BwAMMBMBzAcADDATAcwHAADAcwHMBwAAwHMB' +
+           'wAwwEMBzAcAMMBDAegeayZAN3dLgwnAAAAAElFTkSuQmCC'
+}
+
 class ScoresheetSignatureController {
   constructor (scoresheet, $scope, configuration, logger) {
     Object.assign(this, { data: scoresheet, $scope, configuration, logger })
@@ -34,10 +49,12 @@ class ScoresheetSignatureController {
   reset () {
     if (this.$scope.clearSignature) {
       this.$scope.clearSignature()
+      this.data.current.signature = EMPTY_SIGNATURE
     }
     if (this.$scope.scrollToMission) {
       this.$scope.scrollToMission(this.data.current.missions[0])
     }
+    this.data.process()
   }
 
   error () {
@@ -45,7 +62,7 @@ class ScoresheetSignatureController {
   }
 
   signature () {
-    return (this.data.current && this.data.current.signature) ? this.data.current.signature : ({ isEmpty: true, dataUrl: '' })
+    return (this.data.current && this.data.current.signature) ? this.data.current.signature : EMPTY_SIGNATURE
   }
 
   scrollToMission (mission) {

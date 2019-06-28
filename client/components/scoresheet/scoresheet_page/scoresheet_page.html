@@ -1,6 +1,16 @@
 <div class="ui padded grid">
 	<div class="row" id="scoresheet-header">
-		<metadata-inputs class="twelve wide column"></metadata-inputs>
+		<metadata-inputs class="ten wide column"></metadata-inputs>
+		<div class="center aligned two wide column">
+			<div class="ui horizontal statistic">
+				<div class="value">
+					{{scoresheetPage.data.score()}}
+				</div>
+				<div class="label">
+					pts.
+				</div>
+			</div>
+		</div>
 		<scoresheet-actions class="four wide column"></scoresheet-actions>
 	</div>
 	<div id="missions" class="row">

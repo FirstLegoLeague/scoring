@@ -78,11 +78,7 @@ class Scoresheet extends EventEmitter {
   }
 
   score () {
-    if (!this.current) {
-      return 0
-    }
-    this.current.score = this.current.missions.reduce((sum, mission) => sum + mission.score, 0) || 0
-    return this.current.score
+    return this.current ? this.current.score : 0
   }
 
   isEditing () {
@@ -94,6 +90,7 @@ class Scoresheet extends EventEmitter {
       return Promise.resolve()
     }
     this.current.missions.forEach(mission => mission.process())
+    this.current.score = this.current.missions.reduce((sum, mission) => sum + mission.score, 0) || 0
     return this.refIdentity.init()
       .then(identity => {
         Object.assign(this.current, { referee: identity.referee })
