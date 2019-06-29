@@ -44,10 +44,10 @@
 		</div>
 		<div class="four wide column">
 			<div class="ui right floated menu">
-				<div class="ui icon link item">
-					<i class="ui download icon" href="{{tilesPage.rankingsUrl}}"></i>
+				<a class="ui icon link item" href="{{tilesPage.rankingsUrl}}">
+					<i class="ui download icon"></i>
 					<div class="hover text">Export stage</div>
-				</div>
+				</a>
 				<div class="ui icon link item" ng-click="tilesPage.deleteModalVisible = true">
 					<i class="ui red trash icon"></i>
 					<div class="hover text">Delete all</div>
@@ -71,7 +71,6 @@
 	<div class="content">
 		<div class="ui center aligned grid">
 			Are you sure you want to delete all of the scores?
-			<b>This action cannot be undone.</b>
 		</div>
 	</div>
 	<div class="actions">
