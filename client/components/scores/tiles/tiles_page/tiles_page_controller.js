@@ -13,15 +13,15 @@ const distinctMap = (arr, mapping) => {
 const FILTERS = {
   public: { field: 'public', value: true },
   unpublic: { field: 'public', value: false },
-  valid: { field: 'valie', value: true },
-  invalid: { field: 'valie', value: false },
+  valid: score => score.valid(),
+  invalid: score => !score.valid(),
   duplicate: (score, scoresArray) => {
-    const matchingScoresCount = scoresArray.filter(otherScore => {
+    const matchingScores = scoresArray.filter(otherScore => {
       return score.stage === otherScore.stage &&
              score.round === otherScore.round &&
              score.teamNumber === otherScore.teamNumber
     })
-    return matchingScoresCount > 1
+    return matchingScores.length > 1
   },
   'No show': { field: 'noShow', value: true },
   show: { field: 'noShow', value: false },

@@ -150,6 +150,13 @@ function Score (tournament, challenge, logger) {
       })
     }
 
+    score.valid = () => {
+      return typeof score.teamNumber !== 'undefined' &&
+        typeof score.matchId !== 'undefined' && score.matchId !== 0 &&
+        typeof score.stage !== 'undefined' && typeof score.round !== 'undefined' &&
+        (!tournament.teams || tournament.teams.some(team => team.number === score.teamNumber))
+    }
+
     return score
   }
 }
