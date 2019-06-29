@@ -63,16 +63,14 @@ class TilesPageController {
     this.scores = []
 
     this.sortOptions = SORT_OPTIONS
-    this.sort = this.sortOptions[0]
     this.sortDirectionOptions = SORT_DIRECTION_OPTIONS
-    this.sortDirection = this.sortDirectionOptions[0]
   }
 
   $onInit () {
-    this._loadFitlersFromLocation()
+    this._loadFromLocation()
 
     this.$scope.$on('$locationChangeSuccess', () => {
-      this._loadFitlersFromLocation()
+      this._loadFromLocation()
     })
 
     this.data.on('scores updated', () => this.update())
@@ -99,6 +97,8 @@ class TilesPageController {
 
   updateVisibleScores () {
     this.$location.search('filters', this.filters)
+    this.$location.search('sort', this.sort.field)
+    this.$location.search('sortDirection', this.sortDirection.text)
 
     this.scores = (this.data.scores || [])
       .filter((score, index, scoresArray) => this.filters.every(filter => applyFilter(filter, score, scoresArray)))
@@ -114,13 +114,17 @@ class TilesPageController {
     return this.data.deleteAll()
   }
 
-  _loadFitlersFromLocation () {
-    const filters = this.$location.search().filters || this.filters || []
+  _loadFromLocation () {
+    const search = this.$location.search()
+    const filters = search.filters || this.filters || []
     if (filters instanceof Array) {
       this.fitlers = filters
     } else {
       this.filters = [filters]
     }
+
+    this.sort = this.sortOptions.find(option => option.field === search.sort) || this.sortOptions[0]
+    this.sortDirection = this.sortDirectionOptions.find(option => option.text === search.sortDirection) || this.sortDirectionOptions[0]
   }
 
   _calculateFilterOptions () {
