@@ -44,12 +44,28 @@ function applyFilter (filter, score, scoresArray) {
   }
 }
 
+const SORT_OPTIONS = [
+  { text: 'Team', icon: 'users', field: 'teamNumber' },
+  { text: 'Match', icon: 'calendar alternate outline', field: 'matchText' },
+  { text: 'Score', icon: 'hashtag', field: 'score' }
+]
+
+const SORT_DIRECTION_OPTIONS = [
+  { text: 'Down', icon: 'sort numeric down', value: 1 },
+  { text: 'Up', icon: 'sort numeric up', value: -1 }
+]
+
 class TilesPageController {
   constructor ($scope, $location, scores) {
     Object.assign(this, { $scope, $location, data: scores })
     this.filterOptions = []
     this.filters = []
     this.scores = []
+
+    this.sortOptions = SORT_OPTIONS
+    this.sort = this.sortOptions[0]
+    this.sortDirectionOptions = SORT_DIRECTION_OPTIONS
+    this.sortDirection = this.sortDirectionOptions[0]
   }
 
   $onInit () {
@@ -61,6 +77,9 @@ class TilesPageController {
 
     this.data.on('scores updated', () => this.update())
 
+    this.$scope.$watch(() => this.sort, () => this.updateVisibleScores())
+    this.$scope.$watch(() => this.sortDirection, () => this.updateVisibleScores())
+
     return this.data.init()
       .then(() => Promise.all(this.data.scores.map(score => score.load())))
       .then(() => this.update())
@@ -68,16 +87,22 @@ class TilesPageController {
 
   update () {
     if (this.data.scores.length) {
-      this.filtersUpdated()
+      this.updateVisibleScores()
       this._calculateFilterOptions()
     }
   }
 
-  filtersUpdated () {
+  updateVisibleScores () {
     this.$location.search('filters', this.filters)
 
     this.scores = (this.data.scores || [])
       .filter((score, index, scoresArray) => this.filters.every(filter => applyFilter(filter, score, scoresArray)))
+      .sort((score1, score2) => {
+        const value1 = score1[this.sort.field]
+        const value2 = score2[this.sort.field]
+        const fieldSort = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0
+        return this.sortDirection.value * fieldSort
+      })
   }
 
   _loadFitlersFromLocation () {

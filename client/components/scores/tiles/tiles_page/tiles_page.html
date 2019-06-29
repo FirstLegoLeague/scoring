@@ -4,7 +4,7 @@
 			<div class="ui fluid action input">
 				<sm-dropdown class="filters fluid multiple search selection" default-text="'Filter results...'"
 					model="tilesPage.filters" items="tilesPage.filterOptions" label="item" value="item"
-					on-add="tilesPage.filtersUpdated()" on-remove="tilesPage.filtersUpdated()"
+					on-add="tilesPage.updateVisibleScores()" on-remove="tilesPage.updateVisibleScores()"
 					settings="{ fullTextSearch: 'exact' }">
 				</sm-dropdown>
 				<div class="ui icon button" sm-dropdown-clear="'.filters.selection'" ng-class="{disabled: tilesPage.filters.length === 0}">
@@ -14,6 +14,33 @@
 			</div>
 		</div>
 		<div class="three wide column">
+			<div class="ui compact menu">
+				<div class="ui simple dropdown item">
+					<input type="hidden" name="gender">
+					<div class="text">
+						<i class="ui icon" ng-class="tilesPage.sort.icon"></i>
+						{{tilesPage.sort.text}}
+						<i class="ui icon" ng-class="tilesPage.sortDirection.icon"></i>
+					</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						<div class="item" ng-repeat="sortOption in tilesPage.sortOptions">
+							<i class="dropdown icon"></i>
+							<span class="text">
+								<i class="ui icon" ng-class="sortOption.icon"></i>
+								{{sortOption.text}}
+							</span>
+							<div class="menu">
+								<div class="item" ng-repeat="sortDirectionOption in tilesPage.sortDirectionOptions"
+									ng-click="tilesPage.sort = sortOption; tilesPage.sortDirection = sortDirectionOption">
+									<i class="ui icon" ng-class="sortDirectionOption.icon"></i>
+									{{sortDirectionOption.text}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="four wide column">
 			<div class="ui right floated menu">
