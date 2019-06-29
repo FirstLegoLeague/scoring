@@ -51,8 +51,8 @@ const SORT_OPTIONS = [
 ]
 
 const SORT_DIRECTION_OPTIONS = [
-  { text: 'Down', icon: 'sort numeric down', value: 1 },
-  { text: 'Up', icon: 'sort numeric up', value: -1 }
+  { text: 'Up', icon: 'sort numeric down', value: 1 },
+  { text: 'Down', icon: 'sort numeric up', value: -1 }
 ]
 
 class TilesPageController {

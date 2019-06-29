@@ -1,7 +1,10 @@
+import Promise from 'bluebird'
+
 class ScoresheetPageController {
   constructor (scoresheet, scores, logger, user, $scope, $location) {
     Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location })
     this.ready = false
+    this.scrollDisabled = false
   }
 
   $onInit () {
@@ -19,23 +22,19 @@ class ScoresheetPageController {
     this.$scope.$on('cancel scoresheet', () => this.reset(true))
 
     this.$scope.$on('$locationChangeSuccess', () => {
-      const splitPath = this.$location.path().split('/')
-      const page = splitPath[1]
-      const subpage = splitPath[2]
-      if (page === 'scoresheet' && subpage !== 'new') {
-        const score = this.scores.scores.find(s => s._id === subpage)
-        if (score !== undefined) {
-          this.data.load(score)
-        }
-      }
+      this.loadFromURL()
     })
 
-    return this.data.init()
-      .then(() => { this.ready = true })
+    return Promise.all([this.data.init(), this.scores.init()])
+      .then(() => {
+        this.loadFromURL()
+        this.ready = true
+      })
   }
 
   reset (forceMetadataIfEditing = false) {
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
+    this.scrollDisabled = false
     return this.data.reset(forceMetadataIfEditing)
   }
 
@@ -53,13 +52,32 @@ class ScoresheetPageController {
         this.logger.info(`Score saved - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
         this.$timeout(() => {
           this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
+          if (this.data.isEditing()) {
+            this.$location.path('/scores/tiles')
+          }
           this.reset()
         })
       })
       .catch(() => {
         this.logger.info(`Failed saving score - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
+        if (this.data.isEditing()) {
+          this.$location.path('/scores/tiles')
+        }
         this.reset()
       })
+  }
+
+  loadFromURL () {
+    const splitPath = this.$location.path().split('/')
+    const page = splitPath[1]
+    const subpage = splitPath[2]
+    if (page === 'scoresheet' && subpage !== 'new') {
+      const score = this.scores.scores.find(s => s._id === subpage)
+      if (score !== undefined) {
+        this.data.load(score)
+        this.scrollDisabled = true
+      }
+    }
   }
 }
 

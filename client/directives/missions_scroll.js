@@ -17,7 +17,7 @@ class MissionsScroll {
       const missionId = event.targetScope.mission.data.id
       const nextMissionIndex = missions.findIndex(mission => mission.id === missionId) + 1
 
-      if (!scope.scrollDisabled || nextMissionIndex === missions.length) {
+      if (!scope.scrollDisabled && !scope.$eval(attrs.scrollDisabled) && nextMissionIndex < missions.length) {
         const nextMission = missions[nextMissionIndex]
         this.scrollToMission(nextMission)
         scope.scrollDisabled = false
