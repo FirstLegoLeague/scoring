@@ -45,10 +45,10 @@
 		<div class="four wide column">
 			<div class="ui right floated menu">
 				<div class="ui icon link item">
-					<i class="ui download icon"></i>
+					<i class="ui download icon" href="{{tilesPage.rankingsUrl}}"></i>
 					<div class="hover text">Export stage</div>
 				</div>
-				<div class="ui icon link item">
+				<div class="ui icon link item" ng-click="tilesPage.deleteModalVisible = true">
 					<i class="ui red trash icon"></i>
 					<div class="hover text">Delete all</div>
 				</div>
@@ -63,3 +63,19 @@
 		</div>
 	</div>
 </div>
+<sm-modal class="basic small" visible="tilesPage.deleteModalVisible" settings="{ closable: false }">
+	<div class="ui icon header">
+		<i class="trash icon"></i>
+		Delete all scores
+	</div>
+	<div class="content">
+		<div class="ui center aligned grid">
+			Are you sure you want to delete all of the scores?
+			<b>This action cannot be undone.</b>
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="tilesPage.deleteModalVisible = false">Cancel</div>
+		<div class="ui red inverted button" ng-click="tilesPage.deleteModalVisible = false; tilesPage.deleteAll()">Delete</div>
+	</div>
+</sm-modal>

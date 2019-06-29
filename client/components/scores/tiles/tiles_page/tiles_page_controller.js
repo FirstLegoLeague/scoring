@@ -56,8 +56,8 @@ const SORT_DIRECTION_OPTIONS = [
 ]
 
 class TilesPageController {
-  constructor ($scope, $location, scores) {
-    Object.assign(this, { $scope, $location, data: scores })
+  constructor ($scope, $location, scores, configuration, logger) {
+    Object.assign(this, { $scope, $location, data: scores, configuration, logger })
     this.filterOptions = []
     this.filters = []
     this.scores = []
@@ -79,6 +79,11 @@ class TilesPageController {
 
     this.$scope.$watch(() => this.sort, () => this.updateVisibleScores())
     this.$scope.$watch(() => this.sortDirection, () => this.updateVisibleScores())
+
+    this.configuration.load().then(config => {
+      this.rankingsUrl = `${config.rankingsUrl}/rankings.csv?hideNegatives=false`
+    })
+      .catch(error => this.logger.error(error))
 
     return this.data.init()
       .then(() => Promise.all(this.data.scores.map(score => score.load())))
@@ -103,6 +108,10 @@ class TilesPageController {
         const fieldSort = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0
         return this.sortDirection.value * fieldSort
       })
+  }
+
+  deleteAll () {
+    return this.data.deleteAll()
   }
 
   _loadFitlersFromLocation () {
@@ -134,6 +143,6 @@ class TilesPageController {
 }
 
 TilesPageController.$$ngIsClass = true
-TilesPageController.$inject = ['$scope', '$location', 'scores']
+TilesPageController.$inject = ['$scope', '$location', 'scores', 'configuration', 'logger']
 
 export default TilesPageController
