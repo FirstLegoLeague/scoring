@@ -1,6 +1,6 @@
 class ScoresheetPageController {
-  constructor (scoresheet, logger, user, $scope) {
-    Object.assign(this, { data: scoresheet, logger, user, $scope })
+  constructor (scoresheet, scores, logger, user, $scope, $location) {
+    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location })
     this.ready = false
   }
 
@@ -18,7 +18,17 @@ class ScoresheetPageController {
     this.$scope.$on('reset scoresheet', () => this.reset(false))
     this.$scope.$on('cancel scoresheet', () => this.reset(true))
 
-    this.$scope.$on('set scoresheet default', () => this.$scope.$broadcast('set objective default'))
+    this.$scope.$on('$locationChangeSuccess', () => {
+      const splitPath = this.$location.path().split('/')
+      const page = splitPath[1]
+      const subpage = splitPath[2]
+      if (page === 'scoresheet' && subpage !== 'new') {
+        const score = this.scores.scores.find(s => s._id === subpage)
+        if (score !== undefined) {
+          this.data.load(score)
+        }
+      }
+    })
 
     return this.data.init()
       .then(() => { this.ready = true })
@@ -54,6 +64,6 @@ class ScoresheetPageController {
 }
 
 ScoresheetPageController.$$ngIsClass = true
-ScoresheetPageController.$inject = ['scoresheet', 'logger', 'user', '$scope']
+ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location']
 
 export default ScoresheetPageController

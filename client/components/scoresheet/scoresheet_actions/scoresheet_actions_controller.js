@@ -9,6 +9,8 @@ class ScoresheetActionsController {
   }
 
   markNoShow () {
+    this.data.fillDefaults()
+    this.data.fakeSignature()
     this.data.markNoShow()
       .then(() => {
         this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
@@ -27,7 +29,7 @@ class ScoresheetActionsController {
   }
 
   setDefault () {
-    this.$scope.$emit('set scoresheet default')
+    this.data.fillDefaults()
   }
 
   defaultEnabled () {

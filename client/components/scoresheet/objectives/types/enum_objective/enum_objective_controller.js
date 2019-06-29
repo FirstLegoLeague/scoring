@@ -10,14 +10,6 @@ class EnumObjectiveController {
         this.$scope.$emit('objective complete', this.data)
       }
     })
-
-    this.$scope.$on('set objective default', () => this.setDefault())
-  }
-
-  setDefault () {
-    if (!this.data.value && this.data.default) {
-      this.data.value = this.data.default
-    }
   }
 }
 

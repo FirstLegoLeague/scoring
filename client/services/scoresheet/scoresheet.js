@@ -115,6 +115,23 @@ class Scoresheet extends EventEmitter {
     return (this.isEditing() ? this.scores.update(this.current) : this.scores.create(this.current))
   }
 
+  fakeSignature () {
+    this.current.signature = {
+      isEmpty: false,
+      dataUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACACAYAAACx1FRUAAAEXklEQVR4Xu3UMU0FQBRE0aEioaDCAiVGSOixhRo80IILEgRQERT83+7NWQVvzmzmZh4BAgQOEbg55E5nEiBAYAbLJyBA4BgBg3VMVQ4lQMBg+QMECBwjYLCOqcqhBAgYLH+AAIFjBK4ZrJdtr9vetn0ck8yhBAjkBC4N1t22n2232762PeUEBCJA4BiBS4P1H+R728O2923PxyRzKAECOYFrBut+2+O2z22/OQGBCBA4RuCawTomjEMJEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoCxisdr/SEUgJGKxUncIQaAsYrHa/0hFICRisVJ3CEGgLGKx2v9IRSAkYrFSdwhBoC/wBXA4IgXIiU60AAAAASUVORK5CYII='
+    }
+  }
+
+  fillDefaults () {
+    this.current.missions.forEach(mission => {
+      mission.objectives.forEach(objective => {
+        if (objective.default !== undefined) {
+          objective.value = objective.default
+        }
+      })
+    })
+  }
+
   load (score) {
     this.ready = false
     this.autoselect = false

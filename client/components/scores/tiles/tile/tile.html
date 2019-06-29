@@ -44,7 +44,7 @@
 </div>
 <div class="extra content">
 	<div class="center aligned">
-		<i class="ui primary link folder open outline icon" ng-click="tile.open()"></i>
+		<a href="{{'#!/scoresheet/' + tile.data._id}}"><i class="ui primary link folder open outline icon"></i></a>
 		<i class="ui link check icon" ng-click="tile.update({ public: !tile.data.public })" ng-class="{green: tile.data.public}" hover-class="green"></i>
 		<i class="ui link ban icon" ng-click="tile.update({ noShow: !tile.data.noShow })" ng-class="{orange: tile.data.noShow}" hover-class="orange"></i>
 		<i class="ui red link trash icon" ng-click="tile.deleteModalVisible = true"></i>
