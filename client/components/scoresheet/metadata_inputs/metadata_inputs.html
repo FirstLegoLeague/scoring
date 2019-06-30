@@ -1,11 +1,11 @@
 <div class="ui grid">
-	<div class="six wide column" ng-hide="metadataInputs.autoselecting">
+	<div class="five wide column" ng-hide="metadataInputs.autoselecting">
 		<sm-dropdown class="fluid search selection" default-text="'Select team'"
 			model="metadataInputs.data.current.teamNumber" items="metadataInputs.tournament.teams" label="item.displayText" value="item.number"
 			settings="{ fullTextSearch: 'exact' }">
 		</sm-dropdown>
 	</div>
-	<div  id="matches-column" class="ten wide column">
+	<div  id="matches-column" class="eleven wide column">
 		<div id="matches" ng-if="metadataInputs.data.current.teamNumber" ng-hide="metadataInputs.autoselecting || metadataInputs.loadingMatches || metadataInputs.data.dontRequireMatch">
 			<div ng-repeat="match in metadataInputs.matches">
 				<div class="ui compact button"
