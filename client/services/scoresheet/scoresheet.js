@@ -100,7 +100,7 @@ class Scoresheet extends EventEmitter {
         return this.scoresheetValidations.validate(this.current, { requireMatch: !this.dontRequireMatch })
           .then(errors => { this.errors = errors })
       })
-      .then(() => this.emit('proccessed'))
+      .then(() => this.emit('processed'))
       .catch(error => this.logger.error(error))
   }
 

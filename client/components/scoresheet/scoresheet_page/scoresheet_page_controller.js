@@ -25,6 +25,13 @@ class ScoresheetPageController {
       this.loadFromURL()
     })
 
+    this.data.on('processed', () => {
+      if (!this._previouslyComplete && this.complete()) {
+        this._previouslyComplete = true
+        this.$scope.$broadcast('scoresheet complete')
+      }
+    })
+
     return Promise.all([this.data.init(), this.scores.init()])
       .then(() => {
         this.loadFromURL()
@@ -44,6 +51,11 @@ class ScoresheetPageController {
 
   teamNumber () {
     return this.data.current ? this.data.current.teamNumber : undefined
+  }
+
+  complete () {
+    return this.data.current && this.data.current.missions &&
+      (!this.data.errors || this.data.errors.length === 0)
   }
 
   save () {

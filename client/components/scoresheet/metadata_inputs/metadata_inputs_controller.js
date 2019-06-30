@@ -38,7 +38,7 @@ class MetadataInputsController {
       }
     })
 
-    return Promise.all([this.tournament.loadTeams(), this.refIdentity.init()])
+    return Promise.all([this.data.init(), this.tournament.loadTeams(), this.refIdentity.init()])
       .then(() => this.autoselectMetadata())
   }
 
