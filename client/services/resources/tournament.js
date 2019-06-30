@@ -97,7 +97,10 @@ class Tournament extends EventEmitter {
     if (!this._stagesPromise) {
       this._stagesPromise = this.init()
         .then(() => this.independence.send('GET', `${this.tournamentUrl}/settings/stages`))
-        .then(response => response.data)
+        .then(response => {
+          this.stages = response.data
+          return this.stages
+        })
         .catch(error => this.logger.error(error))
     }
     return this._stagesPromise

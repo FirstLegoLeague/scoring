@@ -1,0 +1,25 @@
+conflicted-slot {
+	display: flex;
+}
+
+conflicted-slot .segment {
+	margin: 0 !important;
+    width: 50%;
+}
+
+conflicted-slot .segment:first-child {
+  clip-path: polygon(0 0, 99% 0, calc(99% - 0.5rem) calc(50% - 1rem), 99% calc(50% + 1rem), calc(99% - 0.5rem) 100%, 0 100%);
+}
+
+conflicted-slot .segment:last-child {
+  clip-path: polygon(calc(2% + 0.5rem) 0, 100% 0, 100% 100%, 2% 100%, calc(2% + 0.5rem) calc(50% + 1rem), 2% calc(50% - 1rem));
+}
+
+conflicted-slot .label {
+	position: absolute;
+    width: 5rem;
+    text-align: center;
+    left: calc(50% - 2.5rem);
+    z-index: 2;
+    bottom: 0;
+}

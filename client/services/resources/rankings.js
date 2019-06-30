@@ -1,4 +1,5 @@
 import EventEmitter from 'event-emitter-es6'
+import Promise from 'bluebird'
 
 class Rankings extends EventEmitter {
   constructor (independence, scores, tournament, messanger, configuration, logger) {
@@ -8,19 +9,23 @@ class Rankings extends EventEmitter {
   }
 
   init () {
-    this.messanger.on('rankings:reload', () => {
-      this.tournament.getCurrentStage()
-        .then(stage => {
-          this.loadRankingsForStage(stage)
-          this.emit('rankings updated')
-        })
-        .catch(error => this.logger.error(error))
-    })
+    this.messanger.on('rankings:reload', () => this.initRankings())
     this.scores.on('scores updated', ({ id, score, action }) => {
       this.messanger.ignoreNext('rankings:reload')
       this._calc()
       this.emit('rankings updated', { id, score, action })
     })
+
+    this.initRankings()
+  }
+
+  initRankings () {
+    return this.tournament.loadCurrentStage()
+      .then(stage => {
+        this.loadRankingsForStage(stage)
+        this.emit('rankings updated', { action: 'init' })
+      })
+      .catch(error => this.logger.error(error))
   }
 
   loadRankingsForStage (stage) {

@@ -1,0 +1,15 @@
+slot {
+    display: flex !important;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+slot > * {
+    height: 100%;
+    width: 100%;
+}
+
+slot .segment {
+    min-height: 0 !important;
+    height: 100%;
+}

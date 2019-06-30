@@ -1,0 +1,3 @@
+<empty-slot ng-if="slot.data.length === 0" data="slot.data"></empty-slot>
+<single-score-slot ng-if="slot.data.length === 1" data="slot.data"></single-score-slot>
+<conflicted-slot ng-if="slot.data.length > 1" data="slot.data"></conflicted-slot>
