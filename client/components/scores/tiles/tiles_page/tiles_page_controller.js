@@ -118,7 +118,7 @@ class TilesPageController {
     const search = this.$location.search()
     const filters = search.filters || this.filters || []
     if (filters instanceof Array) {
-      this.fitlers = filters
+      this.filters = filters
     } else {
       this.filters = [filters]
     }

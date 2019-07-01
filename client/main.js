@@ -8,6 +8,7 @@ import 'angular-cookies'
 import 'angular-signature'
 import 'angular-xeditable'
 import 'angular-inview'
+import 'angular-dnd-module'
 
 import 'semantic-ui-angular-jquery/angular-semantic-ui.min.js'
 
@@ -21,7 +22,7 @@ import components from './components/**'
 
 global['SignaturePad'] = SignaturePad
 
-const main = angular.module('scoring', ['semantic-ui', 'ngSanitize', 'ngAnimate', 'ngCookies', 'signature', 'xeditable', 'angular-inview'])
+const main = angular.module('scoring', ['semantic-ui', 'ngSanitize', 'ngAnimate', 'ngCookies', 'signature', 'xeditable', 'angular-inview', 'dnd'])
   .config(config)
 
 console.debug('--- services ---')

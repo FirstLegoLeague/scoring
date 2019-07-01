@@ -1,1 +1,56 @@
-<div class="ui segment"></div>
+<div class="ui segment" dnd-draggable="true" dnd-on-dragstart="singleScoreSlot.startMovement()" dnd-on-dragend="singleScoreSlot.resolveMovement($dropmodel)" ng-class="{moving: singleScoreSlot.moving}">
+	{{singleScoreSlot.data[0].dateText}}
+	<div class="ui slot-data grid">
+		<div class="eight wide column">
+			<div>
+				<div editable-text="singleScoreSlot.data[0].referee" buttons="no" blur="submit" onaftersave="singleScoreSlot.save()">
+			      Referee: {{ singleScoreSlot.data[0].refereeText }}
+			    </div>
+			</div>
+			<div ng-if="!singleScoreSlot.tournament.tablesDisabled">
+				<div class="ui link"
+					editable-select="singleScoreSlot.data[0].tableId" buttons="no" blur="submit" onaftersave="singleScoreSlot.save()"
+					e-ng-options="table.tableId as table.tableName for table in singleScoreSlot.tournament.tables" e-class="ui simple dropdown">
+					Table: {{singleScoreSlot.data[0].tableText}}
+				</div>
+			</div>
+		</div>
+		<div class="eight wide center aligned column">
+			<div class="ui horizontal statistic">
+				<div class="value">
+					<div class="ui link" editable-number="singleScoreSlot.data[0].score" buttons="no" blur="submit" onaftersave="singleScoreSlot.save()">
+						{{ singleScoreSlot.data[0].score }}
+					</div>
+				</div>
+				<div class="label">
+					pts.
+				</div>
+			</div>
+		</div>
+		<div class="center aligned sixteen wide column">
+			<a href="{{'#!/scoresheet/' + singleScoreSlot.data[0]._id}}"><i class="ui primary link folder open outline icon"></i></a>
+			<i class="ui link check icon" ng-click="singleScoreSlot.update({ public: !singleScoreSlot.data[0].public })" ng-class="{green: singleScoreSlot.data[0].public}" hover-class="green"></i>
+			<i class="ui link ban icon" ng-click="singleScoreSlot.update({ noShow: !singleScoreSlot.data[0].noShow })" ng-class="{orange: singleScoreSlot.data[0].noShow}" hover-class="orange"></i>
+			<i class="ui red link trash icon" ng-click="singleScoreSlot.deleteModalVisible = true"></i>
+		</div>
+	</div>
+	<div class="ui inverted dimmer" ng-class="{active: !singleScoreSlot.ready}">
+		<div class="ui loader"></div>
+	</div>
+</div>
+<div class="ui placeholder center aligned segment" ng-if="singleScoreSlot.moving"></div>
+<sm-modal class="basic small" visible="singleScoreSlot.deleteModalVisible" settings="{ closable: false }">
+	<div class="ui icon header">
+		<i class="trash icon"></i>
+		Delete score
+	</div>
+	<div class="content">
+		<div class="ui center aligned grid">
+			Are you sure you want to delete score of {{ singleScoreSlot.data[0].score }} points for team {{ singleScoreSlot.data[0].teamText }} in {{ singleScoreSlot.data[0].matchText }}?
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="singleScoreSlot.deleteModalVisible = false">Cancel</div>
+		<div class="ui red inverted button" ng-click="singleScoreSlot.deleteModalVisible = false; singleScoreSlot.delete()">Delete</div>
+	</div>
+</sm-modal>

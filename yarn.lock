@@ -978,6 +978,13 @@ angular-cookies@^1.7.8:
   resolved "https://registry.yarnpkg.com/angular-cookies/-/angular-cookies-1.7.8.tgz#c674dcfd37168e3d7def6bed165a38f75f96dbc9"
   integrity sha512-oS2X8XLYyLrwSBUKmcGkHxphwTtAEdi3eriSwMX/WUl5D6fRZ4EcBY4DaHN+tYDnzJ1i2lFa82/oq0kTKxZmyg==
 
+angular-dnd-module@^0.1.25:
+  version "0.1.25"
+  resolved "https://registry.yarnpkg.com/angular-dnd-module/-/angular-dnd-module-0.1.25.tgz#d9d9f4d493a86ec8d21fe3941ab558b37ec5e303"
+  integrity sha512-heHTgrjAk5Yq3U0YtpkhpfzJPmm2UeJF8sMEiIk+OWYP12gWgX1WmqelP5Gy6MYMs9o0DTdEmyEOydNa4sCWfw==
+  dependencies:
+    angular "^1.4.6"
+
 angular-inview@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/angular-inview/-/angular-inview-3.1.0.tgz#d1180feea704f5b0e6e6df40c585d990c135d1c8"
@@ -1002,7 +1009,7 @@ angular-xeditable@^0.9.0:
   dependencies:
     angular "~1.x"
 
-angular@^1.7.8, angular@~1.x:
+angular@^1.4.6, angular@^1.7.8, angular@~1.x:
   version "1.7.8"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.8.tgz#b77ede272ce1b261e3be30c1451a0b346905a3c9"
   integrity sha512-wtef/y4COxM7ZVhddd7JtAAhyYObq9YXKar9tsW7558BImeVYteJiTxCKeJOL45lJ/+7B4wrAC49j8gTFYEthg==

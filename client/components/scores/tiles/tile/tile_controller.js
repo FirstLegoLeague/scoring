@@ -17,8 +17,10 @@ class TileController {
   }
 
   save () {
+    this.ready = false
     return this.scores.update(this.data)
       .then(() => this.data.load())
+      .then(() => { this.ready = true })
   }
 
   delete () {

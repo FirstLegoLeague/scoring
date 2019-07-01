@@ -80,13 +80,15 @@ function Score (tournament, challenge, logger) {
 
           if (score.creation !== undefined) {
             score.creationTime = new Date(score.creation)
-            score.dateText = `${getPaddedNumber(score.creationTime.getHours())}:${getPaddedNumber(score.creationTime.getMinutes())}`
+            score.creationText = `${getPaddedNumber(score.creationTime.getHours())}:${getPaddedNumber(score.creationTime.getMinutes())}`
+            score.dateText = score.creationText
           }
           if (score.lastUpdate !== undefined) {
             score.lastUpdateTime = new Date(score.lastUpdate)
 
             if (score.creationTime.getTime() !== score.lastUpdateTime.getTime()) {
-              score.dateText += ` (${getPaddedNumber(score.lastUpdateTime.getHours())}:${getPaddedNumber(score.lastUpdateTime.getMinutes())})`
+              score.updateText = `${getPaddedNumber(score.lastUpdateTime.getHours())}:${getPaddedNumber(score.lastUpdateTime.getMinutes())}`
+              score.dateText += ` (${score.updateText})`
             }
           }
 
