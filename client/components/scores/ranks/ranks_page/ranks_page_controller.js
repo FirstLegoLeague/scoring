@@ -3,6 +3,7 @@ import Promise from 'bluebird'
 class RanksPageController {
   constructor (rankings, scores, $timeout, $location, $scope, tournament, logger, configuration) {
     Object.assign(this, { rankings, scores, $timeout, $location, $scope, tournament, logger, configuration })
+    this.smallView = false
   }
 
   $onInit () {
