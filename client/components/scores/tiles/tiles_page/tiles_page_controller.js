@@ -29,8 +29,7 @@ const FILTERS = {
   stage: 'stage',
   round: 'matchText',
   table: 'tableText',
-  referee: 'refereeText',
-  score: 'score'
+  referee: 'refereeText'
 }
 
 function applyFilter (filter, score, scoresArray) {
