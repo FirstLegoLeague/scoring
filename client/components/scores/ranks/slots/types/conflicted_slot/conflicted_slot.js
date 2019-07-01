@@ -4,5 +4,5 @@ import './conflicted_slot.css'
 export default {
   template,
   controller: 'conflictedSlotController as conflictedSlot',
-  bindings: { data: '=' }
+  bindings: { data: '=', position: '=' }
 }

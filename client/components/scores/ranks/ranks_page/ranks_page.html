@@ -34,7 +34,7 @@
 							</div>
 						</div>
 					</div>
-					<slot data="slotScores" class="center aligen column" ng-repeat="slotScores in rank.scores"></slot>
+					<slot data="slotScores" position="{ teamNumber: rank.team.number, stage: ranksPage.currentStage, round: $index+1 }" class="center aligen column" ng-repeat="slotScores in rank.scores"></slot>
 				</div>
 				<sm-modal class="basic small" visible="rank.deleteModalVisible" settings="{ closable: false }">
 					<div class="ui icon header">

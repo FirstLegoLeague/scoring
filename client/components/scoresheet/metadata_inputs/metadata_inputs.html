@@ -9,7 +9,7 @@
 		<div id="matches" ng-if="metadataInputs.data.current.teamNumber" ng-hide="metadataInputs.autoselecting || metadataInputs.loadingMatches || metadataInputs.data.dontRequireMatch">
 			<div ng-repeat="match in metadataInputs.matches">
 				<div class="ui compact button"
-					ng-class="{ primary: (metadataInputs.data.current.stage === match.stage && metadataInputs.data.current.round === match.round)}" ng-click="metadataInputs.data.current.matchId = match._id">
+					ng-class="{ primary: (metadataInputs.data.current.stage === match.stage && metadataInputs.data.current.round === match.round)}" ng-click="metadataInputs.data.current.stage = match.stage; metadataInputs.data.current.round = match.round">
 					<i class="ui green check icon" ng-show="match.complete"></i>
 					{{match.displayText}}
 				</div>

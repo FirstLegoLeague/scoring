@@ -3,8 +3,8 @@ import Promise from 'bluebird'
 import debounce from '../../../lib/debounce'
 
 class MetadataInputsController {
-  constructor (scoresheet, scores, $scope, tournament, refIdentity, logger) {
-    Object.assign(this, { data: scoresheet, scores, $scope, tournament, refIdentity, logger })
+  constructor (scoresheet, scores, $scope, $location, tournament, refIdentity, logger) {
+    Object.assign(this, { data: scoresheet, scores, $scope, $location, tournament, refIdentity, logger })
     this.loading = true
   }
 
@@ -38,8 +38,15 @@ class MetadataInputsController {
       }
     })
 
+    this.$scope.$on('$locationChangeSuccess', () => {
+      this.loadFromUrl()
+    })
+
     return Promise.all([this.data.init(), this.tournament.loadTeams(), this.refIdentity.init()])
-      .then(() => this.autoselectMetadata())
+      .then(() => {
+        this.loadFromUrl()
+        return this.autoselectMetadata()
+      })
   }
 
   teamNumber () {
@@ -58,6 +65,21 @@ class MetadataInputsController {
     return this.data.current ? this.data.current.matchId : undefined
   }
 
+  loadFromUrl () {
+    this.data.autoselect = true
+    const search = this.$location.search()
+    if (search.teamNumber && isFinite(search.teamNumber)) {
+      this.data.current.teamNumber = parseInt(search.teamNumber)
+      if (search.stage) {
+        this.data.current.stage = search.stage
+      }
+      if (search.round && isFinite(search.round)) {
+        this.data.current.round = parseInt(search.round)
+      }
+      this.data.autoselect = false
+    }
+  }
+
   autoselectMetadata () {
     if (!this.data.autoselect) {
       return this.loadMatchOptions()
@@ -67,7 +89,7 @@ class MetadataInputsController {
     this.autoselecting = true
     return this.autoselectTeam()
       .then(() => {
-        if (this.teamNumber()) {
+        if (this.data.current.teamNumber) {
           return this.loadMatchOptions().then(() => this.autoselectMatch())
         }
       })
@@ -77,9 +99,10 @@ class MetadataInputsController {
   autoselectTeam () {
     if (!this.data.autoselect) return Promise.resolve()
     if (!this.refIdentity.table) return Promise.resolve()
+    if (this.data.current.teamNumber !== undefined) return Promise.resolve()
     return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
       .then(teamNumber => {
-        if (!this.teamNumber() && teamNumber) {
+        if (teamNumber) {
           this.data.current.teamNumber = teamNumber
         }
       })
@@ -88,7 +111,7 @@ class MetadataInputsController {
   loadMatchOptions () {
     this.loadingMatches = true
 
-    return Promise.all([this.tournament.loadTeamMatches(this.teamNumber()), this.scores.init()])
+    return Promise.all([this.tournament.loadTeamMatches(this.data.current.teamNumber), this.scores.init()])
       .then(([matches]) => {
         this.matches = matches
         this.calculateMatchCompletion()
@@ -106,8 +129,11 @@ class MetadataInputsController {
 
   autoselectMatch () {
     if (!this.data.autoselect) return Promise.resolve()
-    if (!this.data.current.matchId ||
-      this.matches.every(match => this.data.current.stage !== match.stage || this.data.current.round !== match.round)) {
+    if (this.data.current.matchId !== undefined) return Promise.resolve()
+    if (this.data.current.round !== undefined && this.data.current.stage !== undefined) {
+      return Promise.resolve()
+    }
+    if (this.matches.every(match => this.data.current.stage !== match.stage || this.data.current.round !== match.round)) {
       const firstIncompleteMatch = this.matches.find(match => !match.complete)
       if (firstIncompleteMatch) {
         this.data.current.matchId = firstIncompleteMatch._id
@@ -117,7 +143,7 @@ class MetadataInputsController {
 
   calculateMatchCompletion () {
     this.matches.forEach(match => {
-      match.complete = this.scores.scores.some(score => score.teamNumber === this.teamNumber() &&
+      match.complete = this.scores.scores.some(score => score.teamNumber === this.data.current.teamNumber &&
         (score.matchId === match._id || (score.stage === match.stage && score.round === match.round)))
       return match
     })
@@ -125,8 +151,8 @@ class MetadataInputsController {
 
   syncMatchFields () {
     if (!this.matches) return Promise.resolve()
-    const match = this.matches.find(m => m._id === this.data.current.matchId) ||
-      this.matches.find(m => m.stage === this.stage() && m.round === this.round())
+    const match = this.matches.find(m => m.stage === this.data.current.stage && m.round === this.data.current.round) ||
+      this.matches.find(m => m._id === this.data.current.matchId)
 
     if (!match) return Promise.resolve()
 
@@ -137,6 +163,6 @@ class MetadataInputsController {
 }
 
 MetadataInputsController.$$ngIsClass = true
-MetadataInputsController.$inject = ['scoresheet', 'scores', '$scope', 'tournament', 'refIdentity', 'logger']
+MetadataInputsController.$inject = ['scoresheet', 'scores', '$scope', '$location', 'tournament', 'refIdentity', 'logger']
 
 export default MetadataInputsController

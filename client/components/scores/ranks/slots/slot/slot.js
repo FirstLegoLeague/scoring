@@ -5,5 +5,5 @@ export default {
   template,
   controller: function () { },
   controllerAs: 'slot',
-  bindings: { data: '=' }
+  bindings: { data: '=', position: '=' }
 }

@@ -4,5 +4,5 @@ import './single_score_slot.css'
 export default {
   template,
   controller: 'singleScoreSlotController as singleScoreSlot',
-  bindings: { data: '=' }
+  bindings: { data: '=', position: '=' }
 }

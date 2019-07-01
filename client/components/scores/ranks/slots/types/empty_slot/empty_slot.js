@@ -4,5 +4,5 @@ import './empty_slot.css'
 export default {
   template,
   controller: 'emptySlotController as emptySlot',
-  bindings: { data: '=' }
+  bindings: { data: '=', position: '=' }
 }

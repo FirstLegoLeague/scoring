@@ -17,9 +17,9 @@ conflicted-slot .segment:last-child {
 
 conflicted-slot .label {
 	position: absolute;
-    width: 5rem;
+    width: 6rem;
     text-align: center;
-    left: calc(50% - 2.5rem);
+    left: calc(50% - 3rem);
     z-index: 2;
     bottom: 0;
 }
