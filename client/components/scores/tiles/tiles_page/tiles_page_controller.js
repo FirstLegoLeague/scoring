@@ -55,8 +55,8 @@ const SORT_DIRECTION_OPTIONS = [
 ]
 
 class TilesPageController {
-  constructor ($scope, $location, scores, configuration, logger) {
-    Object.assign(this, { $scope, $location, data: scores, configuration, logger })
+  constructor ($scope, $location, scores, configuration, logger, error) {
+    Object.assign(this, { $scope, $location, data: scores, configuration, logger, error })
     this.filterOptions = []
     this.filters = []
     this.scores = []
@@ -82,9 +82,10 @@ class TilesPageController {
     })
       .catch(error => this.logger.error(error))
 
-    return this.data.init()
+    this.data.init()
       .then(() => Promise.all(this.data.scores.map(score => score.load())))
       .then(() => this.update())
+      .catch(error => this.logger.error(error))
   }
 
   update () {
@@ -110,7 +111,11 @@ class TilesPageController {
   }
 
   deleteAll () {
-    return this.data.deleteAll()
+    this.data.deleteAll()
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   _loadFromLocation () {
@@ -146,6 +151,6 @@ class TilesPageController {
 }
 
 TilesPageController.$$ngIsClass = true
-TilesPageController.$inject = ['$scope', '$location', 'scores', 'configuration', 'logger']
+TilesPageController.$inject = ['$scope', '$location', 'scores', 'configuration', 'logger', 'error']
 
 export default TilesPageController

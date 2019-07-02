@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
 
 class ScoresheetPageController {
-  constructor (scoresheet, scores, logger, user, $scope, $location) {
-    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location })
+  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, notifications) {
+    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, notifications })
     this.ready = false
     this.scrollDisabled = false
   }
@@ -32,17 +32,18 @@ class ScoresheetPageController {
       }
     })
 
-    return Promise.all([this.data.init(), this.scores.init()])
+    Promise.all([this.data.init(), this.scores.init()])
       .then(() => {
         this.loadFromURL()
         this.ready = true
       })
+      .catch(error => this.logger.error(error))
   }
 
   reset (forceMetadataIfEditing = false) {
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
     this.scrollDisabled = false
-    return this.data.reset(forceMetadataIfEditing)
+    this.data.reset(forceMetadataIfEditing)
   }
 
   matchId () {
@@ -61,8 +62,9 @@ class ScoresheetPageController {
   save () {
     this.data.save()
       .then(() => {
-        this.logger.info(`Score saved - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
         this.$timeout(() => {
+          this.logger.info(`Score saved - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
+          this.notifications.success('Score saved!')
           this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
           if (this.data.isEditing()) {
             this.$location.path('/scores/tiles')
@@ -70,8 +72,10 @@ class ScoresheetPageController {
           this.reset()
         })
       })
-      .catch(() => {
-        this.logger.info(`Failed saving score - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
+      .catch(error => {
+        console.error(error)
+        this.logger.error(`Failed saving score - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
+        this.notifications.error('Failed saving score... Retry will occour soon.')
         if (this.data.isEditing()) {
           this.$location.path('/scores/tiles')
         }
@@ -94,6 +98,6 @@ class ScoresheetPageController {
 }
 
 ScoresheetPageController.$$ngIsClass = true
-ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location']
+ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', 'notifications']
 
 export default ScoresheetPageController

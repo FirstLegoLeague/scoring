@@ -1,6 +1,6 @@
 class EmptySlotController {
-  constructor ($scope, scores, tournament, logger, scoreMove) {
-    Object.assign(this, { $scope, scores, tournament, logger, scoreMove })
+  constructor ($scope, scores, tournament, logger, notifications) {
+    Object.assign(this, { $scope, scores, tournament, logger, notifications })
   }
 
   $onInit () {
@@ -18,16 +18,23 @@ class EmptySlotController {
     score.fakeSignature()
     score.fillDefaults()
     this.scores.create(score)
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   createNoShow () {
     this.scores.create(Object.assign({ noShow: true }, this.position))
       .then(score => this.data.push(score))
-      .catch(error => this.logger.error(error))
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 }
 
 EmptySlotController.$$ngIsClass = true
-EmptySlotController.$inject = ['$scope', 'scores', 'tournament', 'logger']
+EmptySlotController.$inject = ['$scope', 'scores', 'tournament', 'logger', 'notifications']
 
 export default EmptySlotController

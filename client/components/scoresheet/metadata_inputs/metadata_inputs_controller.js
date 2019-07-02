@@ -42,11 +42,12 @@ class MetadataInputsController {
       this.loadFromUrl()
     })
 
-    return Promise.all([this.data.init(), this.tournament.loadTeams(), this.refIdentity.init()])
+    Promise.all([this.data.init(), this.tournament.loadTeams(), this.refIdentity.init()])
       .then(() => {
         this.loadFromUrl()
         return this.autoselectMetadata()
       })
+      .catch(error => this.logger.error(error))
   }
 
   teamNumber () {
@@ -159,6 +160,8 @@ class MetadataInputsController {
     this.data.current.matchId = match._id
     this.data.current.stage = match.stage
     this.data.current.round = match.round
+
+    return Promise.resolve()
   }
 }
 

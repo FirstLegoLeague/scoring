@@ -20,7 +20,7 @@ class ScoresheetActionsController {
   }
 
   reset () {
-    return this.$scope.$emit('reset scoresheet')
+    this.$scope.$emit('reset scoresheet')
   }
 
   cancel () {

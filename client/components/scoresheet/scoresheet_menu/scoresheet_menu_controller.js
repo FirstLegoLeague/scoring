@@ -16,13 +16,14 @@ class ScoresheetMenuController {
       this._resetPage()
     })
 
-    return Promise.all([this.refIdentity.init(), this.configuration.load()])
+    Promise.all([this.refIdentity.init(), this.configuration.load()])
       .then(() => {
         if (!this.refIdentity.isInitialized()) {
           this.forceRefIdentityEntry = true
           this.refIdentityModalVisible = true
         }
       })
+      .catch(error => this.logger.error(error))
   }
 
   setPage (page) {

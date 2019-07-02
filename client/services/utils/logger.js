@@ -16,8 +16,6 @@ class Logger {
         this.log(message, level)
       }
     })
-
-    this.$http = $http
   }
 
   log (message, level = 'debug') {

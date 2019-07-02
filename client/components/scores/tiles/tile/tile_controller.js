@@ -7,24 +7,33 @@ class TileController {
   }
 
   $onInit () {
-    return Promise.all([this.data.load(), this.scores.init(), this.tournament.init().then(() => this.tournament.loadTeams())])
+    Promise.all([this.data.load(), this.scores.init(), this.tournament.init().then(() => this.tournament.loadTeams())])
       .then(() => { this.ready = true })
+      .catch(error => this.logger.error(error))
   }
 
   update (attrs) {
     Object.assign(this.data, attrs)
-    return this.save()
+    this.save()
   }
 
   save () {
     this.ready = false
-    return this.scores.update(this.data)
+    this.scores.update(this.data)
       .then(() => this.data.load())
       .then(() => { this.ready = true })
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   delete () {
-    return this.scores.delete(this.data._id)
+    this.scores.delete(this.data._id)
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 }
 

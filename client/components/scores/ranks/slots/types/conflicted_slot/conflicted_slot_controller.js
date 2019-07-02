@@ -1,17 +1,22 @@
 import Promise from 'bluebird'
 
 class ConflictedSlotController {
-  constructor (scores) {
-    Object.assign(this, { scores })
+  constructor (scores, logger, notifications) {
+    Object.assign(this, { scores, logger, notifications })
   }
 
   $onInit () {
     this.allScoresUrl = `/#!/scores/tiles?filters=team: ${encodeURIComponent(this.data[0].teamText)}&filters=round: ${encodeURIComponent(this.data[0].matchText)}`
-    return Promise.all(this.data.map(score => score.load()))
+    Promise.all(this.data.map(score => score.load()))
+      .catch(error => this.logger.error(error))
   }
 
   delete (score) {
-    return this.scores.delete(score._id)
+    this.scores.delete(score._id)
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   startMovement () {
@@ -29,18 +34,26 @@ class ConflictedSlotController {
 
   update (attrs) {
     Object.assign(this.data[0], attrs)
-    return this.save()
+    this.save()
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   save () {
     this.ready = false
-    return this.scores.update(this.data[0])
+    this.scores.update(this.data[0])
       .then(() => this.data[0].load())
       .then(() => { this.ready = true })
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 }
 
 ConflictedSlotController.$$ngIsClass = true
-ConflictedSlotController.$inject = ['scores']
+ConflictedSlotController.$inject = ['scores', 'logger', 'notifications']
 
 export default ConflictedSlotController

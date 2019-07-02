@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
 
 class RanksPageController {
-  constructor (rankings, scores, $timeout, $location, $scope, tournament, logger, configuration) {
-    Object.assign(this, { rankings, scores, $timeout, $location, $scope, tournament, logger, configuration })
+  constructor (rankings, scores, $timeout, $location, $scope, tournament, logger, configuration, notifications) {
+    Object.assign(this, { rankings, scores, $timeout, $location, $scope, tournament, logger, configuration, notifications })
     this.smallView = false
   }
 
@@ -25,10 +25,11 @@ class RanksPageController {
       }
     })
 
-    return Promise.all([this.rankings.init(), this.tournament.loadStages(), this.configuration.load()])
+    Promise.all([this.rankings.init(), this.tournament.loadStages(), this.configuration.load()])
       .then(() => {
         this.currentStage = this.$location.search().stage || this.tournament.stages[0]
       })
+      .catch(error => this.logger.error(error))
   }
 
   rankingsUrl () {
@@ -37,7 +38,7 @@ class RanksPageController {
 
   load () {
     this.ready = false
-    return this.rankings.loadRankingsForStage(this.currentStage)
+    this.rankings.loadRankingsForStage(this.currentStage)
       .then(() => {
         if (this.rankings.rankings[this.currentStage].length > 0) {
           const roundsCount = this.rankings.rankings[this.currentStage][0].scores.length
@@ -46,7 +47,7 @@ class RanksPageController {
         }
         this.ready = true
       })
-      .catch(err => this.logger.error(err))
+      .catch(error => this.logger.error(error))
   }
 
   deleteRankScores (rank) {
@@ -55,7 +56,10 @@ class RanksPageController {
         rank.scores = rank.scores.map(() => ([]))
         this._enrichRank(rank)
       })
-      .catch(error => this.logger.error(error))
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   toggleAllRankScoresPublic (rank) {
@@ -64,7 +68,10 @@ class RanksPageController {
       return this.scores.update(score)
     }))
       .then(() => this._enrichRank(rank))
-      .catch(error => this.logger.error(error))
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   toggleAllRankScoresNoShow (rank) {
@@ -77,15 +84,21 @@ class RanksPageController {
       } else {
         return this.scores.create({ noShow: true, teamNumber: rank.team.number, stage: this.currentStage, round: (round + 1) })
           .then(score => roundScores.push(score))
-          .catch(error => this.logger.error(error))
       }
     }))
       .then(() => this._enrichRank(rank))
-      .catch(error => this.logger.error(error))
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   deleteAll () {
-    return this.scores.deleteAll()
+    this.scores.deleteAll()
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   _enrichRankings () {
@@ -99,6 +112,6 @@ class RanksPageController {
 }
 
 RanksPageController.$$ngIsClass = true
-RanksPageController.$inject = ['rankings', 'scores', '$timeout', '$location', '$scope', 'tournament', 'logger', 'configuration']
+RanksPageController.$inject = ['rankings', 'scores', '$timeout', '$location', '$scope', 'tournament', 'logger', 'configuration', 'notifications']
 
 export default RanksPageController

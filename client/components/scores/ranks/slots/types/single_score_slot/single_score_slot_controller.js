@@ -1,30 +1,39 @@
 import Promise from 'bluebird'
 
 class SingleScoreSlotController {
-  constructor ($location, scores, tournament) {
-    Object.assign(this, { $location, scores, tournament })
+  constructor ($location, scores, tournament, logger, notifications) {
+    Object.assign(this, { $location, scores, tournament, logger, notifications })
     this.ready = false
   }
 
   $onInit () {
-    return Promise.all([this.data[0].load(), this.scores.init(), this.tournament.init().then(() => this.tournament.loadTeams())])
+    Promise.all([this.data[0].load(), this.scores.init(), this.tournament.init().then(() => this.tournament.loadTeams())])
       .then(() => { this.ready = true })
+      .catch(error => this.logger.error(error))
   }
 
   update (attrs) {
     Object.assign(this.data[0], attrs)
-    return this.save()
+    this.save()
   }
 
   save () {
     this.ready = false
-    return this.scores.update(this.data[0])
+    this.scores.update(this.data[0])
       .then(() => this.data[0].load())
       .then(() => { this.ready = true })
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   delete () {
-    return this.scores.delete(this.data[0]._id)
+    this.scores.delete(this.data[0]._id)
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
   }
 
   startMovement () {
@@ -42,6 +51,6 @@ class SingleScoreSlotController {
 }
 
 SingleScoreSlotController.$$ngIsClass = true
-SingleScoreSlotController.$inject = ['$location', 'scores', 'tournament']
+SingleScoreSlotController.$inject = ['$location', 'scores', 'tournament', 'logger', 'notifications']
 
 export default SingleScoreSlotController
