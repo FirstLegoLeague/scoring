@@ -1,0 +1,10 @@
+<div class="ui placeholder center aligned segment" dnd-droppable="true" dnd-model="emptySlot.position">
+	<div class="ui hover text header">
+		No score yet
+	</div>
+	<div class="hover text actions">
+		<a href="{{emptySlot.scoresheetUrl}}"><i class="link primary file alternate outline icon"></i></a>
+		<i class="link secondary file outline icon" ng-click="emptySlot.createEmpty()" hover-class="primary"></i>
+		<i class="link orange ban icon" ng-click="emptySlot.createNoShow()"></i>
+	</div>
+</div>

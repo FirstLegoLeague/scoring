@@ -1,0 +1,23 @@
+<div class="ui grid">
+	<div class="five wide column" ng-hide="metadataInputs.autoselecting">
+		<sm-dropdown class="fluid search selection" default-text="'Select team'"
+			model="metadataInputs.data.current.teamNumber" items="metadataInputs.tournament.teams" label="item.displayText" value="item.number"
+			settings="{ fullTextSearch: 'exact' }">
+		</sm-dropdown>
+	</div>
+	<div  id="matches-column" class="eleven wide column">
+		<div id="matches" ng-if="metadataInputs.data.current.teamNumber" ng-hide="metadataInputs.autoselecting || metadataInputs.loadingMatches || metadataInputs.data.dontRequireMatch">
+			<div ng-repeat="match in metadataInputs.matches">
+				<div class="ui compact button"
+					ng-class="{ primary: (metadataInputs.data.current.stage === match.stage && metadataInputs.data.current.round === match.round)}" ng-click="metadataInputs.data.current.stage = match.stage; metadataInputs.data.current.round = match.round">
+					<i class="ui green check icon" ng-show="match.complete"></i>
+					{{match.displayText}}
+				</div>
+				<i class="ui arrow alternate circle right icon" ng-if="!$last"></i>
+			</div>
+		</div>
+		<div ng-show="metadataInputs.data.dontRequireMatch">
+			Couldn't load matches, continue without them.
+		</div>
+	</div>
+</div>

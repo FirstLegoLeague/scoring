@@ -1,0 +1,90 @@
+<div class="ui page sub menu grid">
+	<div class="row">
+		<div class="twelve wide column">
+			<div class="ui compact menu">
+				<sm-dropdown class="selection item" model="ranksPage.currentStage" items="ranksPage.tournament.stages"></sm-dropdown>
+			</div>
+		</div>
+		<div class="four wide column">
+			<div class="ui right floated menu">
+				<div class="ui icon link item" ng-click="ranksPage.smallView = !ranksPage.smallView">
+					<i class="ui icon" ng-class="ranksPage.smallView ? 'compress' : 'expand'"></i>
+					<div class="hover text">{{ranksPage.smallView ? 'Small view' : 'Large view'}}</div>
+				</div>
+				<a class="ui icon link item" href="{{ranksPage.rankingsUrl()}}">
+					<i class="ui download icon"></i>
+					<div class="hover text">Export stage</div>
+				</a>
+				<div class="ui icon link item" ng-click="ranksPage.deleteModalVisible = true">
+					<i class="ui red trash icon"></i>
+					<div class="hover text">Delete all</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui padded grid">
+	<div id="ranks" class="row">
+		<div class="sixteen wide column" ng-if="!ranksPage.smallView">
+			<div class="ui segment" ng-repeat="rank in ranksPage.rankings.rankings[ranksPage.currentStage]">
+				<div class="ui equal width grid">
+					<div class="center aligned column">
+						<div class="ui basic segment">
+							<div class="ui header">
+								{{rank.team.displayText}}
+							</div>
+							<div class="actions">
+								<i class="ui link check icon" ng-click="ranksPage.toggleAllRankScoresPublic(rank)" ng-class="{green: !ranksPage.allScoresUnpublished, disabled: rank.allScores.length === 0}" hover-class="green"></i>
+								<i class="ui link ban icon" ng-click="ranksPage.toggleAllRankScoresNoShow(rank)" ng-class="{orange: !ranksPage.allScoresUnpublished, disabled: rank.allScores.length === 0}" hover-class="orange"></i>
+								<i class="ui red link trash icon" ng-class="{disabled: rank.allScores.length === 0}"></i>
+							</div>
+						</div>
+					</div>
+					<slot data="slotScores" position="{ teamNumber: rank.team.number, stage: ranksPage.currentStage, round: $index+1 }" class="center aligen column" ng-repeat="slotScores in rank.scores"></slot>
+				</div>
+				<sm-modal class="basic small" visible="rank.deleteModalVisible" settings="{ closable: false }">
+					<div class="ui icon header">
+						<i class="trash icon"></i>
+						Delete all scores of team {{rank.team.displayText}}
+					</div>
+					<div class="content">
+						<div class="ui center aligned grid">
+							Are you sure you want to delete all of the scores of this team?
+						</div>
+					</div>
+					<div class="actions">
+						<div class="ui primary inverted button" ng-click="rank.deleteModalVisible = false">Cancel</div>
+						<div class="ui red inverted button" ng-click="rank.deleteModalVisible = false; ranksPage.deleteRankScores(rank)">Delete</div>
+					</div>
+				</sm-modal>
+			</div>
+		</div>
+		<div class="sixteen wide column" ng-if="ranksPage.smallView">
+			<div class="ui segments">
+				<div class="ui segment" ng-repeat="rank in ranksPage.rankings.rankings[ranksPage.currentStage]">
+					<div class="ui equal width grid">
+						<div class="column">{{rank.team.displayText}}</div>
+						<div class="center aligen column" ng-repeat="slotScores in rank.scores">
+							{{slotScores.length === 1 ? slotScores[0].score : (slotScores.length > 0 ? 'Conflicted' : '')}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<sm-modal class="basic small" visible="ranksPage.deleteModalVisible" settings="{ closable: false }">
+	<div class="ui icon header">
+		<i class="trash icon"></i>
+		Delete all scores
+	</div>
+	<div class="content">
+		<div class="ui center aligned grid">
+			Are you sure you want to delete all of the scores?
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="ranksPage.deleteModalVisible = false">Cancel</div>
+		<div class="ui red inverted button" ng-click="ranksPage.deleteModalVisible = false; ranksPage.deleteAll()">Delete</div>
+	</div>
+</sm-modal>

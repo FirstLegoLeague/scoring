@@ -1,0 +1,35 @@
+.editable.editable-hide {
+	display: none;
+}
+
+.ui.header {
+	margin-bottom: 0 !important;
+}
+
+.tile-data {
+	margin-top: 0 !important;
+}
+
+.tile-data .column:last-child {
+    padding-left: 0 !important;
+}
+
+.tile-data .column:first-child {
+    padding-right: 0 !important;
+}
+
+.tile-data .column {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.editable-text input {
+    border: none;
+    outline: none;
+}
+
+.editable-number input {
+	border: none;
+    outline: none;
+    width: 100%;
+}

@@ -1,7 +1,9 @@
 extends: standard
 
 parserOptions:
-  sourceType: script
+  sourceType: module
+  env:
+    browser: true
 
 rules:
   arrow-parens:
@@ -38,3 +40,8 @@ rules:
   promise/no-callback-in-promise: warn
   promise/no-native: warn
   promise/no-return-wrap: warn
+
+overrides:
+  - files: [client/**/*]
+    rules:
+      node/no-unsupported-features: off

@@ -1,0 +1,34 @@
+<a class="link item" href="{{scoresheetMenu.backLink}}" ng-if="scoresheetMenu.user.isAdmin()">
+	<i class="reply icon"></i>
+	<span class="hover text">Back to scores</span>
+</a>
+
+<div class="input item" ng-if="scoresheetMenu.user.isAdmin()">
+	<div class="ui transparent icon input">
+		<i class="user icon"></i>
+		<input type="text" placeholder="Enter referee" ng-model="scoresheetMenu.refIdentity.referee"/>
+	</div>
+</div>
+
+<sm-dropdown ng-if="scoresheetMenu.user.isAdmin()" class="item" model="scoresheetMenu.refIdentity.table" items="scoresheetMenu.refIdentity.tournament.tables" label="item.tableName" default-text="'Select table'"></sm-dropdown>
+
+<div class="link item" ng-if="scoresheetMenu.user.isRef()" ng-click="scoresheetMenu.showRefIdentityModal()">
+	<i class="user icon"></i>
+	{{scoresheetMenu.refIdentity.referee}}
+	<span ng-if="!scoresheetMenu.refIdentity.tablesDisabled">&nbsp;On Table&nbsp;{{scoresheetMenu.refIdentity.table.tableName}}</span>
+</div>
+<sm-modal class="basic small" visible="scoresheetMenu.refIdentityModalVisible" settings="{ closable: false }">
+	<div class="ui centered header">Please enter your information:</div>
+	<div class="content">
+		<div class="ui fluid input" ng-class="{error: scoresheetMenu.modalRefereeError && !scoresheetMenu.refIdentity.referee}">
+			<input placeholder="Referee name..." ng-model="scoresheetMenu.refIdentity.referee" />
+		</div>
+	</div>
+	<div class="content">
+		<sm-dropdown ng-if="scoresheetMenu.user.isAdmin()" class="fluid selection" model="scoresheetMenu.refIdentity.table" items="scoresheetMenu.refIdentity.tournament.tables" label="item.tableName" default-text="'Select table'" ng-class="{error: scoresheetMenu.modalTableError && !scoresheetMenu.refIdentity.table}"></sm-dropdown>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="scoresheetMenu.saveRefIdentity()">Save</div>
+		<div class="ui red basic inverted button" ng-click="scoresheetMenu.cancelRefIdentity()" ng-class="{disabled: scoresheetMenu.forceRefIdentityEntry}">Cancel</div>
+	</div>
+</sm-modal>

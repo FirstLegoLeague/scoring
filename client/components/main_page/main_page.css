@@ -1,0 +1,8 @@
+main-page {
+	padding-top: 1rem;
+}
+
+main-page .ui.menu.sub.grid +* {
+    height: calc(100% - 6rem);
+    overflow-y: auto;
+}

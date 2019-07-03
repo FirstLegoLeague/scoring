@@ -1,0 +1,71 @@
+<div class="content">
+	<div class="right floated meta">{{tile.data.dateText}}</div>
+	<div>
+		<div class="ui link" ng-class="tile.data.teamNumberError ? 'error message' : 'link header'"
+			editable-select="tile.data.teamNumber" buttons="no" blur="submit" onaftersave="tile.save()"
+			e-ng-options="team.number as team.displayText for team in tile.tournament.teams" e-class="ui simple dropdown">
+          {{ tile.data.teamText }}
+        </div>
+		<div class="ui link" ng-class="tile.data.matchError ? 'big error message' : ''"
+			editable-select="tile.data.matchId" buttons="no" blur="submit" onaftersave="tile.save()"
+			e-ng-options="match._id as match.displayText for match in tile.data.matches"
+			e-class="ui dropdown">
+	    	{{ tile.data.matchText }}
+	    </div>
+	</div>
+	<div class="ui grid tile-data">
+		<div class="eight wide column">
+			<div>
+				<div editable-text="tile.data.referee" buttons="no" blur="submit" onaftersave="tile.save()">
+			      Referee: {{ tile.data.refereeText }}
+			    </div>
+			</div>
+			<div ng-if="!tile.tournament.tablesDisabled">
+				<div class="ui link"
+					editable-select="tile.data.tableId" buttons="no" blur="submit" onaftersave="tile.save()"
+					e-ng-options="table.tableId as table.tableName for table in tile.tournament.tables" e-class="ui simple dropdown">
+					Table: {{tile.data.tableText}}
+				</div>
+			</div>
+		</div>
+		<div class="eight wide center aligned column">
+			<div class="ui horizontal statistic">
+				<div class="value">
+					<div class="ui link" editable-number="tile.data.score" buttons="no" blur="submit" onaftersave="tile.save()">
+						{{ tile.data.score }}
+					</div>
+				</div>
+				<div class="label">
+					pts.
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="extra content">
+	<div class="center aligned">
+		<a href="{{'#!/scoresheet/' + tile.data._id}}"><i class="ui primary link folder open outline icon"></i></a>
+		<i class="ui link check icon" ng-click="tile.update({ public: !tile.data.public })" ng-class="{green: tile.data.public}" hover-class="green"></i>
+		<i class="ui link ban icon" ng-click="tile.update({ noShow: !tile.data.noShow })" ng-class="{orange: tile.data.noShow}" hover-class="orange"></i>
+		<i class="ui red link trash icon" ng-click="tile.deleteModalVisible = true"></i>
+	</div>
+</div>
+<div class="ui inverted dimmer" ng-class="{active: !tile.ready}">
+	<div class="ui loader"></div>
+</div>
+
+<sm-modal class="basic small" visible="tile.deleteModalVisible" settings="{ closable: false }">
+	<div class="ui icon header">
+		<i class="trash icon"></i>
+		Delete score
+	</div>
+	<div class="content">
+		<div class="ui center aligned grid">
+			Are you sure you want to delete score of {{ tile.data.score }} points for team {{ tile.data.teamText }} in {{ tile.data.matchText }}?
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="tile.deleteModalVisible = false">Cancel</div>
+		<div class="ui red inverted button" ng-click="tile.deleteModalVisible = false; tile.delete()">Delete</div>
+	</div>
+</sm-modal>

@@ -1,0 +1,81 @@
+<div class="ui page sub menu grid">
+	<div class="row">
+		<div class="nine wide column">
+			<div class="ui fluid action input">
+				<sm-dropdown class="filters fluid multiple search selection" default-text="'Filter results...'"
+					model="tilesPage.filters" items="tilesPage.filterOptions" label="item" value="item"
+					on-add="tilesPage.updateVisibleScores()" on-remove="tilesPage.updateVisibleScores()"
+					settings="{ fullTextSearch: 'exact' }">
+				</sm-dropdown>
+				<div class="ui icon button" sm-dropdown-clear="'.filters.selection'" ng-class="{disabled: tilesPage.filters.length === 0}">
+					<i class="undo icon"></i>
+					<div class="hover text">Clear filters</div>
+				</div>
+			</div>
+		</div>
+		<div class="three wide column">
+			<div class="ui compact menu">
+				<div class="ui simple dropdown item">
+					<div class="text">
+						<i class="ui icon" ng-class="tilesPage.sort.icon"></i>
+						{{tilesPage.sort.text}}
+						<i class="ui icon" ng-class="tilesPage.sortDirection.icon"></i>
+					</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						<div class="item" ng-repeat="sortOption in tilesPage.sortOptions">
+							<i class="dropdown icon"></i>
+							<span class="text">
+								<i class="ui icon" ng-class="sortOption.icon"></i>
+								{{sortOption.text}}
+							</span>
+							<div class="menu">
+								<div class="item" ng-repeat="sortDirectionOption in tilesPage.sortDirectionOptions"
+									ng-click="tilesPage.sort = sortOption; tilesPage.sortDirection = sortDirectionOption">
+									<i class="ui icon" ng-class="sortDirectionOption.icon"></i>
+									{{sortDirectionOption.text}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="four wide column">
+			<div class="ui right floated menu">
+				<a class="ui icon link item" href="{{tilesPage.rankingsUrl}}">
+					<i class="ui download icon"></i>
+					<div class="hover text">Export stage</div>
+				</a>
+				<div class="ui icon link item" ng-click="tilesPage.deleteModalVisible = true">
+					<i class="ui red trash icon"></i>
+					<div class="hover text">Delete all</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui padded grid">
+	<div id="tiles" class="row">
+		<div class="sixteen wide column">
+			<div class="ui centered cards">
+				<tile class="ui card" ng-repeat="score in tilesPage.scores track by score._id" data="score"></tile>
+			</div>
+		</div>
+	</div>
+</div>
+<sm-modal class="basic small" visible="tilesPage.deleteModalVisible" settings="{ closable: false }">
+	<div class="ui icon header">
+		<i class="trash icon"></i>
+		Delete all scores
+	</div>
+	<div class="content">
+		<div class="ui center aligned grid">
+			Are you sure you want to delete all of the scores?
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="tilesPage.deleteModalVisible = false">Cancel</div>
+		<div class="ui red inverted button" ng-click="tilesPage.deleteModalVisible = false; tilesPage.deleteAll()">Delete</div>
+	</div>
+</sm-modal>

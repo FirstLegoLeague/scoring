@@ -1,0 +1,71 @@
+<div class="ui error segment" dnd-draggable="true" dnd-on-dragstart="conflictedSlot.startMovement()" dnd-on-dragend="conflictedSlot.resolveMovement($dropmodel)" ng-class="{moving: conflictedSlot.moving}">
+	<i class="ui red link trash icon" ng-click="conflictedSlot.leftDeleteModalVisible = true"></i>
+	<div>{{conflictedSlot.data[0].dateText}}</div>
+	<div>Referee: {{conflictedSlot.data[0].refereeText}}</div>
+	<div class="ui grid">
+		<div class="row">
+			<div class="center aligned column">
+				<div class="ui horizontal statistic">
+					<div class="value">
+						{{ conflictedSlot.data[0].score }}
+					</div>
+					<div class="label">
+						pts.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<a class="ui red link label" ng-if="conflictedSlot.data.length > 2" href="{{conflictedSlot.allScoresUrl}}">
+	+{{conflictedSlot.data.length - 2}} scores
+</a>
+<div class="ui error segment" dnd-draggable="true" dnd-on-dragstart="conflictedSlot.startMovement()" dnd-on-dragend="conflictedSlot.resolveMovement($dropmodel)" ng-class="{moving: conflictedSlot.moving}">
+	<i class="ui red link trash icon" ng-click="conflictedSlot.rightDeleteModalVisible = true"></i>
+	<div>{{conflictedSlot.data[1].dateText}}</div>
+	<div>Referee: {{conflictedSlot.data[0].refereeText}}</div>
+	<div class="ui grid">
+		<div class="row">
+			<div class="center aligned column">
+				<div class="ui horizontal statistic">
+					<div class="value">
+						{{ conflictedSlot.data[1].score }}
+					</div>
+					<div class="label">
+						pts.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<sm-modal class="basic small" visible="conflictedSlot.leftDeleteModalVisible" settings="{ closable: false }">
+	<div class="ui icon header">
+		<i class="trash icon"></i>
+		Delete score
+	</div>
+	<div class="content">
+		<div class="ui center aligned grid">
+			Are you sure you want to delete score of {{ conflictedSlot.data[0].score }} points for team {{ conflictedSlot.data[0].teamText }} in {{ conflictedSlot.data[0].matchText }} which was created at {{conflictedSlot.data[0].creationText}}?
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="conflictedSlot.leftDeleteModalVisible = false">Cancel</div>
+		<div class="ui red inverted button" ng-click="conflictedSlot.leftDeleteModalVisible = false; conflictedSlot.delete(conflictedSlot.data[0])">Delete</div>
+	</div>
+</sm-modal>
+<sm-modal class="basic small" visible="conflictedSlot.rightDeleteModalVisible" settings="{ closable: false }">
+	<div class="ui icon header">
+		<i class="trash icon"></i>
+		Delete score
+	</div>
+	<div class="content">
+		<div class="ui center aligned grid">
+			Are you sure you want to delete score of {{ conflictedSlot.data[1].score }} points for team {{ conflictedSlot.data[1].teamText }} in {{ conflictedSlot.data[1].matchText }} which was created at {{conflictedSlot.data[1].creationText}}?
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="conflictedSlot.rightDeleteModalVisible = false">Cancel</div>
+		<div class="ui red inverted button" ng-click="conflictedSlot.rightDeleteModalVisible = false; conflictedSlot.delete(conflictedSlot.data[1])">Delete</div>
+	</div>
+</sm-modal>

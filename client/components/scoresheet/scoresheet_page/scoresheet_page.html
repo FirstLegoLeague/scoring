@@ -1,0 +1,34 @@
+<div class="ui page sub menu grid">
+	<div class="row">
+		<metadata-inputs class="eleven wide column"></metadata-inputs>
+		<div class="center aligned column">
+			<div class="ui horizontal statistic" ng-if="scoresheetPage.teamNumber() && scoresheetPage.matchId()">
+				<div class="value">
+					{{scoresheetPage.data.score()}}
+				</div>
+				<div class="label">
+					pts.
+				</div>
+			</div>
+		</div>
+		<scoresheet-actions class="four wide column"></scoresheet-actions>
+	</div>
+</div>
+<div class="ui padded grid">
+	<div id="missions" class="row">
+		<div class="ui grid container">
+			<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
+			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.scrollDisabled">
+				<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
+				<scoresheet-signature class="column"></scoresheet-signature>
+				<div class="center aligned column">
+					<div class="ui large primary button" ng-class="{disabled: !scoresheetPage.complete()}" ng-click="scoresheetPage.save()">Done</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready }">
+	<div class="ui massive loader"></div>
+</div>

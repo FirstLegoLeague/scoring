@@ -1,6 +1,3 @@
-'use strict'
-/* eslint node/no-unsupported-features: 0 */
-
 const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
@@ -29,13 +26,6 @@ app.use(correlationMiddleware)
 app.use(loggerMiddleware)
 app.use(cors())
 
-const apis = ['/scores', '/challenge', '/config']
-
-apis.forEach(api => {
-  // eslint-disable-next-line import/no-dynamic-require
-  app.use(api, require(`./server${api}`))
-})
-
 if (process.env.NODE_ENV === 'development') {
   app.use(require('./server/dev_router'))
   app.use(authenticationDevMiddleware())
@@ -43,7 +33,14 @@ if (process.env.NODE_ENV === 'development') {
   app.use(authenticationMiddleware)
 }
 
-app.use(express.static(path.resolve(__dirname, 'client/dist')))
+const apis = ['/scores', '/challenge', '/config']
+
+apis.forEach(api => {
+  // eslint-disable-next-line import/no-dynamic-require
+  app.use(api, require(`./server${api}`))
+})
+
+app.use(express.static(path.resolve(__dirname, 'dist')))
 
 app.listen(port, () => {
   logger.info(`Scoring service listening on port ${port}`)
