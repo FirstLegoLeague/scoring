@@ -1,5 +1,5 @@
-import '@first-lego-league/user-interface/current/semantic.js'
-import '@first-lego-league/user-interface/current/semantic.css'
+import '@first-lego-league/user-interface/current/app.js'
+import '@first-lego-league/user-interface/current/app.css'
 
 import angular from 'angular'
 import 'angular-sanitize'

@@ -1,5 +1,4 @@
 import template from './mission.html'
-import './mission.css'
 
 export default {
   template,

@@ -671,10 +671,10 @@
     on-finished "^2.3.0"
     on-headers "^1.0.1"
 
-"@first-lego-league/user-interface@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.0.0.tgz#33c0297c9b5b62580ca97b0ea5520aef81a2afee"
-  integrity sha512-hJ4LBX5k9i56fWe+4i/n+WBSemkY75G0qhJuQnaaL0MDfixg4Kt4KF8hfmrj9i9WZ72bPVp+tZ4j0dwMlZESNg==
+"@first-lego-league/user-interface@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.0.1.tgz#cc187ec3d4c1f07da2c93049e9f88470c8ae7bae"
+  integrity sha512-XGr8Rgu5NqDRM9ge3ylI7wIYZqQ0zCvfvyNycH/LsTZz5Z3ZY/jHbjJiDFn5K6PHgOTtl1GOIieo9Fxz+uToZA==
 
 "@types/mkdirp@^0.3.29":
   version "0.3.29"
@@ -2411,6 +2411,11 @@ diagnostics@^1.1.1:
     colorspace "1.1.x"
     enabled "1.0.x"
     kuler "1.0.x"
+
+diff@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
+  integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
 
 diffie-hellman@^5.0.0:
   version "5.0.3"

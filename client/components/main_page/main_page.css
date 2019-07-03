@@ -2,16 +2,7 @@ main-page {
 	padding-top: 1rem;
 }
 
-.ui.scoring-page.grid {
-       height: 100%;
-}
-
-.ui.scoring-page.grid > .row:first-child {
-    box-shadow: 0px 2.5px 2.5px 0px rgba(32, 33, 36, 0.65);
-    z-index: 2;
-}
-
-.ui.scoring-page.grid > .row:first-child +* {
-    height: calc(100% - 5rem);
+main-page .ui.menu.sub.grid +* {
+    height: calc(100% - 6rem);
     overflow-y: auto;
 }
