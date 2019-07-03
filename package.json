@@ -16,6 +16,14 @@
     "prepack": "yarn run build",
     "generate": "node ./dev-scripts/generate.js"
   },
+  "files": [
+    "index.js"
+    "server",
+    "dist",
+    "challenges",
+    "yarn.lock",
+    "module.yml"
+  ],
   "dependencies": {
     "@first-lego-league/ms-auth": "1.4.1",
     "@first-lego-league/ms-configuration": "1.3.1",
