@@ -13,10 +13,10 @@ function generateComponent ({ componentPath }, { inject }) {
   console.log(`Creating component in ${dirPath}`)
   return mkdirp(dirPath)
     .then(() => Promise.all([
-      fs.writeFile(path.join(dirPath, `${componentName}.html`), '', () => { }),
-      fs.writeFile(path.join(dirPath, `${componentName}.js`), getComponentFileContent(componentName), () => { }),
-      fs.writeFile(path.join(dirPath, `${componentName}_controller.js`), getControllerFileContent(componentName, inject), () => { }),
-      fs.writeFile(path.join(dirPath, `${componentName}.css`), '', () => { })
+      fs.writeFileAsync(path.join(dirPath, `${componentName}.html`), '', () => { }),
+      fs.writeFileAsync(path.join(dirPath, `${componentName}.js`), getComponentFileContent(componentName), () => { }),
+      fs.writeFileAsync(path.join(dirPath, `${componentName}_controller.js`), getControllerFileContent(componentName, inject), () => { }),
+      fs.writeFileAsync(path.join(dirPath, `${componentName}.css`), '', () => { })
     ]))
 }
 
