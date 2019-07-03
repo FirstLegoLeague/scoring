@@ -55,8 +55,8 @@ const SORT_DIRECTION_OPTIONS = [
 ]
 
 class TilesPageController {
-  constructor ($scope, $location, scores, configuration, logger, error) {
-    Object.assign(this, { $scope, $location, data: scores, configuration, logger, error })
+  constructor ($scope, $location, scores, configuration, logger, notifications) {
+    Object.assign(this, { $scope, $location, data: scores, configuration, logger, notifications })
     this.filterOptions = []
     this.filters = []
     this.scores = []
@@ -151,6 +151,6 @@ class TilesPageController {
 }
 
 TilesPageController.$$ngIsClass = true
-TilesPageController.$inject = ['$scope', '$location', 'scores', 'configuration', 'logger', 'error']
+TilesPageController.$inject = ['$scope', '$location', 'scores', 'configuration', 'logger', 'notifications']
 
 export default TilesPageController
