@@ -654,7 +654,7 @@
     winston "^3.2.1"
     yargs "^13.3.0"
 
-"@first-lego-league/ms-auth@1.4.1":
+"@first-lego-league/ms-auth@^1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@first-lego-league/ms-auth/-/ms-auth-1.4.1.tgz#3ca752357e99ed14c4824ddd9e8d92bc4de989f9"
   integrity sha512-E6ybfApFX4wV2S57zwCwUFl6XjM56U614+XDMvMKZt6WTn5N3qI68SoAhC5EalWxjjNfhp0K/yZZ9cwO0V4W4Q==
@@ -665,7 +665,7 @@
     jsonwebtoken "^8.5.1"
     router "^1.3.3"
 
-"@first-lego-league/ms-configuration@2.1.3":
+"@first-lego-league/ms-configuration@^2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@first-lego-league/ms-configuration/-/ms-configuration-2.1.3.tgz#e86f1ae5661bb98dd7f0a0a2543f3ee66e0883c3"
   integrity sha512-XqxXgx/Svb4SDocPvSczO+eEpm7p8MbXyPJBUXTiyefO/iBJCmCH7OpTYy06H/suKcXXRPhs0yAUAH9P+O96eA==
@@ -676,22 +676,24 @@
     path "^0.12.7"
     read-yaml-promise "^1.0.2"
 
-"@first-lego-league/ms-correlation@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-0.0.5.tgz#772e5e468cdf2bab93fb7bee06e0140616b23c33"
-  integrity sha512-lFyWM2gDq+naRKvEQEh4ttJa2q7tF1NVak5O6hkRdOwa6Eroq9DGs44+7v5nQ9IZ4NTp4+rTLCuscrH5RvaZLg==
+"@first-lego-league/ms-correlation@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-1.0.1.tgz#00d2dd31686537be3e58adc3650c436caf93238f"
+  integrity sha512-MRAbDC6/h8Ixbz1mvJkrKZdTs/3D/Z6fLSTwMP3aIxd+xi2K6+XrjuVduHNYrggVuI9bCf+R/tNB9TkgIuT5Xg==
   dependencies:
-    cookie "^0.3.1"
-    randomatic "^3.0.0"
+    cookie "^0.4.0"
+    jsonwebtoken "^8.5.1"
+    randomatic "^3.1.1"
 
-"@first-lego-league/ms-logger@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.4.0.tgz#7c8374df5e665354155128279134f8898334cdd3"
-  integrity sha512-NMhD2VdpjX+MCxbIC9Beft6FEW2t+efCGDpYUYXLv7zZlqv1fgiE33bhyXfD2ThWIfJZsv3+CPwc4lhknXqXXg==
+"@first-lego-league/ms-logger@~1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.5.0.tgz#6bf2151ae44863427422208741722f1caada8b23"
+  integrity sha512-Ak+hSf4t5SHsPvD5/5v8xA5MRfViK0THkNFrujusuu5oVzXXb/vQEKGuQMSuhsQimEQbTvOd6EFkEhjONm3zow==
   dependencies:
-    express "^4.16.3"
+    body-parser "^1.19.0"
     on-finished "^2.3.0"
     on-headers "^1.0.1"
+    router "^1.3.3"
 
 "@first-lego-league/ms-messenger@1.1.0":
   version "1.1.0"
@@ -700,10 +702,10 @@
   dependencies:
     mhub "^1.0.0"
 
-"@first-lego-league/user-interface@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.0.1.tgz#cc187ec3d4c1f07da2c93049e9f88470c8ae7bae"
-  integrity sha512-XGr8Rgu5NqDRM9ge3ylI7wIYZqQ0zCvfvyNycH/LsTZz5Z3ZY/jHbjJiDFn5K6PHgOTtl1GOIieo9Fxz+uToZA==
+"@first-lego-league/user-interface@^2.0.1":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.0.3.tgz#80a45ae540439cf948dc80ea7b3f946e835401cb"
+  integrity sha512-C5rOc4FEkKWMx1f672rlB8IIjlPTvhXGZQyoLnbyuueacN1uQG4I3AFlgXVvulJNUm2cBKPf7k4EWenyflRCSA==
 
 "@types/mkdirp@^0.3.29":
   version "0.3.29"
@@ -2019,7 +2021,7 @@ cookie-signature@1.0.6:
   resolved "https://registry.yarnpkg.com/cookie-signature/-/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
   integrity sha1-4wOogrNCzD7oylE6eZmXNNqzriw=
 
-cookie@0.3.1, cookie@^0.3.1:
+cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
   integrity sha1-5+Ch+e9DtMi6klxcWpboBtFoc7s=
@@ -2390,7 +2392,7 @@ diagnostics@^1.1.1:
     enabled "1.0.x"
     kuler "1.0.x"
 
-diff@3.5.0:
+diff@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
@@ -5927,7 +5929,7 @@ quick-lru@^1.0.0:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
   integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
 
-randomatic@^3.0.0:
+randomatic@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.1.1.tgz#b776efc59375984e36c537b2f51a1f0aff0da1ed"
   integrity sha512-TuDE5KxZ0J461RVjrJZCJc+J+zCkTb1MbH9AQUq68sMhOMcy9jLcb3BrZKgp9q9Ncltdg4QVqWrH02W2EFFVYw==
