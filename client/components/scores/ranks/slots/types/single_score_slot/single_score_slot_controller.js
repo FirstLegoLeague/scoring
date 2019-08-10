@@ -7,7 +7,7 @@ class SingleScoreSlotController {
   }
 
   $onInit () {
-    Promise.all([this.data[0].load(), this.scores.init(), this.tournament.init().then(() => this.tournament.loadTeams())])
+    Promise.all([this.data[0].enrich(), this.scores.init(), this.tournament.init().then(() => this.tournament.loadTeams())])
       .then(() => { this.ready = true })
       .catch(error => this.logger.error(error))
   }
@@ -20,7 +20,7 @@ class SingleScoreSlotController {
   save () {
     this.ready = false
     this.scores.update(this.data[0])
-      .then(() => this.data[0].load())
+      .then(() => this.data[0].enrich())
       .then(() => { this.ready = true })
       .catch(error => {
         this.notifications.error('Action failed.')
@@ -29,7 +29,7 @@ class SingleScoreSlotController {
   }
 
   delete () {
-    this.scores.delete(this.data[0]._id)
+    this.scores.delete(this.data[0])
       .catch(error => {
         this.notifications.error('Action failed.')
         this.logger.error(error)

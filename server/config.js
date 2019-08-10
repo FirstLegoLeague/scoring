@@ -1,16 +1,16 @@
-'use strict'
-
 const express = require('express')
+const path = require('path')
 
 const Configuration = require('@first-lego-league/ms-configuration')
 
-const router = express.Router()
+const configRouter = new express.Router()
 
-router.get('/', (req, res) => {
+configRouter.get('/', (req, res) => {
+  req.logger.info(path.resolve('module.yml'))
+  req.logger.info(process.env.CWD)
   Configuration.all().then(config => {
     Object.assign(config, {
       mhub: process.env.MHUB_URI,
-      logoutUrl: `${process.env.MODULE_IDENTITY_PROVIDER_URL}/logout`,
       tournamentUrl: process.env.MODULE_TOURNAMENT_URL,
       rankingsUrl: process.env.MODULE_RANKINGS_URL
     })
@@ -21,5 +21,4 @@ router.get('/', (req, res) => {
   })
 })
 
-// eslint-disable-next-line node/exports-style
-module.exports = router
+exports.configRouter = configRouter

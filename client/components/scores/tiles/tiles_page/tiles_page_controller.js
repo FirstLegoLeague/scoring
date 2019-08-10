@@ -56,10 +56,10 @@ const SORT_DIRECTION_OPTIONS = [
 
 class TilesPageController {
   constructor ($scope, $location, scores, configuration, logger, notifications) {
-    Object.assign(this, { $scope, $location, data: scores, configuration, logger, notifications })
+    Object.assign(this, { $scope, $location, scores, configuration, logger, notifications })
     this.filterOptions = []
     this.filters = []
-    this.scores = []
+    this.visibleScores = []
 
     this.sortOptions = SORT_OPTIONS
     this.sortDirectionOptions = SORT_DIRECTION_OPTIONS
@@ -72,7 +72,7 @@ class TilesPageController {
       this._loadFromLocation()
     })
 
-    this.data.on('scores updated', () => this.update())
+    this.scores.on('reload', () => this.update())
 
     this.$scope.$watch(() => this.sort, () => this.updateVisibleScores())
     this.$scope.$watch(() => this.sortDirection, () => this.updateVisibleScores())
@@ -82,14 +82,14 @@ class TilesPageController {
     })
       .catch(error => this.logger.error(error))
 
-    this.data.init()
-      .then(() => Promise.all(this.data.scores.map(score => score.load())))
+    this.scores.init()
+      .then(() => Promise.all(this.scores.data.map(score => score.enrich())))
       .then(() => this.update())
       .catch(error => this.logger.error(error))
   }
 
   update () {
-    if (this.data.scores.length) {
+    if (this.scores.data.length) {
       this.updateVisibleScores()
       this._calculateFilterOptions()
     }
@@ -100,7 +100,7 @@ class TilesPageController {
     this.$location.search('sort', this.sort.field)
     this.$location.search('sortDirection', this.sortDirection.text)
 
-    this.scores = (this.data.scores || [])
+    this.visibleScores = (this.scores.data || [])
       .filter((score, index, scoresArray) => this.filters.every(filter => applyFilter(filter, score, scoresArray)))
       .sort((score1, score2) => {
         const value1 = score1[this.sort.field]
@@ -111,7 +111,7 @@ class TilesPageController {
   }
 
   deleteAll () {
-    this.data.deleteAll()
+    this.scores.clear()
       .catch(error => {
         this.notifications.error('Action failed.')
         this.logger.error(error)
@@ -142,7 +142,7 @@ class TilesPageController {
       if (options instanceof Array) {
         this.filterOptions = this.filterOptions.concat(options.map(option => `${filterClass}: ${option}`))
       } else if (options.constructor === String) {
-        this.filterOptions = this.filterOptions.concat(distinctMap(this.data.scores, score => `${filterClass}: ${score[options]}`))
+        this.filterOptions = this.filterOptions.concat(distinctMap(this.scores.data, score => `${filterClass}: ${score[options]}`))
       } else {
         this.filterOptions.push(filterClass)
       }

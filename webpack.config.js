@@ -3,7 +3,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 
 // eslint-disable-next-line node/exports-style
 module.exports = {
-  entry: './client/main.js',
+  entry: './client/scoring.js',
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',

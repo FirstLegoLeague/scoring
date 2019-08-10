@@ -10,7 +10,7 @@ class Rankings extends EventEmitter {
 
   init () {
     this.messanger.on('rankings:reload', () => this.initRankings())
-    this.scores.on('scores updated', ({ id, score, action }) => {
+    this.scores.on('reload', ({ id, score, action }) => {
       this.messanger.ignoreNext('rankings:reload')
       this._calc()
       this.emit('rankings updated', { id, score, action })
@@ -43,7 +43,7 @@ class Rankings extends EventEmitter {
   _calc () {
     Object.entries(this.rankings).forEach(([stage, rankings]) => {
       rankings.forEach(rank => {
-        rank.allScores = this.scores.scores
+        rank.allScores = this.scores.data
           .filter(score => score.teamNumber === rank.team.number && score.stage === stage)
         rank.scores = rank.allScores
           .reduce((arr, score) => {

@@ -14,7 +14,7 @@ class EmptySlotController {
   }
 
   createEmpty () {
-    const score = this.scores.score(this.position)
+    const score = new this.scores.Score(this.position)
     score.fakeSignature()
     score.fillDefaults()
     this.scores.create(score)

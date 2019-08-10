@@ -7,12 +7,12 @@ class ConflictedSlotController {
 
   $onInit () {
     this.allScoresUrl = `/#!/scores/tiles?filters=team: ${encodeURIComponent(this.data[0].teamText)}&filters=round: ${encodeURIComponent(this.data[0].matchText)}`
-    Promise.all(this.data.map(score => score.load()))
+    Promise.all(this.data.map(score => score.enrich()))
       .catch(error => this.logger.error(error))
   }
 
   delete (score) {
-    this.scores.delete(score._id)
+    this.scores.delete(score)
       .catch(error => {
         this.notifications.error('Action failed.')
         this.logger.error(error)
@@ -44,7 +44,7 @@ class ConflictedSlotController {
   save () {
     this.ready = false
     this.scores.update(this.data[0])
-      .then(() => this.data[0].load())
+      .then(() => this.data[0].enrich())
       .then(() => { this.ready = true })
       .catch(error => {
         this.notifications.error('Action failed.')

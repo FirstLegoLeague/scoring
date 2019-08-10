@@ -1,8 +1,7 @@
 import EventEmitter from 'event-emitter-es6'
 import Promise from 'bluebird'
 import angular from 'angular'
-
-import debounce from '../../lib/debounce'
+import { debounce } from 'debounce'
 
 class Scoresheet extends EventEmitter {
   constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {

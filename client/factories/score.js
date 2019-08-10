@@ -61,12 +61,12 @@ function Score (tournament, challenge, logger) {
 
     score.init = () => {
       if (!score._initPromise) {
-        score._initPromise = score.load()
+        score._initPromise = score.enrich()
       }
       return score._initPromise
     }
 
-    score.load = () => {
+    score.enrich = () => {
       return Promise.all([tournament.loadTeamMatches(score.teamNumber), tournament.loadTeams(), tournament.loadTables()])
         .then(([matches, teams, tables]) => {
           score.matches = matches
@@ -102,39 +102,6 @@ function Score (tournament, challenge, logger) {
         })
     }
 
-    score.sanitize = config => {
-      const sanitizedScore = {
-        missions: (score.missions || challenge.challenge.missions).map(mission => {
-          return {
-            id: mission.id,
-            score: mission.score,
-            objectives: mission.objectives.map(objective => {
-              return {
-                id: objective.id,
-                value: objective.value
-              }
-            })
-          }
-        }),
-        score: score.score,
-        challenge: score.title || challenge.challenge.title,
-        teamNumber: score.teamNumber,
-        matchId: score.matchId,
-        round: score.round,
-        stage: score.stage,
-        noShow: !!score.noShow,
-        public: !!score.public
-      }
-
-      Object.entries(Score.POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
-        if (config[configField]) {
-          sanitizedScore[field.name] = field.type && score[field.name] !== undefined ? field.type(score[field.name]) : score[field.name]
-        }
-      })
-
-      return sanitizedScore
-    }
-
     score.fakeSignature = () => {
       score.signature = {
         isEmpty: false,
@@ -150,13 +117,6 @@ function Score (tournament, challenge, logger) {
           }
         })
       })
-    }
-
-    score.valid = () => {
-      return typeof score.teamNumber !== 'undefined' &&
-        typeof score.matchId !== 'undefined' && score.matchId !== 0 &&
-        typeof score.stage !== 'undefined' && typeof score.round !== 'undefined' &&
-        (!tournament.teams || tournament.teams.some(team => team.number === score.teamNumber))
     }
 
     return score

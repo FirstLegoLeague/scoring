@@ -51,7 +51,7 @@ class RanksPageController {
   }
 
   deleteRankScores (rank) {
-    Promise.all(rank.allScores.map(score => this.scores.delete(score._id)))
+    Promise.all(rank.allScores.map(score => this.scores.delete(score)))
       .then(() => {
         rank.scores = rank.scores.map(() => ([]))
         this._enrichRank(rank)
@@ -94,7 +94,7 @@ class RanksPageController {
   }
 
   deleteAll () {
-    this.scores.deleteAll()
+    this.scores.clear()
       .catch(error => {
         this.notifications.error('Action failed.')
         this.logger.error(error)

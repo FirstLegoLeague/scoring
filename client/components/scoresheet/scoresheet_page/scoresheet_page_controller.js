@@ -88,7 +88,7 @@ class ScoresheetPageController {
     const page = splitPath[1]
     const subpage = splitPath[2]
     if (page === 'scoresheet' && subpage !== 'new') {
-      const score = this.scores.scores.find(s => s._id === subpage)
+      const score = this.scores.data.find(s => s._id === subpage)
       if (score !== undefined) {
         this.data.load(score)
         this.scrollDisabled = true

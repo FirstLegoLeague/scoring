@@ -1,6 +1,5 @@
 import Promise from 'bluebird'
-
-import debounce from '../../../lib/debounce'
+import { debounce } from 'debounce'
 
 class MetadataInputsController {
   constructor (scoresheet, scores, $scope, $location, tournament, refIdentity, logger) {
@@ -27,7 +26,7 @@ class MetadataInputsController {
       this.autoselectMetadata()
     })
 
-    this.scores.on('scores updated', () => {
+    this.scores.on('reload', () => {
       if (this.matches) {
         this.calculateMatchCompletion()
       }
@@ -144,7 +143,7 @@ class MetadataInputsController {
 
   calculateMatchCompletion () {
     this.matches.forEach(match => {
-      match.complete = this.scores.scores.some(score => score.teamNumber === this.data.current.teamNumber &&
+      match.complete = this.scores.data.some(score => score.teamNumber === this.data.current.teamNumber &&
         (score.matchId === match._id || (score.stage === match.stage && score.round === match.round)))
       return match
     })

@@ -3,20 +3,20 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const projectVersion = require('project-version')
-
 const { correlationMiddleware } = require('@first-lego-league/ms-correlation')
 const { authenticationMiddleware, authenticationDevMiddleware } = require('@first-lego-league/ms-auth')
 const { Logger, loggerMiddleware } = require('@first-lego-league/ms-logger')
 
-const DEFAULTS = require('./server/defaults')
+const { scoresRouter } = require('./scores')
+const { challengeRouter } = require('./challenge')
+const { configRouter } = require('./config')
 
-const port = process.env.PORT || DEFAULTS.PORT
+const { version } = require('../package.json')
 
 const app = express()
 
 const logger = new Logger()
-logger.info(`-------------------- scoring version ${projectVersion} startup --------------------`)
+logger.info(`-------------------- scoring version ${version} startup --------------------`)
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -27,23 +27,19 @@ app.use(loggerMiddleware)
 app.use(cors())
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(require('./server/dev_router'))
   app.use(authenticationDevMiddleware())
 } else {
   app.use(authenticationMiddleware)
 }
 
-const apis = ['/scores', '/challenge', '/config']
+// app.use('/scores', scoresRouter)
+app.use('/challenge', challengeRouter)
+app.use('/config', configRouter)
 
-apis.forEach(api => {
-  // eslint-disable-next-line import/no-dynamic-require
-  app.use(api, require(`./server${api}`))
-})
+app.use(express.static(path.resolve(__dirname, '..', 'dist')))
 
-app.use(express.static(path.resolve(__dirname, 'dist')))
-
-app.listen(port, () => {
-  logger.info(`Scoring service listening on port ${port}`)
+app.listen(process.env.PORT, () => {
+  logger.info(`Scoring service listening on port ${process.env.PORT}`)
 })
 
 process.on('SIGINT', () => {
