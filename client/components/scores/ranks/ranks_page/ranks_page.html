@@ -1,23 +1,23 @@
 <div class="ui page sub menu grid">
 	<div class="row">
-		<div class="twelve wide column">
+		<div class="eight wide column">
 			<div class="ui compact menu">
 				<sm-dropdown class="selection item" model="ranksPage.currentStage" items="ranksPage.tournament.stages"></sm-dropdown>
 			</div>
 		</div>
-		<div class="four wide column">
+		<div class="eight wide column">
 			<div class="ui right floated menu">
-				<div class="ui icon link item" ng-click="ranksPage.smallView = !ranksPage.smallView">
+				<div class="ui link item" ng-click="ranksPage.smallView = !ranksPage.smallView">
 					<i class="ui icon" ng-class="ranksPage.smallView ? 'compress' : 'expand'"></i>
-					<div class="hover text">{{ranksPage.smallView ? 'Small view' : 'Large view'}}</div>
+					{{ranksPage.smallView ? 'Small view' : 'Large view'}}
 				</div>
-				<a class="ui icon link item" href="{{ranksPage.rankingsUrl()}}">
+				<a class="ui link item" href="{{ranksPage.rankingsUrl()}}">
 					<i class="ui download icon"></i>
-					<div class="hover text">Export stage</div>
+					Export stage
 				</a>
-				<div class="ui icon link item" ng-click="ranksPage.deleteModalVisible = true">
+				<div class="ui link item" ng-click="ranksPage.deleteModalVisible = true">
 					<i class="ui red trash icon"></i>
-					<div class="hover text">Delete all</div>
+					Delete all
 				</div>
 			</div>
 		</div>

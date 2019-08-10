@@ -685,14 +685,14 @@
     jsonwebtoken "^8.5.1"
     randomatic "^3.1.1"
 
-"@first-lego-league/ms-logger@~1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-1.5.0.tgz#6bf2151ae44863427422208741722f1caada8b23"
-  integrity sha512-Ak+hSf4t5SHsPvD5/5v8xA5MRfViK0THkNFrujusuu5oVzXXb/vQEKGuQMSuhsQimEQbTvOd6EFkEhjONm3zow==
+"@first-lego-league/ms-logger@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-logger/-/ms-logger-2.0.0.tgz#2a9e19e4277b62d81621806434f4d468f6b4d805"
+  integrity sha512-Zh9edCBhr6G4sl9HmuR7x/vyt60fs/zGtWMfKFFLeJlb6vF0/504OCZLyUI3IDTMirNhc/H4I+jHsab08daQng==
   dependencies:
     body-parser "^1.19.0"
     on-finished "^2.3.0"
-    on-headers "^1.0.1"
+    on-headers "^1.0.2"
     router "^1.3.3"
 
 "@first-lego-league/ms-messenger@1.1.0":
@@ -702,10 +702,10 @@
   dependencies:
     mhub "^1.0.0"
 
-"@first-lego-league/user-interface@^2.0.1":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.0.3.tgz#80a45ae540439cf948dc80ea7b3f946e835401cb"
-  integrity sha512-C5rOc4FEkKWMx1f672rlB8IIjlPTvhXGZQyoLnbyuueacN1uQG4I3AFlgXVvulJNUm2cBKPf7k4EWenyflRCSA==
+"@first-lego-league/user-interface@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.1.2.tgz#ab2021f5fd8c3012d0a9aa1493432b5eb6e30472"
+  integrity sha512-pjFdQSCphLIU3/lvsK3R6npHYEBKMDhWWCXekGBdrL4t36TXOWURiTb5HiVYybJ0l7BK6MVAtidoKEHZKNmGEg==
 
 "@types/mkdirp@^0.3.29":
   version "0.3.29"
@@ -5308,7 +5308,7 @@ on-finished@^2.3.0, on-finished@~2.3.0:
   dependencies:
     ee-first "1.1.1"
 
-on-headers@^1.0.1:
+on-headers@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/on-headers/-/on-headers-1.0.2.tgz#772b0ae6aaa525c399e489adfad90c403eb3c28f"
   integrity sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
