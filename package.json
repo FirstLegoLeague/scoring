@@ -34,7 +34,7 @@
     "@first-lego-league/ms-configuration": "2.1.3",
     "@first-lego-league/ms-correlation": "^1.0.0",
     "@first-lego-league/ms-logger": "^2.0.0",
-    "@first-lego-league/synced-resources": "^1.0.0",
+    "@first-lego-league/synced-resources": "^1.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.1",
@@ -49,7 +49,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
-    "@first-lego-league/dev-launcher": "^0.3.0",
+    "@first-lego-league/dev-launcher": "^0.1.2",
     "@first-lego-league/user-interface": "^2.1.2",
     "add": "^2.0.6",
     "angular": "^1.7.8",
