@@ -49,6 +49,7 @@
                 <xs:element name="objective-yesno" type="fll:objective-yesno" />
                 <xs:element name="objective-number" type="fll:objective-number" />
                 <xs:element name="objective-enum" type="fll:objective-enum" />
+                <xs:element name="objective-multi" type="fll:objective-multi" />
             </xs:choice>
             <xs:element name="score" type="fll:score" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
@@ -80,14 +81,14 @@
         <xs:attribute name="default" type="xs:integer" />
     </xs:complexType>
 
-    <!-- Enum objective. Requires id and description. Optional default and has sub-options -->
-    <xs:complexType name="objective-enum">
-        <xs:sequence>
-            <xs:element name="option" type="fll:option" minOccurs="2" maxOccurs="unbounded" />
-        </xs:sequence>
-        <xs:attribute name="id" type="xs:string" use="required" />
-        <xs:attribute name="description" type="xs:string" use="required" />
-        <xs:attribute name="default" type="xs:string" />
+        <!-- Enum objective. Requires id and description. Optional default and has sub-options -->
+        <xs:complexType name="objective-enum">
+            <xs:sequence>
+                <xs:element name="option" type="fll:option" minOccurs="2" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="description" type="xs:string" use="required" />
+            <xs:attribute name="default" type="xs:string" />
     </xs:complexType>
 
     <!-- <option> node for enums -->
@@ -96,11 +97,22 @@
         <xs:attribute name="description" type="xs:string" use="required" />
     </xs:complexType>
 
+        <!-- Multi objective. Requires id and description. Optional default  -->
+        <xs:complexType name="objective-multi">
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="description" type="xs:string" use="required" />
+            <xs:attribute name="default" type="xs:string" />
+    </xs:complexType>
+
     <!-- Score node for values -->
     <xs:complexType name="score">
         <xs:sequence>
             <xs:element name="indexes" type="fll:indexes" />
-            <xs:element name="cases" type="fll:cases" />
+            <xs:choice>
+                <xs:element name="cases" type="fll:cases" />
+                <xs:element name="conditionals" type="fll:conditionals" />
+
+            </xs:choice>
         </xs:sequence>
     </xs:complexType>
 
@@ -153,5 +165,30 @@
     <!-- Error as result for a case -->
     <xs:complexType name="error">
         <xs:attribute name="message" type="xs:string" />
+    </xs:complexType>
+
+    <!-- conditionals for a score -->
+    <xs:complexType name="conditionals">
+        <xs:sequence>
+            <xs:element name="conditional" type="fll:conditional" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- One conditional for a score -->
+    <xs:complexType name="conditional">
+        <xs:sequence>
+            <xs:element name="index-expr" minOccurs="1" maxOccurs="unbounded" />
+            <xs:choice>
+                <xs:element name="points" type="fll:points" />
+        <xs:element name="percentage" type="fll:percentage" />
+                <xs:element name="error" type="fll:error" />
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Index in a conditional -->
+    <xs:complexType name="index-expr">
+        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="compareTo" type="xs:string" />
     </xs:complexType>
 </xs:schema>

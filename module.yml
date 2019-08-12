@@ -10,8 +10,9 @@ config:
       - name: year
         display: Challenge
         type: values
-        default: 2018 INTO ORBIT
+        default: 2019 CITY SHAPER
         values:
+          - 2019 CITY SHAPER
           - 2018 INTO ORBIT
           - 2017 HYDRO DYNAMICS
           - 2016 Animal Allies
