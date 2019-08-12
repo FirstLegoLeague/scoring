@@ -1,6 +1,24 @@
 {
     "title": "CITY SHAPER",
-    "missions": [{
+    "missions": [
+        {
+            "title": "Advantage",
+            "description": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
+            "objectives": [{
+                "id": "bonus",
+                "title": "Team's Robot and Equipment fit in the Small Inspection Area:",
+                "type": "yesno"
+            }],
+            "score": [function(bonus) {
+                if (bonus === 'no') {
+                    return 0
+                }
+                if (bonus === 'yes') {
+                    return 0
+                }
+            }]
+        },        
+        {
             "title": "M01 Elevated Places",
             "description": "You can only get Flag points if you get Bridge points. It is okay and expected for Robots to collide while trying to earn Flag points.",
             "objectives": [{
@@ -2229,23 +2247,6 @@
                 }
                 if (precision === '6') {
                     return 60
-                }
-            }]
-        },
-        {
-            "title": "Advantage",
-            "description": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
-            "objectives": [{
-                "id": "bonus",
-                "title": "Team's Robot and Equipment fit in the Small Inspection Area:",
-                "type": "yesno"
-            }],
-            "score": [function(bonus) {
-                if (bonus === 'no') {
-                    return 0
-                }
-                if (bonus === 'yes') {
-                    return 0
                 }
             }]
         }
