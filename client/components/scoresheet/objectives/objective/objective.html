@@ -1,7 +1,7 @@
 <div class="middle aligned right floated content "ng-switch="objective.data.type">
     <enum-objective ng-switch-when="enum" data="objective.data"></enum-objective>
-    <yesno-objective ng-switch-when="yesno" data="objective.data"></enum-yesno>
-    <number-objective ng-switch-when="number" data="objective.data"></enum-objective>
+    <yesno-objective ng-switch-when="yesno" data="objective.data"></yesno-objective>
+    <number-objective ng-switch-when="number" data="objective.data"></number-objective>
 </div>
 <i class="ui large icon" ng-class="objective.data.complete ? 'green check circle' : 'circle outline'"></i>	
 <div class="middle aligned content">
