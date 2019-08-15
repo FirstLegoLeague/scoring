@@ -1,8 +1,12 @@
-<i class="minus circle link icon" ng-click="numberObjective.data.value = (numberObjective.data.value || 0) - 1"></i>
+<i class="minus circle link icon"
+	ng-click="numberObjective.data.value = (numberObjective.data.value === undefined) ? numberObjective.data.max : (numberObjective.data.value - 1)">
+</i>
 <div class="ui input">
 	<input  type='number'
 			min={numberObjective.data.min}
 			max={numberObjective.data.max}
-			ng-model="numberObjective.data.value" />
+			ng-model="numberObjective.data.value"/>
 </div>
-<i class="plus circle link icon" ng-click="numberObjective.data.value = (numberObjective.data.value || 0) + 1"></i>
+<i class="plus circle link icon"
+	ng-click="numberObjective.data.value = (numberObjective.data.value === undefined) ? numberObjective.data.min : (numberObjective.data.value + 1)">
+</i>
