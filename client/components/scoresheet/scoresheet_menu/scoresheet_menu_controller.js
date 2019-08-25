@@ -18,7 +18,7 @@ class ScoresheetMenuController {
 
     Promise.all([this.refIdentity.init(), this.configuration.load()])
       .then(() => {
-        if (!this.refIdentity.isInitialized()) {
+        if (!this.refIdentity.isInitialized() && !this.user.isAdmin()) {
           this.forceRefIdentityEntry = true
           this.refIdentityModalVisible = true
         }

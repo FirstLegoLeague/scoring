@@ -25,7 +25,7 @@
 		</div>
 	</div>
 	<div class="content">
-		<sm-dropdown ng-if="scoresheetMenu.user.isAdmin()" class="fluid selection" model="scoresheetMenu.refIdentity.table" items="scoresheetMenu.refIdentity.tournament.tables" label="item.tableName" default-text="'Select table'" ng-class="{error: scoresheetMenu.modalTableError && !scoresheetMenu.refIdentity.table}"></sm-dropdown>
+		<sm-dropdown class="fluid selection" model="scoresheetMenu.refIdentity.table" items="scoresheetMenu.refIdentity.tournament.tables" label="item.tableName" default-text="'Select table'" ng-class="{error: scoresheetMenu.modalTableError && !scoresheetMenu.refIdentity.table}"></sm-dropdown>
 	</div>
 	<div class="actions">
 		<div class="ui primary inverted button" ng-click="scoresheetMenu.saveRefIdentity()">Save</div>
