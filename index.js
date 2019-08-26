@@ -26,19 +26,17 @@ app.use(correlationMiddleware)
 app.use(loggerMiddleware)
 app.use(cors())
 
+const authMiddleware = process.env.NODE_ENV === 'development' ? authenticationDevMiddleware() : authenticationMiddleware
+
+app.use('/scores', require('./server/scores')(authMiddleware))
+app.use('/challenge', require('./server/challenge'))
+app.use('/config', require('./server/config'))
+
 if (process.env.NODE_ENV === 'development') {
   app.use(require('./server/dev_router'))
-  app.use(authenticationDevMiddleware())
-} else {
-  app.use(authenticationMiddleware)
 }
 
-const apis = ['/scores', '/challenge', '/config']
-
-apis.forEach(api => {
-  // eslint-disable-next-line import/no-dynamic-require
-  app.use(api, require(`./server${api}`))
-})
+app.use(authMiddleware)
 
 app.use(express.static(path.resolve(__dirname, 'dist')))
 
