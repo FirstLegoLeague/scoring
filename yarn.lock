@@ -676,10 +676,10 @@
     path "^0.12.7"
     read-yaml-promise "^1.0.2"
 
-"@first-lego-league/ms-correlation@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-1.0.1.tgz#00d2dd31686537be3e58adc3650c436caf93238f"
-  integrity sha512-MRAbDC6/h8Ixbz1mvJkrKZdTs/3D/Z6fLSTwMP3aIxd+xi2K6+XrjuVduHNYrggVuI9bCf+R/tNB9TkgIuT5Xg==
+"@first-lego-league/ms-correlation@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/ms-correlation/-/ms-correlation-1.0.2.tgz#ca344a57dcf1a651f2f8c2cf26c07863b56250a3"
+  integrity sha512-bSiaewfo8ErJQE2LjRrN+spBgSfuuK+wJrEuVFVkSCWTNYEX+2l2QNni7bEFPsZEcwM6+5jz09i82pbSUrchAw==
   dependencies:
     cookie "^0.4.0"
     jsonwebtoken "^8.5.1"
