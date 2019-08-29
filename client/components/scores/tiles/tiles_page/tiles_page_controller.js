@@ -108,6 +108,11 @@ class TilesPageController {
         const fieldSort = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0
         return this.sortDirection.value * fieldSort
       })
+
+    this.hasDuplicates = (this.data.scores || [])
+      .filter((score, index, scoresArray) => applyFilter('duplicate', score, scoresArray))
+      .length !== 0
+    console.log(`has duplicates: ${this.hasDuplicates}`)
   }
 
   deleteAll () {
