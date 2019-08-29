@@ -1,8 +1,6 @@
 const { MClient } = require('mhub')
 const { Logger } = require('@first-lego-league/ms-logger')
-const { getCorrelationId } = require('@first-lego-league/ms-correlation')
 
-const MHUB_CLIENT_ID = 'cl-scoring'
 const NODE = 'protected'
 
 const logger = new Logger()
