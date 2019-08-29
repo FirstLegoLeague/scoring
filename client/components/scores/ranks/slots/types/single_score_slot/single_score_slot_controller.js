@@ -12,24 +12,11 @@ class SingleScoreSlotController {
       .catch(error => this.logger.error(error))
   }
 
-  update (attrs) {
-    Object.assign(this.data[0], attrs)
-    this.save()
-  }
-
   save () {
     this.ready = false
     this.scores.update(this.data[0])
       .then(() => this.data[0].load())
       .then(() => { this.ready = true })
-      .catch(error => {
-        this.notifications.error('Action failed.')
-        this.logger.error(error)
-      })
-  }
-
-  delete () {
-    this.scores.delete(this.data[0]._id)
       .catch(error => {
         this.notifications.error('Action failed.')
         this.logger.error(error)

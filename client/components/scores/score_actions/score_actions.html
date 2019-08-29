@@ -1,0 +1,19 @@
+<a href="{{'#!/scoresheet/' + score._id}}"><i class="ui primary link folder open outline icon"></i></a>
+<i class="ui link check icon" ng-click="scoreActions.update({ public: !score.public })" ng-class="{green: score.public}" hover-class="green"></i>
+<i class="ui link ban icon" ng-click="scoreActions.update({ noShow: !score.noShow })" ng-class="{orange: score.noShow}" hover-class="orange"></i>
+<i class="ui red link trash icon" ng-click="scoreActions.deleteModalVisible = true"></i>
+<sm-modal class="basic small" visible="scoreActions.deleteModalVisible" settings="{ closable: false }">
+	<div class="ui icon header">
+		<i class="trash icon"></i>
+		Delete score
+	</div>
+	<div class="content">
+		<div class="ui center aligned grid">
+			Are you sure you want to delete score of {{ score.score }} points for team {{ score.teamText }} in {{ score.matchText }}?
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui primary inverted button" ng-click="scoreActions.deleteModalVisible = false">Cancel</div>
+		<div class="ui red inverted button" ng-click="scoreActions.deleteModalVisible = false; scoreActions.delete()">Delete</div>
+	</div>
+</sm-modal>
