@@ -30,8 +30,5 @@ function connect () {
 
 exports.publishMsg = function (topic, data = {}) {
   return connect()
-    .then(() => mhubClient.publish(NODE, topic, data, {
-      'client-id': MHUB_CLIENT_ID,
-      'correlation-id': getCorrelationId()
-    }))
+    .then(() => mhubClient.publish(NODE, topic, data))
 }
