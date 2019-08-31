@@ -1,7 +1,6 @@
 {
     "title": "CITY SHAPER",
-    "missions": [
-        {
+    "missions": [{
             "title": "Advantage",
             "description": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
             "objectives": [{
@@ -17,7 +16,7 @@
                     return 0
                 }
             }]
-        },        
+        },
         {
             "title": "M01 Elevated Places",
             "description": "You can only get Flag points if you get Bridge points. It is okay and expected for Robots to collide while trying to earn Flag points.",
@@ -99,7 +98,7 @@
                 },
                 {
                     "id": "M02_3",
-                    "title": "The Hooked Blue Unit is Independent and Supported by another Blue Unit:",
+                    "title": "AND Level 1 is Completely in the Blue Circle:",
                     "type": "yesno"
                 }
             ],
@@ -111,10 +110,10 @@
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
-                    return 15
+                    return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'no') {
-                    return 30
+                    return 0
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'no') {
                     return 20
@@ -135,10 +134,10 @@
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
-                    return 25
+                    return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'yes') {
-                    return 40
+                    return 0
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'yes') {
                     return 30
@@ -2254,6 +2253,9 @@
     "strings": {
         "yes": "Yes",
         "no": "No",
+        "advantage-name": "Advantage",
+        "advantage-desc": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
+        "advantage-scoring": "Team's Robot and Equipment fit in the Small Inspection Area:",
         "M01-name": "M01 Elevated Places",
         "M01-desc": "You can only get Flag points if you get Bridge points. It is okay and expected for Robots to collide while trying to earn Flag points.",
         "M01-scoring1": "The Robot is Supported by the Bridge:",
@@ -2311,10 +2313,7 @@
         "M13-scoring": "Number of Upgrades that are Independent and Supported only by a Stack which is at least partly in a Circle:",
         "precision-name": "M14 Precision",
         "precision-desc": "You are allowed to Interrupt your Robot and bring it back to re-Launch, but Interruptions do lose Precision Tokens.",
-        "precision-scoring": "Number of Precision Tokens left on the Field:",
-        "advantage-name": "Advantage",
-        "advantage-desc": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
-        "advantage-scoring": "Team's Robot and Equipment fit in the Small Inspection Area:"
+        "precision-scoring": "Number of Precision Tokens left on the Field:"
     },
     "rtl": false
 }
