@@ -39,7 +39,7 @@ class Independence {
         return response
       })
       .catch(err => {
-        if (err.status > 0 && err.status < 500) {
+        if (err.status > 0) {
           this._deleteRequest(action)
         } else {
           action.pending = false
