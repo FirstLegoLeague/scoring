@@ -24,6 +24,7 @@ class MetadataInputsController {
     this.$scope.$on('load', () => { this.data.autoselect = false })
     this.$scope.$on('reset', () => {
       this.data.autoselect = true
+      this.forceTeamReselection = true
       this.autoselectMetadata()
     })
 
@@ -32,9 +33,12 @@ class MetadataInputsController {
         this.calculateMatchCompletion()
       }
     })
+
+    this.debouncedAutoselectMetadata = debounce(() => this.autoselectMetadata())
     this.refIdentity.on('table changed', () => {
       if (this.refIdentity.table) {
-        debounce(this.autoselectMetadata())
+        this.forceTeamReselection = true
+        this.debouncedAutoselectMetadata()
       }
     })
 
@@ -98,9 +102,12 @@ class MetadataInputsController {
   }
 
   autoselectTeam () {
-    if (!this.data.autoselect) return Promise.resolve()
-    if (!this.refIdentity.table) return Promise.resolve()
-    if (this.data.current.teamNumber !== undefined) return Promise.resolve()
+    if (!this.forceTeamReselection) {
+      if (!this.data.autoselect) return Promise.resolve()
+      if (!this.refIdentity.table) return Promise.resolve()
+      if (this.data.current.teamNumber !== undefined) return Promise.resolve()
+    }
+    this.forceTeamReselection = false
     return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
       .then(teamNumber => {
         if (teamNumber) {
