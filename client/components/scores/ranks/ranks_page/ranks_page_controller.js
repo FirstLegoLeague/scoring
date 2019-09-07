@@ -14,15 +14,15 @@ class RanksPageController {
       }
     })
 
-    this.rankings.on('rankings updated', ({ score }) => {
-      console.log('rankings updated')
+    this.$scope.$on('calc rank', (event, { score }) => {
+      const rank = this.rankings.rankings[this.currentStage].find(r => r.allScores.includes(score))
+      this.rankings._calcRank(rank, score.stage)
+      this._enrichRank(rank)
+    })
+
+    this.rankings.on('rankings updated', ({ rank }) => {
       if (this.rankings.rankings[this.currentStage]) {
-        if (score) {
-          const rank = this.rankings.rankings[this.currentStage].find(r => r.team.number === score.teamNumber)
-          this._enrichRank(rank)
-        } else {
-          this._enrichRankings()
-        }
+        this._enrichRankings()
       }
     })
 
@@ -103,7 +103,7 @@ class RanksPageController {
   }
 
   _enrichRankings () {
-    this.rankings.rankings[this.currentStage].forEach(this._enrichRank)
+    this.rankings.rankings[this.currentStage].forEach(rank => this._enrichRank(rank))
   }
 
   _enrichRank (rank) {

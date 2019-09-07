@@ -5,11 +5,11 @@ class Independence {
   constructor ($http, $window, $interval) {
     Object.assign(this, { $http, $window, $interval })
     this.lastSuccessfulRequestTime = Date.now()
-    this.retryPendingRequests()
+    this.retrySavedRequest()
 
     this.$interval(() => {
       if (this._pendingRequests().length > 0) {
-        this.retryPendingRequests()
+        this.retrySavedRequest()
       }
     }, RETRY_TIME)
   }
@@ -22,7 +22,7 @@ class Independence {
 
   // Requests functions
 
-  retryPendingRequests () {
+  retrySavedRequest () {
     return Promise.all(this._pendingRequests().filter(action => !action.pending).map(action => this._requestPromise(action)))
   }
 
@@ -35,7 +35,7 @@ class Independence {
           throw response
         }
         this._deleteRequest(action)
-        this.retryPendingRequests()
+        this.retrySavedRequest()
         return response
       })
       .catch(err => {
@@ -45,7 +45,6 @@ class Independence {
           action.pending = false
           this._saveRequest(action)
         }
-        err.pendingRequestsCount = this.pendingRequestsCount(pendingRequest => pendingRequest.method === action.method && pendingRequest.url === action.url)
         throw err
       })
   }

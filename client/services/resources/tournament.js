@@ -8,6 +8,8 @@ class Tournament extends EventEmitter {
     this.httpRequestConfig = { headers: { 'auth-token': user.authToken } }
     this._teamsMathcesPromises = { }
     this.matches = { }
+    this._stageRoundsPsomises = { }
+    this.stageRounds = { }
   }
 
   init () {
@@ -104,6 +106,20 @@ class Tournament extends EventEmitter {
         .catch(error => this.logger.error(error))
     }
     return this._stagesPromise
+  }
+
+  loadRoundsForStage (stage) {
+    if (!this._stageRoundsPsomises[stage]) {
+      const capitalizedStage = stage.charAt(0).toUpperCase() + stage.slice(1)
+      this._stageRoundsPsomises[stage] = this.init()
+        .then(() => this.independence.send('GET', `${this.tournamentUrl}/settings/numberOf${capitalizedStage}Rounds`))
+        .then(response => {
+          this.stageRounds[stage] = response.data
+          return this.stageRounds[stage]
+        })
+        .catch(error => this.logger.error(error))
+    }
+    return this._stageRoundsPsomises[stage]
   }
 
   loadCurrentStage () {

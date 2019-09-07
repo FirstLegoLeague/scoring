@@ -1,4 +1,4 @@
-<div class="ui error segment" dnd-draggable="true" dnd-on-dragstart="conflictedSlot.startMovement()" dnd-on-dragend="conflictedSlot.resolveMovement($dropmodel)" ng-class="{moving: conflictedSlot.moving}">
+<div class="ui error segment" dnd-draggable="true" dnd-on-dragstart="conflictedSlot.startMovement()" dnd-on-dragend="conflictedSlot.resolveMovement($dropmodel)" dnd-containment="'.rank'" ng-class="{moving: conflictedSlot.moving}">
 	<i class="ui red link trash icon" ng-click="conflictedSlot.leftDeleteModalVisible = true"></i>
 	<div>{{conflictedSlot.data[0].dateText}}</div>
 	<div>Referee: {{conflictedSlot.data[0].refereeText}}</div>
