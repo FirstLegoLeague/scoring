@@ -15,6 +15,7 @@ class RanksPageController {
     })
 
     this.rankings.on('rankings updated', ({ score }) => {
+      console.log('rankings updated')
       if (this.rankings.rankings[this.currentStage]) {
         if (score) {
           const rank = this.rankings.rankings[this.currentStage].find(r => r.team.number === score.teamNumber)

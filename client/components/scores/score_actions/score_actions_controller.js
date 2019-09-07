@@ -1,6 +1,6 @@
 class ScoreActionsController {
-  constructor (logger, notifications) {
-    Object.assign(this, { logger, notifications })
+  constructor (logger, scores, notifications) {
+    Object.assign(this, { logger, scores, notifications })
   }
 
   update (attrs) {
@@ -29,6 +29,6 @@ class ScoreActionsController {
 }
 
 ScoreActionsController.$$ngIsClass = true
-ScoreActionsController.$inject = ['logger', 'notifications']
+ScoreActionsController.$inject = ['logger', 'scores', 'notifications']
 
 export default ScoreActionsController

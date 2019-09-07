@@ -112,7 +112,6 @@ class TilesPageController {
     this.hasDuplicates = (this.data.scores || [])
       .filter((score, index, scoresArray) => applyFilter('duplicate', score, scoresArray))
       .length !== 0
-    console.log(`has duplicates: ${this.hasDuplicates}`)
   }
 
   deleteAll () {

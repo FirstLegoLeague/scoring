@@ -1,7 +1,17 @@
-<a href="{{'#!/scoresheet/' + score._id}}"><i class="ui primary link folder open outline icon"></i></a>
-<i class="ui link check icon" ng-click="scoreActions.update({ public: !score.public })" ng-class="{green: score.public}" hover-class="green"></i>
-<i class="ui link ban icon" ng-click="scoreActions.update({ noShow: !score.noShow })" ng-class="{orange: score.noShow}" hover-class="orange"></i>
-<i class="ui red link trash icon" ng-click="scoreActions.deleteModalVisible = true"></i>
+<div class="ui right floated basic icon compact red button" ng-click="scoreActions.deleteModalVisible = true">
+	<i class="ui trash icon"></i>
+</div>
+<a class="ui right floated basic icon compact primary button" href="{{'#!/scoresheet/' + scoreActions.score._id}}">
+	<i class="ui folder open outline icon"></i>
+</a>
+<div class="ui basic icon compact button" ng-click="scoreActions.update({ public: !scoreActions.score.public })" hover-class="green" ng-class="{green: scoreActions.score.public}">
+	<i class="ui check icon"></i>
+	Public
+</div>
+<div class="ui basic icon compact button" ng-click="scoreActions.update({ noShow: !scoreActions.score.noShow })" hover-class="orange" ng-class="{orange: scoreActions.score.noShow}">
+	<i class="ui ban icon"></i>
+	No-Show
+</div>
 <sm-modal class="basic small" visible="scoreActions.deleteModalVisible" settings="{ closable: false }">
 	<div class="ui icon header">
 		<i class="trash icon"></i>
