@@ -1,0 +1,10 @@
+number-objective input {
+	width: 5rem;
+	-webkit-appearance: textfield;
+	-moz-appearance: textfield;
+	appearance: textfield;
+}
+
+number-objective input::-webkit-inner-spin-button {
+	display: none;
+}
