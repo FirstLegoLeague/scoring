@@ -12,24 +12,11 @@ class TileController {
       .catch(error => this.logger.error(error))
   }
 
-  update (attrs) {
-    Object.assign(this.data, attrs)
-    this.save()
-  }
-
   save () {
     this.ready = false
     this.scores.update(this.data)
       .then(() => this.data.load())
       .then(() => { this.ready = true })
-      .catch(error => {
-        this.notifications.error('Action failed.')
-        this.logger.error(error)
-      })
-  }
-
-  delete () {
-    this.scores.delete(this.data._id)
       .catch(error => {
         this.notifications.error('Action failed.')
         this.logger.error(error)

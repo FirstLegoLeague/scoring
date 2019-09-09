@@ -2,7 +2,7 @@ slot {
     display: flex !important;
     align-items: stretch;
     justify-content: stretch;
-    min-height: 7rem;
+    min-height: 9rem;
 }
 
 slot > * {

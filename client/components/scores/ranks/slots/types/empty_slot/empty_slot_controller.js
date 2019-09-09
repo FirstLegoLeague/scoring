@@ -18,6 +18,7 @@ class EmptySlotController {
     score.fakeSignature()
     score.fillDefaults()
     this.scores.create(score)
+      .then(serverScore => this.data.push(serverScore))
       .catch(error => {
         this.notifications.error('Action failed.')
         this.logger.error(error)

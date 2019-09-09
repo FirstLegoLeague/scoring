@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
 
 class SingleScoreSlotController {
-  constructor ($location, scores, tournament, logger, notifications) {
-    Object.assign(this, { $location, scores, tournament, logger, notifications })
+  constructor ($location, scores, tournament, logger, notifications, $scope) {
+    Object.assign(this, { $location, scores, tournament, logger, notifications, $scope })
     this.ready = false
   }
 
@@ -28,14 +28,6 @@ class SingleScoreSlotController {
       })
   }
 
-  delete () {
-    this.scores.delete(this.data[0]._id)
-      .catch(error => {
-        this.notifications.error('Action failed.')
-        this.logger.error(error)
-      })
-  }
-
   startMovement () {
     this.moving = true
   }
@@ -43,7 +35,9 @@ class SingleScoreSlotController {
   resolveMovement (position) {
     if (position) {
       this.ready = false
+      const score = this.data[0]
       this.update(position)
+      this.$scope.$emit('calc rank', { score })
     } else {
       this.moving = false
     }
@@ -51,6 +45,6 @@ class SingleScoreSlotController {
 }
 
 SingleScoreSlotController.$$ngIsClass = true
-SingleScoreSlotController.$inject = ['$location', 'scores', 'tournament', 'logger', 'notifications']
+SingleScoreSlotController.$inject = ['$location', 'scores', 'tournament', 'logger', 'notifications', '$scope']
 
 export default SingleScoreSlotController

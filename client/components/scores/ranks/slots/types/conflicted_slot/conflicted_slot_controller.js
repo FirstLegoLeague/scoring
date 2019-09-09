@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
 
 class ConflictedSlotController {
-  constructor (scores, logger, notifications) {
-    Object.assign(this, { scores, logger, notifications })
+  constructor (scores, logger, notifications, $scope) {
+    Object.assign(this, { scores, logger, notifications, $scope })
   }
 
   $onInit () {
@@ -13,6 +13,7 @@ class ConflictedSlotController {
 
   delete (score) {
     this.scores.delete(score._id)
+      .then(() => this.data.splice(this.data.findIndex(s => s._id === score._id), 1))
       .catch(error => {
         this.notifications.error('Action failed.')
         this.logger.error(error)
@@ -26,7 +27,9 @@ class ConflictedSlotController {
   resolveMovement (position) {
     if (position) {
       this.ready = false
+      const score = this.data[0]
       this.update(position)
+      this.$scope.$emit('calc rank', { score })
     } else {
       this.moving = false
     }
@@ -54,6 +57,6 @@ class ConflictedSlotController {
 }
 
 ConflictedSlotController.$$ngIsClass = true
-ConflictedSlotController.$inject = ['scores', 'logger', 'notifications']
+ConflictedSlotController.$inject = ['scores', 'logger', 'notifications', '$scope']
 
 export default ConflictedSlotController

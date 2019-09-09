@@ -24,14 +24,20 @@
 	</div>
 </div>
 <div class="ui padded grid">
-	<div id="ranks" class="row">
+	<div class="ui dimmer" ng-class="{active: !ranksPage.ready}">
+		<div class="ui massive loader"></div>
+	</div>
+	<div id="ranks" class="row" ng-if="ranksPage.ready">
 		<div class="sixteen wide column" ng-if="!ranksPage.smallView">
-			<div class="ui segment" ng-repeat="rank in ranksPage.rankings.rankings[ranksPage.currentStage]">
+			<div class="ui rank segment" ng-repeat="rank in ranksPage.rankings.rankings[ranksPage.currentStage]">
 				<div class="ui equal width grid">
 					<div class="center aligned column">
 						<div class="ui basic segment">
 							<div class="ui header">
 								{{rank.team.displayText}}
+								<div class="sub header">
+									Highest: {{rank.highest.score}}
+								</div>
 							</div>
 							<div class="actions">
 								<i class="ui link check icon" ng-click="ranksPage.toggleAllRankScoresPublic(rank)" ng-class="{green: !ranksPage.allScoresUnpublished, disabled: rank.allScores.length === 0}" hover-class="green"></i>
