@@ -9,7 +9,6 @@
                 "type": "yesno"
             }],
             "score": [function(bonus) {
-                bonus = String(bonus);
                 if (bonus === 'no') {
                     return 0
                 }
@@ -46,17 +45,14 @@
                 }
             ],
             "score": [function(M01_1, M01_2, bonus) {
-                M01_1 = String(M01_1);
-                M01_2 = String(M01_2);
-                bonus = String(bonus);
                 if (M01_1 === 'no' && M01_2 === '0' && bonus === 'no') {
                     return 0
                 }
                 if (M01_1 === 'no' && M01_2 === '1' && bonus === 'no') {
-                    return new Error("Flags raised without Robot on Bridge")
+                    return 0
                 }
                 if (M01_1 === 'no' && M01_2 === '2' && bonus === 'no') {
-                    return new Error("Flags raised without Robot on Bridge")
+                    return 0
                 }
                 if (M01_1 === 'yes' && M01_2 === '0' && bonus === 'no') {
                     return 20
@@ -71,10 +67,10 @@
                     return 0
                 }
                 if (M01_1 === 'no' && M01_2 === '1' && bonus === 'yes') {
-                    return new Error("Flags raised without Robot on Bridge")
+                    return 0
                 }
                 if (M01_1 === 'no' && M01_2 === '2' && bonus === 'yes') {
-                    return new Error("Flags raised without Robot on Bridge")
+                    return 0
                 }
                 if (M01_1 === 'yes' && M01_2 === '0' && bonus === 'yes') {
                     return 25
@@ -107,10 +103,6 @@
                 }
             ],
             "score": [function(M02_1, M02_2, M02_3, bonus, M05_lg, M05_sm, M12_4) {
-                M02_1 = String(M02_1);
-                M02_2 = String(M02_2);
-                M02_3 = String(M02_3);
-                bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
                     return new Error('Too many Building Units in use')
                 }
@@ -173,8 +165,6 @@
                 "type": "yesno"
             }],
             "score": [function(M03_1, bonus) {
-                M03_1 = String(M03_1);
-                bonus = String(bonus);
                 if (M03_1 === 'no' && bonus === 'no') {
                     return 0
                 }
@@ -198,8 +188,6 @@
                 "type": "yesno"
             }],
             "score": [function(M04_1, bonus) {
-                M04_1 = String(M04_1);
-                bonus = String(bonus);
                 if (M04_1 === 'no' && bonus === 'no') {
                     return 0
                 }
@@ -221,21 +209,18 @@
                     "id": "M05_lg",
                     "title": "Number of Units Independent and Supported by the Tree's Large Branches:",
                     "type": "number",
-                    "min": "0",
-                    "max": "10"
+                    "min": 0,
+                    "max": 10
                 },
                 {
                     "id": "M05_sm",
                     "title": "Number of Units Independent and Supported by the Tree's Small Branches:",
                     "type": "number",
-                    "min": "0",
-                    "max": "10"
+                    "min": 0,
+                    "max": 10
                 }
             ],
             "score": [function(M05_lg, M05_sm, bonus, M02_1, M02_2, M12_4) {
-                M05_lg = String(M05_lg);
-                M05_sm = String(M05_sm);
-                bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
                     return new Error('Too many Building Units in use')
                 }
@@ -501,7 +486,7 @@
                     return 205
                 }
                 if (M05_lg === '7' && M05_sm === '10' && bonus === 'no') {
-                    return 220
+                    return new Error("Too many Building Units in use")
                 }
                 if (M05_lg === '8' && M05_sm === '0' && bonus === 'no') {
                     return 80
@@ -531,7 +516,7 @@
                     return 200
                 }
                 if (M05_lg === '8' && M05_sm === '9' && bonus === 'no') {
-                    return 215
+                    return new Error("Too many Building Units in use")
                 }
                 if (M05_lg === '8' && M05_sm === '10' && bonus === 'no') {
                     return new Error("Too many Building Units in use")
@@ -561,7 +546,7 @@
                     return 195
                 }
                 if (M05_lg === '9' && M05_sm === '8' && bonus === 'no') {
-                    return 210
+                    return new Error("Too many Building Units in use")
                 }
                 if (M05_lg === '9' && M05_sm === '9' && bonus === 'no') {
                     return new Error("Too many Building Units in use")
@@ -591,7 +576,7 @@
                     return 190
                 }
                 if (M05_lg === '10' && M05_sm === '7' && bonus === 'no') {
-                    return 205
+                    return new Error("Too many Building Units in use")
                 }
                 if (M05_lg === '10' && M05_sm === '8' && bonus === 'no') {
                     return new Error("Too many Building Units in use")
@@ -864,7 +849,7 @@
                     return 210
                 }
                 if (M05_lg === '7' && M05_sm === '10' && bonus === 'yes') {
-                    return 225
+                    return new Error("Too many Building Units in use")
                 }
                 if (M05_lg === '8' && M05_sm === '0' && bonus === 'yes') {
                     return 85
@@ -894,7 +879,7 @@
                     return 205
                 }
                 if (M05_lg === '8' && M05_sm === '9' && bonus === 'yes') {
-                    return 220
+                    return new Error("Too many Building Units in use")
                 }
                 if (M05_lg === '8' && M05_sm === '10' && bonus === 'yes') {
                     return new Error("Too many Building Units in use")
@@ -924,7 +909,7 @@
                     return 200
                 }
                 if (M05_lg === '9' && M05_sm === '8' && bonus === 'yes') {
-                    return 215
+                    return new Error("Too many Building Units in use")
                 }
                 if (M05_lg === '9' && M05_sm === '9' && bonus === 'yes') {
                     return new Error("Too many Building Units in use")
@@ -954,7 +939,7 @@
                     return 195
                 }
                 if (M05_lg === '10' && M05_sm === '7' && bonus === 'yes') {
-                    return 210
+                    return new Error("Too many Building Units in use")
                 }
                 if (M05_lg === '10' && M05_sm === '8' && bonus === 'yes') {
                     return new Error("Too many Building Units in use")
@@ -976,8 +961,6 @@
                 "type": "yesno"
             }],
             "score": [function(M06_1, bonus) {
-                M06_1 = String(M06_1);
-                bonus = String(bonus);
                 if (M06_1 === 'no' && bonus === 'no') {
                     return 0
                 }
@@ -1001,8 +984,6 @@
                 "type": "yesno"
             }],
             "score": [function(M07_1, bonus) {
-                M07_1 = String(M07_1);
-                bonus = String(bonus);
                 if (M07_1 === 'no' && bonus === 'no') {
                     return 0
                 }
@@ -1039,8 +1020,6 @@
                 "type": "enum"
             }],
             "score": [function(M08_1, bonus) {
-                M08_1 = String(M08_1);
-                bonus = String(bonus);
                 if (M08_1 === 'neither' && bonus === 'no') {
                     return 0
                 }
@@ -1105,9 +1084,6 @@
                 }
             ],
             "score": [function(M09_1, M09_2, bonus) {
-                M09_1 = String(M09_1);
-                M09_2 = String(M09_2);
-                bonus = String(bonus);
                 if (M09_1 === 'no' && M09_2 === '0' && bonus === 'no') {
                     return 0
                 }
@@ -1203,8 +1179,6 @@
                 "type": "yesno"
             }],
             "score": [function(M10, bonus) {
-                M10 = String(M10);
-                bonus = String(bonus);
                 if (M10 === 'no' && bonus === 'no') {
                     return 0
                 }
@@ -1247,9 +1221,6 @@
                 }
             ],
             "score": [function(M11_1, M11_2, bonus) {
-                M11_1 = String(M11_1);
-                M11_2 = String(M11_2);
-                bonus = String(bonus);
                 if (M11_1 === 'no' && M11_2 === 'no' && bonus === 'no') {
                     return 0
                 }
@@ -1317,14 +1288,11 @@
                     "id": "M12_4",
                     "title": "Sum of heights of all Independent Stacks at least partly in any Circle:",
                     "type": "number",
-                    "min": "0",
-                    "max": "29"
+                    "min": 0,
+                    "max": 29
                 }
             ],
             "score": [function(M12_1, M12_4, bonus, M02_1, M02_2, M05_lg, M05_sm) {
-                M12_1 = String(M12_1);
-                M12_4 = String(M12_4);
-                bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
                     return new Error('Too many Building Units in use')
                 }
@@ -2076,8 +2044,6 @@
                 "type": "enum"
             }],
             "score": [function(M13, bonus) {
-                M13 = String(M13);
-                bonus = String(bonus);
                 if (M13 === '0' && bonus === 'no') {
                     return 0
                 }
@@ -2142,7 +2108,6 @@
                 "type": "enum"
             }],
             "score": [function(precision) {
-                precision = String(precision);
                 if (precision === '0') {
                     return 0
                 }
@@ -2231,7 +2196,6 @@
         "precision-scoring": "Number of Precision Tokens left on the Field:",
         "building-unit-error": "Too many Building Units in use",
         "crane-error": "Conflict in position of Blue Units",
-        "M01-error": "Flags raised without Robot on Bridge",
         "M12-error2": "Height too small for number of color-matching Units"
     },
     "rtl": false
