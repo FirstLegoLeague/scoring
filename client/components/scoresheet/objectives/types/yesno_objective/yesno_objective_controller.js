@@ -5,7 +5,7 @@ class YesnoObjectiveController {
 
   $onInit () {
     this.$scope.$watch(() => this.data.value, () => {
-      if (this.data.value !== undefined) {
+      if (this.data.value != null) {
         this.data.complete = true
         this.$scope.$emit('objective complete', this.data)
       }
