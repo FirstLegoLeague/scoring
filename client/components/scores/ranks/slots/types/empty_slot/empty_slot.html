@@ -3,8 +3,19 @@
 		No score yet
 	</div>
 	<div class="hover text actions">
-		<a href="{{emptySlot.scoresheetUrl}}"><i class="link primary file alternate outline icon"></i></a>
-		<i class="link secondary file outline icon" ng-click="emptySlot.createEmpty()" hover-class="primary"></i>
-		<i class="link orange ban icon" ng-click="emptySlot.createNoShow()"></i>
+		<div class="ui buttons">
+			<a class="ui basic icon compact icon primary button" href="{{emptySlot.scoresheetUrl}}">
+				<i class="folder open outline icon"></i>
+				Scoresheet
+			</a>
+			<div class="ui basic icon compact icon secondary button" ng-click="emptySlot.createEmpty()" hover-class="primary">
+				<i class="file outline icon"></i>
+				Empty
+			</div>
+			<div class="ui basic icon compact icon orange button" ng-click="emptySlot.createNoShow()" hover-class="primary">
+				<i class="ban icon"></i>
+				No-Show
+			</div>
+		</div>
 	</div>
 </div>

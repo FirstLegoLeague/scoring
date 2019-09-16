@@ -84,6 +84,14 @@ router.get('/settings/stages', (req, res) => {
   res.json(STAGES.filter((stage, index1) => !STAGES.some((stage2, index2) => stage === stage2 && index2 < index1)))
 })
 
+router.get('/settings/numberOfPracticeRounds', (req, res) => {
+  res.json(STAGES.filter(stage => stage === 'practice').length)
+})
+
+router.get('/settings/numberOfScoringRounds', (req, res) => {
+  res.json(STAGES.filter(stage => stage === 'scoring').length)
+})
+
 router.get('/match/upcoming/table/:tableId/:count', (req, res) => {
   if (Number(req.params.tableId) === 1) {
     res.sendStatus(404)

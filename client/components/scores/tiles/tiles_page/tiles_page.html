@@ -1,6 +1,14 @@
 <div class="ui page sub menu grid">
 	<div class="row">
-		<div class="nine wide column">
+		<div class="one wide column">
+			<div class="ui mini vertical statistic">
+				<div class="value">
+					{{tilesPage.scores.length}}/{{tilesPage.data.scores.length}}
+				</div>
+				<div class="label">scores</div>
+			</div>
+		</div>
+		<div class="seven wide column">
 			<div class="ui fluid action input">
 				<sm-dropdown class="filters fluid multiple search selection" default-text="'Filter results...'"
 					model="tilesPage.filters" items="tilesPage.filterOptions" label="item" value="item"
@@ -13,7 +21,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="three wide column">
+		<div class="eight wide column">
 			<div class="ui compact menu">
 				<div class="ui simple dropdown item">
 					<div class="text">
@@ -40,8 +48,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="four wide column">
+			<a class="ui orange button" ng-click="tilesPage.filters = ['duplicate']" ng-show="tilesPage.hasDuplicates">
+				<i class="ui copy icon"></i>
+				Duplicates
+			</a>
 			<div class="ui right floated menu">
 				<a class="ui link item" href="{{tilesPage.rankingsUrl}}">
 					<i class="ui download icon"></i>

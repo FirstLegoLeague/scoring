@@ -1,8 +1,6 @@
 const { MClient } = require('mhub')
 const { Logger } = require('@first-lego-league/ms-logger')
-const { getCorrelationId } = require('@first-lego-league/ms-correlation')
 
-const MHUB_CLIENT_ID = 'cl-scoring'
 const NODE = 'protected'
 
 const logger = new Logger()
@@ -30,8 +28,5 @@ function connect () {
 
 exports.publishMsg = function (topic, data = {}) {
   return connect()
-    .then(() => mhubClient.publish(NODE, topic, data, {
-      'client-id': MHUB_CLIENT_ID,
-      'correlation-id': getCorrelationId()
-    }))
+    .then(() => mhubClient.publish(NODE, topic, data))
 }
