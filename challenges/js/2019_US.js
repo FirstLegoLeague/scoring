@@ -1334,13 +1334,13 @@
                         }
                     ],
                     "type": "enum",
-                    "default": "0"
+                    "default": "1"
                 },
                 {
                     "id": "M12_4",
                     "title": "Sum of heights of all Independent Stacks at least partly in any Circle:",
                     "type": "number",
-                    "default": 0,
+                    "default": 1,
                     "min": 0,
                     "max": 29,
                     "value": null
@@ -2166,7 +2166,7 @@
                     }
                 ],
                 "type": "enum",
-                "default": "0"
+                "default": "6"
             }],
             "score": [function(precision) {
                 precision = String(precision);
