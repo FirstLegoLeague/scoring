@@ -6,7 +6,8 @@
             "objectives": [{
                 "id": "bonus",
                 "title": "Team's Robot and Equipment fit in the Small Inspection Area:",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(bonus) {
                 bonus = String(bonus);
@@ -24,7 +25,8 @@
             "objectives": [{
                     "id": "M01_1",
                     "title": "The Robot is Supported by the Bridge:",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M01_2",
@@ -42,7 +44,8 @@
                             "title": "2"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "0"
                 }
             ],
             "score": [function(M01_1, M01_2, bonus) {
@@ -93,17 +96,22 @@
             "objectives": [{
                     "id": "M02_1",
                     "title": "The Hooked Blue Unit is clearly lowered any distance from the Guide Hole:",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no",
+                    "value": null
                 },
                 {
                     "id": "M02_2",
                     "title": "The Hooked Blue Unit is Independent and Supported by another Blue Unit:",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no",
+                    "value": null
                 },
                 {
                     "id": "M02_3",
                     "title": "AND Level 1 is Completely in the Blue Circle:",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 }
             ],
             "score": [function(M02_1, M02_2, M02_3, bonus, M05_lg, M05_sm, M12_4) {
@@ -170,7 +178,8 @@
             "objectives": [{
                 "id": "M03_1",
                 "title": "The Inspection Drone is Supported by the axle on the Bridge:",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M03_1, bonus) {
                 M03_1 = String(M03_1);
@@ -195,7 +204,8 @@
             "objectives": [{
                 "id": "M04_1",
                 "title": "The Bat is Supported by the Branch on the Tree:",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M04_1, bonus) {
                 M04_1 = String(M04_1);
@@ -221,15 +231,19 @@
                     "id": "M05_lg",
                     "title": "Number of Units Independent and Supported by the Tree's Large Branches:",
                     "type": "number",
+                    "default": 0,
                     "min": 0,
-                    "max": 10
+                    "max": 10,
+                    "value": null
                 },
                 {
                     "id": "M05_sm",
                     "title": "Number of Units Independent and Supported by the Tree's Small Branches:",
                     "type": "number",
+                    "default": 0,
                     "min": 0,
-                    "max": 10
+                    "max": 10,
+                    "value": null
                 }
             ],
             "score": [function(M05_lg, M05_sm, bonus, M02_1, M02_2, M12_4) {
@@ -973,7 +987,8 @@
             "objectives": [{
                 "id": "M06_1",
                 "title": "The Traffic Jam is lifted, its moving part is Independent, and it is Supported only by its hinges:",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M06_1, bonus) {
                 M06_1 = String(M06_1);
@@ -998,7 +1013,8 @@
             "objectives": [{
                 "id": "M07_1",
                 "title": "The Swing is released:",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M07_1, bonus) {
                 M07_1 = String(M07_1);
@@ -1036,7 +1052,8 @@
                         "title": "Balanced"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "neither"
             }],
             "score": [function(M08_1, bonus) {
                 M08_1 = String(M08_1);
@@ -1067,7 +1084,8 @@
             "objectives": [{
                     "id": "M09_1",
                     "title": "The Test Building is Independent and Supported only by the blue beams:",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M09_2",
@@ -1101,7 +1119,8 @@
                             "title": "6"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "0"
                 }
             ],
             "score": [function(M09_1, M09_2, bonus) {
@@ -1200,7 +1219,8 @@
             "objectives": [{
                 "id": "M10",
                 "title": "The Steel Structure is standing and is Independent and Supported only by its hinges:",
-                "type": "yesno"
+                "type": "yesno",
+                "default": "no"
             }],
             "score": [function(M10, bonus) {
                 M10 = String(M10);
@@ -1225,7 +1245,8 @@
             "objectives": [{
                     "id": "M11_1",
                     "title": "The Structure is bigger than a Blue Building Unit and built from Team's white LEGO bricks:",
-                    "type": "yesno"
+                    "type": "yesno",
+                    "default": "no"
                 },
                 {
                     "id": "M11_2",
@@ -1243,7 +1264,8 @@
                             "title": "Completely"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "no"
                 }
             ],
             "score": [function(M11_1, M11_2, bonus) {
@@ -1311,14 +1333,17 @@
                             "title": "3"
                         }
                     ],
-                    "type": "enum"
+                    "type": "enum",
+                    "default": "1"
                 },
                 {
                     "id": "M12_4",
                     "title": "Sum of heights of all Independent Stacks at least partly in any Circle:",
                     "type": "number",
+                    "default": 1,
                     "min": 0,
-                    "max": 29
+                    "max": 29,
+                    "value": null
                 }
             ],
             "score": [function(M12_1, M12_4, bonus, M02_1, M02_2, M05_lg, M05_sm) {
@@ -2073,7 +2098,8 @@
                         "title": "3"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "0"
             }],
             "score": [function(M13, bonus) {
                 M13 = String(M13);
@@ -2139,7 +2165,8 @@
                         "title": "6"
                     }
                 ],
-                "type": "enum"
+                "type": "enum",
+                "default": "6"
             }],
             "score": [function(precision) {
                 precision = String(precision);

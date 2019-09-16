@@ -3,6 +3,7 @@ import Promise from 'bluebird'
 import angular from 'angular'
 
 import debounce from '../../lib/debounce'
+import { isNumber } from 'util'
 
 class Scoresheet extends EventEmitter {
   constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
@@ -62,8 +63,10 @@ class Scoresheet extends EventEmitter {
           const result = mission.scoreFunction(values)
           if (result instanceof Error) {
             Object.assign(mission, { complete: false, error: result, score: 0 })
-          } else {
+          } else if (isNumber(result) ) {
             Object.assign(mission, { complete: true, error: undefined, score: result })
+          } else {
+            Object.assign(mission, { complete: false, error: undefined, score: result })
           }
         }
       }
@@ -125,13 +128,13 @@ class Scoresheet extends EventEmitter {
   fillDefaults () {
     this.current.missions.forEach(mission => {
       mission.objectives.forEach(objective => {
-        if (objective.default !== undefined && objective.value === undefined) {
+        if (objective.default !== undefined && (objective.value === undefined || objective.value === null)) {
           objective.value = objective.default
         }
       })
     })
   }
-
+ 
   load (score) {
     this.ready = false
     this.autoselect = false
