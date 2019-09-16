@@ -128,13 +128,13 @@ class Scoresheet extends EventEmitter {
   fillDefaults () {
     this.current.missions.forEach(mission => {
       mission.objectives.forEach(objective => {
-        if (objective.default !== undefined && objective.value == null) {
+        if (objective.default !== undefined && (objective.value === undefined || objective.value === null)) {
           objective.value = objective.default
         }
       })
     })
   }
-
+ 
   load (score) {
     this.ready = false
     this.autoselect = false
