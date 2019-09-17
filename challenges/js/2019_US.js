@@ -233,7 +233,7 @@
                     "type": "number",
                     "default": 0,
                     "min": 0,
-                    "max": 10,
+                    "max": 17,
                     "value": null
                 },
                 {
@@ -242,7 +242,7 @@
                     "type": "number",
                     "default": 0,
                     "min": 0,
-                    "max": 10,
+                    "max": 17,
                     "value": null
                 }
             ],
@@ -286,6 +286,27 @@
                 if (M05_lg === '0' && M05_sm === '10' && bonus === 'no') {
                     return 150
                 }
+                if (M05_lg === '0' && M05_sm === '11' && bonus === 'no') {
+                    return 165
+                }
+                if (M05_lg === '0' && M05_sm === '12' && bonus === 'no') {
+                    return 180
+                }
+                if (M05_lg === '0' && M05_sm === '13' && bonus === 'no') {
+                    return 195
+                }
+                if (M05_lg === '0' && M05_sm === '14' && bonus === 'no') {
+                    return 210
+                }
+                if (M05_lg === '0' && M05_sm === '15' && bonus === 'no') {
+                    return 225
+                }
+                if (M05_lg === '0' && M05_sm === '16' && bonus === 'no') {
+                    return 240
+                }
+                if (M05_lg === '0' && M05_sm === '17' && bonus === 'no') {
+                    return 255
+                }
                 if (M05_lg === '1' && M05_sm === '0' && bonus === 'no') {
                     return 10
                 }
@@ -318,6 +339,27 @@
                 }
                 if (M05_lg === '1' && M05_sm === '10' && bonus === 'no') {
                     return 160
+                }
+                if (M05_lg === '1' && M05_sm === '11' && bonus === 'no') {
+                    return 175
+                }
+                if (M05_lg === '1' && M05_sm === '12' && bonus === 'no') {
+                    return 190
+                }
+                if (M05_lg === '1' && M05_sm === '13' && bonus === 'no') {
+                    return 205
+                }
+                if (M05_lg === '1' && M05_sm === '14' && bonus === 'no') {
+                    return 220
+                }
+                if (M05_lg === '1' && M05_sm === '15' && bonus === 'no') {
+                    return 235
+                }
+                if (M05_lg === '1' && M05_sm === '16' && bonus === 'no') {
+                    return 250
+                }
+                if (M05_lg === '1' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
                 }
                 if (M05_lg === '2' && M05_sm === '0' && bonus === 'no') {
                     return 20
@@ -352,6 +394,27 @@
                 if (M05_lg === '2' && M05_sm === '10' && bonus === 'no') {
                     return 170
                 }
+                if (M05_lg === '2' && M05_sm === '11' && bonus === 'no') {
+                    return 185
+                }
+                if (M05_lg === '2' && M05_sm === '12' && bonus === 'no') {
+                    return 200
+                }
+                if (M05_lg === '2' && M05_sm === '13' && bonus === 'no') {
+                    return 215
+                }
+                if (M05_lg === '2' && M05_sm === '14' && bonus === 'no') {
+                    return 230
+                }
+                if (M05_lg === '2' && M05_sm === '15' && bonus === 'no') {
+                    return 245
+                }
+                if (M05_lg === '2' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '2' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '3' && M05_sm === '0' && bonus === 'no') {
                     return 30
                 }
@@ -384,6 +447,27 @@
                 }
                 if (M05_lg === '3' && M05_sm === '10' && bonus === 'no') {
                     return 180
+                }
+                if (M05_lg === '3' && M05_sm === '11' && bonus === 'no') {
+                    return 195
+                }
+                if (M05_lg === '3' && M05_sm === '12' && bonus === 'no') {
+                    return 210
+                }
+                if (M05_lg === '3' && M05_sm === '13' && bonus === 'no') {
+                    return 225
+                }
+                if (M05_lg === '3' && M05_sm === '14' && bonus === 'no') {
+                    return 240
+                }
+                if (M05_lg === '3' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '3' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '3' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
                 }
                 if (M05_lg === '4' && M05_sm === '0' && bonus === 'no') {
                     return 40
@@ -418,6 +502,27 @@
                 if (M05_lg === '4' && M05_sm === '10' && bonus === 'no') {
                     return 190
                 }
+                if (M05_lg === '4' && M05_sm === '11' && bonus === 'no') {
+                    return 205
+                }
+                if (M05_lg === '4' && M05_sm === '12' && bonus === 'no') {
+                    return 220
+                }
+                if (M05_lg === '4' && M05_sm === '13' && bonus === 'no') {
+                    return 235
+                }
+                if (M05_lg === '4' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '4' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '4' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '4' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '5' && M05_sm === '0' && bonus === 'no') {
                     return 50
                 }
@@ -450,6 +555,27 @@
                 }
                 if (M05_lg === '5' && M05_sm === '10' && bonus === 'no') {
                     return 200
+                }
+                if (M05_lg === '5' && M05_sm === '11' && bonus === 'no') {
+                    return 215
+                }
+                if (M05_lg === '5' && M05_sm === '12' && bonus === 'no') {
+                    return 230
+                }
+                if (M05_lg === '5' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '5' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '5' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '5' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '5' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
                 }
                 if (M05_lg === '6' && M05_sm === '0' && bonus === 'no') {
                     return 60
@@ -484,6 +610,27 @@
                 if (M05_lg === '6' && M05_sm === '10' && bonus === 'no') {
                     return 210
                 }
+                if (M05_lg === '6' && M05_sm === '11' && bonus === 'no') {
+                    return 225
+                }
+                if (M05_lg === '6' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '7' && M05_sm === '0' && bonus === 'no') {
                     return 70
                 }
@@ -517,6 +664,27 @@
                 if (M05_lg === '7' && M05_sm === '10' && bonus === 'no') {
                     return 220
                 }
+                if (M05_lg === '7' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '8' && M05_sm === '0' && bonus === 'no') {
                     return 80
                 }
@@ -548,6 +716,27 @@
                     return 215
                 }
                 if (M05_lg === '8' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '17' && bonus === 'no') {
                     return new Error("M12-error")
                 }
                 if (M05_lg === '9' && M05_sm === '0' && bonus === 'no') {
@@ -583,6 +772,27 @@
                 if (M05_lg === '9' && M05_sm === '10' && bonus === 'no') {
                     return new Error("M12-error")
                 }
+                if (M05_lg === '9' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '10' && M05_sm === '0' && bonus === 'no') {
                     return 100
                 }
@@ -614,6 +824,405 @@
                     return new Error("M12-error")
                 }
                 if (M05_lg === '10' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '0' && bonus === 'no') {
+                    return 110
+                }
+                if (M05_lg === '11' && M05_sm === '1' && bonus === 'no') {
+                    return 125
+                }
+                if (M05_lg === '11' && M05_sm === '2' && bonus === 'no') {
+                    return 140
+                }
+                if (M05_lg === '11' && M05_sm === '3' && bonus === 'no') {
+                    return 155
+                }
+                if (M05_lg === '11' && M05_sm === '4' && bonus === 'no') {
+                    return 170
+                }
+                if (M05_lg === '11' && M05_sm === '5' && bonus === 'no') {
+                    return 185
+                }
+                if (M05_lg === '11' && M05_sm === '6' && bonus === 'no') {
+                    return 200
+                }
+                if (M05_lg === '11' && M05_sm === '7' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '8' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '9' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '0' && bonus === 'no') {
+                    return 120
+                }
+                if (M05_lg === '12' && M05_sm === '1' && bonus === 'no') {
+                    return 135
+                }
+                if (M05_lg === '12' && M05_sm === '2' && bonus === 'no') {
+                    return 150
+                }
+                if (M05_lg === '12' && M05_sm === '3' && bonus === 'no') {
+                    return 165
+                }
+                if (M05_lg === '12' && M05_sm === '4' && bonus === 'no') {
+                    return 180
+                }
+                if (M05_lg === '12' && M05_sm === '5' && bonus === 'no') {
+                    return 195
+                }
+                if (M05_lg === '12' && M05_sm === '6' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '7' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '8' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '9' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '0' && bonus === 'no') {
+                    return 130
+                }
+                if (M05_lg === '13' && M05_sm === '1' && bonus === 'no') {
+                    return 145
+                }
+                if (M05_lg === '13' && M05_sm === '2' && bonus === 'no') {
+                    return 160
+                }
+                if (M05_lg === '13' && M05_sm === '3' && bonus === 'no') {
+                    return 175
+                }
+                if (M05_lg === '13' && M05_sm === '4' && bonus === 'no') {
+                    return 190
+                }
+                if (M05_lg === '13' && M05_sm === '5' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '6' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '7' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '8' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '9' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '0' && bonus === 'no') {
+                    return 140
+                }
+                if (M05_lg === '14' && M05_sm === '1' && bonus === 'no') {
+                    return 155
+                }
+                if (M05_lg === '14' && M05_sm === '2' && bonus === 'no') {
+                    return 170
+                }
+                if (M05_lg === '14' && M05_sm === '3' && bonus === 'no') {
+                    return 185
+                }
+                if (M05_lg === '14' && M05_sm === '4' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '5' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '6' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '7' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '8' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '9' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '0' && bonus === 'no') {
+                    return 150
+                }
+                if (M05_lg === '15' && M05_sm === '1' && bonus === 'no') {
+                    return 165
+                }
+                if (M05_lg === '15' && M05_sm === '2' && bonus === 'no') {
+                    return 180
+                }
+                if (M05_lg === '15' && M05_sm === '3' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '4' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '5' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '6' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '7' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '8' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '9' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '0' && bonus === 'no') {
+                    return 160
+                }
+                if (M05_lg === '16' && M05_sm === '1' && bonus === 'no') {
+                    return 175
+                }
+                if (M05_lg === '16' && M05_sm === '2' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '3' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '4' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '5' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '6' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '7' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '8' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '9' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '17' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '0' && bonus === 'no') {
+                    return 170
+                }
+                if (M05_lg === '17' && M05_sm === '1' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '2' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '3' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '4' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '5' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '6' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '7' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '8' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '9' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '10' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '11' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '12' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '13' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '14' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '15' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '16' && bonus === 'no') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '17' && bonus === 'no') {
                     return new Error("M12-error")
                 }
                 if (M05_lg === '0' && M05_sm === '0' && bonus === 'yes') {
@@ -649,6 +1258,27 @@
                 if (M05_lg === '0' && M05_sm === '10' && bonus === 'yes') {
                     return 155
                 }
+                if (M05_lg === '0' && M05_sm === '11' && bonus === 'yes') {
+                    return 170
+                }
+                if (M05_lg === '0' && M05_sm === '12' && bonus === 'yes') {
+                    return 185
+                }
+                if (M05_lg === '0' && M05_sm === '13' && bonus === 'yes') {
+                    return 200
+                }
+                if (M05_lg === '0' && M05_sm === '14' && bonus === 'yes') {
+                    return 215
+                }
+                if (M05_lg === '0' && M05_sm === '15' && bonus === 'yes') {
+                    return 230
+                }
+                if (M05_lg === '0' && M05_sm === '16' && bonus === 'yes') {
+                    return 245
+                }
+                if (M05_lg === '0' && M05_sm === '17' && bonus === 'yes') {
+                    return 260
+                }
                 if (M05_lg === '1' && M05_sm === '0' && bonus === 'yes') {
                     return 15
                 }
@@ -681,6 +1311,27 @@
                 }
                 if (M05_lg === '1' && M05_sm === '10' && bonus === 'yes') {
                     return 165
+                }
+                if (M05_lg === '1' && M05_sm === '11' && bonus === 'yes') {
+                    return 180
+                }
+                if (M05_lg === '1' && M05_sm === '12' && bonus === 'yes') {
+                    return 195
+                }
+                if (M05_lg === '1' && M05_sm === '13' && bonus === 'yes') {
+                    return 210
+                }
+                if (M05_lg === '1' && M05_sm === '14' && bonus === 'yes') {
+                    return 225
+                }
+                if (M05_lg === '1' && M05_sm === '15' && bonus === 'yes') {
+                    return 240
+                }
+                if (M05_lg === '1' && M05_sm === '16' && bonus === 'yes') {
+                    return 255
+                }
+                if (M05_lg === '1' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
                 }
                 if (M05_lg === '2' && M05_sm === '0' && bonus === 'yes') {
                     return 25
@@ -715,6 +1366,27 @@
                 if (M05_lg === '2' && M05_sm === '10' && bonus === 'yes') {
                     return 175
                 }
+                if (M05_lg === '2' && M05_sm === '11' && bonus === 'yes') {
+                    return 190
+                }
+                if (M05_lg === '2' && M05_sm === '12' && bonus === 'yes') {
+                    return 205
+                }
+                if (M05_lg === '2' && M05_sm === '13' && bonus === 'yes') {
+                    return 220
+                }
+                if (M05_lg === '2' && M05_sm === '14' && bonus === 'yes') {
+                    return 235
+                }
+                if (M05_lg === '2' && M05_sm === '15' && bonus === 'yes') {
+                    return 250
+                }
+                if (M05_lg === '2' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '2' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '3' && M05_sm === '0' && bonus === 'yes') {
                     return 35
                 }
@@ -747,6 +1419,27 @@
                 }
                 if (M05_lg === '3' && M05_sm === '10' && bonus === 'yes') {
                     return 185
+                }
+                if (M05_lg === '3' && M05_sm === '11' && bonus === 'yes') {
+                    return 200
+                }
+                if (M05_lg === '3' && M05_sm === '12' && bonus === 'yes') {
+                    return 215
+                }
+                if (M05_lg === '3' && M05_sm === '13' && bonus === 'yes') {
+                    return 230
+                }
+                if (M05_lg === '3' && M05_sm === '14' && bonus === 'yes') {
+                    return 245
+                }
+                if (M05_lg === '3' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '3' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '3' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
                 }
                 if (M05_lg === '4' && M05_sm === '0' && bonus === 'yes') {
                     return 45
@@ -781,6 +1474,27 @@
                 if (M05_lg === '4' && M05_sm === '10' && bonus === 'yes') {
                     return 195
                 }
+                if (M05_lg === '4' && M05_sm === '11' && bonus === 'yes') {
+                    return 210
+                }
+                if (M05_lg === '4' && M05_sm === '12' && bonus === 'yes') {
+                    return 225
+                }
+                if (M05_lg === '4' && M05_sm === '13' && bonus === 'yes') {
+                    return 240
+                }
+                if (M05_lg === '4' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '4' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '4' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '4' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '5' && M05_sm === '0' && bonus === 'yes') {
                     return 55
                 }
@@ -813,6 +1527,27 @@
                 }
                 if (M05_lg === '5' && M05_sm === '10' && bonus === 'yes') {
                     return 205
+                }
+                if (M05_lg === '5' && M05_sm === '11' && bonus === 'yes') {
+                    return 220
+                }
+                if (M05_lg === '5' && M05_sm === '12' && bonus === 'yes') {
+                    return 235
+                }
+                if (M05_lg === '5' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '5' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '5' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '5' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '5' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
                 }
                 if (M05_lg === '6' && M05_sm === '0' && bonus === 'yes') {
                     return 65
@@ -847,6 +1582,27 @@
                 if (M05_lg === '6' && M05_sm === '10' && bonus === 'yes') {
                     return 215
                 }
+                if (M05_lg === '6' && M05_sm === '11' && bonus === 'yes') {
+                    return 230
+                }
+                if (M05_lg === '6' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '6' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '7' && M05_sm === '0' && bonus === 'yes') {
                     return 75
                 }
@@ -880,6 +1636,27 @@
                 if (M05_lg === '7' && M05_sm === '10' && bonus === 'yes') {
                     return 225
                 }
+                if (M05_lg === '7' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '7' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '8' && M05_sm === '0' && bonus === 'yes') {
                     return 85
                 }
@@ -911,6 +1688,27 @@
                     return 220
                 }
                 if (M05_lg === '8' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '8' && M05_sm === '17' && bonus === 'yes') {
                     return new Error("M12-error")
                 }
                 if (M05_lg === '9' && M05_sm === '0' && bonus === 'yes') {
@@ -946,6 +1744,27 @@
                 if (M05_lg === '9' && M05_sm === '10' && bonus === 'yes') {
                     return new Error("M12-error")
                 }
+                if (M05_lg === '9' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '9' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
                 if (M05_lg === '10' && M05_sm === '0' && bonus === 'yes') {
                     return 105
                 }
@@ -977,6 +1796,405 @@
                     return new Error("M12-error")
                 }
                 if (M05_lg === '10' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '10' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '0' && bonus === 'yes') {
+                    return 115
+                }
+                if (M05_lg === '11' && M05_sm === '1' && bonus === 'yes') {
+                    return 130
+                }
+                if (M05_lg === '11' && M05_sm === '2' && bonus === 'yes') {
+                    return 145
+                }
+                if (M05_lg === '11' && M05_sm === '3' && bonus === 'yes') {
+                    return 160
+                }
+                if (M05_lg === '11' && M05_sm === '4' && bonus === 'yes') {
+                    return 175
+                }
+                if (M05_lg === '11' && M05_sm === '5' && bonus === 'yes') {
+                    return 190
+                }
+                if (M05_lg === '11' && M05_sm === '6' && bonus === 'yes') {
+                    return 205
+                }
+                if (M05_lg === '11' && M05_sm === '7' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '8' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '9' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '11' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '0' && bonus === 'yes') {
+                    return 125
+                }
+                if (M05_lg === '12' && M05_sm === '1' && bonus === 'yes') {
+                    return 140
+                }
+                if (M05_lg === '12' && M05_sm === '2' && bonus === 'yes') {
+                    return 155
+                }
+                if (M05_lg === '12' && M05_sm === '3' && bonus === 'yes') {
+                    return 170
+                }
+                if (M05_lg === '12' && M05_sm === '4' && bonus === 'yes') {
+                    return 185
+                }
+                if (M05_lg === '12' && M05_sm === '5' && bonus === 'yes') {
+                    return 200
+                }
+                if (M05_lg === '12' && M05_sm === '6' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '7' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '8' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '9' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '12' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '0' && bonus === 'yes') {
+                    return 135
+                }
+                if (M05_lg === '13' && M05_sm === '1' && bonus === 'yes') {
+                    return 150
+                }
+                if (M05_lg === '13' && M05_sm === '2' && bonus === 'yes') {
+                    return 165
+                }
+                if (M05_lg === '13' && M05_sm === '3' && bonus === 'yes') {
+                    return 180
+                }
+                if (M05_lg === '13' && M05_sm === '4' && bonus === 'yes') {
+                    return 195
+                }
+                if (M05_lg === '13' && M05_sm === '5' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '6' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '7' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '8' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '9' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '13' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '0' && bonus === 'yes') {
+                    return 145
+                }
+                if (M05_lg === '14' && M05_sm === '1' && bonus === 'yes') {
+                    return 160
+                }
+                if (M05_lg === '14' && M05_sm === '2' && bonus === 'yes') {
+                    return 175
+                }
+                if (M05_lg === '14' && M05_sm === '3' && bonus === 'yes') {
+                    return 190
+                }
+                if (M05_lg === '14' && M05_sm === '4' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '5' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '6' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '7' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '8' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '9' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '14' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '0' && bonus === 'yes') {
+                    return 155
+                }
+                if (M05_lg === '15' && M05_sm === '1' && bonus === 'yes') {
+                    return 170
+                }
+                if (M05_lg === '15' && M05_sm === '2' && bonus === 'yes') {
+                    return 185
+                }
+                if (M05_lg === '15' && M05_sm === '3' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '4' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '5' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '6' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '7' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '8' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '9' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '15' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '0' && bonus === 'yes') {
+                    return 165
+                }
+                if (M05_lg === '16' && M05_sm === '1' && bonus === 'yes') {
+                    return 180
+                }
+                if (M05_lg === '16' && M05_sm === '2' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '3' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '4' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '5' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '6' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '7' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '8' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '9' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '16' && M05_sm === '17' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '0' && bonus === 'yes') {
+                    return 175
+                }
+                if (M05_lg === '17' && M05_sm === '1' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '2' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '3' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '4' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '5' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '6' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '7' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '8' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '9' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '10' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '11' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '12' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '13' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '14' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '15' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '16' && bonus === 'yes') {
+                    return new Error("M12-error")
+                }
+                if (M05_lg === '17' && M05_sm === '17' && bonus === 'yes') {
                     return new Error("M12-error")
                 }
             }]
