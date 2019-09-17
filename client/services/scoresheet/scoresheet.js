@@ -66,7 +66,7 @@ class Scoresheet extends EventEmitter {
           } else if (isNumber(result) ) {
             Object.assign(mission, { complete: true, error: undefined, score: result })
           } else {
-            Object.assign(mission, { complete: false, error: undefined, score: result })
+            Object.assign(mission, { complete: false, error: undefined, score: 0 })
           }
         }
       }
