@@ -98,13 +98,14 @@ class MetadataInputsController {
           return this.loadMatchOptions().then(() => this.autoselectMatch())
         }
       })
+      .catch(error => this.logger.error(error))
       .then(() => { this.autoselecting = false })
   }
 
   autoselectTeam () {
+    if (!this.refIdentity.table) return Promise.resolve()
     if (!this.forceTeamReselection) {
       if (!this.data.autoselect) return Promise.resolve()
-      if (!this.refIdentity.table) return Promise.resolve()
       if (this.data.current.teamNumber !== undefined) return Promise.resolve()
     }
     this.forceTeamReselection = false
