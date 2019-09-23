@@ -127,7 +127,7 @@ function Score (tournament, challenge, logger) {
 
       // Don't add the `public` field if it isn't there already, as to not overrun to autoPublish in the server.
       if (score.public) {
-        score.public = true
+        sanitizedScore.public = true
       }
 
       Object.entries(Score.POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
