@@ -122,7 +122,7 @@ function Score (tournament, challenge, logger) {
         matchId: score.matchId,
         round: score.round,
         stage: score.stage,
-        noShow: !!score.noShow
+        noShow: Boolean(score.noShow)
       }
 
       // Don't add the `public` field if it isn't there already, as to not overrun to autoPublish in the server.
