@@ -27,7 +27,6 @@ config:
           - ar_SA Arabic (Saudi Arabia)
           - es_ES Spanish (Spain)
           - es_LA Spanish (Latin America)
-          - es-UY Spanish (Uruguay)
           - fi_FI Finnish (Finland)
           - fr_CA French (Canada)
           - he_IL Hebrew (Israel)
