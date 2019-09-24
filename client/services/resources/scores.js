@@ -32,7 +32,7 @@ class Scores extends EventEmitter {
     const unsavedScore = this.score(attributes)
     return this.configuration.load()
       .then(config => this.independence.send('POST', '/scores/create', unsavedScore.sanitize(config)))
-      .then(response => this._localyAddScore(Object.assign(unsavedScore, { _id: response.data.id, creation: Date.now() })))
+      .then(response => this._localyAddScore(response.data))
       .then(id => {
         const score = this.scores.find(s => s._id === id)
         this.emit('scores updated', { id, score, action: 'add' })
