@@ -98,14 +98,21 @@ class MetadataInputsController {
           return this.loadMatchOptions().then(() => this.autoselectMatch())
         }
       })
+      .catch(error => this.logger.error(error))
       .then(() => { this.autoselecting = false })
   }
 
   autoselectTeam () {
+    if (!this.refIdentity.table) {
+      return Promise.resolve()
+    }
     if (!this.forceTeamReselection) {
-      if (!this.data.autoselect) return Promise.resolve()
-      if (!this.refIdentity.table) return Promise.resolve()
-      if (this.data.current.teamNumber !== undefined) return Promise.resolve()
+      if (!this.data.autoselect) {
+        return Promise.resolve()
+      }
+      if (this.data.current.teamNumber !== undefined) {
+        return Promise.resolve()
+      }
     }
     this.forceTeamReselection = false
     return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
@@ -136,8 +143,12 @@ class MetadataInputsController {
   }
 
   autoselectMatch () {
-    if (!this.data.autoselect) return Promise.resolve()
-    if (this.data.current.matchId !== undefined) return Promise.resolve()
+    if (!this.data.autoselect) {
+      return Promise.resolve()
+    }
+    if (this.data.current.matchId !== undefined) {
+      return Promise.resolve()
+    }
     if (this.data.current.round !== undefined && this.data.current.stage !== undefined) {
       return Promise.resolve()
     }
@@ -158,7 +169,9 @@ class MetadataInputsController {
   }
 
   syncMatchFields () {
-    if (!this.matches) return Promise.resolve()
+    if (!this.matches) {
+      return Promise.resolve()
+    }
     const match = this.matches.find(m => m.stage === this.data.current.stage && m.round === this.data.current.round) ||
       this.matches.find(m => m._id === this.data.current.matchId)
 
