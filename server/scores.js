@@ -108,8 +108,8 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
         req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
         return scoringCollection.insertOne(score)
       })
-      .then(({ insertedId }) => {
-        res.status(201).send({ id: insertedId })
+      .then(({ ops, insertedId }) => {
+        res.status(201).send(ops[0])
         return publishMsg('scores:reload', { id: insertedId, action: 'add' })
       })
       .catch(err => {

@@ -122,8 +122,12 @@ function Score (tournament, challenge, logger) {
         matchId: score.matchId,
         round: score.round,
         stage: score.stage,
-        noShow: !!score.noShow,
-        public: !!score.public
+        noShow: Boolean(score.noShow)
+      }
+
+      // Don't add the `public` field if it isn't there already, as to not overrun to autoPublish in the server.
+      if (score.public) {
+        sanitizedScore.public = true
       }
 
       Object.entries(Score.POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
