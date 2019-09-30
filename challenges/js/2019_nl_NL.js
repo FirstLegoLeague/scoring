@@ -3295,7 +3295,7 @@
         },
         {
             "title": "M13 Duurzaamheid upgrades",
-            "description": "Slechts een upgrade (zonnepanelen, daktuin, isolatie) telt per stapel.",
+            "description": "Slechts 1 upgrade (zonnepanelen, daktuin, isolatie) telt per stapel.",
             "objectives": [{
                 "id": "M13",
                 "title": "Aantal upgrades dat onafhankelijk is en alleen wordt ondersteund door een stapel die zich tenminste gedeeltelijk in een cirkel bevindt:",
@@ -3469,7 +3469,7 @@
         "M12-scoring1": "Aantal cirkels met een kleur overeenstemmende unit, vlak op de mat, en volledig in de cirkel:",
         "M12-scoring4": "Som van de hoogten van alle onafhankelijke stapels, ten minste gedeeltelijk in een willekeurige cirkel:",
         "M13-name": "M13 Duurzaamheid upgrades",
-        "M13-desc": "Slechts een upgrade (zonnepanelen, daktuin, isolatie) telt per stapel.",
+        "M13-desc": "Slechts 1 upgrade (zonnepanelen, daktuin, isolatie) telt per stapel.",
         "M13-scoring": "Aantal upgrades dat onafhankelijk is en alleen wordt ondersteund door een stapel die zich tenminste gedeeltelijk in een cirkel bevindt:",
         "precision-name": "M14 Precisie",
         "precision-desc": "Jullie mogen jullie robot onderbreken en terugbrengen om opnieuw te starten, maar bij iedere onderbreking verliezen jullie een precisieteken.",
