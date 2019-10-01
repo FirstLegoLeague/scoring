@@ -59,6 +59,10 @@ class ScoresheetPageController {
       (!this.data.errors || this.data.errors.length === 0)
   }
 
+  error () {
+    return this.data.errors[0]
+  }
+
   save () {
     this.data.save()
       .then(() => {
