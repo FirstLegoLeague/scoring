@@ -41,7 +41,7 @@
 							</div>
 							<div class="actions">
 								<i class="ui link check icon" ng-click="ranksPage.toggleAllRankScoresPublic(rank)" ng-class="{green: !ranksPage.allScoresUnpublished, disabled: rank.allScores.length === 0}" hover-class="green"></i>
-								<i class="ui link ban icon" ng-click="ranksPage.toggleAllRankScoresNoShow(rank)" ng-class="{orange: !ranksPage.allScoresUnpublished, disabled: rank.allScores.length === 0}" hover-class="orange"></i>
+								<i class="ui link minus icon" ng-click="ranksPage.toggleAllRankScoresNoShow(rank)" ng-class="{orange: !ranksPage.allScoresUnpublished, disabled: rank.allScores.length === 0}" hover-class="orange"></i>
 								<i class="ui red link trash icon" ng-class="{disabled: rank.allScores.length === 0}"></i>
 							</div>
 						</div>
