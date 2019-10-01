@@ -3,14 +3,14 @@ class ScoreActionsController {
     Object.assign(this, { logger, scores, notifications })
   }
 
-  update (attrs) {
+  update (attrs, shouldUpdateLastTime=true) {
     Object.assign(this.score, attrs)
-    this.save()
+    this.save(shouldUpdateLastTime)
   }
 
-  save () {
+  save (shouldUpdateLastTime=true) {
     this.ready = false
-    this.scores.update(this.score)
+    this.scores.update(this.score, shouldUpdateLastTime)
       .then(() => this.score.load())
       .then(() => { this.ready = true })
       .catch(error => {
