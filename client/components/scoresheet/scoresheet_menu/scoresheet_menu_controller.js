@@ -52,7 +52,7 @@ class ScoresheetMenuController {
     }
   }
 
-  cancelRefIdentity () {
+  discardRefIdentityChange() {
     this.refIdentityModalVisible = false
   }
 
