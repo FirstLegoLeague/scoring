@@ -56,6 +56,10 @@ class ScoresheetMenuController {
     this.refIdentityModalVisible = false
   }
 
+  logout() {
+    this.$location.path = '/logout'
+  }
+
   _resetPage () {
     this.page = this.$location.path().split('/')[2]
     if (!this.page) {
