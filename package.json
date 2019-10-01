@@ -10,7 +10,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "start": "devl -s rankings=http://localhost:3000 -s tournament=http://localhost:3000",
+    "start": "devl --inspect-brk -s rankings=http://localhost:3000 -s tournament=http://localhost:3000",
     "build": "webpack -p",
     "watch": "webpack --watch",
     "prepack": "yarn run build",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
-    "@first-lego-league/dev-launcher": "^0.3.0",
+    "@first-lego-league/dev-launcher": "0.2.0",
     "@first-lego-league/user-interface": "^2.1.2",
     "add": "^2.0.6",
     "angular": "^1.7.8",
