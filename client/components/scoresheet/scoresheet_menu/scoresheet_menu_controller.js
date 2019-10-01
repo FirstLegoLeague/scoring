@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
 
 class ScoresheetMenuController {
-  constructor (configuration, refIdentity, $location, $document, $scope, user) {
-    Object.assign(this, { configuration, refIdentity, $location, $document, $scope, user })
+  constructor (configuration, refIdentity, $location, $document, $scope, $timeout, user) {
+    Object.assign(this, { configuration, refIdentity, $location, $document, $scope, $timeout, user })
 
     this.backLink = $document[0].referrer
     if (this.backLink === '') {
@@ -52,8 +52,12 @@ class ScoresheetMenuController {
     }
   }
 
-  cancelRefIdentity () {
+  discardRefIdentityChange() {
     this.refIdentityModalVisible = false
+  }
+
+  logout() {
+    this.$location.path = '/logout'
   }
 
   _resetPage () {
@@ -65,6 +69,6 @@ class ScoresheetMenuController {
 }
 
 ScoresheetMenuController.$$ngIsClass = true
-ScoresheetMenuController.$inject = ['configuration', 'refIdentity', '$location', '$document', '$scope', 'user']
+ScoresheetMenuController.$inject = ['configuration', 'refIdentity', '$location', '$document', '$scope', '$timeout', 'user']
 
 export default ScoresheetMenuController
