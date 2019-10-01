@@ -1,6 +1,6 @@
 const USERNAME_COOKIE_KEY = 'username'
 const AUTH_TOKEN_COOKIE_KEY = 'auth-token'
-const ADMINS = ['admin', 'scorekeeper', 'development']
+const ADMINS = ['admin', 'scorekeeper']
 const REFS = ['referee', 'development']
 
 class User {
