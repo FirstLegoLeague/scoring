@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
 
 class ScoresheetPageController {
-  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, notifications) {
-    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, notifications })
+  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications) {
+    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications })
     this.ready = false
     this.scrollDisabled = false
   }
@@ -98,6 +98,6 @@ class ScoresheetPageController {
 }
 
 ScoresheetPageController.$$ngIsClass = true
-ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', 'notifications']
+ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', '$window', 'notifications']
 
 export default ScoresheetPageController
