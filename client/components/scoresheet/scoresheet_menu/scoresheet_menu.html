@@ -29,6 +29,10 @@
 	</div>
 	<div class="actions">
 		<div class="ui primary inverted button" ng-click="scoresheetMenu.saveRefIdentity()">Save</div>
-		<div class="ui red basic inverted button" ng-click="scoresheetMenu.cancelRefIdentity()" ng-class="{disabled: scoresheetMenu.forceRefIdentityEntry}">Cancel</div>
+		<div class="ui red basic inverted button" ng-if="!scoresheetMenu.forceRefIdentityEntry" ng-click="scoresheetMenu.discardRefIdentityChange()">Cancel</div>
+		<div class="ui red basic inverted button" ng-if="scoresheetMenu.forceRefIdentityEntry" ng-click="scoresheetMenu.logout()">
+			<i class="sign out icon"></i>
+			Log Out
+		</div>
 	</div>
 </sm-modal>
