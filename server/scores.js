@@ -88,7 +88,7 @@ function publicScores () {
   return connectionPromise
     .then(scoringCollection => scoringCollection.find().toArray())
     .then(scores => scores.filter(score => {
-      return score.public && (typeof score.teamNumber === 'number') && (typeof score.matchId === 'string') &&
+      return score.public && (typeof score.teamNumber === 'number') && (typeof score.round === 'number') && (typeof score.stage === 'string') &&
         scores.every(otherScore => score === otherScore ||
           !otherScore.public || otherScore.teamNumber !== score.teamNumber || otherScore.stage !== score.stage || otherScore.round !== score.round)
     }))
