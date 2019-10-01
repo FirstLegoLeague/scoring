@@ -21,7 +21,7 @@
 			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.scrollDisabled">
 				<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
 				<div class="column">
-					<div class="ui segment" ng-class="scoresheetSignature.error() ? 'error' : 'success'">
+					<div class="ui segment" ng-class="scoresheetPage.error() ? 'error' : 'success'">
 						<scoresheet-signature class="column"></scoresheet-signature>
 						<div class="ui padded one column grid">
 							<div class="center aligned column">
