@@ -67,7 +67,7 @@ class ScoresheetPageController {
           this.notifications.success('Score saved!')
           this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
           if (this.data.isEditing()) {
-            this.$location.path('/scores/tiles')
+            this.$window.history.back()
           }
           this.reset()
         })
@@ -77,7 +77,7 @@ class ScoresheetPageController {
         this.logger.error(`Failed saving score - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
         this.notifications.error('Failed saving score... Retry will occour soon.')
         if (this.data.isEditing()) {
-          this.$location.path('/scores/tiles')
+          this.$window.history.back()
         }
         this.reset()
       })
