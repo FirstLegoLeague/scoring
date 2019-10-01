@@ -125,7 +125,14 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   router.post('/:id/update', authenticationMiddleware, adminOrScorekeeperAction, (req, res) => {
     connectionPromise
       .then(scoringCollection => {
-        const updatedScore = Object.assign(scoreFromQuery(req.body), { lastUpdate: new Date() })
+        req.query['shouldUpdateLastTime'] = (req.query['shouldUpdateLastTime'] ==='true');
+        let updatedScore=null;
+        if(req.query['shouldUpdateLastTime']){
+          updatedScore = Object.assign(scoreFromQuery(req.body), { lastUpdate: new Date() })
+        }else{
+          updatedScore = Object.assign(scoreFromQuery(req.body))
+        }
+
         return scoringCollection.updateOne({ _id: new ObjectID(req.params.id) }, { $set: updatedScore })
       })
       .then(() => res.status(204).send())

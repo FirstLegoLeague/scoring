@@ -4,7 +4,7 @@
 <a class="ui right floated basic icon compact primary button" href="{{'#!/scoresheet/' + scoreActions.score._id}}">
 	<i class="ui folder open outline icon"></i>
 </a>
-<div class="ui basic icon compact button" ng-click="scoreActions.update({ public: !scoreActions.score.public })" hover-class="green" ng-class="{green: scoreActions.score.public}">
+<div class="ui basic icon compact button" ng-click="scoreActions.update({ public: !scoreActions.score.public }, false)" hover-class="green" ng-class="{green: scoreActions.score.public}">
 	<i class="ui check icon"></i>
 	Public
 </div>
