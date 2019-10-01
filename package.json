@@ -10,7 +10,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "start": "devl --inspect-brk -s rankings=http://localhost:3000 -s tournament=http://localhost:3000",
+    "start": "devl -s rankings=http://localhost:3000 -s tournament=http://localhost:3000",
     "build": "webpack -p",
     "watch": "webpack --watch",
     "prepack": "yarn run build",
