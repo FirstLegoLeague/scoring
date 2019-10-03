@@ -65,7 +65,8 @@ function validateScore (rawScore) {
         throw new InvalidScore(`Missing field: ${field}`)
       }
       return scoreObject
-    }, { public: config.autoPublish, noShow: false, lastUpdate: new Date() })
+    }, { noShow: false, lastUpdate: new Date() })
+    score.public = config.autoPublish
     return score
   })
 }
