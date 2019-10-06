@@ -10,7 +10,7 @@ class Rankings extends EventEmitter {
   }
 
   init () {
-    this.messanger.on('rankings:reload', () => this.loadRankingsForCurrentStage())
+    this.messanger.on('rankings:reload', () => this.loadRankingsForAllStages())
     return this.loadRankingsForCurrentStage()
   }
 
@@ -24,6 +24,12 @@ class Rankings extends EventEmitter {
       .catch(error => this.logger.error(error))
   }
 
+  loadRankingsForAllStages () {
+    return this.tournament.loadStages()
+      .then(stages => Promise.all(stages.map(stage => this.loadRankingsForStage(stage))))
+      .catch(error => this.logger.error(error))
+  }
+
   loadRankingsForStage (stage) {
     return Promise.all([
       this.configuration.load()
@@ -34,7 +40,7 @@ class Rankings extends EventEmitter {
       this.rankings[stage] = response.data
       this._calcStage(stage)
     })
-      .then(() => this.emit('rankings updated', { action: 'load' }))
+      .then(() => this.emit('rankings updated', { action: 'load', stage }))
       .catch(error => this.logger.error(error))
   }
 

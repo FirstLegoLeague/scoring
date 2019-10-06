@@ -65,7 +65,8 @@ function validateScore (rawScore) {
         throw new InvalidScore(`Missing field: ${field}`)
       }
       return scoreObject
-    }, { public: config.autoPublish, noShow: false, lastUpdate: new Date() })
+    }, { noShow: false, lastUpdate: new Date() })
+    score.public = config.autoPublish
     return score
   })
 }
@@ -88,7 +89,7 @@ function publicScores () {
   return connectionPromise
     .then(scoringCollection => scoringCollection.find().toArray())
     .then(scores => scores.filter(score => {
-      return score.public && (typeof score.teamNumber === 'number') && (typeof score.matchId === 'string') &&
+      return score.public && (typeof score.teamNumber === 'number') && (typeof score.round === 'number') && (typeof score.stage === 'string') &&
         scores.every(otherScore => score === otherScore ||
           !otherScore.public || otherScore.teamNumber !== score.teamNumber || otherScore.stage !== score.stage || otherScore.round !== score.round)
     }))
@@ -125,14 +126,8 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   router.post('/:id/update', authenticationMiddleware, adminOrScorekeeperAction, (req, res) => {
     connectionPromise
       .then(scoringCollection => {
-        req.query['shouldUpdateLastTime'] = (req.query['shouldUpdateLastTime'] ==='true');
-        let updatedScore=null;
-        if(req.query['shouldUpdateLastTime']){
-          updatedScore = Object.assign(scoreFromQuery(req.body), { lastUpdate: new Date() })
-        }else{
-          updatedScore = Object.assign(scoreFromQuery(req.body))
-        }
-
+        const shouldUpdateLastTime = (req.query['shouldUpdateLastTime'] === 'true')
+        const updatedScore = Object.assign(scoreFromQuery(req.body), shouldUpdateLastTime ? { lastUpdate: new Date() } : { })
         return scoringCollection.updateOne({ _id: new ObjectID(req.params.id) }, { $set: updatedScore })
       })
       .then(() => res.status(204).send())

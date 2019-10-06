@@ -7,44 +7,44 @@ class RanksPageController {
   }
 
   $onInit () {
-    this.$scope.$watch(() => this.currentStage, () => {
-      if (this.currentStage) {
-        this.$location.search('stage', this.currentStage)
+    this.$scope.$watch(() => this.displayStage, () => {
+      if (this.displayStage) {
+        this.$location.search('stage', this.displayStage)
         this.load()
       }
     })
 
     this.$scope.$on('calc rank', (event, { score }) => {
-      const rank = this.rankings.rankings[this.currentStage].find(r => r.allScores.includes(score))
+      const rank = this.rankings.rankings[this.displayStage].find(r => r.allScores.includes(score))
       this.rankings._calcRank(rank, score.stage)
       this._enrichRank(rank)
     })
 
-    this.rankings.on('rankings updated', ({ rank }) => {
-      if (this.rankings.rankings[this.currentStage]) {
-        this._enrichRankings()
+    this.rankings.on('rankings updated', ({ stage }) => {
+      if (stage === this.displayStage && this.rankings.rankings[this.displayStage]) {
+        this._calcVisibleRankings()
       }
     })
 
     Promise.all([this.rankings.init(), this.tournament.loadStages(), this.configuration.load()])
       .then(() => {
-        this.currentStage = this.$location.search().stage || this.tournament.stages[0]
+        this.displayStage = this.$location.search().stage || this.tournament.stages[0]
       })
       .catch(error => this.logger.error(error))
   }
 
   rankingsUrl () {
-    return `${this.configuration.rankingsUrl}/rankings.csv?hideNegatives=false&stage=${this.currentStage}`
+    return `${this.configuration.rankingsUrl}/rankings.csv?hideNegatives=false&stage=${this.displayStage}`
   }
 
   load () {
     this.ready = false
-    this.rankings.loadRankingsForStage(this.currentStage)
+    this.rankings.loadRankingsForStage(this.displayStage)
       .then(() => {
-        if (this.rankings.rankings[this.currentStage].length > 0) {
-          const roundsCount = this.rankings.rankings[this.currentStage][0].scores.length
+        if (this.rankings.rankings[this.displayStage].length > 0) {
+          const roundsCount = this.rankings.rankings[this.displayStage][0].scores.length
           this.roundHeaders = Array.apply(null, { length: roundsCount }).map((x, i) => `${i + 1}`)
-          this._enrichRankings()
+          this._calcVisibleRankings()
         }
         this.ready = true
       })
@@ -83,7 +83,7 @@ class RanksPageController {
           return this.scores.update(score)
         }))
       } else {
-        return this.scores.create({ noShow: true, teamNumber: rank.team.number, stage: this.currentStage, round: (round + 1) })
+        return this.scores.create({ noShow: true, teamNumber: rank.team.number, stage: this.displayStage, round: (round + 1) })
           .then(score => roundScores.push(score))
       }
     }))
@@ -102,8 +102,9 @@ class RanksPageController {
       })
   }
 
-  _enrichRankings () {
-    this.rankings.rankings[this.currentStage].forEach(rank => this._enrichRank(rank))
+  _calcVisibleRankings () {
+    this.rankings.rankings[this.displayStage].forEach(rank => this._enrichRank(rank))
+    this.visibleRankings = [].concat(this.rankings.rankings[this.displayStage])
   }
 
   _enrichRank (rank) {
