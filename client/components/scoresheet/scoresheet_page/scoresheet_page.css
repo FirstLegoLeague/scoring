@@ -1,3 +1,37 @@
+scoresheet-page > .rtl {
+    direction: rtl;
+}
+
+.rtl .ui.list objective [class*="right floated"] {
+    float: left;
+}
+
+.rtl objective .ui.buttons .button:first-child {
+    border-top-right-radius: 0.28571429rem;
+    border-bottom-right-radius: 0.28571429rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.rtl objective .ui.buttons .button:last-child {
+    border-left: none;
+    margin-left: 0em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0.28571429rem;
+    border-bottom-left-radius: 0.28571429rem;
+}
+
+.rtl .ui.message > .close.icon {
+    left: 0.5em;
+    right: unset;
+}
+
+.rtl .ui.list > .item > i.icon {
+    padding-left: 0.28571429em;
+    padding-right: unset;
+}
+
 .signature.segment {
     margin: 0 auto;
 }
