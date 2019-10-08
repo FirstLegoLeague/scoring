@@ -38,10 +38,6 @@ class ConflictedSlotController {
   update (attrs) {
     Object.assign(this.data[0], attrs)
     this.save()
-      .catch(error => {
-        this.notifications.error('Action failed.')
-        this.logger.error(error)
-      })
   }
 
   save () {
