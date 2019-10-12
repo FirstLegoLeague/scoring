@@ -1,10 +1,24 @@
 import Promise from 'bluebird'
 
 class ScoresheetPageController {
-  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications) {
-    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications })
+  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, settings) {
+    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, settings })
     this.ready = false
-    this.scrollDisabled = false
+    // this.scrollDisabled = false
+    const serviceSettings = this.settings.get()
+    if (serviceSettings['autoscroll']) {
+      this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
+    } else {
+      this.scrollDisabled = false
+      this.settings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
+    }
+  }
+
+  settingsChanged () {
+    const serviceSettings = this.settings.get()
+    if (serviceSettings['autoscroll']) {
+      this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
+    }
   }
 
   $onInit () {
@@ -42,7 +56,13 @@ class ScoresheetPageController {
 
   reset (forceMetadataIfEditing = false) {
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
-    this.scrollDisabled = false
+    const serviceSettings = this.settings.get()
+    if (serviceSettings['autoscroll']) {
+      this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
+    } else {
+      this.scrollDisabled = false
+      this.settings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
+    }
     this.data.reset(forceMetadataIfEditing)
   }
 
@@ -96,12 +116,13 @@ class ScoresheetPageController {
       if (score !== undefined) {
         this.data.load(score)
         this.scrollDisabled = true
+        this.settings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
       }
     }
   }
 }
 
 ScoresheetPageController.$$ngIsClass = true
-ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', '$window', 'notifications']
+ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', '$window', 'notifications', 'settings']
 
 export default ScoresheetPageController
