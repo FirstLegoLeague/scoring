@@ -1,5 +1,7 @@
 import Promise from 'bluebird'
 
+const ALLOW_NEGATIVE_SCORES = false
+
 function getPaddedNumber (number, digits = 2, padding = '0') {
   const string = String(number)
   if (string.length >= digits) {
@@ -116,7 +118,7 @@ function Score (tournament, challenge, logger) {
             })
           }
         }),
-        score: score.score,
+        score: ALLOW_NEGATIVE_SCORES ? score.score : Math.max(score.score, 0),
         challenge: score.title || challenge.challenge.title,
         teamNumber: score.teamNumber,
         matchId: score.matchId,
