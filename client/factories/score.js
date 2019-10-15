@@ -54,6 +54,12 @@ function Score (tournament, challenge, logger) {
             score.round = score.match.round
           }
         }
+      },
+      score: {
+        get: () => score._score,
+        set: scoreValue => {
+          score._score = ALLOW_NEGATIVE_SCORES ? scoreValue : Math.max(scoreValue, 0)
+        }
       }
     })
 
@@ -118,7 +124,7 @@ function Score (tournament, challenge, logger) {
             })
           }
         }),
-        score: ALLOW_NEGATIVE_SCORES ? score.score : Math.max(score.score, 0),
+        score: score.score,
         challenge: score.title || challenge.challenge.title,
         teamNumber: score.teamNumber,
         matchId: score.matchId,
