@@ -34,6 +34,7 @@ config:
           - ko_KR Korean (Korea)
           - nl_NL Dutch (Netherlands)
           - pt_BR Portuguese (Brazil)
+          - ro_RO Romanian (Romania)
           - tr_TR Turkish (Turkey)
           - ru_RU Russian (Russia)
           - zh_HK Chinese (Hong Kong)
