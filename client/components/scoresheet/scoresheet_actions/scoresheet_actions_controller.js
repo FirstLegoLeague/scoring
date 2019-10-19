@@ -9,12 +9,14 @@ class ScoresheetActionsController {
   }
 
   markNoShow () {
+    this.data.ready = false
     this.data.fillDefaults()
     this.data.fakeSignature()
     this.data.markNoShow()
       .then(() => {
         this.$scope.$emit('close scoresheet', { goToScores: this.data.isEditing() })
         this.reset()
+        this.data.ready = true
         this.notifications.success('Marked No Show for team\'s match.')
       })
       .catch(() => this.reset())

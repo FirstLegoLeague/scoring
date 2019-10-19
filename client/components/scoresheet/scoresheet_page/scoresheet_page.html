@@ -17,7 +17,7 @@
 <div id="missions" class="ui padded grid" ng-class="{rtl: scoresheetPage.data.current.rtl}">
 	<div class="row">
 		<div class="ui grid container">
-			<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
+			<div class="ui padded one column grid" ng-if="scoresheetPage.ready && scoresheetPage.data.ready" missions-scroll
 			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.scrollDisabled">
 				<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
 				<div class="column">
@@ -35,6 +35,6 @@
 	</div>
 </div>
 
-<div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready }">
+<div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready || !scoresheetPage.data.ready }">
 	<div class="ui massive loader"></div>
 </div>

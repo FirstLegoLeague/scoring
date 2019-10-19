@@ -63,7 +63,7 @@ class Scoresheet extends EventEmitter {
           const result = mission.scoreFunction(values)
           if (result instanceof Error) {
             Object.assign(mission, { complete: false, error: result, score: 0 })
-          } else if (isNumber(result) ) {
+          } else if (isNumber(result)) {
             Object.assign(mission, { complete: true, error: undefined, score: result })
           } else {
             Object.assign(mission, { complete: false, error: undefined, score: 0 })
@@ -134,7 +134,7 @@ class Scoresheet extends EventEmitter {
       })
     })
   }
- 
+
   load (score) {
     this.ready = false
     this.autoselect = false
