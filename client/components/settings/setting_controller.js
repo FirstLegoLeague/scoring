@@ -1,10 +1,12 @@
 class SettingController {
   constructor ($scope) {
-    this.$scope = $scope
+    Object.assign(this, { $scope })
   }
 
   $onInit () {
+    this.$scope.$watch(() => this.data.value, () => {
 
+    })
   }
 }
 

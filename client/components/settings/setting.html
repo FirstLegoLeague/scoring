@@ -1,0 +1,21 @@
+<div class="ui segment">
+  <div class="ui toggle checkbox" ng-if="setting.data.dataType === 'boolean'">
+    <input type="checkbox" name="public" ng-checked = "setting.data.value">
+    <label>{{setting.data.name}}</label>
+  </div>
+  <div class="ui input" ng-if="setting.data.dataType === 'string'">
+    <input type="text" ng-model="setting.data.value">
+  </div>
+  <div class="ui action input"  ng-if="setting.data.dataType === 'number'">
+    <i class="minus circle link icon"
+	      ng-click="setting.data.value = (setting.data.value === undefined) ? 0 : (setting.data.value - 1)">
+    </i>
+    <div class="ui input">
+	    <input  type='number'
+        			ng-model="setting.data.value"/>
+    </div>
+    <i class="plus circle link icon"
+	      ng-click="setting.data.value = (setting.data.value === undefined) ? 0 : (setting.data.value + 1)">
+    </i>
+  </div>
+</div>

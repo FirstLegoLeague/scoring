@@ -9,7 +9,22 @@ class LocalSettings {
     Object.assign(this, { $window })
     this.listeners = {}
     this.STORAGE_KEY = STORAGE_KEY
-    this.settingsObject = {}
+    this.settingsObject = {
+      // scores: [
+      //   {
+      //     name: 'dummy',
+      //     dataType: 'string',
+      //     value: 'dummyvalue',
+      //     cb: () => { console.log('dummy cb') }
+      //   },
+      //   {
+      //     name: 'dummy2',
+      //     dataType: 'string',
+      //     value: 'dummyvalue2',
+      //     cb: () => { console.log('dummy2 cb') }
+      //   }
+      // ]
+    }
     this.update(this.settingsObject, 'self', () => {})
   }
 
@@ -34,8 +49,68 @@ class LocalSettings {
     return parsedSettings
   }
 
+  checkSettingValidity (setting) {
+    if (setting.hasOwnProperty('name') && setting.hasOwnProperty('dataType') && setting.hasOwnProperty('value')) {
+      const dataType = setting[DATA_TYPE_KEY]
+      let valid = false
+      if (dataType === 'number' || dataType === 'boolean' || dataType === 'string') {
+        // eslint-disable-next-line valid-typeof
+        valid = (typeof (setting[VALUE_KEY]) === dataType)
+      }
+      return valid
+    }
+    return false
+  }
+  // 'scores',
+  //    [
+  //    {
+  //      name: 'dummy',
+  //      dataType: 'string',
+  //      value: 'dummyvalue',
+  //      cb: () => { console.log('dummy cb') }
+  //    }
+  //    ]
+  addSettings (sourceName, settingsArray) {
+    // const dummysettings = [
+    //   {
+    //     name: 'dummy',
+    //     dataType: 'string',
+    //     value: 'dummyvalue add',
+    //     cb: () => { console.log('dummy cb') }
+    //   }
+    // ]
+    const settingsObject = this.settingsObject
+    if (this.settingsObject.hasOwnProperty(sourceName)) {
+      const existingSettings = this.settingsObject[sourceName]// .map(setting => setting.name)
+      settingsArray.forEach(setting => {
+        const settingForUpdate = existingSettings.find(entry => {
+          return entry.name === setting.name
+        })
+        if (settingForUpdate) {
+          const idx = settingsObject[sourceName].indexOf(settingForUpdate)
+          settingsObject[sourceName][idx][VALUE_KEY] = setting[VALUE_KEY]
+        } else {
+          settingsObject[sourceName].push(setting)
+        }
+      })
+    } else {
+      settingsObject[sourceName] = settingsArray
+    }
+    this.settingsObject = settingsObject
+    this.$window.sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.settingsObject))
+  }
+
   update (settings, sourceName, changeCallback) {
     const listeners = this.listeners
+    this.checkSettingValidity(settings)
+    const it = {
+      'scoresheet-autoscroll': {
+        name: 'autoscroll',
+        src: 'scoresheet',
+        dataType: 'boolean',
+        value: true
+      }
+    }
     Object.keys(settings).forEach(key => {
       if (listeners.hasOwnProperty(key)) {
         const specificListeners = listeners[key]
@@ -45,7 +120,6 @@ class LocalSettings {
         }
         const clientsToNotify = listeners[key].filter(entry => entry['client'] !== sourceName)
         clientsToNotify.forEach(entry => {
-          console.info(`calling ${entry['client']} callback function`)
           entry['cb']()
         })
       } else {
@@ -58,8 +132,13 @@ class LocalSettings {
     this.$window.sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.settingsObject))
   }
 
-  get () {
-    return JSON.parse(this.$window.sessionStorage.getItem(this.STORAGE_KEY))
+  get (sourceName) {
+    const tempobj = JSON.parse(this.$window.sessionStorage.getItem(this.STORAGE_KEY))
+    if (tempobj.hasOwnProperty(sourceName)) {
+      return tempobj[sourceName]
+    } else {
+      return tempobj
+    }
   }
 }
 LocalSettings.$$ngIsClass = true

@@ -1,6 +1,12 @@
 class ScoresPageController {
-  constructor ($location, $scope) {
-    Object.assign(this, { $location, $scope })
+  constructor ($location, $scope, localSettings) {
+    Object.assign(this, { $location, $scope, localSettings })
+    this.localSettings.addSettings('scores', [{
+      name: 'dummy',
+      dataType: 'string',
+      value: 'dummyvalue',
+      cb: () => { console.log('dummy cb') }
+    }])
   }
 
   $onInit () {
@@ -16,6 +22,6 @@ class ScoresPageController {
 }
 
 ScoresPageController.$$ngIsClass = true
-ScoresPageController.$inject = ['$location', '$scope']
+ScoresPageController.$inject = ['$location', '$scope', 'localSettings']
 
 export default ScoresPageController

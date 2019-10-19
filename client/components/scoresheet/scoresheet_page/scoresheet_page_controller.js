@@ -5,7 +5,13 @@ class ScoresheetPageController {
     Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings })
     this.ready = false
     // this.scrollDisabled = false
-    const serviceSettings = this.localSettings.get()
+    this.localSettings.addSettings('scoresheet', [{
+      name: 'autoscroll',
+      dataType: 'boolean',
+      value: true,
+      cb: () => { this.settingsChanged() }
+    }])
+    const serviceSettings = this.localSettings.get('scoresheet')
     if (serviceSettings['autoscroll']) {
       this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
     } else {
@@ -15,7 +21,7 @@ class ScoresheetPageController {
   }
 
   scrollingAllowedInSettings () {
-    const serviceSettings = this.localSettings.get()
+    const serviceSettings = this.localSettings.get('scoresheet')
     if (serviceSettings['autoscroll']) {
       return (serviceSettings['autoscroll'] !== 'true')
     } else {
@@ -67,7 +73,7 @@ class ScoresheetPageController {
 
   reset (forceMetadataIfEditing = false) {
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
-    const serviceSettings = this.localSettings.get()
+    const serviceSettings = this.localSettings.get('scoresheet')
     if (serviceSettings['autoscroll']) {
       this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
     } else {

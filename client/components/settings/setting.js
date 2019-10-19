@@ -4,6 +4,6 @@ export default {
   template,
   controller: 'settingController as setting',
   bindings: {
-    data: '<'
+    data: '='
   }
 }
