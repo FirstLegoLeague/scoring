@@ -1,24 +1,35 @@
 import Promise from 'bluebird'
 
 class ScoresheetPageController {
-  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, settings) {
-    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, settings })
+  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings) {
+    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings })
     this.ready = false
     // this.scrollDisabled = false
-    const serviceSettings = this.settings.get()
+    const serviceSettings = this.localSettings.get()
     if (serviceSettings['autoscroll']) {
       this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
     } else {
       this.scrollDisabled = false
-      this.settings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
+      this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
+    }
+  }
+
+  scrollingAllowedInSettings () {
+    const serviceSettings = this.localSettings.get()
+    if (serviceSettings['autoscroll']) {
+      return (serviceSettings['autoscroll'] !== 'true')
+    } else {
+      return this.scrollDisabled
     }
   }
 
   settingsChanged () {
-    const serviceSettings = this.settings.get()
-    if (serviceSettings['autoscroll']) {
-      this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
-    }
+    // For some odd reason, the "scroll-disabled" attribute in the mission_scroll directive doesn't actually change behavior unless it's a function call
+    this.scrollDisabled = this.scrollingAllowedInSettings()
+    // const serviceSettings = this.localSettings.get()
+    // if (serviceSettings['autoscroll']) {
+    //   this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
+    // }
   }
 
   $onInit () {
@@ -56,12 +67,12 @@ class ScoresheetPageController {
 
   reset (forceMetadataIfEditing = false) {
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
-    const serviceSettings = this.settings.get()
+    const serviceSettings = this.localSettings.get()
     if (serviceSettings['autoscroll']) {
       this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
     } else {
       this.scrollDisabled = false
-      this.settings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
+      this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
     }
     this.data.reset(forceMetadataIfEditing)
   }
@@ -112,13 +123,13 @@ class ScoresheetPageController {
       if (score !== undefined) {
         this.data.load(score)
         this.scrollDisabled = true
-        this.settings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
+        this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
       }
     }
   }
 }
 
 ScoresheetPageController.$$ngIsClass = true
-ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', '$window', 'notifications', 'settings']
+ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', '$window', 'notifications', 'localSettings']
 
 export default ScoresheetPageController

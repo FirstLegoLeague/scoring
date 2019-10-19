@@ -1,10 +1,10 @@
-const STORAGE_KEY = 'settings'
+const STORAGE_KEY = 'localsettings'
 // const EMPTY_DATA = JSON.stringify({ })
 const DATA_TYPE_KEY = 'dataType'
 const VALUE_KEY = 'value'
 // settings should be an object with the format:
 //  {--settingName--:{dataType:--the value type--,value: --the value--}}
-class Settings {
+class LocalSettings {
   constructor ($window) {
     Object.assign(this, { $window })
     this.listeners = {}
@@ -62,7 +62,7 @@ class Settings {
     return JSON.parse(this.$window.sessionStorage.getItem(this.STORAGE_KEY))
   }
 }
-Settings.$$ngIsClass = true
-Settings.$inject = ['$window']
+LocalSettings.$$ngIsClass = true
+LocalSettings.$inject = ['$window']
 
-export default Settings
+export default LocalSettings

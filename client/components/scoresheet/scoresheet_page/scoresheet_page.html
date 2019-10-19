@@ -18,7 +18,7 @@
 	<div class="row">
 		<div class="ui grid container">
 			<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
-			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.scrollDisabled">
+			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.scrollingAllowedInSettings()">
 				<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
 				<scoresheet-signature class="column"></scoresheet-signature>
 				<div class="center aligned column">

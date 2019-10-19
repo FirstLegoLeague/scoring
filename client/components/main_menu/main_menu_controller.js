@@ -1,6 +1,6 @@
 class MainMenuController {
-  constructor ($location, $scope, user, settings) {
-    Object.assign(this, { $location, $scope, user, settings })
+  constructor ($location, $scope, user, localSettings) {
+    Object.assign(this, { $location, $scope, user, localSettings })
     this.loadSettings()
   }
 
@@ -23,13 +23,8 @@ class MainMenuController {
     this.$scope.$broadcast(`set page ${this.page}`)
   }
 
-  settingsCheck () {
-    console.log('hi')
-    console.log(this.settings.get())
-  }
-
   loadSettings () {
-    const fromService = this.settings.get()
+    const fromService = this.localSettings.get()
     const theKeys = Object.keys(fromService)
     this.settingsKeys = theKeys
     this.settingsCopy = fromService
@@ -43,12 +38,12 @@ class MainMenuController {
   }
 
   saveSettings () {
-    this.settings.update(this.settingsCopy, 'mainmenu', () => this.loadSettings())
-    console.log(this.settings.settingsObject)
+    this.localSettings.update(this.settingsCopy, 'mainmenu', () => this.loadSettings())
+    console.log(`Saving local settings: ${this.localSettings.settingsObject}`)
   }
 }
 
 MainMenuController.$$ngIsClass = true
-MainMenuController.$inject = ['$location', '$scope', 'user', 'settings']
+MainMenuController.$inject = ['$location', '$scope', 'user', 'localSettings']
 
 export default MainMenuController
