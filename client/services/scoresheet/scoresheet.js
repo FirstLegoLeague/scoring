@@ -71,6 +71,7 @@ class Scoresheet extends EventEmitter {
         }
       }
     })
+    this.allowSignatureEditing = true
     this.ready = true
     return Promise.resolve(this.current)
   }
