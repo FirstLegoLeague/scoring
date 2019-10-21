@@ -1,6 +1,6 @@
 class MainMenuController {
-  constructor ($location, $scope, user) {
-    Object.assign(this, { $location, $scope, user })
+  constructor ($location, $scope, $timeout, $window, user) {
+    Object.assign(this, { $location, $scope, $timeout, $window, user })
   }
 
   $onInit () {
@@ -8,6 +8,9 @@ class MainMenuController {
     this.$scope.$on('$locationChangeSuccess', () => {
       this._resetPage()
     })
+    this.$timeout(() => {
+      this.$window.jQuery('.splashing.menu').removeClass('splashing')
+    }, 2000)
   }
 
   setPage (page) {
@@ -24,6 +27,6 @@ class MainMenuController {
 }
 
 MainMenuController.$$ngIsClass = true
-MainMenuController.$inject = ['$location', '$scope', 'user']
+MainMenuController.$inject = ['$location', '$scope', '$timeout', '$window', 'user']
 
 export default MainMenuController
