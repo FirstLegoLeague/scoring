@@ -1,11 +1,11 @@
 ({
     "title": "CITY SHAPER",
     "missions": [{
-            "title": "יתרון",
-            "description": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
+            "title": "혜택",
+            "description": "로봇이나 모든 장비가 경기 준비중 소형 점검 구역에 모두 들어가면 혜택이 주어집니다.",
             "objectives": [{
                 "id": "bonus",
-                "title": "הרובוט וכל הציוד שלכם נכנס לאזור הביקורת הקטן:",
+                "title": "로봇과 장비가 소형 점검 구역에 들어 맞는다:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -20,17 +20,17 @@
             }]
         },
         {
-            "title": "M01 מקומות מוגבהים",
-            "description": "You can only get Flag points if you get Bridge points. It is okay and expected for Robots to collide while trying to earn Flag points.",
+            "title": "M01 높은 지역",
+            "description": "브릿지 점수를 얻은 경우에만 깃발 점수를 얻을 수 있습니다. 깃발 점수를 획득하는 동안 로봇이 충돌할 수 있으며 이는 경기에 영향을 주지 않습니다.",
             "objectives": [{
                     "id": "M01_1",
-                    "title": "הרובוט נתמך על ידי הגשר:",
+                    "title": "로봇이 브릿지에 의해 지탱되고 있다:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M01_2",
-                    "title": "מספר הדגלים שמורמים באופן ברור, במידה כלשהי, על ידי הרובוט בלבד:",
+                    "title": "오직 로봇에 의해서 일정한 거리를 들어올린 깃발의 갯수::",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -91,25 +91,25 @@
             }]
         },
         {
-            "title": "M02 מנוף",
-            "description": "Score all that apply.",
+            "title": "M02 크레인",
+            "description": "해당되는 항목 모두 점수 획득",
             "objectives": [{
                     "id": "M02_1",
-                    "title": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו מראש המנוף:",
+                    "title": "크레인에 걸려있는 파란색 유닛이 가이드홀로부터 명확하게 기준거리이상 내려졌다:",
                     "type": "yesno",
                     "default": "no",
                     "value": null
                 },
                 {
                     "id": "M02_2",
-                    "title": "היחידה הכחולה התפוסה בוו עצמאית ונתמכת על ידי יחידה כחולה אחרת:",
+                    "title": "크레인에 걸려있는 파란색 유닛이 독립적이고 다른 파란색 유닛에의해 지탱되고 있다:",
                     "type": "yesno",
                     "default": "no",
                     "value": null
                 },
                 {
                     "id": "M02_3",
-                    "title": "והקומה הראשונה היא לגמרי בתוך העיגול הכחול:",
+                    "title": "그리고 1층(레벨1)이 완전히 파란색 원안에 위치하고 있다:",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -120,25 +120,25 @@
                 M02_3 = String(M02_3);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('너무 많은 수의 건물 유닛이 사용되었습니다.')
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'no') {
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("파란색 유닛의 위치가 서로 맞지 않습니다..")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("파란색 유닛의 위치가 서로 맞지 않습니다..")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("파란색 유닛의 위치가 서로 맞지 않습니다..")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'no') {
                     return 20
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("파란색 유닛의 위치가 서로 맞지 않습니다..")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
                     return 35
@@ -150,19 +150,19 @@
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("파란색 유닛의 위치가 서로 맞지 않습니다..")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("파란색 유닛의 위치가 서로 맞지 않습니다..")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("파란색 유닛의 위치가 서로 맞지 않습니다..")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'yes') {
                     return 30
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("파란색 유닛의 위치가 서로 맞지 않습니다..")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
                     return 45
@@ -173,11 +173,11 @@
             }]
         },
         {
-            "title": "M03 רחפן בקרה",
-            "description": "The Inspection Camera Drone Mission reveals an inexpensive way to check out bridges and other tall structures. Drones can fly for hours and send back detailed pictures and even 3D scans.",
+            "title": "M03 점검 드론",
+            "description": "점검 드론 미션은 교량 및 기타 고층 건물을 점검할 수있는 저렴한 방법을 보여줍니다. 드론은 몇 시간 동안 비행 할 수 있으며 상세한 사진과 3D 스캔까지 보낼 수 있습니다.",
             "objectives": [{
                 "id": "M03_1",
-                "title": "רחפן הבקרה נתמך על ידי המוט שעל הגשר:",
+                "title": "점검 드론이 브릿지에 있는 축에 의해 지탱되고 있다:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -199,11 +199,11 @@
             }]
         },
         {
-            "title": "M04 עיצוב ידידותי לחיות בר",
-            "description": "The Bat needs to end up on the brown Branch",
+            "title": "M04 야생동물을 위한 설계",
+            "description": "박쥐가 갈색 나뭇가지에 도착해야 합니다.",
             "objectives": [{
                 "id": "M04_1",
-                "title": "העטלף נתמך על ידי הענף שעל העץ:",
+                "title": "박쥐가 올바른 나뭇가지에의해 지탱되고 있다:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -225,11 +225,11 @@
             }]
         },
         {
-            "title": "M05 בית עץ",
-            "description": "Score all that apply.",
+            "title": "M05 나무집",
+            "description": "해당되는 항목 모두 점수 획득",
             "objectives": [{
                     "id": "M05_lg",
-                    "title": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הגדולים של העץ:",
+                    "title": "독립적이고, 큰 나뭇가지에의해 지탱되고 있는 유닛의 갯수:",
                     "type": "number",
                     "default": 0,
                     "min": 0,
@@ -238,7 +238,7 @@
                 },
                 {
                     "id": "M05_sm",
-                    "title": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הקטנים של העץ:",
+                    "title": "독립적이고, 작은 나뭇가지에의해 지탱되고 있는 유닛의 갯수:",
                     "type": "number",
                     "default": 0,
                     "min": 0,
@@ -251,7 +251,7 @@
                 M05_sm = String(M05_sm);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('너무 많은 수의 건물 유닛이 사용되었습니다.')
                 }
                 if (M05_lg === '0' && M05_sm === '0' && bonus === 'no') {
                     return 0
@@ -2200,11 +2200,11 @@
             }]
         },
         {
-            "title": "M06 פקק תנועה",
-            "description": "Clear the road by lifting the Traffic Jam.",
+            "title": "M06 교통 체증",
+            "description": "교통 체증을 들어올려서 교통을 원할하게 하십시오.",
             "objectives": [{
                 "id": "M06_1",
-                "title": "פקק התנועה מורם, והחלק הנע שלו עצמאי ונתמך על ידי הצירים בלבד:",
+                "title": "교통 체증이 올려진 상태에서 교통 체증이 독립적이고, 힌지에의해서만 지탱되고 있다:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2226,11 +2226,11 @@
             }]
         },
         {
-            "title": "M07 נדנדה",
-            "description": "Release the Swing.",
+            "title": "M07 그네",
+            "description": "그네를 풀어주십시오.",
             "objectives": [{
                 "id": "M07_1",
-                "title": "הנדנדה משוחררת:",
+                "title": "그네가 풀려있다:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2252,22 +2252,22 @@
             }]
         },
         {
-            "title": "M08 מעלית",
-            "description": "Score one or the other, but not both.",
+            "title": "M08 엘리베이터",
+            "description": "둘 중 하나의 점수만 획득할 수 있습니다.",
             "objectives": [{
                 "id": "M08_1",
-                "title": "החלקים הנעים של המעלית עצמאיים, ונתמכים על ידי צירי המעלית בלבד, במצב הבא:",
+                "title": "엘리베이터의 움직이는 부분이 독립적이고, 오직 힌지에의해서만 지탱되고 있으며,다음 상태에 있다.",
                 "options": [{
                         "value": "neither",
-                        "title": "כלום"
+                        "title": "어느 상태도 아님"
                     },
                     {
                         "value": "car",
-                        "title": "קרון כחול למטה"
+                        "title": "파란색 차가 아래에 있음"
                     },
                     {
                         "value": "balanced",
-                        "title": "מאוזן"
+                        "title": "균형잡힘"
                     }
                 ],
                 "type": "enum",
@@ -2297,17 +2297,17 @@
             }]
         },
         {
-            "title": "M09 מקדם בטיחות",
-            "description": "Can the Test Building stand when some of its support beams are moved?",
+            "title": "M09 안전 요건",
+            "description": "지지하고 있는 빔들 중 몇개가 움직여도 시험용 건물이 서있을 수 있습니까?",
             "objectives": [{
                     "id": "M09_1",
-                    "title": "מבנה הבדיקה עצמאי ונתמך רק על ידי הקורות הכחולות:",
+                    "title": "시험용건물이 독립적이고 오직 파란색 빔에의해서만 지탱되고 있다:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M09_2",
-                    "title": "מספר הקורות שהוסטו לפחות מחצית הדרך:",
+                    "title": "적어도 반이상 누워있는 파란색 빔의 개수:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -2432,11 +2432,11 @@
             }]
         },
         {
-            "title": "M10 מבנה פלדה",
-            "description": "Make the Steel Structure stand up.",
+            "title": "M10철골 구조",
+            "description": "누워있는 철골구조물을 세우십시오",
             "objectives": [{
                 "id": "M10",
-                "title": "מבנה הפלדה עומד, עצמאי, ונתמך על ידי הצירים שלו בלבד:",
+                "title": "철골 구조가 서있으며 독립적이고 힌지에의해서만 지탱되고 있다:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2458,28 +2458,28 @@
             }]
         },
         {
-            "title": "M11 ארכיטקטורה חדשנית",
-            "description": "Design and build your own Structure and deliver to any Circle.",
+            "title": "M11 혁신적인건축",
+            "description": "팀만의 건출물을 디자인해 만들고 아무 원으로 옮기십시오.",
             "objectives": [{
                     "id": "M11_1",
-                    "title": "מבנה גדול יותר מחלק לגו עם 4 בליטות, וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
+                    "title": "팀이 레고브릭으로 만든 유닛이 파란색 빌딩유닛보다 크다:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M11_2",
-                    "title": "המבנה בעיגול כלשהו:",
+                    "title": "그 유닛이 원안에 있다:",
                     "options": [{
                             "value": "no",
-                            "title": "כלום"
+                            "title": "아니오"
                         },
                         {
                             "value": "partly",
-                            "title": "חלקית"
+                            "title": "부분적으로"
                         },
                         {
                             "value": "completely",
-                            "title": "לגמרי בתוך"
+                            "title": "완전히"
                         }
                     ],
                     "type": "enum",
@@ -2529,11 +2529,11 @@
             }]
         },
         {
-            "title": "M12 עצבו ובנו",
-            "description": "The Blue Circle is not part of Mission 12.",
+            "title": "M12 설계와 만들기",
+            "description": "파란 원은 미션 12에 속하지 않습니다.",
             "objectives": [{
                     "id": "M12_1",
-                    "title": "מספר העיגולים עם לפחות יחידה אחת, בצבע זהה, לגמרי בתוך העיגול, פאה נוגעת בשטיח:",
+                    "title": "완전히 원안에 위치하고 매트위에 편평하게 닿아있는 유닛과 색이 일치하는 원의 갯수:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -2556,7 +2556,7 @@
                 },
                 {
                     "id": "M12_4",
-                    "title": "סכום הגבהים של מגדלים עצמאיים הנמצאים לפחות באופן חלקי בתוך עיגולים כלשהם:",
+                    "title": "적어도 부분적으로 원안에 있는 독립적인 스택들의 층수의 합:",
                     "type": "number",
                     "default": 1,
                     "min": 0,
@@ -2569,7 +2569,7 @@
                 M12_4 = String(M12_4);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('너무 많은 수의 건물 유닛이 사용되었습니다.')
                 }
                 if (M12_1 === '0' && M12_4 === '0' && bonus === 'no') {
                     return 0
@@ -2662,7 +2662,7 @@
                     return 145
                 }
                 if (M12_1 === '1' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '1' && M12_4 === '1' && bonus === 'no') {
                     return 15
@@ -2752,13 +2752,13 @@
                     return 155
                 }
                 if (M12_1 === '2' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '2' && M12_4 === '1' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '2' && M12_4 === '2' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '2' && M12_4 === '3' && bonus === 'no') {
                     return 35
@@ -2842,19 +2842,19 @@
                     return 165
                 }
                 if (M12_1 === '3' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '1' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '2' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '3' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '4' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '5' && bonus === 'no') {
                     return 55
@@ -3022,7 +3022,7 @@
                     return 150
                 }
                 if (M12_1 === '1' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '1' && M12_4 === '1' && bonus === 'yes') {
                     return 20
@@ -3112,13 +3112,13 @@
                     return 160
                 }
                 if (M12_1 === '2' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '2' && M12_4 === '1' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '2' && M12_4 === '2' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '2' && M12_4 === '3' && bonus === 'yes') {
                     return 40
@@ -3202,19 +3202,19 @@
                     return 170
                 }
                 if (M12_1 === '3' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '1' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '2' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '3' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '4' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다.")
                 }
                 if (M12_1 === '3' && M12_4 === '5' && bonus === 'yes') {
                     return 60
@@ -3294,11 +3294,11 @@
             }]
         },
         {
-            "title": "M13 שדרוגי קיימות",
-            "description": "Only one Upgrade (solar panels, roof garden, insulation) counts per Stack.",
+            "title": "M13 환경 보존 구조 개선물",
+            "description": "스택 1개당 오직 한개의 환경 보존 구조 개선물(태양 전지판, 지붕정원, 단열) 만이 유효합니다.",
             "objectives": [{
                 "id": "M13",
-                "title": "מספר השדרוגים שהם עצמאיים, הנתמכים רק על ידי מגדל, הנמצא לפחות באופן חלקי בעיגול כלשהו:",
+                "title": "부분적으로 원안에 있고 독립적이고 스택에의해서만 지탱되고 있는 구조 개선물의 갯수::",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3349,11 +3349,11 @@
             }]
         },
         {
-            "title": "M14 דיוק",
-            "description": "You are allowed to Interrupt your Robot and bring it back to re-Launch, but Interruptions do lose Precision Tokens.",
+            "title": "M14 정확성",
+            "description": "로봇을 중단하고 다시 시작하도록 할 수 있지만 한번의 중단으로 인해 1개의 정밀 토큰을 잃습니다.",
             "objectives": [{
                 "id": "precision",
-                "title": "מספר אסימוני דיוק שנותרו על המגרש",
+                "title": "경기장에 남아있는 정밀토큰의 갯수:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3413,70 +3413,69 @@
         }
     ],
     "strings": {
-        "yes": "כן",
-        "no": "לא",
-        "advantage-name": "יתרון",
-        "advantage-desc": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
-        "advantage-scoring": "הרובוט וכל הציוד שלכם נכנס לאזור הביקורת הקטן:",
-        "M01-name": "M01 מקומות מוגבהים",
-        "M01-desc": "You can only get Flag points if you get Bridge points. It is okay and expected for Robots to collide while trying to earn Flag points.",
-        "M01-scoring1": "הרובוט נתמך על ידי הגשר:",
-        "M01-scoring2": "מספר הדגלים שמורמים באופן ברור, במידה כלשהי, על ידי הרובוט בלבד:",
-        "M02-name": "M02 מנוף",
-        "M02-desc": "Score all that apply.",
-        "M02-scoring1": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו מראש המנוף:",
-        "M02-scoring2": "היחידה הכחולה התפוסה בוו עצמאית ונתמכת על ידי יחידה כחולה אחרת:",
-        "M02-scoring3": "והקומה הראשונה היא לגמרי בתוך העיגול הכחול:",
-        "M03-name": "M03 רחפן בקרה",
-        "M03-desc": "The Inspection Camera Drone Mission reveals an inexpensive way to check out bridges and other tall structures. Drones can fly for hours and send back detailed pictures and even 3D scans.",
-        "M03-scoring1": "רחפן הבקרה נתמך על ידי המוט שעל הגשר:",
-        "M04-name": "M04 עיצוב ידידותי לחיות בר",
-        "M04-desc": "The Bat needs to end up on the brown Branch",
-        "M04-scoring1": "העטלף נתמך על ידי הענף שעל העץ:",
-        "M05-name": "M05 בית עץ",
-        "M05-desc": "Score all that apply.",
-        "M05-scoring1": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הגדולים של העץ:",
-        "M05-scoring2": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הקטנים של העץ:",
-        "M05-error": "יותר מידי יחידות",
-        "M06-name": "M06 פקק תנועה",
-        "M06-desc": "Clear the road by lifting the Traffic Jam.",
-        "M06-scoring1": "פקק התנועה מורם, והחלק הנע שלו עצמאי ונתמך על ידי הצירים בלבד:",
-        "M07-name": "M07 נדנדה",
-        "M07-desc": "Release the Swing.",
-        "M07-scoring1": "הנדנדה משוחררת:",
-        "M08-name": "M08 מעלית",
-        "M08-desc": "Score one or the other, but not both.",
-        "M08-scoring1": "החלקים הנעים של המעלית עצמאיים, ונתמכים על ידי צירי המעלית בלבד, במצב הבא:",
-        "M08-scoring2": "כלום",
-        "M08-scoring3": "קרון כחול למטה",
-        "M08-scoring4": "מאוזן",
-        "M09-name": "M09 מקדם בטיחות",
-        "M09-desc": "Can the Test Building stand when some of its support beams are moved?",
-        "M09-scoring1": "מבנה הבדיקה עצמאי ונתמך רק על ידי הקורות הכחולות:",
-        "M09-scoring2": "מספר הקורות שהוסטו לפחות מחצית הדרך:",
-        "M10-name": "M10 מבנה פלדה",
-        "M10-desc": "Make the Steel Structure stand up.",
-        "M10-scoring": "מבנה הפלדה עומד, עצמאי, ונתמך על ידי הצירים שלו בלבד:",
-        "M11-name": "M11 ארכיטקטורה חדשנית",
-        "M11-desc": "Design and build your own Structure and deliver to any Circle.",
-        "M11-scoring1": "מבנה גדול יותר מחלק לגו עם 4 בליטות, וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
-        "M11-scoring2": "המבנה בעיגול כלשהו:",
-        "M11-scoring3": "כלום",
-        "M11-scoring4": "חלקית",
-        "M11-scoring5": "לגמרי בתוך",
-        "M12-name": "M12 עצבו ובנו",
-        "M12-desc": "The Blue Circle is not part of Mission 12.",
-        "M12-scoring1": "מספר העיגולים עם לפחות יחידה אחת, בצבע זהה, לגמרי בתוך העיגול, פאה נוגעת בשטיח:",
-        "M12-scoring4": "סכום הגבהים של מגדלים עצמאיים הנמצאים לפחות באופן חלקי בתוך עיגולים כלשהם:",
-        "M13-name": "M13 שדרוגי קיימות",
-        "M13-desc": "Only one Upgrade (solar panels, roof garden, insulation) counts per Stack.",
-        "M13-scoring": "מספר השדרוגים שהם עצמאיים, הנתמכים רק על ידי מגדל, הנמצא לפחות באופן חלקי בעיגול כלשהו:",
-        "precision-name": "M14 דיוק",
-        "precision-desc": "You are allowed to Interrupt your Robot and bring it back to re-Launch, but Interruptions do lose Precision Tokens.",
-        "precision-scoring": "מספר אסימוני דיוק שנותרו על המגרש",
-        "building-unit-error": "יותר מידי יחידות בנייה בשימוש",
-        "crane-error": "סתירה במיקום יחידות הבנייה הכחולות",
-        "M12-error2": "גובה נמוך מידי ביחס למספר התאמות הצבעים"
+        "yes": "예",
+        "no": "아니오",
+        "advantage-name": "혜택",
+        "advantage-desc": "로봇이나 모든 장비가 경기 준비중 소형 점검 구역에 모두 들어가면 혜택이 주어집니다.",
+        "advantage-scoring": "로봇과 장비가 소형 점검 구역에 들어 맞는다:",
+        "M01-name": "M01 높은 지역",
+        "M01-desc": "브릿지 점수를 얻은 경우에만 깃발 점수를 얻을 수 있습니다. 깃발 점수를 획득하는 동안 로봇이 충돌할 수 있으며 이는 경기에 영향을 주지 않습니다.",
+        "M01-scoring1": "로봇이 브릿지에 의해 지탱되고 있다:",
+        "M01-scoring2": "오직 로봇에 의해서 일정한 거리를 들어올린 깃발의 갯수::",
+        "M02-name": "M02 크레인",
+        "M02-desc": "해당되는 항목 모두 점수 획득",
+        "M02-scoring1": "크레인에 걸려있는 파란색 유닛이 가이드홀로부터 명확하게 기준거리이상 내려졌다:",
+        "M02-scoring2": "크레인에 걸려있는 파란색 유닛이 독립적이고 다른 파란색 유닛에의해 지탱되고 있다:",
+        "M02-scoring3": "그리고 1층(레벨1)이 완전히 파란색 원안에 위치하고 있다:",
+        "M03-name": "M03 점검 드론",
+        "M03-desc": "점검 드론 미션은 교량 및 기타 고층 건물을 점검할 수있는 저렴한 방법을 보여줍니다. 드론은 몇 시간 동안 비행 할 수 있으며 상세한 사진과 3D 스캔까지 보낼 수 있습니다.",
+        "M03-scoring1": "점검 드론이 브릿지에 있는 축에 의해 지탱되고 있다:",
+        "M04-name": "M04 야생동물을 위한 설계",
+        "M04-desc": "박쥐가 갈색 나뭇가지에 도착해야 합니다.",
+        "M04-scoring1": "박쥐가 올바른 나뭇가지에의해 지탱되고 있다:",
+        "M05-name": "M05 나무집",
+        "M05-desc": "해당되는 항목 모두 점수 획득",
+        "M05-scoring1": "독립적이고, 큰 나뭇가지에의해 지탱되고 있는 유닛의 갯수:",
+        "M05-scoring2": "독립적이고, 작은 나뭇가지에의해 지탱되고 있는 유닛의 갯수:",
+        "M06-name": "M06 교통 체증",
+        "M06-desc": "교통 체증을 들어올려서 교통을 원할하게 하십시오.",
+        "M06-scoring1": "교통 체증이 올려진 상태에서 교통 체증이 독립적이고, 힌지에의해서만 지탱되고 있다:",
+        "M07-name": "M07 그네",
+        "M07-desc": "그네를 풀어주십시오.",
+        "M07-scoring1": "그네가 풀려있다:",
+        "M08-name": "M08 엘리베이터",
+        "M08-desc": "둘 중 하나의 점수만 획득할 수 있습니다.",
+        "M08-scoring1": "엘리베이터의 움직이는 부분이 독립적이고, 오직 힌지에의해서만 지탱되고 있으며,다음 상태에 있다.",
+        "M08-scoring2": "어느 상태도 아님",
+        "M08-scoring3": "파란색 차가 아래에 있음",
+        "M08-scoring4": "균형잡힘",
+        "M09-name": "M09 안전 요건",
+        "M09-desc": "지지하고 있는 빔들 중 몇개가 움직여도 시험용 건물이 서있을 수 있습니까?",
+        "M09-scoring1": "시험용건물이 독립적이고 오직 파란색 빔에의해서만 지탱되고 있다:",
+        "M09-scoring2": "적어도 반이상 누워있는 파란색 빔의 개수:",
+        "M10-name": "M10철골 구조",
+        "M10-desc": "누워있는 철골구조물을 세우십시오",
+        "M10-scoring": "철골 구조가 서있으며 독립적이고 힌지에의해서만 지탱되고 있다:",
+        "M11-name": "M11 혁신적인건축",
+        "M11-desc": "팀만의 건출물을 디자인해 만들고 아무 원으로 옮기십시오.",
+        "M11-scoring1": "팀이 레고브릭으로 만든 유닛이 파란색 빌딩유닛보다 크다:",
+        "M11-scoring2": "그 유닛이 원안에 있다:",
+        "M11-scoring3": "아니오",
+        "M11-scoring4": "부분적으로",
+        "M11-scoring5": "완전히",
+        "M12-name": "M12 설계와 만들기",
+        "M12-desc": "파란 원은 미션 12에 속하지 않습니다.",
+        "M12-scoring1": "완전히 원안에 위치하고 매트위에 편평하게 닿아있는 유닛과 색이 일치하는 원의 갯수:",
+        "M12-scoring4": "적어도 부분적으로 원안에 있는 독립적인 스택들의 층수의 합:",
+        "M13-name": "M13 환경 보존 구조 개선물",
+        "M13-desc": "스택 1개당 오직 한개의 환경 보존 구조 개선물(태양 전지판, 지붕정원, 단열) 만이 유효합니다.",
+        "M13-scoring": "부분적으로 원안에 있고 독립적이고 스택에의해서만 지탱되고 있는 구조 개선물의 갯수::",
+        "precision-name": "M14 정확성",
+        "precision-desc": "로봇을 중단하고 다시 시작하도록 할 수 있지만 한번의 중단으로 인해 1개의 정밀 토큰을 잃습니다.",
+        "precision-scoring": "경기장에 남아있는 정밀토큰의 갯수:",
+        "building-unit-error": "너무 많은 수의 건물 유닛이 사용되었습니다.",
+        "crane-error": "파란색 유닛의 위치가 서로 맞지 않습니다..",
+        "M12-error2": "원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다."
     },
-    "rtl": true
+    "rtl": false
 })
