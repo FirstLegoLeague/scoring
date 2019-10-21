@@ -1,6 +1,4 @@
-'use strict'
 /* eslint node/no-unsupported-features: 0 */
-
 const express = require('express')
 const Promise = require('bluebird')
 const { MongoClient, ObjectID } = require('mongodb')
@@ -46,6 +44,11 @@ const connectionPromise = MongoClient
   .connect(mongoUrl, { promiseLibrary: Promise, useNewUrlParser: true })
   .then(client => client.db().collection('scores'))
 
+function getConfiguratedChallenge () {
+  return Configuration.get('year')
+    .then(challenge => challenge.split(' ').slice(1, 3).join(' '))
+}
+
 function validateScore (rawScore) {
   return Configuration.all().then(config => {
     const allowedFields = Object.keys(SCORE_FIELDS)
@@ -86,8 +89,8 @@ function scoreFromQuery (query) {
 }
 
 function publicScores () {
-  return connectionPromise
-    .then(scoringCollection => scoringCollection.find().toArray())
+  return Promise.all([connectionPromise, getConfiguratedChallenge()])
+    .then(([scoringCollection, challenge]) => scoringCollection.find({ challenge }).toArray())
     .then(scores => scores.filter(score => {
       return score.public && (typeof score.teamNumber === 'number') && (typeof score.round === 'number') && (typeof score.stage === 'string') &&
         scores.every(otherScore => score === otherScore ||
@@ -165,8 +168,8 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   })
 
   router.get('/all', (req, res) => {
-    connectionPromise
-      .then(scoringCollection => scoringCollection.find().toArray())
+    Promise.all([connectionPromise, getConfiguratedChallenge()])
+      .then(([scoringCollection, challenge]) => scoringCollection.find({ challenge }).toArray())
       .then(scores => res.status(200).send(scores))
       .catch(err => {
         req.logger.error(err.message)
@@ -184,8 +187,8 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   })
 
   router.get('/search', (req, res) => {
-    connectionPromise
-      .then(scoringCollection => scoringCollection.find(scoreFromQuery(req.query)).toArray())
+    Promise.all([connectionPromise, getConfiguratedChallenge()])
+      .then(([scoringCollection, challenge]) => scoringCollection.find(scoreFromQuery(Object.assign({ challenge }, req.query))).toArray())
       .then(score => {
         res.status(200).json(score)
       })
@@ -196,8 +199,8 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   })
 
   router.get('/count', (req, res) => {
-    connectionPromise
-      .then(scoringCollection => scoringCollection.count())
+    Promise.all([connectionPromise, getConfiguratedChallenge()])
+      .then(([scoringCollection, challenge]) => scoringCollection.count({ challenge }))
       .then(count => res.status(200).json({ count }))
       .catch(err => {
         req.logger.error(err.message)
