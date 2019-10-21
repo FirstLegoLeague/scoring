@@ -39,7 +39,7 @@ config:
           - ru_RU Russian (Russia)
           - zh_HK Chinese (Hong Kong)
       - name: autoPublish
-        display: Automatically set team scores to Public
+        display: Automatically set team score to Public
         type: boolean
         default: true
       - name: requireRef
