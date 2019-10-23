@@ -91,7 +91,7 @@
             }]
         },
         {
-            "title": "M02  La grue",
+            "title": "M02 La grue",
             "description": "Pointage: tout ce qui s’applique",
             "objectives": [{
                     "id": "M02_1",
@@ -173,7 +173,7 @@
             }]
         },
         {
-            "title": "M03  L’inspection par drone",
+            "title": "M03 L’inspection par drone",
             "description": "La mission présente une manière économique d'inspecter les ponts et les grandes structures. Les drones peuvent voler pendant des heures et transmettre des photos détaillées ainsi que des numérisations 3D.",
             "objectives": [{
                 "id": "M03_1",
@@ -225,7 +225,7 @@
             }]
         },
         {
-            "title": "M05  La cabane perchée",
+            "title": "M05 La cabane perchée",
             "description": "(Pointage: tout ce qui s’applique.",
             "objectives": [{
                     "id": "M05_lg",
@@ -2200,7 +2200,7 @@
             }]
         },
         {
-            "title": "M06  L’embouteillage",
+            "title": "M06 L’embouteillage",
             "description": "Désengorgez la route en soulevant l’embouteillage.",
             "objectives": [{
                 "id": "M06_1",
@@ -2226,7 +2226,7 @@
             }]
         },
         {
-            "title": "M07  La balançoire",
+            "title": "M07 La balançoire",
             "description": "Lâchez la balançoire.",
             "objectives": [{
                 "id": "M07_1",
@@ -2252,7 +2252,7 @@
             }]
         },
         {
-            "title": "M08  L’ascenseur",
+            "title": "M08 L’ascenseur",
             "description": "Pointage: l’un ou l’autre",
             "objectives": [{
                 "id": "M08_1",
@@ -2297,7 +2297,7 @@
             }]
         },
         {
-            "title": "M09  Sécurité",
+            "title": "M09 Sécurité",
             "description": "Le bâtiment de simulation peut-il rester debout lorsque certaines de ses poutres bleues sont déplacées?",
             "objectives": [{
                     "id": "M09_1",
@@ -3422,35 +3422,35 @@
         "M01-desc": "Vous ne pouvez obtenir des points Drapeau que si vous obtenez des points Pont. Il est probable et correct que les robots entrent en collision en essayant de remporter des points Drapeau.",
         "M01-scoring1": "Le robot est supporté par le Pont",
         "M01-scoring2": "Nombre de drapeaux clairement levés à n’importe quelle hauteur, seulement par l’action du robot",
-        "M02-name": "M02  La grue",
+        "M02-name": "M02 La grue",
         "M02-desc": "Pointage: tout ce qui s’applique",
         "M02-scoring1": "Le module suspendu bleu est clairement baissé à n’importe quelle distance du trou de guidage",
         "M02-scoring2": "Le module suspendu bleu est indépendant et supporté par un autre module bleu",
         "M02-scoring3": "ET le niveau 1 est complètement dans le cercle bleu",
-        "M03-name": "M03  L’inspection par drone",
+        "M03-name": "M03 L’inspection par drone",
         "M03-desc": "La mission présente une manière économique d'inspecter les ponts et les grandes structures. Les drones peuvent voler pendant des heures et transmettre des photos détaillées ainsi que des numérisations 3D.",
         "M03-scoring1": "Le drone d’inspection est supporté par l’essieu du Pont",
         "M04-name": "M04 Conception pour la faune",
         "M04-desc": "La chauve-souris doit se retrouver sur la branche brune.",
         "M04-scoring1": "La chauvesouris est supportée par la branche de l’arbre",
-        "M05-name": "M05  La cabane perchée",
+        "M05-name": "M05 La cabane perchée",
         "M05-desc": "(Pointage: tout ce qui s’applique.",
         "M05-scoring1": "Nombre de modules indépendants et supportés par les grandes branches de l'arbre",
         "M05-scoring2": "Nombre de modules indépendants et supportés par les petites branches de l'arbre",
         "M05-error": "Trop de modules",
-        "M06-name": "M06  L’embouteillage",
+        "M06-name": "M06 L’embouteillage",
         "M06-desc": "Désengorgez la route en soulevant l’embouteillage.",
         "M06-scoring1": "L’embouteillage est levé, sa partie mobile est indépendante et n'est soutenue que par ses charnières",
-        "M07-name": "M07  La balançoire",
+        "M07-name": "M07 La balançoire",
         "M07-desc": "Lâchez la balançoire.",
         "M07-scoring1": "La balançoire est lâchée",
-        "M08-name": "M08  L’ascenseur",
+        "M08-name": "M08 L’ascenseur",
         "M08-desc": "Pointage: l’un ou l’autre",
         "M08-scoring1": "La partie mobile de l'ascenseur est indépendante et supportée uniquement par ses charnières dans la position suivante",
         "M08-scoring2": "Aucune",
         "M08-scoring3": "Cabine bleue en bas",
         "M08-scoring4": "En équilibre",
-        "M09-name": "M09  Sécurité",
+        "M09-name": "M09 Sécurité",
         "M09-desc": "Le bâtiment de simulation peut-il rester debout lorsque certaines de ses poutres bleues sont déplacées?",
         "M09-scoring1": "Le bâtiment de simulation est supporté uniquement par les poutres bleues",
         "M09-scoring2": "Nombre de poutres bleues déplacées au moins à mi-chemin du tapis",
