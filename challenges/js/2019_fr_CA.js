@@ -1,11 +1,11 @@
 ({
     "title": "VILLE AVENIR",
     "missions": [{
-            "title": "Advantage",
+            "title": "Avantage",
             "description": "Si tout votre équipement tient dans la petite zone d'inspection avant le début du match, vous avez un avantage.",
             "objectives": [{
                 "id": "bonus",
-                "title": "Le robot de l'équipe ainsi que tout équipement tient dans la petite zone d'inspection:",
+                "title": "Le robot de l'équipe ainsi que tout l'équipement tient dans la petite zone d'inspection",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -24,13 +24,13 @@
             "description": "Vous ne pouvez obtenir des points Drapeau que si vous obtenez des points Pont. Il est probable et correct que les robots entrent en collision en essayant de remporter des points Drapeau.",
             "objectives": [{
                     "id": "M01_1",
-                    "title": "Le robot est supporté par le Pont:",
+                    "title": "Le robot est supporté par le Pont",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M01_2",
-                    "title": "Nombre de drapeaux clairement levés à n’importe quelle hauteur, seulement par l’action du robot:",
+                    "title": "Nombre de drapeaux clairement levés à n’importe quelle hauteur, seulement par l’action du robot",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -95,21 +95,21 @@
             "description": "Pointage: tout ce qui s’applique",
             "objectives": [{
                     "id": "M02_1",
-                    "title": "Le module suspendu bleu est clairement baissé à n’importe quelle distance du trou de guidage:",
+                    "title": "Le module suspendu bleu est clairement baissé à n’importe quelle distance du trou de guidage",
                     "type": "yesno",
                     "default": "no",
                     "value": null
                 },
                 {
                     "id": "M02_2",
-                    "title": "Le module suspendu bleu est indépendant supporté par un autre module bleu:",
+                    "title": "Le module suspendu bleu est indépendant et supporté par un autre module bleu",
                     "type": "yesno",
                     "default": "no",
                     "value": null
                 },
                 {
                     "id": "M02_3",
-                    "title": "et le niveau 1 est complètement dans le cercle bleu:",
+                    "title": "ET le niveau 1 est complètement dans le cercle bleu",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -126,19 +126,19 @@
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("Conflit de position des unités bleues")
+                    return new Error("Conflit d'emplacement des unités bleues")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
-                    return new Error("Conflit de position des unités bleues")
+                    return new Error("Conflit d'emplacement des unités bleues")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("Conflit de position des unités bleues")
+                    return new Error("Conflit d'emplacement des unités bleues")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'no') {
                     return 20
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("Conflit de position des unités bleues")
+                    return new Error("Conflit d'emplacement des unités bleues")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
                     return 35
@@ -150,19 +150,19 @@
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("Conflit de position des unités bleues")
+                    return new Error("Conflit d'emplacement des unités bleues")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
-                    return new Error("Conflit de position des unités bleues")
+                    return new Error("Conflit d'emplacement des unités bleues")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("Conflit de position des unités bleues")
+                    return new Error("Conflit d'emplacement des unités bleues")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'yes') {
                     return 30
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("Conflit de position des unités bleues")
+                    return new Error("Conflit d'emplacement des unités bleues")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
                     return 45
@@ -174,10 +174,10 @@
         },
         {
             "title": "M03  L’inspection par drone",
-            "description": "La mission «caméra d’inspection par drone» présente une façon peu couteuse de vérifier des ponts et autres grandes structures. Les drones peuvent voler pendant des heures et transmettre des photos détaillées et même des numérisations 3D.",
+            "description": "La mission présente une manière économique d'inspecter les ponts et les grandes structures. Les drones peuvent voler pendant des heures et transmettre des photos détaillées ainsi que des numérisations 3D.",
             "objectives": [{
                 "id": "M03_1",
-                "title": "Le drone d’inspection est supporté par l’essieu (A) du Pont:",
+                "title": "Le drone d’inspection est supporté par l’essieu du Pont",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -200,10 +200,10 @@
         },
         {
             "title": "M04 Conception pour la faune",
-            "description": "La chauvesouris doit se retrouver sur la branche brune.",
+            "description": "La chauve-souris doit se retrouver sur la branche brune.",
             "objectives": [{
                 "id": "M04_1",
-                "title": "La chauvesouris est supportée par la branche de l’arbre:",
+                "title": "La chauvesouris est supportée par la branche de l’arbre",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -229,7 +229,7 @@
             "description": "(Pointage: tout ce qui s’applique.",
             "objectives": [{
                     "id": "M05_lg",
-                    "title": "Nombre de modules indépendants et supportés par les grandes branches de l'arbre:",
+                    "title": "Nombre de modules indépendants et supportés par les grandes branches de l'arbre",
                     "type": "number",
                     "default": 0,
                     "min": 0,
@@ -238,7 +238,7 @@
                 },
                 {
                     "id": "M05_sm",
-                    "title": "Nombre de modules indépendants et supportés par les petites branches de l'arbre:",
+                    "title": "Nombre de modules indépendants et supportés par les petites branches de l'arbre",
                     "type": "number",
                     "default": 0,
                     "min": 0,
@@ -2201,10 +2201,10 @@
         },
         {
             "title": "M06  L’embouteillage",
-            "description": "Dégagez la route en soulevant l’embouteillage.",
+            "description": "Désengorgez la route en soulevant l’embouteillage.",
             "objectives": [{
                 "id": "M06_1",
-                "title": "L’embouteillage est levé, sa partie mobile est indépendante et n'est soutenue que par ses charnières:",
+                "title": "L’embouteillage est levé, sa partie mobile est indépendante et n'est soutenue que par ses charnières",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2230,7 +2230,7 @@
             "description": "Lâchez la balançoire.",
             "objectives": [{
                 "id": "M07_1",
-                "title": "La balançoire est lâchée:",
+                "title": "La balançoire est lâchée",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2253,10 +2253,10 @@
         },
         {
             "title": "M08  L’ascenseur",
-            "description": "Pointage : l’un ou l’autre",
+            "description": "Pointage: l’un ou l’autre",
             "objectives": [{
                 "id": "M08_1",
-                "title": "Les pièces mobiles de l'ascenseur sont indépendantes et supportées uniquement par ses charnières dans la position suivante:",
+                "title": "La partie mobile de l'ascenseur est indépendante et supportée uniquement par ses charnières dans la position suivante",
                 "options": [{
                         "value": "neither",
                         "title": "Aucune"
@@ -2298,16 +2298,16 @@
         },
         {
             "title": "M09  Sécurité",
-            "description": "Le bâtiment test peut-il rester debout lorsque certaines de ses poutres bleues sont déplacées?",
+            "description": "Le bâtiment de simulation peut-il rester debout lorsque certaines de ses poutres bleues sont déplacées?",
             "objectives": [{
                     "id": "M09_1",
-                    "title": "Le bâtiment de simulation est supporté uniquement par les poutres bleues :",
+                    "title": "Le bâtiment de simulation est supporté uniquement par les poutres bleues",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M09_2",
-                    "title": "Nombre de poutres bleues tombées au moins à mi-chemin du tapis:",
+                    "title": "Nombre de poutres bleues déplacées au moins à mi-chemin du tapis",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -2433,10 +2433,10 @@
         },
         {
             "title": "M10 Structure en acier",
-            "description": "Faites que la structure en acier tient debout.",
+            "description": "Faites en sorte que la structure en acier tient debout.",
             "objectives": [{
                 "id": "M10",
-                "title": "La structure en acier est debout, indépendante et soutenue uniquement par ses charnières :",
+                "title": "La structure en acier est debout, indépendante et soutenue uniquement par ses charnières",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2459,16 +2459,16 @@
         },
         {
             "title": "M11 L’architecture innovante",
-            "description": "Concevez et construisez votre propre structure et livrez-le à n'importe quel cercle.",
+            "description": "Concevez et construisez votre propre structure et livrez-la à n'importe quel cercle.",
             "objectives": [{
                     "id": "M11_1",
-                    "title": "Une structure construite par votre équipe à partir de briques LEGO blanches uniquement est visiblement plus grande qu’un module bleu:",
+                    "title": "Une structure, constituée uniquement de pièces LEGO blanches, construite par l'équipe et visiblement plus grande qu’un module bleu",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M11_2",
-                    "title": "La structure est dans n’importe quel cercle :",
+                    "title": "La structure est dans n’importe quel cercle",
                     "options": [{
                             "value": "no",
                             "title": "Non"
@@ -2530,10 +2530,10 @@
         },
         {
             "title": "M12 Conception et construction",
-            "description": "le cercle bleu ne fait pas partie de la mission 12.",
+            "description": "Le cercle bleu ne fait pas partie de la mission 12.",
             "objectives": [{
                     "id": "M12_1",
-                    "title": "Le nombre de cercles avec au moins un module de couleur correspondante complètement à l’intérieur et à plat sur le tapis de jeu:",
+                    "title": "Nombre de cercles avec au moins un module de couleur correspondante complètement à l’intérieur et à plat sur le tapis",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -2556,7 +2556,7 @@
                 },
                 {
                     "id": "M12_4",
-                    "title": "La somme des niveaux de tous les empilements indépendants se trouvant au moins partiellement dans un cercle:",
+                    "title": "Somme des niveaux de tous les empilements indépendants se trouvant au moins partiellement dans un cercle",
                     "type": "number",
                     "default": 1,
                     "min": 0,
@@ -2662,7 +2662,7 @@
                     return 145
                 }
                 if (M12_1 === '1' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '1' && M12_4 === '1' && bonus === 'no') {
                     return 15
@@ -2752,13 +2752,13 @@
                     return 155
                 }
                 if (M12_1 === '2' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '2' && M12_4 === '1' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '2' && M12_4 === '2' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '2' && M12_4 === '3' && bonus === 'no') {
                     return 35
@@ -2842,19 +2842,19 @@
                     return 165
                 }
                 if (M12_1 === '3' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '1' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '2' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '3' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '4' && bonus === 'no') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '5' && bonus === 'no') {
                     return 55
@@ -3022,7 +3022,7 @@
                     return 150
                 }
                 if (M12_1 === '1' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '1' && M12_4 === '1' && bonus === 'yes') {
                     return 20
@@ -3112,13 +3112,13 @@
                     return 160
                 }
                 if (M12_1 === '2' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '2' && M12_4 === '1' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '2' && M12_4 === '2' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '2' && M12_4 === '3' && bonus === 'yes') {
                     return 40
@@ -3202,19 +3202,19 @@
                     return 170
                 }
                 if (M12_1 === '3' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '1' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '2' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '3' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '4' && bonus === 'yes') {
-                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur")
+                    return new Error("Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur")
                 }
                 if (M12_1 === '3' && M12_4 === '5' && bonus === 'yes') {
                     return 60
@@ -3294,11 +3294,11 @@
             }]
         },
         {
-            "title": "M13  La rénovation durable",
-            "description": "(une seule rénovation (panneaux solaires, toit vert,isolation) compte par empilement.",
+            "title": "M13 La rénovation durable",
+            "description": "Une seule rénovation (panneaux solaires, toit vert ou isolation) compte par empilement.",
             "objectives": [{
                 "id": "M13",
-                "title": "Nombre de rénovations indépendantes et supportées uniquement par un empilement situé au moins partiellement dans un cercle:",
+                "title": "Nombre de rénovations indépendantes et supportées uniquement par un empilement situé au moins partiellement dans un cercle",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3350,10 +3350,10 @@
         },
         {
             "title": "M14 Précision",
-            "description": "Vous avez le droit d'interrompre votre robot et de le ramener à zone de lancement, mais les interruptions vous font perdre des jetons de précision.",
+            "description": "Vous avez le droit d'interrompre votre robot et de le ramener à la zone de lancement, mais les interruptions vous font perdre des jetons de précision.",
             "objectives": [{
                 "id": "precision",
-                "title": "Le nombre de jetons de précision laissé sur le terrain :",
+                "title": "Nombre de jetons de précision laissé sur le terrain",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3415,68 +3415,68 @@
     "strings": {
         "yes": "Oui",
         "no": "Non",
-        "advantage-name": "Advantage",
+        "advantage-name": "Avantage",
         "advantage-desc": "Si tout votre équipement tient dans la petite zone d'inspection avant le début du match, vous avez un avantage.",
-        "advantage-scoring": "Le robot de l'équipe ainsi que tout équipement tient dans la petite zone d'inspection:",
+        "advantage-scoring": "Le robot de l'équipe ainsi que tout l'équipement tient dans la petite zone d'inspection",
         "M01-name": "M01 Emplacements élevés",
         "M01-desc": "Vous ne pouvez obtenir des points Drapeau que si vous obtenez des points Pont. Il est probable et correct que les robots entrent en collision en essayant de remporter des points Drapeau.",
-        "M01-scoring1": "Le robot est supporté par le Pont:",
-        "M01-scoring2": "Nombre de drapeaux clairement levés à n’importe quelle hauteur, seulement par l’action du robot:",
+        "M01-scoring1": "Le robot est supporté par le Pont",
+        "M01-scoring2": "Nombre de drapeaux clairement levés à n’importe quelle hauteur, seulement par l’action du robot",
         "M02-name": "M02  La grue",
         "M02-desc": "Pointage: tout ce qui s’applique",
-        "M02-scoring1": "Le module suspendu bleu est clairement baissé à n’importe quelle distance du trou de guidage:",
-        "M02-scoring2": "Le module suspendu bleu est indépendant supporté par un autre module bleu:",
-        "M02-scoring3": "et le niveau 1 est complètement dans le cercle bleu:",
+        "M02-scoring1": "Le module suspendu bleu est clairement baissé à n’importe quelle distance du trou de guidage",
+        "M02-scoring2": "Le module suspendu bleu est indépendant et supporté par un autre module bleu",
+        "M02-scoring3": "ET le niveau 1 est complètement dans le cercle bleu",
         "M03-name": "M03  L’inspection par drone",
-        "M03-desc": "La mission «caméra d’inspection par drone» présente une façon peu couteuse de vérifier des ponts et autres grandes structures. Les drones peuvent voler pendant des heures et transmettre des photos détaillées et même des numérisations 3D.",
-        "M03-scoring1": "Le drone d’inspection est supporté par l’essieu (A) du Pont:",
+        "M03-desc": "La mission présente une manière économique d'inspecter les ponts et les grandes structures. Les drones peuvent voler pendant des heures et transmettre des photos détaillées ainsi que des numérisations 3D.",
+        "M03-scoring1": "Le drone d’inspection est supporté par l’essieu du Pont",
         "M04-name": "M04 Conception pour la faune",
-        "M04-desc": "La chauvesouris doit se retrouver sur la branche brune.",
-        "M04-scoring1": "La chauvesouris est supportée par la branche de l’arbre:",
+        "M04-desc": "La chauve-souris doit se retrouver sur la branche brune.",
+        "M04-scoring1": "La chauvesouris est supportée par la branche de l’arbre",
         "M05-name": "M05  La cabane perchée",
         "M05-desc": "(Pointage: tout ce qui s’applique.",
-        "M05-scoring1": "Nombre de modules indépendants et supportés par les grandes branches de l'arbre:",
-        "M05-scoring2": "Nombre de modules indépendants et supportés par les petites branches de l'arbre:",
+        "M05-scoring1": "Nombre de modules indépendants et supportés par les grandes branches de l'arbre",
+        "M05-scoring2": "Nombre de modules indépendants et supportés par les petites branches de l'arbre",
         "M05-error": "Trop de modules",
         "M06-name": "M06  L’embouteillage",
-        "M06-desc": "Dégagez la route en soulevant l’embouteillage.",
-        "M06-scoring1": "L’embouteillage est levé, sa partie mobile est indépendante et n'est soutenue que par ses charnières:",
+        "M06-desc": "Désengorgez la route en soulevant l’embouteillage.",
+        "M06-scoring1": "L’embouteillage est levé, sa partie mobile est indépendante et n'est soutenue que par ses charnières",
         "M07-name": "M07  La balançoire",
         "M07-desc": "Lâchez la balançoire.",
-        "M07-scoring1": "La balançoire est lâchée:",
+        "M07-scoring1": "La balançoire est lâchée",
         "M08-name": "M08  L’ascenseur",
-        "M08-desc": "Pointage : l’un ou l’autre",
-        "M08-scoring1": "Les pièces mobiles de l'ascenseur sont indépendantes et supportées uniquement par ses charnières dans la position suivante:",
+        "M08-desc": "Pointage: l’un ou l’autre",
+        "M08-scoring1": "La partie mobile de l'ascenseur est indépendante et supportée uniquement par ses charnières dans la position suivante",
         "M08-scoring2": "Aucune",
         "M08-scoring3": "Cabine bleue en bas",
         "M08-scoring4": "En équilibre",
         "M09-name": "M09  Sécurité",
-        "M09-desc": "Le bâtiment test peut-il rester debout lorsque certaines de ses poutres bleues sont déplacées?",
-        "M09-scoring1": "Le bâtiment de simulation est supporté uniquement par les poutres bleues :",
-        "M09-scoring2": "Nombre de poutres bleues tombées au moins à mi-chemin du tapis:",
+        "M09-desc": "Le bâtiment de simulation peut-il rester debout lorsque certaines de ses poutres bleues sont déplacées?",
+        "M09-scoring1": "Le bâtiment de simulation est supporté uniquement par les poutres bleues",
+        "M09-scoring2": "Nombre de poutres bleues déplacées au moins à mi-chemin du tapis",
         "M10-name": "M10 Structure en acier",
-        "M10-desc": "Faites que la structure en acier tient debout.",
-        "M10-scoring": "La structure en acier est debout, indépendante et soutenue uniquement par ses charnières :",
+        "M10-desc": "Faites en sorte que la structure en acier tient debout.",
+        "M10-scoring": "La structure en acier est debout, indépendante et soutenue uniquement par ses charnières",
         "M11-name": "M11 L’architecture innovante",
-        "M11-desc": "Concevez et construisez votre propre structure et livrez-le à n'importe quel cercle.",
-        "M11-scoring1": "Une structure construite par votre équipe à partir de briques LEGO blanches uniquement est visiblement plus grande qu’un module bleu:",
-        "M11-scoring2": "La structure est dans n’importe quel cercle :",
+        "M11-desc": "Concevez et construisez votre propre structure et livrez-la à n'importe quel cercle.",
+        "M11-scoring1": "Une structure, constituée uniquement de pièces LEGO blanches, construite par l'équipe et visiblement plus grande qu’un module bleu",
+        "M11-scoring2": "La structure est dans n’importe quel cercle",
         "M11-scoring3": "Non",
         "M11-scoring4": "Partiellement",
         "M11-scoring5": "Complètement",
         "M12-name": "M12 Conception et construction",
-        "M12-desc": "le cercle bleu ne fait pas partie de la mission 12.",
-        "M12-scoring1": "Le nombre de cercles avec au moins un module de couleur correspondante complètement à l’intérieur et à plat sur le tapis de jeu:",
-        "M12-scoring4": "La somme des niveaux de tous les empilements indépendants se trouvant au moins partiellement dans un cercle:",
-        "M13-name": "M13  La rénovation durable",
-        "M13-desc": "(une seule rénovation (panneaux solaires, toit vert,isolation) compte par empilement.",
-        "M13-scoring": "Nombre de rénovations indépendantes et supportées uniquement par un empilement situé au moins partiellement dans un cercle:",
+        "M12-desc": "Le cercle bleu ne fait pas partie de la mission 12.",
+        "M12-scoring1": "Nombre de cercles avec au moins un module de couleur correspondante complètement à l’intérieur et à plat sur le tapis",
+        "M12-scoring4": "Somme des niveaux de tous les empilements indépendants se trouvant au moins partiellement dans un cercle",
+        "M13-name": "M13 La rénovation durable",
+        "M13-desc": "Une seule rénovation (panneaux solaires, toit vert ou isolation) compte par empilement.",
+        "M13-scoring": "Nombre de rénovations indépendantes et supportées uniquement par un empilement situé au moins partiellement dans un cercle",
         "precision-name": "M14 Précision",
-        "precision-desc": "Vous avez le droit d'interrompre votre robot et de le ramener à zone de lancement, mais les interruptions vous font perdre des jetons de précision.",
-        "precision-scoring": "Le nombre de jetons de précision laissé sur le terrain :",
+        "precision-desc": "Vous avez le droit d'interrompre votre robot et de le ramener à la zone de lancement, mais les interruptions vous font perdre des jetons de précision.",
+        "precision-scoring": "Nombre de jetons de précision laissé sur le terrain",
         "building-unit-error": "Trop de modules de construction sont utilisés",
-        "crane-error": "Conflit de position des unités bleues",
-        "M12-error2": "Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de la même couleur"
+        "crane-error": "Conflit d'emplacement des unités bleues",
+        "M12-error2": "Hauteur trop petite pour le nombre de modules se trouvant dans des cercles de même couleur"
     },
     "rtl": false
 })
