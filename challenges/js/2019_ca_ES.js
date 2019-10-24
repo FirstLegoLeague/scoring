@@ -1,11 +1,11 @@
 ({
     "title": "CITY SHAPER",
     "missions": [{
-            "title": "יתרון",
-            "description": "אם כל הציוד שלכ נכנס באזור הביקורת הקטן אתם מקבלים יתרון.",
+            "title": "Benefici",
+            "description": "Si tot el vostre Equipament cap dins de la Zona de Inspeccció Menor durant la preparació de la partida, rebreu un Benefici.",
             "objectives": [{
                 "id": "bonus",
-                "title": "הרובוט וכל הציוד שלכם נכנס לאזור הביקורת הקטן:",
+                "title": "El vostre Robot i tot el vostre Equipament caben dins  de la Zona d’Inspecció Menor:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -20,17 +20,17 @@
             }]
         },
         {
-            "title": "M01 מקומות מוגבהים",
-            "description": "ניתן לצבור נקודות מהדגלים רק אם צברתם נקודות מהגשר.  :זה צפוי ומקובל שרובוטים יתנגשו בעודם מנסים לצבור נקודות מהדגלים.",
+            "title": "M01 Pisos Elevatats",
+            "description": "Només podeu aconseguir punts per Banderes si aconseguiu els\r\npunts del pont. Està permès, i és d’esperar, que els robots xoquin mentre intenten guanyar els punts de les\r\nbanderes.",
             "objectives": [{
                     "id": "M01_1",
-                    "title": "הרובוט נתמך על ידי הגשר:",
+                    "title": "El Robot està Suportat pel Pon:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M01_2",
-                    "title": "מספר הדגלים שמורמים באופן ברור, במידה כלשהי, על ידי הרובוט בלבד:",
+                    "title": "Nombre de Banderes que estan clarament aixecades  qualsevol alçada només degut al Robot:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -91,25 +91,25 @@
             }]
         },
         {
-            "title": "M02 מנוף",
-            "description": "נקדו את כל מה שמתקיים.",
+            "title": "M02 Grua",
+            "description": "Puntueu tot allò que pertoqui.",
             "objectives": [{
                     "id": "M02_1",
-                    "title": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו מראש המנוף:",
+                    "title": "El Mòdul Blau Enganxat està clarament abaixat qualsevol distància del Forat de la Guia:",
                     "type": "yesno",
                     "default": "no",
                     "value": null
                 },
                 {
                     "id": "M02_2",
-                    "title": "היחידה הכחולה התפוסה בוו עצמאית ונתמכת על ידי יחידה כחולה אחרת:",
+                    "title": "El Mòdul Blau Enganxat és Independent i està Suportat per un altre Mòdul Blau:",
                     "type": "yesno",
                     "default": "no",
                     "value": null
                 },
                 {
                     "id": "M02_3",
-                    "title": "והקומה הראשונה היא לגמרי בתוך העיגול הכחול:",
+                    "title": "I el 1r Nivell està Completament dins del Cercle Blau:",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -120,25 +120,25 @@
                 M02_3 = String(M02_3);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('Massa Mòduls en ús')
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'no') {
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicte en la posició dels Mòduls Blaus")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicte en la posició dels Mòduls Blaus")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicte en la posició dels Mòduls Blaus")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'no') {
                     return 20
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicte en la posició dels Mòduls Blaus")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
                     return 35
@@ -150,19 +150,19 @@
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicte en la posició dels Mòduls Blaus")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicte en la posició dels Mòduls Blaus")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicte en la posició dels Mòduls Blaus")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'yes') {
                     return 30
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicte en la posició dels Mòduls Blaus")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
                     return 45
@@ -173,11 +173,11 @@
             }]
         },
         {
-            "title": "M03 רחפן בקרה",
-            "description": "משימת רחפן הבקרה מדגימה שיטה לא יקרה לבדיקת גשרים ומבנים גבוהים אחרים. רחפנים יכולים לטוס במשף שעות ולשלוח תמונות מפורטות, ואפילו סריקות תלת-מימד.",
+            "title": "M03 Dron d'Inspecció",
+            "description": "La missió del Dron d'Inspecció ens mostra una manera molt barata de verificar ponts i altres estructures altes. Els Drons poden volar durant hores i enviar imatges detallades o també escanejos 3D.",
             "objectives": [{
                 "id": "M03_1",
-                "title": "רחפן הבקרה נתמך על ידי המוט שעל הגשר:",
+                "title": "El Dron d’Inspecció està Suportat per l’eix del Pont:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -199,11 +199,11 @@
             }]
         },
         {
-            "title": "M04 עיצוב ידידותי לחיות בר",
-            "description": "העטלף צריך להגיע לענף החום",
+            "title": "M04 Disseny per a la Vida Silvestre",
+            "description": "El Raptenat ha d'acabar a la branca marró",
             "objectives": [{
                 "id": "M04_1",
-                "title": "העטלף נתמך על ידי הענף שעל העץ:",
+                "title": "El Ratpenat està Suportat per la branca de l’Arbre:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -225,11 +225,11 @@
             }]
         },
         {
-            "title": "M05 בית עץ",
-            "description": "נקדו את כל מה שמתקיים.",
+            "title": "M05 Casa de l'árbre",
+            "description": "Puntueu tot allò que pertoqui.",
             "objectives": [{
                     "id": "M05_lg",
-                    "title": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הגדולים של העץ:",
+                    "title": "Nombre de Mòduls Independents i Suportats per les Branques Grans de l’Arbre:",
                     "type": "number",
                     "default": 0,
                     "min": 0,
@@ -238,7 +238,7 @@
                 },
                 {
                     "id": "M05_sm",
-                    "title": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הקטנים של העץ:",
+                    "title": "Nombre de Mòduls Independents i Suportats per les Branques Petites de l’Arbre:",
                     "type": "number",
                     "default": 0,
                     "min": 0,
@@ -251,7 +251,7 @@
                 M05_sm = String(M05_sm);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('Massa Mòduls en ús')
                 }
                 if (M05_lg === '0' && M05_sm === '0' && bonus === 'no') {
                     return 0
@@ -2200,11 +2200,11 @@
             }]
         },
         {
-            "title": "M06 פקק תנועה",
-            "description": "פנו את הדרך על ידי הרמת פקק התנועה.",
+            "title": "M06 Embús de Trànsit",
+            "description": "Descongestioneu la carretera aixecant l' Embús de Trànsit.",
             "objectives": [{
                 "id": "M06_1",
-                "title": "פקק התנועה מורם, והחלק הנע שלו עצמאי ונתמך על ידי הצירים בלבד:",
+                "title": "L’Embús de Trànsit està aixecat, la seva part mòbil és Independent i està Suportada només per les seves frontisses:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2226,11 +2226,11 @@
             }]
         },
         {
-            "title": "M07 נדנדה",
-            "description": "שחררו את הנדנדה.",
+            "title": "M07 Gronxador",
+            "description": "Allibereu el Gronxador.",
             "objectives": [{
                 "id": "M07_1",
-                "title": "הנדנדה משוחררת:",
+                "title": "El Gronxador està alliberat:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2252,22 +2252,22 @@
             }]
         },
         {
-            "title": "M08 מעלית",
-            "description": "נקדו אפשרות אחת או אחרת, אך לא את שתיהן.",
+            "title": "M08 Muntacàrregues",
+            "description": "Marqueu una o altre puntuació, però no ambdues.",
             "objectives": [{
                 "id": "M08_1",
-                "title": "החלקים הנעים של המעלית עצמאיים, ונתמכים על ידי צירי המעלית בלבד, במצב הבא:",
+                "title": "Les parts mòbils del Muntacàrregues són  Independents i estan Suportades només per les seves frontisses, en la següent posició:",
                 "options": [{
                         "value": "neither",
-                        "title": "כלום"
+                        "title": "Cap"
                     },
                     {
                         "value": "car",
-                        "title": "קרון כחול למטה"
+                        "title": "Cotxe blau a sota"
                     },
                     {
                         "value": "balanced",
-                        "title": "מאוזן"
+                        "title": "Equilibrades"
                     }
                 ],
                 "type": "enum",
@@ -2297,17 +2297,17 @@
             }]
         },
         {
-            "title": "M09 מקדם בטיחות",
-            "description": "האם מבנה הבדיקה יכול לעמוד כשחלק מענודי התמיכה שלו הוסטו?",
+            "title": "M09 Factor de Seguretat",
+            "description": "Pot l'Edifici Pilot mantenir-se dempeus quan algunes de les barres que el suporten són desplaçades?",
             "objectives": [{
                     "id": "M09_1",
-                    "title": "מבנה הבדיקה עצמאי ונתמך רק על ידי הקורות הכחולות:",
+                    "title": "L’Edifici Pilot és Independent i està Suportat només per les bigues blaves:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M09_2",
-                    "title": "מספר הקורות שהוסטו לפחות מחצית הדרך:",
+                    "title": "Nombre de bigues han estat apartades com a mínim a mig camí:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -2432,11 +2432,11 @@
             }]
         },
         {
-            "title": "M10 מבנה פלדה",
-            "description": "גרמו למבנה הפלדה לעמוד זקוף.",
+            "title": "M10 Construcció d'Acer",
+            "description": "Aconseguiu que la Estructura d'Acero estigui aixecada.",
             "objectives": [{
                 "id": "M10",
-                "title": "מבנה הפלדה עומד, עצמאי, ונתמך על ידי הצירים שלו בלבד:",
+                "title": "L’Estructura d’Acer està enlairada, és Independent i està Suportada només per les seves frontisses:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2458,28 +2458,28 @@
             }]
         },
         {
-            "title": "M11 ארכיטקטורה חדשנית",
-            "description": "עצבו ובנו מבנה משלכם והעבירו אותו לעיגול כלשהו.",
+            "title": "M11 Arquitectura Innovadora",
+            "description": "Dissenyeu i construïu la vostra propia estructura i transporteu-la a qualsevol cercle.",
             "objectives": [{
                     "id": "M11_1",
-                    "title": "מבנה גדול יותר מחלק לגו עם 4 בליטות, וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
+                    "title": "L’Estructura és major que un Mòdul Blau, construïda només amb peces blanques de LEGO  de l’equip:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M11_2",
-                    "title": "המבנה בעיגול כלשהו:",
+                    "title": "L’Estructura és dins de qualsevol Cercle:",
                     "options": [{
                             "value": "no",
-                            "title": "כלום"
+                            "title": "No"
                         },
                         {
                             "value": "partly",
-                            "title": "חלקית"
+                            "title": "Parcialment"
                         },
                         {
                             "value": "completely",
-                            "title": "לגמרי בתוך"
+                            "title": "Completament"
                         }
                     ],
                     "type": "enum",
@@ -2529,11 +2529,11 @@
             }]
         },
         {
-            "title": "M12 עצבו ובנו",
-            "description": "העיגול הכחול אינו חלק ממשימה 12.",
+            "title": "M12 Disseny i Construcció",
+            "description": "El cercle Blau no forma part de la Missió 12.",
             "objectives": [{
                     "id": "M12_1",
-                    "title": "מספר העיגולים עם לפחות יחידה אחת, בצבע זהה, לגמרי בתוך העיגול, פאה נוגעת בשטיח:",
+                    "title": "Nombre de Cercles amb un Mòdul de color coincident amb el cercle, en contacte pla sobre del tapet i Completament dins:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -2556,7 +2556,7 @@
                 },
                 {
                     "id": "M12_4",
-                    "title": "סכום הגבהים של מגדלים עצמאיים הנמצאים לפחות באופן חלקי בתוך עיגולים כלשהם:",
+                    "title": "Suma de les alçades de totes les Piles Independents com  a mínim parcialment dins de qualsevol Cercle:",
                     "type": "number",
                     "default": 1,
                     "min": 0,
@@ -2569,7 +2569,7 @@
                 M12_4 = String(M12_4);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('Massa Mòduls en ús')
                 }
                 if (M12_1 === '0' && M12_4 === '0' && bonus === 'no') {
                     return 0
@@ -2662,7 +2662,7 @@
                     return 145
                 }
                 if (M12_1 === '1' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '1' && M12_4 === '1' && bonus === 'no') {
                     return 15
@@ -2752,13 +2752,13 @@
                     return 155
                 }
                 if (M12_1 === '2' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '2' && M12_4 === '1' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '2' && M12_4 === '2' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '2' && M12_4 === '3' && bonus === 'no') {
                     return 35
@@ -2842,19 +2842,19 @@
                     return 165
                 }
                 if (M12_1 === '3' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '1' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '2' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '3' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '4' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '5' && bonus === 'no') {
                     return 55
@@ -3022,7 +3022,7 @@
                     return 150
                 }
                 if (M12_1 === '1' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '1' && M12_4 === '1' && bonus === 'yes') {
                     return 20
@@ -3112,13 +3112,13 @@
                     return 160
                 }
                 if (M12_1 === '2' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '2' && M12_4 === '1' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '2' && M12_4 === '2' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '2' && M12_4 === '3' && bonus === 'yes') {
                     return 40
@@ -3202,19 +3202,19 @@
                     return 170
                 }
                 if (M12_1 === '3' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '1' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '2' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '3' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '4' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Alçada massa petita per al nombre de Mòduls coincidentsde color")
                 }
                 if (M12_1 === '3' && M12_4 === '5' && bonus === 'yes') {
                     return 60
@@ -3294,11 +3294,11 @@
             }]
         },
         {
-            "title": "M13 שדרוגי קיימות",
-            "description": "רק שדרוג אחד (לוחות סולריים, גינת גג, בידוד) נחשב לכל מגדל.",
+            "title": "M13 Millores en Sostenibilitat",
+            "description": "Només es té en compte una millora (panells solars, Sotre verd, aïllament) per Pila.",
             "objectives": [{
                 "id": "M13",
-                "title": "מספר השדרוגים שהם עצמאיים, הנתמכים רק על ידי מגדל, הנמצא לפחות באופן חלקי בעיגול כלשהו:",
+                "title": "Nombre de millores que Independents i Suportades per una Pila que es troba com a mínim parcialment dins de qualsevol Cercle:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3349,11 +3349,11 @@
             }]
         },
         {
-            "title": "M14 דיוק",
-            "description": "מותר לכם להפריע לרובוט ולהחזירו לשיגור מחדש, אבל הפרעות גורמות לאיבוד אסימוני דיוק.",
+            "title": "M14 Precisió",
+            "description": "Podeu interrompre el vostre Robot i portar-lo a casa per a un reinici, però les interrupcions us fan perdre Testimonis de Precisió.",
             "objectives": [{
                 "id": "precision",
-                "title": "מספר אסימוני דיוק שנשארו על המגרש",
+                "title": "Nombre de Testimonis de Precisió que queden  al Terreny de Joc:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3413,70 +3413,70 @@
         }
     ],
     "strings": {
-        "yes": "כן",
-        "no": "לא",
-        "advantage-name": "יתרון",
-        "advantage-desc": "אם כל הציוד שלכ נכנס באזור הביקורת הקטן אתם מקבלים יתרון.",
-        "advantage-scoring": "הרובוט וכל הציוד שלכם נכנס לאזור הביקורת הקטן:",
-        "M01-name": "M01 מקומות מוגבהים",
-        "M01-desc": "ניתן לצבור נקודות מהדגלים רק אם צברתם נקודות מהגשר.  :זה צפוי ומקובל שרובוטים יתנגשו בעודם מנסים לצבור נקודות מהדגלים.",
-        "M01-scoring1": "הרובוט נתמך על ידי הגשר:",
-        "M01-scoring2": "מספר הדגלים שמורמים באופן ברור, במידה כלשהי, על ידי הרובוט בלבד:",
-        "M02-name": "M02 מנוף",
-        "M02-desc": "נקדו את כל מה שמתקיים.",
-        "M02-scoring1": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו מראש המנוף:",
-        "M02-scoring2": "היחידה הכחולה התפוסה בוו עצמאית ונתמכת על ידי יחידה כחולה אחרת:",
-        "M02-scoring3": "והקומה הראשונה היא לגמרי בתוך העיגול הכחול:",
-        "M03-name": "M03 רחפן בקרה",
-        "M03-desc": "משימת רחפן הבקרה מדגימה שיטה לא יקרה לבדיקת גשרים ומבנים גבוהים אחרים. רחפנים יכולים לטוס במשף שעות ולשלוח תמונות מפורטות, ואפילו סריקות תלת-מימד.",
-        "M03-scoring1": "רחפן הבקרה נתמך על ידי המוט שעל הגשר:",
-        "M04-name": "M04 עיצוב ידידותי לחיות בר",
-        "M04-desc": "העטלף צריך להגיע לענף החום",
-        "M04-scoring1": "העטלף נתמך על ידי הענף שעל העץ:",
-        "M05-name": "M05 בית עץ",
-        "M05-desc": "נקדו את כל מה שמתקיים.",
-        "M05-scoring1": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הגדולים של העץ:",
-        "M05-scoring2": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הקטנים של העץ:",
-        "M05-error": "יותר מידי יחידות",
-        "M06-name": "M06 פקק תנועה",
-        "M06-desc": "פנו את הדרך על ידי הרמת פקק התנועה.",
-        "M06-scoring1": "פקק התנועה מורם, והחלק הנע שלו עצמאי ונתמך על ידי הצירים בלבד:",
-        "M07-name": "M07 נדנדה",
-        "M07-desc": "שחררו את הנדנדה.",
-        "M07-scoring1": "הנדנדה משוחררת:",
-        "M08-name": "M08 מעלית",
-        "M08-desc": "נקדו אפשרות אחת או אחרת, אך לא את שתיהן.",
-        "M08-scoring1": "החלקים הנעים של המעלית עצמאיים, ונתמכים על ידי צירי המעלית בלבד, במצב הבא:",
-        "M08-scoring2": "כלום",
-        "M08-scoring3": "קרון כחול למטה",
-        "M08-scoring4": "מאוזן",
-        "M09-name": "M09 מקדם בטיחות",
-        "M09-desc": "האם מבנה הבדיקה יכול לעמוד כשחלק מענודי התמיכה שלו הוסטו?",
-        "M09-scoring1": "מבנה הבדיקה עצמאי ונתמך רק על ידי הקורות הכחולות:",
-        "M09-scoring2": "מספר הקורות שהוסטו לפחות מחצית הדרך:",
-        "M10-name": "M10 מבנה פלדה",
-        "M10-desc": "גרמו למבנה הפלדה לעמוד זקוף.",
-        "M10-scoring": "מבנה הפלדה עומד, עצמאי, ונתמך על ידי הצירים שלו בלבד:",
-        "M11-name": "M11 ארכיטקטורה חדשנית",
-        "M11-desc": "עצבו ובנו מבנה משלכם והעבירו אותו לעיגול כלשהו.",
-        "M11-scoring1": "מבנה גדול יותר מחלק לגו עם 4 בליטות, וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
-        "M11-scoring2": "המבנה בעיגול כלשהו:",
-        "M11-scoring3": "כלום",
-        "M11-scoring4": "חלקית",
-        "M11-scoring5": "לגמרי בתוך",
-        "M12-name": "M12 עצבו ובנו",
-        "M12-desc": "העיגול הכחול אינו חלק ממשימה 12.",
-        "M12-scoring1": "מספר העיגולים עם לפחות יחידה אחת, בצבע זהה, לגמרי בתוך העיגול, פאה נוגעת בשטיח:",
-        "M12-scoring4": "סכום הגבהים של מגדלים עצמאיים הנמצאים לפחות באופן חלקי בתוך עיגולים כלשהם:",
-        "M13-name": "M13 שדרוגי קיימות",
-        "M13-desc": "רק שדרוג אחד (לוחות סולריים, גינת גג, בידוד) נחשב לכל מגדל.",
-        "M13-scoring": "מספר השדרוגים שהם עצמאיים, הנתמכים רק על ידי מגדל, הנמצא לפחות באופן חלקי בעיגול כלשהו:",
-        "precision-name": "M14 דיוק",
-        "precision-desc": "מותר לכם להפריע לרובוט ולהחזירו לשיגור מחדש, אבל הפרעות גורמות לאיבוד אסימוני דיוק.",
-        "precision-scoring": "מספר אסימוני דיוק שנשארו על המגרש",
-        "building-unit-error": "יותר מידי יחידות בנייה בשימוש",
-        "crane-error": "סתירה במיקום יחידות הבנייה הכחולות",
-        "M12-error2": "גובה נמוך מידי ביחס למספר התאמות הצבעים"
+        "yes": "Sí",
+        "no": "No",
+        "advantage-name": "Benefici",
+        "advantage-desc": "Si tot el vostre Equipament cap dins de la Zona de Inspeccció Menor durant la preparació de la partida, rebreu un Benefici.",
+        "advantage-scoring": "El vostre Robot i tot el vostre Equipament caben dins  de la Zona d’Inspecció Menor:",
+        "M01-name": "M01 Pisos Elevatats",
+        "M01-desc": "Només podeu aconseguir punts per Banderes si aconseguiu els\r\npunts del pont. Està permès, i és d’esperar, que els robots xoquin mentre intenten guanyar els punts de les\r\nbanderes.",
+        "M01-scoring1": "El Robot està Suportat pel Pon:",
+        "M01-scoring2": "Nombre de Banderes que estan clarament aixecades  qualsevol alçada només degut al Robot:",
+        "M02-name": "M02 Grua",
+        "M02-desc": "Puntueu tot allò que pertoqui.",
+        "M02-scoring1": "El Mòdul Blau Enganxat està clarament abaixat qualsevol distància del Forat de la Guia:",
+        "M02-scoring2": "El Mòdul Blau Enganxat és Independent i està Suportat per un altre Mòdul Blau:",
+        "M02-scoring3": "I el 1r Nivell està Completament dins del Cercle Blau:",
+        "M03-name": "M03 Dron d'Inspecció",
+        "M03-desc": "La missió del Dron d'Inspecció ens mostra una manera molt barata de verificar ponts i altres estructures altes. Els Drons poden volar durant hores i enviar imatges detallades o també escanejos 3D.",
+        "M03-scoring1": "El Dron d’Inspecció està Suportat per l’eix del Pont:",
+        "M04-name": "M04 Disseny per a la Vida Silvestre",
+        "M04-desc": "El Raptenat ha d'acabar a la branca marró",
+        "M04-scoring1": "El Ratpenat està Suportat per la branca de l’Arbre:",
+        "M05-name": "M05 Casa de l'árbre",
+        "M05-desc": "Puntueu tot allò que pertoqui.",
+        "M05-scoring1": "Nombre de Mòduls Independents i Suportats per les Branques Grans de l’Arbre:",
+        "M05-scoring2": "Nombre de Mòduls Independents i Suportats per les Branques Petites de l’Arbre:",
+        "M05-error": "Massa Mòduls",
+        "M06-name": "M06 Embús de Trànsit",
+        "M06-desc": "Descongestioneu la carretera aixecant l' Embús de Trànsit.",
+        "M06-scoring1": "L’Embús de Trànsit està aixecat, la seva part mòbil és Independent i està Suportada només per les seves frontisses:",
+        "M07-name": "M07 Gronxador",
+        "M07-desc": "Allibereu el Gronxador.",
+        "M07-scoring1": "El Gronxador està alliberat:",
+        "M08-name": "M08 Muntacàrregues",
+        "M08-desc": "Marqueu una o altre puntuació, però no ambdues.",
+        "M08-scoring1": "Les parts mòbils del Muntacàrregues són  Independents i estan Suportades només per les seves frontisses, en la següent posició:",
+        "M08-scoring2": "Cap",
+        "M08-scoring3": "Cotxe blau a sota",
+        "M08-scoring4": "Equilibrades",
+        "M09-name": "M09 Factor de Seguretat",
+        "M09-desc": "Pot l'Edifici Pilot mantenir-se dempeus quan algunes de les barres que el suporten són desplaçades?",
+        "M09-scoring1": "L’Edifici Pilot és Independent i està Suportat només per les bigues blaves:",
+        "M09-scoring2": "Nombre de bigues han estat apartades com a mínim a mig camí:",
+        "M10-name": "M10 Construcció d'Acer",
+        "M10-desc": "Aconseguiu que la Estructura d'Acero estigui aixecada.",
+        "M10-scoring": "L’Estructura d’Acer està enlairada, és Independent i està Suportada només per les seves frontisses:",
+        "M11-name": "M11 Arquitectura Innovadora",
+        "M11-desc": "Dissenyeu i construïu la vostra propia estructura i transporteu-la a qualsevol cercle.",
+        "M11-scoring1": "L’Estructura és major que un Mòdul Blau, construïda només amb peces blanques de LEGO  de l’equip:",
+        "M11-scoring2": "L’Estructura és dins de qualsevol Cercle:",
+        "M11-scoring3": "No",
+        "M11-scoring4": "Parcialment",
+        "M11-scoring5": "Completament",
+        "M12-name": "M12 Disseny i Construcció",
+        "M12-desc": "El cercle Blau no forma part de la Missió 12.",
+        "M12-scoring1": "Nombre de Cercles amb un Mòdul de color coincident amb el cercle, en contacte pla sobre del tapet i Completament dins:",
+        "M12-scoring4": "Suma de les alçades de totes les Piles Independents com  a mínim parcialment dins de qualsevol Cercle:",
+        "M13-name": "M13 Millores en Sostenibilitat",
+        "M13-desc": "Només es té en compte una millora (panells solars, Sotre verd, aïllament) per Pila.",
+        "M13-scoring": "Nombre de millores que Independents i Suportades per una Pila que es troba com a mínim parcialment dins de qualsevol Cercle:",
+        "precision-name": "M14 Precisió",
+        "precision-desc": "Podeu interrompre el vostre Robot i portar-lo a casa per a un reinici, però les interrupcions us fan perdre Testimonis de Precisió.",
+        "precision-scoring": "Nombre de Testimonis de Precisió que queden  al Terreny de Joc:",
+        "building-unit-error": "Massa Mòduls en ús",
+        "crane-error": "Conflicte en la posició dels Mòduls Blaus",
+        "M12-error2": "Alçada massa petita per al nombre de Mòduls coincidentsde color"
     },
-    "rtl": true
+    "rtl": false
 })

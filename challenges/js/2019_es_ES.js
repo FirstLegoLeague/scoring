@@ -1,11 +1,11 @@
 ({
     "title": "CITY SHAPER",
     "missions": [{
-            "title": "יתרון",
-            "description": "אם כל הציוד שלכ נכנס באזור הביקורת הקטן אתם מקבלים יתרון.",
+            "title": "Beneficio",
+            "description": "Si todo vuestro Equipamiento cabe dentro de la Zona de Inspeccción Menor durante la preparación de la partida, recibiréis un Beneficio.",
             "objectives": [{
                 "id": "bonus",
-                "title": "הרובוט וכל הציוד שלכם נכנס לאזור הביקורת הקטן:",
+                "title": "Vuestro Robot y todo vuestro Equipamiento caben en la Zona de Inspección Menor:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -20,17 +20,17 @@
             }]
         },
         {
-            "title": "M01 מקומות מוגבהים",
-            "description": "ניתן לצבור נקודות מהדגלים רק אם צברתם נקודות מהגשר.  :זה צפוי ומקובל שרובוטים יתנגשו בעודם מנסים לצבור נקודות מהדגלים.",
+            "title": "M01 Pisos Elevados",
+            "description": "Solo podéis conseguir puntos por banderas si obtenéis los puntos del Puente. Está permitido y es de esperar que los Robots colisionen mientras intentan ganar los puntos de las Banderas.",
             "objectives": [{
                     "id": "M01_1",
-                    "title": "הרובוט נתמך על ידי הגשר:",
+                    "title": "El Robot está Soportado por el Puente:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M01_2",
-                    "title": "מספר הדגלים שמורמים באופן ברור, במידה כלשהי, על ידי הרובוט בלבד:",
+                    "title": "Número de Banderas que están claramente levantadas  cualquier altura, sólo debido al Robot:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -91,25 +91,25 @@
             }]
         },
         {
-            "title": "M02 מנוף",
-            "description": "נקדו את כל מה שמתקיים.",
+            "title": "M02 Grúa",
+            "description": "Puntuad todo lo que corresponda.",
             "objectives": [{
                     "id": "M02_1",
-                    "title": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו מראש המנוף:",
+                    "title": "El Módulo Azul Enganchado está claramente bajado cualquier distancia del Agujero de la Guía:",
                     "type": "yesno",
                     "default": "no",
                     "value": null
                 },
                 {
                     "id": "M02_2",
-                    "title": "היחידה הכחולה התפוסה בוו עצמאית ונתמכת על ידי יחידה כחולה אחרת:",
+                    "title": "El Módulo Azul Enganchado es Independiente y está Soportado por otro Módulo Azul:",
                     "type": "yesno",
                     "default": "no",
                     "value": null
                 },
                 {
                     "id": "M02_3",
-                    "title": "והקומה הראשונה היא לגמרי בתוך העיגול הכחול:",
+                    "title": "Y el 1er Nivel está Completamente dentro del Círculo Azul:",
                     "type": "yesno",
                     "default": "no"
                 }
@@ -120,25 +120,25 @@
                 M02_3 = String(M02_3);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('Demasiados Módulos en uso')
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'no') {
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicto en la posición de los Módulos Azules")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicto en la posición de los Módulos Azules")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicto en la posición de los Módulos Azules")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'no') {
                     return 20
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'no') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicto en la posición de los Módulos Azules")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'no') {
                     return 35
@@ -150,19 +150,19 @@
                     return 0
                 }
                 if (M02_1 === 'no' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicto en la posición de los Módulos Azules")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicto en la posición de los Módulos Azules")
                 }
                 if (M02_1 === 'no' && M02_2 === 'yes' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicto en la posición de los Módulos Azules")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'no' && bonus === 'yes') {
                     return 30
                 }
                 if (M02_1 === 'yes' && M02_2 === 'no' && M02_3 === 'yes' && bonus === 'yes') {
-                    return new Error("סתירה במיקום יחידות הבנייה הכחולות")
+                    return new Error("Conflicto en la posición de los Módulos Azules")
                 }
                 if (M02_1 === 'yes' && M02_2 === 'yes' && M02_3 === 'no' && bonus === 'yes') {
                     return 45
@@ -173,11 +173,11 @@
             }]
         },
         {
-            "title": "M03 רחפן בקרה",
-            "description": "משימת רחפן הבקרה מדגימה שיטה לא יקרה לבדיקת גשרים ומבנים גבוהים אחרים. רחפנים יכולים לטוס במשף שעות ולשלוח תמונות מפורטות, ואפילו סריקות תלת-מימד.",
+            "title": "M03 Dron de Inspección",
+            "description": "La misión del Dron de Inspección nos ilustra una manera muy barata de verificar puentes y otras estructuras altas. Los Drones pueden volar durante horas y mandar imágenes detalladas o también escaneos 3D.",
             "objectives": [{
                 "id": "M03_1",
-                "title": "רחפן הבקרה נתמך על ידי המוט שעל הגשר:",
+                "title": "El Dron de Inspección está Soportado por el eje del Puente:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -199,11 +199,11 @@
             }]
         },
         {
-            "title": "M04 עיצוב ידידותי לחיות בר",
-            "description": "העטלף צריך להגיע לענף החום",
+            "title": "M04 Diseño para la Vida Silvestre",
+            "description": "El Murciélago debe terminar en la rama marrón",
             "objectives": [{
                 "id": "M04_1",
-                "title": "העטלף נתמך על ידי הענף שעל העץ:",
+                "title": "El Murciélago está Soportado por la rama del Árbol:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -225,11 +225,11 @@
             }]
         },
         {
-            "title": "M05 בית עץ",
-            "description": "נקדו את כל מה שמתקיים.",
+            "title": "M05 Casa en el árbol",
+            "description": "Puntuad todo lo que corresponda.",
             "objectives": [{
                     "id": "M05_lg",
-                    "title": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הגדולים של העץ:",
+                    "title": "Número de Módulos Independientes y Soportados por las Ramas Grandes del Árbol:",
                     "type": "number",
                     "default": 0,
                     "min": 0,
@@ -238,7 +238,7 @@
                 },
                 {
                     "id": "M05_sm",
-                    "title": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הקטנים של העץ:",
+                    "title": "Número de Módulos Independientes y Soportados por las Ramas Pequeñas del Árbol:",
                     "type": "number",
                     "default": 0,
                     "min": 0,
@@ -251,7 +251,7 @@
                 M05_sm = String(M05_sm);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('Demasiados Módulos en uso')
                 }
                 if (M05_lg === '0' && M05_sm === '0' && bonus === 'no') {
                     return 0
@@ -2200,11 +2200,11 @@
             }]
         },
         {
-            "title": "M06 פקק תנועה",
-            "description": "פנו את הדרך על ידי הרמת פקק התנועה.",
+            "title": "M06 Atasco de Tráfico",
+            "description": "Descongestionad la carretera levantando el atasco de tráfico.",
             "objectives": [{
                 "id": "M06_1",
-                "title": "פקק התנועה מורם, והחלק הנע שלו עצמאי ונתמך על ידי הצירים בלבד:",
+                "title": "El Atasco de Tráfico está levantado, su parte móvil es Independiente y está Soportada solo por sus bisagras:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2226,11 +2226,11 @@
             }]
         },
         {
-            "title": "M07 נדנדה",
-            "description": "שחררו את הנדנדה.",
+            "title": "M07 Columpio",
+            "description": "Liberad el Columpio.",
             "objectives": [{
                 "id": "M07_1",
-                "title": "הנדנדה משוחררת:",
+                "title": "El Columpio está liberado:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2252,22 +2252,22 @@
             }]
         },
         {
-            "title": "M08 מעלית",
-            "description": "נקדו אפשרות אחת או אחרת, אך לא את שתיהן.",
+            "title": "M08 Montacargas",
+            "description": "Marcad una u otra puntuación, pero no ambas.",
             "objectives": [{
                 "id": "M08_1",
-                "title": "החלקים הנעים של המעלית עצמאיים, ונתמכים על ידי צירי המעלית בלבד, במצב הבא:",
+                "title": "Las partes móviles del Montacargas son Independientes y están Soportadas solo por sus bisagras, en la siguiente posición:",
                 "options": [{
                         "value": "neither",
-                        "title": "כלום"
+                        "title": "Ninguna"
                     },
                     {
                         "value": "car",
-                        "title": "קרון כחול למטה"
+                        "title": "Coche Azul abajo"
                     },
                     {
                         "value": "balanced",
-                        "title": "מאוזן"
+                        "title": "Equilibradas"
                     }
                 ],
                 "type": "enum",
@@ -2297,17 +2297,17 @@
             }]
         },
         {
-            "title": "M09 מקדם בטיחות",
-            "description": "האם מבנה הבדיקה יכול לעמוד כשחלק מענודי התמיכה שלו הוסטו?",
+            "title": "M09 Factor de Seguridad",
+            "description": "¿Puede el Edificio Piloto mantenerse en pie cuando algunas de las barras que lo soportan son movidas?",
             "objectives": [{
                     "id": "M09_1",
-                    "title": "מבנה הבדיקה עצמאי ונתמך רק על ידי הקורות הכחולות:",
+                    "title": "El Edificio Piloto es Independiente y está Soportado solo por las vigas azules:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M09_2",
-                    "title": "מספר הקורות שהוסטו לפחות מחצית הדרך:",
+                    "title": "Número de vigas azules que han sido apartadas al menos a medio camino:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -2432,11 +2432,11 @@
             }]
         },
         {
-            "title": "M10 מבנה פלדה",
-            "description": "גרמו למבנה הפלדה לעמוד זקוף.",
+            "title": "M10 Construcción de Acero",
+            "description": "Conseguid que la Estructura de Acero este levantada.",
             "objectives": [{
                 "id": "M10",
-                "title": "מבנה הפלדה עומד, עצמאי, ונתמך על ידי הצירים שלו בלבד:",
+                "title": "La Estructura de Acero está levantada, es Independiente y está Soportada sólo por sus bisagras:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2458,28 +2458,28 @@
             }]
         },
         {
-            "title": "M11 ארכיטקטורה חדשנית",
-            "description": "עצבו ובנו מבנה משלכם והעבירו אותו לעיגול כלשהו.",
+            "title": "M11 Arquitectura Innovadora",
+            "description": "Diseñad y Construid vuestra propia estructura y transportadla a cualquier círculo.",
             "objectives": [{
                     "id": "M11_1",
-                    "title": "מבנה גדול יותר מחלק לגו עם 4 בליטות, וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
+                    "title": "La Estructura es mayor que un Módulo Azul y está construida solo con la piezas LEGO blancas del equipo:",
                     "type": "yesno",
                     "default": "no"
                 },
                 {
                     "id": "M11_2",
-                    "title": "המבנה בעיגול כלשהו:",
+                    "title": "La estructura está dentro de cualquier círculo:",
                     "options": [{
                             "value": "no",
-                            "title": "כלום"
+                            "title": "No"
                         },
                         {
                             "value": "partly",
-                            "title": "חלקית"
+                            "title": "Parcialmente"
                         },
                         {
                             "value": "completely",
-                            "title": "לגמרי בתוך"
+                            "title": "Completamente"
                         }
                     ],
                     "type": "enum",
@@ -2529,11 +2529,11 @@
             }]
         },
         {
-            "title": "M12 עצבו ובנו",
-            "description": "העיגול הכחול אינו חלק ממשימה 12.",
+            "title": "M12 Diseño y Construcción",
+            "description": "El círculo Azul no forma parte de la Misión 12.",
             "objectives": [{
                     "id": "M12_1",
-                    "title": "מספר העיגולים עם לפחות יחידה אחת, בצבע זהה, לגמרי בתוך העיגול, פאה נוגעת בשטיח:",
+                    "title": "Número de Círculos con un Módulo de color coincidente con el Círculo, en contacto plano sobre el Tapete y Completamente dentro:",
                     "options": [{
                             "value": "0",
                             "title": "0"
@@ -2556,7 +2556,7 @@
                 },
                 {
                     "id": "M12_4",
-                    "title": "סכום הגבהים של מגדלים עצמאיים הנמצאים לפחות באופן חלקי בתוך עיגולים כלשהם:",
+                    "title": "Suma de las alturas de todas las Pilas Independientes al menos parcialmente dentro de cualquier Círculo:",
                     "type": "number",
                     "default": 1,
                     "min": 0,
@@ -2569,7 +2569,7 @@
                 M12_4 = String(M12_4);
                 bonus = String(bonus);
                 if (((M02_1 === 'yes') ? 1 : 0) + ((M02_2 === 'yes') ? 1 : 0) + (M05_lg * 1) + (M05_sm * 1) + (M12_4 * 0.5) > 17) {
-                    return new Error('יותר מידי יחידות בנייה בשימוש')
+                    return new Error('Demasiados Módulos en uso')
                 }
                 if (M12_1 === '0' && M12_4 === '0' && bonus === 'no') {
                     return 0
@@ -2662,7 +2662,7 @@
                     return 145
                 }
                 if (M12_1 === '1' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '1' && M12_4 === '1' && bonus === 'no') {
                     return 15
@@ -2752,13 +2752,13 @@
                     return 155
                 }
                 if (M12_1 === '2' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '2' && M12_4 === '1' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '2' && M12_4 === '2' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '2' && M12_4 === '3' && bonus === 'no') {
                     return 35
@@ -2842,19 +2842,19 @@
                     return 165
                 }
                 if (M12_1 === '3' && M12_4 === '0' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '1' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '2' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '3' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '4' && bonus === 'no') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '5' && bonus === 'no') {
                     return 55
@@ -3022,7 +3022,7 @@
                     return 150
                 }
                 if (M12_1 === '1' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '1' && M12_4 === '1' && bonus === 'yes') {
                     return 20
@@ -3112,13 +3112,13 @@
                     return 160
                 }
                 if (M12_1 === '2' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '2' && M12_4 === '1' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '2' && M12_4 === '2' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '2' && M12_4 === '3' && bonus === 'yes') {
                     return 40
@@ -3202,19 +3202,19 @@
                     return 170
                 }
                 if (M12_1 === '3' && M12_4 === '0' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '1' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '2' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '3' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '4' && bonus === 'yes') {
-                    return new Error("גובה נמוך מידי ביחס למספר התאמות הצבעים")
+                    return new Error("Altura demasiado pequeña para el número de Módulos coincidentes en color")
                 }
                 if (M12_1 === '3' && M12_4 === '5' && bonus === 'yes') {
                     return 60
@@ -3294,11 +3294,11 @@
             }]
         },
         {
-            "title": "M13 שדרוגי קיימות",
-            "description": "רק שדרוג אחד (לוחות סולריים, גינת גג, בידוד) נחשב לכל מגדל.",
+            "title": "M13 Mejoras en Sostenibilidad",
+            "description": "Solo una mejora (paneles solares, Techo verde, aislamiento) cuenta por Pila.",
             "objectives": [{
                 "id": "M13",
-                "title": "מספר השדרוגים שהם עצמאיים, הנתמכים רק על ידי מגדל, הנמצא לפחות באופן חלקי בעיגול כלשהו:",
+                "title": "Número de mejoras Independientes y Soportadas solo por una Pila que está al menos parcialmente dentro de cualquier Círculo:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3349,11 +3349,11 @@
             }]
         },
         {
-            "title": "M14 דיוק",
-            "description": "מותר לכם להפריע לרובוט ולהחזירו לשיגור מחדש, אבל הפרעות גורמות לאיבוד אסימוני דיוק.",
+            "title": "M14 Precisión",
+            "description": "Podéis interrumpir vuestro Robot y llevarlo a casa para un reinicio, pero las interrupciones os hacen perder Testigos de Precisión.",
             "objectives": [{
                 "id": "precision",
-                "title": "מספר אסימוני דיוק שנשארו על המגרש",
+                "title": "Número de testigos de precisión que quedan en el Terreno de Juego:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3413,70 +3413,70 @@
         }
     ],
     "strings": {
-        "yes": "כן",
-        "no": "לא",
-        "advantage-name": "יתרון",
-        "advantage-desc": "אם כל הציוד שלכ נכנס באזור הביקורת הקטן אתם מקבלים יתרון.",
-        "advantage-scoring": "הרובוט וכל הציוד שלכם נכנס לאזור הביקורת הקטן:",
-        "M01-name": "M01 מקומות מוגבהים",
-        "M01-desc": "ניתן לצבור נקודות מהדגלים רק אם צברתם נקודות מהגשר.  :זה צפוי ומקובל שרובוטים יתנגשו בעודם מנסים לצבור נקודות מהדגלים.",
-        "M01-scoring1": "הרובוט נתמך על ידי הגשר:",
-        "M01-scoring2": "מספר הדגלים שמורמים באופן ברור, במידה כלשהי, על ידי הרובוט בלבד:",
-        "M02-name": "M02 מנוף",
-        "M02-desc": "נקדו את כל מה שמתקיים.",
-        "M02-scoring1": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו מראש המנוף:",
-        "M02-scoring2": "היחידה הכחולה התפוסה בוו עצמאית ונתמכת על ידי יחידה כחולה אחרת:",
-        "M02-scoring3": "והקומה הראשונה היא לגמרי בתוך העיגול הכחול:",
-        "M03-name": "M03 רחפן בקרה",
-        "M03-desc": "משימת רחפן הבקרה מדגימה שיטה לא יקרה לבדיקת גשרים ומבנים גבוהים אחרים. רחפנים יכולים לטוס במשף שעות ולשלוח תמונות מפורטות, ואפילו סריקות תלת-מימד.",
-        "M03-scoring1": "רחפן הבקרה נתמך על ידי המוט שעל הגשר:",
-        "M04-name": "M04 עיצוב ידידותי לחיות בר",
-        "M04-desc": "העטלף צריך להגיע לענף החום",
-        "M04-scoring1": "העטלף נתמך על ידי הענף שעל העץ:",
-        "M05-name": "M05 בית עץ",
-        "M05-desc": "נקדו את כל מה שמתקיים.",
-        "M05-scoring1": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הגדולים של העץ:",
-        "M05-scoring2": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הקטנים של העץ:",
-        "M05-error": "יותר מידי יחידות",
-        "M06-name": "M06 פקק תנועה",
-        "M06-desc": "פנו את הדרך על ידי הרמת פקק התנועה.",
-        "M06-scoring1": "פקק התנועה מורם, והחלק הנע שלו עצמאי ונתמך על ידי הצירים בלבד:",
-        "M07-name": "M07 נדנדה",
-        "M07-desc": "שחררו את הנדנדה.",
-        "M07-scoring1": "הנדנדה משוחררת:",
-        "M08-name": "M08 מעלית",
-        "M08-desc": "נקדו אפשרות אחת או אחרת, אך לא את שתיהן.",
-        "M08-scoring1": "החלקים הנעים של המעלית עצמאיים, ונתמכים על ידי צירי המעלית בלבד, במצב הבא:",
-        "M08-scoring2": "כלום",
-        "M08-scoring3": "קרון כחול למטה",
-        "M08-scoring4": "מאוזן",
-        "M09-name": "M09 מקדם בטיחות",
-        "M09-desc": "האם מבנה הבדיקה יכול לעמוד כשחלק מענודי התמיכה שלו הוסטו?",
-        "M09-scoring1": "מבנה הבדיקה עצמאי ונתמך רק על ידי הקורות הכחולות:",
-        "M09-scoring2": "מספר הקורות שהוסטו לפחות מחצית הדרך:",
-        "M10-name": "M10 מבנה פלדה",
-        "M10-desc": "גרמו למבנה הפלדה לעמוד זקוף.",
-        "M10-scoring": "מבנה הפלדה עומד, עצמאי, ונתמך על ידי הצירים שלו בלבד:",
-        "M11-name": "M11 ארכיטקטורה חדשנית",
-        "M11-desc": "עצבו ובנו מבנה משלכם והעבירו אותו לעיגול כלשהו.",
-        "M11-scoring1": "מבנה גדול יותר מחלק לגו עם 4 בליטות, וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
-        "M11-scoring2": "המבנה בעיגול כלשהו:",
-        "M11-scoring3": "כלום",
-        "M11-scoring4": "חלקית",
-        "M11-scoring5": "לגמרי בתוך",
-        "M12-name": "M12 עצבו ובנו",
-        "M12-desc": "העיגול הכחול אינו חלק ממשימה 12.",
-        "M12-scoring1": "מספר העיגולים עם לפחות יחידה אחת, בצבע זהה, לגמרי בתוך העיגול, פאה נוגעת בשטיח:",
-        "M12-scoring4": "סכום הגבהים של מגדלים עצמאיים הנמצאים לפחות באופן חלקי בתוך עיגולים כלשהם:",
-        "M13-name": "M13 שדרוגי קיימות",
-        "M13-desc": "רק שדרוג אחד (לוחות סולריים, גינת גג, בידוד) נחשב לכל מגדל.",
-        "M13-scoring": "מספר השדרוגים שהם עצמאיים, הנתמכים רק על ידי מגדל, הנמצא לפחות באופן חלקי בעיגול כלשהו:",
-        "precision-name": "M14 דיוק",
-        "precision-desc": "מותר לכם להפריע לרובוט ולהחזירו לשיגור מחדש, אבל הפרעות גורמות לאיבוד אסימוני דיוק.",
-        "precision-scoring": "מספר אסימוני דיוק שנשארו על המגרש",
-        "building-unit-error": "יותר מידי יחידות בנייה בשימוש",
-        "crane-error": "סתירה במיקום יחידות הבנייה הכחולות",
-        "M12-error2": "גובה נמוך מידי ביחס למספר התאמות הצבעים"
+        "yes": "Sí",
+        "no": "No",
+        "advantage-name": "Beneficio",
+        "advantage-desc": "Si todo vuestro Equipamiento cabe dentro de la Zona de Inspeccción Menor durante la preparación de la partida, recibiréis un Beneficio.",
+        "advantage-scoring": "Vuestro Robot y todo vuestro Equipamiento caben en la Zona de Inspección Menor:",
+        "M01-name": "M01 Pisos Elevados",
+        "M01-desc": "Solo podéis conseguir puntos por banderas si obtenéis los puntos del Puente. Está permitido y es de esperar que los Robots colisionen mientras intentan ganar los puntos de las Banderas.",
+        "M01-scoring1": "El Robot está Soportado por el Puente:",
+        "M01-scoring2": "Número de Banderas que están claramente levantadas  cualquier altura, sólo debido al Robot:",
+        "M02-name": "M02 Grúa",
+        "M02-desc": "Puntuad todo lo que corresponda.",
+        "M02-scoring1": "El Módulo Azul Enganchado está claramente bajado cualquier distancia del Agujero de la Guía:",
+        "M02-scoring2": "El Módulo Azul Enganchado es Independiente y está Soportado por otro Módulo Azul:",
+        "M02-scoring3": "Y el 1er Nivel está Completamente dentro del Círculo Azul:",
+        "M03-name": "M03 Dron de Inspección",
+        "M03-desc": "La misión del Dron de Inspección nos ilustra una manera muy barata de verificar puentes y otras estructuras altas. Los Drones pueden volar durante horas y mandar imágenes detalladas o también escaneos 3D.",
+        "M03-scoring1": "El Dron de Inspección está Soportado por el eje del Puente:",
+        "M04-name": "M04 Diseño para la Vida Silvestre",
+        "M04-desc": "El Murciélago debe terminar en la rama marrón",
+        "M04-scoring1": "El Murciélago está Soportado por la rama del Árbol:",
+        "M05-name": "M05 Casa en el árbol",
+        "M05-desc": "Puntuad todo lo que corresponda.",
+        "M05-scoring1": "Número de Módulos Independientes y Soportados por las Ramas Grandes del Árbol:",
+        "M05-scoring2": "Número de Módulos Independientes y Soportados por las Ramas Pequeñas del Árbol:",
+        "M05-error": "Demasiados Módulos",
+        "M06-name": "M06 Atasco de Tráfico",
+        "M06-desc": "Descongestionad la carretera levantando el atasco de tráfico.",
+        "M06-scoring1": "El Atasco de Tráfico está levantado, su parte móvil es Independiente y está Soportada solo por sus bisagras:",
+        "M07-name": "M07 Columpio",
+        "M07-desc": "Liberad el Columpio.",
+        "M07-scoring1": "El Columpio está liberado:",
+        "M08-name": "M08 Montacargas",
+        "M08-desc": "Marcad una u otra puntuación, pero no ambas.",
+        "M08-scoring1": "Las partes móviles del Montacargas son Independientes y están Soportadas solo por sus bisagras, en la siguiente posición:",
+        "M08-scoring2": "Ninguna",
+        "M08-scoring3": "Coche Azul abajo",
+        "M08-scoring4": "Equilibradas",
+        "M09-name": "M09 Factor de Seguridad",
+        "M09-desc": "¿Puede el Edificio Piloto mantenerse en pie cuando algunas de las barras que lo soportan son movidas?",
+        "M09-scoring1": "El Edificio Piloto es Independiente y está Soportado solo por las vigas azules:",
+        "M09-scoring2": "Número de vigas azules que han sido apartadas al menos a medio camino:",
+        "M10-name": "M10 Construcción de Acero",
+        "M10-desc": "Conseguid que la Estructura de Acero este levantada.",
+        "M10-scoring": "La Estructura de Acero está levantada, es Independiente y está Soportada sólo por sus bisagras:",
+        "M11-name": "M11 Arquitectura Innovadora",
+        "M11-desc": "Diseñad y Construid vuestra propia estructura y transportadla a cualquier círculo.",
+        "M11-scoring1": "La Estructura es mayor que un Módulo Azul y está construida solo con la piezas LEGO blancas del equipo:",
+        "M11-scoring2": "La estructura está dentro de cualquier círculo:",
+        "M11-scoring3": "No",
+        "M11-scoring4": "Parcialmente",
+        "M11-scoring5": "Completamente",
+        "M12-name": "M12 Diseño y Construcción",
+        "M12-desc": "El círculo Azul no forma parte de la Misión 12.",
+        "M12-scoring1": "Número de Círculos con un Módulo de color coincidente con el Círculo, en contacto plano sobre el Tapete y Completamente dentro:",
+        "M12-scoring4": "Suma de las alturas de todas las Pilas Independientes al menos parcialmente dentro de cualquier Círculo:",
+        "M13-name": "M13 Mejoras en Sostenibilidad",
+        "M13-desc": "Solo una mejora (paneles solares, Techo verde, aislamiento) cuenta por Pila.",
+        "M13-scoring": "Número de mejoras Independientes y Soportadas solo por una Pila que está al menos parcialmente dentro de cualquier Círculo:",
+        "precision-name": "M14 Precisión",
+        "precision-desc": "Podéis interrumpir vuestro Robot y llevarlo a casa para un reinicio, pero las interrupciones os hacen perder Testigos de Precisión.",
+        "precision-scoring": "Número de testigos de precisión que quedan en el Terreno de Juego:",
+        "building-unit-error": "Demasiados Módulos en uso",
+        "crane-error": "Conflicto en la posición de los Módulos Azules",
+        "M12-error2": "Altura demasiado pequeña para el número de Módulos coincidentes en color"
     },
-    "rtl": true
+    "rtl": false
 })
