@@ -25,6 +25,7 @@ config:
         values:
           - US English
           - ar_SA Arabic (Saudi Arabia)
+          - ca_ES Catalan (Spain)
           - es_CL Spanish (Chile)
           - es_ES Spanish (Spain)
           - es_LA Spanish (Latin America)
