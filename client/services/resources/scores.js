@@ -48,11 +48,7 @@ class Scores extends EventEmitter {
     return this.configuration.load()
       .then(config => this.independence.send('POST', `/scores/${attributes._id}/update?shouldUpdateLastTime=${shouldUpdateLastTime}`, this.score(attributes).sanitize(config)))
       .then(() => {
-        if(shouldUpdateLastTime){
-          this._localyUpdateScore(Object.assign(attributes, { lastUpdate: Date.now() }))
-        }else{
-          this._localyUpdateScore(Object.assign(attributes))
-        }
+        this._localyUpdateScore(Object.assign(attributes, shouldUpdateLastTime ? { lastUpdate: Date.now() } : { }))
       })
       .then(() => {
         this.emit('scores updated', { id: score._id, score, action: 'update' })

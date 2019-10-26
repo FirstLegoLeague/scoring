@@ -2,11 +2,11 @@
 	<div class="ui button"
 		ng-class="{primary: yesnoObjective.data.value === 'no'}"
 		ng-click="yesnoObjective.data.value = 'no'">
-		no
+		{{yesnoObjective.data.i18n('no')}}
 	</div>
 	<div class="ui button"
 		ng-class="{primary: yesnoObjective.data.value === 'yes'}"
 		ng-click="yesnoObjective.data.value = 'yes'">
-		yes
+		{{yesnoObjective.data.i18n('yes')}}
 	</div>
 </div>

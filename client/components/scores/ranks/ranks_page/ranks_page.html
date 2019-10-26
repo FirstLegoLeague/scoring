@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="eight wide column">
 			<div class="ui compact menu">
-				<sm-dropdown class="selection item" model="ranksPage.currentStage" items="ranksPage.tournament.stages"></sm-dropdown>
+				<sm-dropdown class="selection item" model="ranksPage.displayStage" items="ranksPage.tournament.stages"></sm-dropdown>
 			</div>
 		</div>
 		<div class="eight wide column">
@@ -29,7 +29,7 @@
 	</div>
 	<div id="ranks" class="row" ng-if="ranksPage.ready">
 		<div class="sixteen wide column" ng-if="!ranksPage.smallView">
-			<div class="ui rank segment" ng-repeat="rank in ranksPage.rankings.rankings[ranksPage.currentStage]">
+			<div class="ui rank segment" ng-repeat="rank in ranksPage.visibleRankings track by rank.team.number">
 				<div class="ui equal width grid">
 					<div class="center aligned column">
 						<div class="ui basic segment">
@@ -46,7 +46,7 @@
 							</div>
 						</div>
 					</div>
-					<slot data="slotScores" position="{ teamNumber: rank.team.number, stage: ranksPage.currentStage, round: $index+1 }" class="center aligen column" ng-repeat="slotScores in rank.scores"></slot>
+					<slot data="slotScores" position="{ teamNumber: rank.team.number, stage: ranksPage.displayStage, round: $index+1 }" class="center aligen column" ng-repeat="slotScores in rank.scores track by $index"></slot>
 				</div>
 				<sm-modal class="basic small" visible="rank.deleteModalVisible" settings="{ closable: false }">
 					<div class="ui icon header">
@@ -67,7 +67,7 @@
 		</div>
 		<div class="sixteen wide column" ng-if="ranksPage.smallView">
 			<div class="ui segments">
-				<div class="ui segment" ng-repeat="rank in ranksPage.rankings.rankings[ranksPage.currentStage]">
+				<div class="ui segment" ng-repeat="rank in ranksPage.rankings.rankings[ranksPage.displayStage]">
 					<div class="ui equal width grid">
 						<div class="column">{{rank.team.displayText}}</div>
 						<div class="center aligen column" ng-repeat="slotScores in rank.scores">

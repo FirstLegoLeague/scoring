@@ -14,21 +14,27 @@
 		<scoresheet-actions class="four wide column"></scoresheet-actions>
 	</div>
 </div>
-<div id="missions" class="ui padded grid">
+<div id="missions" class="ui padded grid" ng-class="{rtl: scoresheetPage.data.current.rtl}">
 	<div class="row">
 		<div class="ui grid container">
-			<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
+			<div class="ui padded one column grid" ng-if="scoresheetPage.ready && scoresheetPage.data.ready" missions-scroll
 			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.scrollingAllowedInSettings()">
 				<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
-				<scoresheet-signature class="column"></scoresheet-signature>
-				<div class="center aligned column">
-					<div class="ui large primary button" ng-class="{disabled: !scoresheetPage.complete()}" ng-click="scoresheetPage.save()">Done</div>
+				<div class="column">
+					<div class="ui segment" ng-class="scoresheetPage.error() ? 'error' : 'success'">
+						<scoresheet-signature class="column"></scoresheet-signature>
+						<div class="ui padded one column grid">
+							<div class="center aligned column">
+								<div class="ui large primary button" ng-class="{disabled: !scoresheetPage.complete()}" ng-click="scoresheetPage.save()">Done</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready }">
+<div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready || !scoresheetPage.data.ready }">
 	<div class="ui massive loader"></div>
 </div>

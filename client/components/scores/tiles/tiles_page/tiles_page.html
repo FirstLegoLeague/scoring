@@ -68,6 +68,10 @@
 <div class="ui padded grid">
 	<div id="tiles" class="row">
 		<div class="sixteen wide column">
+			<div class="ui message segment container" ng-show="tilesPage.scores.length === 0">
+				No scores entered or filters exclude all scores
+				<a href="#" sm-dropdown-clear="'.filters.selection'">Clear filters</a>
+			</div>
 			<div class="ui centered cards">
 				<tile class="ui card" ng-repeat="score in tilesPage.scores track by score._id" data="score"></tile>
 			</div>
