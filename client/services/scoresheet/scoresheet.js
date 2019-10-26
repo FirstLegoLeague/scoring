@@ -5,6 +5,12 @@ import angular from 'angular'
 import debounce from '../../lib/debounce'
 import { isNumber } from 'util'
 
+// This is done because Semantic-UI lib needs the value to be `=== null` in order to reset the dropdown.
+// Once https://github.com/ClickerMonkey/SemanticUI-Angular/pull/38 is merged, this can be removed.
+const DEFAULT_METADATA = {
+  teamNumber: null
+}
+
 class Scoresheet extends EventEmitter {
   constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
     super()
@@ -50,7 +56,7 @@ class Scoresheet extends EventEmitter {
       }
       this.current = Object.assign(angular.copy(this._original), metadata)
     } else {
-      this.current = angular.copy(this._original)
+      this.current = Object.assign(angular.copy(this._original), DEFAULT_METADATA)
     }
     this.current.missions.forEach(mission => {
       mission.score = 0

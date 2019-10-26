@@ -40,9 +40,9 @@ class ScoresheetPageController {
   }
 
   reset (forceMetadataIfEditing = false) {
-    this.$scope.$broadcast('reset', { forceMetadataIfEditing })
     this.scrollDisabled = false
     this.data.reset(forceMetadataIfEditing)
+    this.$scope.$broadcast('reset', { forceMetadataIfEditing })
   }
 
   matchId () {
