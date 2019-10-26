@@ -2,16 +2,11 @@ class LocalSettingsModalController {
   constructor (localSettings) {
     Object.assign(this, { localSettings })
     this.settings = {}
-    // {{localSettingsModal.data}} Settings
   }
 
   $onInit () {
     Object.assign(this.settings, this.localSettings.get())
   }
-
-  // addSetting (name, source, dataType, value, callback) {
-  //   this.localSettings.
-  // }
 
   loadSettings () {
     const fromService = this.localSettings.get()
@@ -29,8 +24,6 @@ class LocalSettingsModalController {
 
   saveSettings () {
     this.localSettings.update(this.settingsCopy, 'settingsmodal', () => this.loadSettings())
-
-    console.log(`Saving local settings: ${this.localSettings.settingsObject}`)
   }
 }
 

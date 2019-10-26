@@ -1,29 +1,16 @@
 const STORAGE_KEY = 'localsettings'
-// const EMPTY_DATA = JSON.stringify({ })
 const DATA_TYPE_KEY = 'dataType'
 const VALUE_KEY = 'value'
-// settings should be an object with the format:
-//  {--settingName--:{dataType:--the value type--,value: --the value--}}
 class LocalSettings {
   constructor ($window) {
     Object.assign(this, { $window })
     this.listeners = {}
     this.STORAGE_KEY = STORAGE_KEY
-    this.settingsObject = {
-      // scores: [
-      //   {
-      //     name: 'dummy',
-      //     dataType: 'string',
-      //     value: 'dummyvalue',
-      //     cb: () => { console.log('dummy cb') }
-      //   },
-      //   {
-      //     name: 'dummy2',
-      //     dataType: 'string',
-      //     value: 'dummyvalue2',
-      //     cb: () => { console.log('dummy2 cb') }
-      //   }
-      // ]
+    const fromSession = this.get()
+    if (fromSession !== undefined) {
+      this.settingsObject = fromSession
+    } else {
+      this.settingsObject = { }
     }
     this.update(this.settingsObject, 'self', () => {})
   }
@@ -61,27 +48,12 @@ class LocalSettings {
     }
     return false
   }
-  // 'scores',
-  //    [
-  //    {
-  //      name: 'dummy',
-  //      dataType: 'string',
-  //      value: 'dummyvalue',
-  //      cb: () => { console.log('dummy cb') }
-  //    }
-  //    ]
+
   addSettings (sourceName, settingsArray) {
-    // const dummysettings = [
-    //   {
-    //     name: 'dummy',
-    //     dataType: 'string',
-    //     value: 'dummyvalue add',
-    //     cb: () => { console.log('dummy cb') }
-    //   }
-    // ]
     const settingsObject = this.settingsObject
+    const listeners = this.listeners
     if (this.settingsObject.hasOwnProperty(sourceName)) {
-      const existingSettings = this.settingsObject[sourceName]// .map(setting => setting.name)
+      const existingSettings = this.settingsObject[sourceName]
       settingsArray.forEach(setting => {
         const settingForUpdate = existingSettings.find(entry => {
           return entry.name === setting.name
@@ -96,48 +68,72 @@ class LocalSettings {
     } else {
       settingsObject[sourceName] = settingsArray
     }
+    settingsArray.forEach(setting => {
+      if (!listeners.hasOwnProperty(`${sourceName}-${setting.name}`)) {
+        listeners[`${sourceName}-${setting.name}`] = setting.cb
+      }
+    })
+    this.listeners = listeners
     this.settingsObject = settingsObject
     this.$window.sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.settingsObject))
   }
 
   update (settings, sourceName, changeCallback) {
     const listeners = this.listeners
+    const settingsObject = this.settingsObject
     this.checkSettingValidity(settings)
-    const it = {
-      'scoresheet-autoscroll': {
-        name: 'autoscroll',
-        src: 'scoresheet',
-        dataType: 'boolean',
-        value: true
-      }
-    }
     Object.keys(settings).forEach(key => {
-      if (listeners.hasOwnProperty(key)) {
-        const specificListeners = listeners[key]
-        const clients = specificListeners.map(entry => entry['client'])
-        if (clients.indexOf(sourceName) === -1) {
-          listeners[key].push({ client: sourceName, cb: changeCallback })
+      if (settingsObject.hasOwnProperty(key) && Array.isArray(settings[key])) {
+        if (Array.isArray(settings[key])) {
+          settings[key].forEach(item => {
+            const forcb = settingsObject[key].find(existing => {
+              return existing.name === item.name
+            })
+            if (forcb) {
+              const idx = settingsObject[key].indexOf(forcb)
+              settingsObject[key][idx][VALUE_KEY] = item[VALUE_KEY]
+              forcb[VALUE_KEY] = item[VALUE_KEY]
+            }
+          })
+        } else if (typeof (settings[key]) === 'object') {
+          const constructArray = []
+          Object.keys(settings[key]).forEach(givenSetting => {
+            constructArray.push({
+              name: `${givenSetting}`,
+              dataType: typeof (settings[key][givenSetting]),
+              value: settings[key][givenSetting],
+              cb: changeCallback
+            })
+            listeners[`${sourceName}-${givenSetting}`] = changeCallback
+          })
+          settingsObject[key].concat(constructArray)
         }
-        const clientsToNotify = listeners[key].filter(entry => entry['client'] !== sourceName)
-        clientsToNotify.forEach(entry => {
-          entry['cb']()
-        })
       } else {
-        listeners[key] = []
-        listeners[key].push({ client: sourceName, cb: changeCallback })
+        this.addSettings(key, settings[key])
       }
     })
-    this.listeners = listeners
-    Object.assign(this.settingsObject, settings)
+    Object.assign(this.settingsObject, settingsObject)
     this.$window.sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.settingsObject))
+    Object.keys(settings).forEach(key => {
+      if (Array.isArray(settings[key])) {
+        settings[key].forEach(item => {
+          if (listeners.hasOwnProperty(`${key}-${item.name}`)) {
+            listeners[`${key}-${item.name}`]()
+          }
+        })
+      }
+    })
   }
 
   get (sourceName) {
-    const tempobj = JSON.parse(this.$window.sessionStorage.getItem(this.STORAGE_KEY))
-    if (tempobj.hasOwnProperty(sourceName)) {
-      return tempobj[sourceName]
+    const sessionSettings = JSON.parse(this.$window.sessionStorage.getItem(this.STORAGE_KEY))
+    if (!sessionSettings) {
+      return undefined
+    }
+    if (sessionSettings.hasOwnProperty(sourceName)) {
+      return sessionSettings[sourceName]
     } else {
-      return tempobj
+      return sessionSettings
     }
   }
 }

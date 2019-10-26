@@ -4,8 +4,7 @@ class SettingController {
   }
 
   $onInit () {
-    this.$scope.$watch(() => this.data.value, () => {
-
+    this.$scope.$watch('setting.data.value', (newVal, oldVal, scope) => {
     })
   }
 }

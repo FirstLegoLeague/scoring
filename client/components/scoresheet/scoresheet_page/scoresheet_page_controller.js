@@ -12,8 +12,9 @@ class ScoresheetPageController {
       cb: () => { this.settingsChanged() }
     }])
     const serviceSettings = this.localSettings.get('scoresheet')
-    if (serviceSettings['autoscroll']) {
-      this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
+    const autoscrollSetting = serviceSettings.find(({ name }) => name === 'autoscroll')
+    if (autoscrollSetting.hasOwnProperty('value')) {
+      this.scrollDisabled = !(autoscrollSetting.value)
     } else {
       this.scrollDisabled = false
       this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())
@@ -22,8 +23,9 @@ class ScoresheetPageController {
 
   scrollingAllowedInSettings () {
     const serviceSettings = this.localSettings.get('scoresheet')
-    if (serviceSettings['autoscroll']) {
-      return (serviceSettings['autoscroll'] !== 'true')
+    const autoscrollSetting = serviceSettings.find(({ name }) => name === 'autoscroll')
+    if (autoscrollSetting.hasOwnProperty('value')) {
+      return !(autoscrollSetting.value)
     } else {
       return this.scrollDisabled
     }
@@ -32,10 +34,6 @@ class ScoresheetPageController {
   settingsChanged () {
     // For some odd reason, the "scroll-disabled" attribute in the mission_scroll directive doesn't actually change behavior unless it's a function call
     this.scrollDisabled = this.scrollingAllowedInSettings()
-    // const serviceSettings = this.localSettings.get()
-    // if (serviceSettings['autoscroll']) {
-    //   this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
-    // }
   }
 
   $onInit () {
@@ -74,8 +72,9 @@ class ScoresheetPageController {
   reset (forceMetadataIfEditing = false) {
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
     const serviceSettings = this.localSettings.get('scoresheet')
-    if (serviceSettings['autoscroll']) {
-      this.scrollDisabled = (serviceSettings['autoscroll'] !== 'true')
+    const autoscrollSetting = serviceSettings.find(({ name }) => name === 'autoscroll')
+    if (autoscrollSetting.hasOwnProperty('value')) {
+      this.scrollDisabled = !(autoscrollSetting.value)
     } else {
       this.scrollDisabled = false
       this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'scoresheet', () => this.settingsChanged())

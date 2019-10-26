@@ -1,12 +1,6 @@
 class ScoresPageController {
   constructor ($location, $scope, localSettings) {
     Object.assign(this, { $location, $scope, localSettings })
-    this.localSettings.addSettings('scores', [{
-      name: 'dummy',
-      dataType: 'string',
-      value: 'dummyvalue',
-      cb: () => { console.log('dummy cb') }
-    }])
   }
 
   $onInit () {
