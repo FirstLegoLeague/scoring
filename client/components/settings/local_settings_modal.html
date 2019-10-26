@@ -7,7 +7,7 @@
 	<div class="content">
 		<div class="ui form">
 			<div ng-repeat="settingGroup in localSettingsModal.settingsKeys" class="ui segment">
-				<h2 class="header">{{settingGroup}} Settings</h2>
+				<h2 class="header">{{settingGroup}}</h2>
 				<div class="content">
 					<setting ng-repeat="setting in localSettingsModal.settingsCopy[settingGroup]" data="setting" class="setting field"></setting>
 				</div>
