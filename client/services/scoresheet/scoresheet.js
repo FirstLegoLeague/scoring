@@ -6,9 +6,9 @@ import debounce from '../../lib/debounce'
 import { isNumber } from 'util'
 
 class Scoresheet extends EventEmitter {
-  constructor (challenge, scores, scoresheetValidations, refIdentity, logger, localSettings) {
+  constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
     super()
-    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, logger, localSettings })
+    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, logger })
     this.errors = []
     this.ready = false
     this.faulty = false
@@ -181,6 +181,6 @@ class Scoresheet extends EventEmitter {
 }
 
 Scoresheet.$$ngIsClass = true
-Scoresheet.$inject = ['challenge', 'scores', 'scoresheetValidations', 'refIdentity', 'logger', 'localSettings']
+Scoresheet.$inject = ['challenge', 'scores', 'scoresheetValidations', 'refIdentity', 'logger']
 
 export default Scoresheet

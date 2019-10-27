@@ -1,21 +1,21 @@
-<div class="ui right floated basic icon compact item" ng-click="localSettingsModal.settingsModalVisible = true; localSettingsModal.loadSettings()">
+<div class="ui right floated basic icon compact item" ng-click="localSettingsModal.modalVisible = true; localSettingsModal.loadSettings()">
 		<i class="cog icon"></i>
 		<div class="hover text">Settings</div>
 </div>
-<sm-modal class="longer small" visible="localSettingsModal.settingsModalVisible" settings="{ closable: true }">
+<sm-modal class="longer small settingsmodal" visible="localSettingsModal.modalVisible" settings="{ closable: true }">
 	<div class="header">Settings</div>
 	<div class="content">
 		<div class="ui form">
-			<div ng-repeat="settingGroup in localSettingsModal.settingsKeys" class="ui segment">
-				<h2 class="header">{{settingGroup}}</h2>
+			<div ng-repeat="namespaceSettingsPair in localSettingsModal.settingsData" class="ui segment">
+				<h2 class="header">{{namespaceSettingsPair.namespace}}</h2>
 				<div class="content">
-					<setting ng-repeat="setting in localSettingsModal.settingsCopy[settingGroup]" data="setting" class="setting field"></setting>
+					<setting ng-repeat="setting in namespaceSettingsPair.data" data="setting" class="setting field"></setting>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui primary inverted button" ng-click="localSettingsModal.settingsModalVisible = false">Cancel</div>
-		<div class="ui green inverted button" ng-click="localSettingsModal.settingsModalVisible = false; localSettingsModal.saveSettings()">Save</div>
+		<div class="ui primary cancel inverted button" ng-click="localSettingsModal.modalVisible = false">Cancel</div>
+		<div class="ui primary ok inverted button" ng-click="localSettingsModal.modalVisible = false; localSettingsModal.saveSettings()">Save</div>
 	</div>
 </sm-modal>

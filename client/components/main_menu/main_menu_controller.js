@@ -1,6 +1,6 @@
 class MainMenuController {
-  constructor ($location, $scope, $timeout, $window, user, localSettings) {
-    Object.assign(this, { $location, $scope, $timeout, $window, user, localSettings })
+  constructor ($location, $scope, $timeout, $window, user) {
+    Object.assign(this, { $location, $scope, $timeout, $window, user })
   }
 
   $onInit () {
@@ -27,6 +27,6 @@ class MainMenuController {
 }
 
 MainMenuController.$$ngIsClass = true
-MainMenuController.$inject = ['$location', '$scope', '$timeout', '$window', 'user', 'localSettings']
+MainMenuController.$inject = ['$location', '$scope', '$timeout', '$window', 'user']
 
 export default MainMenuController
