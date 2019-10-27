@@ -8,7 +8,6 @@ class LocalSettings extends EventEmitter {
   constructor ($window, $rootScope) {
     super()
     Object.assign(this, { $window, $rootScope })
-    // this.listeners = {}
     // this.STORAGE_KEY = STORAGE_KEY
     const settingsFromSession = this.getFromLocalStorage()
     if (settingsFromSession !== undefined) {
@@ -16,7 +15,6 @@ class LocalSettings extends EventEmitter {
     } else {
       this.settings = { }
     }
-    this.update(this.settings, 'self')// , () => {})
   }
 
   checkSettingValidity (setting) {
@@ -34,7 +32,6 @@ class LocalSettings extends EventEmitter {
 
   addSettings (namespace, namespaceSettingsArray) {
     const settings = this.settings
-    // const listeners = this.listeners
     if (this.settings.hasOwnProperty(namespace)) {
       namespaceSettingsArray.forEach(setting => {
         const settingToUpdate = settings[namespace].find(entry => entry.name === setting.name)
@@ -42,65 +39,44 @@ class LocalSettings extends EventEmitter {
           settingToUpdate[VALUE_KEY] = setting[VALUE_KEY]
         } else {
           settings[namespace].push(setting)
+          this.$rootScope.$watch(() => setting[VALUE_KEY], (newValue, oldValue) => {
+            if (newValue !== oldValue) {
+              this.emit(`${namespace} ${setting[NAME_KEY]}`)
+            }
+          })
         }
       })
     } else {
       settings[namespace] = namespaceSettingsArray
     }
-    // namespaceSettingsArray.forEach(setting => {
-    //   if (!listeners.hasOwnProperty(`${namespace}-${setting.name}`)) {
-    //     listeners[`${namespace}-${setting.name}`] = setting.cb
-    //   }
-    // })
-    // this.listeners = listeners
     this.settings = settings
     this.saveToLocalStorage()
   }
 
-  update (passedSettings, sourceName) { //, changeCallback) {
-    // const listeners = this.listeners
-    const settingsObject = this.settings
-    this.checkSettingValidity(passedSettings)
+  update (passedSettings, passedNamespace) {
     Object.keys(passedSettings).forEach(key => {
-      if (settingsObject.hasOwnProperty(key) && Array.isArray(passedSettings[key])) {
+      if (this.settings.hasOwnProperty(key)) {
+        // this means that passedSettings is of the form {namespace: [{...}]}, which means that is came from the settings modal.
         if (Array.isArray(passedSettings[key])) {
-          passedSettings[key].forEach(item => {
-            const forcb = settingsObject[key].find(existing => {
-              return existing.name === item.name
-            })
-            if (forcb) {
-              const idx = settingsObject[key].indexOf(forcb)
-              settingsObject[key][idx][VALUE_KEY] = item[VALUE_KEY]
-              forcb[VALUE_KEY] = item[VALUE_KEY]
+          const namespaceSettingsArray = []
+          passedSettings[key].forEach(setting => {
+            const sanitizedSetting = {
+              name: setting.name,
+              dataType: setting.dataType,
+              value: setting.value
+            }
+            if (this.checkSettingValidity(sanitizedSetting)) {
+              namespaceSettingsArray.push(sanitizedSetting)
             }
           })
-        } else if (typeof (passedSettings[key]) === 'object') {
-          const constructArray = []
-          Object.keys(passedSettings[key]).forEach(givenSetting => {
-            constructArray.push({
-              name: `${givenSetting}`,
-              dataType: typeof (passedSettings[key][givenSetting]),
-              value: passedSettings[key][givenSetting]
-              //, cb: changeCallback
-            })
-            // listeners[`${sourceName}-${givenSetting}`] = changeCallback
-          })
-          settingsObject[key].concat(constructArray)
-        }
+          this.addSettings(key, namespaceSettingsArray)
+        } // if it's not an array then the given arguments make no sense.
       } else {
-        this.addSettings(key, passedSettings[key])
-      }
-    })
-    Object.assign(this.settings, settingsObject)
-    this.saveToLocalStorage()
-    Object.keys(passedSettings).forEach(namespace => {
-      if (Array.isArray(passedSettings[namespace])) {
-        passedSettings[namespace].forEach(item => {
-          this.emit(`${namespace} ${item.name}`)
-          // if (listeners.hasOwnProperty(`${namespace}-${item.name}`)) {
-          //   listeners[`${namespace}-${item.name}`]()
-          // }
-        })
+        this.addSettings(passedNamespace, [{
+          name: key,
+          dataType: typeof (passedSettings[key]),
+          value: passedSettings[key]
+        }])
       }
     })
   }

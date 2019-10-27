@@ -16,7 +16,7 @@ class LocalSettingsModalController {
   }
 
   saveSettings () {
-    this.localSettings.update(this.settings, 'settingsmodal')// , () => this.loadSettings())
+    this.localSettings.update(this.settings, 'settingsmodal')
   }
 }
 

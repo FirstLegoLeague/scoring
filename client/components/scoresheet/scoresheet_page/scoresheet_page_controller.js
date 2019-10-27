@@ -12,7 +12,6 @@ class ScoresheetPageController {
         name: 'autoscroll',
         dataType: 'boolean',
         value: !this.scrollDisabled
-        // ,cb: () => { this.settingsChanged() }
       }])
     } else {
       const hasAutoscroll = this.localSettings.settings['Scoresheet'].find(({ name }) => name === 'autoscroll') !== undefined
@@ -23,7 +22,6 @@ class ScoresheetPageController {
           name: 'autoscroll',
           dataType: 'boolean',
           value: !this.scrollDisabled
-          // ,cb: () => { this.settingsChanged() }
         }])
       }
     }
@@ -38,11 +36,6 @@ class ScoresheetPageController {
       return this.scrollDisabled
     }
   }
-
-  // settingsChanged () {
-  //   // For some odd reason, the "scroll-disabled" attribute in the mission_scroll directive doesn't actually change behavior unless it's a function call
-  //   this.scrollDisabled = this.scrollingAllowed()
-  // }
 
   $onInit () {
     this.$scope.$on('mission complete', event => {
@@ -87,7 +80,7 @@ class ScoresheetPageController {
       this.scrollDisabled = !(autoscrollSetting.value)
     } else {
       this.scrollDisabled = false
-      this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'Scoresheet')//, () => this.settingsChanged())
+      this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'Scoresheet')
     }
     this.data.reset(forceMetadataIfEditing)
   }
@@ -142,7 +135,7 @@ class ScoresheetPageController {
       if (score !== undefined) {
         this.data.load(score)
         this.scrollDisabled = true
-        this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'Scoresheet')//, () => this.settingsChanged())
+        this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'Scoresheet')
       }
     }
   }
