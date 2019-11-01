@@ -164,6 +164,7 @@ class MetadataInputsController {
       this.data.current.stage = firstIncompleteMatch.stage
       this.data.current.round = firstIncompleteMatch.round
     }
+    return Promise.resolve()
   }
 
   calculateMatchCompletion () {
