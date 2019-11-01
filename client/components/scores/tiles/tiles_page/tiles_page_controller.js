@@ -47,7 +47,7 @@ const SORT_OPTIONS = [
   { text: 'Team', icon: 'users', field: 'teamNumber' },
   { text: 'Match', icon: 'calendar alternate outline', field: 'matchText' },
   { text: 'Score', icon: 'hashtag', field: 'score' },
-  { text: 'Last Update', icon: 'clock outline', field: 'lastUpdate' }
+  { text: 'Last Update', icon: 'clock outline', field: 'lastUpdateTime' }
 ]
 
 const SORT_DIRECTION_OPTIONS = [
