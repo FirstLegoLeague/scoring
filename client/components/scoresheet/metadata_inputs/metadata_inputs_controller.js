@@ -72,9 +72,9 @@ class MetadataInputsController {
   }
 
   loadFromUrl () {
-    this.data.autoselect = true
     const search = this.$location.search()
     if (search.teamNumber && isFinite(search.teamNumber)) {
+      this.data.autoselect = true
       this.data.current.teamNumber = parseInt(search.teamNumber)
       if (search.stage) {
         this.data.current.stage = search.stage

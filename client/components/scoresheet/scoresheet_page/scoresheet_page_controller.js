@@ -35,6 +35,7 @@ class ScoresheetPageController {
       .then(() => {
         this.loadFromURL()
         this.ready = true
+        return true
       })
       .catch(error => this.logger.error(error))
   }
@@ -93,6 +94,7 @@ class ScoresheetPageController {
     if (page === 'scoresheet' && subpage !== 'new') {
       const score = this.scores.scores.find(s => s._id === subpage)
       if (score !== undefined) {
+        this.data.autoselect = false
         this.data.load(score)
         this.scrollDisabled = true
       }
