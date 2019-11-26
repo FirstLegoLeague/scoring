@@ -30,7 +30,9 @@ class MetadataInputsController {
     })
 
     this.refIdentity.on('table changed', () => {
-      this.autoselectMetadata()
+      if (!this.data.isEditing()) {
+        this.autoselectMetadata()
+      }
     })
 
     this.$scope.$on('reset', (_event, { forceMetadataIfEditing }) => {
