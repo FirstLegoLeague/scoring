@@ -9,15 +9,15 @@
 			<div class="ui right floated menu">
 				<div class="ui link item" ng-click="ranksPage.smallView = !ranksPage.smallView">
 					<i class="ui icon" ng-class="ranksPage.smallView ? 'compress' : 'expand'"></i>
-					{{ranksPage.smallView ? 'Small view' : 'Large view'}}
+					<span class="hide-in-narrow-screen">{{ranksPage.smallView ? 'Small view' : 'Large view'}}</span>
 				</div>
 				<a class="ui link item" href="{{ranksPage.rankingsUrl()}}">
 					<i class="ui download icon"></i>
-					Export stage
+					<span class="hide-in-narrow-screen">Export stage</span>
 				</a>
 				<div class="ui link item" ng-click="ranksPage.deleteModalVisible = true">
 					<i class="ui red trash icon"></i>
-					Delete all
+					<span class="hide-in-narrow-screen">Delete all</span>
 				</div>
 			</div>
 		</div>

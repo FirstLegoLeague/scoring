@@ -2,7 +2,23 @@
 	display: flex;
 }
 
-#matches {
+#matches-buttons {
 	display: flex;
 	align-items: center;
+}
+
+@media only screen and (min-width: 970px) and (max-width: 1330px) {
+	metadata-inputs > .ui.grid > .column {
+		width: 50% !important;
+	}
+
+	#matches-buttons {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 1330px) {
+	#matches-dropdown {
+		display: none;
+	}
 }

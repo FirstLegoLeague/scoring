@@ -6,16 +6,19 @@
 		</sm-dropdown>
 	</div>
 	<div  id="matches-column" class="eleven wide column">
-		<div id="matches" ng-if="metadataInputs.data.current.teamNumber" ng-hide="metadataInputs.autoselecting || metadataInputs.loadingMatches || metadataInputs.data.dontRequireMatch">
+		<div id="matches-buttons" ng-if="metadataInputs.data.current.teamNumber" ng-hide="metadataInputs.autoselecting || metadataInputs.loadingMatches || metadataInputs.data.dontRequireMatch">
 			<div ng-repeat="match in metadataInputs.matches">
 				<div class="ui compact button"
 					ng-class="{ primary: (metadataInputs.data.current.stage === match.stage && metadataInputs.data.current.round === match.round)}" ng-click="metadataInputs.data.current.stage = match.stage; metadataInputs.data.current.round = match.round">
 					<i class="ui green check icon" ng-show="match.complete"></i>
 					{{match.displayText}}
 				</div>
-				<i class="ui arrow alternate circle right icon" ng-if="!$last"></i>
+				<i class="ui arrow alternate circle right icon hide-in-narrow-screen" ng-if="!$last"></i>
 			</div>
 		</div>
+		<sm-dropdown class="fluid selection" default-text="'Select match'"
+			model="metadataInputs.data.current.teamNumber" items="metadataInputs.matches" label="item.displayText" value="item.matchId">
+		</sm-dropdown>
 		<div ng-show="metadataInputs.data.dontRequireMatch">
 			Couldn't load matches, continue without them.
 		</div>
