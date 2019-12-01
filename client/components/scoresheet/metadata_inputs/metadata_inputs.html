@@ -16,8 +16,8 @@
 				<i class="ui arrow alternate circle right icon hide-in-narrow-screen" ng-if="!$last"></i>
 			</div>
 		</div>
-		<sm-dropdown class="fluid selection" default-text="'Select match'"
-			model="metadataInputs.data.current.teamNumber" items="metadataInputs.matches" label="item.displayText" value="item.matchId">
+		<sm-dropdown id="matches-dropdown" class="fluid selection" ng-if="metadataInputs.data.current.teamNumber" default-text="'Select match'"
+			model="metadataInputs.data.current.matchId" items="metadataInputs.matches" label="item.displayText" value="item._id">
 		</sm-dropdown>
 		<div ng-show="metadataInputs.data.dontRequireMatch">
 			Couldn't load matches, continue without them.
