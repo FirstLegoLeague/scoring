@@ -27,6 +27,7 @@ class ScoresheetMenuController {
   }
 
   setPage (page) {
+    this.page = page
     this.$location.path(page)
   }
 
