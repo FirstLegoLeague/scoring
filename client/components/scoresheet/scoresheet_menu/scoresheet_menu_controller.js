@@ -53,11 +53,11 @@ class ScoresheetMenuController {
     }
   }
 
-  discardRefIdentityChange() {
+  discardRefIdentityChange () {
     this.refIdentityModalVisible = false
   }
 
-  logout() {
+  logout () {
     this.$location.path = '/logout'
   }
 
