@@ -7,14 +7,40 @@ main-page .ui.menu.sub.grid +* {
     overflow-y: auto;
 }
 
-@media only screen and (max-width: 100vh) {
-	.hide-in-narrow-screen {
+/* Responsivity - move to UI package after this year. The sizes has been taken from semantic-ui.com */
+
+@media only screen and (orientation: portrait) {
+	[screen-orientation="landscape"] {
 		display: none !important;
 	}
 }
 
-@media only screen and (min-width: 100vh) {
-	.hide-in-wide-screen {
+@media only screen and (orientation: landscape) {
+	[screen-orientation="portrait"] {
+		display: none !important;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	[screen-size]:not([screen-size*="mobile"]) {
+		display: none !important;
+	}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	[screen-size]:not([screen-size*="tablet"]) {
+		display: none !important;
+	}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+	[screen-size]:not([screen-size*="small"]) {
+		display: none !important;
+	}
+}
+
+@media only screen and (min-width: 1201px) {
+	[screen-size]:not([screen-size*="large"]) {
 		display: none !important;
 	}
 }

@@ -1,24 +1,25 @@
+metadata-inputs {
+    flex-grow: 1;
+    align-items: center;
+    display: flex;
+}
+
+metadata-inputs > .ui.grid {
+    width: 100%;
+}
+
+#teams-column {
+    flex-grow: 1;
+    max-width: 50rem;
+}
+
 #matches-column {
-	display: flex;
+    display: flex;
+    flex-grow: 0;
+    width: fit-content;
 }
 
 #matches-buttons {
 	display: flex;
 	align-items: center;
-}
-
-@media only screen and (min-width: 970px) and (max-width: 1330px) {
-	metadata-inputs > .ui.grid > .column {
-		width: 50% !important;
-	}
-
-	#matches-buttons {
-		display: none;
-	}
-}
-
-@media only screen and (min-width: 1330px) {
-	#matches-dropdown {
-		display: none;
-	}
 }

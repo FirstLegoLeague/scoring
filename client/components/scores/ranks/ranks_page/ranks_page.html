@@ -1,4 +1,3 @@
-<div class="ui page sub menu grid">
 	<div class="row">
 		<div class="eight wide column">
 			<div class="ui compact menu">
@@ -9,15 +8,15 @@
 			<div class="ui right floated menu">
 				<div class="ui link item" ng-click="ranksPage.smallView = !ranksPage.smallView">
 					<i class="ui icon" ng-class="ranksPage.smallView ? 'compress' : 'expand'"></i>
-					<span class="hide-in-narrow-screen">{{ranksPage.smallView ? 'Small view' : 'Large view'}}</span>
+					<span screen-orientation="landscape">{{ranksPage.smallView ? 'Small view' : 'Large view'}}</span>
 				</div>
 				<a class="ui link item" href="{{ranksPage.rankingsUrl()}}">
 					<i class="ui download icon"></i>
-					<span class="hide-in-narrow-screen">Export stage</span>
+					<span screen-orientation="landscape">Export stage</span>
 				</a>
 				<div class="ui link item" ng-click="ranksPage.deleteModalVisible = true">
 					<i class="ui red trash icon"></i>
-					<span class="hide-in-narrow-screen">Delete all</span>
+					<span screen-orientation="landscape">Delete all</span>
 				</div>
 			</div>
 		</div>

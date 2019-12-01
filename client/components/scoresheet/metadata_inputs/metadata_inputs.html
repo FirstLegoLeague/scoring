@@ -1,22 +1,22 @@
 <div class="ui grid">
-	<div class="five wide column" ng-hide="metadataInputs.autoselecting">
+	<div id="teams-column" ng-hide="metadataInputs.autoselecting">
 		<sm-dropdown class="fluid search selection" default-text="'Select team'"
 			model="metadataInputs.data.current.teamNumber" items="metadataInputs.tournament.teams" label="item.displayText" value="item.number"
 			settings="{ fullTextSearch: 'exact' }">
 		</sm-dropdown>
 	</div>
-	<div  id="matches-column" class="eleven wide column">
-		<div id="matches-buttons" ng-if="metadataInputs.data.current.teamNumber" ng-hide="metadataInputs.autoselecting || metadataInputs.loadingMatches || metadataInputs.data.dontRequireMatch">
+	<div  id="matches-column">
+		<div id="matches-buttons" ng-if="metadataInputs.data.current.teamNumber" ng-hide="metadataInputs.autoselecting || metadataInputs.loadingMatches || metadataInputs.data.dontRequireMatch" screen-size="large">
 			<div ng-repeat="match in metadataInputs.matches">
 				<div class="ui compact button"
 					ng-class="{ primary: (metadataInputs.data.current.stage === match.stage && metadataInputs.data.current.round === match.round)}" ng-click="metadataInputs.data.current.stage = match.stage; metadataInputs.data.current.round = match.round">
 					<i class="ui green check icon" ng-show="match.complete"></i>
 					{{match.displayText}}
 				</div>
-				<i class="ui arrow alternate circle right icon hide-in-narrow-screen" ng-if="!$last"></i>
+				<i class="ui arrow alternate circle right icon" ng-if="!$last"></i>
 			</div>
 		</div>
-		<sm-dropdown id="matches-dropdown" class="fluid selection" ng-if="metadataInputs.data.current.teamNumber" default-text="'Select match'"
+		<sm-dropdown id="matches-dropdown" class="fluid selection" ng-if="metadataInputs.data.current.teamNumber" screen-size="mobile tablet small" default-text="'Select match'"
 			model="metadataInputs.data.current.matchId" items="metadataInputs.matches" label="item.displayText" value="item._id">
 		</sm-dropdown>
 		<div ng-show="metadataInputs.data.dontRequireMatch">

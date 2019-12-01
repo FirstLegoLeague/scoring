@@ -1,7 +1,7 @@
 <div class="ui page sub menu grid">
 	<div class="row">
 		<div class="one wide column">
-			<div class="ui mini vertical statistic hide-in-narrow-screen">
+			<div class="ui mini vertical statistic" screen-orientation="landscape">
 				<div class="value">
 					{{tilesPage.scores.length}}/{{tilesPage.data.scores.length}}
 				</div>
@@ -26,7 +26,7 @@
 				<div class="ui simple dropdown item">
 					<div class="text">
 						<i class="ui icon" ng-class="tilesPage.sort.icon"></i>
-						<span class="hide-in-narrow-screen">{{tilesPage.sort.text}}</span>
+						<span screen-orientation="landscape">{{tilesPage.sort.text}}</span>
 						<i class="ui icon" ng-class="tilesPage.sortDirection.icon"></i>
 					</div>
 					<i class="dropdown icon"></i>
@@ -55,11 +55,11 @@
 			<div class="ui right floated menu">
 				<a class="ui link item" href="{{tilesPage.rankingsUrl}}">
 					<i class="ui download icon"></i>
-					<span class="hide-in-narrow-screen">Export stage</span>
+					<span screen-orientation="landscape">Export stage</span>
 				</a>
 				<div class="ui link item" ng-click="tilesPage.deleteModalVisible = true">
 					<i class="ui red trash icon"></i>
-					<span class="hide-in-narrow-screen">Delete all</span>
+					<span screen-orientation="landscape">Delete all</span>
 				</div>
 			</div>
 		</div>

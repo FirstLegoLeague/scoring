@@ -21,8 +21,10 @@ class MetadataInputsController {
     this.$scope.$watch(() => this.stage(), () => this.syncMatchFields())
     this.$scope.$watch(() => this.round(), () => this.syncMatchFields())
     this.$scope.$watch(() => this.matchId(), () => {
-      this.data.current.stage = undefined
-      this.data.current.round = undefined
+      if (this.data.current) {
+        this.data.current.stage = undefined
+        this.data.current.round = undefined
+      }
       return this.syncMatchFields()
     })
 

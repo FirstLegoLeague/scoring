@@ -35,35 +35,3 @@ scoresheet-page > .rtl {
 .signature.segment {
     margin: 0 auto;
 }
-
-@media only screen and (min-width: 970px) {
-    #scoresheet-actions-dropdown {
-        display: none;
-    }
-}
-
-@media only screen and (min-width: 970px) and (max-width: 1330px) {
-    scoresheet-page > .ui.page.sub.menu > .row > .points-column,
-    scoresheet-page > .ui.page.sub.menu > .row > scoresheet-actions {
-        width: 25% !important;
-    }
-
-    scoresheet-page > .ui.page.sub.menu > .row > metadata-inputs {
-        width: 50% !important;
-    }
-}
-
-@media only screen and (max-width: 970px) {
-    scoresheet-page > .ui.page.sub.menu > .row > .points-column,
-    scoresheet-page > .ui.page.sub.menu > .row > scoresheet-actions {
-        width: 12.5% !important;
-    }
-
-    scoresheet-page > .ui.page.sub.menu > .row > metadata-inputs {
-        width: 75% !important;
-    }
-
-    #scoresheet-actions-menu {
-        display: none;
-    }
-}
