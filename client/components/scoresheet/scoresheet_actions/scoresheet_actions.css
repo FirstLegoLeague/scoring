@@ -1,0 +1,8 @@
+scoresheet-actions {
+    display: flex;
+    align-items: center;
+}
+
+scoresheet-actions .points {
+    margin-right: 1rem;
+}
