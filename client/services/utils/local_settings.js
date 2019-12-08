@@ -1,7 +1,7 @@
 import EventEmitter from 'event-emitter-es6'
 
 const STORAGE_KEY = 'localsettings'
-const DATA_TYPE_KEY = 'dataType'
+const DATA_TYPE_KEY = 'type'
 const VALUE_KEY = 'value'
 const NAME_KEY = 'name'
 class LocalSettings extends EventEmitter {
@@ -18,9 +18,9 @@ class LocalSettings extends EventEmitter {
 
   // example:
   /**
-   * example input: settingKey: 'scoresheel-autoscroll' settingValueTypePair: {value: true, dataType: 'boolean'}
+   * example input: settingKey: 'scoresheel-autoscroll' settingValueTypePair: {value: true, type: 'boolean'}
    * @param {string} settingsKey
-   * @param {{value:*,dataType:string}} settingValueTypePair
+   * @param {{value:*,type:string}} settingValueTypePair
    */
   update (settingsKey, settingValueTypePair) {
     this.settings[settingsKey] = settingValueTypePair

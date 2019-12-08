@@ -5,7 +5,7 @@ class ScoresheetPageController {
     Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings })
     this.ready = false
     this.scrollDisabled = this.isScrollDisabled()
-    this.localSettings.update('scoresheet-autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
+    this.localSettings.update('scoresheet-autoscroll', { value: !this.scrollDisabled, type: 'boolean' })
   }
 
   isScrollDisabled () {
