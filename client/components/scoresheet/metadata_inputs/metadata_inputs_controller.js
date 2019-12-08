@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
 
 class MetadataInputsController {
-  constructor (scoresheet, scores, $scope, $location, tournament, refIdentity, logger) {
-    Object.assign(this, { data: scoresheet, scores, $scope, $location, tournament, refIdentity, logger })
+  constructor (scoresheet, scores, $scope, $location, tournament, refIdentity, user, logger) {
+    Object.assign(this, { data: scoresheet, scores, $scope, $location, tournament, refIdentity, user, logger })
     this.loading = true
   }
 
@@ -30,13 +30,13 @@ class MetadataInputsController {
     })
 
     this.refIdentity.on('table changed', () => {
-      if (!this.data.isEditing()) {
+      if (!this.data.isEditing() && !this.user.isAdmin()) {
         this.autoselectMetadata()
       }
     })
 
     this.$scope.$on('reset', (_event, { forceMetadataIfEditing }) => {
-      if (!this.data.isEditing() || !forceMetadataIfEditing || !this.teamNumber()) {
+      if ((!this.data.isEditing() || !forceMetadataIfEditing || !this.teamNumber()) && !this.user.isAdmin()) {
         this.autoselectMetadata()
       }
     })
@@ -159,6 +159,6 @@ class MetadataInputsController {
 }
 
 MetadataInputsController.$$ngIsClass = true
-MetadataInputsController.$inject = ['scoresheet', 'scores', '$scope', '$location', 'tournament', 'refIdentity', 'logger']
+MetadataInputsController.$inject = ['scoresheet', 'scores', '$scope', '$location', 'tournament', 'refIdentity', 'user', 'logger']
 
 export default MetadataInputsController
