@@ -4,22 +4,16 @@ class ScoresheetPageController {
   constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings) {
     Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings })
     this.ready = false
-    this.scrollDisabled = false
-
-    const savedAutoscroll = this.localSettings.getFromLocalStorage('Scoresheet-Autoscroll')
-    if (savedAutoscroll) {
-      this.scrollDisabled = savedAutoscroll.value
-    } else {
-      this.localSettings.update('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
-    }
+    this.scrollDisabled = this.isScrollDisabled()
+    this.localSettings.update('scoresheet-autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
   }
 
   isScrollDisabled () {
-    const savedAutoscroll = this.localSettings.getFromLocalStorage('Scoresheet-Autoscroll')
+    const savedAutoscroll = this.localSettings.getFromLocalStorage('scoresheet-autoscroll')
     if (savedAutoscroll) {
       return !(savedAutoscroll.value)
     } else {
-      return this.scrollDisabled
+      return (this.scrollDisabled || false)
     }
   }
 
@@ -41,7 +35,7 @@ class ScoresheetPageController {
       this.loadFromURL()
     })
 
-    this.$scope.$on('Scoresheet-Autoscroll', () => { this.scrollDisabled = this.isScrollDisabled() })
+    this.localSettings.on('scoresheet-autoscroll', () => { this.scrollDisabled = this.isScrollDisabled() })
 
     this.data.on('processed', () => {
       if (!this._previouslyComplete && this.complete()) {
@@ -115,8 +109,7 @@ class ScoresheetPageController {
       if (score !== undefined) {
         this.data.autoselect = false
         this.data.load(score)
-        this.scrollDisabled = true
-        this.localSettings.update('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
+        this.scrollDisabled = this.isScrollDisabled()
       }
     }
   }

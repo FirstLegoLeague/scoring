@@ -18,17 +18,13 @@ class LocalSettings extends EventEmitter {
 
   // example:
   /**
-   * example input: settingKey: 'Scoresheel-Autoscroll' settingValueTypePair: {value: true, dataType: 'boolean'}
+   * example input: settingKey: 'scoresheel-autoscroll' settingValueTypePair: {value: true, dataType: 'boolean'}
    * @param {string} settingsKey
    * @param {{value:*,dataType:string}} settingValueTypePair
    */
   update (settingsKey, settingValueTypePair) {
     this.settings[settingsKey] = settingValueTypePair
-    this.$rootScope.$watch(() => this.settings[settingsKey][VALUE_KEY], (newValue, oldValue) => {
-      if (newValue !== oldValue) {
-        this.emit(`${settingsKey}`)
-      }
-    })
+    this.emit(`${settingsKey}`)
     this._saveToLocalStorage()
   }
   /**
@@ -39,7 +35,19 @@ class LocalSettings extends EventEmitter {
   }
 
   /**
-   * gets the requested setting from the session storage. Key name should be something like 'Scoresheet-Autoscroll'
+   * for example: 'scoresheet-autoscroll'
+   * @param {string} settingsKey
+   */
+  get (settingsKey) {
+    if (this.settings.hasOwnProperty(settingsKey)) {
+      return this.settings[settingsKey]
+    } else {
+      return undefined
+    }
+  }
+
+  /**
+   * gets the requested setting from the session storage. Key name should be something like 'scoresheet-autoscroll'
    * @param {string} settingsKey
    */
   getFromLocalStorage (settingsKey) {
@@ -52,7 +60,7 @@ class LocalSettings extends EventEmitter {
       if (sessionSettings.hasOwnProperty(settingsKey)) {
         return sessionSettings[settingsKey]
       } else {
-        return null
+        return undefined
       }
     } else {
       return sessionSettings
