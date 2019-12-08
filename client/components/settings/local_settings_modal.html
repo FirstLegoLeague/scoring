@@ -6,7 +6,7 @@
 	<h1 class="ui header">Settings</h1>
 	<div class="content">
 		<div class="ui form">
-			<div ng-repeat="(namespace, data) in localSettingsModal.settingsData" class="ui segment">
+			<div ng-repeat="(namespace, data) in localSettingsModal.settingsByNamespace" class="ui segment">
 				<h2 class="header">{{namespace}}</h2>
 				<div class="content">
 					<setting ng-repeat="setting in data" data="setting" class="setting field"></setting>
