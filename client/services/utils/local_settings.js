@@ -42,7 +42,7 @@ class LocalSettings extends EventEmitter {
     if (this.settings.hasOwnProperty(settingsKey)) {
       return this.settings[settingsKey]
     } else {
-      return undefined
+      return this.getFromLocalStorage(settingsKey)
     }
   }
 
