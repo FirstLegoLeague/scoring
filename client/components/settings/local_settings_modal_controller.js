@@ -15,23 +15,22 @@ class LocalSettingsModalController {
 
   loadSettings () {
     this.settings = this.localSettings.getFromLocalStorage()
-    this.settingsData = {}
-    // settingsData makes it much easier to properly display the settings in the modal itself
+    this.settingsByNamespace = {}
+    // settingsByNamespace makes it much easier to properly display the settings in the modal itself
     Object.entries(this.settings).forEach(([settingsKey, settingsValue]) => {
       const settingsKeyParts = settingsKey.split('-')
       const namespace = this._capitalize(settingsKeyParts[0])
       const settingName = settingsKeyParts.slice(1, settingsKeyParts.length).map(this._capitalize).join(' ')
       const data = { name: settingName, value: settingsValue.value, type: settingsValue.type }
-      if (!this.settingsData.hasOwnProperty(namespace)) {
-        this.settingsData[namespace] = []
+      if (!this.settingsByNamespace.hasOwnProperty(namespace)) {
+        this.settingsByNamespace[namespace] = []
       }
-      this.settingsData[namespace].push(data)
+      this.settingsByNamespace[namespace].push(data)
     })
   }
 
   saveSettings () {
-    Object.keys(this.settingsData).forEach(namespace => {
-      const namespaceSettings = this.settingsData[namespace]
+    Object.entries(this.settingsByNamespace).forEach(([namespace, namespaceSettings]) => {
       namespaceSettings.forEach(setting => {
         const namespacelower = namespace.toLowerCase()
         const namelower = setting.name.replace(' ', '-').toLowerCase()
