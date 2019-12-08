@@ -11,6 +11,7 @@ class MetadataInputsController {
   $onInit () {
     this.$scope.$watch(() => this.teamNumber(), () => {
       if (this.teamNumber()) {
+        this.forceMatchReselection = true
         this.loadMatchOptions()
           .then(() => this.autoselectMatch())
           .catch(error => this.logger.error(error))
@@ -71,9 +72,9 @@ class MetadataInputsController {
   }
 
   loadFromUrl () {
-    this.data.autoselect = true
     const search = this.$location.search()
     if (search.teamNumber && isFinite(search.teamNumber)) {
+      this.data.autoselect = true
       this.data.current.teamNumber = parseInt(search.teamNumber)
       if (search.stage) {
         this.data.current.stage = search.stage
@@ -146,18 +147,24 @@ class MetadataInputsController {
     if (!this.data.autoselect) {
       return Promise.resolve()
     }
-    if (this.data.current.matchId !== undefined) {
-      return Promise.resolve()
-    }
-    if (this.data.current.round !== undefined && this.data.current.stage !== undefined) {
-      return Promise.resolve()
-    }
-    if (this.matches.every(match => this.data.current.stage !== match.stage || this.data.current.round !== match.round)) {
-      const firstIncompleteMatch = this.matches.find(match => !match.complete)
-      if (firstIncompleteMatch) {
-        this.data.current.matchId = firstIncompleteMatch._id
+    if (!this.forceMatchReselection) {
+      if (this.data.current.matchId !== undefined) {
+        return Promise.resolve()
+      }
+      if (this.data.current.round !== undefined && this.data.current.stage !== undefined) {
+        return Promise.resolve()
+      }
+      if (this.matches.some(match => this.data.current.stage === match.stage || this.data.current.round === match.round)) {
+        return Promise.resolve()
       }
     }
+    this.forceMatchReselection = false
+    const firstIncompleteMatch = this.matches.find(match => !match.complete)
+    if (firstIncompleteMatch) {
+      this.data.current.stage = firstIncompleteMatch.stage
+      this.data.current.round = firstIncompleteMatch.round
+    }
+    return Promise.resolve()
   }
 
   calculateMatchCompletion () {

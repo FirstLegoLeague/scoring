@@ -54,14 +54,15 @@ class ScoresheetPageController {
       .then(() => {
         this.loadFromURL()
         this.ready = true
+        return true
       })
       .catch(error => this.logger.error(error))
   }
 
   reset (forceMetadataIfEditing = false) {
-    this.$scope.$broadcast('reset', { forceMetadataIfEditing })
     this.scrollDisabled = this.isScrollDisabled()
     this.data.reset(forceMetadataIfEditing)
+    this.$scope.$broadcast('reset', { forceMetadataIfEditing })
   }
 
   matchId () {
@@ -112,6 +113,7 @@ class ScoresheetPageController {
     if (page === 'scoresheet' && subpage !== 'new') {
       const score = this.scores.scores.find(s => s._id === subpage)
       if (score !== undefined) {
+        this.data.autoselect = false
         this.data.load(score)
         this.scrollDisabled = true
         this.localSettings.update('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })

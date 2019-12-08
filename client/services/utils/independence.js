@@ -5,6 +5,11 @@ class Independence {
   constructor ($http, $window, $interval) {
     Object.assign(this, { $http, $window, $interval })
     this.lastSuccessfulRequestTime = Date.now()
+
+    this._pendingRequests()
+      .filter(action => action.method.toLowerCase() === 'get')
+      .forEach(action => this._deleteRequest(action))
+
     this.retrySavedRequest()
 
     this.$interval(() => {
