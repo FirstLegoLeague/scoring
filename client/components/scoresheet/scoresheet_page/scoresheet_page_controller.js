@@ -6,32 +6,36 @@ class ScoresheetPageController {
     this.ready = false
     this.scrollDisabled = false
 
-    const serviceSettings = this.localSettings.getFromLocalStorage('Scoresheet')
-    if (Object.keys(serviceSettings).length === 0) {
-      this.localSettings.addSettings('Scoresheet', [{
-        name: 'autoscroll',
-        dataType: 'boolean',
-        value: !this.scrollDisabled
-      }])
+    const savedAutoscroll = this.localSettings.getFromLocalStorage2('Scoresheet-Autoscroll')
+    if (savedAutoscroll) {
+      this.scrollDisabled = savedAutoscroll.value
     } else {
-      const hasAutoscroll = this.localSettings.settings['Scoresheet'].find(({ name }) => name === 'autoscroll') !== undefined
-      if (hasAutoscroll) {
-        this.scrollDisabled = !this.localSettings.settings['Scoresheet'].find(({ name }) => name === 'autoscroll').value
-      } else {
-        this.localSettings.addSettings('Scoresheet', [{
-          name: 'autoscroll',
-          dataType: 'boolean',
-          value: !this.scrollDisabled
-        }])
-      }
+      this.localSettings.update2('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
     }
+    // if (Object.keys(savedAutoscroll).length === 0) {
+    //   this.localSettings.addSettings('Scoresheet', [{
+    //     name: 'autoscroll',
+    //     dataType: 'boolean',
+    //     value: !this.scrollDisabled
+    //   }])
+    // } else {
+    //   const hasAutoscroll = this.localSettings.settings['Scoresheet'].find(({ name }) => name === 'autoscroll') !== undefined
+    //   if (hasAutoscroll) {
+    //     this.scrollDisabled = !this.localSettings.settings['Scoresheet'].find(({ name }) => name === 'autoscroll').value
+    //   } else {
+    //     this.localSettings.addSettings('Scoresheet', [{
+    //       name: 'autoscroll',
+    //       dataType: 'boolean',
+    //       value: !this.scrollDisabled
+    //     }])
+    //   }
+    // }
   }
 
-  scrollingAllowed () {
-    const serviceSettings = this.localSettings.getFromLocalStorage('Scoresheet')
-    const autoscrollSetting = serviceSettings.find(({ name }) => name === 'autoscroll')
-    if (autoscrollSetting !== undefined) {
-      return !(autoscrollSetting.value)
+  isScrollDisabled () {
+    const savedAutoscroll = this.localSettings.getFromLocalStorage2('Scoresheet-Autoscroll')
+    if (savedAutoscroll) {
+      return !(savedAutoscroll.value)
     } else {
       return this.scrollDisabled
     }
@@ -55,7 +59,7 @@ class ScoresheetPageController {
       this.loadFromURL()
     })
 
-    this.$scope.$on('Scoresheet autoscroll', () => { this.scrollDisabled = this.scrollingAllowed() })
+    this.$scope.$on('Scoresheet-Autoscroll', () => { this.scrollDisabled = this.isScrollDisabled() })
 
     this.data.on('processed', () => {
       if (!this._previouslyComplete && this.complete()) {
@@ -74,14 +78,7 @@ class ScoresheetPageController {
 
   reset (forceMetadataIfEditing = false) {
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
-    const serviceSettings = this.localSettings.get('Scoresheet')
-    const autoscrollSetting = serviceSettings.find(({ name }) => name === 'autoscroll')
-    if (autoscrollSetting !== undefined) {
-      this.scrollDisabled = !(autoscrollSetting.value)
-    } else {
-      this.scrollDisabled = false
-      this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'Scoresheet')
-    }
+    this.scrollDisabled = this.isScrollDisabled()
     this.data.reset(forceMetadataIfEditing)
   }
 
@@ -135,7 +132,7 @@ class ScoresheetPageController {
       if (score !== undefined) {
         this.data.load(score)
         this.scrollDisabled = true
-        this.localSettings.update({ autoscroll: !this.scrollDisabled }, 'Scoresheet')
+        this.localSettings.update2('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
       }
     }
   }

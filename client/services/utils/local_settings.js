@@ -8,7 +8,6 @@ class LocalSettings extends EventEmitter {
   constructor ($window, $rootScope) {
     super()
     Object.assign(this, { $window, $rootScope })
-    // this.STORAGE_KEY = STORAGE_KEY
     const settingsFromSession = this.getFromLocalStorage()
     if (settingsFromSession !== undefined) {
       this.settings = settingsFromSession
@@ -17,7 +16,7 @@ class LocalSettings extends EventEmitter {
     }
   }
 
-  checkSettingValidity (setting) {
+  _checkSettingValidity (setting) {
     if (setting.hasOwnProperty(NAME_KEY) && setting.hasOwnProperty(DATA_TYPE_KEY) && setting.hasOwnProperty(VALUE_KEY)) {
       const dataType = setting[DATA_TYPE_KEY]
       let valid = false
@@ -53,6 +52,22 @@ class LocalSettings extends EventEmitter {
     this.saveToLocalStorage()
   }
 
+  // example:
+  /**
+   * example input: settingKey: 'Scoresheel-Autoscroll' settingValueTypePair: {value: true, dataType: 'boolean'}
+   * @param {string} settingsKey
+   * @param {{value:*,dataType:string}} settingValueTypePair
+   */
+  update2 (settingsKey, settingValueTypePair) {
+    this.settings[settingsKey] = settingValueTypePair
+    this.$rootScope.$watch(() => this.settings[settingsKey][VALUE_KEY], (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        this.emit(`${settingsKey}`)
+      }
+    })
+    this._saveToLocalStorage()
+  }
+
   update (passedSettings, passedNamespace) {
     Object.keys(passedSettings).forEach(key => {
       if (this.settings.hasOwnProperty(key)) {
@@ -65,7 +80,7 @@ class LocalSettings extends EventEmitter {
               dataType: setting.dataType,
               value: setting.value
             }
-            if (this.checkSettingValidity(sanitizedSetting)) {
+            if (this._checkSettingValidity(sanitizedSetting)) {
               namespaceSettingsArray.push(sanitizedSetting)
             }
           })
@@ -81,10 +96,38 @@ class LocalSettings extends EventEmitter {
     })
   }
 
-  saveToLocalStorage () {
+  /**
+   * saves this service's settings object to the session storage
+   */
+  _saveToLocalStorage () {
     this.$window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(this.settings))
   }
 
+  /**
+   * gets the requested setting from the session storage. Key name should be something like 'Scoresheet-Autoscroll'
+   * @param {string} settingsKey
+   */
+  getFromLocalStorage2 (settingsKey) {
+    const sessionStorageItem = this.$window.sessionStorage.getItem(STORAGE_KEY)
+    const sessionSettings = JSON.parse(sessionStorageItem || '{}')
+    if (!sessionSettings) {
+      return undefined
+    }
+    if (settingsKey) {
+      if (sessionSettings.hasOwnProperty(settingsKey)) {
+        return sessionSettings[settingsKey]
+      } else {
+        return null
+      }
+    } else {
+      return sessionSettings
+    }
+  }
+
+  /**
+   * retrieves from session storage the settings for this source name
+   * @param {string} sourceName
+   */
   getFromLocalStorage (sourceName) {
     const sessionStorageItem = this.$window.sessionStorage.getItem(STORAGE_KEY)
     const sessionSettings = JSON.parse(sessionStorageItem || '{}')

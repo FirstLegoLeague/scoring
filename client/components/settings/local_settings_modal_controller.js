@@ -5,18 +5,35 @@ class LocalSettingsModalController {
   }
 
   $onInit () {
-    Object.assign(this.settings, this.localSettings.getFromLocalStorage())
+    Object.assign(this.settings, this.localSettings.getFromLocalStorage2())
   }
 
   loadSettings () {
-    this.settings = this.localSettings.getFromLocalStorage()
-    this.settingsData = Object.keys(this.settings).map(namespace => {
-      return { namespace, data: this.settings[namespace] }
+    this.settings = this.localSettings.getFromLocalStorage2()
+    this.settingsData = {}
+    Object.keys(this.settings).forEach(settingsKey => {
+      const namespace = settingsKey.split('-')[0]
+      const data = { name: settingsKey.split('-')[1], value: this.settings[settingsKey].value, dataType: this.settings[settingsKey].dataType }
+      if (!this.settingsData.hasOwnProperty(namespace)) {
+        this.settingsData[namespace] = []
+        this.settingsData[namespace].push(data)
+      } else {
+        this.settingsData[namespace].push(data)
+      }
     })
   }
 
   saveSettings () {
-    this.localSettings.update(this.settings, 'settingsmodal')
+    Object.keys(this.settingsData).forEach(namespace => {
+      const namespaceSettings = this.settingsData[namespace]
+      namespaceSettings.forEach(setting => {
+        const settingName = `${namespace}-${setting.name}`
+        this.localSettings.update2(settingName, { value: setting.value, dataType: setting.dataType })
+      })
+    })
+    // Object.keys(this.settings).forEach(changedSetting => {
+    //   this.localSettings.update2(changedSetting, this.settings[changedSetting])
+    // })
   }
 }
 

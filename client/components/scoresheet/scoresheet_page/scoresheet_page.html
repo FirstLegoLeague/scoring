@@ -18,7 +18,7 @@
 	<div class="row">
 		<div class="ui grid container">
 			<div class="ui padded one column grid" ng-if="scoresheetPage.ready && scoresheetPage.data.ready" missions-scroll
-			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.scrollingAllowed()">
+			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.isScrollDisabled()">
 				<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
 				<div class="column">
 					<div class="ui segment" ng-class="scoresheetPage.error() ? 'error' : 'success'">
