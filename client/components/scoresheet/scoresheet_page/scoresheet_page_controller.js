@@ -6,34 +6,16 @@ class ScoresheetPageController {
     this.ready = false
     this.scrollDisabled = false
 
-    const savedAutoscroll = this.localSettings.getFromLocalStorage2('Scoresheet-Autoscroll')
+    const savedAutoscroll = this.localSettings.getFromLocalStorage('Scoresheet-Autoscroll')
     if (savedAutoscroll) {
       this.scrollDisabled = savedAutoscroll.value
     } else {
-      this.localSettings.update2('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
+      this.localSettings.update('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
     }
-    // if (Object.keys(savedAutoscroll).length === 0) {
-    //   this.localSettings.addSettings('Scoresheet', [{
-    //     name: 'autoscroll',
-    //     dataType: 'boolean',
-    //     value: !this.scrollDisabled
-    //   }])
-    // } else {
-    //   const hasAutoscroll = this.localSettings.settings['Scoresheet'].find(({ name }) => name === 'autoscroll') !== undefined
-    //   if (hasAutoscroll) {
-    //     this.scrollDisabled = !this.localSettings.settings['Scoresheet'].find(({ name }) => name === 'autoscroll').value
-    //   } else {
-    //     this.localSettings.addSettings('Scoresheet', [{
-    //       name: 'autoscroll',
-    //       dataType: 'boolean',
-    //       value: !this.scrollDisabled
-    //     }])
-    //   }
-    // }
   }
 
   isScrollDisabled () {
-    const savedAutoscroll = this.localSettings.getFromLocalStorage2('Scoresheet-Autoscroll')
+    const savedAutoscroll = this.localSettings.getFromLocalStorage('Scoresheet-Autoscroll')
     if (savedAutoscroll) {
       return !(savedAutoscroll.value)
     } else {
@@ -132,7 +114,7 @@ class ScoresheetPageController {
       if (score !== undefined) {
         this.data.load(score)
         this.scrollDisabled = true
-        this.localSettings.update2('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
+        this.localSettings.update('Scoresheet-Autoscroll', { value: !this.scrollDisabled, dataType: 'boolean' })
       }
     }
   }
