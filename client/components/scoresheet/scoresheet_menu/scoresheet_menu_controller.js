@@ -27,6 +27,7 @@ class ScoresheetMenuController {
   }
 
   setPage (page) {
+    this.page = page
     this.$location.path(page)
   }
 
@@ -52,11 +53,11 @@ class ScoresheetMenuController {
     }
   }
 
-  discardRefIdentityChange() {
+  discardRefIdentityChange () {
     this.refIdentityModalVisible = false
   }
 
-  logout() {
+  logout () {
     this.$location.path = '/logout'
   }
 

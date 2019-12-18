@@ -11,6 +11,7 @@ class ScoresMenuController {
   }
 
   setPage (page) {
+    this.page = page
     this.$location.path(`scores/${page}`)
   }
 
