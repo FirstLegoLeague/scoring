@@ -20,7 +20,13 @@ class MetadataInputsController {
 
     this.$scope.$watch(() => this.stage(), () => this.syncMatchFields())
     this.$scope.$watch(() => this.round(), () => this.syncMatchFields())
-    this.$scope.$watch(() => this.matchId(), () => this.syncMatchFields())
+    this.$scope.$watch(() => this.matchId(), () => {
+      if (this.data.current) {
+        this.data.current.stage = undefined
+        this.data.current.round = undefined
+      }
+      return this.syncMatchFields()
+    })
 
     this.$scope.$on('load', () => { this.data.autoselect = false })
     this.$scope.$on('reset', () => {
@@ -176,18 +182,30 @@ class MetadataInputsController {
   }
 
   syncMatchFields () {
-    if (!this.matches) {
+    if (this.syncingMatchFields) {
       return Promise.resolve()
     }
+
+    this.syncingMatchFields = true
+
+    if (!this.matches) {
+      this.syncingMatchFields = false
+      return Promise.resolve()
+    }
+
     const match = this.matches.find(m => m.stage === this.data.current.stage && m.round === this.data.current.round) ||
       this.matches.find(m => m._id === this.data.current.matchId)
 
-    if (!match) return Promise.resolve()
+    if (!match) {
+      this.syncingMatchFields = false
+      return Promise.resolve()
+    }
 
     this.data.current.matchId = match._id
     this.data.current.stage = match.stage
     this.data.current.round = match.round
 
+    this.syncingMatchFields = false
     return Promise.resolve()
   }
 }

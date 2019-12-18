@@ -1,18 +1,6 @@
 <div class="ui page sub menu grid">
-	<div class="row">
-		<metadata-inputs class="eleven wide column"></metadata-inputs>
-		<div class="center aligned column">
-			<div class="ui horizontal statistic">
-				<div class="value">
-					{{scoresheetPage.data.score()}}
-				</div>
-				<div class="label">
-					pts.
-				</div>
-			</div>
-		</div>
-		<scoresheet-actions class="four wide column"></scoresheet-actions>
-	</div>
+	<metadata-inputs></metadata-inputs>
+	<scoresheet-actions></scoresheet-actions>
 </div>
 <div id="missions" class="ui padded grid" ng-class="{rtl: scoresheetPage.data.current.rtl}">
 	<div class="row">
