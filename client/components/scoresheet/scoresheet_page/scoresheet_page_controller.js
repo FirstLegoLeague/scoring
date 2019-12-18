@@ -31,10 +31,6 @@ class ScoresheetPageController {
     this.$scope.$on('reset scoresheet', () => this.reset(false))
     this.$scope.$on('cancel scoresheet', () => this.reset(true))
 
-    this.$scope.$on('$locationChangeSuccess', () => {
-      this.loadFromURL()
-    })
-
     this.localSettings.on('scoresheet-autoscroll', () => { this.scrollDisabled = this.isScrollDisabled() })
 
     this.data.on('processed', () => {
@@ -44,9 +40,10 @@ class ScoresheetPageController {
       }
     })
 
-    Promise.all([this.data.init(), this.scores.init()])
+    return Promise.all([this.data.init(), this.scores.init()])
       .then(() => {
         this.loadFromURL()
+        this.$scope.$on('$locationChangeSuccess', () => this.loadFromURL())
         this.ready = true
         return true
       })
@@ -104,12 +101,15 @@ class ScoresheetPageController {
     const splitPath = this.$location.path().split('/')
     const page = splitPath[1]
     const subpage = splitPath[2]
-    if (page === 'scoresheet' && subpage !== 'new') {
-      const score = this.scores.scores.find(s => s._id === subpage)
-      if (score !== undefined) {
-        this.data.autoselect = false
-        this.data.load(score)
-        this.scrollDisabled = this.isScrollDisabled()
+    if (page === 'scoresheet') {
+      if (subpage === 'new') {
+        this.reset()
+      } else {
+        const score = this.scores.scores.find(s => s._id === subpage)
+        if (score !== undefined) {
+          this.data.load(score)
+          this.scrollDisabled = this.isScrollDisabled()
+        }
       }
     }
   }

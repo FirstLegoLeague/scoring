@@ -14,14 +14,18 @@ class MainMenuController {
   }
 
   setPage (page) {
+    this.page = page
     this.$location.path(page)
   }
 
   _resetPage () {
     this.page = this.$location.path().split('/')[1]
-    if (!this.page) {
-      this.setPage(this.user.isAdmin() ? 'scores' : 'scoresheet')
+    if (!this.user.isAdmin()) {
+      this.setPage('scoresheet')
+    } else if (!this.page) {
+      this.setPage('scores')
     }
+
     this.$scope.$broadcast(`set page ${this.page}`)
   }
 }
