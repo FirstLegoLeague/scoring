@@ -1,23 +1,12 @@
 import Promise from 'bluebird'
 
-import debounce from '../../../lib/debounce'
-
 class MetadataInputsController {
-  constructor (scoresheet, scores, $scope, $location, tournament, refIdentity, logger) {
-    Object.assign(this, { data: scoresheet, scores, $scope, $location, tournament, refIdentity, logger })
+  constructor (scoresheet, scores, $scope, $location, tournament, refIdentity, user, logger) {
+    Object.assign(this, { data: scoresheet, scores, $scope, $location, tournament, refIdentity, user, logger })
     this.loading = true
   }
 
   $onInit () {
-    this.$scope.$watch(() => this.teamNumber(), () => {
-      if (this.teamNumber()) {
-        this.forceMatchReselection = true
-        this.loadMatchOptions()
-          .then(() => this.autoselectMatch())
-          .catch(error => this.logger.error(error))
-      }
-    })
-
     this.$scope.$watch(() => this.stage(), () => this.syncMatchFields())
     this.$scope.$watch(() => this.round(), () => this.syncMatchFields())
     this.$scope.$watch(() => this.matchId(), () => {
@@ -28,11 +17,16 @@ class MetadataInputsController {
       return this.syncMatchFields()
     })
 
-    this.$scope.$on('load', () => { this.data.autoselect = false })
-    this.$scope.$on('reset', () => {
-      this.data.autoselect = true
-      this.forceTeamReselection = true
-      this.autoselectMetadata()
+    this.$scope.$watch(() => this.teamNumber(), () => {
+      if (this.teamNumber()) {
+        if (this.data.isEditing()) {
+          this.loadMatchOptions()
+            .then(() => this.syncMatchFields())
+            .catch(error => this.logger.error(error))
+        } else {
+          this.autoselectMatch()
+        }
+      }
     })
 
     this.scores.on('scores updated', () => {
@@ -41,11 +35,15 @@ class MetadataInputsController {
       }
     })
 
-    this.debouncedAutoselectMetadata = debounce(() => this.autoselectMetadata())
     this.refIdentity.on('table changed', () => {
-      if (this.refIdentity.table) {
-        this.forceTeamReselection = true
-        this.debouncedAutoselectMetadata()
+      if (!this.data.isEditing() && !this.user.isAdmin()) {
+        this.autoselectMetadata()
+      }
+    })
+
+    this.$scope.$on('reset', (_event, { forceMetadataIfEditing }) => {
+      if ((!this.data.isEditing() || !forceMetadataIfEditing || !this.teamNumber()) && !this.user.isAdmin()) {
+        this.autoselectMetadata()
       }
     })
 
@@ -54,10 +52,7 @@ class MetadataInputsController {
     })
 
     Promise.all([this.data.init(), this.tournament.loadTeams(), this.refIdentity.init()])
-      .then(() => {
-        this.loadFromUrl()
-        return this.autoselectMetadata()
-      })
+      .then(() => this.loadFromUrl())
       .catch(error => this.logger.error(error))
   }
 
@@ -80,7 +75,6 @@ class MetadataInputsController {
   loadFromUrl () {
     const search = this.$location.search()
     if (search.teamNumber && isFinite(search.teamNumber)) {
-      this.data.autoselect = true
       this.data.current.teamNumber = parseInt(search.teamNumber)
       if (search.stage) {
         this.data.current.stage = search.stage
@@ -88,21 +82,15 @@ class MetadataInputsController {
       if (search.round && isFinite(search.round)) {
         this.data.current.round = parseInt(search.round)
       }
-      this.data.autoselect = false
     }
   }
 
   autoselectMetadata () {
-    if (!this.data.autoselect) {
-      return this.loadMatchOptions()
-        .then(() => this.syncMatchFields())
-        .then(() => this.data.process())
-    }
     this.autoselecting = true
     return this.autoselectTeam()
       .then(() => {
         if (this.data.current.teamNumber) {
-          return this.loadMatchOptions().then(() => this.autoselectMatch())
+          return this.autoselectMatch()
         }
       })
       .catch(error => this.logger.error(error))
@@ -113,19 +101,21 @@ class MetadataInputsController {
     if (!this.refIdentity.table) {
       return Promise.resolve()
     }
-    if (!this.forceTeamReselection) {
-      if (!this.data.autoselect) {
-        return Promise.resolve()
-      }
-      if (this.data.current.teamNumber !== undefined) {
-        return Promise.resolve()
-      }
-    }
-    this.forceTeamReselection = false
     return this.tournament.loadNextTeamForTable(this.refIdentity.table.tableId, this.data.lastMatchId)
       .then(teamNumber => {
         if (teamNumber) {
           this.data.current.teamNumber = teamNumber
+        }
+      })
+  }
+
+  autoselectMatch () {
+    return this.loadMatchOptions()
+      .then(() => {
+        const firstIncompleteMatch = this.matches.find(match => !match.complete)
+        if (firstIncompleteMatch) {
+          this.data.current.stage = firstIncompleteMatch.stage
+          this.data.current.round = firstIncompleteMatch.round
         }
       })
   }
@@ -147,30 +137,6 @@ class MetadataInputsController {
         this.loadingMatches = false
         return this.data.process()
       })
-  }
-
-  autoselectMatch () {
-    if (!this.data.autoselect) {
-      return Promise.resolve()
-    }
-    if (!this.forceMatchReselection) {
-      if (this.data.current.matchId !== undefined) {
-        return Promise.resolve()
-      }
-      if (this.data.current.round !== undefined && this.data.current.stage !== undefined) {
-        return Promise.resolve()
-      }
-      if (this.matches.some(match => this.data.current.stage === match.stage || this.data.current.round === match.round)) {
-        return Promise.resolve()
-      }
-    }
-    this.forceMatchReselection = false
-    const firstIncompleteMatch = this.matches.find(match => !match.complete)
-    if (firstIncompleteMatch) {
-      this.data.current.stage = firstIncompleteMatch.stage
-      this.data.current.round = firstIncompleteMatch.round
-    }
-    return Promise.resolve()
   }
 
   calculateMatchCompletion () {
@@ -211,6 +177,6 @@ class MetadataInputsController {
 }
 
 MetadataInputsController.$$ngIsClass = true
-MetadataInputsController.$inject = ['scoresheet', 'scores', '$scope', '$location', 'tournament', 'refIdentity', 'logger']
+MetadataInputsController.$inject = ['scoresheet', 'scores', '$scope', '$location', 'tournament', 'refIdentity', 'user', 'logger']
 
 export default MetadataInputsController

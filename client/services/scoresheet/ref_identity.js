@@ -15,23 +15,30 @@ class RefIdentity extends EventEmitter {
         if (tables.length === 0) {
           this.tablesDisabled = true
         }
+        this.initWatchers()
         const data = JSON.parse(this.$window.sessionStorage[STORAGE_KEY] || EMPTY_DATA)
         this.set(data)
         return this
       })
     }
 
-    this.$rootScope.$watch(() => this.referee, () => {
-      this.emit('referee changed')
-    })
-
-    this.$rootScope.$watch(() => (this.table ? this.table.tableId : undefined), (newValue, oldValue) => {
-      if (newValue !== oldValue) {
-        this.emit('table changed')
-      }
-    })
-
     return this._initPromise
+  }
+
+  initWatchers () {
+    if (!this.watchersInitizlied) {
+      this.watchersInitizlied = true
+
+      this.$rootScope.$watch(() => this.referee, () => {
+        this.emit('referee changed')
+      })
+
+      this.$rootScope.$watch(() => (this.table ? this.table.tableId : undefined), (newValue, oldValue) => {
+        if (newValue !== oldValue) {
+          this.emit('table changed')
+        }
+      })
+    }
   }
 
   set (data) {
