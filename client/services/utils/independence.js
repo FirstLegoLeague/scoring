@@ -37,6 +37,7 @@ class Independence {
         if (response.status <= 0) {
           throw response
         }
+        return response
       })
       .catch(response => {
         if (response.status <= 0) {
