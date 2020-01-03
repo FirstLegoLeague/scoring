@@ -11,6 +11,7 @@ const DEFAULTS = require('./defaults')
 const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 
 const SCORE_FIELDS = {
+  _id: String,
   missions: 'as-is',
   score: Number,
   challenge: String,
@@ -49,8 +50,16 @@ function getConfiguratedChallenge () {
     .then(challenge => challenge.split(' ').slice(1, 3).join(' '))
 }
 
-function validateScore (rawScore) {
-  return Configuration.all().then(config => {
+function validateScoreFroCreation (rawScore) {
+  return Promise.all([
+    Configuration.all(),
+    connectionPromise
+      .then(scoringCollection => scoringCollection.findOne({ _id: new ObjectID(rawScore._id) }))
+  ]).then(([config, exsitingScore]) => {
+    if (exsitingScore) {
+      throw new InvalidScore('Already exists.')
+    }
+
     const allowedFields = Object.keys(SCORE_FIELDS)
     const requiredFields = Array.from(REQUIRED_FIELDS)
 
@@ -106,7 +115,7 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   const router = express.Router()
 
   router.post('/create', (req, res) => {
-    Promise.all([connectionPromise, validateScore(req.body)])
+    Promise.all([connectionPromise, validateScoreFroCreation(req.body)])
       .then(([scoringCollection, score]) => {
         score.creation = score.lastUpdate
         req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
