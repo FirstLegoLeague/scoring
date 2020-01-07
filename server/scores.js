@@ -11,7 +11,6 @@ const DEFAULTS = require('./defaults')
 const mongoUrl = process.env.MONGO_URI || DEFAULTS.MONGO
 
 const SCORE_FIELDS = {
-  _id: String,
   missions: 'as-is',
   score: Number,
   challenge: String,
@@ -61,6 +60,7 @@ function validateScoreFroCreation (rawScore) {
     }
 
     const allowedFields = Object.keys(SCORE_FIELDS)
+    allowedFields.push('_id')
     const requiredFields = Array.from(REQUIRED_FIELDS)
 
     Object.entries(POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
@@ -130,7 +130,7 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
         if (err instanceof InvalidScore) {
           res.status(422).send(err.message)
         } else {
-          res.status(500).send(`A problem occoured while trying to update score ${req.params.id}.`)
+          res.status(500).send(`A problem occoured while trying to create score ${req.params._id}.`)
         }
       })
   })
@@ -219,7 +219,7 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
 
   router.get('/:id', (req, res) => {
     connectionPromise
-      .then(scoringCollection => scoringCollection.findOne({ _id: new ObjectID(req.params.id) }))
+      .then(scoringCollection => scoringCollection.findOne({ _id: req.params.id }))
       .then(score => res.status(200).json(score))
       .catch(err => {
         req.logger.error(err.message)

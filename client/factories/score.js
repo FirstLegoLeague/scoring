@@ -67,7 +67,7 @@ function Score (tournament, challenge, logger) {
     Object.assign(score, DEFAULT_FILEDS, attrs)
 
     if (!score._id) {
-      score._id = randomize('?', 24, { chars: '0123456789ABCDEF' })
+      score._id = randomize('?', 24, { chars: '0123456789abcdef' })
     }
 
     score.teamText = score.matchText = score.tableText = 'Loading...'
