@@ -76,7 +76,7 @@ class ScoresheetPageController {
       .catch(error => {
         console.error(error)
         this.logger.error(`Failed saving score - #${this.data.current.teamNumber} in ${this.data.current.stage} #${this.data.current.round}: ${this.data.current.score}`)
-        this.notifications.error('Failed saving score... Retry will occour soon.')
+        this.notifications.error('Error sending score to server. Retrying...')
         if (this.data.isEditing()) {
           this.$window.history.back()
         }
