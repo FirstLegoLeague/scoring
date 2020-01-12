@@ -3,12 +3,12 @@ const MESSAGE_TYPES = {
   PUBLISH: 'publish'
 }
 const CLIENT_ID_KEY = 'client-id'
-const RETRY_TIMEOUT = 10 * 1000 // 10 seconds
+const RETRY_TIMEOUT = 1 * 1000 // 10 seconds
 const NODE = 'protected'
 
 class Messanger {
-  constructor (configuration, $window, $timeout, logger) {
-    Object.assign(this, { configuration, $window, $timeout, logger })
+  constructor (configuration, $window, $interval, logger) {
+    Object.assign(this, { configuration, $window, $interval, logger })
     this.open = false
     this.connecting = false
     this.listeners = []
@@ -19,6 +19,8 @@ class Messanger {
     if (!this.open && !this.connecting) {
       this._initPromise = this.configuration.load().then(config => {
         this.connecting = true
+        this.$interval.cancel(this.reconnectionInterval)
+        this.reconnectionInterval = undefined
         this.ws = new this.$window.WebSocket(config.mhub)
         this.node = NODE
         this.clientId = parseInt(Math.floor(0x100000 * (Math.random())), 16)
@@ -43,7 +45,7 @@ class Messanger {
         this.open = false
         this.disconnectionTime = Date.now()
         this.logger.warn('Disonnected from mhub')
-        this.$timeout(() => {
+        this.reconnectionInterval = this.$interval(() => {
           this.logger.warn('Retrying mhub connection')
           this.init()
         }, RETRY_TIMEOUT)
@@ -105,6 +107,6 @@ class Messanger {
 }
 
 Messanger.$$ngIsClass = true
-Messanger.$inject = ['configuration', '$window', '$timeout', 'logger']
+Messanger.$inject = ['configuration', '$window', '$interval', 'logger']
 
 export default Messanger

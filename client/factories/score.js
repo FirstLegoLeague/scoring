@@ -1,4 +1,5 @@
 import Promise from 'bluebird'
+import randomize from 'randomatic'
 
 const ALLOW_NEGATIVE_SCORES = false
 
@@ -64,6 +65,11 @@ function Score (tournament, challenge, logger) {
     })
 
     Object.assign(score, DEFAULT_FILEDS, attrs)
+
+    if (!score._id) {
+      score._id = randomize('?', 24, { chars: '0123456789abcdef' })
+    }
+
     score.teamText = score.matchText = score.tableText = 'Loading...'
     score.teamError = score.matchError = score.ready = false
 
@@ -112,6 +118,7 @@ function Score (tournament, challenge, logger) {
 
     score.sanitize = config => {
       const sanitizedScore = {
+        _id: score._id,
         missions: (score.missions || challenge.challenge.missions).map(mission => {
           return {
             id: mission.id,
