@@ -1,7 +1,6 @@
 class MainMenuController {
-  constructor ($location, $scope, user, settings) {
-    Object.assign(this, { $location, $scope, user, settings })
-    this.loadSettings()
+  constructor ($location, $scope, $timeout, $window, user) {
+    Object.assign(this, { $location, $scope, $timeout, $window, user })
   }
 
   $onInit () {
@@ -9,46 +8,29 @@ class MainMenuController {
     this.$scope.$on('$locationChangeSuccess', () => {
       this._resetPage()
     })
+    this.$timeout(() => {
+      this.$window.jQuery('.splashing.menu').removeClass('splashing')
+    }, 2000)
   }
 
   setPage (page) {
+    this.page = page
     this.$location.path(page)
   }
 
   _resetPage () {
     this.page = this.$location.path().split('/')[1]
-    if (!this.page) {
-      this.setPage(this.user.isAdmin() ? 'scores' : 'scoresheet')
+    if (!this.user.isAdmin()) {
+      this.setPage('scoresheet')
+    } else if (!this.page) {
+      this.setPage('scores')
     }
+
     this.$scope.$broadcast(`set page ${this.page}`)
-  }
-
-  settingsCheck () {
-    console.log('hi')
-    console.log(this.settings.get())
-  }
-
-  loadSettings () {
-    const fromService = this.settings.get()
-    const theKeys = Object.keys(fromService)
-    this.settingsKeys = theKeys
-    this.settingsCopy = fromService
-    this.forDOM = []
-    this.settingsKeys.forEach(key => {
-      this.forDOM.push({
-        keyName: key,
-        data: this.settingsCopy[key]
-      })
-    })
-  }
-
-  saveSettings () {
-    this.settings.update(this.settingsCopy, 'mainmenu', () => this.loadSettings())
-    console.log(this.settings.settingsObject)
   }
 }
 
 MainMenuController.$$ngIsClass = true
-MainMenuController.$inject = ['$location', '$scope', 'user', 'settings']
+MainMenuController.$inject = ['$location', '$scope', '$timeout', '$window', 'user']
 
 export default MainMenuController

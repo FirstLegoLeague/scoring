@@ -1,23 +1,11 @@
 <div class="ui page sub menu grid">
-	<div class="row">
-		<metadata-inputs class="eleven wide column"></metadata-inputs>
-		<div class="center aligned column">
-			<div class="ui horizontal statistic">
-				<div class="value">
-					{{scoresheetPage.data.score()}}
-				</div>
-				<div class="label">
-					pts.
-				</div>
-			</div>
-		</div>
-		<scoresheet-actions class="four wide column"></scoresheet-actions>
-	</div>
+	<metadata-inputs></metadata-inputs>
+	<scoresheet-actions></scoresheet-actions>
 </div>
 <div id="missions" class="ui padded grid" ng-class="{rtl: scoresheetPage.data.current.rtl}">
 	<div class="row">
 		<div class="ui grid container">
-			<div class="ui padded one column grid" ng-if="scoresheetPage.ready" missions-scroll
+			<div class="ui padded one column grid" ng-if="scoresheetPage.ready && scoresheetPage.data.ready" missions-scroll
 			on="scrollToMission" mission-complete-event="mission complete" scoresheet-complete-event="scoresheet complete" scroll-disabled="scoresheetPage.scrollDisabled">
 				<mission ng-repeat="mission in scoresheetPage.data.current.missions" id="{{mission.id}}" class="column" data="mission"></mission>
 				<div class="column">
@@ -35,6 +23,6 @@
 	</div>
 </div>
 
-<div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready }">
+<div class="ui active dimmer" ng-class="{ active: !scoresheetPage.ready || !scoresheetPage.data.ready }">
 	<div class="ui massive loader"></div>
 </div>

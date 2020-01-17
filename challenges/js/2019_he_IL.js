@@ -2,7 +2,7 @@
     "title": "CITY SHAPER",
     "missions": [{
             "title": "יתרון",
-            "description": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
+            "description": "אם כל הציוד שלכ נכנס באזור הביקורת הקטן אתם מקבלים יתרון.",
             "objectives": [{
                 "id": "bonus",
                 "title": "הרובוט וכל הציוד שלכם נכנס לאזור הביקורת הקטן:",
@@ -21,7 +21,7 @@
         },
         {
             "title": "M01 מקומות מוגבהים",
-            "description": "You can only get Flag points if you get Bridge points. It is okay and expected for Robots to collide while trying to earn Flag points.",
+            "description": "ניתן לצבור נקודות מהדגלים רק אם צברתם נקודות מהגשר.  :זה צפוי ומקובל שרובוטים יתנגשו בעודם מנסים לצבור נקודות מהדגלים.",
             "objectives": [{
                     "id": "M01_1",
                     "title": "הרובוט נתמך על ידי הגשר:",
@@ -92,10 +92,10 @@
         },
         {
             "title": "M02 מנוף",
-            "description": "Score all that apply.",
+            "description": "נקדו את כל מה שמתקיים.",
             "objectives": [{
                     "id": "M02_1",
-                    "title": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו, מראש המנוף:",
+                    "title": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו מראש המנוף:",
                     "type": "yesno",
                     "default": "no",
                     "value": null
@@ -174,10 +174,10 @@
         },
         {
             "title": "M03 רחפן בקרה",
-            "description": "The Inspection Camera Drone Mission reveals an inexpensive way to check out bridges and other tall structures. Drones can fly for hours and send back detailed pictures and even 3D scans.",
+            "description": "משימת רחפן הבקרה מדגימה שיטה לא יקרה לבדיקת גשרים ומבנים גבוהים אחרים. רחפנים יכולים לטוס במשף שעות ולשלוח תמונות מפורטות, ואפילו סריקות תלת-מימד.",
             "objectives": [{
                 "id": "M03_1",
-                "title": "רחפן הבקרה נתמך על ידי מוט על הגשר:",
+                "title": "רחפן הבקרה נתמך על ידי המוט שעל הגשר:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -200,10 +200,10 @@
         },
         {
             "title": "M04 עיצוב ידידותי לחיות בר",
-            "description": "The Bat needs to end up on the brown Branch",
+            "description": "העטלף צריך להגיע לענף החום",
             "objectives": [{
                 "id": "M04_1",
-                "title": "העטלף נתמך על ידי ענף על העץ:",
+                "title": "העטלף נתמך על ידי הענף שעל העץ:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -226,7 +226,7 @@
         },
         {
             "title": "M05 בית עץ",
-            "description": "Score all that apply.",
+            "description": "נקדו את כל מה שמתקיים.",
             "objectives": [{
                     "id": "M05_lg",
                     "title": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הגדולים של העץ:",
@@ -2201,7 +2201,7 @@
         },
         {
             "title": "M06 פקק תנועה",
-            "description": "Clear the road by lifting the Traffic Jam.",
+            "description": "פנו את הדרך על ידי הרמת פקק התנועה.",
             "objectives": [{
                 "id": "M06_1",
                 "title": "פקק התנועה מורם, והחלק הנע שלו עצמאי ונתמך על ידי הצירים בלבד:",
@@ -2227,10 +2227,10 @@
         },
         {
             "title": "M07 נדנדה",
-            "description": "Release the Swing.",
+            "description": "שחררו את הנדנדה.",
             "objectives": [{
                 "id": "M07_1",
-                "title": "הנדנדה משוחררת",
+                "title": "הנדנדה משוחררת:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2253,7 +2253,7 @@
         },
         {
             "title": "M08 מעלית",
-            "description": "Score one or the other, but not both.",
+            "description": "נקדו אפשרות אחת או אחרת, אך לא את שתיהן.",
             "objectives": [{
                 "id": "M08_1",
                 "title": "החלקים הנעים של המעלית עצמאיים, ונתמכים על ידי צירי המעלית בלבד, במצב הבא:",
@@ -2298,7 +2298,7 @@
         },
         {
             "title": "M09 מקדם בטיחות",
-            "description": "Can the Test Building stand when some of its support beams are moved?",
+            "description": "האם מבנה הבדיקה יכול לעמוד כשחלק מענודי התמיכה שלו הוסטו?",
             "objectives": [{
                     "id": "M09_1",
                     "title": "מבנה הבדיקה עצמאי ונתמך רק על ידי הקורות הכחולות:",
@@ -2433,7 +2433,7 @@
         },
         {
             "title": "M10 מבנה פלדה",
-            "description": "Make the Steel Structure stand up.",
+            "description": "גרמו למבנה הפלדה לעמוד זקוף.",
             "objectives": [{
                 "id": "M10",
                 "title": "מבנה הפלדה עומד, עצמאי, ונתמך על ידי הצירים שלו בלבד:",
@@ -2459,10 +2459,10 @@
         },
         {
             "title": "M11 ארכיטקטורה חדשנית",
-            "description": "Design and build your own Structure and deliver to any Circle.",
+            "description": "עצבו ובנו מבנה משלכם והעבירו אותו לעיגול כלשהו.",
             "objectives": [{
                     "id": "M11_1",
-                    "title": "המבנה גדול יותר מיחידה כחולה וגם וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
+                    "title": "מבנה גדול יותר מחלק לגו עם 4 בליטות, וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
                     "type": "yesno",
                     "default": "no"
                 },
@@ -2530,7 +2530,7 @@
         },
         {
             "title": "M12 עצבו ובנו",
-            "description": "The Blue Circle is not part of Mission 12.",
+            "description": "העיגול הכחול אינו חלק ממשימה 12.",
             "objectives": [{
                     "id": "M12_1",
                     "title": "מספר העיגולים עם לפחות יחידה אחת, בצבע זהה, לגמרי בתוך העיגול, פאה נוגעת בשטיח:",
@@ -2556,7 +2556,7 @@
                 },
                 {
                     "id": "M12_4",
-                    "title": "סכום הגבהים של מגדלים עצמאיים לפחות באופן חלקי בתוך עיגולים כלשהם:",
+                    "title": "סכום הגבהים של מגדלים עצמאיים הנמצאים לפחות באופן חלקי בתוך עיגולים כלשהם:",
                     "type": "number",
                     "default": 1,
                     "min": 0,
@@ -3295,7 +3295,7 @@
         },
         {
             "title": "M13 שדרוגי קיימות",
-            "description": "Only one Upgrade (solar panels, roof garden, insulation) counts per Stack.",
+            "description": "רק שדרוג אחד (לוחות סולריים, גינת גג, בידוד) נחשב לכל מגדל.",
             "objectives": [{
                 "id": "M13",
                 "title": "מספר השדרוגים שהם עצמאיים, הנתמכים רק על ידי מגדל, הנמצא לפחות באופן חלקי בעיגול כלשהו:",
@@ -3350,10 +3350,10 @@
         },
         {
             "title": "M14 דיוק",
-            "description": "You are allowed to Interrupt your Robot and bring it back to re-Launch, but Interruptions do lose Precision Tokens.",
+            "description": "מותר לכם להפריע לרובוט ולהחזירו לשיגור מחדש, אבל הפרעות גורמות לאיבוד אסימוני דיוק.",
             "objectives": [{
                 "id": "precision",
-                "title": "מספר אסימוני דיוק שנותרו על המגרש",
+                "title": "מספר אסימוני דיוק שנשארו על המגרש",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -3416,64 +3416,64 @@
         "yes": "כן",
         "no": "לא",
         "advantage-name": "יתרון",
-        "advantage-desc": "If all your Equipment fits in the Small Inspection area during Match preparation, you get an advantage.",
+        "advantage-desc": "אם כל הציוד שלכ נכנס באזור הביקורת הקטן אתם מקבלים יתרון.",
         "advantage-scoring": "הרובוט וכל הציוד שלכם נכנס לאזור הביקורת הקטן:",
         "M01-name": "M01 מקומות מוגבהים",
-        "M01-desc": "You can only get Flag points if you get Bridge points. It is okay and expected for Robots to collide while trying to earn Flag points.",
+        "M01-desc": "ניתן לצבור נקודות מהדגלים רק אם צברתם נקודות מהגשר.  :זה צפוי ומקובל שרובוטים יתנגשו בעודם מנסים לצבור נקודות מהדגלים.",
         "M01-scoring1": "הרובוט נתמך על ידי הגשר:",
         "M01-scoring2": "מספר הדגלים שמורמים באופן ברור, במידה כלשהי, על ידי הרובוט בלבד:",
         "M02-name": "M02 מנוף",
-        "M02-desc": "Score all that apply.",
-        "M02-scoring1": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו, מראש המנוף:",
+        "M02-desc": "נקדו את כל מה שמתקיים.",
+        "M02-scoring1": "היחידה הכחולה התפוסה בוו, מונמכת מרחק כלשהו מראש המנוף:",
         "M02-scoring2": "היחידה הכחולה התפוסה בוו עצמאית ונתמכת על ידי יחידה כחולה אחרת:",
         "M02-scoring3": "והקומה הראשונה היא לגמרי בתוך העיגול הכחול:",
         "M03-name": "M03 רחפן בקרה",
-        "M03-desc": "The Inspection Camera Drone Mission reveals an inexpensive way to check out bridges and other tall structures. Drones can fly for hours and send back detailed pictures and even 3D scans.",
-        "M03-scoring1": "רחפן הבקרה נתמך על ידי מוט על הגשר:",
+        "M03-desc": "משימת רחפן הבקרה מדגימה שיטה לא יקרה לבדיקת גשרים ומבנים גבוהים אחרים. רחפנים יכולים לטוס במשף שעות ולשלוח תמונות מפורטות, ואפילו סריקות תלת-מימד.",
+        "M03-scoring1": "רחפן הבקרה נתמך על ידי המוט שעל הגשר:",
         "M04-name": "M04 עיצוב ידידותי לחיות בר",
-        "M04-desc": "The Bat needs to end up on the brown Branch",
-        "M04-scoring1": "העטלף נתמך על ידי ענף על העץ:",
+        "M04-desc": "העטלף צריך להגיע לענף החום",
+        "M04-scoring1": "העטלף נתמך על ידי הענף שעל העץ:",
         "M05-name": "M05 בית עץ",
-        "M05-desc": "Score all that apply.",
+        "M05-desc": "נקדו את כל מה שמתקיים.",
         "M05-scoring1": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הגדולים של העץ:",
         "M05-scoring2": "מספר היחידות העצמאיות הנתמכות על ידי הענפים הקטנים של העץ:",
         "M05-error": "יותר מידי יחידות",
         "M06-name": "M06 פקק תנועה",
-        "M06-desc": "Clear the road by lifting the Traffic Jam.",
+        "M06-desc": "פנו את הדרך על ידי הרמת פקק התנועה.",
         "M06-scoring1": "פקק התנועה מורם, והחלק הנע שלו עצמאי ונתמך על ידי הצירים בלבד:",
         "M07-name": "M07 נדנדה",
-        "M07-desc": "Release the Swing.",
-        "M07-scoring1": "הנדנדה משוחררת",
+        "M07-desc": "שחררו את הנדנדה.",
+        "M07-scoring1": "הנדנדה משוחררת:",
         "M08-name": "M08 מעלית",
-        "M08-desc": "Score one or the other, but not both.",
+        "M08-desc": "נקדו אפשרות אחת או אחרת, אך לא את שתיהן.",
         "M08-scoring1": "החלקים הנעים של המעלית עצמאיים, ונתמכים על ידי צירי המעלית בלבד, במצב הבא:",
         "M08-scoring2": "כלום",
         "M08-scoring3": "קרון כחול למטה",
         "M08-scoring4": "מאוזן",
         "M09-name": "M09 מקדם בטיחות",
-        "M09-desc": "Can the Test Building stand when some of its support beams are moved?",
+        "M09-desc": "האם מבנה הבדיקה יכול לעמוד כשחלק מענודי התמיכה שלו הוסטו?",
         "M09-scoring1": "מבנה הבדיקה עצמאי ונתמך רק על ידי הקורות הכחולות:",
         "M09-scoring2": "מספר הקורות שהוסטו לפחות מחצית הדרך:",
         "M10-name": "M10 מבנה פלדה",
-        "M10-desc": "Make the Steel Structure stand up.",
+        "M10-desc": "גרמו למבנה הפלדה לעמוד זקוף.",
         "M10-scoring": "מבנה הפלדה עומד, עצמאי, ונתמך על ידי הצירים שלו בלבד:",
         "M11-name": "M11 ארכיטקטורה חדשנית",
-        "M11-desc": "Design and build your own Structure and deliver to any Circle.",
-        "M11-scoring1": "המבנה גדול יותר מיחידה כחולה וגם וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
+        "M11-desc": "עצבו ובנו מבנה משלכם והעבירו אותו לעיגול כלשהו.",
+        "M11-scoring1": "מבנה גדול יותר מחלק לגו עם 4 בליטות, וגם נבנה רק מחלקי ה- LEGO הלבנים של הקבוצה:",
         "M11-scoring2": "המבנה בעיגול כלשהו:",
         "M11-scoring3": "כלום",
         "M11-scoring4": "חלקית",
         "M11-scoring5": "לגמרי בתוך",
         "M12-name": "M12 עצבו ובנו",
-        "M12-desc": "The Blue Circle is not part of Mission 12.",
+        "M12-desc": "העיגול הכחול אינו חלק ממשימה 12.",
         "M12-scoring1": "מספר העיגולים עם לפחות יחידה אחת, בצבע זהה, לגמרי בתוך העיגול, פאה נוגעת בשטיח:",
-        "M12-scoring4": "סכום הגבהים של מגדלים עצמאיים לפחות באופן חלקי בתוך עיגולים כלשהם:",
+        "M12-scoring4": "סכום הגבהים של מגדלים עצמאיים הנמצאים לפחות באופן חלקי בתוך עיגולים כלשהם:",
         "M13-name": "M13 שדרוגי קיימות",
-        "M13-desc": "Only one Upgrade (solar panels, roof garden, insulation) counts per Stack.",
+        "M13-desc": "רק שדרוג אחד (לוחות סולריים, גינת גג, בידוד) נחשב לכל מגדל.",
         "M13-scoring": "מספר השדרוגים שהם עצמאיים, הנתמכים רק על ידי מגדל, הנמצא לפחות באופן חלקי בעיגול כלשהו:",
         "precision-name": "M14 דיוק",
-        "precision-desc": "You are allowed to Interrupt your Robot and bring it back to re-Launch, but Interruptions do lose Precision Tokens.",
-        "precision-scoring": "מספר אסימוני דיוק שנותרו על המגרש",
+        "precision-desc": "מותר לכם להפריע לרובוט ולהחזירו לשיגור מחדש, אבל הפרעות גורמות לאיבוד אסימוני דיוק.",
+        "precision-scoring": "מספר אסימוני דיוק שנשארו על המגרש",
         "building-unit-error": "יותר מידי יחידות בנייה בשימוש",
         "crane-error": "סתירה במיקום יחידות הבנייה הכחולות",
         "M12-error2": "גובה נמוך מידי ביחס למספר התאמות הצבעים"

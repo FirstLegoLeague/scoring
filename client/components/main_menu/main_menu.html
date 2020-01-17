@@ -1,34 +1,9 @@
-<scores-menu ng-if="mainMenu.page === 'scores'" class="menu"></scores-menu>
-<scoresheet-menu ng-if="mainMenu.page === 'scoresheet'" class="menu"></scoresheet-menu>
+<scores-menu ng-show="mainMenu.page === 'scores'" class="menu"></scores-menu>
+<scoresheet-menu ng-show="mainMenu.page === 'scoresheet'" class="menu"></scoresheet-menu>
 <div class="right menu">
-	<div class="ui right floated basic icon compact button" ng-click="mainMenu.settingsModalVisible = true; mainMenu.loadSettings()" ng-if="mainMenu.page === 'scoresheet'">
-		<i class="cog icon"></i>
-		<div class="hover text">Settings</div>
-	</div>
+	<local-settings-modal page="mainMenu.page"></local-settings-modal>
 	<a class="link icon item" href="/logout">
 		<i class="link sign out icon"></i>
 		<div class="hover text">Logout</div>
 	</a>
 </div>
-<sm-modal class="longer small" visible="mainMenu.settingsModalVisible" settings="{ closable: true }">
-	<div class="ui icon header">
-		<i class="cog icon"></i>
-		Scoresheet Settings
-	</div>
-	<div class="content">
-		<div class="center aligned grid">
-			<div ng-repeat="setting in mainMenu.forDOM">
-				<div class="sub header">
-					{{setting.keyName}}
-				</div>
-				<div class="ui input">
-				  <input type="text" placeholder="{ setting.data }" ng-model="mainMenu.settingsCopy[setting.keyName]">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="actions">
-		<div class="ui primary inverted button" ng-click="mainMenu.settingsModalVisible = false">Cancel</div>
-		<div class="ui green inverted button" ng-click="mainMenu.settingsModalVisible = false; mainMenu.saveSettings()">Save</div>
-	</div>
-</sm-modal>

@@ -5,14 +5,19 @@ import angular from 'angular'
 import debounce from '../../lib/debounce'
 import { isNumber } from 'util'
 
+// This is done because Semantic-UI lib needs the value to be `=== null` in order to reset the dropdown.
+// Once https://github.com/ClickerMonkey/SemanticUI-Angular/pull/38 is merged, this can be removed.
+const DEFAULT_METADATA = {
+  teamNumber: null
+}
+
 class Scoresheet extends EventEmitter {
-  constructor (challenge, scores, scoresheetValidations, refIdentity, logger, settings) {
+  constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
     super()
-    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, logger, settings })
+    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, logger })
     this.errors = []
     this.ready = false
     this.faulty = false
-    this.autoselect = true
   }
 
   init () {
@@ -50,7 +55,7 @@ class Scoresheet extends EventEmitter {
       }
       this.current = Object.assign(angular.copy(this._original), metadata)
     } else {
-      this.current = angular.copy(this._original)
+      this.current = Object.assign(angular.copy(this._original), DEFAULT_METADATA)
     }
     this.current.missions.forEach(mission => {
       mission.score = 0
@@ -63,7 +68,7 @@ class Scoresheet extends EventEmitter {
           const result = mission.scoreFunction(values)
           if (result instanceof Error) {
             Object.assign(mission, { complete: false, error: result, score: 0 })
-          } else if (isNumber(result) ) {
+          } else if (isNumber(result)) {
             Object.assign(mission, { complete: true, error: undefined, score: result })
           } else {
             Object.assign(mission, { complete: false, error: undefined, score: 0 })
@@ -71,6 +76,7 @@ class Scoresheet extends EventEmitter {
         }
       }
     })
+    this.allowSignatureEditing = true
     this.ready = true
     return Promise.resolve(this.current)
   }
@@ -137,7 +143,6 @@ class Scoresheet extends EventEmitter {
 
   load (score) {
     this.ready = false
-    this.autoselect = false
     return Promise.resolve(this.refIdentity.set(score))
       .then(() => {
         Object.assign(this.current, {
@@ -180,6 +185,6 @@ class Scoresheet extends EventEmitter {
 }
 
 Scoresheet.$$ngIsClass = true
-Scoresheet.$inject = ['challenge', 'scores', 'scoresheetValidations', 'refIdentity', 'logger', 'settings']
+Scoresheet.$inject = ['challenge', 'scores', 'scoresheetValidations', 'refIdentity', 'logger']
 
 export default Scoresheet

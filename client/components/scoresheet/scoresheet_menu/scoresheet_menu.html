@@ -3,20 +3,23 @@
 	Back to scores
 </a>
 
-<div class="input item" ng-if="scoresheetMenu.user.isAdmin()">
+<div id="referee-input" class="input item" screen-size="tablet small large" ng-if="scoresheetMenu.user.isAdmin()">
 	<div class="ui transparent icon input">
 		<i class="user icon"></i>
 		<input type="text" placeholder="Enter referee" ng-model="scoresheetMenu.refIdentity.referee"/>
 	</div>
 </div>
 
-<sm-dropdown ng-if="scoresheetMenu.user.isAdmin()" class="item" model="scoresheetMenu.refIdentity.table" items="scoresheetMenu.refIdentity.tournament.tables" label="item.tableName" default-text="'Select table'"></sm-dropdown>
+<sm-dropdown id="table-input"  screen-size="tablet small large" ng-if="scoresheetMenu.user.isAdmin()" class="item" model="scoresheetMenu.refIdentity.table" items="scoresheetMenu.refIdentity.tournament.tables" label="item.tableName" default-text="'Select table'"></sm-dropdown>
 
-<div class="link item" ng-if="scoresheetMenu.user.isRef()" ng-click="scoresheetMenu.showRefIdentityModal()">
+<div id="ref-identity-button" class="link item" screen-size="mobile" ng-class="{ref: scoresheetMenu.user.isRef()}" ng-click="scoresheetMenu.showRefIdentityModal()">
 	<i class="user icon"></i>
-	{{scoresheetMenu.refIdentity.referee}}
-	<span ng-if="!scoresheetMenu.refIdentity.tablesDisabled">&nbsp;On Table&nbsp;{{scoresheetMenu.refIdentity.table.tableName}}</span>
+	<span screen-size="tablet small large">
+		{{scoresheetMenu.refIdentity.referee}}
+		<span ng-if="!scoresheetMenu.refIdentity.tablesDisabled">&nbsp;On Table&nbsp;{{scoresheetMenu.refIdentity.table.tableName}}</span>
+	</span>
 </div>
+
 <sm-modal class="basic small" visible="scoresheetMenu.refIdentityModalVisible" settings="{ closable: false }">
 	<div class="ui centered header">Please enter your information:</div>
 	<div class="content">

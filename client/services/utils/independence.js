@@ -5,6 +5,11 @@ class Independence {
   constructor ($http, $window, $interval) {
     Object.assign(this, { $http, $window, $interval })
     this.lastSuccessfulRequestTime = Date.now()
+
+    this._pendingRequests()
+      .filter(action => action.method.toLowerCase() === 'get')
+      .forEach(action => this._deleteRequest(action))
+
     this.retrySavedRequest()
 
     this.$interval(() => {
@@ -16,7 +21,6 @@ class Independence {
 
   send (method, url, data) {
     const action = { method, url, data, pending: false }
-    this._saveRequest(action)
     return this._requestPromise(action)
   }
 
@@ -28,13 +32,12 @@ class Independence {
 
   _requestPromise (action) {
     action.pending = true
-    this._saveRequest(action)
     return this.$http[action.method.toLowerCase()](action.url, action.data)
       .then(response => {
         if (response.status <= 0) {
+          this._saveRequest(action)
           throw response
         }
-        this._deleteRequest(action)
         this.retrySavedRequest()
         return response
       })

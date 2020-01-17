@@ -986,7 +986,7 @@
             "description": "Trafik sıkışıklığını kaldırarak yolu aç.",
             "objectives": [{
                 "id": "M06_1",
-                "title": "Trafik Sıkışıklığı kaldırılmış, hareket eden kısmı bağımsız ve sadece menteşelerinden Destekleniyor:",
+                "title": "Trafik Sıkışıklığı kaldırılmış, hareket eden kısmı Bağımsız ve kendi menteşelerinden Destekleniyor:",
                 "type": "yesno",
                 "default": "no"
             }],
@@ -2080,7 +2080,7 @@
             "description": "İstif başına bir yükseltme sayılır (güneş panelleri, çatı bahçesi, yalıtım).",
             "objectives": [{
                 "id": "M13",
-                "title": "Bağımsız ve en azından kısmen bir Çemberin içinde bulunan bir İstif tarafından desteklenen Yükseltici sayısı:",
+                "title": "Bağımsız ve sadece en azından kısmen bir Çemberin içinde olan bir İstif tarafından desteklenen Yükseltici sayısı:",
                 "options": [{
                         "value": "0",
                         "title": "0"
@@ -2222,7 +2222,7 @@
         "M05-error": "Çok fazla blok",
         "M06-name": "G06 Trafik Sıkışıklığı",
         "M06-desc": "Trafik sıkışıklığını kaldırarak yolu aç.",
-        "M06-scoring1": "Trafik Sıkışıklığı kaldırılmış, hareket eden kısmı bağımsız ve sadece menteşelerinden Destekleniyor:",
+        "M06-scoring1": "Trafik Sıkışıklığı kaldırılmış, hareket eden kısmı Bağımsız ve kendi menteşelerinden Destekleniyor:",
         "M07-name": "G07 Salıncak",
         "M07-desc": "Salıncak'ı serbest bırak.",
         "M07-scoring1": "Salıncak serbest bırakılmış:",
@@ -2252,7 +2252,7 @@
         "M12-scoring4": "Herhangi bir çemberin en azından kısmen içinde bulunan Bağımsız İstiflerin toplam kat sayısı:",
         "M13-name": "G13 Sürdürülebilirlik Yükseltmeleri",
         "M13-desc": "İstif başına bir yükseltme sayılır (güneş panelleri, çatı bahçesi, yalıtım).",
-        "M13-scoring": "Bağımsız ve en azından kısmen bir Çemberin içinde bulunan bir İstif tarafından desteklenen Yükseltici sayısı:",
+        "M13-scoring": "Bağımsız ve sadece en azından kısmen bir Çemberin içinde olan bir İstif tarafından desteklenen Yükseltici sayısı:",
         "precision-name": "G14 Hassasiyet",
         "precision-desc": "Robotunuza Müdahale etmenize ve yeniden Başlatma için geri getirmenize izin verilmiştir fakat Hassasiyet Diskleri kaybedersiniz.",
         "precision-scoring": "Saha’da kullanılmayan Hassasiyet Diski sayısı:",
