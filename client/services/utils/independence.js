@@ -35,20 +35,21 @@ class Independence {
     return this.$http[action.method.toLowerCase()](action.url, action.data)
       .then(response => {
         if (response.status <= 0) {
+          throw response
+        }
+        return response
+      })
+      .catch(response => {
+        if (response.status <= 0) {
+          action.pending = false
           this._saveRequest(action)
           throw response
         }
+      })
+      .then(response => {
+        this._deleteRequest(action)
         this.retrySavedRequest()
         return response
-      })
-      .catch(err => {
-        if (err.status > 0) {
-          this._deleteRequest(action)
-        } else {
-          action.pending = false
-          this._saveRequest(action)
-        }
-        throw err
       })
   }
 
