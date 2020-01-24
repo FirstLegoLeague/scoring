@@ -1,4 +1,5 @@
 import template from './setting.html'
+import './setting.css'
 
 export default {
   template,

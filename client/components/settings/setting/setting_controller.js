@@ -2,9 +2,6 @@ class SettingController {
   constructor ($scope) {
     Object.assign(this, { $scope })
   }
-
-  $onInit () {
-  }
 }
 
 SettingController.$$ngIsClass = true

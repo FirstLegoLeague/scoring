@@ -40,6 +40,10 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf|svg|png|jpeg|jpg|tif|gif|ico)$/,
         use: ['file-loader']
+      },
+      {
+        test: /\.yml$/,
+        use: ['json-loader', 'yaml-loader']
       }
     ]
   },

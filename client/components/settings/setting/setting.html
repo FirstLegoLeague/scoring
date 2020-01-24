@@ -7,14 +7,16 @@
   <div class="ui input" ng-if="setting.data.type === 'string'">
     <input type="text" ng-model="setting.data.value">
   </div>
-  <div class="ui action input"  ng-if="setting.data.type === 'number'">
+  <div class="ui action input" ng-if="setting.data.type === 'number'">
     <button class="ui icon button"><i class="minus circle link icon"
 	      ng-click="setting.data.value = (setting.data.value === undefined) ? 0 : (setting.data.value - 1)">
     </i></button>
-	  <input  type='number' ng-model="setting.data.value"/>
+	  <input type='number' ng-model="setting.data.value"/>
     <button class="ui icon button"><i class="plus circle link icon"
 	      ng-click="setting.data.value = (setting.data.value === undefined) ? 0 : (setting.data.value + 1)">
     </i></button>
-
+  </div>
+  <div class="ui input" ng-if="setting.data.type === 'values'">
+    <sm-dropdown class="selection item" model="setting.data.value" items="setting.data.options"></sm-dropdown>
   </div>
 </div>

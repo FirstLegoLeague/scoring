@@ -4,17 +4,6 @@ class ScoresheetPageController {
   constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings) {
     Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings })
     this.ready = false
-    this.scrollDisabled = this.isScrollDisabled()
-    this.localSettings.update('scoresheet-autoscroll', { value: !this.scrollDisabled, type: 'boolean' })
-  }
-
-  isScrollDisabled () {
-    const savedAutoscroll = this.localSettings.getFromLocalStorage('scoresheet-autoscroll')
-    if (savedAutoscroll) {
-      return !(savedAutoscroll.value)
-    } else {
-      return (this.scrollDisabled || false)
-    }
   }
 
   $onInit () {
@@ -30,8 +19,6 @@ class ScoresheetPageController {
     })
     this.$scope.$on('reset scoresheet', () => this.reset(false))
     this.$scope.$on('cancel scoresheet', () => this.reset(true))
-
-    this.localSettings.on('scoresheet-autoscroll', () => { this.scrollDisabled = this.isScrollDisabled() })
 
     this.data.on('processed', () => {
       if (!this._previouslyComplete && this.complete()) {
@@ -51,7 +38,6 @@ class ScoresheetPageController {
   }
 
   reset (forceMetadataIfEditing = false) {
-    this.scrollDisabled = this.isScrollDisabled()
     this.data.reset(forceMetadataIfEditing)
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
   }
@@ -108,7 +94,6 @@ class ScoresheetPageController {
         const score = this.scores.scores.find(s => s._id === subpage)
         if (score !== undefined) {
           this.data.load(score)
-          this.scrollDisabled = this.isScrollDisabled()
         }
       }
     }

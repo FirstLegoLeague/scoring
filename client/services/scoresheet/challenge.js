@@ -1,30 +1,54 @@
+import Promise from 'bluebird'
+import EventEmitter from 'event-emitter-es6'
+
+import LocalSettings from '../utils/local_settings'
+import moduleData from '../../../module.yml'
+
+LocalSettings.settingProviders.push(config => {
+  return {
+    name: 'scoresheet-language',
+    type: 'values',
+    options: moduleData.config[0].fields.find(field => field.name === 'language').values,
+    value: config.language
+  }
+})
+
 const MISSION_DEPENDENCIES_REGEX = /^function\s*\((.+)\)/
 
-class Challenge {
-  constructor (independence, configuration) {
-    Object.assign(this, { independence, configuration })
+class Challenge extends EventEmitter {
+  constructor (independence, configuration, localSettings) {
+    super()
+    Object.assign(this, { independence, configuration, localSettings })
   }
 
   init () {
     if (!this._initPromise) {
-      this._initPromise = this._getConfiguratedChallenge()
-        .then(challengeName => this.independence.send('GET', `/challenge/${challengeName}`))
-        .then(response => {
-          // We can't use JSON.parse because the file contains functions
-          // eslint-disable-next-line no-eval
-          this.challenge = eval(`(${response.data})`)
+      this._initPromise = this.load()
 
-          this.challenge.direction = this._direction()
-          this.challenge.objectives = this._calculateObjectives(this.challenge.missions)
-          this.challenge.missions.forEach(this._initMission.bind(this))
-
-          this.challenge.defaultEnabled = Object.values(this.challenge.objectives).every(objective => typeof objective.default !== 'undefined')
-
-          return this.challenge
-        })
+      this.localSettings.on('scoresheet-language changed', () => {
+        this._initPromise = this.load()
+        this.emit('reloaded challenge')
+      })
     }
-
     return this._initPromise
+  }
+
+  load () {
+    return this._getConfiguratedChallenge()
+      .then(challengeName => this.independence.send('GET', `/challenge/${challengeName}`))
+      .then(response => {
+        // We can't use JSON.parse because the file contains functions
+        // eslint-disable-next-line no-eval
+        this.challenge = eval(`(${response.data})`)
+
+        this.challenge.direction = this._direction()
+        this.challenge.objectives = this._calculateObjectives(this.challenge.missions)
+        this.challenge.missions.forEach(this._initMission.bind(this))
+
+        this.challenge.defaultEnabled = Object.values(this.challenge.objectives).every(objective => typeof objective.default !== 'undefined')
+
+        return this.challenge
+      })
   }
 
   _initMission (mission) {
@@ -61,15 +85,16 @@ class Challenge {
   }
 
   _getConfiguratedChallenge () {
-    return this.configuration.load().then(config => {
-      const year = config.year.split(' ')[0]
-      const language = config.language.split(' ')[0]
-      return `${year}_${language}`
-    })
+    return Promise.all([this.configuration.load(), this.localSettings.init()])
+      .then(([config]) => {
+        const year = config.year.split(' ')[0]
+        const language = this.localSettings.get('scoresheet-language').split(' ')[0]
+        return `${year}_${language}`
+      })
   }
 }
 
 Challenge.$$ngIsClass = true
-Challenge.$inject = ['independence', 'configuration']
+Challenge.$inject = ['independence', 'configuration', 'localSettings']
 
 export default Challenge

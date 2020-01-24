@@ -1,73 +1,67 @@
+import Promise from 'bluebird'
 import EventEmitter from 'event-emitter-es6'
 
 const STORAGE_KEY = 'localsettings'
-const DATA_TYPE_KEY = 'type'
-const VALUE_KEY = 'value'
-const NAME_KEY = 'name'
+
 class LocalSettings extends EventEmitter {
-  constructor ($window, $rootScope) {
+  constructor ($window, configuration) {
     super()
-    Object.assign(this, { $window, $rootScope })
-    const settingsFromSession = this.getFromLocalStorage()
-    if (settingsFromSession !== undefined) {
-      this.settings = settingsFromSession
-    } else {
-      this.settings = { }
-    }
+    Object.assign(this, { $window, configuration })
   }
 
-  // example:
-  /**
-   * example input: settingKey: 'scoresheel-autoscroll' settingValueTypePair: {value: true, type: 'boolean'}
-   * @param {string} settingsKey
-   * @param {{value:*,type:string}} settingValueTypePair
-   */
-  update (settingsKey, settingValueTypePair) {
-    this.settings[settingsKey] = settingValueTypePair
-    this.emit(`${settingsKey}`)
-    this._saveToLocalStorage()
+  init () {
+    if (!this._initPromise) {
+      this._initPromise = this.load()
+    }
+    return this._initPromise
   }
-  /**
-   * saves this service's settings object to the session storage
-   */
-  _saveToLocalStorage () {
+
+  load () {
+    const savedSettings = this.$window.sessionStorage.getItem(STORAGE_KEY)
+    let promise
+    if (savedSettings) {
+      this.settings = JSON.parse(savedSettings)
+      promise = Promise.resolve()
+    } else {
+      promise = this._loadDefaultSettings()
+        .then(settings => {
+          this.settings = settings
+        })
+    }
+
+    return promise.then(() => this.save())
+  }
+
+  save () {
     this.$window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(this.settings))
+    return this.settings
   }
 
-  /**
-   * for example: 'scoresheet-autoscroll'
-   * @param {string} settingsKey
-   */
-  get (settingsKey) {
-    if (this.settings.hasOwnProperty(settingsKey)) {
-      return this.settings[settingsKey]
-    } else {
-      return this.getFromLocalStorage(settingsKey)
-    }
+  get (key) {
+    return this.settings[key].value
   }
 
-  /**
-   * gets the requested setting from the session storage. Key name should be something like 'scoresheet-autoscroll'
-   * @param {string} settingsKey
-   */
-  getFromLocalStorage (settingsKey) {
-    const sessionStorageItem = this.$window.sessionStorage.getItem(STORAGE_KEY)
-    const sessionSettings = JSON.parse(sessionStorageItem || '{}')
-    if (!sessionSettings) {
-      return undefined
-    }
-    if (settingsKey) {
-      if (sessionSettings.hasOwnProperty(settingsKey)) {
-        return sessionSettings[settingsKey]
-      } else {
-        return undefined
-      }
-    } else {
-      return sessionSettings
-    }
+  set (key, value) {
+    this.settings[key].value = value
+    this.emit(`${key} changed`)
+  }
+
+  _loadDefaultSettings () {
+    return this.configuration.load()
+      .then(config => Promise.all(LocalSettings.settingProviders.map(provider => provider(config))))
+      .then(defaultSettingsArray => {
+        return defaultSettingsArray.reduce((defaultSettings, defaultSetting) => {
+          defaultSettings[defaultSetting.name] = defaultSetting
+          delete defaultSetting.name
+          return defaultSettings
+        }, { })
+      })
   }
 }
+
+LocalSettings.settingProviders = []
+
 LocalSettings.$$ngIsClass = true
-LocalSettings.$inject = ['$window', '$rootScope']
+LocalSettings.$inject = ['$window', 'configuration']
 
 export default LocalSettings
