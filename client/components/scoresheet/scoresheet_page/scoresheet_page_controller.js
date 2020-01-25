@@ -1,5 +1,10 @@
 import Promise from 'bluebird'
 
+const CHALLENGE_NOTIFICATIONS = {
+  GLOBAL: 'Can\'t load locally configured challenge, reverting to globally confirgued.',
+  DEFAULT: 'Can\'t load globally configured challenge, reverting to default.'
+}
+
 class ScoresheetPageController {
   constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings) {
     Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings })
@@ -26,6 +31,9 @@ class ScoresheetPageController {
         this.$scope.$broadcast('scoresheet complete')
       }
     })
+
+    this.data.on('loading global challenge', () => this.notifications.warning(CHALLENGE_NOTIFICATIONS.GLOBAL))
+    this.data.on('loading default challenge', () => this.notifications.warning(CHALLENGE_NOTIFICATIONS.DEFAULT))
 
     return Promise.all([this.data.init(), this.scores.init()])
       .then(() => {

@@ -34,21 +34,12 @@ class Challenge extends EventEmitter {
   }
 
   load () {
-    return this._getConfiguratedChallenge()
-      .then(challengeName => this.independence.send('GET', `/challenge/${challengeName}`))
-      .then(response => {
-        // We can't use JSON.parse because the file contains functions
-        // eslint-disable-next-line no-eval
-        this.challenge = eval(`(${response.data})`)
-
-        this.challenge.direction = this._direction()
-        this.challenge.objectives = this._calculateObjectives(this.challenge.missions)
-        this.challenge.missions.forEach(this._initMission.bind(this))
-
-        this.challenge.defaultEnabled = Object.values(this.challenge.objectives).every(objective => typeof objective.default !== 'undefined')
-
-        return this.challenge
-      })
+    return this._getLocallyConfiguredChallengeName()
+      .then(locallyConfiguredChallengeName => this._getChallenge(locallyConfiguredChallengeName))
+      .catch(() => this._getGlobalyConfiguredChallengeName()
+        .then(globalyConfiguredChallengeName => this._getChallenge(globalyConfiguredChallengeName)))
+      .catch(() => this._getDefaultChallengeName()
+        .then(defaultChallengeName => this._getChallenge(defaultChallengeName)))
   }
 
   _initMission (mission) {
@@ -84,13 +75,48 @@ class Challenge extends EventEmitter {
     return this.challenge.rtl ? 'rtl' : 'ltr'
   }
 
-  _getConfiguratedChallenge () {
+  _getChallenge (challengeName) {
+    return this.independence.send('GET', `/challenge/${challengeName}`)
+      .then(response => {
+        // We can't use JSON.parse because the file contains functions
+        // eslint-disable-next-line no-eval
+        this.challenge = eval(`(${response.data})`)
+
+        this.challenge.direction = this._direction()
+        this.challenge.objectives = this._calculateObjectives(this.challenge.missions)
+        this.challenge.missions.forEach(this._initMission.bind(this))
+
+        this.challenge.defaultEnabled = Object.values(this.challenge.objectives).every(objective => typeof objective.default !== 'undefined')
+
+        return this.challenge
+      })
+  }
+
+  _getLocallyConfiguredChallengeName () {
+    this.emit('loading local challenge')
     return Promise.all([this.configuration.load(), this.localSettings.init()])
       .then(([config]) => {
         const year = config.year.split(' ')[0]
         const language = this.localSettings.get('scoresheet-language').split(' ')[0]
         return `${year}_${language}`
       })
+  }
+
+  _getGlobalyConfiguredChallengeName () {
+    this.emit('loading global challenge')
+    return this.configuration.load()
+      .then(config => {
+        const year = config.year.split(' ')[0]
+        const language = config.language.split(' ')[0]
+        return `${year}_${language}`
+      })
+  }
+
+  _getDefaultChallengeName () {
+    this.emit('loading default challenge')
+    const year = moduleData.config[0].fields.find(field => field.name === 'year').default.split(' ')[0]
+    const language = moduleData.config[0].fields.find(field => field.name === 'language').default.split(' ')[0]
+    return Promise.resolve(`${year}_${language}`)
   }
 }
 

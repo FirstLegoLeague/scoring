@@ -39,6 +39,9 @@ class Scoresheet extends EventEmitter {
     this.refIdentity.on('table changed', debounce(() => this.process()))
 
     this.challenge.on('reloaded challenge', () => this.loadChallenge())
+    this.challenge.on('loading local challenge', () => this.emit('loading local challenge'))
+    this.challenge.on('loading global challenge', () => this.emit('loading global challenge'))
+    this.challenge.on('loading default challenge', () => this.emit('loading default challenge'))
 
     return this._initPromise
   }
