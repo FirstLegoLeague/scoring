@@ -1,5 +1,3 @@
-'use strict'
-
 const express = require('express')
 
 const Configuration = require('@first-lego-league/ms-configuration')

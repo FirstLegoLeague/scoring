@@ -1,8 +1,13 @@
 import Promise from 'bluebird'
 
+const CHALLENGE_NOTIFICATIONS = {
+  GLOBAL: 'Can\'t load locally configured challenge, reverting to globally confirgued.',
+  DEFAULT: 'Can\'t load globally configured challenge, reverting to default.'
+}
+
 class ScoresheetPageController {
-  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications) {
-    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications })
+  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings) {
+    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings })
     this.ready = false
   }
 
@@ -27,6 +32,9 @@ class ScoresheetPageController {
       }
     })
 
+    this.data.on('loading global challenge', () => this.notifications.warning(CHALLENGE_NOTIFICATIONS.GLOBAL))
+    this.data.on('loading default challenge', () => this.notifications.warning(CHALLENGE_NOTIFICATIONS.DEFAULT))
+
     return Promise.all([this.data.init(), this.scores.init()])
       .then(() => {
         this.loadFromURL()
@@ -38,7 +46,6 @@ class ScoresheetPageController {
   }
 
   reset (forceMetadataIfEditing = false) {
-    this.scrollDisabled = false
     this.data.reset(forceMetadataIfEditing)
     this.$scope.$broadcast('reset', { forceMetadataIfEditing })
   }
@@ -95,7 +102,6 @@ class ScoresheetPageController {
         const score = this.scores.scores.find(s => s._id === subpage)
         if (score !== undefined) {
           this.data.load(score)
-          this.scrollDisabled = true
         }
       }
     }
@@ -103,6 +109,6 @@ class ScoresheetPageController {
 }
 
 ScoresheetPageController.$$ngIsClass = true
-ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', '$window', 'notifications']
+ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', '$window', 'notifications', 'localSettings']
 
 export default ScoresheetPageController

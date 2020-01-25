@@ -1,9 +1,19 @@
 import EventEmitter from 'event-emitter-es6'
 import Promise from 'bluebird'
 import angular from 'angular'
+import { isNumber } from 'util'
 
 import debounce from '../../lib/debounce'
-import { isNumber } from 'util'
+
+import LocalSettings from '../utils/local_settings'
+
+LocalSettings.settingProviders.push(() => {
+  return {
+    name: 'scoresheet-autoscroll',
+    type: 'boolean',
+    value: true
+  }
+})
 
 // This is done because Semantic-UI lib needs the value to be `=== null` in order to reset the dropdown.
 // Once https://github.com/ClickerMonkey/SemanticUI-Angular/pull/38 is merged, this can be removed.
@@ -22,25 +32,35 @@ class Scoresheet extends EventEmitter {
 
   init () {
     if (!this._initPromise) {
-      this._initPromise = Promise.all([this.challenge.init(), this.refIdentity.init()])
-        .then(([challenge]) => {
-          this._original = challenge
-          this._original.signature = { dataUrl: '', isEmpty: true }
-          this.allowSignatureEditing = true
-        })
-        .then(() => this.reset())
-        .then(() => this.process())
-        .catch(err => {
-          this.ready = true
-          this.faulty = true
-          throw err
-        })
+      this._initPromise = this.loadChallenge()
     }
 
     this.refIdentity.on('referee changed', debounce(() => this.process()))
     this.refIdentity.on('table changed', debounce(() => this.process()))
 
+    this.challenge.on('reloaded challenge', () => this.loadChallenge())
+    this.challenge.on('loading local challenge', () => this.emit('loading local challenge'))
+    this.challenge.on('loading global challenge', () => this.emit('loading global challenge'))
+    this.challenge.on('loading default challenge', () => this.emit('loading default challenge'))
+
     return this._initPromise
+  }
+
+  loadChallenge () {
+    this.ready = false
+    return Promise.all([this.challenge.init(), this.refIdentity.init()])
+      .then(([challenge]) => {
+        this._original = challenge
+        this._original.signature = { dataUrl: '', isEmpty: true }
+        this.allowSignatureEditing = true
+      })
+      .then(() => this.reset())
+      .then(() => this.process())
+      .catch(err => {
+        this.ready = true
+        this.faulty = true
+        throw err
+      })
   }
 
   reset (forceMetadataIfEditing = true) {
