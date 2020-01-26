@@ -1,7 +1,7 @@
 /* eslint node/no-unsupported-features: 0 */
 const express = require('express')
 const Promise = require('bluebird')
-const { MongoClient, ObjectID } = require('mongodb')
+const { MongoClient } = require('mongodb')
 const { authroizationMiddlware } = require('@first-lego-league/ms-auth')
 const Configuration = require('@first-lego-league/ms-configuration')
 
@@ -53,7 +53,7 @@ function validateScoreFroCreation (rawScore) {
   return Promise.all([
     Configuration.all(),
     connectionPromise
-      .then(scoringCollection => scoringCollection.findOne({ _id: new ObjectID(rawScore._id) }))
+      .then(scoringCollection => scoringCollection.findOne({ _id: rawScore._id }))
   ]).then(([config, exsitingScore]) => {
     if (exsitingScore) {
       throw new InvalidScore('Already exists.')
@@ -140,10 +140,10 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
       .then(scoringCollection => {
         const shouldUpdateLastTime = (req.query['shouldUpdateLastTime'] === 'true')
         const updatedScore = Object.assign(scoreFromQuery(req.body), shouldUpdateLastTime ? { lastUpdate: new Date() } : { })
-        return scoringCollection.updateOne({ _id: new ObjectID(req.params.id) }, { $set: updatedScore })
+        return scoringCollection.updateOne({ _id: req.params.id }, { $set: updatedScore })
       })
       .then(() => res.status(204).send())
-      .then(() => publishMsg('scores:reload', { id: new ObjectID(req.params.id), action: 'update' }))
+      .then(() => publishMsg('scores:reload', { id: req.params.id, action: 'update' }))
       .catch(err => {
         req.logger.error(err.message)
         if (err instanceof InvalidScore) {
@@ -167,9 +167,9 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
 
   router.delete('/:id/delete', authenticationMiddleware, adminOrScorekeeperAction, (req, res) => {
     connectionPromise
-      .then(scoringCollection => scoringCollection.deleteOne({ _id: new ObjectID(req.params.id) }))
+      .then(scoringCollection => scoringCollection.deleteOne({ _id: req.params.id }))
       .then(() => res.status(204).send())
-      .then(() => publishMsg('scores:reload', { id: new ObjectID(req.params.id), action: 'delete' }))
+      .then(() => publishMsg('scores:reload', { id: req.params.id, action: 'delete' }))
       .catch(err => {
         req.logger.error(err.message)
         res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)
