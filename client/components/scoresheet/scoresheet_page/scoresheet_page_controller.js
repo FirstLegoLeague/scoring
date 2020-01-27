@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
 
 const CHALLENGE_NOTIFICATIONS = {
-  GLOBAL: 'Can\'t load locally configured challenge, reverting to globally confirgued.',
-  DEFAULT: 'Can\'t load globally configured challenge, reverting to default.'
+  GLOBAL: 'Can\'t load locally configured scoresheet. Reverting to global configuration',
+  DEFAULT: 'Can\'t load globally configured scoresheet. Reverting to default.'
 }
 
 class ScoresheetPageController {
