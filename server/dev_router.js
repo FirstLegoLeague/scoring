@@ -1,5 +1,3 @@
-'use strict'
-
 const express = require('express')
 require('express-csv')
 
@@ -35,7 +33,7 @@ const TABLES = [
 ]
 
 const STAGES = ['practice', 'scoring', 'scoring', 'scoring']
-const CURRENT_STAGE_INDEX = [1]
+const CURRENT_STAGE_INDEX = 0
 const MATCHES = []
 
 STAGES.forEach((stage, stageIndex) => {
