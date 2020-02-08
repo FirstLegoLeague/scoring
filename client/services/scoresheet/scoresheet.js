@@ -139,6 +139,7 @@ class Scoresheet extends EventEmitter {
       this.current.round = 0
       this.current.stage = ''
       this.current.matchId = 0
+      this.current.teamNumber = undefined
     }
     this.lastMatchId = this.current.matchId
     return (this.isEditing() ? this.scores.update(this.current) : this.scores.create(this.current))
