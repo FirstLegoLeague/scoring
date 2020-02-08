@@ -2,7 +2,7 @@
 <scoresheet-menu ng-show="mainMenu.page === 'scoresheet'" class="menu"></scoresheet-menu>
 <div class="right menu">
 	<local-settings-modal page="mainMenu.page"></local-settings-modal>
-	<a class="link icon item" href="/logout">
+	<a class="link icon item" ng-click="mainMenu.logout()">
 		<i class="link sign out icon"></i>
 		<div class="hover text">Logout</div>
 	</a>

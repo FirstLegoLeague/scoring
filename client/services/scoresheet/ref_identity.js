@@ -58,6 +58,10 @@ class RefIdentity extends EventEmitter {
     this.emit('saved')
   }
 
+  clear () {
+    this.$window.sessionStorage.removeItem(STORAGE_KEY)
+  }
+
   isInitialized () {
     return this.referee || this.table
   }
