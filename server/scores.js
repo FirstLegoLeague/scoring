@@ -119,6 +119,7 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
       .then(([scoringCollection, score]) => {
         score.creation = score.lastUpdate
         req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
+        req.logger.debug(JSON.stringify(score))
         return scoringCollection.insertOne(score)
       })
       .then(({ ops, insertedId }) => {
@@ -136,13 +137,17 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   })
 
   router.post('/:id/update', authenticationMiddleware, adminOrScorekeeperAction, (req, res) => {
+    const shouldUpdateLastTime = (req.query['shouldUpdateLastTime'] === 'true')
+    const updatedScore = Object.assign(scoreFromQuery(req.body), shouldUpdateLastTime ? { lastUpdate: new Date() } : { })
     connectionPromise
       .then(scoringCollection => {
-        const shouldUpdateLastTime = (req.query['shouldUpdateLastTime'] === 'true')
-        const updatedScore = Object.assign(scoreFromQuery(req.body), shouldUpdateLastTime ? { lastUpdate: new Date() } : { })
         return scoringCollection.updateOne({ _id: req.params.id }, { $set: updatedScore })
       })
-      .then(() => res.status(204).send())
+      .then(() => {
+        req.logger.info(`Updating score for team ${updatedScore.teamNumber} on ${updatedScore.stage} stage with ${updatedScore.score} pts.`)
+        req.logger.debug(JSON.stringify(updatedScore))
+        res.status(204).send()
+      })
       .then(() => publishMsg('scores:reload', { id: req.params.id, action: 'update' }))
       .catch(err => {
         req.logger.error(err.message)
@@ -157,7 +162,10 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   router.delete('/all', authenticationMiddleware, adminAction, (req, res) => {
     connectionPromise
       .then(scoringCollection => scoringCollection.deleteMany({}))
-      .then(() => res.status(204).send())
+      .then(() => {
+        req.logger.info(`Deleting all scores.`)
+        res.status(204).send()
+      })
       .then(() => publishMsg('scores:reload', { action: 'delete all' }))
       .catch(err => {
         req.logger.error(err.message)
@@ -168,7 +176,10 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
   router.delete('/:id/delete', authenticationMiddleware, adminOrScorekeeperAction, (req, res) => {
     connectionPromise
       .then(scoringCollection => scoringCollection.deleteOne({ _id: req.params.id }))
-      .then(() => res.status(204).send())
+      .then(() => {
+        req.logger.info(`Deleting score with id ${req.params.id}.`)
+        res.status(204).send()
+      })
       .then(() => publishMsg('scores:reload', { id: req.params.id, action: 'delete' }))
       .catch(err => {
         req.logger.error(err.message)
