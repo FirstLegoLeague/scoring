@@ -3478,5 +3478,5 @@
         "crane-error": "Conflict in position of Blue Units",
         "M12-error2": "Height too small for number of color-matching Units"
     },
-    "rtl": false
+    "rtl": true
 })
