@@ -24,6 +24,7 @@ config:
         default: US English
         values:
           - US English
+          - ar_IL Arabic (Israel)
           - ar_SA Arabic (Saudi Arabia)
           - ca_ES Catalan (Spain)
           - es_CL Spanish (Chile)
@@ -38,6 +39,7 @@ config:
           - ro_RO Romanian (Romania)
           - tr_TR Turkish (Turkey)
           - ru_RU Russian (Russia)
+          - uk_UA Ukrainian (Ukraine)
           - zh_HK Chinese (Hong Kong)
       - name: autoPublish
         display: Automatically set team score to Public
