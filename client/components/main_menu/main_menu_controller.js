@@ -1,6 +1,6 @@
 class MainMenuController {
-  constructor ($location, $scope, $timeout, $window, user) {
-    Object.assign(this, { $location, $scope, $timeout, $window, user })
+  constructor ($location, $scope, $timeout, $window, refIdentity, user) {
+    Object.assign(this, { $location, $scope, $timeout, $window, refIdentity, user })
   }
 
   $onInit () {
@@ -18,6 +18,11 @@ class MainMenuController {
     this.$location.path(page)
   }
 
+  logout () {
+    this.refIdentity.clear()
+    this.$window.document.location.href = '/logout'
+  }
+
   _resetPage () {
     this.page = this.$location.path().split('/')[1]
     if (!this.user.isAdmin()) {
@@ -31,6 +36,6 @@ class MainMenuController {
 }
 
 MainMenuController.$$ngIsClass = true
-MainMenuController.$inject = ['$location', '$scope', '$timeout', '$window', 'user']
+MainMenuController.$inject = ['$location', '$scope', '$timeout', '$window', 'refIdentity', 'user']
 
 export default MainMenuController

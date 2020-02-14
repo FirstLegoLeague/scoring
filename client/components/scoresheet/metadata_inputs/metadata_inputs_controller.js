@@ -110,9 +110,9 @@ class MetadataInputsController {
   }
 
   autoselectMatch () {
-    return this.loadMatchOptions()
-      .then(() => {
-        const firstIncompleteMatch = this.matches.find(match => !match.complete)
+    return Promise.all([this.tournament.loadCurrentStage(), this.loadMatchOptions()])
+      .then(([currentStage]) => {
+        const firstIncompleteMatch = this.matches.find(match => !match.complete && match.stage === currentStage)
         if (firstIncompleteMatch) {
           this.data.current.stage = firstIncompleteMatch.stage
           this.data.current.round = firstIncompleteMatch.round
