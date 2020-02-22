@@ -119,7 +119,7 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
       .then(([scoringCollection, score]) => {
         score.creation = score.lastUpdate
         req.logger.info(`Saving score for team ${score.teamNumber} on ${score.stage} stage with ${score.score} pts.`)
-        req.logger.debug(JSON.stringify(score))
+        req.logger.info(`CREATE ${JSON.stringify(score)}`)
         return scoringCollection.insertOne(score)
       })
       .then(({ ops, insertedId }) => {
@@ -145,7 +145,7 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
       })
       .then(() => {
         req.logger.info(`Updating score for team ${updatedScore.teamNumber} on ${updatedScore.stage} stage with ${updatedScore.score} pts.`)
-        req.logger.debug(JSON.stringify(updatedScore))
+        req.logger.info(`UPDATE ${JSON.stringify(updatedScore)}`)
         res.status(204).send()
       })
       .then(() => publishMsg('scores:reload', { id: req.params.id, action: 'update' }))
