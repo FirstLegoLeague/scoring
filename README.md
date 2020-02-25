@@ -12,7 +12,7 @@
 
 ## Install and build
 
-`yarn install-all` will fetch the modules imported in the server and client.
+`yarn install` will fetch the modules imported in the server and client.
 
 `yarn build` builds the client.
 

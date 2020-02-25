@@ -48,3 +48,11 @@
 <div class="ui inverted dimmer" ng-class="{active: !tile.ready}">
 	<div class="ui loader"></div>
 </div>
+<div class="ui restore dimmer" ng-class="{active: tile.data.deleted}" ng-click="tile.restore()">
+	<h4 class="ui icon header">
+		<i class="undo alternate icon"></i>
+		<div class="content">
+			Restore
+		</div>
+	</h4>
+</div>

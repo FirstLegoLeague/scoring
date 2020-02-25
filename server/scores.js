@@ -22,6 +22,7 @@ const SCORE_FIELDS = {
   tableId: Number,
   public: Boolean,
   noShow: Boolean,
+  deleted: Boolean,
   lastUpdate: Date,
   creation: Date
 }
@@ -59,8 +60,7 @@ function validateScoreFroCreation (rawScore) {
       throw new InvalidScore('Already exists.')
     }
 
-    const allowedFields = Object.keys(SCORE_FIELDS)
-    allowedFields.push('_id')
+    const allowedFields = Object.keys(SCORE_FIELDS).concat(['_id'])
     const requiredFields = Array.from(REQUIRED_FIELDS)
 
     Object.entries(POSSIBLY_REQUIRED_FIELDS).forEach(([configField, field]) => {
@@ -77,7 +77,7 @@ function validateScoreFroCreation (rawScore) {
         throw new InvalidScore(`Missing field: ${field}`)
       }
       return scoreObject
-    }, { noShow: false, lastUpdate: new Date() })
+    }, { noShow: false, deleted: false, lastUpdate: new Date() })
     score.public = config.autoPublish
     return score
   })
@@ -101,7 +101,7 @@ function publicScores () {
   return Promise.all([connectionPromise, getConfiguratedChallenge()])
     .then(([scoringCollection, challenge]) => scoringCollection.find({ challenge }).toArray())
     .then(scores => scores.filter(score => {
-      return score.public && (typeof score.teamNumber === 'number') && (typeof score.round === 'number') && (typeof score.stage === 'string') &&
+      return !score.deleted && score.public && (typeof score.teamNumber === 'number') && (typeof score.round === 'number') && (typeof score.stage === 'string') &&
         scores.every(otherScore => score === otherScore ||
           !otherScore.public || otherScore.teamNumber !== score.teamNumber || otherScore.stage !== score.stage || otherScore.round !== score.round)
     }))
@@ -175,7 +175,7 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
 
   router.delete('/:id/delete', authenticationMiddleware, adminOrScorekeeperAction, (req, res) => {
     connectionPromise
-      .then(scoringCollection => scoringCollection.deleteOne({ _id: req.params.id }))
+      .then(scoringCollection => scoringCollection.updateOne({ _id: req.params.id }, { $set: { deleted: true } }))
       .then(() => {
         req.logger.info(`Deleting score with id ${req.params.id}.`)
         res.status(204).send()
@@ -184,6 +184,20 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
       .catch(err => {
         req.logger.error(err.message)
         res.status(500).send(`A problem occoured while trying to delete score ${req.params.id}.`)
+      })
+  })
+
+  router.post('/:id/restore', authenticationMiddleware, adminOrScorekeeperAction, (req, res) => {
+    connectionPromise
+      .then(scoringCollection => scoringCollection.updateOne({ _id: req.params.id }, { $set: { deleted: false } }))
+      .then(() => {
+        req.logger.info(`Restore score with id ${req.params.id}.`)
+        res.status(204).send()
+      })
+      .then(() => publishMsg('scores:reload', { id: req.params.id, action: 'restore' }))
+      .catch(err => {
+        req.logger.error(err.message)
+        res.status(500).send(`A problem occoured while trying to restore score ${req.params.id}.`)
       })
   })
 
@@ -220,7 +234,7 @@ module.exports = function createScoringRouter (authenticationMiddleware) {
 
   router.get('/count', (req, res) => {
     Promise.all([connectionPromise, getConfiguratedChallenge()])
-      .then(([scoringCollection, challenge]) => scoringCollection.count({ challenge }))
+      .then(([scoringCollection, challenge]) => scoringCollection.count({ challenge, deleted: true }))
       .then(count => res.status(200).json({ count }))
       .catch(err => {
         req.logger.error(err.message)

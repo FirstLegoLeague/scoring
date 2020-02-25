@@ -22,6 +22,18 @@ class TileController {
         this.logger.error(error)
       })
   }
+
+  restore () {
+    if (!this.data.deleted) {
+      return
+    }
+
+    this.scores.restore(this.data._id)
+      .catch(error => {
+        this.notifications.error('Action failed.')
+        this.logger.error(error)
+      })
+  }
 }
 
 TileController.$$ngIsClass = true

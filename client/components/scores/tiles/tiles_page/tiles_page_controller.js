@@ -102,6 +102,7 @@ class TilesPageController {
     this.$location.search('sortDirection', this.sortDirection.text)
 
     this.scores = (this.data.scores || [])
+      .filter(score => Object.entries(this.constantFilters).every(([key, value]) => score[key] === value))
       .filter((score, index, scoresArray) => this.filters.every(filter => applyFilter(filter, score, scoresArray)))
       .sort((score1, score2) => {
         const value1 = score1[this.sort.field]

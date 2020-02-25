@@ -70,6 +70,8 @@ function Score (tournament, challenge, logger) {
       score._id = randomize('?', 24, { chars: '0123456789abcdef' })
     }
 
+    score.deleted = Boolean(score.deleted)
+
     score.teamText = score.matchText = score.tableText = 'Loading...'
     score.teamError = score.matchError = score.ready = false
 
