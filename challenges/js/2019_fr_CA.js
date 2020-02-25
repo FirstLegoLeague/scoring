@@ -1,5 +1,5 @@
 ({
-    "title": "VILLE AVENIR",
+    "title": "CITY SHAPER",
     "missions": [{
             "title": "Avantage",
             "description": "Si tout votre équipement tient dans la petite zone d'inspection avant le début du match, vous avez un avantage.",
