@@ -73,6 +73,14 @@ class TilesPageController {
       this._loadFromLocation()
     })
 
+    this.$scope.$on('restore', (event, { scoreId }) => {
+      this.data.restore(scoreId)
+        .catch(error => {
+          this.notifications.error('Action failed.')
+          this.logger.error(error)
+        })
+    })
+
     this.data.on('scores updated', () => this.update())
 
     this.$scope.$watch(() => this.sort, () => this.updateVisibleScores())
