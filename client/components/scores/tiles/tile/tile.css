@@ -33,3 +33,9 @@
     outline: none;
     width: 100%;
 }
+
+.restore.dimmer {
+    background: white;
+    opacity: 0.75 !important;
+    cursor: pointer;
+}

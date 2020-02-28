@@ -1,2 +1,3 @@
-<tiles-page ng-if="scoresPage.page === 'tiles'"></tiles-page>
+<tiles-page ng-if="scoresPage.page === 'tiles'" constant-filters="{ deleted: false }"></tiles-page>
 <ranks-page ng-if="scoresPage.page === 'ranks'"></ranks-page>
+<tiles-page ng-if="scoresPage.page === 'trash'" constant-filters="{ deleted: true }"></tiles-page>

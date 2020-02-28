@@ -1,4 +1,4 @@
-<div class="ui right floated basic icon compact red button" ng-click="scoreActions.deleteModalVisible = true">
+<div class="ui right floated basic icon compact red button" ng-click="scoreActions.delete()">
 	<i class="ui trash icon"></i>
 </div>
 <a class="ui right floated basic icon compact primary button" href="{{'#!/scoresheet/' + scoreActions.score._id}}">
@@ -12,18 +12,3 @@
 	<i class="ui minus icon"></i>
 	No-Show
 </div>
-<sm-modal class="basic small" visible="scoreActions.deleteModalVisible" settings="{ closable: false }">
-	<div class="ui icon header">
-		<i class="trash icon"></i>
-		Delete score
-	</div>
-	<div class="content">
-		<div class="ui center aligned grid">
-			Are you sure you want to delete score of {{ score.score }} points for team {{ score.teamText }} in {{ score.matchText }}?
-		</div>
-	</div>
-	<div class="actions">
-		<div class="ui primary inverted button" ng-click="scoreActions.deleteModalVisible = false">Cancel</div>
-		<div class="ui red inverted button" ng-click="scoreActions.deleteModalVisible = false; scoreActions.delete()">Delete</div>
-	</div>
-</sm-modal>

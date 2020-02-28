@@ -63,8 +63,16 @@ class Scores extends EventEmitter {
     this._ignoreNextMessage()
     const score = this.scores.find(s => s._id === id)
     return this.independence.send('DELETE', `/scores/${id}/delete`)
-      .then(() => { this.scores = this.scores.filter(s => s._id !== id) })
+      .then(() => this._localyDeleteScore(id))
       .then(() => this.emit('scores updated', { id, score, action: 'delete' }))
+  }
+
+  restore (id) {
+    this._ignoreNextMessage()
+    const score = this.scores.find(s => s._id === id)
+    return this.independence.send('POST', `/scores/${id}/restore`)
+      .then(() => this._localyRestoreScore(id))
+      .then(() => this.emit('scores updated', { id, score, action: 'restore' }))
   }
 
   deleteAll () {
@@ -84,6 +92,9 @@ class Scores extends EventEmitter {
         break
       case 'delete':
         this._localyDeleteScore(data.id)
+        break
+      case 'restore':
+        this._localyRestoreScore(data.id)
         break
       case 'delete all':
         this._localyClearScores()
@@ -117,7 +128,11 @@ class Scores extends EventEmitter {
   }
 
   _localyDeleteScore (id) {
-    this.scores = this.scores.filter(score => score._id !== id)
+    this.scores.find(score => score._id === id).deleted = true
+  }
+
+  _localyRestoreScore (id) {
+    this.scores.find(score => score._id === id).deleted = false
   }
 
   _localyClearScores () {

@@ -50,7 +50,7 @@ class Rankings extends EventEmitter {
 
   _calcRank (rank, stage) {
     rank.allScores = this.scores.scores
-      .filter(score => score.teamNumber === rank.team.number && score.stage === stage)
+      .filter(score => !score.deleted && score.teamNumber === rank.team.number && score.stage === stage)
     rank.scores = rank.allScores
       .reduce((arr, score) => {
         arr[score.round - 1].push(score)
