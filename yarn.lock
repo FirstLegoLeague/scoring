@@ -702,10 +702,10 @@
   dependencies:
     mhub "^2.0.0"
 
-"@first-lego-league/user-interface@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.1.3.tgz#ab7d8a0c5c912d5fc5384dcc7db1a0fc29453c75"
-  integrity sha512-5X1eAzm1Mc7gnY173s/yNLXW3pSOCx2oa6xA3wMTo5lIQJgIGg6hKgrnnWd9gVIAG+YiBXcFUBEZ/NY6CC376Q==
+"@first-lego-league/user-interface@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-3.0.0.tgz#a92cc067fadff9dfc0c79afa738a182d93562b7b"
+  integrity sha512-v9h2pNp54pUxp2d6QFaSz2AFp9mfppdaT1cjkMmTKmwyVU6btTa3mgUAaC1csqU04Y7DQiUlwNPKlt4H7P/5vA==
 
 "@types/mkdirp@^0.3.29":
   version "0.3.29"
