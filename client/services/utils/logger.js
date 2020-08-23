@@ -7,9 +7,7 @@ const LEVELS = {
 }
 
 class Logger {
-  constructor ($http) {
-    Object.assign(this, { $http })
-
+  constructor () {
     Object.entries(LEVELS).forEach(([level, consoleMethod]) => {
       this[level] = message => {
         console[consoleMethod](message)
@@ -20,12 +18,11 @@ class Logger {
 
   log (message, level = 'debug') {
     message = `client: ${message}`
-    return this.$http.post(`/log/${level}`, { message })
+    return Promise.resolve()
       .catch(error => console.warn(`Cannot log to server: ${error}`))
   }
 }
 
 Logger.$$ngIsClass = true
-Logger.$inject = ['$http']
 
 export default Logger

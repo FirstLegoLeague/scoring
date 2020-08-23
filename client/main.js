@@ -9,32 +9,24 @@ import 'angular-signature'
 import 'angular-xeditable'
 import 'angular-inview'
 import 'angular-dnd-module'
+import 'angular-file-saver'
 
 import 'semantic-ui-angular-jquery/angular-semantic-ui.min.js'
 
 import SignaturePad from 'signature_pad/dist/signature_pad.min'
 
-import config from './config'
-import factories from './factories/**'
 import directives from './directives/**'
 import services from './services/**'
 import components from './components/**'
 
 global['SignaturePad'] = SignaturePad
 
-const main = angular.module('scoring', ['semantic-ui', 'ngSanitize', 'ngAnimate', 'ngCookies', 'signature', 'xeditable', 'angular-inview', 'dnd'])
-  .config(config)
+const main = angular.module('scoring', ['semantic-ui', 'ngSanitize', 'ngAnimate', 'ngCookies', 'signature', 'xeditable', 'angular-inview', 'dnd', 'ngFileSaver'])
 
 console.debug('--- services ---')
 Object.entries(services).forEach(([serviceName, service]) => {
   console.debug(serviceName)
   main.service(serviceName, service.default)
-})
-
-console.debug('--- factories ---')
-Object.entries(factories).forEach(([factoryName, factory]) => {
-  console.debug(factoryName)
-  main.factory(factoryName, factory.default)
 })
 
 console.debug('--- directives ---')

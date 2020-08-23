@@ -22,9 +22,9 @@ const DEFAULT_METADATA = {
 }
 
 class Scoresheet extends EventEmitter {
-  constructor (challenge, scores, scoresheetValidations, refIdentity, logger) {
+  constructor (challenge, scoresheetValidations, logger, fileSaver) {
     super()
-    Object.assign(this, { challenge, scores, scoresheetValidations, refIdentity, logger })
+    Object.assign(this, { challenge, scoresheetValidations, logger, fileSaver })
     this.errors = []
     this.ready = false
     this.faulty = false
@@ -34,9 +34,6 @@ class Scoresheet extends EventEmitter {
     if (!this._initPromise) {
       this._initPromise = this.loadChallenge()
     }
-
-    this.refIdentity.on('referee changed', debounce(() => this.process()))
-    this.refIdentity.on('table changed', debounce(() => this.process()))
 
     this.challenge.on('reloaded challenge', () => this.loadChallenge())
     this.challenge.on('loading local challenge', () => this.emit('loading local challenge'))
@@ -48,8 +45,8 @@ class Scoresheet extends EventEmitter {
 
   loadChallenge () {
     this.ready = false
-    return Promise.all([this.challenge.init(), this.refIdentity.init()])
-      .then(([challenge]) => {
+    return this.challenge.init()
+      .then(challenge => {
         this._original = challenge
         this._original.signature = { dataUrl: '', isEmpty: true }
         this.allowSignatureEditing = true
@@ -120,29 +117,15 @@ class Scoresheet extends EventEmitter {
     }
     this.current.missions.forEach(mission => mission.process())
     this.current.score = this.current.missions.reduce((sum, mission) => sum + mission.score, 0) || 0
-    return this.refIdentity.init()
-      .then(identity => {
-        Object.assign(this.current, { referee: identity.referee })
-        if (identity.table) {
-          Object.assign(this.current, { tableId: identity.table.tableId })
-        }
-        return this.scoresheetValidations.validate(this.current, { requireMatch: !this.dontRequireMatch })
-          .then(errors => { this.errors = errors })
-      })
+      return this.scoresheetValidations.validate(this.current, { requireMatch: !this.dontRequireMatch })
+      .then(errors => { this.errors = errors })
       .then(() => this.emit('processed'))
       .catch(error => this.logger.error(error))
   }
 
   save () {
-    this.ready = false
-    if (this.dontRequireMatch) {
-      this.current.round = 0
-      this.current.stage = ''
-      this.current.matchId = 0
-      this.current.teamNumber = undefined
-    }
-    this.lastMatchId = this.current.matchId
-    return (this.isEditing() ? this.scores.update(this.current) : this.scores.create(this.current))
+    this.fileSaver.saveAs(new Blob([JSON.stringify(this.current)], { type: 'text/plain;charset=utf-8' }), `${this.current.teamNumber}.fll`)
+    return Promise.resolve()
   }
 
   fakeSignature () {
@@ -164,7 +147,7 @@ class Scoresheet extends EventEmitter {
 
   load (score) {
     this.ready = false
-    return Promise.resolve(this.refIdentity.set(score))
+    return Promise.resolve()
       .then(() => {
         Object.assign(this.current, {
           _id: score._id,
@@ -206,6 +189,6 @@ class Scoresheet extends EventEmitter {
 }
 
 Scoresheet.$$ngIsClass = true
-Scoresheet.$inject = ['challenge', 'scores', 'scoresheetValidations', 'refIdentity', 'logger']
+Scoresheet.$inject = ['challenge', 'scoresheetValidations', 'logger', 'FileSaver']
 
 export default Scoresheet

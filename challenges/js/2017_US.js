@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "HYDRO DYNAMICS",
     "missions": [{
             "title": "M01 Pipe Removal",
@@ -792,4 +792,5 @@
         "penalties-scoring": "Number of Penalty discs in the white triangle area"
     },
     "rtl": false
-}
+})`
+export default challenge

@@ -6,8 +6,8 @@ const CHALLENGE_NOTIFICATIONS = {
 }
 
 class ScoresheetPageController {
-  constructor (scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings) {
-    Object.assign(this, { data: scoresheet, scores, logger, user, $scope, $location, $timeout, $window, notifications, localSettings })
+  constructor (scoresheet, logger, $scope, $location, $timeout, $window, notifications, localSettings) {
+    Object.assign(this, { data: scoresheet, logger, $scope, $location, $timeout, $window, notifications, localSettings })
     this.ready = false
   }
 
@@ -35,10 +35,8 @@ class ScoresheetPageController {
     this.data.on('loading global challenge', () => this.notifications.warning(CHALLENGE_NOTIFICATIONS.GLOBAL))
     this.data.on('loading default challenge', () => this.notifications.warning(CHALLENGE_NOTIFICATIONS.DEFAULT))
 
-    return Promise.all([this.data.init(), this.scores.init()])
+    return this.data.init()
       .then(() => {
-        this.loadFromURL()
-        this.$scope.$on('$locationChangeSuccess', () => this.loadFromURL())
         this.ready = true
         return true
       })
@@ -90,25 +88,9 @@ class ScoresheetPageController {
         this.reset()
       })
   }
-
-  loadFromURL () {
-    const splitPath = this.$location.path().split('/')
-    const page = splitPath[1]
-    const subpage = splitPath[2]
-    if (page === 'scoresheet') {
-      if (subpage === 'new') {
-        this.reset()
-      } else {
-        const score = this.scores.scores.find(s => s._id === subpage)
-        if (score !== undefined) {
-          this.data.load(score)
-        }
-      }
-    }
-  }
 }
 
 ScoresheetPageController.$$ngIsClass = true
-ScoresheetPageController.$inject = ['scoresheet', 'scores', 'logger', 'user', '$scope', '$location', '$timeout', '$window', 'notifications', 'localSettings']
+ScoresheetPageController.$inject = ['scoresheet', 'logger', '$scope', '$location', '$timeout', '$window', 'notifications', 'localSettings']
 
 export default ScoresheetPageController

@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "TRASH TREK",
     "missions": [{
             "title": "M01/04 Gerecycled materiaal gebruiken",
@@ -5141,4 +5141,5 @@
         "compostinpackage-desc": "De compost bevindt zich in een verpakking en de verpakking is in originele staat"
     },
     "rtl": false
-}
+})`
+export default challenge

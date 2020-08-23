@@ -41,18 +41,6 @@ config:
           - ru_RU Russian (Russia)
           - uk_UA Ukrainian (Ukraine)
           - zh_HK Chinese (Hong Kong)
-      - name: autoPublish
-        display: Automatically set team score to Public
-        type: boolean
-        default: true
-      - name: requireRef
-        display: Require a referee name
-        type: boolean
-        default: true
-      - name: requireTable
-        display: Require a table
-        type: boolean
-        default: true
       - name: requireSignature
         display: Require a team signature
         type: boolean

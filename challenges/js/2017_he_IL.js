@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "HYDRO DYNAMICS",
     "missions": [{
             "title": "M01 - הסרת צינור",
@@ -761,4 +761,5 @@
         "penalties-scoring": "דיסקיות עונשין בתוך אזור המשולש הלבן"
     },
     "rtl": true
-}
+})`
+export default challenge

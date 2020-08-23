@@ -1,4 +1,4 @@
-﻿({
+﻿const challenge = ({
     "title": "CITY SHAPER",
     "missions": [{
   
@@ -3481,3 +3481,4 @@
     },
     "rtl": false
 })
+export default challenge

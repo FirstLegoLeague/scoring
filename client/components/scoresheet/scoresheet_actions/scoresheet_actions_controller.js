@@ -1,7 +1,6 @@
 class ScoresheetActionsController {
-  constructor (scoresheet, $scope, $location, user, notifications) {
+  constructor (scoresheet, $scope, $location, notifications) {
     Object.assign(this, { data: scoresheet, $location, $scope, notifications })
-    this.isAdmin = user.isAdmin()
   }
 
   score () {
@@ -36,7 +35,7 @@ class ScoresheetActionsController {
   }
 
   defaultEnabled () {
-    return this.isAdmin && this.data.current && this.data.current.defaultEnabled
+    return this.data.current && this.data.current.defaultEnabled
   }
 
   noShowDisabled () {
@@ -45,6 +44,6 @@ class ScoresheetActionsController {
 }
 
 ScoresheetActionsController.$$ngIsClass = true
-ScoresheetActionsController.$inject = ['scoresheet', '$scope', '$location', 'user', 'notifications']
+ScoresheetActionsController.$inject = ['scoresheet', '$scope', '$location', 'notifications']
 
 export default ScoresheetActionsController

@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "World Class",
     "missions": [{
             "title": "Reverse Engineering",
@@ -955,4 +955,5 @@
         "penalties-objective-desc": "Robot, rommel of uitvouwstrafpunten"
     },
     "rtl": false
-}
+})`
+export default challenge

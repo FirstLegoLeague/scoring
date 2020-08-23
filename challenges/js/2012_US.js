@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "Senior Solutions",
     "missions": [{
             "title": "Flexibility",
@@ -664,4 +664,5 @@
         "dialcombination-error": "When Big Dial is on 9, Small Dial must be on 0."
     },
     "rtl": false
-}
+})`
+export default challenge

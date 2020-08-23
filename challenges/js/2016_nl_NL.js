@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "ANIMAL ALLIES",
     "missions": [{
             "title": "M01 Haaienvervoer",
@@ -585,4 +585,5 @@
         "penalties-scoring": "Gegeven strafpunten"
     },
     "rtl": false
-}
+})`
+export default challenge

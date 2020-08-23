@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "Trash Trek",
     "missions": [{
             "title": "Using recycled material",
@@ -5141,4 +5141,5 @@
         "originalcondition-desc": "The Package is in original condition"
     },
     "rtl": false
-}
+})`
+export default challenge

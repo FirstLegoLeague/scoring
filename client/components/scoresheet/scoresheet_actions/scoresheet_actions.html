@@ -13,17 +13,9 @@
 		<i class="ui green arrow down icon"></i>
 		<div class="hover text">Set default values</div>
 	</div>
-	<div class="ui icon link item" ng-click="scoresheetActions.markNoShow()" ng-class="{'disabled': scoresheetActions.noShowDisabled()}">
-		<i class="ui orange minus icon"></i>
-		<div class="hover text">No Show</div>
-	</div>
 	<div class="ui icon link item" ng-click="scoresheetActions.reset()">
 		<i class="ui undo icon"></i>
 		<div class="hover text">Reset scoresheet</div>
-	</div>
-	<div class="ui icon link item" ng-if="scoresheetActions.isAdmin" ng-click="scoresheetActions.cancel()">
-		<i class="ui red times icon"></i>
-		<div class="hover text">Cancel</div>
 	</div>
 </div>
 <div id="scoresheet-actions-dropdown" class="ui right floated menu" screen-orientation="portrait">
@@ -34,17 +26,9 @@
 				<i class="ui green arrow down icon"></i>
 				Set default values
 			</div>
-			<div class="ui icon link item" ng-click="scoresheetActions.markNoShow()" ng-class="{'disabled': scoresheetActions.noShowDisabled()}">
-				<i class="ui orange minus icon"></i>
-				No Show
-			</div>
 			<div class="ui icon link item" ng-click="scoresheetActions.reset()">
 				<i class="ui undo icon"></i>
 				Reset scoresheet
-			</div>
-			<div class="ui icon link item" ng-if="scoresheetActions.isAdmin" ng-click="scoresheetActions.cancel()">
-				<i class="ui red times icon"></i>
-				Cancel
 			</div>
 		</div>
 	</div>

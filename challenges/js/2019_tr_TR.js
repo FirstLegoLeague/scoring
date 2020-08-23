@@ -1,4 +1,4 @@
-({
+const challenge = ({
     "title": "CITY SHAPER",
     "missions": [{
             "title": "Avantaj",
@@ -2262,3 +2262,4 @@
     },
     "rtl": false
 })
+export default challenge

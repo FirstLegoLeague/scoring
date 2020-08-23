@@ -1,12 +1,8 @@
 class Configuration {
-  constructor ($http) {
-    Object.assign(this, { $http })
-  }
-
   load () {
     if (!this._loadPromise) {
-      this._loadPromise = this.$http.get('/config').then(response => {
-        Object.assign(this, response.data)
+      this._loadPromise = Promise.resolve().then(() => {
+        Object.assign(this, Configuration.GLOBAL)
         return this
       })
     }
@@ -15,6 +11,12 @@ class Configuration {
 }
 
 Configuration.$$ngIsClass = true
-Configuration.$inject = ['$http']
+
+Configuration.GLOBAL = {
+	year: '2019 CITY SHAPER',
+  language: 'US English',
+  requireSignature: true,
+  displayZeroMissions: false
+}
 
 export default Configuration

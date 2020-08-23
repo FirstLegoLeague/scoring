@@ -4,6 +4,8 @@ import EventEmitter from 'event-emitter-es6'
 import LocalSettings from '../utils/local_settings'
 import moduleData from '../../../module.yml'
 
+import challenges from './../../../challenges/js/**'
+
 LocalSettings.settingProviders.push(config => {
   return {
     name: 'scoresheet-language',
@@ -16,9 +18,9 @@ LocalSettings.settingProviders.push(config => {
 const MISSION_DEPENDENCIES_REGEX = /^function\s*\((.+)\)/
 
 class Challenge extends EventEmitter {
-  constructor (independence, configuration, localSettings) {
+  constructor (configuration, localSettings) {
     super()
-    Object.assign(this, { independence, configuration, localSettings })
+    Object.assign(this, { configuration, localSettings })
   }
 
   init () {
@@ -76,11 +78,11 @@ class Challenge extends EventEmitter {
   }
 
   _getChallenge (challengeName) {
-    return this.independence.send('GET', `/challenge/${challengeName}`)
-      .then(response => {
+    return Promise.resolve(challenges[challengeName].default)
+      .then(challenge => {
         // We can't use JSON.parse because the file contains functions
         // eslint-disable-next-line no-eval
-        this.challenge = eval(`(${response.data})`)
+        this.challenge = eval(challenge)
 
         this.challenge.direction = this._direction()
         this.challenge.objectives = this._calculateObjectives(this.challenge.missions)
@@ -98,7 +100,7 @@ class Challenge extends EventEmitter {
       .then(([config]) => {
         const year = config.year.split(' ')[0]
         const language = this.localSettings.get('scoresheet-language').split(' ')[0]
-        return `${year}_${language}`
+        return `${year}${language}`
       })
   }
 
@@ -108,7 +110,7 @@ class Challenge extends EventEmitter {
       .then(config => {
         const year = config.year.split(' ')[0]
         const language = config.language.split(' ')[0]
-        return `${year}_${language}`
+        return `${year}${language}`
       })
   }
 
@@ -116,11 +118,11 @@ class Challenge extends EventEmitter {
     this.emit('loading default challenge')
     const year = moduleData.config[0].fields.find(field => field.name === 'year').default.split(' ')[0]
     const language = moduleData.config[0].fields.find(field => field.name === 'language').default.split(' ')[0]
-    return Promise.resolve(`${year}_${language}`)
+    return Promise.resolve(`${year}${language}`)
   }
 }
 
 Challenge.$$ngIsClass = true
-Challenge.$inject = ['independence', 'configuration', 'localSettings']
+Challenge.$inject = ['configuration', 'localSettings']
 
 export default Challenge

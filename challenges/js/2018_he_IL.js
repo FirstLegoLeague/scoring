@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "INTO ORBIT",
     "missions": [{
             "title": "M01 נסיעה בחלל",
@@ -758,4 +758,5 @@
         "penalties-scoring": "דיסקיות עונשין במשולש הדרום מזרחי:"
     },
     "rtl": true
-}
+})`
+export default challenge

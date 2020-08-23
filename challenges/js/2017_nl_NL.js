@@ -1,4 +1,4 @@
-{
+const challenge = `({
     "title": "HYDRO DYNAMICS",
     "missions": [{
             "title": "M01 Leiding verwijderen",
@@ -740,4 +740,5 @@
         "penalties-scoring": "Aantal strafpuntschijven in de witte driehoek"
     },
     "rtl": false
-}
+})`
+export default challenge
