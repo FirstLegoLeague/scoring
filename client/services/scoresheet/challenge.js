@@ -78,7 +78,12 @@ class Challenge extends EventEmitter {
   }
 
   _getChallenge (challengeName) {
-    return Promise.resolve(challenges[challengeName].default)
+    const REPLACMENT_INDEX = 4
+    challengeName = challengeName.replace(/_/g, '')
+    const key = challengeName.substr(0, REPLACMENT_INDEX) +
+                    challengeName[REPLACMENT_INDEX].toUpperCase() +
+                    challengeName.substr(REPLACMENT_INDEX + challengeName[REPLACMENT_INDEX].length)
+    return Promise.resolve(challenges[key].default)
       .then(challenge => {
         // We can't use JSON.parse because the file contains functions
         // eslint-disable-next-line no-eval
@@ -100,7 +105,7 @@ class Challenge extends EventEmitter {
       .then(([config]) => {
         const year = config.year.split(' ')[0]
         const language = this.localSettings.get('scoresheet-language').split(' ')[0]
-        return `${year}${language}`
+        return `${year}_${language}`
       })
   }
 
@@ -110,7 +115,7 @@ class Challenge extends EventEmitter {
       .then(config => {
         const year = config.year.split(' ')[0]
         const language = config.language.split(' ')[0]
-        return `${year}${language}`
+        return `${year}_${language}`
       })
   }
 
@@ -118,7 +123,7 @@ class Challenge extends EventEmitter {
     this.emit('loading default challenge')
     const year = moduleData.config[0].fields.find(field => field.name === 'year').default.split(' ')[0]
     const language = moduleData.config[0].fields.find(field => field.name === 'language').default.split(' ')[0]
-    return Promise.resolve(`${year}${language}`)
+    return Promise.resolve(`${year}_${language}`)
   }
 }
 

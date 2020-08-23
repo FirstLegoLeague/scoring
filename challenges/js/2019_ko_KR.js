@@ -1,4 +1,4 @@
-const challenge = ({
+const challenge = `({
     "title": "CITY SHAPER",
     "missions": [{
             "title": "혜택",
@@ -3478,5 +3478,5 @@ const challenge = ({
         "M12-error2": "원의 색상과 일치하는 유닛의 수에 비해 높이가 너무 작습니다."
     },
     "rtl": false
-})
+})`
 export default challenge

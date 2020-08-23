@@ -1,4 +1,4 @@
-const challenge = ({
+const challenge = `({
     "title": "CITY SHAPER",
     "missions": [{
             "title": "Vantagem",
@@ -3479,5 +3479,5 @@ const challenge = ({
         "M12-error2": "Altura muito pequena para o número de Módulos correspondentes à cor"
     },
     "rtl": false
-})
+})`
 export default challenge
