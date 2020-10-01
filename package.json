@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/scoring",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Main scoring service",
   "main": "index.js",
   "repository": "https://github.com/FirstLegoLeague/scoring",
@@ -44,7 +44,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@first-lego-league/dev-launcher": "0.3.0",
-    "@first-lego-league/user-interface": "^3.0.0",
+    "@first-lego-league/user-interface": "3.0.1",
     "add": "^2.0.6",
     "angular": "^1.7.8",
     "angular-animate": "^1.7.8",
