@@ -10,8 +10,9 @@ config:
       - name: year
         display: Challenge
         type: values
-        default: 2019 CITY SHAPER
+        default: 2020 RePLAY
         values:
+          - 2020 RePLAY
           - 2019 CITY SHAPER
           - 2018 INTO ORBIT
           - 2017 HYDRO DYNAMICS
