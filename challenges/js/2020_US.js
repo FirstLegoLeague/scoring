@@ -1,4 +1,4 @@
-({
+const challenge = `({
     "title": "RePLAY",
     "missions": [{
             "title": "M00 Equipment Inspection Bonus",
@@ -1334,4 +1334,5 @@
         "health-unit-error": "Too many health units"
     },
     "rtl": false
-})
+})`
+export default challenge

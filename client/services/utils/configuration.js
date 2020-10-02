@@ -13,7 +13,7 @@ class Configuration {
 Configuration.$$ngIsClass = true
 
 Configuration.GLOBAL = {
-	year: '2019 CITY SHAPER',
+	year: '2020 REPLAY',
   language: 'US English',
   requireSignature: true,
   displayZeroMissions: false
