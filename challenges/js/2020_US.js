@@ -115,7 +115,7 @@ const challenge = `({
         },
         {
             "title": "M03 Slide",
-            "description": "The robot slides the figures down the slide and moves them to other areas. \"Off the slide\" scores if the slide figures\"'\"s black frame is past/below the tip of the slide\"'\"s gray part.",
+            "description": "The robot slides the figures down the slide and moves them to other areas. \\"Off the slide\\" scores if the slide figures's black frame is past/below the tip of the slide's gray part.",
             "objectives": [{
                     "id": "M03_1",
                     "title": "Number of slide figures off the slide:",
@@ -1270,7 +1270,7 @@ const challenge = `({
         "M02-desc": "The farther the robot slides the step counter, the better.",
         "M02-scoring1": "The bottom of the pointer is on:",
         "M03-name": "M03 Slide",
-        "M03-desc": "The robot slides the figures down the slide and moves them to other areas. \"Off the slide\" scores if the slide figures\"'\"s black frame is past/below the tip of the slide\"'\"s gray part.",
+        "M03-desc": "The robot slides the figures down the slide and moves them to other areas. \\"Off the slide\\" scores if the slide figures's black frame is past/below the tip of the slide's gray part.",
         "M03-scoring1": "Number of slide figures off the slide:",
         "M03-scoring2": "A slide figure is completely in home:",
         "M03-scoring3": "A slide figure is held completely off the mat by the heavy tire and touching nothing else:",
