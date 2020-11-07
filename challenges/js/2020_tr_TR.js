@@ -376,8 +376,7 @@
                 M06_1 = String(M06_1);
                 M06_2 = String(M06_2);
                 if (((M06_2 === 'yes') ? 1 : 0) + ((M07_1 === 'yes') ? 1 : 0) > 1) {
-                    return new Error('Robot konumu uyuşmuyor - aynı anda G06'
-                        da asılı kalamaz ve G07 'de dans edemez')
+                    return new Error('Robot konumu uyuşmuyor - aynı anda G06\'da asılı kalamaz ve G07\'de dans edemez')
                 }
                 if (M06_1 === 'no' && M06_2 === 'no') {
                     return 0
@@ -406,8 +405,7 @@
             "score": [function(M07_1, M06_2) {
                 M07_1 = String(M07_1);
                 if (((M06_2 === 'yes') ? 1 : 0) + ((M07_1 === 'yes') ? 1 : 0) > 1) {
-                    return new Error('Robot konumu uyuşmuyor - aynı anda G06'
-                        da asılı kalamaz ve G07 'de dans edemez')
+                    return new Error('Robot konumu uyuşmuyor - aynı anda G06\'da asılı kalamaz ve G07\'de dans edemez')
                 }
                 if (M07_1 === 'no') {
                     return 0
