@@ -10,8 +10,9 @@ config:
       - name: year
         display: Challenge
         type: values
-        default: 2020 RePLAY
+        default: 2021 CARGO CONNECT
         values:
+          - 2021 CARGO CONNECT
           - 2020 RePLAY
           - 2019 CITY SHAPER
           - 2018 INTO ORBIT
