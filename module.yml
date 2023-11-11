@@ -10,8 +10,9 @@ config:
       - name: year
         display: Challenge
         type: values
-        default: 2021 CARGO CONNECT
+        default: 2023 MASTERPIECE
         values:
+          - 2023 MASTERPIECE
           - 2021 CARGO CONNECT
           - 2020 RePLAY
           - 2019 CITY SHAPER
