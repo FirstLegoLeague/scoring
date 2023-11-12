@@ -107,7 +107,7 @@
             "title": "M03 IMMERSIVE EXPERIENCE",
             "description": "N/A",
             "objectives": [{
-                    "id": "M03",
+                    "id": "M03_1",
                     "title": "The three immersive experience screens are raised",
                     "type": "yesno",
                     "default": "no"
@@ -329,13 +329,13 @@
             "score": [function(M10_1) {
                 M10_1 = String(M10_1);
                 switch(M10_1) {
-                    case 0:
+                    case '0':
                         return 0;
-                    case 1:
+                    case '1':
                         return 10;
-                    case 2:
+                    case '2':
                         return 20;
-                    case 3:
+                    case '3':
                         return 30;
                 }
             }]
@@ -369,13 +369,13 @@
             "score": [function(M11_1) {
                 M11_1 = String(M11_1);
                 switch(M11_1) {
-                    case 0:
+                    case '0':
                         return 0;
-                    case 1:
+                    case '1':
                         return 10;
-                    case 2:
+                    case '2':
                         return 20;
-                    case 3:
+                    case '3':
                         return 30;
                 }
             }]
@@ -452,7 +452,7 @@
             "description": "N/A",
             "objectives": [{
                     "id": "M14_1",
-                    "title": "Number of bridge sections lowered and resting on the center support",
+                    "title": "Number of audience members completely in a target destination",
                     "options": [
                         {
                             "value": "0",
@@ -492,7 +492,7 @@
                 },
                 {
                     "id": "M14_2",
-                    "title": "",
+                    "title": "Number of target destinations with at least one audience member completely in it",
                     "options": [
                         {
                             "value": "0",
@@ -532,49 +532,9 @@
                 }
             ],
             "score": [function(M14_1, M14_2) {
-                M14_1 = String(M14_1);
-                M14_2 = String(M14_2);
-                // I don't know if this will work, so if there is a problem, check here
-                a = 0;
-                b = 0;
-                switch (M14_1) {
-                    case 0:
-                        a = 0;
-                    case 1:
-                        a = 5;
-                    case 2:
-                        a = 10;
-                    case 3:
-                        a = 15;
-                    case 4:
-                        a = 20;
-                    case 5:
-                        a = 25;
-                    case 6:
-                        a = 30;
-                    case 7:
-                        a = 35;
-                }
-                switch (M14_2) {
-                    case 0:
-                        b = 0;
-                    case 1:
-                        b = 5;
-                    case 2:
-                        b = 10;
-                    case 3:
-                        b = 15;
-                    case 4:
-                        b = 20;
-                    case 5:
-                        b = 25;
-                    case 6:
-                        b = 30;
-                    case 7:
-                        b = 35;
-                }
-                // This is another spot I don't know if it will work
-                return a+b ;
+                M14_1 = Number(M14_1);
+                M14_2 = Number(M14_2);
+                return (M14_1 + M14_2) * 5;
             }]
         },
         {
@@ -582,7 +542,7 @@
             "description": "N/A",
             "objectives": [{
                     "id": "M15_1",
-                    "title": "Platooning Trucks",
+                    "title": "Number of experts at least partly in their target destinations",
                     "options": [
                         {
                             "value": "0",
