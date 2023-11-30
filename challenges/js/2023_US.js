@@ -1,5 +1,5 @@
 ({
-    "title": "MASTER PIECE",
+    "title": "MASTERPIECE",
     "missions": [{
             "title": "EIB EQUIPMENT INSPECTION BONUS",
             "description": "Designs using fewer parts can save you time and space, allowing for efficiency and sometimes fewer problems.",
